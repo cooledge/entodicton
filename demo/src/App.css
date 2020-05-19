@@ -1,0 +1,83 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 80px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.tankDemo h1 {
+  margin-left: 10px;
+}
+
+.Tank {
+  height: 15px;
+}
+
+.Building {
+  height: 30px;
+}
+
+.query {
+  margin: 20px;
+}
+
+.inProcess {
+  margin-left: 65px;
+  margin-top: 20px;
+  color: blue;
+}
+
+.completed {
+  margin-left: 20px;
+}
+
+.query input {
+  width: 55%;
+}
+
+.query button {
+  margin-left: 10px;
+}
+
+.question {
+  background: red;
+}
+
+.help {
+  margin: 20px;
+}
+
+.blink {
+    animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.world {
+  height: 280px;
+  border-style: solid;
+  margin: 20px;
+  background: lightgreen;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
