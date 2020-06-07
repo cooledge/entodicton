@@ -2,15 +2,23 @@ module.exports = {
   "bridges": [
     {
       "bridge": "{ ...next(operator), value: append(before, after) }",
-      "id": "and",
+      "id": "conj",
       "level": 0,
-      "selector": "same"
+      "selector": {
+        "match": "same",
+        "passthrough": true,
+        "type": "infix"
+      }
     },
     {
       "bridge": "{ ...operator, value: append(before, operator.value) }",
-      "id": "and",
+      "id": "conj",
       "level": 1,
-      "selector": "same"
+      "selector": {
+        "match": "same",
+        "passthrough": true,
+        "type": "postfix"
+      }
     },
     {
       "bridge": "{ ...next(operator) }",
@@ -50,12 +58,18 @@ module.exports = {
     {
       "bridge": "{ ...after, number: 1 }",
       "id": "aEnglish",
-      "level": 0
+      "level": 0,
+      "selector": {
+        "type": "prefix"
+      }
     },
     {
       "bridge": "{ klass: after[0], ...next(operator) }",
       "id": "create",
-      "level": 0
+      "level": 0,
+      "selector": {
+        "type": "prefix"
+      }
     },
     {
       "bridge": "{ action: 'create', marker: 'create', klass: operator.klass }",
@@ -145,17 +159,47 @@ module.exports = {
   ],
   "operators": [
     "([move] ([tankConcept|tank]) ([to] ([buildingConcept|building])))",
-    "(([tankConcept]) [(([tankConcept]) [and] ([tankConcept]))])",
+    "(([tankConcept]) [(([tankConcept]) [conj|and] ([tankConcept]))])",
     "([stop] ([tankConcept|tank]))",
-    "([create] ({aEnglish|a} ([tankConcept|tank])))",
+    "([create] (<aEnglish|a> ([tankConcept|tank])))",
+    "([create] (<aEnglish|a> ([buildingConcept])))",
     "([destroy] ([tankConcept|tank]))",
     "([call] ([tankConcept|tank]) (joe))",
     "([appeller] ([tankConcept|char]) francois)",
-    "([deplacez] ([tankConcept|char]) ([vers] immeuble1))",
-    "([bougez] char1 ([aFrench|a] immeuble1))",
+    "([deplacez] ([tankConcept|char]) ([vers] immeuble))",
+    "([bougez] ([tankConcept]) ([aFrench|a] immeuble))",
     "(([tankConcept|char]) [conj|et] ([tankConcept]))",
-    "([arreter] ([tankConcept|char1]))",
-    "([detruire] ([tankConcept|char1]))"
+    "([arreter] ([tankConcept|char]))",
+    "([detruire] ([tankConcept|char]))"
   ],
-  "words": {}
+  "queries": [
+    "create a tank",
+    "create a building",
+    "bougez char1 a batiment1",
+    "destroy tank1",
+    "move tank1 to tank2",
+    "move tank1 and tank2 to building1",
+    "deplacez char1 vers char2",
+    "deplacez char1 et char2 vers bataille1",
+    "bougez char1 a immeuble1",
+    "move tank1 to building1",
+    "deplacez char1 vers immeuble1",
+    "move tank1 to building1 deplacez char1 vers char2",
+    "deplacez char1 vers immeuble1 move tank1 to tank2",
+    "call tank1 commander",
+    "appeller char1 commandeur",
+    "call building1 cia",
+    "appeller immeuble1 cia",
+    "move commander to cia",
+    "deplacez commandeur vers cia",
+    "stop tank1",
+    "arreter char1"
+  ],
+  "words": {
+    "et": [
+      {
+        "id": "conj"
+      }
+    ]
+  }
 };

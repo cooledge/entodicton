@@ -49,32 +49,12 @@ class Building extends Sprite {
 
 class Help extends Component {
   render() {
-          //<li>'tank1 is in group1'</li>
-          //<li>'tank2 is in group1'</li>
-          //<li>'move group1 to building1'</li>
+    const items = config.queries.map((item) => <li>{item}</li>);
     return ( 
       <div className='help'>
         <h2>Sample Input</h2>
         <ul>
-          <li>create a tank</li>
-          <li>create a building</li>
-          <li>create a building bougez char1 a immeuble1</li>
-          <li>destroy tank1</li>
-          <li>move tank1 to tank2</li>
-          <li>deplacez char1 vers char2</li>
-          <li>bougez char1 a immeuble1</li>
-          <li>move tank1 to building1</li>
-          <li>deplacez char1 vers immeuble1</li>
-          <li>move tank1 to building1 deplacez char1 vers char2</li>
-          <li>deplacez char1 vers immeuble1 move tank1 to tank2</li>
-          <li>call tank1 commander</li>
-          <li>appeller char1 commandeur</li>
-          <li>call building1 cia</li>
-          <li>appeller immeuble1 cia</li>
-          <li>move commander to cia</li>
-          <li>deplacez commandeur vers cia</li>
-          <li>stop tank1</li>
-          <li>arreter char1</li>
+          {items}
         </ul>
       </div> 
     )
@@ -327,7 +307,9 @@ class TankDemo extends Component {
     console.log(this.props.completed);
     return ( 
       <div className='tankDemo'>
-        <h1>Control Tanks</h1>
+        <h1>Control Tanks - 
+          <a href='https://github.com/cooledge/entodicton/tree/master/demo'>Source</a>
+        </h1>
         <QueryPane 
               responses = {this.props.responses}
               addAlias={this.addAlias(this.props.dispatch)} 
