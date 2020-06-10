@@ -157,6 +157,9 @@ module.exports = {
       "level": 1
     }
   ],
+  "flatten": [
+    "conj"
+  ],
   "operators": [
     "([move] ([tankConcept|tank]) ([to] ([buildingConcept|building])))",
     "(([tankConcept]) [(([tankConcept]) [conj|and] ([tankConcept]))])",
