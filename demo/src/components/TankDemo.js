@@ -173,7 +173,8 @@ class QueryPane extends Component {
     const utterances = [query]
 
     startedQuery();
-    client.process(config.operators, config.bridges, utterances)
+    console.log(`flatten from config is ${config.flatten} type is ${typeof(config.flatten)} ${config['flatten']}`);
+    client.process(config.operators, config.bridges, utterances, config.flatten)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);

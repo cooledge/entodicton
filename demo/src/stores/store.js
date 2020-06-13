@@ -4,7 +4,8 @@ import tankDemoReducer from '../reducers/tankDemoReducer';
 
 const store = createStore(
     combineReducers({ tankDemo: tankDemoReducer }),
-    applyMiddleware( thunk)
+    //applyMiddleware( thunk)
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 export default store;

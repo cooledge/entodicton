@@ -13,8 +13,8 @@ var initialState = {
     tanks: [{id: uuid1, velocity: 2, left: 10, top: 20}, {id: uuid2, velocity: 1, left: 100, top: 200}],
     buildings: [{id: uuid3, velocity: 0, left: 150, top: 150}],
     destinations: {},
-    uuidToNames: { [uuid1]: ['tank1', 'char1'], [uuid2]: ['tank2', 'char2'], [uuid3]: ['building1', 'immeuble1'] },
-    nameToUUIDs: { 'tank1': [uuid1], 'char1': [uuid1], 'tank2': [uuid2], 'char2': [uuid2], 'building1': [uuid3], 'immeuble1': [uuid3] },
+    uuidToNames: { [uuid1]: ['tank1', 'char1'], [uuid2]: ['tank2', 'char2'], [uuid3]: ['building1', 'batiment1'] },
+    nameToUUIDs: { 'tank1': [uuid1], 'char1': [uuid1], 'tank2': [uuid2], 'char2': [uuid2], 'building1': [uuid3], 'batiment1': [uuid3] },
     getName(uuid) {
       return this.uuidToNames[uuid].join('/')
     },
@@ -43,7 +43,8 @@ function removeName(state, name) {
   uuids.forEach( (id) => delete state.uuidToNames[id] )
 }
 
-function newTank(state, left = 0, top = 0, velocity = 0) {
+function newTank(state, left = 0, top = 0, velocity = 1) {
+  console.log('newTank ggggggggggggggggggggggggggggg');
   const id = uuidGen()
   const names = [`tank${state.tankCtr}`, `char${state.tankCtr}`]
   state.tankCtr += 1
@@ -54,7 +55,7 @@ function newTank(state, left = 0, top = 0, velocity = 0) {
 
 function newBuilding(state, left = 0, top = 0) {
   const id = uuidGen()
-  const names = [`building${state.buildingCtr}`, `immeuble${state.buildingCtr}`]
+  const names = [`building${state.buildingCtr}`, `batiment${state.buildingCtr}`]
   state.buildingCtr += 1
   state.buildings.push({id, left, top})
   addName(state, id, names)
@@ -66,7 +67,11 @@ function getObject(state, nameOrId) {
   if (state.uuidToNames[nameOrId]) {
     id = nameOrId
   } else {
-    id = state.nameToUUIDs[nameOrId][0];
+    if (state.nameToUUIDs[nameOrId]) {
+      id = state.nameToUUIDs[nameOrId][0];
+    } else {
+      return null;
+    }
   }
 
   return state.tanks.find((obj) => obj.id === id) || state.buildings.find((obj) => obj.id === id);
@@ -81,6 +86,7 @@ function getId(state, name) {
 }
 
 function updatePosition(state, tank_id, destination_id) {
+  console.log(`updatePosition(${tank_id}, ${destination_id})`);
   const s_obj = getObject(state, tank_id)
   const s_x = s_obj.left;
   const s_y = s_obj.top;
@@ -162,9 +168,9 @@ export default (state = initialState, action) => {
     case constants.CREATE:
       console.log('in reducer');
       console.log(action);
-      if (action.klass === 'tank') {
+      if (action.klass === 'tankConcept') {
         newTank(updated, action.x, action.y);
-      } else if (action.klass === 'building') {
+      } else if (action.klass === 'buildingConcept') {
         newBuilding(updated, action.x, action.y);
       }
       return updated
