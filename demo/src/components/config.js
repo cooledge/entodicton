@@ -176,6 +176,7 @@ module.exports = {
     "([detruire] ([tankConcept|char]))"
   ],
   "queries": [
+    "deplacez char1 et char2 vers batiment1",
     "move tank1 and tank2 to building2",
     "create a tank",
     "create a building",
