@@ -1,6 +1,41 @@
 module.exports = {
   "bridges": [
     {
+      "bridge": "{ ...after, concept: true }",
+      "id": "the",
+      "level": 0
+    },
+    {
+      "bridge": "{ ...after, concept: true }",
+      "id": "la",
+      "level": 0
+    },
+    {
+      "bridge": "{ marker: 'query', isQuery: true }",
+      "id": "query",
+      "level": 0
+    },
+    {
+      "bridge": "{ object: after[0], ...next(operator) }",
+      "id": "property",
+      "level": 0
+    },
+    {
+      "bridge": "{ value: before[0], ...next(operator) }",
+      "id": "property",
+      "level": 1
+    },
+    {
+      "bridge": "{ objects: after, ...next(operator) }",
+      "id": "equal",
+      "level": 0
+    },
+    {
+      "bridge": "{ ...next(operator), objects: append(operator.objects, before) }",
+      "id": "equal",
+      "level": 1
+    },
+    {
       "bridge": "{ ...next(operator), value: append(before, after) }",
       "id": "conj",
       "level": 0,
@@ -19,6 +54,11 @@ module.exports = {
         "passthrough": true,
         "type": "postfix"
       }
+    },
+    {
+      "bridge": "{ ...next(operator) }",
+      "id": "propertyConcept",
+      "level": 0
     },
     {
       "bridge": "{ ...next(operator) }",
@@ -161,6 +201,8 @@ module.exports = {
     "conj"
   ],
   "operators": [
+    "(([query|what]) [([equal|is] ((<the> ([propertyConcept])) <([property|of] ([tankConcept]))>))])",
+    "(([query|quelle]) [([equal|est] ((<la> ([propertyConcept])) <([property|de] ([tankConcept]))>))])",
     "([move] ([tankConcept|tank]) ([to] ([buildingConcept|building])))",
     "(([tankConcept]) [(([tankConcept]) [conj|and] ([tankConcept]))])",
     "([stop] ([tankConcept|tank]))",
@@ -176,6 +218,10 @@ module.exports = {
     "([detruire] ([tankConcept|char]))"
   ],
   "queries": [
+    "quelle est la position de char1",
+    "quelle est la vitesse de char1",
+    "what is the position of tank1",
+    "what is the speed of tank1",
     "deplacez char1 et char2 vers batiment1",
     "move tank1 and tank2 to building2",
     "create a tank",
@@ -204,6 +250,30 @@ module.exports = {
     "et": [
       {
         "id": "conj"
+      }
+    ],
+    "position": [
+      {
+        "id": "propertyConcept",
+        "initial": {
+          "name": "position"
+        }
+      }
+    ],
+    "speed": [
+      {
+        "id": "propertyConcept",
+        "initial": {
+          "name": "speed"
+        }
+      }
+    ],
+    "vitesse": [
+      {
+        "id": "propertyConcept",
+        "initial": {
+          "name": "speed"
+        }
       }
     ]
   }

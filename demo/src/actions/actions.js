@@ -53,6 +53,14 @@ export function destroy(name) {
   }
 }
 
+export function showProperty(oname, pname) {
+  return {
+    type: actionTypes.SHOW_PROPERTY,
+    oname,
+    pname
+  }
+}
+
 export function moveTank(tank, destination) {
   return {
     type: actionTypes.MOVE_TANK,

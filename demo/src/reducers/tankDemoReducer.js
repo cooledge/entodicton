@@ -184,6 +184,30 @@ export default (state = initialState, action) => {
       removeName(updated, action.name)
       return updated
 
+    case constants.SHOW_PROPERTY:
+      uuids = updated.nameToUUIDs[action.oname]
+      uuids.forEach( (uuid) => {
+        var tank = getObject(state, uuid);
+        var value;
+        switch (action.pname) {
+          case 'speed': 
+            value = tank.velocity
+            break
+          case 'position':
+            value = `(top, left) == (${tank.top}, ${tank.left})`
+            break
+          case 'id':
+            value = tank.id
+            break
+        }
+        if (value) {
+          updated.completed = [[uuidGen(), `the ${action.pname} of ${action.oname} is ${value}`]].concat(updated.completed)
+        } else {
+          updated.completed = [[uuidGen(), `unknown property '${action.pname}'`]].concat(updated.completed)
+        }
+      });
+      return updated
+
     case constants.MOVE_TANK:
       const sId = getId(updated, action.tank)
       const dId = getId(updated, action.destination);

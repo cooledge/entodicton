@@ -5,7 +5,7 @@ import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
 import client from 'entodicton/client'
-import { alias, stopTank, moveTank, tick, create, destroy, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
+import { alias, stopTank, moveTank, tick, create, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
 import store from '../stores/store';
 import config from './config';
 
@@ -137,7 +137,7 @@ class QueryPane extends Component {
     //addAlias: PropsTypes.func
   };
 
-  processResponse( addAlias, stopTank, moveTank, create, destroy, response ) {
+  processResponse( addAlias, stopTank, moveTank, create, destroy, showProperty, response ) {
     console.log('in process response xxzzzzzzzzzzzzzzzzzzzzzz');
     console.log(response);
     let action = () => {};
@@ -146,6 +146,23 @@ class QueryPane extends Component {
       const tank = response.thing.marker;
       const destination = response.place.marker;
       action = () => moveTank(tank, destination);
+    } if (response.marker === 'equal') {
+      var isQuery = false;
+      var property;
+      response.objects.forEach( (object) => {
+         if (object.isQuery) {
+           isQuery = true;
+         } 
+         if (object.marker == 'property') {
+           property = object;
+         }
+      });
+      if (isQuery) {
+        var oname = property.object.marker;
+        var pname = property.value.marker;
+        console.log(`query for ${pname} of ${oname}`);
+        action = () => showProperty(oname, pname);
+      }
     } else if (response.marker === 'alias') {
       const oldName = response.thing.marker;
       const newName = response.name.marker;
@@ -183,7 +200,7 @@ class QueryPane extends Component {
           window.alert(responses.errors, 'Error');
         } else {
           let actions = []
-          responses.results.forEach( (rs) => rs.forEach((r) => actions.push(this.processResponse(this.props.addAlias, this.props.stopTank, this.props.moveTank, this.props.create, this.props.destroy, r))) );
+          responses.results.forEach( (rs) => rs.forEach((r) => actions.push(this.processResponse(this.props.addAlias, this.props.stopTank, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r))) );
           console.log('actions ========================');
           console.log(actions);
           //actions.forEach( ({wantsPosition, dispatch}) => dispatch() );
@@ -267,6 +284,10 @@ class TankDemo extends Component {
     dispatch(destroy(name));
   };
 
+  showProperty = (dispatch) => (oname, pname) => {
+    dispatch(showProperty(oname, pname));
+  };
+
   setResponses = (dispatch) => (responses) => {
     dispatch(setResponses(responses));
   };
@@ -320,6 +341,7 @@ class TankDemo extends Component {
               setResponses={this.setResponses(this.props.dispatch)}
               create={this.create(this.props.dispatch)}
               destroy={this.destroy(this.props.dispatch)}
+              showProperty={this.showProperty(this.props.dispatch)}
               inProcess={this.props.inProcess}
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
