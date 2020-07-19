@@ -10,15 +10,17 @@ import store from '../stores/store';
 import config from './config';
 
 const timersOn = true;
+const offsetForPosition_x = 59;
+const offsetForPosition_y = 300;
 
 class Sprite extends Component {
   render() {
     return (
       <div
           style={{
-            position: 'relative',
-            left: `${this.props.left}px`,
-            top: `${this.props.top}px`,
+            position: 'absolute',
+            left: `${this.props.left+offsetForPosition_x}px`,
+            top: `${this.props.top+offsetForPosition_y}px`,
             'zIndex': this.z_index
           }} >
         <img 
@@ -143,10 +145,10 @@ class QueryPane extends Component {
     let action = () => {};
     let wantsPosition = false;
     if (response.action === 'move') {
-      const tank = response.thing.marker;
-      const destination = response.place.marker;
+      const tank = response.thing.id;
+      const destination = response.place.id;
       action = () => moveTank(tank, destination);
-    } if (response.marker === 'equal') {
+    } if (response.marker === 'equalProperty') {
       var isQuery = false;
       var property;
       response.objects.forEach( (object) => {
@@ -158,25 +160,25 @@ class QueryPane extends Component {
          }
       });
       if (isQuery) {
-        var oname = property.object.marker;
-        var pname = property.value.marker;
+        var oname = property.object.id;
+        var pname = property.value.name;
         console.log(`query for ${pname} of ${oname}`);
         action = () => showProperty(oname, pname);
       }
     } else if (response.marker === 'alias') {
-      const oldName = response.thing.marker;
+      const id = response.thing.id;
       const newName = response.name.marker;
-      action = () => addAlias(oldName, newName);
+      action = () => addAlias(id, newName);
     } else if (response.marker === 'stop') {
-      const name = response.thing.marker;
+      const name = response.thing.id;
       action = () => stopTank(name);
     } else if (response.marker === 'create') {
       const klass = response.klass.marker;
       wantsPosition = true;
       action = (x, y) => create(klass, x, y);
     } else if (response.marker === 'destroy') {
-      const name = response.name.marker;
-      action = () => destroy(name);
+      const id = response.name.id;
+      action = () => destroy(id);
     }
 
     return {wantsPosition, description: response, dispatch: action}
@@ -190,8 +192,7 @@ class QueryPane extends Component {
     const utterances = [query]
 
     startedQuery();
-    console.log(`flatten from config is ${config.flatten} type is ${typeof(config.flatten)} ${config['flatten']}`);
-    client.process(config.operators, config.bridges, utterances, config.flatten)
+    client.process(config.operators, config.bridges, this.props.words(), utterances, config.flatten)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -255,9 +256,9 @@ class QueryPane extends Component {
 }
 
 class TankDemo extends Component {
-  addAlias = (dispatch) => (oldName, newName) => {
+  addAlias = (dispatch) => (id, newName) => {
     console.log('in container add alias xxxxxxxxxxxxxxxxxx');
-    dispatch(alias(oldName, newName));
+    dispatch(alias(id, newName));
   };
 
   stopTank = (dispatch) => (name) => {
@@ -290,6 +291,10 @@ class TankDemo extends Component {
 
   setResponses = (dispatch) => (responses) => {
     dispatch(setResponses(responses));
+  };
+
+  getWords = (state) => () => {
+    return state.words(state)
   };
 
   onClick = (responses, dispatch) => (x, y) => {
@@ -343,6 +348,7 @@ class TankDemo extends Component {
               destroy={this.destroy(this.props.dispatch)}
               showProperty={this.showProperty(this.props.dispatch)}
               inProcess={this.props.inProcess}
+              words={this.getWords(this.props)}
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
         <Completed completed={this.props.completed}/>

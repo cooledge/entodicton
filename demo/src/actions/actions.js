@@ -1,9 +1,9 @@
 import actionTypes from '../constants/actionTypes';
 
-export function alias(oldName, newName) {
+export function alias(id, newName) {
   return {
     type: actionTypes.ALIAS,
-    oldName,
+    id,
     newName
   }
 }
@@ -46,10 +46,10 @@ export function create(klass, x, y) {
   }
 }
 
-export function destroy(name) {
+export function destroy(id) {
   return {
     type: actionTypes.DESTROY,
-    name
+    id
   }
 }
 

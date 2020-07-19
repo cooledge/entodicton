@@ -1,32 +1,121 @@
 import constants from '../constants/actionTypes'
 const uuidGen = require('uuid/v1')
 const _ = require('lodash')
+import config from '../components/config';
 
-const uuid1 = uuidGen();
-const uuid2 = uuidGen();
-const uuid3 = uuidGen();
+const idTank1 = 'tank1'
+const idTank2 = 'tank2'
+const idTank3 = 'tank3'
+const idTank4 = 'tank4'
+const idBuilding1 = 'building1'
+const idBuilding2 = 'building2'
+const idBuilding3 = 'building3'
 
 var initialState = {
     // { position, id }
-    tankCtr: 3,
-    buildingCtr: 2,
-    tanks: [{id: uuid1, velocity: 2, left: 10, top: 20}, {id: uuid2, velocity: 1, left: 100, top: 200}],
-    buildings: [{id: uuid3, velocity: 0, left: 150, top: 150}],
+    tanks: [
+      {id: idTank1, velocity: 2, left: 10, top: 20}, 
+      {id: idTank2, velocity: 1, left: 100, top: 200},
+      {id: idTank3, velocity: 1, left: 400, top: 50},
+      {id: idTank4, velocity: 1, left: 300, top: 150},
+    ],
+    buildings: [
+      {id: idBuilding1, velocity: 0, left: 150, top: 150},
+      {id: idBuilding2, velocity: 0, left: 350, top: 55},
+      {id: idBuilding3, velocity: 0, left: 650, top: 25}
+    ],
     destinations: {},
-    uuidToNames: { [uuid1]: ['tank1', 'char1'], [uuid2]: ['tank2', 'char2'], [uuid3]: ['building1', 'batiment1'] },
-    nameToUUIDs: { 'tank1': [uuid1], 'char1': [uuid1], 'tank2': [uuid2], 'char2': [uuid2], 'building1': [uuid3], 'batiment1': [uuid3] },
+    uuidToNames: { 
+      [idTank1]: ['tank1', 'char1'], 
+      [idTank2]: ['tank2', 'char2'],
+      [idTank3]: ['tank3', 'char3'],
+      [idTank4]: ['tank4', 'char4'],
+      [idBuilding1]: ['building1', 'batiment1'],
+      [idBuilding2]: ['building2', 'batiment2'],
+      [idBuilding3]: ['building3', 'batiment3'],
+    },
+    nameToUUIDs: { 
+      'tank1': [idTank1], 
+      'char1': [idTank1], 
+      'tank2': [idTank2], 
+      'char2': [idTank2], 
+      'tank3': [idTank3], 
+      'tank3': [idTank3], 
+      'char4': [idTank4], 
+      'char4': [idTank4], 
+      'building1': [idBuilding1], 
+      'batiment1': [idBuilding1],
+      'building2': [idBuilding2], 
+      'batiment2': [idBuilding2],
+      'building3': [idBuilding3], 
+      'batiment3': [idBuilding3],
+    },
     getName(uuid) {
       return this.uuidToNames[uuid].join('/')
+    },
+    words(state) {
+      const ws = Object.assign({}, config.words);
+      addWords(state, ws)
+      return ws
     },
     // { needPosition, description, dispatch } x, y added once they position is found
     responses: [],
     inProcess: 0,
     completed: []
 }
+initialState.tankCtr = initialState.tanks.length + 1
+initialState.buildingCtr = initialState.buildings.length + 1
+
+const addDef = (words, word, def) => {
+  if (!words[word]) {
+    words[word] = []
+  }
+  const defs = words[word]
+  if (!defs.find( (d) => JSON.stringify(d, def) )) {
+    defs.push(def)
+  }
+};
+
+const addWordForObject = (state, words, id, name) => {
+  let object = state.tanks.find( (o) => o.id == id );
+  let concept;
+  if (object) {
+    concept = 'tankConcept';
+  } else{
+    object = state.buildings.find( (object) => object.id == id );
+    if (!object) {
+      return
+    }
+    concept = 'buildingConcept';
+  }
+
+  const def = {
+      "id": concept,
+      "initial": {
+        "id": object.id
+    }
+  };
+
+  addDef(words, name, def);
+};
+
+const addWordsForConcept = (state, words, objects, concept) => {
+  objects.forEach( (object) => {
+    state.uuidToNames[object.id].forEach( (name) => {
+      console.log(`Adding words for ${object} + ${name}`);
+      addWordForObject(state, words, object.id, name)
+    })
+  });
+};
+const addWords = (state, words) => {
+  addWordsForConcept(state, words, state.tanks, 'tankConcept')
+  addWordsForConcept(state, words, state.buildings, 'buildingConcept')
+}
 
 function addName(state, id, names) {
   state.uuidToNames[id] = names
   names.forEach( (name) => {
+    addWordForObject(state, id, name)
     if (state.nameToUUIDs[name]) {
       state.nameToUUIDs[name].push(name)
     } else {
@@ -35,11 +124,11 @@ function addName(state, id, names) {
   });
 }
 
-function removeName(state, name) {
+function removeNames(state, id) {
   const uuids = state.nameToUUIDs[name];
   delete state.nameToUUIDs[name];
-  console.log('removeName xxxxxxxxxxxxxxxx');
-  console.log(uuids);
+  console.log('removeNames xxxxxxxxxxxxxxxx');
+  console.log(id);
   uuids.forEach( (id) => delete state.uuidToNames[id] )
 }
 
@@ -99,6 +188,14 @@ function updatePosition(state, tank_id, destination_id) {
   const dy = s_y - d_y;
   const angle = Math.atan2(dy, dx);
 
+  /*
+  const dist = Math.sqrt(dx*dx + dy*dy)
+  const full_x = dist * Math.cos(angle)
+  const full_y = dist * Math.sin(angle)
+  const new_x = s_x - full_x
+  const new_y = s_y - full_y
+  */
+
   const v_x = s_obj.velocity * Math.cos(angle)
   const v_y = s_obj.velocity * Math.sin(angle)
 
@@ -116,8 +213,11 @@ export default (state = initialState, action) => {
   switch(action.type) {
 
     case constants.ALIAS:
-      const uuid = updated.nameToUUIDs[action.oldName][0]
+      const uuid = action.id;
       const names = updated.uuidToNames[uuid];
+      if (names.find((i) => i == action.newName)) {
+        return;
+      }
       if (names) {
         names.push(action.newName);
       }
@@ -127,6 +227,7 @@ export default (state = initialState, action) => {
       } else{
         updated.nameToUUIDs[action.newName] = [uuid]
       }
+      addWordForObject(updated, uuid, action.newName)
 
       return updated
 
@@ -176,12 +277,9 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.DESTROY:
-      uuids = updated.nameToUUIDs[action.name]
-      uuids.forEach( (uuid) => {
-        updated.tanks = updated.tanks.filter( (obj) => obj.id !== uuid )
-        updated.buildings = updated.buildings.filter( (obj) => obj.id !== uuid )
-      });
-      removeName(updated, action.name)
+      updated.tanks = updated.tanks.filter( (obj) => obj.id !== action.id )
+      updated.buildings = updated.buildings.filter( (obj) => obj.id !== action.id )
+      removeNames(updated, action.id)
       return updated
 
     case constants.SHOW_PROPERTY:
@@ -212,6 +310,7 @@ export default (state = initialState, action) => {
       const sId = getId(updated, action.tank)
       const dId = getId(updated, action.destination);
       if (sId && dId) {
+        console.log(`Doing move of ${sId} to ${dId}`);
         updated.destinations[sId] = dId;
       }
       return updated
