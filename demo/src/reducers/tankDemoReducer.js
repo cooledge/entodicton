@@ -12,6 +12,9 @@ const idBuilding2 = 'building2'
 const idBuilding3 = 'building3'
 
 var initialState = {
+    orders: [
+      {who: 'i', item: 'cheeseburger', quantity: 1, from: 'mcdonalds'}
+    ],
     // { position, id }
     tanks: [
       {id: idTank1, velocity: 2, left: 10, top: 20}, 
@@ -210,6 +213,7 @@ export default (state = initialState, action) => {
 
   var updated = _.cloneDeep(state);
 
+  console.log(`In reducer for ${action.type}`);
   switch(action.type) {
 
     case constants.ALIAS:
@@ -304,6 +308,14 @@ export default (state = initialState, action) => {
           updated.completed = [[uuidGen(), `unknown property '${action.pname}'`]].concat(updated.completed)
         }
       });
+      return updated
+
+    case constants.PLACE_ORDER:
+      console.log("In PLACE_ORDER reducer");
+      const order = { item: action.item, quantity: action.quantity, who: action.who, from: action.from }
+      console.log(order);
+      updated.orders.unshift(order);
+      console.log(updated.orders);
       return updated
 
     case constants.MOVE_TANK:

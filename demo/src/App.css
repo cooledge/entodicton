@@ -77,6 +77,13 @@
   background: lightgreen;
 }
 
+.foodOrders {
+  height: 280px;
+  border-style: solid;
+  margin: 20px;
+  background: lightblue;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

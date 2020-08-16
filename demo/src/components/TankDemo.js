@@ -5,13 +5,23 @@ import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
 import client from 'entodicton/client'
-import { alias, stopTank, moveTank, tick, create, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
+import { alias, stopTank, placeOrder, moveTank, tick, create, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
 import store from '../stores/store';
 import config from './config';
 
 const timersOn = true;
 const offsetForPosition_x = 59;
 const offsetForPosition_y = 300;
+
+class FoodOrder extends Component {
+  render() {
+    return (
+      <div>
+        {this.props.quantity} of {this.props.item} for {this.props.who} from {this.props.from}
+      </div>
+    );
+  }
+}
 
 class Sprite extends Component {
   render() {
@@ -55,6 +65,22 @@ class Help extends Component {
     return ( 
       <div className='help'>
         <h2>Sample Input</h2>
+        <ul>
+          {items}
+        </ul>
+      </div> 
+    )
+  }
+}
+
+class FoodOrders extends Component {
+  render() {
+    let items = this.props.orders.map( (order) => {
+      return (<FoodOrder who={order.who} item={order.item} quantity={order.quantity} from={order.from}/>);
+    });
+    return ( 
+      <div className='foodOrders'>
+        <h2>Food Orders</h2>
         <ul>
           {items}
         </ul>
@@ -139,12 +165,21 @@ class QueryPane extends Component {
     //addAlias: PropsTypes.func
   };
 
-  processResponse( addAlias, stopTank, moveTank, create, destroy, showProperty, response ) {
+  processResponse( addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response ) {
     console.log('in process response xxzzzzzzzzzzzzzzzzzzzzzz');
     console.log(response);
     let action = () => {};
     let wantsPosition = false;
-    if (response.action === 'move') {
+    if (response.marker === 'wantMcDonalds' || response.marker == 'wantWhitespot') {
+      action = () => {
+        console.log("IN the place ORDER");
+        const from = response.marker;
+        const name = response.items.name;
+        const quantity = response.items.number || 1;
+        const who = 'i';
+        placeOrder(name, quantity, who, from);
+      }
+    } else if (response.action === 'move') {
       const tank = response.thing.id;
       const destination = response.place.id;
       action = () => moveTank(tank, destination);
@@ -201,7 +236,7 @@ class QueryPane extends Component {
           window.alert(responses.errors, 'Error');
         } else {
           let actions = []
-          responses.results.forEach( (rs) => rs.forEach((r) => actions.push(this.processResponse(this.props.addAlias, this.props.stopTank, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r))) );
+          responses.results.forEach( (rs) => rs.forEach((r) => actions.push(this.processResponse(this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r))) );
           console.log('actions ========================');
           console.log(actions);
           //actions.forEach( ({wantsPosition, dispatch}) => dispatch() );
@@ -271,6 +306,11 @@ class TankDemo extends Component {
     dispatch(startedQuery());
   };
 
+  placeOrder = (dispatch) => (item, quanity, who, from) => {
+    console.log('in container placeOrder xxxxxxxxxxxxxxxxxx');
+    dispatch(placeOrder(item, quanity, who, from));
+  };
+
   moveTank = (dispatch) => (tank, destination) => {
     console.log('in container moveTank xxxxxxxxxxxxxxxxxx');
     dispatch(moveTank(tank, destination));
@@ -335,12 +375,13 @@ class TankDemo extends Component {
     return ( 
       <div className='tankDemo'>
         <h1>Control Tanks - 
-          <a href='https://github.com/cooledge/entodicton/tree/master/demo'>Source</a>
+          <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>Source</a>
         </h1>
         <QueryPane 
               responses = {this.props.responses}
               addAlias={this.addAlias(this.props.dispatch)} 
               stopTank={this.stopTank(this.props.dispatch)} 
+              placeOrder={this.placeOrder(this.props.dispatch)}
               moveTank={this.moveTank(this.props.dispatch)}
               startedQuery={this.startedQuery(this.props.dispatch)}
               setResponses={this.setResponses(this.props.dispatch)}
@@ -351,6 +392,7 @@ class TankDemo extends Component {
               words={this.getWords(this.props)}
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
+        <FoodOrders orders={this.props.orders}/>
         <Completed completed={this.props.completed}/>
         <Help/>
       </div> 

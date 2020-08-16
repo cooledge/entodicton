@@ -61,6 +61,16 @@ export function showProperty(oname, pname) {
   }
 }
 
+export function placeOrder(item, quantity, who, from) {
+  return {
+    type: actionTypes.PLACE_ORDER,
+    item,
+    quantity,
+    who,
+    from
+  }
+}
+
 export function moveTank(tank, destination) {
   return {
     type: actionTypes.MOVE_TANK,
