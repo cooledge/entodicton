@@ -127,12 +127,16 @@ function addName(state, id, names) {
   });
 }
 
-function removeNames(state, id) {
-  const uuids = state.nameToUUIDs[name];
-  delete state.nameToUUIDs[name];
-  console.log('removeNames xxxxxxxxxxxxxxxx');
-  console.log(id);
-  uuids.forEach( (id) => delete state.uuidToNames[id] )
+function removeNames(state, uuid) {
+  const names = state.uuidToNames[uuid]
+  delete state.uuidToNames[uuid]
+
+  names.forEach( (name) => {
+    const uuids = state.nameToUUIDs[name];
+    if (state.nameToUUIDs[name]) {
+      state.nameToUUIDs[name] = state.nameToUUIDs[name].filter( (v) => v != uuid );
+    }
+  });
 }
 
 function newTank(state, left = 0, top = 0, velocity = 1) {
@@ -175,6 +179,15 @@ function getId(state, name) {
     return obj.id;
   }
   return null;
+}
+
+function getIds(state, name) {
+  if (name.marker == 'tankConcept'  && name.number == 'all') {
+    return state.tanks.map( (tank) => tank.id )
+  } else if (name.marker == 'buildingConcept'  && name.number == 'all') {
+    return state.buildings.map( (tank) => tank.id )
+  }
+  return getObject(state, name);
 }
 
 function updatePosition(state, tank_id, destination_id) {
@@ -273,17 +286,24 @@ export default (state = initialState, action) => {
     case constants.CREATE:
       console.log('in reducer');
       console.log(action);
-      if (action.klass === 'tankConcept') {
-        newTank(updated, action.x, action.y);
-      } else if (action.klass === 'buildingConcept') {
-        newBuilding(updated, action.x, action.y);
+      for ( let i = 0; i < action.count; ++i ) {
+        if (action.klass === 'tankConcept') {
+          newTank(updated, action.x, action.y);
+        } else if (action.klass === 'buildingConcept') {
+          newBuilding(updated, action.x, action.y);
+        }
       }
       return updated
 
     case constants.DESTROY:
-      updated.tanks = updated.tanks.filter( (obj) => obj.id !== action.id )
-      updated.buildings = updated.buildings.filter( (obj) => obj.id !== action.id )
-      removeNames(updated, action.id)
+      // updated.tanks = updated.tanks.filter( (obj) => obj.id !== action.id )
+      const sIds = getIds(updated, action.id)
+       
+      sIds.forEach( (id) => {
+        updated.tanks = updated.tanks.filter( (obj) => obj.id !== id )
+        updated.buildings = updated.buildings.filter( (obj) => obj.id !== id )
+        removeNames(updated, id)
+      });
       return updated
 
     case constants.SHOW_PROPERTY:
@@ -318,21 +338,31 @@ export default (state = initialState, action) => {
       console.log(updated.orders);
       return updated
 
-    case constants.MOVE_TANK:
-      const sId = getId(updated, action.tank)
+    case constants.MOVE_TANK: {
       const dId = getId(updated, action.destination);
-      if (sId && dId) {
+      if (!dId) {
+        return;
+      }
+
+      const sIds = getIds(updated, action.tank)
+      sIds.forEach( (sId) => {
         console.log(`Doing move of ${sId} to ${dId}`);
         updated.destinations[sId] = dId;
-      }
+      });
       return updated
+    }
 
-    case constants.STOP_TANK:
+    case constants.STOP_TANK: {
       console.log(action);
       console.log(`id is ${getId(updated, action.name)}`)
       console.log(updated.destinations);
-      delete updated.destinations[getId(updated, action.name)]
+
+      const sIds = getIds(updated, action.name)
+      sIds.forEach( (sId) => {
+        delete updated.destinations[sId]
+      });
       return updated
+    }
 
     case constants.FIRE_TANK:
       //delete updated.destinations[action.id]

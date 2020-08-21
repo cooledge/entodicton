@@ -37,10 +37,11 @@ export function startedQuery() {
   }
 }
 
-export function create(klass, x, y) {
+export function create(klass, count, x, y) {
   return {
     type: actionTypes.CREATE,
     klass,
+    count,
     x,
     y
   }

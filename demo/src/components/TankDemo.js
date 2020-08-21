@@ -180,7 +180,10 @@ class QueryPane extends Component {
         placeOrder(name, quantity, who, from);
       }
     } else if (response.action === 'move') {
-      const tank = response.thing.id;
+      let tank = response.thing.id;
+      if (response.thing.number == 'all') {
+        tank = response.thing;
+      }
       const destination = response.place.id;
       action = () => moveTank(tank, destination);
     } if (response.marker === 'equalProperty') {
@@ -205,14 +208,21 @@ class QueryPane extends Component {
       const newName = response.name.marker;
       action = () => addAlias(id, newName);
     } else if (response.marker === 'stop') {
-      const name = response.thing.id;
+      let name = response.thing.id;
+      if (response.thing.number == 'all') {
+        name = response.thing;
+      }
       action = () => stopTank(name);
     } else if (response.marker === 'create') {
       const klass = response.klass.marker;
+      let count = response.klass.number || 1;
       wantsPosition = true;
-      action = (x, y) => create(klass, x, y);
+      action = (x, y) => create(klass, count, x, y);
     } else if (response.marker === 'destroy') {
-      const id = response.name.id;
+      let id = response.name.id;
+      if (response.name.number == 'all') {
+        id = response.name;
+      }
       action = () => destroy(id);
     }
 
