@@ -187,7 +187,10 @@ function getIds(state, name) {
   } else if (name.marker == 'buildingConcept'  && name.number == 'all') {
     return state.buildings.map( (tank) => tank.id )
   }
-  return getObject(state, name);
+
+  const obj = getObject(state, name)
+
+  return obj ? [obj.id] : [];
 }
 
 function updatePosition(state, tank_id, destination_id) {
