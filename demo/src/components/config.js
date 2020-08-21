@@ -1,3 +1,5 @@
+# This file contains all the config for the natural language interface
+
 module.exports = 
 {
   "operators": [
