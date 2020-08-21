@@ -385,7 +385,7 @@ class TankDemo extends Component {
     return ( 
       <div className='tankDemo'>
         <h1>Control Tanks - 
-          <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>Source</a>
+          <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>Config</a>
         </h1>
         <QueryPane 
               responses = {this.props.responses}
