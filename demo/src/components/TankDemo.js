@@ -104,7 +104,8 @@ class Completed extends Component {
     */
     let items = this.props.completed.map( (completed) => {
       const key = completed[0];
-      const name = JSON.stringify(completed[1]);
+      //const name = JSON.stringify(completed[1]);
+      const name = completed[1].description;
       return (<li key={key}>{name}</li>)
     })
     //let items = [(<li key='123'>Nameof item</li>)]
@@ -165,7 +166,7 @@ class QueryPane extends Component {
     //addAlias: PropsTypes.func
   };
 
-  processResponse( addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response ) {
+  processResponse( addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response, generated ) {
     console.log('in process response xxzzzzzzzzzzzzzzzzzzzzzz');
     console.log(response);
     let action = () => {};
@@ -186,7 +187,9 @@ class QueryPane extends Component {
       }
       const destination = response.place.id;
       action = () => moveTank(tank, destination);
-    } if (response.marker === 'equalProperty') {
+    } else if (response.isProperty === true) {
+      window.alert(generated, 'Answer');
+    } else if (response.marker === 'equalProperty') {
       var isQuery = false;
       var property;
       response.objects.forEach( (object) => {
@@ -198,6 +201,7 @@ class QueryPane extends Component {
          }
       });
       if (isQuery) {
+        console.log(response.generated);
         var oname = property.object.id;
         var pname = property.value.name;
         console.log(`query for ${pname} of ${oname}`);
@@ -226,7 +230,8 @@ class QueryPane extends Component {
       action = () => destroy(id);
     }
 
-    return {wantsPosition, description: response, dispatch: action}
+    const description = `${generated} / ${JSON.stringify(response)}`;
+    return {wantsPosition, description: description, dispatch: action}
   }
 
   processQuery(setResponses, startedQuery) {
@@ -235,9 +240,14 @@ class QueryPane extends Component {
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
     console.log(`sending query ${query}`);
     const utterances = [query]
+    const objects = this.props.getObjects()
+    objects['types'] = {
+                         "position": { "id": "position", "level": 0 },
+                         "velocity": { "id": "number", "level": 0 }
+                       };
 
     startedQuery();
-    client.process(config.operators, config.bridges, this.props.words(), utterances, config.flatten)
+    client.process(config.operators, config.bridges, this.props.words(), config.generators, utterances, objects, config.flatten)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -246,7 +256,16 @@ class QueryPane extends Component {
           window.alert(responses.errors, 'Error');
         } else {
           let actions = []
-          responses.results.forEach( (rs) => rs.forEach((r) => actions.push(this.processResponse(this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r))) );
+          let i = 0, j = 0
+          responses.results.forEach( (rs) => { 
+            rs.forEach((r) => { 
+              const g = responses.generated[i][j];
+              actions.push(this.processResponse(this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
+              j += 1;
+            } );
+            i += 1;
+            j = 0;
+          } );
           console.log('actions ========================');
           console.log(actions);
           //actions.forEach( ({wantsPosition, dispatch}) => dispatch() );
@@ -347,6 +366,10 @@ class TankDemo extends Component {
     return state.words(state)
   };
 
+  getObjects = (state) => () => {
+    return state.getObjects(state)
+  };
+
   onClick = (responses, dispatch) => (x, y) => {
     console.log('in outer on click');
     for (let i = 0; i < responses.length; ++i) {
@@ -400,6 +423,7 @@ class TankDemo extends Component {
               showProperty={this.showProperty(this.props.dispatch)}
               inProcess={this.props.inProcess}
               words={this.getWords(this.props)}
+              getObjects={this.getObjects(this.props)}
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
         <FoodOrders orders={this.props.orders}/>

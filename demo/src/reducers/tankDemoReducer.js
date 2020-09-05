@@ -61,6 +61,13 @@ var initialState = {
       addWords(state, ws)
       return ws
     },
+    getObjects() {
+      const tanks = {}
+      this.tanks.forEach( (o) => tanks[o.id] = Object.assign({name: o.id, position: `(${o.left}, ${o.top})`}, o) );
+      const buildings = {}
+      this.buildings.forEach( (o) => buildings[o.id] = Object.assign({name: o.id, position: `(${o.left}, ${o.top})`}, o ) );
+      return {tanks, buildings}
+    },
     // { needPosition, description, dispatch } x, y added once they position is found
     responses: [],
     inProcess: 0,
