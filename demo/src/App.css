@@ -48,6 +48,10 @@
   width: 55%;
 }
 
+.query .key {
+  width: 200px;
+}
+
 .query button {
   margin-left: 10px;
 }

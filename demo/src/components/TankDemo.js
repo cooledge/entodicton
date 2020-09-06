@@ -13,6 +13,8 @@ const timersOn = true;
 const offsetForPosition_x = 59;
 const offsetForPosition_y = 300;
 
+let key = '';
+
 class FoodOrder extends Component {
   render() {
     return (
@@ -236,6 +238,7 @@ class QueryPane extends Component {
 
   processQuery(setResponses, startedQuery) {
     const query = document.getElementById("query").value;
+    key = document.getElementById("key").value;
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
     console.log(`sending query ${query}`);
@@ -247,7 +250,7 @@ class QueryPane extends Component {
                        };
 
     startedQuery();
-    client.process(config.operators, config.bridges, this.props.words(), config.generators, utterances, objects, config.flatten)
+    client.process(config.operators, config.bridges, this.props.words(), config.generators, utterances, objects, key, config.flatten)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -276,8 +279,10 @@ class QueryPane extends Component {
         console.log('in the catch js');
         console.log(error.stack)
         console.log(error)
+        window.alert(error, 'Error');
       })
   }
+
 
   render() {
     let wantsPosition = this.props.responses.find( (response) => response.wantsPosition );
@@ -295,8 +300,16 @@ class QueryPane extends Component {
                   this.processQuery(this.props.setResponses, this.props.startedQuery);
                 }
               } }
-              type='text'/>
+              type='text' class='request' />
               <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery) }>Submit</Button>
+              Key {
+                key == "" &&
+                <input id='key' type='text' class='key'/>
+              }
+              {
+                key != "" &&
+                <input id='key' type='text' class='key' value={key}/>
+              }
           </div>
         }
         { wantsPosition && 
@@ -310,6 +323,7 @@ class QueryPane extends Component {
           (
             <div className='inProcess'>
               {this.props.inProcess} request being in processed.
+              (if you create or destroy objects the next query is extra slow because it skips the cache and rebuilds a bunch of neural nets. I have not got around to fixing that yet)
             </div>
           )
         }
