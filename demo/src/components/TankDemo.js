@@ -249,8 +249,12 @@ class QueryPane extends Component {
                          "velocity": { "id": "number", "level": 0 }
                        };
 
+    config['utterances'] = [query];
+    config['words'] = this.props.words();
+    config['objects'] = objects;
+
     startedQuery();
-    client.process(config.operators, config.bridges, this.props.words(), config.generators, utterances, objects, key, config.flatten)
+    client.process(config, key)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
