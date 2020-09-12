@@ -189,7 +189,7 @@ class QueryPane extends Component {
       }
       const destination = response.place.id;
       action = () => moveTank(tank, destination);
-    } else if (response.isProperty === true) {
+    } else if (response.isProperty === true || response.marker == 'equal') {
       window.alert(generated, 'Answer');
     } else if (response.marker === 'equalProperty') {
       var isQuery = false;

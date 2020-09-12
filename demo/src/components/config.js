@@ -104,7 +104,14 @@ module.exports =
     [["deplacez", 0], ["move", 0], ["vers", 0]],
     [["deplacez", 0], ["move", 0], ["to", 0]],
     [["deplacez", 0], ["move", 0], ["vers", 0], ["to", 0]],
+    [["wantWhitespot", 0], ["aEnglish", 0], ["count", 0]],
+    [["i", 0], ["wantMcDonalds", 0], ["aEnglish", 0], ["count", 0]],
+    [["wantMcDonalds", 0], ["aEnglish", 0], ["fromM", 0]],
   ],
+  "associations": {
+    "negative": [[["conj", 0], ["count", 0], ["plus", 0]], [["wantMcDonalds", 0], ["number", 0], ["food", 0]], [["wantWhitespot", 0], ["number", 0], ["food", 0]]],
+    "positive": [[["conj", 0], ["number", 0], ["plus", 0]], [["i", 0], ["wantWhitespot", 0], ["aEnglish", 0]], [["i", 0], ["wantMcDonalds", 0], ["aEnglish", 0]], [["wantMcDonalds", 0], ["count", 0], ["food", 0]], [["wantWhitespot", 0], ["count", 0], ["food", 0]]],
+  },
   "words": {
     "+": [{"id": "plus"}],
     " ([0-9]+)": [{"id": "number", "initial": "{ value: int(group[0]) }"}, {"id": "count", "initial": "{ value: int(group[0]) }"}],
