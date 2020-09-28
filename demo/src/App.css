@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  font-family: lato, sans-serif;
+  font-size: 15px;
 }
 
 .App-logo {
@@ -91,4 +93,157 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.layout {
+  background-color: whitesmoke;
+}
+
+.logo {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  font-size: 60px;
+  #background-image: url("https://www.whitneyupdate.com/wp-content/uploads/2016/12/fallout-4.png");
+  background-image: url("./logo_image.jpg");
+  border-top-style: solid;
+  border-bottom-style: double;
+}
+
+.tutorial h1 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  border-top-style: solid;
+  border-bottom-style: double;
+  color: black;
+  text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
+.tutorial .step1 {
+  background-image: url("./logo_image.jpg");
+  background-position: 0px 300px;
+}
+
+.tutorial .step2 {
+  background-image: url("./logo_image.jpg");
+  background-position: 0px 900px;
+}
+
+.tutorial .step3 {
+  background-image: url("./logo_image.jpg");
+  background-position: 0px 150px;
+}
+
+.tutorial .step4 {
+  background-image: url("./logo_image.jpg");
+  background-position: 0px 550px;
+}
+
+.logo .name {
+  display: inline;
+  padding: 10px;
+  width: 500px;
+#  background:
+#    radial-gradient(lightgreen 3px, transparent 4px),
+#    radial-gradient(lightgreen 3px, transparent 4px),
+#    linear-gradient(#fff 4px, transparent 0),
+#    linear-gradient(45deg, transparent 74px, transparent 75px, #a4a4a4 75px, #a4a4a4 76px, transparent 77px, transparent 109px),
+#    linear-gradient(-45deg, transparent 75px, transparent 76px, #a4a4a4 76px, #a4a4a4 77px, transparent 78px, transparent 109px),
+#    #fff;
+#    background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
+#    background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+#  background-color: lightgreen;
+  font-weight: bold;
+}
+
+.bar {
+  line-height: 27px;
+  width: 100%;
+}
+
+.barItem {
+  display: inline;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: rbg(119,119,119);
+  outline-color: rbg(119,119,119);
+  text-decoration-color: rbg(119,119,119);
+}
+
+.barItem:hover {
+  background-color: lightgray;
+}
+
+.product {
+  text-align: center;
+}
+
+.product .name {
+  margin-top: 50px;
+  line-height: 45px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.product .brief {
+  font-style: italic;
+  font-size: 10px;
+}
+
+.product .details {
+  text-align: center;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.product code {
+  font-family: courier;
+  display: block;
+  font-size: 14px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+code {
+  font-family: courier;
+  display: block;
+  padding-left: 100px;
+  display: table;
+}
+
+#contact-form {
+  align: center;
+  float: left;
+  display: inline-block;
+}
+
+#contact-form label {
+  width: 200px;
+}
+
+.form-control {
+  display: inline-block;
+  width: 500px;
+}
+
+.form-control .message {
+  height: 500px;
+}
+
+.quote {
+  font-family: courier;
+  font-size: 15px;
+}
+
+pre {
+  margin-left: 100px;
+  margin-right: 100px;
+  background-color: lightgray;
+}
+
+.tutorial {
+  padding-left: 50px;
+  padding-right: 50px;
 }

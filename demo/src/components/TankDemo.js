@@ -11,7 +11,7 @@ import config from './config';
 
 const timersOn = true;
 const offsetForPosition_x = 59;
-const offsetForPosition_y = 300;
+const offsetForPosition_y = 400;
 
 let key = '';
 
@@ -304,15 +304,15 @@ class QueryPane extends Component {
                   this.processQuery(this.props.setResponses, this.props.startedQuery);
                 }
               } }
-              type='text' class='request' />
+              type='text' className='request' />
               <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery) }>Submit</Button>
               Key {
                 key == "" &&
-                <input id='key' type='text' class='key'/>
+                <input id='key' type='text' className='key'/>
               }
               {
                 key != "" &&
-                <input id='key' type='text' class='key' value={key}/>
+                <input id='key' type='text' className='key' value={key}/>
               }
           </div>
         }
