@@ -117,6 +117,7 @@ module.exports =
     [["i", 0], ["wantMcDonalds", 0], ["aEnglish", 0], ["count", 0]],
     [["wantMcDonalds", 0], ["aEnglish", 0], ["fromM", 0]],
     [["earn", 0], ["worked", 0], ["every", 0], ["query", 0]],
+    [["earn", 0], ["worked", 0], ["query", 0], ["count", 0]],
   ],
   "associations": {
     "negative": [[["conj", 0], ["count", 0], ["plus", 0]], [["wantMcDonalds", 0], ["number", 0], ["food", 0]], [["wantWhitespot", 0], ["number", 0], ["food", 0]], [["conj", 0], ["aFrench", 0], ["food", 0]]],
