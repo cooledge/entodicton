@@ -258,7 +258,6 @@ class QueryPane extends Component {
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
-        responses = JSON.parse(responses)
         if (responses.errors) {
           window.alert(responses.errors, 'Error');
         } else {
