@@ -176,6 +176,15 @@
   background-color: lightgray;
 }
 
+.configProps {
+  font-size: 12px;
+  padding-left: 50px;
+}
+
+#server {
+  width: 400px;
+}
+
 .product {
   text-align: center;
 }

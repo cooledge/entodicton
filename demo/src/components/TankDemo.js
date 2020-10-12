@@ -14,6 +14,7 @@ const offsetForPosition_x = 59;
 const offsetForPosition_y = 400;
 
 let key = '';
+let server = '184.67.27.82';
 
 class FoodOrder extends Component {
   render() {
@@ -94,19 +95,8 @@ class FoodOrders extends Component {
 class Completed extends Component {
   render() {
     console.log(this.props.completed)
-    //let items = this.props.completed.map( ([id, response]) => <li key={id}>{response}</li> )
-    //let items = [];
-    /*
-    if (this.props.completed.length > 0) {
-      debugger;
-      const key = this.props.completed[0][0];
-      const name = JSON.stringify(this.props.completed[0][1]);
-      items = [(<li key={key}>{name}</li>)]
-    }
-    */
     let items = this.props.completed.map( (completed) => {
       const key = completed[0];
-      //const name = JSON.stringify(completed[1]);
       const name = completed[1].description;
       return (<li key={key}>{name}</li>)
     })
@@ -254,7 +244,7 @@ class QueryPane extends Component {
     config['objects'] = objects;
 
     startedQuery();
-    client.process(config, key)
+    client.process(config, key, server)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -305,14 +295,6 @@ class QueryPane extends Component {
               } }
               type='text' className='request' />
               <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery) }>Submit</Button>
-              Key {
-                key == "" &&
-                <input id='key' type='text' className='key'/>
-              }
-              {
-                key != "" &&
-                <input id='key' type='text' className='key' value={key}/>
-              }
           </div>
         }
         { wantsPosition && 
@@ -426,6 +408,26 @@ class TankDemo extends Component {
       <div className='tankDemo'>
         <h1>Control Tanks - 
           <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>Config</a>
+          <span className='configProps'>
+            Server Host Name {
+              server == "" &&
+              <input id='server' type='text' className='server'/>
+            }
+            {
+              server != "" &&
+              <input id='server' type='text' className='server' value={server}/>
+            }
+          </span>
+          <span className='configProps'>
+            Key {
+              key == "" &&
+              <input id='key' type='text' className='key'/>
+            }
+            {
+              key != "" &&
+              <input id='key' type='text' className='key' value={key}/>
+            }
+          </span>
         </h1>
         <QueryPane 
               responses = {this.props.responses}
