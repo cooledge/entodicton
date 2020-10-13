@@ -16,7 +16,7 @@ class Purchase extends Component {
             The available images are from <a href={image_url}>here</a>. Email to to entodicton@protonmail.com with the number and type of machines that you want.
           </li>
           <li>The price will be estimated and emailed back to you.</li>
-          <li>Send the payment in US dollars to paypal greg.mcclement@gmail.com.</li>
+          <li>Send the payment in US dollars to paypal accounts@thinktelligence.com .</li>
           <li>The deployment will be created after the payment is received.</li>
           <li>An email will be sent with the key and url for your Entodicton server.</li>
         </ulist>
