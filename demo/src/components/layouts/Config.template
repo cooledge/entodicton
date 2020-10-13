@@ -1,0 +1,17 @@
+import React, { Component} from 'react';
+
+const cf_json = `$cf_json`;
+
+class Config extends Component {
+  render(){
+    return (
+      <div className='config'>
+        <p>
+          { cf_json }
+        </p>
+      </div>
+    )
+  }
+}
+
+export default Config;

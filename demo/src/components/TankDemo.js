@@ -13,7 +13,7 @@ const timersOn = true;
 const offsetForPosition_x = 59;
 const offsetForPosition_y = 400;
 
-let key = '';
+let key = '6804954f-e56d-471f-bbb8-08e3c54d9321';
 let server = '184.67.27.82';
 
 class FoodOrder extends Component {
@@ -287,7 +287,7 @@ class QueryPane extends Component {
       <div className={className}>
         { !wantsPosition && 
           <div>
-            Request <input id='query' onKeyPress={ 
+            Request <input id='query' placeholder='some queries are below. there is only one default server' onKeyPress={ 
               (event) => {
                 if (event.key === 'Enter') {
                   this.processQuery(this.props.setResponses, this.props.startedQuery);
