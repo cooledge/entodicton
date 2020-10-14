@@ -73,13 +73,14 @@ const config = {
   ],
 };
 
+server = '184.67.27.82'
 key = '6804954f-e56d-471f-bbb8-08e3c54d9321'
 
 const query = 'sally worked 10 weeks'
 console.log(`Running the input: ${query}`);
 config.utterances = [query]
 config.objects = {}
-client.process(config, key)
+client.process(config, key, server)
   .then( (responses) => {
     if (responses.errors) {
       console.log('Errors')
