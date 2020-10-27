@@ -12,6 +12,11 @@ const idBuilding2 = 'building2'
 const idBuilding3 = 'building3'
 
 var initialState = {
+    subscription: {},
+    logs: '',
+    subscription_id: 'sub123',
+    password: 'password1',
+
     orders: [
       {who: 'i', item: 'cheeseburger', quantity: 1, from: 'mcdonalds'}
     ],

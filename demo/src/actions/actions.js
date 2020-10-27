@@ -101,16 +101,24 @@ export function tick() {
   }
 }
 
-/*
-export function addAlias(oldName, newName) {
-  return dispatch => {
-    dispatch(alias(oldName, newName));
+export function setSubscription(subscription) {
+  return {
+    type: actionTypes.SET_SUBSCRIPTION,
+    subscription
   }
 }
 
-export function moveTank(tank, destination) {
-  return dispatch => {
-    dispatch(moveTank(tank, destination));
+export function setLogs(logs) {
+  return {
+    type: actionTypes.SET_LOGS,
+    logs
   }
 }
-*/
+
+export function setCredentials(subscription_id, password) {
+  return {
+    type: actionTypes.SET_CREDENTIALS,
+    subscription_id,
+    password
+  }
+}

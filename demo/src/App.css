@@ -273,6 +273,25 @@ table, th, td {
   border: 1px solid black;
 }
 
+.subscriptions {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.subscriptions .line {
+  margin-top: 10px;
+}
+
+.subscriptions .label {
+  font-weight: bold;
+}
+
+.subscriptions .value {
+  border: 1px solid black;
+  margin-left: 10px;
+  padding: 2px;
+}
+
 .config {
   padding-left: 50px;
   padding-right: 50px;
