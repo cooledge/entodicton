@@ -1,5 +1,10 @@
 import React, {Link, Component, useState} from 'react';
+import { useDispatch } from 'react-redux';
 import PaypalButtons from '../PaypalButtons';
+const uuidGen = require('uuid/v1')
+const base64 = require('base-64')
+const { setCredentials } = require ('../../actions/actions')
+import { useHistory } from "react-router-dom";
 
 const plan_id_us_east_2_tf_small = 'P-57360534X7468745AL6LDUFQ'
 const plan_id_debug_plan = 'P-1043388889887134HL6LOF3Y'
@@ -13,10 +18,34 @@ const paypalSubscribe = (data, actions) => {
 const paypalOnError = (err) => {
   console.log("Error", err)
 }
-const paypalOnApprove = (data, detail) => {
+
+const URL = 'http://localhost:10000/api'
+
+const paypalOnApprove = (dispatch) => (data, detail) => {
+
   // call the backend api to store transaction details
-  console.log("Payapl approved")
+  debugger;
+  data = { subscriptionID: 'I-JG03WS3R801E' }
+  console.log("Paypal approved")
   console.log(data.subscriptionID)
+  const password = uuidGen()
+  console.log('passwordddddddddddddddddddddddddddddd', password)
+  /*
+  fetch(`${URL}/password`, {
+    method: "POST",
+    headers: {
+      mode: "no-cors", // Type of mode of the request
+      "Content-Type": "application/json", // request content type 
+      "Authorization": 'Basic ' + base64.encode(data.subscriptionID + ":" + password)
+    },
+  });
+  */
+  window.alert(`Save these information. The subscription id is ${data.subscriptionID} . The password is ${password}`);
+  window.alert(`Repeating this just in case you missed it. The subscription id is ${data.subscriptionID} . The password is ${password}`);
+
+  dispatch(setCredentials(data.subscriptionID, password))
+  const history = useHistory();
+  history.push("/subscriptions");
 };
 
 /*
@@ -30,13 +59,15 @@ let quantity = 1;
 */
 export default function Purchase() {
   const [quantity, setQuantity] = useState(1)
-
+  const dispatch = useDispatch();
+  
   return (
     <div className='purchase'>
       <h2>Purchase</h2>
       <p>
         Entodicton is available as a service in AWS. The price is 25 US dollars per server per week. The servers are in AWS in us-east-2. They are size t2.small. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption.
       </p>
+      <button onClick={ () => paypalOnApprove(dispatch)(1,2) }>DO IT</button>
       qq{ quantity }
       Quantity: <input type='text' pattern="[1-5]" onInput={(e) => setQuantity(parseInt(e.target.value))} /> (1 to 5 servers)
       {[1,2,3,4,5].includes(quantity) &&

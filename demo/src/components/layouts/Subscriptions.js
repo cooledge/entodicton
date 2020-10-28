@@ -1,8 +1,34 @@
-import React, {Link, Component, Button} from 'react';
+import React, {Link, Component} from 'react';
+import { useDispatch } from 'react-redux';
 import {connect} from 'react-redux';
 const base64 = require('base-64');
 //import { Subscription } from '../Subscription'
 import { setSubscription, setLogs, setCredentials } from '../../actions/actions'
+import { Form, Button } from 'react-bootstrap'
+const _ = require('underscore')
+
+//export default function Purchase() {
+function Login() {
+  //const [quantity, setQuantity] = useState(1)
+  const dispatch = useDispatch();
+
+  return (
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Subscription Id</Form.Label>
+            <Form.Control type="email" placeholder="Subscription Id" />
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Login
+          </Button>
+        </Form>
+  );
+}
 
 const URL = 'http://localhost:10000/api'
 
@@ -30,13 +56,31 @@ const refresh = (dispatch, subscription_id, password) => {
     });
 };
 
+const cancelSubscription = (subscription_id, password) => {
+  fetch(`${URL}/cancel`, {
+    method: "POST",
+    headers: {
+      mode: "no-cors", // Type of mode of the request
+      "Content-Type": "application/json", // request content type
+      "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+    },
+    }).then( result => {
+      if (result.status == 200) {
+        window.alert("Delete of the deployment is started and the subscription in paypal has been cancelled")
+      } else {
+        window.alert(`Error processing request ${result.status}. You can keep trying until you get bored or it works or you can got to Paypal and cancel the subcription there.`)
+      }
+    });
+};
+
 // Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish happy trails. And if we meet up again in hereafter, that would be fine by me. Delete yes/no
 class Subscription extends Component {
   render() {
     const s = this.props.subscription;
     return (
             <div>
-              <h2>Subscription</h2>CancelSubscriptionButton
+              <h2>Subscription</h2>
+              <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
               <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
               <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
               <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
@@ -65,12 +109,20 @@ class Logs extends Component {
 
 class Subscriptions extends Component {
   render(){
-    console.log(this.props);
+    console.log('this.props', this.props);
+    const hasCreds = _.isEmpty(this.props.subscription_id) || _.isEmpty(this.props.password);
     refresh(this.props.dispatch, this.props.subscription_id, this.props.password);
     return (
       <div className='subscriptions'>
-        <Subscription subscription={this.props.subscription} />
-        <Logs logs={this.props.logs} />
+        { hasCreds && 
+          <Login />
+        }
+        { !hasCreds && 
+          <div>
+            <Subscription subscription={this.props.subscription} password={this.props.password}/>
+            <Logs logs={this.props.logs} />
+          </div>
+        }
       </div>
     )
   }

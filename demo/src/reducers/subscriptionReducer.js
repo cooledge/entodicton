@@ -5,8 +5,8 @@ import config from '../components/config';
 var initialState = {
   subscription: {},
   logs: '',
-  subscription_id: 'I-3D6FW7YXP15V',
-  password: 'password1',
+  subscription_id: '',
+  password: '',
 }
 
 export default (state = initialState, action) => {
