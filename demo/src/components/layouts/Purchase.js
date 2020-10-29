@@ -21,16 +21,14 @@ const paypalOnError = (err) => {
 
 const URL = 'http://localhost:10000/api'
 
-const paypalOnApprove = (dispatch) => (data, detail) => {
+const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
 
   // call the backend api to store transaction details
   debugger;
-  data = { subscriptionID: 'I-JG03WS3R801E' }
   console.log("Paypal approved")
   console.log(data.subscriptionID)
   const password = uuidGen()
   console.log('passwordddddddddddddddddddddddddddddd', password)
-  /*
   fetch(`${URL}/password`, {
     method: "POST",
     headers: {
@@ -39,13 +37,13 @@ const paypalOnApprove = (dispatch) => (data, detail) => {
       "Authorization": 'Basic ' + base64.encode(data.subscriptionID + ":" + password)
     },
   });
-  */
   window.alert(`Save these information. The subscription id is ${data.subscriptionID} . The password is ${password}`);
   window.alert(`Repeating this just in case you missed it. The subscription id is ${data.subscriptionID} . The password is ${password}`);
 
   dispatch(setCredentials(data.subscriptionID, password))
-  const history = useHistory();
-  history.push("/subscriptions");
+  //const history = useHistory();
+  //history.push("/subscriptions");
+  gotoSubscriptions()
 };
 
 /*
@@ -60,6 +58,8 @@ let quantity = 1;
 export default function Purchase() {
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch();
+  const history = useHistory();
+  const gotoSubscriptions = () => history.push("/subscriptions");
   
   return (
     <div className='purchase'>
@@ -67,7 +67,7 @@ export default function Purchase() {
       <p>
         Entodicton is available as a service in AWS. The price is 25 US dollars per server per week. The servers are in AWS in us-east-2. They are size t2.small. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption.
       </p>
-      <button onClick={ () => paypalOnApprove(dispatch)(1,2) }>DO IT</button>
+      <button onClick={ () => paypalOnApprove(dispatch, gotoSubscriptions)(1,2) }>DO IT</button>
       qq{ quantity }
       Quantity: <input type='text' pattern="[1-5]" onInput={(e) => setQuantity(parseInt(e.target.value))} /> (1 to 5 servers)
       {[1,2,3,4,5].includes(quantity) &&
@@ -75,7 +75,7 @@ export default function Purchase() {
           amount = "1"
           currency = "USD"
           createSubscription={paypalSubscribe}
-          onApprove={paypalOnApprove}
+          onApprove={paypalOnApprove(dispatch)}
           catchError={paypalOnError}
           onError={paypalOnError}
           onCancel={paypalOnError}

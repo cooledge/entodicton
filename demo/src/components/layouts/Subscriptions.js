@@ -1,4 +1,4 @@
-import React, {Link, Component} from 'react';
+import React, {Link, Component, useState} from 'react';
 import { useDispatch } from 'react-redux';
 import {connect} from 'react-redux';
 const base64 = require('base-64');
@@ -9,21 +9,31 @@ const _ = require('underscore')
 
 //export default function Purchase() {
 function Login() {
-  //const [quantity, setQuantity] = useState(1)
+  const [subscriptionId, setSubscriptionId] = useState('111')
+  const [password, setPassword] = useState('')
   const dispatch = useDispatch();
 
+  const handleClick = () => {
+    debugger;
+    console.log(subscriptionId);
+    console.log(password);
+    dispatch( new setCredentials(subscriptionId, password) ) 
+  };
+
+  console.log('sssssssssssssssssssss', subscriptionId);
+  console.log('pppppppppppppppp', password);
   return (
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Subscription Id</Form.Label>
-            <Form.Control type="email" placeholder="Subscription Id" />
+            <Form.Control type="email" placeholder="Subscription Id" onChange = { (e) => setSubscriptionId(e.target.value) }/>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control type="password" placeholder="Password" onChange = { (e) => setPassword(e.target.value) } />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button onClick={ () => handleClick() }>
             Login
           </Button>
         </Form>
@@ -73,6 +83,10 @@ const cancelSubscription = (subscription_id, password) => {
     });
 };
 
+const handleLogoutClick = (dispatch) => {
+  dispatch( new setCredentials('', '') ) 
+};
+
 // Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish happy trails. And if we meet up again in hereafter, that would be fine by me. Delete yes/no
 class Subscription extends Component {
   render() {
@@ -80,6 +94,7 @@ class Subscription extends Component {
     return (
             <div>
               <h2>Subscription</h2>
+              <div><button onClick={() => handleLogoutClick(this.props.dispatch)}>Logout</button></div>
               <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
               <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
               <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
@@ -110,16 +125,19 @@ class Logs extends Component {
 class Subscriptions extends Component {
   render(){
     console.log('this.props', this.props);
-    const hasCreds = _.isEmpty(this.props.subscription_id) || _.isEmpty(this.props.password);
-    refresh(this.props.dispatch, this.props.subscription_id, this.props.password);
+    const needCreds = _.isEmpty(this.props.subscription_id) || _.isEmpty(this.props.password);
+    if (!needCreds) {
+      refresh(this.props.dispatch, this.props.subscription_id, this.props.password);
+    }
     return (
       <div className='subscriptions'>
-        { hasCreds && 
+        { needCreds && 
           <Login />
         }
-        { !hasCreds && 
+        { !needCreds && 
           <div>
-            <Subscription subscription={this.props.subscription} password={this.props.password}/>
+            <Button onClick={() => refresh(this.props.dispatch, this.props.subscription_id, this.props.password)}>Refresh</Button>
+            <Subscription subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password}/>
             <Logs logs={this.props.logs} />
           </div>
         }
