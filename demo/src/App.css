@@ -297,6 +297,27 @@ table, th, td {
   padding-right: 50px;
 }
 
+form {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.form-group {
+  padding-top: 5px;
+}
+
+.form-control {
+  margin-left: 10px;
+}
+
+.subscriptions .buttons {
+  margin-top: 20px;
+}
+
+.subscriptions .buttons Button {
+  margin-left: 5px;
+}
+
 .config {
   margin-top: 20px;
   padding-left: 20px;

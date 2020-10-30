@@ -14,7 +14,6 @@ function Login() {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    debugger;
     console.log(subscriptionId);
     console.log(password);
     dispatch( new setCredentials(subscriptionId, password) ) 
@@ -24,9 +23,9 @@ function Login() {
   console.log('pppppppppppppppp', password);
   return (
         <Form>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="formLogin">
             <Form.Label>Subscription Id</Form.Label>
-            <Form.Control type="email" placeholder="Subscription Id" onChange = { (e) => setSubscriptionId(e.target.value) }/>
+            <Form.Control type="text" placeholder="Subscription Id" onChange = { (e) => setSubscriptionId(e.target.value) }/>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
@@ -67,20 +66,22 @@ const refresh = (dispatch, subscription_id, password) => {
 };
 
 const cancelSubscription = (subscription_id, password) => {
-  fetch(`${URL}/cancel`, {
-    method: "POST",
-    headers: {
-      mode: "no-cors", // Type of mode of the request
-      "Content-Type": "application/json", // request content type
-      "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
-    },
-    }).then( result => {
-      if (result.status == 200) {
-        window.alert("Delete of the deployment is started and the subscription in paypal has been cancelled")
-      } else {
-        window.alert(`Error processing request ${result.status}. You can keep trying until you get bored or it works or you can got to Paypal and cancel the subcription there.`)
-      }
-    });
+  if (window.confirm("Are you sure?")) {
+    fetch(`${URL}/cancel`, {
+      method: "POST",
+      headers: {
+        mode: "no-cors", // Type of mode of the request
+        "Content-Type": "application/json", // request content type
+        "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+      },
+      }).then( result => {
+        if (result.status == 200) {
+          window.alert("Delete of the deployment is started and the subscription in paypal has been cancelled")
+        } else {
+          window.alert(`Error processing request ${result.status}. You can keep trying until you get bored or it works or you can got to Paypal and cancel the subcription there.`)
+        }
+      });
+  }
 };
 
 const handleLogoutClick = (dispatch) => {
@@ -94,17 +95,23 @@ class Subscription extends Component {
     return (
             <div>
               <h2>Subscription</h2>
-              <div><button onClick={() => handleLogoutClick(this.props.dispatch)}>Logout</button></div>
-              <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
-              <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
-              <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
-              <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
-              <div className='line'><span className='label'>DNS:</span><span className='value'>{s.DNS}</span></div>
-              <div className='line'><span className='label'>AMI id:</span><span className='value'>{s.ami_id}</span></div>
-              <div className='line'><span className='label'>Stack name:</span><span className='value'>{s.stack_name}</span></div>
-              <div className='line'><span className='label'>Number of instances:</span><span className='value'>{s.NUMBER_OF_INSTANCES}</span></div>
-              <div className='line'><span className='label'>Paypal Plan Id:</span><span className='value'>{s.plan_id}</span></div>
-              <div className='line'><span className='label'>Entodicton Version:</span><span className='value'>{s.VERSION}</span></div>
+              { !_.isEmpty(s) &&
+                <div>
+                  <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
+                  <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
+                  <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
+                  <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
+                  <div className='line'><span className='label'>DNS:</span><span className='value'>{s.DNS}</span></div>
+                  <div className='line'><span className='label'>AMI id:</span><span className='value'>{s.ami_id}</span></div>
+                  <div className='line'><span className='label'>Stack name:</span><span className='value'>{s.stack_name}</span></div>
+                  <div className='line'><span className='label'>Number of instances:</span><span className='value'>{s.NUMBER_OF_INSTANCES}</span></div>
+                  <div className='line'><span className='label'>Paypal Plan Id:</span><span className='value'>{s.plan_id}</span></div>
+                  <div className='line'><span className='label'>Entodicton Version:</span><span className='value'>{s.VERSION}</span></div>
+                </div>
+              }
+              { _.isEmpty(s) &&
+                <div>Not found</div>
+              }
             </div>
            )
   }
@@ -136,9 +143,16 @@ class Subscriptions extends Component {
         }
         { !needCreds && 
           <div>
-            <Button onClick={() => refresh(this.props.dispatch, this.props.subscription_id, this.props.password)}>Refresh</Button>
+            <div class='buttons'>
+              { !_.isEmpty(this.props.subscription) &&
+                <Button onClick={() => refresh(this.props.dispatch, this.props.subscription_id, this.props.password)}>Refresh</Button>
+              }
+              <Button onClick={() => handleLogoutClick(this.props.dispatch)}>Logout</Button>
+            </div>
             <Subscription subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password}/>
-            <Logs logs={this.props.logs} />
+            { !_.isEmpty(this.props.subscription) &&
+              <Logs logs={this.props.logs} />
+            }
           </div>
         }
       </div>
