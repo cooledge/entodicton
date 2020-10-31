@@ -67,7 +67,7 @@ export default function Purchase() {
       <p>
         Entodicton is available as a service in AWS. The price is 25 US dollars per server per week. The servers are in AWS in us-east-2. They are size t2.small. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption.
       </p>
-      <button onClick={ () => paypalOnApprove(dispatch, gotoSubscriptions)(1,2) }>DO IT</button>
+      <button onClick={ () => gotoSubscriptions() }>DO IT</button>
       qq{ quantity }
       Quantity: <input type='text' pattern="[1-5]" onInput={(e) => setQuantity(parseInt(e.target.value))} /> (1 to 5 servers)
       {[1,2,3,4,5].includes(quantity) &&
@@ -75,7 +75,7 @@ export default function Purchase() {
           amount = "1"
           currency = "USD"
           createSubscription={paypalSubscribe}
-          onApprove={paypalOnApprove(dispatch)}
+          onApprove={paypalOnApprove(dispatch, gotoSubscriptions)}
           catchError={paypalOnError}
           onError={paypalOnError}
           onCancel={paypalOnError}
