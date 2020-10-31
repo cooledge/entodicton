@@ -19,7 +19,8 @@ const paypalOnError = (err) => {
   console.log("Error", err)
 }
 
-const URL = 'http://localhost:10000/api'
+//const URL = 'http://localhost:10000/api'
+const URL = 'http://ec2-18-217-156-104.us-east-2.compute.amazonaws.com:10000/api'
 
 const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
 
