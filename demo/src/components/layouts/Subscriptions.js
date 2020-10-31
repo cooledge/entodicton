@@ -50,7 +50,12 @@ const refresh = (dispatch, subscription_id, password) => {
       "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
     },
     }).then( async (r) => {
-      dispatch(setSubscription(await r.json()))
+      let json = {}
+      try {
+        json = await r.json()
+      } catch(e) {
+      }
+      dispatch(setSubscription(json))
     });
 
   fetch(`${URL}/logs`, {
