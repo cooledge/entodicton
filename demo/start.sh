@@ -1,2 +1,2 @@
-cd /home/ubuntu/entodicton/demo
+cd ~/entodicton/demo
 npm start
