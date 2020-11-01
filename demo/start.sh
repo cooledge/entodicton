@@ -1,2 +1,3 @@
-cd /home/ubuntu/entodicton/demo
+cd ~/entodicton/demo
+export NODE_ENV=production
 npm start

@@ -4,6 +4,9 @@ import { Route, BrowserRouter, Redirect } from 'react-router-dom';
 import Product from './components/layouts/Product'
 import TankDemo from './components/TankDemo'
 import Tutorial from './components/layouts/Tutorial'
+import Purchase from './components/layouts/Purchase'
+import Subscriptions from './components/layouts/Subscriptions'
+import Config from './components/layouts/Config'
 import Contact from './components/layouts/About'
 import { Provider } from 'react-redux';
 import store from './stores/store';
@@ -19,6 +22,9 @@ class App extends Component {
                     <Route path="/product" component={Product} />
                     <Route path="/demo" component={TankDemo} />
                     <Route path="/tutorial" component={Tutorial} />
+                    <Route path="/purchase" component={Purchase} />
+                    <Route path="/subscriptions" component={Subscriptions} />
+                    <Route path="/config" component={Config} />
                     <Route path="/contact" component={Contact} />
                 </div>
             </Layout>

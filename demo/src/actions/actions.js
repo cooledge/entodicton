@@ -95,22 +95,38 @@ function fireTank(tank, building_or_tank) {
   }
 }
 
+function setConfig(server, apiKey) {
+  return {
+    type: actionTypes.SET_CONFIG,
+    server,
+    apiKey
+  }
+}
+
 export function tick() {
   return {
     type: actionTypes.TICK,
   }
 }
 
-/*
-export function addAlias(oldName, newName) {
-  return dispatch => {
-    dispatch(alias(oldName, newName));
+export function setSubscription(subscription) {
+  return {
+    type: actionTypes.SET_SUBSCRIPTION,
+    subscription
   }
 }
 
-export function moveTank(tank, destination) {
-  return dispatch => {
-    dispatch(moveTank(tank, destination));
+export function setLogs(logs) {
+  return {
+    type: actionTypes.SET_LOGS,
+    logs
   }
 }
-*/
+
+export function setCredentials(subscription_id, password) {
+  return {
+    type: actionTypes.SET_CREDENTIALS,
+    subscription_id,
+    password
+  }
+}

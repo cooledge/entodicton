@@ -176,6 +176,15 @@
   background-color: lightgray;
 }
 
+.configProps {
+  font-size: 12px;
+  padding-left: 50px;
+}
+
+#server {
+  width: 400px;
+}
+
 .product {
   text-align: center;
 }
@@ -247,3 +256,73 @@ pre {
   padding-left: 50px;
   padding-right: 50px;
 }
+
+.purchase {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.purchase p {
+  padding-left: 20px;
+}
+
+table, th, td {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  border: 1px solid black;
+}
+
+.subscriptions {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.subscriptions .line {
+  margin-top: 10px;
+}
+
+.subscriptions .label {
+  font-weight: bold;
+}
+
+.subscriptions .value {
+  border: 1px solid black;
+  margin-left: 10px;
+  padding: 2px;
+}
+
+.config {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+form {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.form-group {
+  padding-top: 5px;
+}
+
+.form-control {
+  margin-left: 10px;
+}
+
+.subscriptions .buttons {
+  margin-top: 20px;
+}
+
+.subscriptions .buttons Button {
+  margin-left: 5px;
+}
+
+.config {
+  margin-top: 20px;
+  padding-left: 20px;
+  font-family: courier, sans-serif;
+  font-size: 15px;
+  white-space: pre;
+}
+
