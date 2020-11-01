@@ -95,6 +95,14 @@ function fireTank(tank, building_or_tank) {
   }
 }
 
+function setConfig(server, apiKey) {
+  return {
+    type: actionTypes.SET_CONFIG,
+    server,
+    apiKey
+  }
+}
+
 export function tick() {
   return {
     type: actionTypes.TICK,

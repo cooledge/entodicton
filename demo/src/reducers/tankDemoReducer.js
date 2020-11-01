@@ -76,7 +76,9 @@ var initialState = {
     // { needPosition, description, dispatch } x, y added once they position is found
     responses: [],
     inProcess: 0,
-    completed: []
+    completed: [],
+    server: '184.67.27.82',
+    apiKey: '6804954f-e56d-471f-bbb8-08e3c54d9321'
 }
 initialState.tankCtr = initialState.tanks.length + 1
 initialState.buildingCtr = initialState.buildings.length + 1
@@ -381,6 +383,11 @@ export default (state = initialState, action) => {
 
     case constants.FIRE_TANK:
       //delete updated.destinations[action.id]
+      return updated
+
+    case constants.SET_CONFIG:
+      updated.server = action.server;
+      updated.apiKey = action.apiKey;
       return updated
 
     default:

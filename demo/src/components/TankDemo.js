@@ -5,7 +5,7 @@ import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
 import client from 'entodicton/client'
-import { alias, stopTank, placeOrder, moveTank, tick, create, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
+import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, create, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
 import store from '../stores/store';
 import config from './config';
 
@@ -13,8 +13,8 @@ const timersOn = true;
 const offsetForPosition_x = 59;
 const offsetForPosition_y = 400;
 
-let key = '6804954f-e56d-471f-bbb8-08e3c54d9321';
-let server = '184.67.27.82';
+//let key = '6804954f-e56d-471f-bbb8-08e3c54d9321';
+//let server = '184.67.27.82';
 
 class FoodOrder extends Component {
   render() {
@@ -226,7 +226,7 @@ class QueryPane extends Component {
     return {wantsPosition, description: description, dispatch: action}
   }
 
-  processQuery(setResponses, startedQuery) {
+  processQuery(setResponses, startedQuery, server, key) {
     const query = document.getElementById("query").value;
     key = document.getElementById("key").value;
 
@@ -244,6 +244,7 @@ class QueryPane extends Component {
     config['objects'] = objects;
 
     startedQuery();
+    debugger;
     client.process(config, key, server)
       .then( (responses) => {
         console.log('responses ==============')
@@ -290,11 +291,11 @@ class QueryPane extends Component {
             Request <input id='query' placeholder='some queries are below. there is only one default server' onKeyPress={ 
               (event) => {
                 if (event.key === 'Enter') {
-                  this.processQuery(this.props.setResponses, this.props.startedQuery);
+                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey);
                 }
               } }
               type='text' className='request' />
-              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery) }>Submit</Button>
+              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey) }>Submit</Button>
           </div>
         }
         { wantsPosition && 
@@ -404,29 +405,19 @@ class TankDemo extends Component {
   render() {
 
     console.log(this.props.completed);
+    this.server = this.server || this.props.server;
+    this.apiKey = this.apiKey || this.props.apiKey
     return ( 
       <div className='tankDemo'>
         <h1>Control Tanks - 
           <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>Config</a>
           <span className='configProps'>
-            Server Host Name {
-              server == "" &&
-              <input id='server' type='text' className='server'/>
-            }
-            {
-              server != "" &&
-              <input id='server' type='text' className='server' value={server}/>
-            }
+            Server Host Name
+              <input id='server' type='text' className='server' onChange={ (e) => this.server = e.target.value } defaultValue={this.server}/>
           </span>
           <span className='configProps'>
-            Key {
-              key == "" &&
-              <input id='key' type='text' className='key'/>
-            }
-            {
-              key != "" &&
-              <input id='key' type='text' className='key' value={key}/>
-            }
+            Key
+            <input id='key' type='text' className='key' onChange={ (e) => this.apiKey = e.target.value } defaultValue={this.apiKey}/>
           </span>
         </h1>
         <QueryPane 
@@ -443,6 +434,8 @@ class TankDemo extends Component {
               inProcess={this.props.inProcess}
               words={this.getWords(this.props)}
               getObjects={this.getObjects(this.props)}
+              server={this.server}
+              apiKey={this.apiKey}
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
         <FoodOrders orders={this.props.orders}/>
