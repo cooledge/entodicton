@@ -5,7 +5,7 @@
   "dependencies": {
     "base-64": "^1.0.0",
     "bootstrap": "^4.5.3",
-    "entodicton": "^5.1.0",
+    "entodicton": "^5.2.0",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
