@@ -3,13 +3,7 @@ import ReactDOM from "react-dom";
 import scriptLoader from "react-async-script-loader";
 import Spinner from "./Spinner";
 
-const CLIENT = {
-  sandbox:"ATcFSR1buk8G26ZEiwWbHb9GIkLgpGNg8KRSEnN6zCGKBSgBdzlq0pdht5ZWIR7_hUhrIuFpKWEQRYha",
-  production:"your client id"
-};
-
-const CLIENT_ID =
-  process.env.NODE_ENV === "production" ? CLIENT.production : CLIENT.sandbox;
+const CLIENT_ID = "ATcFSR1buk8G26ZEiwWbHb9GIkLgpGNg8KRSEnN6zCGKBSgBdzlq0pdht5ZWIR7_hUhrIuFpKWEQRYha";
 
 let PayPalButton = null;
 class PaypalButton extends React.Component {
