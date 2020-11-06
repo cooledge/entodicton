@@ -7,8 +7,8 @@ const { setCredentials } = require ('../../actions/actions')
 const parameters = require('../parameters')
 import { useHistory } from "react-router-dom";
 
-const plan_id_us_east_2_tf_small = 'P-57360534X7468745AL6LDUFQ'
-// debug plan only works when my debug accout uses it
+const plan_id_us_east_2_tf_small = 'P-47L42338DK233380GL6S2LBQ'
+// debug plan only works when my debug accout uses it so if you buy it your giving me a dollar for nothing
 const plan_id_debug_plan = 'P-1043388889887134HL6LOF3Y'
 
 import PayPalBtn from '../PayPalBtn'
