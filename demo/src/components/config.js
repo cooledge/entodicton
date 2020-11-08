@@ -40,6 +40,7 @@ module.exports =
     "(([food]) <conj> ([food]))",
     "([english])",
     "([french])",
+    "([anyConcept])",
   ],
   "bridges": [
     {"id": "english", "level": 0, "bridge": "{ ...after }"},
@@ -101,8 +102,17 @@ module.exports =
     {"id": "every", "level": 0, "bridge": "{ marker: 'dollarConcept', units: 'dollars', amount: before.value, duration: 'week' }"},
     {"id": "earn", "level": 0, "bridge": "{ marker: 'earn', units: 'dollars', amount: after.amount, who: before.id, period: after.duration }"},
     {"id": "worked", "level": 0, "bridge": "{ marker: 'worked', who: before.id, duration: after.number, units: after.marker }"},
+    {"id": "anyConcept", "level": 0, "bridge": "{ ...next(operator) }"},
+  ],
+  "hierarchy": [
+    ["tankConcept", "anyConcept"],
+    ["buildingConcept", "anyConcept"],
   ],
   "priorities": [
+    [["move", 1], ["to", 0]],
+    [["anyConcept", 0], ["create", 0], ["move", 0], ["to", 1], ["aEnglish", 0]],
+    [["create", 0], ["move", 0], ["anyConcept", 0]],
+    [["create", 0], ["move", 0], ["to", 0], ["anyConcept", 0]],
     [["la", 0], ["position", 0]],
     [["equal", 0], ["property", 0]],
     [["equal", 1], ["property", 0]],
@@ -150,6 +160,7 @@ module.exports =
     "joe": [{"id": "personConcept", "initial": {"id": "joe"}}],
     "sally": [{"id": "personConcept", "initial": {"id": "sally"}}],
     "per": [{"id": "every"}],
+    "it": [{"id": "anyConcept", "initial": {"language": "english", "pullFromContext": true}}],
   },
   "floaters": [
     "language",
@@ -163,6 +174,7 @@ module.exports =
     "conj",
   ],
   "queries": [
+    "create a tank move it to building1",
     "joe earns 10 dollars every week sally earns 25 dollars per week sally worked 10 weeks joe worked 15 weeks joe earns what sally earns what",
     "what is the speed of tank1 and tank2",
     "what is 1 + 1 + 1 and 20 + 30",
@@ -217,7 +229,7 @@ module.exports =
     [(context) => context.marker == 'weekConcept' && context.duration == 1, (g, context) => `${context.duration} week`],
     [(context) => context.marker == 'weekConcept' && context.duration > 1, (g, context) => `${context.duration} weeks`],
     [(context) => context.marker.endsWith('Concept') && context.number > 0, (g, context) => `${g(context.number)} ${g(context.word)}`],
-    [(context) => context.marker.endsWith('Concept') && !('number' in context), (g, context) => `${g(context.id)}`],
+    [(context) => context.marker.endsWith('Concept') && !('number' in context), (g, context) => `${g(context.word)}`],
     [(context) => context.marker.endsWith('Concept') && context.number == 'all', (g, context) => `all ${g(context.word)}`],
     [(context) => context.marker == 'article' && context.gender == 'm', (g, context) => 'le'],
     [(context) => context.marker == 'article' && context.gender == 'f', (g, context) => 'la'],
@@ -270,6 +282,23 @@ module.exports =
         global.workingTime = []
       }
       global.workingTime.push({ name: context.who, number_of_time_units: context.duration, time_units: context.units })
+     }],
+    [(global, context) => context.pullFromContext
+, (global, context) => { 
+    object = global.mentioned[0]
+    Object.assign(context, object)
+    delete context.pullFromContext
+     }],
+    [(global, context) => context.marker == 'create'
+, (global, context) => { 
+    if (!global.newTanks) {
+      global.newTanks = []
+    }
+    const tank = global.newTank()
+    if (!global.mentioned) {
+      global.mentioned = []
+    }
+    global.mentioned.push({ marker: 'tankConcept', word: tank.name, id: tank.id })
      }],
   ],
 };
