@@ -9,12 +9,13 @@ import { useHistory } from "react-router-dom";
 
 const plan_id_us_east_2_tf_small = 'P-47L42338DK233380GL6S2LBQ'
 // debug plan only works when my debug accout uses it so if you buy it your giving me a dollar for nothing
-const plan_id_debug_plan = 'P-1043388889887134HL6LOF3Y'
+const plan_id_debug = 'P-1043388889887134HL6LOF3Y'
 
 import PayPalBtn from '../PayPalBtn'
 const paypalSubscribe = (data, actions) => {
   return actions.subscription.create({
-    'plan_id': plan_id_us_east_2_tf_small,
+    //'plan_id': plan_id_us_east_2_tf_small,
+    'plan_id': plan_id_debug,
   });
 };
 const paypalOnError = (err) => {

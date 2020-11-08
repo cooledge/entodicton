@@ -3,6 +3,7 @@
 module.exports = 
 {
   "thinktelligence": {
-    "server": 'http://ec2-18-217-156-104.us-east-2.compute.amazonaws.com:10000/api'
+    "server": 'http://Think-Think-153KAK0JXKZI8-55668467.us-east-2.elb.amazonaws.com/api'
+    //"server": 'http://localhost:10000/api'
   }
 };
