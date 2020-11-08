@@ -119,7 +119,6 @@ const addWordForObject = (state, words, id, name) => {
 const addWordsForConcept = (state, words, objects, concept) => {
   objects.forEach( (object) => {
     state.uuidToNames[object.id].forEach( (name) => {
-      console.log(`Adding words for ${object} + ${name}`);
       addWordForObject(state, words, object.id, name)
     })
   });
@@ -154,13 +153,11 @@ function removeNames(state, uuid) {
 }
 
 function newTank(state, left = 0, top = 0, velocity = 1) {
-  console.log('newTank ggggggggggggggggggggggggggggg');
   const id = uuidGen()
   const names = [`tank${state.tankCtr}`, `char${state.tankCtr}`]
   state.tankCtr += 1
   state.tanks.push({id, left, top, velocity})
   addName(state, id, names)
-  console.log(state)
 }
 
 function newBuilding(state, left = 0, top = 0) {
@@ -169,7 +166,6 @@ function newBuilding(state, left = 0, top = 0) {
   state.buildingCtr += 1
   state.buildings.push({id, left, top})
   addName(state, id, names)
-  console.log(state)
 }
 
 function getObject(state, nameOrId) {
@@ -208,7 +204,6 @@ function getIds(state, name) {
 }
 
 function updatePosition(state, tank_id, destination_id) {
-  console.log(`updatePosition(${tank_id}, ${destination_id})`);
   const s_obj = getObject(state, tank_id)
   const s_x = s_obj.left;
   const s_y = s_obj.top;
@@ -243,7 +238,6 @@ export default (state = initialState, action) => {
 
   var updated = _.cloneDeep(state);
 
-  console.log(`In reducer for ${action.type}`);
   switch(action.type) {
 
     case constants.ALIAS:
@@ -273,16 +267,10 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.CLEAR_RESPONSE:
-      console.log('before')
-      console.log(updated.responses);
       updated.responses.splice(action.index, 1)
-      console.log('after')
-      console.log(updated.responses);
       return updated
 
     case constants.SET_POSITION:
-      console.log('is dispatch');
-      console.log(action);
       const response = updated.responses[action.index]
       response.x = action.x
       response.y = action.y
@@ -296,13 +284,10 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.STARTED_QUERY:
-      console.log("in reducer for STARTED_QUERY");
       updated.inProcess += 1;
       return updated
 
     case constants.CREATE:
-      console.log('in reducer');
-      console.log(action);
       for ( let i = 0; i < action.count; ++i ) {
         if (action.klass === 'tankConcept') {
           newTank(updated, action.x, action.y);
@@ -348,11 +333,8 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.PLACE_ORDER:
-      console.log("In PLACE_ORDER reducer");
       const order = { item: action.item, quantity: action.quantity, who: action.who, from: action.from }
-      console.log(order);
       updated.orders.unshift(order);
-      console.log(updated.orders);
       return updated
 
     case constants.MOVE_TANK: {
@@ -363,17 +345,12 @@ export default (state = initialState, action) => {
 
       const sIds = getIds(updated, action.tank)
       sIds.forEach( (sId) => {
-        console.log(`Doing move of ${sId} to ${dId}`);
         updated.destinations[sId] = dId;
       });
       return updated
     }
 
     case constants.STOP_TANK: {
-      console.log(action);
-      console.log(`id is ${getId(updated, action.name)}`)
-      console.log(updated.destinations);
-
       const sIds = getIds(updated, action.name)
       sIds.forEach( (sId) => {
         delete updated.destinations[sId]
@@ -385,7 +362,7 @@ export default (state = initialState, action) => {
       //delete updated.destinations[action.id]
       return updated
 
-    case constants.SET_CONFIG:
+    case constants.SET_DEMO_CONFIG:
       updated.server = action.server;
       updated.apiKey = action.apiKey;
       return updated

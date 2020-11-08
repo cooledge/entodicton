@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {connect} from 'react-redux';
 const base64 = require('base-64');
 //import { Subscription } from '../Subscription'
-import { setSubscription, setLogs, setCredentials } from '../../actions/actions'
+import { setSubscription, setLogs, setCredentials, setDemoConfig } from '../../actions/actions'
 const parameters = require('../parameters')
 import { Form, Button } from 'react-bootstrap'
 const _ = require('underscore')
@@ -55,6 +55,10 @@ const refresh = (dispatch, subscription_id, password) => {
       try {
         json = await r.json()
       } catch(e) {
+      }
+	    debugger;
+      if (json['DNS'] && json['keys']) {
+        dispatch(setDemoConfig(json['DNS'], json['keys'][0]))
       }
       dispatch(setSubscription(json))
     });
@@ -151,7 +155,7 @@ class Subscriptions extends Component {
         }
         { !needCreds && 
           <div>
-            <div class='buttons'>
+            <div className='buttons'>
               { !_.isEmpty(this.props.subscription) &&
                 <Button onClick={() => refresh(this.props.dispatch, this.props.subscription_id, this.props.password)}>Refresh</Button>
               }

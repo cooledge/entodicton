@@ -94,7 +94,6 @@ class FoodOrders extends Component {
 
 class Completed extends Component {
   render() {
-    console.log(this.props.completed)
     let items = this.props.completed.map( (completed) => {
       const key = completed[0];
       const name = completed[1].description;
@@ -159,6 +158,7 @@ class QueryPane extends Component {
   };
 
   processResponse( addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response, generated ) {
+    debugger;
     console.log('in process response xxzzzzzzzzzzzzzzzzzzzzzz');
     console.log(response);
     let action = () => {};
@@ -403,8 +403,6 @@ class TankDemo extends Component {
   }
 
   render() {
-
-    console.log(this.props.completed);
     this.server = this.server || this.props.server;
     this.apiKey = this.apiKey || this.props.apiKey
     return ( 
