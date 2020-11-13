@@ -34,7 +34,6 @@ const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
   console.log("Paypal approved")
   console.log(data.subscriptionID)
   const password = uuidGen()
-  console.log('passwordddddddddddddddddddddddddddddd', password)
   fetch(`${URL}/password`, {
     method: "POST",
     headers: {
@@ -71,7 +70,7 @@ export default function Purchase() {
     <div className='purchase'>
       <h2>Purchase</h2>
       <p>
-        Entodicton is available as a service in AWS. The price is 25 US dollars per month. You will get one server running the current version. The server is in AWS in us-east-2 of size t2.small. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption.
+        Entodicton is available as a service in AWS. The price is 50 Canadian dollars per month. You will get one server running the current version. The server is in AWS in us-east-2 of size t2.small. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption.
       </p>
       <PayPalBtn
         amount = "1"
