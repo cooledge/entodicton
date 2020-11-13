@@ -14,8 +14,8 @@ const plan_id_debug = 'P-1043388889887134HL6LOF3Y'
 import PayPalBtn from '../PayPalBtn'
 const paypalSubscribe = (data, actions) => {
   return actions.subscription.create({
-    //'plan_id': plan_id_us_east_2_tf_small,
-    'plan_id': plan_id_debug,
+    'plan_id': plan_id_us_east_2_tf_small,
+    //'plan_id': plan_id_debug,
   });
 };
 const paypalOnError = (err) => {
