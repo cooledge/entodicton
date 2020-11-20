@@ -3,16 +3,16 @@
   "name": "server",
   "devDependencies": {},
   "scripts": {
-    "test": "react-scripts test --env=jsdom",
-    "start": "react-scripts start",
     "eject": "react-scripts eject",
-    "build": "react-scripts build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom"
   },
   "version": "0.1.0",
   "dependencies": {
     "base-64": "^1.0.0",
     "bootstrap": "^4.5.3",
-    "entodicton": "5.14.0",
+    "entodicton": "5.13.0",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
@@ -28,11 +28,5 @@
     "redux-thunk": "^2.3.0",
     "underscore": "^1.11.0",
     "uuid": "^3.4.0"
-  },
-  "scripts": {
-    "eject": "react-scripts eject",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
   }
 }
