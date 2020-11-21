@@ -4,7 +4,7 @@ import tank from '../tank.jpeg';
 import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
-import client from 'entodicton/client'
+const client = require('entodicton/client')
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, create, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
 import store from '../stores/store';
 import config from './config';
