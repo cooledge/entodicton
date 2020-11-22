@@ -5,9 +5,10 @@ import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
 import client from 'entodicton/client'
-import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, create, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
+import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
 import store from '../stores/store';
 import config from './config';
+const uuidGen = require('uuid/v1')
 
 const timersOn = true;
 const offsetForPosition_x = 59;
@@ -94,7 +95,6 @@ class FoodOrders extends Component {
 
 class Completed extends Component {
   render() {
-    console.log(this.props.completed)
     let items = this.props.completed.map( (completed) => {
       const key = completed[0];
       const name = completed[1].description;
@@ -158,7 +158,7 @@ class QueryPane extends Component {
     //addAlias: PropsTypes.func
   };
 
-  processResponse( addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response, generated ) {
+  processResponse( objects, addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response, generated ) {
     console.log('in process response xxzzzzzzzzzzzzzzzzzzzzzz');
     console.log(response);
     let action = () => {};
@@ -213,7 +213,14 @@ class QueryPane extends Component {
       const klass = response.klass.marker;
       let count = response.klass.number || 1;
       wantsPosition = true;
-      action = (x, y) => create(klass, count, x, y);
+      let ids = []
+      let namess = []
+      let currentCount = 23;
+      for (let i = 0; i < count; ++i) {
+        ids.push(objects.generated_ids.shift())
+        namess.push(objects.generated_names.shift())
+      }
+      action = (x, y) => create(klass, count, ids, namess, x, y);
     } else if (response.marker === 'destroy') {
       let id = response.name.id;
       if (response.name.number == 'all') {
@@ -226,7 +233,7 @@ class QueryPane extends Component {
     return {wantsPosition, description: description, dispatch: action}
   }
 
-  processQuery(setResponses, startedQuery, server, key) {
+  processQuery(setResponses, startedQuery, server, key, dispatch, counters) {
     const query = document.getElementById("query").value;
     key = document.getElementById("key").value;
 
@@ -238,14 +245,48 @@ class QueryPane extends Component {
                          "position": { "id": "position", "level": 0 },
                          "velocity": { "id": "number", "level": 0 }
                        };
+    objects.counters = { tank: 23, building: 32 }
+    objects.counters = counters;
+    objects.generated_ids = []
+    objects.generated_names = []
+    objects.newTank = (context) => { 
+        let count = context.klass.number || 1;
+        let ids = []
+        let namess = []
+        let currentCount = objects.counters.tank;
+        objects.counters.tank += count;
+        for (let i = 0; i < count; ++i) {
+          ids.push(uuidGen())
+          namess.push([`tank${currentCount + i}`, `char${currentCount + i}`]);
+        }
+        objects.generated_ids = objects.generated_ids.concat(ids)
+        objects.generated_names = objects.generated_names.concat(namess)
+
+        return { name: namess[0][0], 'id': ids[0] } 
+    }
+    objects.newBuilding = (context) => { 
+        //return { name: 'building1', 'id': 'building1id' } 
+        let count = context.klass.number || 1;
+        let ids = []
+        let namess = []
+        let currentCount = objects.counters.building;
+        objects.counters.building += count;
+        for (let i = 0; i < count; ++i) {
+          ids.push(uuidGen())
+          namess.push([`building${currentCount + i}`, `batiment${currentCount + i}`]);
+        }
+        objects.generated_ids = objects.generated_ids.concat(ids)
+        objects.generated_names = objects.generated_names.concat(namess)
+
+        return { name: namess[0][0], 'id': ids[0] } 
+    }
 
     config['utterances'] = [query];
     config['words'] = this.props.words();
     config['objects'] = objects;
 
     startedQuery();
-    debugger;
-    client.process(config, key, server)
+    client.process(config, key, 'localhost', 5000)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -257,7 +298,7 @@ class QueryPane extends Component {
           responses.results.forEach( (rs) => { 
             rs.forEach((r) => { 
               const g = responses.generated[i][j];
-              actions.push(this.processResponse(this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
+              actions.push(this.processResponse(objects, this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
               j += 1;
             } );
             i += 1;
@@ -291,11 +332,11 @@ class QueryPane extends Component {
             Request <input id='query' placeholder='some queries are below. there is only one default server' onKeyPress={ 
               (event) => {
                 if (event.key === 'Enter') {
-                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey);
+                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.dispatch, this.props.counters);
                 }
               } }
               type='text' className='request' />
-              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey) }>Submit</Button>
+              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.dispatch, this.props.counters) }>Submit</Button>
           </div>
         }
         { wantsPosition && 
@@ -345,8 +386,8 @@ class TankDemo extends Component {
     dispatch(moveTank(tank, destination));
   };
 
-  create = (dispatch) => (what, x, y) => {
-    dispatch(create(what, x, y));
+  create = (dispatch) => (what, count, ids, namess, x, y) => {
+    dispatch(createAction(what, count, ids, namess, x, y));
   };
 
   destroy = (dispatch) => (name) => {
@@ -403,8 +444,6 @@ class TankDemo extends Component {
   }
 
   render() {
-
-    console.log(this.props.completed);
     this.server = this.server || this.props.server;
     this.apiKey = this.apiKey || this.props.apiKey
     return ( 
@@ -436,6 +475,7 @@ class TankDemo extends Component {
               getObjects={this.getObjects(this.props)}
               server={this.server}
               apiKey={this.apiKey}
+              counters={ {tank: this.props.tanks.length + 1, building: this.props.buildings.length + 1 } }
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
         <FoodOrders orders={this.props.orders}/>

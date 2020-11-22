@@ -60,7 +60,7 @@ module.exports =
     {"id": "propertyConcept", "level": 0, "bridge": "{ ...next(operator) }"},
     {"id": "tankConcept", "level": 0, "bridge": "{ ...next(operator) }"},
     {"id": "buildingConcept", "level": 0, "bridge": "{ ...next(operator) }"},
-    {"id": "to", "level": 0, "selector": {"type": "prefix"}, "bridge": "{ ...next(operator), destination: after[0] }"},
+    {"id": "to", "level": 0, "bridge": "{ ...next(operator), destination: after[0] }"},
     {"id": "to", "level": 1, "bridge": "{ ...next(operator), thing: before[0] }"},
     {"id": "move", "level": 0, "bridge": "{ ...after, ...next(operator) }"},
     {"id": "move", "level": 1, "bridge": "{ action: 'move', marker: 'move', thing: operator.thing, place: operator.destination }"},
@@ -109,8 +109,11 @@ module.exports =
     ["buildingConcept", "anyConcept"],
   ],
   "priorities": [
+    [["equal", 0], ["query", 0]],
     [["move", 1], ["to", 0]],
     [["anyConcept", 0], ["create", 0], ["move", 0], ["to", 1], ["aEnglish", 0]],
+    [["create", 0], ["move", 0], ["tankConcept", 0], ["to", 0], ["anyConcept", 0]],
+    [["aEnglish", 0], ["buildingConcept", 0], ["create", 0], ["move", 0], ["tankConcept", 0], ["to", 0], ["anyConcept", 0]],
     [["create", 0], ["move", 0], ["anyConcept", 0]],
     [["create", 0], ["move", 0], ["to", 0], ["anyConcept", 0]],
     [["la", 0], ["position", 0]],
@@ -174,6 +177,7 @@ module.exports =
     "conj",
   ],
   "queries": [
+    "create a tank move it to building1 create a building move tank1 to it",
     "create a tank move it to building1",
     "joe earns 10 dollars every week sally earns 25 dollars per week sally worked 10 weeks joe worked 15 weeks joe earns what sally earns what",
     "what is the speed of tank1 and tank2",
@@ -285,20 +289,32 @@ module.exports =
      }],
     [(global, context) => context.pullFromContext
 , (global, context) => { 
-    object = global.mentioned[0]
+    const object = global.mentioned[0]
+    global.mentioned.shift()
     Object.assign(context, object)
     delete context.pullFromContext
      }],
     [(global, context) => context.marker == 'create'
 , (global, context) => { 
-    if (!global.newTanks) {
-      global.newTanks = []
+    if (context.klass.marker === 'tankConcept') {
+      if (!global.newTanks) {
+        global.newTanks = []
+      }
+      const tank = global.newTank(context)
+      if (!global.mentioned) {
+        global.mentioned = []
+      }
+      global.mentioned.push({ marker: 'tankConcept', word: tank.name, id: tank.id })
+    } else if (context.klass.marker === 'buildingConcept') {
+      if (!global.newBuildings) {
+        global.newBuildings = []
+      }
+      const building = global.newBuilding(context)
+      if (!global.mentioned) {
+        global.mentioned = []
+      }
+      global.mentioned.push({ marker: 'buildingConcept', word: building.name, id: building.id })
     }
-    const tank = global.newTank()
-    if (!global.mentioned) {
-      global.mentioned = []
-    }
-    global.mentioned.push({ marker: 'tankConcept', word: tank.name, id: tank.id })
      }],
   ],
 };
