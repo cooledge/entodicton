@@ -131,7 +131,7 @@ const addWords = (state, words) => {
 function addName(state, id, names) {
   state.uuidToNames[id] = names
   names.forEach( (name) => {
-    addWordForObject(state, id, name)
+    addWordForObject(state, [], id, name)
     if (state.nameToUUIDs[name]) {
       state.nameToUUIDs[name].push(name)
     } else {
@@ -152,17 +152,19 @@ function removeNames(state, uuid) {
   });
 }
 
-function newTank(state, left = 0, top = 0, velocity = 1) {
-  const id = uuidGen()
-  const names = [`tank${state.tankCtr}`, `char${state.tankCtr}`]
+function newTank(state, id, names, left = 0, top = 0, velocity = 1) {
+  console.log('newTank ggggggggggggggggggggggggggggg');
+// MASTER function newTank(state, left = 0, top = 0, velocity = 1) {
+// MASTER  const id = uuidGen()
+// MASTER  const names = [`tank${state.tankCtr}`, `char${state.tankCtr}`]
   state.tankCtr += 1
   state.tanks.push({id, left, top, velocity})
   addName(state, id, names)
 }
 
-function newBuilding(state, left = 0, top = 0) {
-  const id = uuidGen()
-  const names = [`building${state.buildingCtr}`, `batiment${state.buildingCtr}`]
+function newBuilding(state, id, names, left = 0, top = 0) {
+  //const id = uuidGen()
+  //const names = [`building${state.buildingCtr}`, `batiment${state.buildingCtr}`]
   state.buildingCtr += 1
   state.buildings.push({id, left, top})
   addName(state, id, names)
@@ -255,7 +257,7 @@ export default (state = initialState, action) => {
       } else{
         updated.nameToUUIDs[action.newName] = [uuid]
       }
-      addWordForObject(updated, uuid, action.newName)
+      addWordForObject(updated, [], uuid, action.newName)
 
       return updated
 
@@ -290,9 +292,9 @@ export default (state = initialState, action) => {
     case constants.CREATE:
       for ( let i = 0; i < action.count; ++i ) {
         if (action.klass === 'tankConcept') {
-          newTank(updated, action.x, action.y);
+          newTank(updated, action.ids[i], action.namess[0], action.x, action.y);
         } else if (action.klass === 'buildingConcept') {
-          newBuilding(updated, action.x, action.y);
+          newBuilding(updated, action.ids[0], action.namess[0], action.x, action.y);
         }
       }
       return updated
