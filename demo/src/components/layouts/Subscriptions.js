@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import {connect} from 'react-redux';
 const base64 = require('base-64');
 //import { Subscription } from '../Subscription'
-import { setSubscription, setLogs, setCredentials } from '../../actions/actions'
+import { setSubscription, setLogs, setCredentials, setDemoConfig } from '../../actions/actions'
+const parameters = require('../parameters')
 import { Form, Button } from 'react-bootstrap'
 const _ = require('underscore')
 
@@ -19,8 +20,6 @@ function Login() {
     dispatch( new setCredentials(subscriptionId, password) ) 
   };
 
-  console.log('sssssssssssssssssssss', subscriptionId);
-  console.log('pppppppppppppppp', password);
   return (
         <Form>
           <Form.Group controlId="formLogin">
@@ -39,7 +38,9 @@ function Login() {
   );
 }
 
-const URL = 'http://ec2-18-217-156-104.us-east-2.compute.amazonaws.com:10000/api'
+//const URL = 'http://ec2-18-217-156-104.us-east-2.compute.amazonaws.com:10000/api'
+//const URL = process.env.THINKTELLIGENCE_URL || 'http://localhost:10000/api';
+const URL = parameters.thinktelligence.server;
 
 const refresh = (dispatch, subscription_id, password) => {
   fetch(`${URL}/subscription`, {
@@ -54,6 +55,10 @@ const refresh = (dispatch, subscription_id, password) => {
       try {
         json = await r.json()
       } catch(e) {
+      }
+	    debugger;
+      if (json['DNS'] && json['keys']) {
+        dispatch(setDemoConfig(json['DNS'], json['keys'][0]))
       }
       dispatch(setSubscription(json))
     });
@@ -102,7 +107,9 @@ class Subscription extends Component {
               <h2>Subscription</h2>
               { !_.isEmpty(s) &&
                 <div>
-                  <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
+                  {s.deployed && 
+                    <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
+                  }
                   <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
                   <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
                   <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
@@ -148,7 +155,7 @@ class Subscriptions extends Component {
         }
         { !needCreds && 
           <div>
-            <div class='buttons'>
+            <div className='buttons'>
               { !_.isEmpty(this.props.subscription) &&
                 <Button onClick={() => refresh(this.props.dispatch, this.props.subscription_id, this.props.password)}>Refresh</Button>
               }

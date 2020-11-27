@@ -4,7 +4,7 @@ import tank from '../tank.jpeg';
 import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
-import client from 'entodicton/client'
+const client = require('entodicton/client')
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
 import store from '../stores/store';
 import config from './config';
@@ -159,6 +159,7 @@ class QueryPane extends Component {
   };
 
   processResponse( objects, addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response, generated ) {
+  // master: processResponse( addAlias, stopTank, placeOrder, moveTank, create, destroy, showProperty, response, generated ) {
     console.log('in process response xxzzzzzzzzzzzzzzzzzzzzzz');
     console.log(response);
     let action = () => {};
