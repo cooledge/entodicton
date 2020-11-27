@@ -112,6 +112,9 @@ class Subscription extends Component {
                   }
                   <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
                   <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
+                  {s.deployed &&
+                    <span>Demo page is pointing at this deployment</span>
+                  }
                   <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
                   <div className='line'><span className='label'>DNS:</span><span className='value'>{s.DNS}</span></div>
                   <div className='line'><span className='label'>AMI id:</span><span className='value'>{s.ami_id}</span></div>

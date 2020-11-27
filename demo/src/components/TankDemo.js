@@ -351,7 +351,6 @@ class QueryPane extends Component {
           (
             <div className='inProcess'>
               {this.props.inProcess} request being in processed.
-              (if you create or destroy objects the next query is extra slow because it skips the cache and rebuilds a bunch of neural nets. I have not got around to fixing that yet)
             </div>
           )
         }
