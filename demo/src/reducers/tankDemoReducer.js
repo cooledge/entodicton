@@ -2,6 +2,7 @@ import constants from '../constants/actionTypes'
 const uuidGen = require('uuid/v1')
 const _ = require('lodash')
 import config from '../components/config';
+import parameters from '../components/parameters';
 
 const idTank1 = 'tank1'
 const idTank2 = 'tank2'
@@ -77,8 +78,8 @@ var initialState = {
     responses: [],
     inProcess: 0,
     completed: [],
-    server: '184.67.27.82',
-    apiKey: '6804954f-e56d-471f-bbb8-08e3c54d9321'
+    server: parameters.entodicton.server,
+    apiKey: parameters.entodicton.apiKey
 }
 initialState.tankCtr = initialState.tanks.length + 1
 initialState.buildingCtr = initialState.buildings.length + 1

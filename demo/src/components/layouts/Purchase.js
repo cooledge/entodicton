@@ -7,14 +7,15 @@ const { setCredentials } = require ('../../actions/actions')
 const parameters = require('../parameters')
 import { useHistory } from "react-router-dom";
 
-const plan_id_us_east_2_tf_small = 'P-47L42338DK233380GL6S2LBQ'
+const plan_id_us_east_2_t2_small = 'P-47L42338DK233380GL6S2LBQ'
+const plan_id_us_east_2_t2_medium = 'P-62F374065S794714TL7BLK3I'
 // debug plan only works when my debug accout uses it so if you buy it your giving me a dollar for nothing
 const plan_id_debug = 'P-1043388889887134HL6LOF3Y'
 
 import PayPalBtn from '../PayPalBtn'
 const paypalSubscribe = (data, actions) => {
   return actions.subscription.create({
-    'plan_id': plan_id_us_east_2_tf_small,
+    'plan_id': plan_id_us_east_2_t2_medium,
     //'plan_id': plan_id_debug,
   });
 };
