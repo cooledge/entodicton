@@ -75,8 +75,10 @@ const refresh = (dispatch, subscription_id, password) => {
     });
 };
 
+const cancelConfirm = "Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish you happy trails. And if we meet up again in the great hereafter, that would be fine by me. Delete yes/no";
+
 const cancelSubscription = (subscription_id, password) => {
-  if (window.confirm("Are you sure?")) {
+  if (window.confirm(cancelConfirm)) {
     fetch(`${URL}/cancel`, {
       method: "POST",
       headers: {
@@ -98,7 +100,6 @@ const handleLogoutClick = (dispatch) => {
   dispatch( new setCredentials('', '') ) 
 };
 
-// Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish happy trails. And if we meet up again in hereafter, that would be fine by me. Delete yes/no
 class Subscription extends Component {
   render() {
     const s = this.props.subscription;
