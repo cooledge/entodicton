@@ -51,7 +51,7 @@
 }
 
 .query .key {
-  width: 200px;
+  width: 100px;
 }
 
 .query button {
@@ -182,7 +182,7 @@
 }
 
 #server {
-  width: 400px;
+  width: 200px;
 }
 
 .product {
