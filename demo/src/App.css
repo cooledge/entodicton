@@ -326,3 +326,6 @@ form {
   white-space: pre;
 }
 
+.includes .selected {
+  font-weight: bold;
+}
