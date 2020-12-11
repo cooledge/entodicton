@@ -302,8 +302,7 @@ class QueryPane extends Component {
     config.set('objects', objects);
     
     startedQuery();
-    //client.process(new Config(config), key, server)
-    client.process(config, key, 'localhost', 5000)
+    client.process(config, key, server)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
