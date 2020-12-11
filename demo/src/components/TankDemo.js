@@ -4,10 +4,16 @@ import tank from '../tank.jpeg';
 import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
+//import client from 'entodicton/client'
 const client = require('entodicton/client')
+import Config from 'entodicton/src/config'
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
 import store from '../stores/store';
-import config from './config';
+//import config from './config';
+import config_base from './config_base';
+import config_earn from './config_earn';
+import config_food from './config_food';
+import Includes from './Includes';
 const uuidGen = require('uuid/v1')
 
 const timersOn = true;
@@ -65,7 +71,15 @@ class Building extends Sprite {
 
 class Help extends Component {
   render() {
-    const items = config.queries.map((item) => <li>{item}</li>);
+    let utterances = [].concat(config_base.utterances);
+    const includes = this.props.includes;
+    if (includes.includes('earn')) {
+      utterances = utterances.concat(config_earn.utterances)
+    }
+    if (includes.includes('food')) {
+      utterances = utterances.concat(config_food.utterances)
+    }
+    const items = utterances.map((item) => <li>{item}</li>);
     return ( 
       <div className='help'>
         <h2>Sample Input</h2>
@@ -282,10 +296,11 @@ class QueryPane extends Component {
         return { name: namess[0][0], 'id': ids[0] } 
     }
 
-    config['utterances'] = [query];
-    config['words'] = this.props.words();
-    config['objects'] = objects;
-
+    const config = new Config(config_base).add(config_earn).add(config_food);
+    config.set('utterances', [query]);
+    config.set('words', this.props.words());
+    config.set('objects', objects);
+    
     startedQuery();
     client.process(config, key, server)
       .then( (responses) => {
@@ -459,6 +474,7 @@ class TankDemo extends Component {
             <input id='key' type='text' className='key' onChange={ (e) => this.apiKey = e.target.value } defaultValue={this.apiKey}/>
           </span>
         </h1>
+        <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
         <QueryPane 
               responses = {this.props.responses}
               addAlias={this.addAlias(this.props.dispatch)} 
@@ -478,9 +494,11 @@ class TankDemo extends Component {
               counters={ {tank: this.props.tanks.length + 1, building: this.props.buildings.length + 1 } }
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
-        <FoodOrders orders={this.props.orders}/>
+        { this.props.includes.includes('food') &&
+          <FoodOrders orders={this.props.orders}/>
+        }
         <Completed completed={this.props.completed}/>
-        <Help/>
+        <Help includes={this.props.includes}/>
       </div> 
     )
   }
