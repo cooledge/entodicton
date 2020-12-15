@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {connect} from 'react-redux';
 const base64 = require('base-64');
 //import { Subscription } from '../Subscription'
-import { setSubscription, setLogs, setCredentials, setDemoConfig } from '../../actions/actions'
+import { setSubscription, setLogs, setCredentials, setDemoConfig, setAutoShutoffTimeInMinutes } from '../../actions/actions'
 const parameters = require('../parameters')
 import { Form, Button } from 'react-bootstrap'
 const _ = require('underscore')
@@ -31,6 +31,7 @@ function Login() {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" onChange = { (e) => setPassword(e.target.value) } />
           </Form.Group>
+
           <Button onClick={ () => handleClick() }>
             Login
           </Button>
@@ -75,7 +76,42 @@ const refresh = (dispatch, subscription_id, password) => {
     });
 };
 
-const cancelConfirm = "Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish you happy trails. And if we meet up again in the great hereafter, that would be fine by me. Delete yes/no";
+//const cancelConfirm = "Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish you happy trails. And if we meet up again in the great hereafter, that would be fine by me. Delete yes/no";
+const cancelConfirm = "Delete subscription?";
+
+const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinutes) => {
+  fetch(`${URL}/start?time=${autoShutoffTimeInMinutes}`, {
+    method: "POST",
+    headers: {
+      mode: "no-cors", // Type of mode of the request
+      "Content-Type": "application/json", // request content type
+      "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+    },
+    }).then( result => {
+      if (result.status == 200) {
+        refresh(dispatch, subscription_id, password);
+      } else {
+        window.alert(`Error processing the stop request.`)
+      }
+    });
+}
+
+const stopServer = (dispatch, subscription_id, password) => {
+  fetch(`${URL}/stop`, {
+    method: "POST",
+    headers: {
+      mode: "no-cors", // Type of mode of the request
+      "Content-Type": "application/json", // request content type
+      "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+    },
+    }).then( result => {
+      if (result.status == 200) {
+        refresh(dispatch, subscription_id, password);
+      } else {
+        window.alert(`Error processing the stop request.`)
+      }
+    });
+}
 
 const cancelSubscription = (subscription_id, password) => {
   if (window.confirm(cancelConfirm)) {
@@ -108,9 +144,33 @@ class Subscription extends Component {
               <h2>Subscription</h2>
               { !_.isEmpty(s) &&
                 <div>
-                  {s.deployed && 
-                    <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
-                  }
+                    {s.deployed && 
+                      <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
+                    }
+                    { s.deployed &&
+                      <div className='controlServer'>
+                        {s.is_running &&
+                          <div><button onClick={() => stopServer(this.props.dispatch, s.subscription_id, this.props.password)}>Stop Server</button></div>
+                        }
+                        {s.is_running &&
+                          <div className='line'><span className='label'>Start time UTC:</span><span className='value'>{`${s.start_time}`}</span></div>
+                        }
+                        {s.is_running &&
+                          <div className='line'><span className='label'>Auto shutoff time:</span><span className='value'>{`${s.up_time_in_seconds/60} minutes`}</span></div>
+                        }
+                        {!s.is_running &&
+                            <button onClick={() => startServer(this.props.dispatch, s.subscription_id, this.props.password, this.props.autoShutoffTimeInMinutes)}>Start Server</button>
+                        }
+                        {!s.is_running &&
+                          <Form.Group controlId="formAutoShutoff">
+                            <Form.Label>Auto-shutoff after time in minutes</Form.Label>
+                            <Form.Control type="text" defaultValue={this.props.autoShutoffTimeInMinutes} placeholder="time in minutes" onChange = { (e) => this.props.dispatch(setAutoShutoffTimeInMinutes(e.target.value)) }/>
+                          </Form.Group>
+                        }
+                        <div className='line'><span className='label'>Minutes remaining until next billing time:</span><span className='value'>{s.subscription_time_in_seconds/60}</span></div>
+                        <div className='line'><span className='label'>Next billing time UTC:</span><span className='value'>{s.next_billing_time}</span></div>
+                      </div>
+                    }
                   <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
                   <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
                   {s.deployed &&
@@ -126,7 +186,7 @@ class Subscription extends Component {
                 </div>
               }
               { _.isEmpty(s) &&
-                <div>Not found</div>
+                <div>Loading</div>
               }
             </div>
            )
@@ -165,7 +225,7 @@ class Subscriptions extends Component {
               }
               <Button onClick={() => handleLogoutClick(this.props.dispatch)}>Logout</Button>
             </div>
-            <Subscription subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password}/>
+            <Subscription subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password} autoShutoffTimeInMinutes={this.props.autoShutoffTimeInMinutes} />
             { !_.isEmpty(this.props.subscription) &&
               <Logs logs={this.props.logs} />
             }

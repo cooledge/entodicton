@@ -7,12 +7,19 @@ var initialState = {
   logs: '',
   subscription_id: '',
   password: '',
+  autoShutoffTimeInMinutes: 120,
+  product: {},
 }
 
 export default (state = initialState, action) => {
   var updated = _.cloneDeep(state);
 
   switch(action.type) {
+    case constants.SET_AUTO_SHUTOFF_TIME_IN_MINUTES:
+      debugger;
+      updated.autoShutoffTimeInMinutes = action.autoShutoffTimeInMinutes
+      return updated
+
     case constants.SET_SUBSCRIPTION:
       if (JSON.stringify(action.subscription) == JSON.stringify(updated.subscription)) {
         return state;

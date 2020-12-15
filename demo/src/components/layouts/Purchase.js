@@ -7,16 +7,10 @@ const { setCredentials } = require ('../../actions/actions')
 const parameters = require('../parameters')
 import { useHistory } from "react-router-dom";
 
-const plan_id_us_east_2_t2_small = 'P-47L42338DK233380GL6S2LBQ'
-const plan_id_us_east_2_t2_medium = 'P-62F374065S794714TL7BLK3I'
-// debug plan only works when my debug accout uses it so if you buy it your giving me a dollar for nothing
-const plan_id_debug = 'P-1043388889887134HL6LOF3Y'
-
 import PayPalBtn from '../PayPalBtn'
-const paypalSubscribe = (data, actions) => {
+const paypalSubscribe = (plan_id) => (data, actions) => {
   return actions.subscription.create({
-    'plan_id': plan_id_us_east_2_t2_medium,
-    //'plan_id': plan_id_debug,
+    'plan_id': plan_id,
   });
 };
 const paypalOnError = (err) => {
@@ -29,9 +23,7 @@ const paypalOnError = (err) => {
 const URL = parameters.thinktelligence.server;
 
 const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
-
   // call the backend api to store transaction details
-  debugger;
   console.log("Paypal approved")
   console.log(data.subscriptionID)
   const password = uuidGen()
@@ -52,36 +44,71 @@ const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
   gotoSubscriptions()
 };
 
-/*
-let quantity = 1;
-  quantityUpdate(e) {
-    debugger;
-    console.log(e);
-    quantity = e.target.value;
-  };
-        <div>Quantity: <input onKeyUp={this.quantityUpdate}/></div>
-*/
+class Product extends Component {
+  render() {
+    const product = this.props.product
+    const dispatch = this.props.dispatch
+    const gotoSubscriptions = this.props.gotoSubscriptions
+    return (
+      <div className='productListing'>
+        <h2>{product.name}</h2>
+        <p>
+        Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". You get {product.minutes_in_plan/60} hours of uptime. This video demonstrates controlling the uptime of the server. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. There are currently {product.number_available} subscriptions available. {product.description}
+        </p>
+        <PayPalBtn
+          amount = "1"
+          currency = "CAD"
+          createSubscription={paypalSubscribe(product.plan_id)}
+          onApprove={paypalOnApprove(dispatch, gotoSubscriptions)}
+          catchError={paypalOnError}
+          onError={paypalOnError}
+          onCancel={paypalOnError}
+        />
+      </div>
+    );
+  }
+};
+
 export default function Purchase() {
   const [quantity, setQuantity] = useState(1)
+  const [products, setProducts] = useState([])
+  const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch();
   const history = useHistory();
   const gotoSubscriptions = () => history.push("/subscriptions");
-  
+
+  if (!loaded) { 
+    fetch(`${URL}/products`, {
+      method: "GET",
+      headers: {
+        mode: "no-cors", // Type of mode of the request
+        "Content-Type": "application/json", // request content type 
+      },
+    }).then( async (r) => {
+      let product = {}
+        try {
+          const results = await r.json()
+          setLoaded(true)
+          console.log('setting products xxxxxxxxxxxxxxxxxxxxxxxxx');
+          setProducts(results.Items)
+        } catch(e) {
+        }
+    });
+  }
+
+  console.log('products are', products)
+
+  const choices = products.map( (product) => (<Product product={product} dispatch={dispatch} gotoSubscriptions={gotoSubscriptions}/>) )
   return (
     <div className='purchase'>
       <h2>Purchase</h2>
-      <p>
-        Entodicton is available as a service in AWS. The price is 125 Canadian dollars per month. You will get one server running the current version. The server is in AWS in us-east-2 of size t2.medium. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption.
-      </p>
-      <PayPalBtn
-        amount = "1"
-        currency = "CAD"
-        createSubscription={paypalSubscribe}
-        onApprove={paypalOnApprove(dispatch, gotoSubscriptions)}
-        catchError={paypalOnError}
-        onError={paypalOnError}
-        onCancel={paypalOnError}
-      />
+        { products != [] && choices }
+        { loaded && products.length == 0 &&
+          <div>I am not selling any more subscriptions currently. I want to work with the current customers to iron out any issues.</div>
+        }
+        { !loaded &&
+          <div>Loading...</div>
+        }
     </div>
   )
 }

@@ -331,3 +331,14 @@ form {
   white-space: pre;
 }
 
+.controlServer {
+  margin-top: 10px;
+  border-style: solid;
+  padding: 10px;
+}
+
+.productListing {
+  margin-top: 10px;
+  border-style: solid;
+  padding: 5px;
+}

@@ -111,6 +111,13 @@ export function tick() {
   }
 }
 
+export function setAutoShutoffTimeInMinutes(autoShutoffTimeInMinutes) {
+  return {
+    type: actionTypes.SET_AUTO_SHUTOFF_TIME_IN_MINUTES,
+    autoShutoffTimeInMinutes
+  }
+}
+
 export function setSubscription(subscription) {
   return {
     type: actionTypes.SET_SUBSCRIPTION,
