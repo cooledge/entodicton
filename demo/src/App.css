@@ -342,3 +342,7 @@ form {
   border-style: solid;
   padding: 5px;
 }
+
+.includes .selected {
+  font-weight: bold;
+}

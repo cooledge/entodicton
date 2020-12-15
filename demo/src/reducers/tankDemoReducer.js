@@ -17,6 +17,7 @@ var initialState = {
     logs: '',
     subscription_id: 'sub123',
     password: 'password1',
+    includes: ['base', 'earn', 'food'],
 
     orders: [
       {who: 'i', item: 'cheeseburger', quantity: 1, from: 'mcdonalds'}
@@ -268,6 +269,14 @@ export default (state = initialState, action) => {
       });
 
       return updated
+
+    case constants.ADD_INCLUDE:
+      updated.includes.push(action.include);
+      return updated;
+
+    case constants.REMOVE_INCLUDE:
+      updated.includes = updated.includes.filter( (include) => include !== action.include )
+      return updated;
 
     case constants.CLEAR_RESPONSE:
       updated.responses.splice(action.index, 1)

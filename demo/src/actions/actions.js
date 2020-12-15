@@ -17,6 +17,20 @@ export function setPosition(index, x, y) {
   }
 }
 
+export function addInclude(include) {
+  return {
+    type: actionTypes.ADD_INCLUDE,
+    include
+  }
+}
+
+export function removeInclude(include) {
+  return {
+    type: actionTypes.REMOVE_INCLUDE,
+    include
+  }
+}
+
 export function clearResponse(index) {
   return {
     type: actionTypes.CLEAR_RESPONSE,
