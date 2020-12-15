@@ -75,8 +75,10 @@ const refresh = (dispatch, subscription_id, password) => {
     });
 };
 
+const cancelConfirm = "Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish you happy trails. And if we meet up again in the great hereafter, that would be fine by me. Delete yes/no";
+
 const cancelSubscription = (subscription_id, password) => {
-  if (window.confirm("Are you sure?")) {
+  if (window.confirm(cancelConfirm)) {
     fetch(`${URL}/cancel`, {
       method: "POST",
       headers: {
@@ -98,7 +100,6 @@ const handleLogoutClick = (dispatch) => {
   dispatch( new setCredentials('', '') ) 
 };
 
-// Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish happy trails. And if we meet up again in hereafter, that would be fine by me. Delete yes/no
 class Subscription extends Component {
   render() {
     const s = this.props.subscription;
@@ -112,6 +113,9 @@ class Subscription extends Component {
                   }
                   <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
                   <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
+                  {s.deployed &&
+                    <span>Demo page is pointing at this deployment</span>
+                  }
                   <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
                   <div className='line'><span className='label'>DNS:</span><span className='value'>{s.DNS}</span></div>
                   <div className='line'><span className='label'>AMI id:</span><span className='value'>{s.ami_id}</span></div>
