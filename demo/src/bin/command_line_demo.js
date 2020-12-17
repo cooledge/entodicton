@@ -84,6 +84,7 @@ Logs
 */
 
 const client = require('entodicton/client')
+const Config = require('entodicton/src/config')
 
 const config = {
   operators: [
@@ -158,14 +159,14 @@ const config = {
   ],
 };
 
-key = '6804954f-e56d-471f-bbb8-08e3c54d9321'
-server = '184.67.27.82'
-port = 5000
+server = process.argv[2] || "184.67.27.82"
+key = process.argv[3] || "6804954f-e56d-471f-bbb8-08e3c54d9321"
+port = process.argv[4] || '80'
 
 const query = 'joe earns 10 dollars every week sally earns 25 dollars per week sally worked 10 weeks joe worked 15 weeks joe earns what sally earns what'
 console.log(`Running the input: ${query}`);
 config.utterances = [query]
-client.process(config, key, server, port)
+client.process(new Config(config), key, server, port)
   .then( (responses) => {
     if (responses.errors) {
       console.log('Errors')
