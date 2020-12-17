@@ -167,7 +167,7 @@ class Subscription extends Component {
                             <Form.Control type="text" defaultValue={this.props.autoShutoffTimeInMinutes} placeholder="time in minutes" onChange = { (e) => this.props.dispatch(setAutoShutoffTimeInMinutes(e.target.value)) }/>
                           </Form.Group>
                         }
-                        <div className='line'><span className='label'>Minutes remaining until next billing time:</span><span className='value'>{s.subscription_time_in_seconds/60}</span></div>
+                        <div className='line'><span className='label'>Minutes available:</span><span className='value'>{s.subscription_time_in_seconds/60}</span></div>
                         <div className='line'><span className='label'>Next billing time UTC:</span><span className='value'>{s.next_billing_time}</span></div>
                       </div>
                     }
