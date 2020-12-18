@@ -181,9 +181,16 @@
   background-color: lightgray;
 }
 
+.credentials {
+  font-size: 15px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 6px;
+  margin-left: 10px;
+}
+
 .configProps {
-  font-size: 12px;
-  padding-left: 50px;
+  padding-left: 3px;
 }
 
 #server {
@@ -343,6 +350,16 @@ form {
   padding: 5px;
 }
 
+.includes {
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 10px;
+  padding: 5px;
+  padding-bottom: 7px;
+  font-size: 15px;
+}
+
 .includes .selected {
+  margin-left: 5px;
   font-weight: bold;
 }

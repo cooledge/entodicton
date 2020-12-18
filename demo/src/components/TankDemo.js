@@ -465,16 +465,18 @@ class TankDemo extends Component {
       <div className='tankDemo'>
         <h1>Control Tanks - 
           <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>Config</a>
-          <span className='configProps'>
-            Server Host Name
-              <input id='server' type='text' className='server' onChange={ (e) => this.server = e.target.value } defaultValue={this.server}/>
+          <span className='credentials'>
+            <span className='configProps'>
+              Server Host Name
+                <input id='server' type='text' className='server' onChange={ (e) => this.server = e.target.value } defaultValue={this.server}/>
+            </span>
+            <span className='configProps'>
+              Key
+              <input id='key' type='text' className='key' onChange={ (e) => this.apiKey = e.target.value } defaultValue={this.apiKey}/>
+            </span>
           </span>
-          <span className='configProps'>
-            Key
-            <input id='key' type='text' className='key' onChange={ (e) => this.apiKey = e.target.value } defaultValue={this.apiKey}/>
-          </span>
+          <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
         </h1>
-        <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
         <QueryPane 
               responses = {this.props.responses}
               addAlias={this.addAlias(this.props.dispatch)} 

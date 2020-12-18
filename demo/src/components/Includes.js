@@ -24,19 +24,20 @@ class Includes extends Component {
   render() {
     const includes = this.props.includes
     const dispatch = this.props.dispatch;
-    const bs = all.map( (name) => {
+    const kms = all.map( (name) => {
       if (name == 'base') {
-        return (<button className="selected" onClick={() => alert("Not removable")}>{name} knowledge module</button>) 
+        return (<button className="selected" onClick={() => alert("Not removable")}>{name}</button>) 
       } else if (includes.includes(name)) {
-        return (<button className="selected" onClick={() => this.remove(dispatch, name)}>{name} knowledge module</button>) 
+        return (<button className="selected" onClick={() => this.remove(dispatch, name)}>{name}</button>) 
       } else {
-        return (<button onClick={() => this.add(dispatch, name)}>{name} knowledge module</button>) 
+        return (<button onClick={() => this.add(dispatch, name)}>{name}</button>) 
       }
     });
     return (
-      <div className='includes'>
-        {bs}
-      </div>
+      <span className='includes'>
+        Knowledge modules:
+        {kms}
+      </span>
     );
   }
 };
