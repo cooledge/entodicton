@@ -178,7 +178,6 @@ class Subscription extends Component {
                   }
                   <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
                   <div className='line'><span className='label'>DNS:</span><span className='value'>{s.DNS}</span></div>
-                  <div className='line'><span className='label'>AMI id:</span><span className='value'>{s.ami_id}</span></div>
                   <div className='line'><span className='label'>Stack name:</span><span className='value'>{s.stack_name}</span></div>
                   <div className='line'><span className='label'>Number of instances:</span><span className='value'>{s.NUMBER_OF_INSTANCES}</span></div>
                   <div className='line'><span className='label'>Paypal Plan Id:</span><span className='value'>{s.plan_id}</span></div>
