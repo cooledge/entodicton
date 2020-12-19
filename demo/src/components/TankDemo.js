@@ -17,11 +17,8 @@ import Includes from './Includes';
 const uuidGen = require('uuid/v1')
 
 const timersOn = true;
-const offsetForPosition_x = 59;
-const offsetForPosition_y = 400;
-
-//let key = '6804954f-e56d-471f-bbb8-08e3c54d9321';
-//let server = '184.67.27.82';
+const offsetForPosition_x = 20;
+const offsetForPosition_y = 305;
 
 class FoodOrder extends Component {
   render() {
@@ -114,8 +111,6 @@ class Completed extends Component {
       const name = completed[1].description;
       return (<li key={key}>{name}</li>)
     })
-    //let items = [(<li key='123'>Nameof item</li>)]
-    
     return ( 
       <div className='completed'>
         <h2>Completed</h2>
