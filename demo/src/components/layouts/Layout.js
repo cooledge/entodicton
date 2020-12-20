@@ -5,19 +5,18 @@ class Layout extends Component {
    render() {
          return (
                  <div className='layout'>
-                    <ul>
+                    <div className="logo">
+                      <div className='name'>
+                        THINKtelligence
+                      </div>
+                    </div>
+                    <div className='menuBar'>
                       <li className="barItem"><Link to='/product'>PRODUCT</Link></li>
                       <li className="barItem"><Link to='/demo'>DEMO</Link></li>
                       <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li>
                       <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li>
                       <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li>
                       <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
-                      { /* <li className="barItem"><Link to='/contact'>CONTACT</Link></li> */ }
-                    </ul>
-                    <div className="logo">
-                      <div className='name'>
-                        THINKtelligence
-                      </div>
                     </div>
                    <div>
                      { this.props.children }

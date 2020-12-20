@@ -22,6 +22,8 @@
 
 .tankDemo h1 {
   margin-left: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .Tank {
@@ -108,8 +110,7 @@
   padding-top: 1px;
   padding-bottom: 4px;
   text-align: center;
-  font-size: 60px;
-  #background-image: url("https://www.whitneyupdate.com/wp-content/uploads/2016/12/fallout-4.png");
+  font-size: 40px;
   background-image: url("./logo_image.jpg");
   border-top-style: solid;
   border-bottom-style: double;
@@ -178,7 +179,7 @@
 }
 
 .barItem:hover {
-  background-color: lightgray;
+  background-color: lightgrey;
 }
 
 .credentials {
@@ -330,6 +331,11 @@ form {
   margin-left: 5px;
 }
 
+.menuBar {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .config {
   margin-top: 20px;
   padding-left: 20px;
@@ -348,6 +354,18 @@ form {
   margin-top: 10px;
   border-style: solid;
   padding: 5px;
+}
+
+.moduleSource {
+  border: 1px solid black;
+  font-size: 15px;
+  margin-left: 10px;
+  padding: 5px;
+  padding-bottom: 7px;
+}
+
+.moduleSource a {
+  margin: 5px;
 }
 
 .includes {

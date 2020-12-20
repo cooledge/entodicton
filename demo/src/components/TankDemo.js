@@ -18,7 +18,7 @@ const uuidGen = require('uuid/v1')
 
 const timersOn = true;
 const offsetForPosition_x = 20;
-const offsetForPosition_y = 305;
+const offsetForPosition_y = 240;
 
 class FoodOrder extends Component {
   render() {
@@ -239,7 +239,8 @@ class QueryPane extends Component {
       action = () => destroy(id);
     }
 
-    const description = `${generated} / ${JSON.stringify(response)}`;
+    //const description = `${generated} / ${JSON.stringify(response)}`;
+    const description = `${generated}`;
     return {wantsPosition, description: description, dispatch: action}
   }
 
@@ -348,19 +349,19 @@ class QueryPane extends Component {
               } }
               type='text' className='request' />
               <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.dispatch, this.props.counters) }>Submit</Button>
+            { this.props.inProcess != 0 && 
+              (
+                <span className='inProcess'>
+                  {this.props.inProcess} request being in processed.
+                </span>
+              )
+            }
           </div>
         }
         { wantsPosition && 
           (
             <div className='userRequest'>
               <span>Click on a location for {JSON.stringify(wantsPosition.description)}</span>
-            </div>
-          )
-        }
-        { this.props.inProcess != 0 && 
-          (
-            <div className='inProcess'>
-              {this.props.inProcess} request being in processed.
             </div>
           )
         }
@@ -458,8 +459,8 @@ class TankDemo extends Component {
     this.apiKey = this.apiKey || this.props.apiKey
     return ( 
       <div className='tankDemo'>
-        <h1>Control Tanks - 
-          <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>Config</a>
+        <h1>
+          <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
           <span className='credentials'>
             <span className='configProps'>
               Server Host Name
@@ -470,7 +471,12 @@ class TankDemo extends Component {
               <input id='key' type='text' className='key' onChange={ (e) => this.apiKey = e.target.value } defaultValue={this.apiKey}/>
             </span>
           </span>
-          <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
+          <span class='moduleSource'>
+          Config: 
+            <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config_base.js' target="_blank">base</a>
+            <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config_earn.js' target="_blank">earn</a>
+            <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config_food.js' target="_blank">food</a>
+          </span>
         </h1>
         <QueryPane 
               responses = {this.props.responses}
