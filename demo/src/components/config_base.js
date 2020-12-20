@@ -205,17 +205,6 @@ module.exports =
     [(context) => context.marker == 'cia', (g, context) => 'CIA'],
     [(context) => context.marker == 'stop', (g, context) => `stop ${g(context.thing)}`],
     [(context) => context.marker == 'destroy', (g, context) => `destroy ${g(context.name)}`],
-    [(context) => context.marker == 'week' && context.duration == 1, (g, context) => `${context.duration} week`],
-    [(context) => context.marker == 'week' && context.duration > 1, (g, context) => `${context.duration} weeks`],
-    [(context) => context.marker == 'earn', (g, context) => `${g(context.who)} earns ${g(context.amount)} ${g(context.units)} per ${context.period}`],
-    [(context) => context.marker == 'worked', (g, context) => `${g(context.who)} worked ${ g({ marker: context.units, duration: context.duration}) }`],
-    [(context) => context.marker == 'response', (g, context) => `${context.who} earned ${context.earnings} ${context.units}`],
-    [(context) => context.marker == 'wantWhitespot', (g, context) => `order for ${g(context.items)} from ${g(context.store)}`],
-    [(context) => context.marker == 'wantMcDonalds', (g, context) => `order for ${g(context.items)} from ${g(context.store)}`],
-    [(context) => context.marker == 'food' && context.number > 0, (g, context) => `${g(context.number)} ${g(context.name)}`],
-    [(context) => context.marker == 'food' && !('number' in context), (g, context) => `${g(context.name)}`],
-    [(context) => context.marker == 'whitespot', (g, context) => 'Whitespot'],
-    [(context) => context.marker == 'mcdonalds', (g, context) => 'McDonalds'],
   ],
   "semantics": [
     [(global, context) => context.marker == 'create'
@@ -239,36 +228,6 @@ module.exports =
       }
       global.mentioned.push({ marker: 'buildingConcept', word: building.name, id: building.id })
     }
-     }],
-    [(global, context) => context.marker == 'earn' && context.isQuery, (global, context) => { 
-      context.marker = 'response'; 
-      var employee_record = global.employees.find( (er) => er.name == context.who )
-      let totalIncome = 0
-      global.workingTime.forEach( (wt) => {
-        if (wt.name == context.who) {
-          totalIncome += employee_record.earnings_per_period * wt.number_of_time_units
-        }
-      });
-      context.earnings = totalIncome
-     }],
-    [(global, context) => context.marker == 'earn', (global, context) => { 
-      if (! global.employees ) {
-        global.employees = []
-      }
-      global.employees.push({ name: context.who, earnings_per_period: context.amount, period: context.period, units: 'dollars' })
-     }],
-    [(global, context) => context.marker == 'worked', (global, context) => { 
-      if (! global.workingTime ) {
-        global.workingTime = []
-      }
-      global.workingTime.push({ name: context.who, number_of_time_units: context.duration, time_units: context.units })
-     }],
-    [(global, context) => context.pullFromContext
-, (global, context) => { 
-    const object = global.mentioned[0]
-    global.mentioned.shift()
-    Object.assign(context, object)
-    delete context.pullFromContext
      }],
   ],
 };
