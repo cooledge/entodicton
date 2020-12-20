@@ -327,6 +327,11 @@ class QueryPane extends Component {
         console.log(error.stack)
         console.log(error)
         window.alert(error, 'Error');
+        const response = {
+          description: `Error: ${error}`,
+          wantsPosition: false
+        }
+        setResponses([response])
       })
   }
 

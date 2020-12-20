@@ -147,7 +147,7 @@ class Subscription extends Component {
                     {s.deployed && 
                       <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
                     }
-                    { s.deployed &&
+                    { !s.always_on && s.deployed &&
                       <div className='controlServer'>
                         {s.is_running &&
                           <div><button onClick={() => stopServer(this.props.dispatch, s.subscription_id, this.props.password)}>Stop Server</button></div>
