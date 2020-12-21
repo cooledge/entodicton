@@ -468,7 +468,7 @@ class TankDemo extends Component {
           <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
           <span className='credentials'>
             <span className='configProps'>
-              Server Host Name
+              Server Host
                 <input id='server' type='text' className='server' onChange={ (e) => this.server = e.target.value } defaultValue={this.server}/>
             </span>
             <span className='configProps'>
