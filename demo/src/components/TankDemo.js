@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 //import client from 'entodicton/client'
 const client = require('entodicton/client')
 import Config from 'entodicton/src/config'
-import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery } from '../actions/actions'
+import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery, showTrainingTimeWarning } from '../actions/actions'
 import store from '../stores/store';
 //import config from './config';
 import config_base from './config_base';
@@ -244,9 +244,14 @@ class QueryPane extends Component {
     return {wantsPosition, description: description, dispatch: action}
   }
 
-  processQuery(setResponses, startedQuery, server, key, dispatch, counters) {
+  processQuery(setResponses, startedQuery, server, key, dispatch, counters, showTTW) {
     const query = document.getElementById("query").value;
     key = document.getElementById("key").value;
+
+    if (showTTW) {
+      dispatch(showTrainingTimeWarning(false));
+      window.alert("The first query you run will be slower (< 1 minute) because its training the neural nets", 'Warning');
+    }
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
     console.log(`sending query ${query}`);
@@ -349,11 +354,11 @@ class QueryPane extends Component {
             Request <input id='query' placeholder='some queries are below. there is only one default server' onKeyPress={ 
               (event) => {
                 if (event.key === 'Enter') {
-                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.dispatch, this.props.counters);
+                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning);
                 }
               } }
               type='text' className='request' />
-              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.dispatch, this.props.counters) }>Submit</Button>
+              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning) }>Submit</Button>
             { this.props.inProcess != 0 && 
               (
                 <span className='inProcess'>
@@ -493,12 +498,14 @@ class TankDemo extends Component {
               setResponses={this.setResponses(this.props.dispatch)}
               create={this.create(this.props.dispatch)}
               destroy={this.destroy(this.props.dispatch)}
+              dispatch={this.props.dispatch}
               showProperty={this.showProperty(this.props.dispatch)}
               inProcess={this.props.inProcess}
               words={this.getWords(this.props)}
               getObjects={this.getObjects(this.props)}
               server={this.server}
               apiKey={this.apiKey}
+              showTrainingTimeWarning={this.props.showTrainingTimeWarning}
               counters={ {tank: this.props.tanks.length + 1, building: this.props.buildings.length + 1 } }
               />
         <World responses = {this.props.responses} onClick={this.onClick(this.props.responses, this.props.dispatch)} dispatch={this.props.dispatch} tanks={this.props.tanks} buildings={this.props.buildings} uuidToNames={this.props.uuidToNames} getName={this.props.getName}/>
@@ -513,7 +520,7 @@ class TankDemo extends Component {
 }
 
 const mapStateToProps = state => {
-  return state.tankDemo;
+  return { ... state.tankDemo, showTrainingTimeWarning: state.subscription.showTrainingTimeWarning };
 }
 
 export default connect(mapStateToProps)(TankDemo)

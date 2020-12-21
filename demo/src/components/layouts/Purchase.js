@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import PaypalButtons from '../PaypalButtons';
 const uuidGen = require('uuid/v1')
 const base64 = require('base-64')
-const { setCredentials } = require ('../../actions/actions')
+const { setCredentials, showTrainingTimeWarning } = require ('../../actions/actions')
 const parameters = require('../parameters')
 import { useHistory } from "react-router-dom";
 
@@ -17,9 +17,6 @@ const paypalOnError = (err) => {
   console.log("Error", err)
 }
 
-//const URL = 'http://localhost:10000/api'
-//const URL = process.env.THINKTELLIGENCE_URL || 'http://ec2-18-217-156-104.us-east-2.compute.amazonaws.com:10000/api'
-//const URL = process.env.THINKTELLIGENCE_URL || 'http://localhost:10000/api';
 const URL = parameters.thinktelligence.server;
 
 const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
@@ -38,9 +35,8 @@ const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
   window.alert(`Save this information. The subscription id is ${data.subscriptionID} . The password is ${password}`);
   window.alert(`Repeating this just in case you missed it. The subscription id is ${data.subscriptionID} . The password is ${password}`);
 
+  dispatch(showTrainingTimeWarning(true))
   dispatch(setCredentials(data.subscriptionID, password))
-  //const history = useHistory();
-  //history.push("/subscriptions");
   gotoSubscriptions()
 };
 

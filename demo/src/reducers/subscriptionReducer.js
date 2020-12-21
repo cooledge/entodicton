@@ -9,6 +9,7 @@ var initialState = {
   password: '',
   autoShutoffTimeInMinutes: 120,
   product: {},
+  showTrainingTimeWarning: true
 }
 
 export default (state = initialState, action) => {
@@ -20,11 +21,8 @@ export default (state = initialState, action) => {
       updated.autoShutoffTimeInMinutes = action.autoShutoffTimeInMinutes
       return updated
 
-    case constants.SET_SUBSCRIPTION:
-      if (JSON.stringify(action.subscription) == JSON.stringify(updated.subscription)) {
-        return state;
-      }
-      updated.subscription = action.subscription
+    case constants.SHOW_TRAINING_TIME_WARNING:
+      updated.showTrainingTimeWarning = action.show
       return updated
 
     case constants.SET_LOGS:

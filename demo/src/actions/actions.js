@@ -132,6 +132,13 @@ export function setAutoShutoffTimeInMinutes(autoShutoffTimeInMinutes) {
   }
 }
 
+export function showTrainingTimeWarning(show) {
+  return {
+    type: actionTypes.SHOW_TRAINING_TIME_WARNING,
+    show
+  }
+}
+
 export function setSubscription(subscription) {
   return {
     type: actionTypes.SET_SUBSCRIPTION,
