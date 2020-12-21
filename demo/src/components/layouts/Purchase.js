@@ -35,7 +35,7 @@ const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
       "Authorization": 'Basic ' + base64.encode(data.subscriptionID + ":" + password)
     },
   });
-  window.alert(`Save these information. The subscription id is ${data.subscriptionID} . The password is ${password}`);
+  window.alert(`Save this information. The subscription id is ${data.subscriptionID} . The password is ${password}`);
   window.alert(`Repeating this just in case you missed it. The subscription id is ${data.subscriptionID} . The password is ${password}`);
 
   dispatch(setCredentials(data.subscriptionID, password))
@@ -53,7 +53,11 @@ class Product extends Component {
       <div className='productListing'>
         <h2>{product.name}</h2>
         <p>
-        Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". You get {product.minutes_in_plan/60} hours of uptime. This video demonstrates controlling the uptime of the server. After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. There are currently {product.number_available} subscriptions available. {product.description}
+        Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". 
+        { !product.always_on &&
+          <span>You get {product.minutes_in_plan/60} hours of uptime. This video demonstrates controlling the uptime of the server.</span>
+        }
+        After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. There are currently {product.number_available} subscriptions available for purchase. {product.description}
         </p>
         <PayPalBtn
           amount = "1"

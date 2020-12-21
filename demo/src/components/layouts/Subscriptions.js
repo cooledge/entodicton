@@ -176,8 +176,8 @@ class Subscription extends Component {
                   {s.deployed &&
                     <span>Demo page is pointing at this deployment</span>
                   }
-                  <div className='line'><span className='label'>Keys:</span><span className='value'>{s.keys}</span></div>
-                  <div className='line'><span className='label'>DNS:</span><span className='value'>{s.DNS}</span></div>
+                  <div className='line'><span className='label'>Key:</span><span className='value'>{s.keys}</span></div>
+                  <div className='line'><span className='label'>Server Name</span><span className='value'>{s.DNS}</span></div>
                   <div className='line'><span className='label'>Stack name:</span><span className='value'>{s.stack_name}</span></div>
                   <div className='line'><span className='label'>Number of instances:</span><span className='value'>{s.NUMBER_OF_INSTANCES}</span></div>
                   <div className='line'><span className='label'>Paypal Plan Id:</span><span className='value'>{s.plan_id}</span></div>
