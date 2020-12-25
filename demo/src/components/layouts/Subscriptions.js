@@ -113,7 +113,6 @@ function BugListing({bugs, refresh, subscription_id, password}) {
 }
 
 function Bugs({subscription_id, password}) {
-  const [submitting, setSubmitting] = useState(false)
   const [bugs, setBugs] = useState([])
   const [initialized, setInitialized] = useState(false)
 
@@ -135,6 +134,11 @@ function Bugs({subscription_id, password}) {
       });
   }
 
+  const handleSubmit = () => {
+    const url = "https://github.com/thinktelligence/entodicton/blob/main/bugs/bug.js"
+    window.open(url, "_blank")
+  }
+
   if (!initialized) {
     setInitialized(true)
     refresh(setBugs)
@@ -143,18 +147,11 @@ function Bugs({subscription_id, password}) {
   return (
           <div>
             <h2>Bug Submissions</h2>
-            { !submitting && 
-              <div className='listBugs'>
-                <Button onClick={ () => setSubmitting(true) }>Submit</Button>
-                <Button onClick={ () => refresh() }>Refresh</Button>
-                <BugListing bugs={bugs} refresh={refresh} subscription_id={subscription_id} password={password}/>
-              </div>
-            }
-            { submitting && 
-              <div className='submitBug'>
-                <SubmitBug handleClose={ () => setSubmitting(false) } refresh={ refresh } subscription_id={subscription_id} password={password}/>
-              </div>
-            }
+            <div className='listBugs'>
+              <Button onClick={ () => handleSubmit() }>Submit</Button>
+              <Button onClick={ () => refresh() }>Refresh</Button>
+              <BugListing bugs={bugs} refresh={refresh} subscription_id={subscription_id} password={password}/>
+            </div>
           </div>
          )
 }
