@@ -483,9 +483,9 @@ class TankDemo extends Component {
           </span>
           <span class='moduleSource'>
           Config: 
-            <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config_base.js' target="_blank">base</a>
-            <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config_earn.js' target="_blank">earn</a>
-            <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config_food.js' target="_blank">food</a>
+            <a href='https://github.com/thinktelligence/entodicton/blob/main/kms/website/config_base.js' target="_blank">base</a>
+            <a href='https://github.com/thinktelligence/entodicton/blob/main/kms/website/config_earn.js' target="_blank">earn</a>
+            <a href='https://github.com/thinktelligence/entodicton/blob/main/kms/website/config_food.js' target="_blank">food</a>
           </span>
         </h1>
         <QueryPane 

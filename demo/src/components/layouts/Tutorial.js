@@ -172,7 +172,7 @@ class Tutorial extends Component {
         </pre>
         <h1 className='step4'>Step 4 - Try stuff</h1>
         <p>
-        Now you can try making this fancier. You could add another language. You could input sentence in mixed languages. You can try adding punctuation. You can make it so the sentence <span className='quote'>What does joe earn</span> works. See the <a href='https://github.com/cooledge/entodicton/blob/master/demo/src/components/config.js'>demo config</a> for more examples.
+        Now you can try making this fancier. You could add another language. You could input sentence in mixed languages. You can try adding punctuation. You can make it so the sentence <span className='quote'>What does joe earn</span> works. See the <a href='https://github.com/thinktelligence/entodicton/blob/main/kms/website/config.js' target="_blank">demo config</a> for more examples.
         </p>
       </div>
     )

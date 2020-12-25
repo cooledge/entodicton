@@ -385,3 +385,20 @@ form {
   margin-left: 5px;
   font-weight: bold;
 }
+
+.caret {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  border: 10px solid transparent;
+}
+
+.caret.down{
+  border-top-color: black;
+  margin-left: 10px;
+}
+
+.caret.right{
+  border-left-color: black;
+  margin-left: 10px;
+}

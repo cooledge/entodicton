@@ -7,6 +7,73 @@ import { setSubscription, setLogs, setCredentials, setDemoConfig, setAutoShutoff
 const parameters = require('../parameters')
 import { Form, Button } from 'react-bootstrap'
 const _ = require('underscore')
+const fs = require('fs');
+const versions = require('../versions')
+
+function VersionSelector({refreshHandler, subscription_id, password}) {
+ 
+  const handleDeploy = (version) => () => {
+    fetch(`${URL}/update?version=${version}`, {
+      method: "POST",
+      headers: {
+        mode: "no-cors", // Type of mode of the request
+        "Content-Type": "application/json", // request content type
+        "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+      },
+      }).then( result => result.json() )
+        .then( json => {
+        if (json.error) {
+          window.alert(`Error processing the request: ${json.error}.`)
+        }
+        refreshHandler()
+      });
+  };
+
+  let listing = [];
+  Object.keys(versions).forEach( (version) => {
+    const entry = versions[version]
+    listing.push((
+      <tr key={version}>
+        <td>{version}</td>
+        <td>{entry.bugs}</td>
+        <td>{entry.features}</td>
+        <td>
+          <Button onClick={ handleDeploy(version) }>Deploy</Button>
+        </td>
+      </tr>
+    ));
+  });
+
+  const [open, setOpen] = useState(false)
+
+  const handleToggle = () => {
+    if (open) {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
+  };
+
+  return (
+    <div>
+      <h2>Version Selector
+        <span className={ open ? "caret down" : "caret right" } onClick={ () => handleToggle() }></span>
+      </h2>
+      { open &&
+        <table>
+          <thead>
+            <tr>
+              <th>Version</th><th>Bugs</th><th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listing}
+          </tbody>
+        </table>
+      }
+    </div>
+  );
+}
 
 function SubmitBug({handleClose, refresh, subscription_id, password}) {
   const [description, setDescription] = useState('')
@@ -16,7 +83,6 @@ function SubmitBug({handleClose, refresh, subscription_id, password}) {
 
   const handleSubmit = () => {
     const body = { description, expectedResults, expectedGenerated, config };
-    debugger;
     fetch(`${URL}/bug`, {
       method: "POST",
       body: JSON.stringify(body),
@@ -65,7 +131,6 @@ function SubmitBug({handleClose, refresh, subscription_id, password}) {
 function BugListing({bugs, refresh, subscription_id, password}) {
  
   const handleDelete = (id) => () => {
-    debugger;
     fetch(`${URL}/bug?id=${id}`, {
       method: "DELETE",
       headers: {
@@ -354,8 +419,9 @@ class Subscriptions extends Component {
   render(){
     console.log('this.props', this.props);
     const needCreds = _.isEmpty(this.props.subscription_id) || _.isEmpty(this.props.password);
+    const refreshHandler = () => refresh(this.props.dispatch, this.props.subscription_id, this.props.password);
     if (!needCreds) {
-      refresh(this.props.dispatch, this.props.subscription_id, this.props.password);
+      refreshHandler()
     }
     return (
       <div className='subscriptions'>
@@ -366,11 +432,12 @@ class Subscriptions extends Component {
           <div>
             <div className='buttons'>
               { !_.isEmpty(this.props.subscription) &&
-                <Button onClick={() => refresh(this.props.dispatch, this.props.subscription_id, this.props.password)}>Refresh</Button>
+                <Button onClick={() => refreshHandler()}>Refresh</Button>
               }
               <Button onClick={() => handleLogoutClick(this.props.dispatch)}>Logout</Button>
             </div>
-            <Subscription subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password} autoShutoffTimeInMinutes={this.props.autoShutoffTimeInMinutes} />
+            <Subscription refresh={refreshHandler} subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password} autoShutoffTimeInMinutes={this.props.autoShutoffTimeInMinutes} />
+            <VersionSelector refreshHandler={refreshHandler} subscription_id={this.props.subscription_id} password={this.props.password} />
             <Bugs subscription_id={this.props.subscription_id} password={this.props.password} />
             { !_.isEmpty(this.props.subscription) &&
               <Logs logs={this.props.logs} />
