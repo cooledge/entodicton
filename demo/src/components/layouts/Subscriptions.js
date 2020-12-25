@@ -8,7 +8,157 @@ const parameters = require('../parameters')
 import { Form, Button } from 'react-bootstrap'
 const _ = require('underscore')
 
-//export default function Purchase() {
+function SubmitBug({handleClose, refresh, subscription_id, password}) {
+  const [description, setDescription] = useState('')
+  const [expectedResults, setExpectedResults] = useState('')
+  const [expectedGenerated, setExpectedGenerated] = useState('')
+  const [config, setConfig] = useState('')
+
+  const handleSubmit = () => {
+    const body = { description, expectedResults, expectedGenerated, config };
+    debugger;
+    fetch(`${URL}/bug`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        mode: "no-cors", // Type of mode of the request
+        "Content-Type": "application/json", // request content type
+        "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+      },
+      }).then( result => {
+        if (result.status == 200) {
+        } else {
+        }
+      });
+    refresh()
+    handleClose()
+  };
+
+  return (
+        <Form className='submitBug'>
+          <Form.Group controlId="formDescription">
+          <Form.Label>Description</Form.Label>
+          <Form.Control as='textarea' placeholder="description" onChange = { (e) => setDescription(e.target.value) }/>
+          </Form.Group>
+
+          <Form.Group controlId="formExpectedResults">
+            <Form.Label>Expected Results (in JSON)</Form.Label>
+            <Form.Control as="textarea" placeholder="expected results" onChange = { (e) => setExpectedResults(e.target.value) } />
+          </Form.Group>
+
+          <Form.Group controlId="formExpectedGenerated">
+            <Form.Label>Expected Generated (in JSON)</Form.Label>
+            <Form.Control as="textarea" placeholder="expected generated" onChange = { (e) => setExpectedGenerated(e.target.value) } />
+          </Form.Group>
+
+          <Form.Group controlId="formConfig">
+            <Form.Label>Expected Config (in JSON)</Form.Label>
+            <Form.Control as='textarea' placeholder="config file" onChange = { (e) => setConfig(e.target.value) } />
+          </Form.Group>
+
+          <Button onClick={ () => handleSubmit() }>Submit</Button>
+          <Button onClick={ () => handleClose() }>Cancel</Button>
+        </Form>
+  );
+}
+
+function BugListing({bugs, refresh, subscription_id, password}) {
+ 
+  const handleDelete = (id) => () => {
+    debugger;
+    fetch(`${URL}/bug?id=${id}`, {
+      method: "DELETE",
+      headers: {
+        mode: "no-cors", // Type of mode of the request
+        "Content-Type": "application/json", // request content type
+        "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+      },
+      }).then( result => {
+        refresh()
+      });
+  };
+ 
+  const listing = bugs.map( (bug) => { return (
+      <tr key={bug.id}>
+        <td>{bug.id}</td>
+        <td>{bug.workflow}</td>
+        <td>{bug.found_version}</td>
+        <td>{bug.fixed_version}</td>
+        <td>{bug.description}</td>
+        <td>
+          <Button onClick={ handleDelete(bug.id) }>Delete</Button>
+        </td>
+      </tr>
+    ) } );
+
+  return (
+    <div>
+      { bugs.length == 0 &&
+        <span>No bugs have been submitted for this subscription</span>
+      }
+      { bugs.length > 0 &&
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th><th>Status</th><th>Found Version</th><th>Fixed Version</th><th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listing}
+          </tbody>
+        </table>
+      }
+    </div>
+  );
+}
+
+function Bugs({subscription_id, password}) {
+  const [submitting, setSubmitting] = useState(false)
+  const [bugs, setBugs] = useState([])
+  const [initialized, setInitialized] = useState(false)
+
+  const refresh = () => {
+    fetch(`${URL}/bugs`, {
+      method: "GET",
+      headers: {
+        mode: "no-cors", // Type of mode of the request
+        "Content-Type": "application/json", // request content type
+        "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+      },
+      }).then( async (r) => {
+        let json = {}
+        try {
+          json = await r.json()
+        } catch(e) {
+        }
+        setBugs(json.Items)
+      });
+  }
+
+  if (!initialized) {
+    setInitialized(true)
+    refresh(setBugs)
+  }
+
+  return (
+          <div>
+            <h2>Bug Submissions</h2>
+            { !submitting && 
+              <div className='listBugs'>
+                <Button onClick={ () => setSubmitting(true) }>Submit</Button>
+                <Button onClick={ () => refresh() }>Refresh</Button>
+                <BugListing bugs={bugs} refresh={refresh} subscription_id={subscription_id} password={password}/>
+              </div>
+            }
+            { submitting && 
+              <div className='submitBug'>
+                <SubmitBug handleClose={ () => setSubmitting(false) } refresh={ refresh } subscription_id={subscription_id} password={password}/>
+              </div>
+            }
+          </div>
+         )
+}
+
 function Login() {
   const [subscriptionId, setSubscriptionId] = useState('111')
   const [password, setPassword] = useState('')
@@ -57,7 +207,6 @@ const refresh = (dispatch, subscription_id, password) => {
         json = await r.json()
       } catch(e) {
       }
-	    debugger;
       if (json['DNS'] && json['keys']) {
         dispatch(setDemoConfig(json['DNS'], json['keys'][0]))
       }
@@ -225,6 +374,7 @@ class Subscriptions extends Component {
               <Button onClick={() => handleLogoutClick(this.props.dispatch)}>Logout</Button>
             </div>
             <Subscription subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password} autoShutoffTimeInMinutes={this.props.autoShutoffTimeInMinutes} />
+            <Bugs subscription_id={this.props.subscription_id} password={this.props.password} />
             { !_.isEmpty(this.props.subscription) &&
               <Logs logs={this.props.logs} />
             }

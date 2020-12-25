@@ -25,6 +25,13 @@ export default (state = initialState, action) => {
       updated.showTrainingTimeWarning = action.show
       return updated
 
+    case constants.SET_SUBSCRIPTION:
+      if (JSON.stringify(action.subscription) == JSON.stringify(updated.subscription)) {
+        return state;
+      }
+      updated.subscription = action.subscription
+      return updated
+
     case constants.SET_LOGS:
       if (action.logs == updated.logs) {
         return state;

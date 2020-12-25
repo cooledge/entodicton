@@ -356,6 +356,10 @@ form {
   padding: 5px;
 }
 
+.submitBug {
+  border: 1px solid black;
+}
+
 .moduleSource {
   border: 1px solid black;
   font-size: 15px;
