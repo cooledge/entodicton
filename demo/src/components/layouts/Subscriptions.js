@@ -10,6 +10,30 @@ const _ = require('underscore')
 const fs = require('fs');
 const versions = require('../versions')
 
+function DeployVersion({refreshHandler, subscription_id, password}) {
+ 
+  const handleDeploy = () => () => {
+    fetch(`${URL}/update`, {
+      method: "POST",
+      headers: {
+        mode: "no-cors", // Type of mode of the request
+        "Content-Type": "application/json", // request content type
+        "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
+      },
+      }).then( result => result.json() )
+        .then( json => {
+        if (json.error) {
+          window.alert(`Error processing the request: ${json.error}.`)
+        }
+        refreshHandler()
+      });
+  };
+
+  return (
+        <Button onClick={ handleDeploy() }>Upgrade to current version</Button>
+  );
+}
+
 function VersionSelector({refreshHandler, subscription_id, password}) {
  
   const handleDeploy = (version) => () => {
@@ -437,7 +461,9 @@ class Subscriptions extends Component {
               <Button onClick={() => handleLogoutClick(this.props.dispatch)}>Logout</Button>
             </div>
             <Subscription refresh={refreshHandler} subscription={this.props.subscription} dispatch={this.props.dispatch} password={this.props.password} autoShutoffTimeInMinutes={this.props.autoShutoffTimeInMinutes} />
-            <VersionSelector refreshHandler={refreshHandler} subscription_id={this.props.subscription_id} password={this.props.password} />
+            { this.props.subscription['upgradable'] &&
+              <DeployVersion refreshHandler={refreshHandler} subscription_id={this.props.subscription_id} password={this.props.password} />
+            }
             <Bugs subscription_id={this.props.subscription_id} password={this.props.password} />
             { !_.isEmpty(this.props.subscription) &&
               <Logs logs={this.props.logs} />
