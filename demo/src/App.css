@@ -398,7 +398,15 @@ form {
   margin-left: 10px;
 }
 
-.caret.right{
+.caret.right {
   border-left-color: black;
+  margin-left: 10px;
+}
+
+.deployVersion button {
+  margin-top: 10px;
+}
+
+.deployVersion a {
   margin-left: 10px;
 }

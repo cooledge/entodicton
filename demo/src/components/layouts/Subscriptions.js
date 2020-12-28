@@ -30,7 +30,10 @@ function DeployVersion({refreshHandler, subscription_id, password}) {
   };
 
   return (
+      <span className='deployVersion'>
         <Button onClick={ handleDeploy() }>Upgrade to current version</Button>
+        <a href='https://github.com/thinktelligence/entodicton/blob/main/versions.json' target="_blank">Version Info</a>
+      </span>
   );
 }
 
@@ -204,8 +207,10 @@ function BugListing({bugs, refresh, subscription_id, password}) {
 function Bugs({subscription_id, password}) {
   const [bugs, setBugs] = useState([])
   const [initialized, setInitialized] = useState(false)
+  const [doingRefresh, setDoingRefresh] = useState(false)
 
   const refresh = () => {
+    setDoingRefresh(true);
     fetch(`${URL}/bugs`, {
       method: "GET",
       headers: {
@@ -214,6 +219,7 @@ function Bugs({subscription_id, password}) {
         "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
       },
       }).then( async (r) => {
+        setDoingRefresh(false);
         let json = {}
         try {
           json = await r.json()
@@ -238,7 +244,9 @@ function Bugs({subscription_id, password}) {
             <h2>Bug Submissions</h2>
             <div className='listBugs'>
               <Button onClick={ () => handleSubmit() }>Submit</Button>
-              <Button onClick={ () => refresh() }>Refresh</Button>
+              <Button disabled={doingRefresh} onClick={ () => refresh() }>
+                Refresh
+              </Button>
               <BugListing bugs={bugs} refresh={refresh} subscription_id={subscription_id} password={password}/>
             </div>
           </div>
@@ -407,10 +415,11 @@ class Subscription extends Component {
                       </div>
                     }
                   <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
-                  <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span></div>
-                  {s.deployed &&
-                    <span>Demo page is pointing at this deployment</span>
-                  }
+                  <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span>
+                    {s.deployed &&
+                      <span>Demo page is pointing at this deployment</span>
+                    }
+                  </div>
                   <div className='line'><span className='label'>Key:</span><span className='value'>{s.keys}</span></div>
                   <div className='line'><span className='label'>Server Name</span><span className='value'>{s.DNS}</span></div>
                   <div className='line'><span className='label'>Stack name:</span><span className='value'>{s.stack_name}</span></div>

@@ -9,7 +9,7 @@ var initialState = {
   password: '',
   autoShutoffTimeInMinutes: 120,
   product: {},
-  showTrainingTimeWarning: true
+  showTrainingTimeWarning: false
 }
 
 export default (state = initialState, action) => {
