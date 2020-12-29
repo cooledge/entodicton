@@ -303,7 +303,7 @@ class QueryPane extends Component {
     config.set('objects', objects);
     
     startedQuery();
-    client.process(config, key, server)
+    client.process(server, key, config)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -473,7 +473,7 @@ class TankDemo extends Component {
           <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
           <span className='credentials'>
             <span className='configProps'>
-              Server Host
+              Server Url
                 <input id='server' type='text' className='server' onChange={ (e) => this.server = e.target.value } defaultValue={this.server}/>
             </span>
             <span className='configProps'>
@@ -481,7 +481,7 @@ class TankDemo extends Component {
               <input id='key' type='text' className='key' onChange={ (e) => this.apiKey = e.target.value } defaultValue={this.apiKey}/>
             </span>
           </span>
-          <span class='moduleSource'>
+          <span className='moduleSource'>
           Config: 
             <a href='https://github.com/thinktelligence/entodicton/blob/main/kms/website/config_base.js' target="_blank">base</a>
             <a href='https://github.com/thinktelligence/entodicton/blob/main/kms/website/config_earn.js' target="_blank">earn</a>

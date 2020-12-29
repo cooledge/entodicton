@@ -26,11 +26,11 @@ class Includes extends Component {
     const dispatch = this.props.dispatch;
     const kms = all.map( (name) => {
       if (name == 'base') {
-        return (<button className="selected" onClick={() => alert("Not removable")}>{name}</button>) 
+        return (<button key={name} className="selected" onClick={() => alert("Not removable")}>{name}</button>) 
       } else if (includes.includes(name)) {
-        return (<button className="selected" onClick={() => this.remove(dispatch, name)}>{name}</button>) 
+        return (<button key={name} className="selected" onClick={() => this.remove(dispatch, name)}>{name}</button>) 
       } else {
-        return (<button onClick={() => this.add(dispatch, name)}>{name}</button>) 
+        return (<button key={name} onClick={() => this.add(dispatch, name)}>{name}</button>) 
       }
     });
     return (
