@@ -9,6 +9,7 @@ const client = require('entodicton/client')
 import Config from 'entodicton/src/config'
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery, showTrainingTimeWarning } from '../actions/actions'
 import store from '../stores/store';
+const parameters = require('./parameters')
 //import config from './config';
 import config_base from './config_base';
 import config_earn from './config_earn';
@@ -298,12 +299,13 @@ class QueryPane extends Component {
     }
 
     const config = new Config(config_base).add(config_earn).add(config_food);
+    config.set('url', server);
     config.set('utterances', [query]);
     config.set('words', this.props.words());
     config.set('objects', objects);
     
     startedQuery();
-    client.process(server, key, config)
+    client.process(`${parameters.thinktelligence.server}`, key, config)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
