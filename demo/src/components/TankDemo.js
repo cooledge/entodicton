@@ -245,7 +245,7 @@ class QueryPane extends Component {
     return {wantsPosition, description: description, dispatch: action}
   }
 
-  processQuery(setResponses, startedQuery, server, key, dispatch, counters, showTTW) {
+  processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW) {
     const query = document.getElementById("query").value;
     key = document.getElementById("key").value;
 
@@ -299,13 +299,13 @@ class QueryPane extends Component {
     }
 
     const config = new Config(config_base).add(config_earn).add(config_food);
-    config.set('url', server);
+    config.set('url', url);
     config.set('utterances', [query]);
     config.set('words', this.props.words());
     config.set('objects', objects);
     
     startedQuery();
-    client.process(parameters.thinktelligence.server, key, config)
+    client.process(parameters.thinktelligence.url, key, config)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -356,11 +356,11 @@ class QueryPane extends Component {
             Request <input id='query' placeholder='some queries are below. there is only one default server' onKeyPress={ 
               (event) => {
                 if (event.key === 'Enter') {
-                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning);
+                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning);
                 }
               } }
               type='text' className='request' />
-              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.server, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning) }>Submit</Button>
+              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning) }>Submit</Button>
             { this.props.inProcess != 0 && 
               (
                 <span className='inProcess'>
@@ -467,7 +467,7 @@ class TankDemo extends Component {
   }
 
   render() {
-    this.server = this.server || this.props.server;
+    this.url = this.url || this.props.url;
     this.apiKey = this.apiKey || this.props.apiKey
     return ( 
       <div className='tankDemo'>
@@ -476,7 +476,7 @@ class TankDemo extends Component {
           <span className='credentials'>
             <span className='configProps'>
               Server Url
-                <input id='server' type='text' className='server' onChange={ (e) => this.server = e.target.value } defaultValue={this.server}/>
+                <input id='url' type='text' className='url' onChange={ (e) => this.url = e.target.value } defaultValue={this.url}/>
             </span>
             <span className='configProps'>
               Key
@@ -505,7 +505,7 @@ class TankDemo extends Component {
               inProcess={this.props.inProcess}
               words={this.getWords(this.props)}
               getObjects={this.getObjects(this.props)}
-              server={this.server}
+              url={this.url}
               apiKey={this.apiKey}
               showTrainingTimeWarning={this.props.showTrainingTimeWarning}
               counters={ {tank: this.props.tanks.length + 1, building: this.props.buildings.length + 1 } }

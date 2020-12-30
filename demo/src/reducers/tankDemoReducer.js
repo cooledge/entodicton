@@ -79,7 +79,7 @@ var initialState = {
     responses: [],
     inProcess: 0,
     completed: [],
-    server: parameters.entodicton.server,
+    url: parameters.entodicton.url,
     apiKey: parameters.entodicton.apiKey
 }
 initialState.tankCtr = initialState.tanks.length + 1
@@ -375,7 +375,7 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.SET_DEMO_CONFIG:
-      updated.server = action.server;
+      updated.url= action.url;
       updated.apiKey = action.apiKey;
       return updated
 

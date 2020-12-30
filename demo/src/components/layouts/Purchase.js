@@ -17,7 +17,7 @@ const paypalOnError = (err) => {
   console.log("Error", err)
 }
 
-const URL = parameters.thinktelligence.server;
+const URL = parameters.thinktelligence.url;
 
 const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
   // call the backend api to store transaction details

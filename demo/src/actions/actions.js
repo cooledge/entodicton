@@ -111,10 +111,10 @@ function fireTank(tank, building_or_tank) {
   }
 }
 
-export function setDemoConfig(server, apiKey) {
+export function setDemoConfig(url, apiKey) {
   return {
     type: actionTypes.SET_DEMO_CONFIG,
-    server,
+    url,
     apiKey
   }
 }

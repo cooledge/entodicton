@@ -15,6 +15,7 @@ function DeployVersion({refreshHandler, subscription_id, password}) {
  
   const handleDeploy = () => () => {
     setDisabled(true)
+    setTimeout( () => { refreshHandler() }, 2000 )
     fetch(`${URL}/update`, {
       method: "POST",
       headers: {
@@ -286,9 +287,7 @@ function Login() {
   );
 }
 
-//const URL = 'http://ec2-18-217-156-104.us-east-2.compute.amazonaws.com:10000/api'
-//const URL = process.env.THINKTELLIGENCE_URL || 'http://localhost:10000/api';
-const URL = parameters.thinktelligence.server;
+const URL = parameters.thinktelligence.url;
 
 const refresh = (dispatch, subscription_id, password) => {
   fetch(`${URL}/subscription`, {
