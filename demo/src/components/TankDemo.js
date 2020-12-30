@@ -305,7 +305,7 @@ class QueryPane extends Component {
     config.set('objects', objects);
     
     startedQuery();
-    client.process(`${parameters.thinktelligence.server}`, key, config)
+    client.process(parameters.thinktelligence.server, key, config)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);

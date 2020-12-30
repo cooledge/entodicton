@@ -302,7 +302,7 @@ const refresh = (dispatch, subscription_id, password) => {
       } catch(e) {
       }
       if (json['DNS'] && json['keys']) {
-        dispatch(setDemoConfig(json['DNS'], json['keys'][0]))
+        dispatch(setDemoConfig(`http://${json['DNS']}`, json['keys'][0]))
       }
       dispatch(setSubscription(json))
     });
