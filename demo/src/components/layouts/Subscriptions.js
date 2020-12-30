@@ -11,8 +11,10 @@ const fs = require('fs');
 const versions = require('../versions')
 
 function DeployVersion({refreshHandler, subscription_id, password}) {
+  const [enabled, setEnabled] = useState(true)
  
   const handleDeploy = () => () => {
+    setEnabled(false)
     fetch(`${URL}/update`, {
       method: "POST",
       headers: {
@@ -26,12 +28,13 @@ function DeployVersion({refreshHandler, subscription_id, password}) {
           window.alert(`Error processing the request: ${json.error}.`)
         }
         refreshHandler()
+        setEnabled(true)
       });
   };
 
   return (
       <span className='deployVersion'>
-        <Button onClick={ handleDeploy() }>Upgrade to current version</Button>
+        <Button disabled={enabled} onClick={ handleDeploy() }>Upgrade to current version</Button>
         <a href='https://github.com/thinktelligence/entodicton/blob/main/versions.json' target="_blank">Version Info</a>
       </span>
   );
