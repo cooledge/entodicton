@@ -19,7 +19,7 @@ class App extends Component {
         <BrowserRouter>
             <Layout>
                 <div>
-                    <Route path="/" component={Product} />
+                    <Route exact path="/" component={Product} />
                     <Route path="/product" component={Product} />
                     <Route path="/demo" component={TankDemo} />
                     <Route path="/tutorial" component={Tutorial} />
