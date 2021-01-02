@@ -440,11 +440,15 @@ class Subscription extends Component {
 
 class Logs extends Component {
   render() {
-    const s = this.props.logs;
+    let logs = this.props.logs;
+    if (logs.error) {
+      logs = ""
+    }
+
     return (
             <div>
               <h2>Logs</h2>
-              <pre>{this.props.logs}</pre>
+              <pre>{logs}</pre>
             </div>
            )
   }
