@@ -46,24 +46,30 @@ class Product extends Component {
     const dispatch = this.props.dispatch
     const gotoSubscriptions = this.props.gotoSubscriptions
     return (
-      <div className='productListing'>
-        <h2>{product.name}</h2>
-        <p>
-        Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". 
-        { !product.always_on &&
-          <span>You get {product.minutes_in_plan/60} hours of uptime. This video demonstrates controlling the uptime of the server.</span>
-        }
-        After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. There are currently {product.number_available} subscriptions available for purchase. {product.description}
+      <div>
+        <p className="purchaseVideo">
+          <a href={"https://youtu.be/IjVs5MDCHM8"} target="_blank">This</a>
+          video shows the purchase workflow
         </p>
-        <PayPalBtn
-          amount = "1"
-          currency = "CAD"
-          createSubscription={paypalSubscribe(product.plan_id)}
-          onApprove={paypalOnApprove(dispatch, gotoSubscriptions)}
-          catchError={paypalOnError}
-          onError={paypalOnError}
-          onCancel={paypalOnError}
-        />
+        <div className='productListing'>
+          <h2>{product.name}</h2>
+          <p>
+          Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". 
+          { !product.always_on &&
+            <span>You get {product.minutes_in_plan/60} hours of uptime. This video demonstrates controlling the uptime of the server.</span>
+          }
+          After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. There are currently {product.number_available} subscriptions available for purchase. {product.description}
+          </p>
+          <PayPalBtn
+            amount = "1"
+            currency = "CAD"
+            createSubscription={paypalSubscribe(product.plan_id)}
+            onApprove={paypalOnApprove(dispatch, gotoSubscriptions)}
+            catchError={paypalOnError}
+            onError={paypalOnError}
+            onCancel={paypalOnError}
+          />
+        </div>
       </div>
     );
   }
