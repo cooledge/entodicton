@@ -207,8 +207,8 @@ module.exports =
     [({context}) => context.marker == 'destroy', ({g, context}) => `destroy ${g(context.name)}`],
   ],
   "semantics": [
-    [(global, context) => context.marker == 'create'
-, (global, context) => { 
+    [({global, context}) => context.marker == 'create'
+, ({global, context}) => { 
     if (context.klass.marker === 'tankConcept') {
       if (!global.newTanks) {
         global.newTanks = []
