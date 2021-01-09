@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+const parameters = require('../parameters');
 
 class Tutorial extends Component {
   render(){
@@ -21,7 +22,7 @@ class Tutorial extends Component {
           "joe earned 150 dollars"<br/>
           "sally earned 250 dollars"
         </pre>
-        <h1 className='step1'>Step 1 - <a href={"https://github.com/thinktelligence/entodicton/blob/main/tutorial/command_line_demo_1.js"} target="_blank">Code</a></h1>
+        <h1 className='step1'>Step 1 - <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/tutorial/command_line_demo_1.js`} target="_blank">Code</a></h1>
         <p>
         This starts with setting up the processing of the input <span className='quote'>"sally worked 10 weeks"</span>. The first part is to define the operators. This approach is not based on grammar but instead a generalization of the operator precedence parser. For example, <span className='quote'>1 + 2 * 3</span> is processed by applying the highest priority operator first. That is multiply. Then the next highest priority operator is applied that is addition. Entodicton works the same way but for languages. For our test sentence, <span className='quote'>'10'</span> is a prefix operator and <span className='quote'>'worked'</span> is an infix operator. To define the operators in the operators array we would use
         </p>
@@ -82,7 +83,7 @@ class Tutorial extends Component {
         <p>
         {"Generators are of the form [<matcher>, <generator>]. The matcher should return true if the context argument should use the corresponding generator. The generator takes the current context and and function 'g' which can be called to applied the generated to any value"}
         </p>
-        <h1 className='step2'>Step 2- <a href={"https://github.com/thinktelligence/entodicton/blob/main/tutorial/command_line_demo_2.js"} target="_blank">Code</a></h1>
+        <h1 className='step2'>Step 2- <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/tutorial/command_line_demo_2.js`} target="_blank">Code</a></h1>
         <p>
         This step involves setting up processing of the input <span className='quote'>joe earns 10 dollars per week</span> to produce this in the global context
         </p>
@@ -99,7 +100,7 @@ class Tutorial extends Component {
         <p>
         This is similar to Step 1 except using a different phrase.
         </p>
-        <h1 className='step3'>Step 3- <a href={"https://github.com/thinktelligence/entodicton/blob/main/tutorial/command_line_demo.js"} target="_blank">Code</a></h1>
+        <h1 className='step3'>Step 3- <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/tutorial/command_line_demo.js`} target="_blank">Code</a></h1>
         <p>
         This step involves setting up processing of the input 
         </p>
@@ -172,7 +173,7 @@ class Tutorial extends Component {
         </pre>
         <h1 className='step4'>Step 4 - Try stuff</h1>
         <p>
-        Now you can try making this fancier. You could add another language. You could input sentence in mixed languages. You can try adding punctuation. You can make it so the sentence <span className='quote'>What does joe earn</span> works. See the <a href='https://github.com/thinktelligence/entodicton/blob/main/kms/website/config.js' target="_blank">demo config</a> for more examples.
+        Now you can try making this fancier. You could add another language. You could input sentence in mixed languages. You can try adding punctuation. You can make it so the sentence <span className='quote'>What does joe earn</span> works. See the <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/kms/website/config.js`} target="_blank">demo config</a> for more examples.
         </p>
         <h1 className='step4'>Developer Workflow Videos</h1>
         <a href={"https://youtu.be/flYrHNDFTMA"} target="_blank">Submit Bug Workflow</a>

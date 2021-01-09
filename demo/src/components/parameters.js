@@ -2,6 +2,7 @@
 
 module.exports = 
 {
+  "version": "5.51.42",
   "thinktelligence": {
     //"server": 'http://Think-Think-1X3G67237CVP3-872441962.ca-central-1.elb.amazonaws.com/api'
     //"server": 'https://thinktelligence.com/api'
