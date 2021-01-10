@@ -247,10 +247,8 @@ function Bugs({subscription_id, password}) {
           <div>
             <h2>Bug Submissions</h2>
             <div className='listBugs'>
+              <Button disabled={doingRefresh} onClick={ () => refresh() }>Refresh</Button>
               <Button onClick={ () => handleSubmit() }>Submit</Button>
-              <Button disabled={doingRefresh} onClick={ () => refresh() }>
-                Refresh
-              </Button>
               <BugListing bugs={bugs} refresh={refresh} subscription_id={subscription_id} password={password}/>
             </div>
           </div>
@@ -479,10 +477,10 @@ class Subscriptions extends Component {
             { this.props.subscription['upgradable'] &&
               <DeployVersion refreshHandler={refreshHandler} subscription_id={this.props.subscription_id} password={this.props.password} />
             }
-            <Bugs subscription_id={this.props.subscription_id} password={this.props.password} />
             { !_.isEmpty(this.props.subscription) &&
               <Logs logs={this.props.logs} />
             }
+            <Bugs subscription_id={this.props.subscription_id} password={this.props.password} />
           </div>
         }
       </div>
