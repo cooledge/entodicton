@@ -22,6 +22,8 @@ module.exports =
   "hierarchy": [
   ],
   "priorities": [
+    [["fromW", 0], ["wantWhitespot", 0], ["aEnglish", 0]],
+    [["aEnglish", 0], ["wantWhitespot", 0], ["i", 0]],
     [["wantWhitespot", 0], ["aEnglish", 0], ["count", 0]],
     [["i", 0], ["wantMcDonalds", 0], ["aEnglish", 0], ["count", 0]],
     [["wantMcDonalds", 0], ["aEnglish", 0], ["fromM", 0]],
