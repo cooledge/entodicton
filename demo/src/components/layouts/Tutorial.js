@@ -179,6 +179,8 @@ class Tutorial extends Component {
         <a href={"https://youtu.be/flYrHNDFTMA"} target="_blank">Submit Bug Workflow</a>
         <br/>
         <a href={"https://www.youtube.com/watch?v=fyWndPPj6rg"} target="_blank">Developer Demo - Parping - Part 1</a>
+        <a href={"https://www.youtube.com/watch?v=lYVBri14IDQ"} target="_blank">Developer Demo - Parping - Part 2</a>
+        <a href={"https://www.youtube.com/watch?v=vfNAD7ZaJVA"} target="_blank">Developer Demo - Parping - Part 3</a>
       </div>
     )
   }
