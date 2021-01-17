@@ -160,8 +160,10 @@ function SubmitBug({handleClose, refresh, subscription_id, password}) {
 }
 
 function BugListing({bugs, refresh, subscription_id, password}) {
+  const [doingDelete, setDoingDelete] = useState(false)
  
   const handleDelete = (id) => () => {
+    setDoingDelete(true);
     fetch(`${URL}/bug?id=${id}`, {
       method: "DELETE",
       headers: {
@@ -171,6 +173,7 @@ function BugListing({bugs, refresh, subscription_id, password}) {
       },
       }).then( result => {
         refresh()
+        setDoingDelete(false);
       });
   };
  
@@ -182,7 +185,7 @@ function BugListing({bugs, refresh, subscription_id, password}) {
         <td>{bug.fixed_version}</td>
         <td>{bug.description}</td>
         <td>
-          <Button onClick={ handleDelete(bug.id) }>Delete</Button>
+          <Button disabled={doingDelete} onClick={ handleDelete(bug.id) }>Delete</Button>
         </td>
       </tr>
     ) } );
