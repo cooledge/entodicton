@@ -411,6 +411,10 @@ form {
   margin-left: 10px;
 }
 
+.deploymentPaused {
+  margin-left: 10px;
+}
+
 .purchaseVideo a {
   margin-top: 10px;
   margin-right: 5px;
