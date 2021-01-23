@@ -236,10 +236,12 @@ function Bugs({subscription_id, password}) {
       });
   }
 
+  /*
   const handleSubmit = () => {
     const url = `https://github.com/thinktelligence/entodicton/blob/${parameters.version}/bugs/bug.js`
     window.open(url, "_blank")
   }
+  */
 
   if (!initialized) {
     setInitialized(true)
@@ -250,8 +252,10 @@ function Bugs({subscription_id, password}) {
           <div>
             <h2>Bug Submissions</h2>
             <div className='listBugs'>
-              <Button disabled={doingRefresh} onClick={ () => refresh() }>Refresh</Button>
-              <Button onClick={ () => handleSubmit() }>Submit</Button>
+              <span>
+                <Button disabled={doingRefresh} onClick={ () => refresh() }>Refresh</Button>
+                <a class='youtubeLink' href={'https://www.youtube.com/watch?v=SRwJrvSVW7U'} target="_blank">How to submit a bug</a>
+              </span>
               <BugListing bugs={bugs} refresh={refresh} subscription_id={subscription_id} password={password}/>
             </div>
           </div>
