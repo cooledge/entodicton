@@ -53,7 +53,7 @@ class Product extends Component {
             <p>
             Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". 
             { !product.always_on &&
-              <span>You get {product.minutes_in_plan/60} hours of uptime. This <a href={"https://youtu.be/bn6QpBYyElM"} target="_blank">video</a> demonstrates controlling the uptime of the server.</span>
+              <span>You get {product.minutes_in_plan/60} hours of uptime. This <a href={"https://youtu.be/bn6QpBYyElM"} target="_blank">video</a> demonstrates controlling the uptime of the server. </span>
             }
             After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. {product.description}
             </p>
