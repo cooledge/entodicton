@@ -64,7 +64,7 @@ class Product extends Component {
             { !product.always_on &&
               <span>You get {product.minutes_in_plan/60} hours of uptime. This video demonstrates controlling the uptime of the server.</span>
             }
-            After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. There are currently {product.number_available} subscriptions available for purchase. {product.description}
+            After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. {product.description}
             </p>
             <PayPalBtn
               amount = "1"
