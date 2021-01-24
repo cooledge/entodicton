@@ -47,22 +47,13 @@ class Product extends Component {
     const gotoSubscriptions = this.props.gotoSubscriptions
     return (
       <div>
-        <p className="purchaseVideo">
-          <a href={"https://youtu.be/IjVs5MDCHM8"} target="_blank">This</a>
-          video shows the purchase workflow
-        </p>
-        {product.deploying &&
-          <div className='deploymentPaused'>
-          Purchases are paused for a deployment that takes about five minutes.
-          </div>
-        }
         {!product.deploying &&
           <div className='productListing'>
             <h2>{product.name}</h2>
             <p>
             Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". 
             { !product.always_on &&
-              <span>You get {product.minutes_in_plan/60} hours of uptime. This video demonstrates controlling the uptime of the server.</span>
+              <span>You get {product.minutes_in_plan/60} hours of uptime. This <a href={"https://youtu.be/bn6QpBYyElM"} target="_blank">video</a> demonstrates controlling the uptime of the server.</span>
             }
             After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. {product.description}
             </p>
@@ -109,13 +100,21 @@ export default function Purchase() {
     });
   }
 
-  console.log('products are', products)
-
+  const deploying = products.some( (product) => product.deploying );
   const choices = products.map( (product) => (<Product product={product} dispatch={dispatch} gotoSubscriptions={gotoSubscriptions}/>) )
   return (
     <div className='purchase'>
       <h2>Purchase</h2>
-        { products != [] && choices }
+        <p className="purchaseVideo">
+          <a href={"https://youtu.be/IjVs5MDCHM8"} target="_blank">This</a>
+          video shows the purchase workflow
+        </p>
+        {deploying &&
+          <div className='deploymentPaused'>
+          Purchases are paused for a deployment that takes about five minutes.
+          </div>
+        }
+        { !deploying && products != [] && choices }
         { loaded && products.length == 0 &&
           <div>I am not selling any more subscriptions currently. I want to work with the current customers to iron out any issues.</div>
         }
