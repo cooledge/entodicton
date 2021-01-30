@@ -16,6 +16,8 @@ class Tutorial extends Component {
         <a href={"https://www.youtube.com/watch?v=vfNAD7ZaJVA"} target="_blank">Developer Demo - Parping - Part 3</a>
         <h2>Star Trek API Demo- setup a trek like app</h2>
         <a href={"https://youtu.be/D8a1dPnwJDA"} target="_blank">Developer Demo - Star Trek API - Part 1</a>
+        <h2>Fallout API Demo- setup a language based UI for fallout 3 merchants</h2>
+        <a href={"https://youtu.be/FojATVQWq3Y"} target="_blank">Developer Demo - Fallout Demo - Part 1</a>
       </div>
     )
   }
