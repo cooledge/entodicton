@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PaypalButtons from '../PaypalButtons';
 const uuidGen = require('uuid/v1')
 const base64 = require('base-64')
+import { Button } from 'react-bootstrap'
 const { setCredentials, showTrainingTimeWarning } = require ('../../actions/actions')
 const parameters = require('../parameters')
 import { useHistory } from "react-router-dom";
@@ -40,23 +41,20 @@ const paypalOnApprove = (dispatch, gotoSubscriptions) => (data, detail) => {
   gotoSubscriptions()
 };
 
-class Product extends Component {
-  render() {
-    const product = this.props.product
-    const dispatch = this.props.dispatch
-    const gotoSubscriptions = this.props.gotoSubscriptions
-    return (
-      <div>
-        {!product.deploying &&
-          <div className='productListing'>
-            <h2>{product.name}</h2>
-            <p>
-            Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". 
-            { !product.always_on &&
-              <span>You get {product.minutes_in_plan/60} hours of uptime. This <a href={"https://youtu.be/bn6QpBYyElM"} target="_blank">video</a> demonstrates controlling the uptime of the server. </span>
-            }
-            After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. {product.description}
-            </p>
+function Product({product, dispatch, gotoSubscriptions, productBeingPurchased, setProductBeingPurchased}) {
+  return (
+    <div>
+      {!product.deploying &&
+        <div className='productListing'>
+          <h2>{product.name}</h2>
+          <p>
+          Entodicton is available as a service in AWS. The price is ${product.price_in_canadian} Canadian dollars per month. You will get one server running version "{product.VERSION}". The server is in AWS region "{product.AWS_REGION_ID}" of size "{product.INSTANCE_TYPE}". 
+          { !product.always_on &&
+            <span>You get {product.minutes_in_plan/60} hours of uptime. This <a href={"https://youtu.be/bn6QpBYyElM"} target="_blank">video</a> demonstrates controlling the uptime of the server. </span>
+          }
+          After purchase you will have access to the DNS of the deployment and the key for the service and a password for the subsciption. {product.description}
+          </p>
+          {productBeingPurchased == product.plan_id &&
             <PayPalBtn
               amount = "1"
               currency = "CAD"
@@ -66,11 +64,14 @@ class Product extends Component {
               onError={paypalOnError}
               onCancel={paypalOnError}
             />
-          </div>
-        }
-      </div>
-    );
-  }
+          }
+          {productBeingPurchased != product.plan_id &&
+            <Button onClick={ () => setProductBeingPurchased(product.plan_id) }> Purchase Subscription </Button>          
+          }
+        </div>
+      }
+    </div>
+  );
 };
 
 export default function Purchase() {
@@ -80,6 +81,7 @@ export default function Purchase() {
   const dispatch = useDispatch();
   const history = useHistory();
   const gotoSubscriptions = () => history.push("/subscriptions");
+  const [productBeingPurchased, setProductBeingPurchased] = useState("")
 
   if (!loaded) { 
     fetch(`${URL}/products`, {
@@ -101,7 +103,7 @@ export default function Purchase() {
   }
 
   const deploying = products.some( (product) => product.deploying );
-  const choices = products.map( (product) => (<Product product={product} dispatch={dispatch} gotoSubscriptions={gotoSubscriptions}/>) )
+  const choices = products.map( (product) => (<Product key={product.plan_id} product={product} productBeingPurchased={productBeingPurchased} setProductBeingPurchased={setProductBeingPurchased} dispatch={dispatch} gotoSubscriptions={gotoSubscriptions}/>) )
   return (
     <div className='purchase'>
       <h2>Purchase</h2>
