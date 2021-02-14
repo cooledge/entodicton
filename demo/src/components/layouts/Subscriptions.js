@@ -337,11 +337,16 @@ const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinut
       "Content-Type": "application/json", // request content type
       "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
     },
-    }).then( result => {
+    }).then( async result => {
       if (result.status == 200) {
-        refresh(dispatch, subscription_id, password);
+        const json = await result.json();
+        if (json.status == 200) {
+          refresh(dispatch, subscription_id, password);
+        } else {
+          window.alert(`Error processing the stop request. ${json.statusText}`)
+        }
       } else {
-        window.alert(`Error processing the stop request.`)
+        window.alert(`Error processing the stop request. Error code ${result.status}`)
       }
     });
 }
@@ -354,11 +359,16 @@ const stopServer = (dispatch, subscription_id, password) => {
       "Content-Type": "application/json", // request content type
       "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
     },
-    }).then( result => {
+    }).then( async result => {
       if (result.status == 200) {
-        refresh(dispatch, subscription_id, password);
+        const json = await result.json();
+        if (json.status == 200) {
+          refresh(dispatch, subscription_id, password);
+        } else {
+          window.alert(`Error processing the stop request. ${json.statusText}`)
+        }
       } else {
-        window.alert(`Error processing the stop request.`)
+        window.alert(`Error processing the stop request. Error code is ${result.status}`)
       }
     });
 }
