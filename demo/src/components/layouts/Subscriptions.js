@@ -329,7 +329,8 @@ const refresh = (dispatch, subscription_id, password) => {
 //const cancelConfirm = "Well partner, looks like we've reached the end of our time together. We had our ups and downs but god damnit, I say you are the finest of fellows. I wish you happy trails. And if we meet up again in the great hereafter, that would be fine by me. Delete yes/no";
 const cancelConfirm = "Delete subscription?";
 
-const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinutes) => {
+const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinutes, setControlButtonEnabled) => {
+  setControlButtonEnabled(false)
   fetch(`${URL}/start?time=${autoShutoffTimeInMinutes}`, {
     method: "POST",
     headers: {
@@ -338,6 +339,7 @@ const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinut
       "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
     },
     }).then( async result => {
+      setControlButtonEnabled(true)
       if (result.status == 200) {
         const json = await result.json();
         if (json.status == 200) {
@@ -351,7 +353,8 @@ const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinut
     });
 }
 
-const stopServer = (dispatch, subscription_id, password) => {
+const stopServer = (dispatch, subscription_id, password, setControlButtonEnabled) => {
+  setControlButtonEnabled(false)
   fetch(`${URL}/stop`, {
     method: "POST",
     headers: {
@@ -360,6 +363,7 @@ const stopServer = (dispatch, subscription_id, password) => {
       "Authorization": 'Basic ' + base64.encode(subscription_id + ":" + password)
     },
     }).then( async result => {
+      setControlButtonEnabled(true)
       if (result.status == 200) {
         const json = await result.json();
         if (json.status == 200) {
@@ -396,61 +400,60 @@ const handleLogoutClick = (dispatch) => {
   dispatch( new setCredentials('', '') ) 
 };
 
-class Subscription extends Component {
-  render() {
-    const s = this.props.subscription;
-    return (
-            <div>
-              <h2>Subscription</h2>
-              { !_.isEmpty(s) &&
-                <div>
-                    {s.deployed && 
-                      <div><button onClick={() => cancelSubscription(s.subscription_id, this.props.password)}>Cancel Subscription</button></div>
-                    }
-                    { !s.always_on && s.deployed &&
-                      <div className='controlServer'>
-                        {s.is_running &&
-                          <div><button onClick={() => stopServer(this.props.dispatch, s.subscription_id, this.props.password)}>Stop Server</button></div>
-                        }
-                        {s.is_running &&
-                          <div className='line'><span className='label'>Start time UTC:</span><span className='value'>{`${s.start_time}`}</span></div>
-                        }
-                        {s.is_running &&
-                          <div className='line'><span className='label'>Auto shutoff time:</span><span className='value'>{`${s.up_time_in_seconds/60} minutes`}</span></div>
-                        }
-                        {!s.is_running &&
-                            <button onClick={() => startServer(this.props.dispatch, s.subscription_id, this.props.password, this.props.autoShutoffTimeInMinutes)}>Start Server</button>
-                        }
-                        {!s.is_running &&
-                          <Form.Group controlId="formAutoShutoff">
-                            <Form.Label>Auto-shutoff after time in minutes</Form.Label>
-                            <Form.Control type="text" defaultValue={this.props.autoShutoffTimeInMinutes} placeholder="time in minutes" onChange = { (e) => this.props.dispatch(setAutoShutoffTimeInMinutes(e.target.value)) }/>
-                          </Form.Group>
-                        }
-                        <div className='line'><span className='label'>Minutes available:</span><span className='value'>{s.subscription_time_in_seconds/60}</span></div>
-                        <div className='line'><span className='label'>Next billing time UTC:</span><span className='value'>{s.next_billing_time}</span></div>
-                      </div>
-                    }
-                  <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
-                  <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span>
-                    {s.deployed &&
-                      <span>Demo page is pointing at this deployment</span>
-                    }
-                  </div>
-                  <div className='line'><span className='label'>Key:</span><span className='value'>{s.keys}</span></div>
-                  <div className='line'><span className='label'>Server Name</span><span className='value'>{s.DNS}</span></div>
-                  <div className='line'><span className='label'>Stack name:</span><span className='value'>{s.stack_name}</span></div>
-                  <div className='line'><span className='label'>Number of instances:</span><span className='value'>{s.NUMBER_OF_INSTANCES}</span></div>
-                  <div className='line'><span className='label'>Paypal Plan Id:</span><span className='value'>{s.plan_id}</span></div>
-                  <div className='line'><span className='label'>Entodicton Version:</span><span className='value'>{s.VERSION}</span></div>
+function Subscription({subscription, autoShutoffTimeInMinutes, dispatch, password}) {
+  const [controlButtonEnabled, setControlButtonEnabled] = useState(true)
+  const s = subscription;
+  return (
+          <div>
+            <h2>Subscription</h2>
+            { !_.isEmpty(s) &&
+              <div>
+                  {s.deployed && 
+                    <div><button onClick={() => cancelSubscription(s.subscription_id, password)}>Cancel Subscription</button></div>
+                  }
+                  { !s.always_on && s.deployed &&
+                    <div className='controlServer'>
+                      {s.is_running && 
+                        <div><button disabled={!controlButtonEnabled} onClick={() => stopServer(dispatch, s.subscription_id, password, setControlButtonEnabled)}>Stop Server</button></div>
+                      }
+                      {s.is_running &&
+                        <div className='line'><span className='label'>Start time UTC:</span><span className='value'>{`${s.start_time}`}</span></div>
+                      }
+                      {s.is_running &&
+                        <div className='line'><span className='label'>Auto shutoff time:</span><span className='value'>{`${s.up_time_in_seconds/60} minutes`}</span></div>
+                      }
+                      {!s.is_running &&
+                          <button disabled={!controlButtonEnabled} onClick={() => startServer(dispatch, s.subscription_id, password, autoShutoffTimeInMinutes, setControlButtonEnabled)}>Start Server</button>
+                      }
+                      {!s.is_running &&
+                        <Form.Group controlId="formAutoShutoff">
+                          <Form.Label>Auto-shutoff after time in minutes</Form.Label>
+                          <Form.Control type="text" defaultValue={autoShutoffTimeInMinutes} placeholder="time in minutes" onChange = { (e) => dispatch(setAutoShutoffTimeInMinutes(e.target.value)) }/>
+                        </Form.Group>
+                      }
+                      <div className='line'><span className='label'>Minutes available:</span><span className='value'>{s.subscription_time_in_seconds/60}</span></div>
+                      <div className='line'><span className='label'>Next billing time UTC:</span><span className='value'>{s.next_billing_time}</span></div>
+                    </div>
+                  }
+                <div className='line'><span className='label'>Subscription Id:</span><span className='value'>{s.subscription_id}</span></div>
+                <div className='line'><span className='label'>Deployed:</span><span className='value'>{s.deployed ? "True" : "False"}</span>
+                  {s.deployed &&
+                    <span>Demo page is pointing at this deployment</span>
+                  }
                 </div>
-              }
-              { _.isEmpty(s) &&
-                <div>Loading</div>
-              }
-            </div>
-           )
-  }
+                <div className='line'><span className='label'>Key:</span><span className='value'>{s.keys}</span></div>
+                <div className='line'><span className='label'>Server Name</span><span className='value'>{s.DNS}</span></div>
+                <div className='line'><span className='label'>Stack name:</span><span className='value'>{s.stack_name}</span></div>
+                <div className='line'><span className='label'>Number of instances:</span><span className='value'>{s.NUMBER_OF_INSTANCES}</span></div>
+                <div className='line'><span className='label'>Paypal Plan Id:</span><span className='value'>{s.plan_id}</span></div>
+                <div className='line'><span className='label'>Entodicton Version:</span><span className='value'>{s.VERSION}</span></div>
+              </div>
+            }
+            { _.isEmpty(s) &&
+              <div>Loading</div>
+            }
+          </div>
+         )
 }
 
 class Logs extends Component {
