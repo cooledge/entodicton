@@ -15,7 +15,7 @@ function DeployVersion({refreshHandler, subscription_id, password}) {
  
   const handleDeploy = () => () => {
     setDisabled(true)
-    setTimeout( () => { refreshHandler() }, 4000 )
+    setTimeout( () => { refreshHandler() }, 10000 )
     fetch(`${URL}/update`, {
       method: "POST",
       headers: {
