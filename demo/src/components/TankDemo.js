@@ -261,10 +261,12 @@ class QueryPane extends Component {
     const query = document.getElementById("query").value;
     key = document.getElementById("key").value;
 
+    /*
     if (showTTW) {
       dispatch(showTrainingTimeWarning(false));
       window.alert("The first query you run will be slower (< 1 minute) because its training the neural nets", 'Warning');
     }
+    */
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
     console.log(`sending query ${query}`);
