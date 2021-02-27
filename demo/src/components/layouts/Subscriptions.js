@@ -330,6 +330,8 @@ const refresh = (dispatch, subscription_id, password) => {
 const cancelConfirm = "Delete subscription?";
 
 const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinutes, setControlButtonEnabled) => {
+  const refreshHandler = () => refresh(dispatch, subscription_id, password);
+  setTimeout( () => { refreshHandler() }, 10000 )
   setControlButtonEnabled(false)
   fetch(`${URL}/start?time=${autoShutoffTimeInMinutes}`, {
     method: "POST",
@@ -343,7 +345,7 @@ const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinut
       if (result.status == 200) {
         const json = await result.json();
         if (json.status == 200) {
-          refresh(dispatch, subscription_id, password);
+          refreshHandler();
         } else {
           window.alert(`Error processing the stop request. ${json.statusText}`)
         }
@@ -354,6 +356,8 @@ const startServer = (dispatch, subscription_id, password, autoShutoffTimeInMinut
 }
 
 const stopServer = (dispatch, subscription_id, password, setControlButtonEnabled) => {
+  const refreshHandler = () => refresh(dispatch, subscription_id, password);
+  setTimeout( () => { refreshHandler() }, 10000 )
   setControlButtonEnabled(false)
   fetch(`${URL}/stop`, {
     method: "POST",
@@ -367,7 +371,7 @@ const stopServer = (dispatch, subscription_id, password, setControlButtonEnabled
       if (result.status == 200) {
         const json = await result.json();
         if (json.status == 200) {
-          refresh(dispatch, subscription_id, password);
+          refreshHandler();
         } else {
           window.alert(`Error processing the stop request. ${json.statusText}`)
         }
