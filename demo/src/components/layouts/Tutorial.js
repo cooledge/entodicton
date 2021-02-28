@@ -173,12 +173,8 @@ class Tutorial extends Component {
         </pre>
         <h1 className='step4'>Step 4 - Try stuff</h1>
         <p>
-        Now you can try making this fancier. You could add another language. You could input sentence in mixed languages. You can try adding punctuation. You can make it so the sentence <span className='quote'>What does joe earn</span> works. See the <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/kms/website/config.js`} target="_blank">demo config</a> for more examples.
+        Now you can try making this fancier. You could add another language. You could input sentence in mixed languages. You can try adding punctuation. You can make it so the sentence <span className='quote'>What does joe earn</span> works.
         </p>
-        <h1 className='step4'>Developer Workflow Videos</h1>
-        <a href={"https://youtu.be/flYrHNDFTMA"} target="_blank">Submit Bug Workflow</a>
-        <br/>
-        <a href={"https://www.youtube.com/watch?v=97S2RCDedBQ"} target="_blank">Developer Demo - Parping - Part 1</a>
       </div>
     )
   }

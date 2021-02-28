@@ -125,24 +125,34 @@
   color: black;
   text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 }
-.tutorial .step1 {
-  background-image: url("./logo_image.jpg");
-  background-position: 0px 300px;
-}
 
-.tutorial .step2 {
-  background-image: url("./logo_image.jpg");
-  background-position: 0px 900px;
-}
-
-.tutorial .step3 {
-  background-image: url("./logo_image.jpg");
-  background-position: 0px 150px;
-}
-
-.tutorial .step4 {
+.tutorial h1 {
   background-image: url("./logo_image.jpg");
   background-position: 0px 550px;
+}
+
+.videos {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.videos .header {
+  background-image: url("./logo_image.jpg");
+  background-position: 0px 550px;
+}
+
+.videos a { 
+  display: block;
+}
+
+.videos h1 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  border-top-style: solid;
+  border-bottom-style: double;
+  color: black;
+  text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 }
 
 .logo .name {
@@ -408,6 +418,14 @@ form {
 }
 
 .deployVersion a {
+  margin-left: 10px;
+}
+
+.deploymentPaused {
+  margin-left: 10px;
+}
+
+.youtubeLink {
   margin-left: 10px;
 }
 

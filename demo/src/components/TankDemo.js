@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {connect} from 'react-redux';
 import tank from '../tank.jpeg';
 import building from '../building.png';
@@ -20,6 +20,18 @@ const uuidGen = require('uuid/v1')
 const timersOn = true;
 const offsetForPosition_x = 20;
 const offsetForPosition_y = 240;
+
+function SlownessWarning() {
+  const [visible, setVisible] = useState(false)
+  setTimeout( () => { setVisible(true) }, 10000 )
+  return ( 
+           <span>
+             { visible && 
+               <span>The neural nets are being trained or the server has a lot of users. All sentences in the demo take less that 6 seconds. Average time is 1 second</span>
+             }
+           </span>
+         )
+}
 
 class FoodOrder extends Component {
   render() {
@@ -249,10 +261,12 @@ class QueryPane extends Component {
     const query = document.getElementById("query").value;
     key = document.getElementById("key").value;
 
+    /*
     if (showTTW) {
       dispatch(showTrainingTimeWarning(false));
       window.alert("The first query you run will be slower (< 1 minute) because its training the neural nets", 'Warning');
     }
+    */
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
     console.log(`sending query ${query}`);
@@ -364,7 +378,8 @@ class QueryPane extends Component {
             { this.props.inProcess != 0 && 
               (
                 <span className='inProcess'>
-                  {this.props.inProcess} request being in processed.
+                  {this.props.inProcess} request being processed.
+                  <SlownessWarning />
                 </span>
               )
             }
