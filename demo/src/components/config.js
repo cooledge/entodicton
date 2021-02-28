@@ -40,7 +40,7 @@ module.exports =
     "(([i]) [wantWhitespot|want] ([food]) ([fromW|from] ([whitespot])))",
     "(<count> ([food]))",
     "(<aEnglish> ([food]))",
-    "(([food]) <conj> ([food]))",
+    "(([food]) [conj] ([food]))",
   ],
   "bridges": [
     {"id": "english", "level": 0, "bridge": "{ ...after }"},
