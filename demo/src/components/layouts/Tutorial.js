@@ -47,21 +47,21 @@ class Tutorial extends Component {
           {'{"marker":"worked","who":"sally","duration":10,"units":"weekConcept"}'}
         </pre>
         <p>
-        Next up is setting up the semantics. Ultimately we want to calculate what people earn based on their salary and how much they worked so we need some semantics. The semantics run on the client side so you have the full power of javascript available. The semantics run on each context produced by analyzing the sentence. They have access to the <span className='quote'>objects</span> property passed into the api and the current context. Those are in the variables <span className='quote'>global</span> and <span className='quote'>context</span>. Changes made to global are visible to later applications of the semantics. 
+        Next up is setting up the semantics. Ultimately we want to calculate what people earn based on their salary and how much they worked so we need some semantics. The semantics run on the client side so you have the full power of javascript available. The semantics run on each context produced by analyzing the sentence. They have access to the <span className='quote'>objects</span> property passed into the api and the current context. Those are in the variables <span className='quote'>objects</span> and <span className='quote'>context</span>. Changes made to objects are visible to later applications of the semantics. 
         </p>
         <pre>
         {"["}<br/>
-        {"  (global, context) => context.marker == 'worked', "}<br/>
-        {"  (global, context) => {,"}<br/>
-        {"      if (! global.workingTime ) {,"}<br/>
-        {"          global.workingTime = [],"}<br/>
+        {"  (objects, context) => context.marker == 'worked', "}<br/>
+        {"  (objects, context) => {,"}<br/>
+        {"      if (! objects.workingTime ) {,"}<br/>
+        {"          objects.workingTime = [],"}<br/>
         {"      },"}<br/>
-        {"      global.workingTime.push({ name: context.who, number_of_time_units: context.duration, time_units: context.units }),"}<br/>
+        {"      objects.workingTime.push({ name: context.who, number_of_time_units: context.duration, time_units: context.units }),"}<br/>
         {"  }"}<br/>
         {"]"}
         </pre>
         <p>
-        {"Semantics are of the form [<matcher>, <semantic>]. Matcher is a function that takes a context and will return true if the contexts is to be semantic is to be applied to the current context. The application function takes two arguments. 'global' and 'context'.  This semantic definition takes information from the current context and puts it in the global context. That information can be used by later inputs. This is what will be in the global variable after the semantics run"}
+        {"Semantics are of the form [<matcher>, <semantic>]. Matcher is a function that takes a context and will return true if the contexts is to be semantic is to be applied to the current context. The application function takes two arguments. 'objects' and 'context'.  This semantic definition takes information from the current context and puts it in the objects context. That information can be used by later inputs. This is what will be in the objects variable after the semantics run"}
         </p>
         <pre>
          {"{ workingTime: [ { name: 'sally', number_of_time_units: 10, time_units: 'weekConcept' } ] }"}
@@ -85,7 +85,7 @@ class Tutorial extends Component {
         </p>
         <h1 className='step2'>Step 2- <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/tutorial/command_line_demo_2.js`} target="_blank">Code</a></h1>
         <p>
-        This step involves setting up processing of the input <span className='quote'>joe earns 10 dollars per week</span> to produce this in the global context
+        This step involves setting up processing of the input <span className='quote'>joe earns 10 dollars per week</span> to produce this in the objects context
         </p>
         <pre>
           {"{"}<br/>
@@ -122,10 +122,10 @@ class Tutorial extends Component {
           {"{ isQuery: true, marker: 'response', units: 'dollars', who: 'joe', earnings: 150 }, }"}<br/>
         </pre>
         <p>
-        The interesting parts are are the semantics for <span className='quote'>joe earns what</span> is used to access the global context and do a calculation and write that into the current context. Then the semantics are setup to print the response to the question <span className='quote'>joe earns what</span> instead of just paraphrasing the input.
+        The interesting parts are are the semantics for <span className='quote'>joe earns what</span> is used to access the objects context and do a calculation and write that into the current context. Then the semantics are setup to print the response to the question <span className='quote'>joe earns what</span> instead of just paraphrasing the input.
         </p>
         <p>
-        After the first two semantics run this will be in the global context
+        After the first two semantics run this will be in the objects context
         </p>
         <pre>
           {"{"}<br/>
@@ -134,15 +134,15 @@ class Tutorial extends Component {
           {"..."}
         </pre>
         <p>
-        This is the semantics white reads from the global context and create updates the existing contexts to have the answer
+        This is the semantics white reads from the objects context and create updates the existing contexts to have the answer
         </p>
         <pre>
-          {"[(global, context) => context.marker == 'earn' && context.isQuery, "}<br/>
-          {" (global, context) => {"}<br/>
+          {"[(objects, context) => context.marker == 'earn' && context.isQuery, "}<br/>
+          {" (objects, context) => {"}<br/>
           {"   context.marker = 'response';"}<br/>
-          {"   var employee_record = global.employees.find( (er) => er.name == context.who )"}<br/>
+          {"   var employee_record = objects.employees.find( (er) => er.name == context.who )"}<br/>
           {"   let totalIncome = 0"}<br/>
-          {"   global.workingTime.forEach( (wt) => {"}<br/>
+          {"   objects.workingTime.forEach( (wt) => {"}<br/>
           {"     if (wt.name == context.who) {"}<br/>
           {"       totalIncome += employee_record.earnings_per_period * wt.number_of_time_units"}<br/>
           {"     }"}<br/>

@@ -52,33 +52,33 @@ module.exports =
     [({context}) => context.marker == 'response', ({g, context}) => `${context.who} earned ${context.earnings} ${context.units}`],
   ],
   "semantics": [
-    [({global, context}) => context.marker == 'earn' && context.isQuery, ({global, context}) => { 
+    [({objects, context}) => context.marker == 'earn' && context.isQuery, ({objects, context}) => { 
       context.marker = 'response'; 
-      var employee_record = global.employees.find( (er) => er.name == context.who )
+      var employee_record = objects.employees.find( (er) => er.name == context.who )
       let totalIncome = 0
-      global.workingTime.forEach( (wt) => {
+      objects.workingTime.forEach( (wt) => {
         if (wt.name == context.who) {
           totalIncome += employee_record.earnings_per_period * wt.number_of_time_units
         }
       });
       context.earnings = totalIncome
      }],
-    [({global, context}) => context.marker == 'earn', ({global, context}) => { 
-      if (! global.employees ) {
-        global.employees = []
+    [({objects, context}) => context.marker == 'earn', ({objects, context}) => { 
+      if (! objects.employees ) {
+        objects.employees = []
       }
-      global.employees.push({ name: context.who, earnings_per_period: context.amount, period: context.period, units: 'dollars' })
+      objects.employees.push({ name: context.who, earnings_per_period: context.amount, period: context.period, units: 'dollars' })
      }],
-    [({global, context}) => context.marker == 'worked', ({global, context}) => { 
-      if (! global.workingTime ) {
-        global.workingTime = []
+    [({objects, context}) => context.marker == 'worked', ({objects, context}) => { 
+      if (! objects.workingTime ) {
+        objects.workingTime = []
       }
-      global.workingTime.push({ name: context.who, number_of_time_units: context.duration, time_units: context.units })
+      objects.workingTime.push({ name: context.who, number_of_time_units: context.duration, time_units: context.units })
      }],
-    [({global, context}) => context.pullFromContext
-, ({global, context}) => { 
-    const object = global.mentioned[0]
-    global.mentioned.shift()
+    [({objects, context}) => context.pullFromContext
+, ({objects, context}) => { 
+    const object = objects.mentioned[0]
+    objects.mentioned.shift()
     Object.assign(context, object)
     delete context.pullFromContext
      }],

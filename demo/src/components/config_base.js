@@ -209,26 +209,26 @@ module.exports =
     [({context}) => context.marker == 'destroy', ({g, context}) => `destroy ${g(context.name)}`],
   ],
   "semantics": [
-    [({global, context}) => context.marker == 'create'
-, ({global, context}) => { 
+    [({objects, context}) => context.marker == 'create'
+, ({objects, context}) => { 
     if (context.klass.marker === 'tankConcept') {
-      if (!global.newTanks) {
-        global.newTanks = []
+      if (!objects.newTanks) {
+        objects.newTanks = []
       }
-      const tank = global.newTank(context)
-      if (!global.mentioned) {
-        global.mentioned = []
+      const tank = objects.newTank(context)
+      if (!objects.mentioned) {
+        objects.mentioned = []
       }
-      global.mentioned.push({ marker: 'tankConcept', word: tank.name, id: tank.id })
+      objects.mentioned.push({ marker: 'tankConcept', word: tank.name, id: tank.id })
     } else if (context.klass.marker === 'buildingConcept') {
-      if (!global.newBuildings) {
-        global.newBuildings = []
+      if (!objects.newBuildings) {
+        objects.newBuildings = []
       }
-      const building = global.newBuilding(context)
-      if (!global.mentioned) {
-        global.mentioned = []
+      const building = objects.newBuilding(context)
+      if (!objects.mentioned) {
+        objects.mentioned = []
       }
-      global.mentioned.push({ marker: 'buildingConcept', word: building.name, id: building.id })
+      objects.mentioned.push({ marker: 'buildingConcept', word: building.name, id: building.id })
     }
      }],
   ],
