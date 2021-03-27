@@ -27,10 +27,11 @@ module.exports =
     [["wantWhitespot", 0], ["aEnglish", 0], ["count", 0]],
     [["i", 0], ["wantMcDonalds", 0], ["aEnglish", 0], ["count", 0]],
     [["wantMcDonalds", 0], ["aEnglish", 0], ["fromM", 0]],
+    [["wantWhitespot", 0], ["fromM", 0], ["aEnglish", 0]],
   ],
   "associations": {
-    "negative": [[["wantMcDonalds", 0], ["number", 0], ["food", 0]], [["wantWhitespot", 0], ["number", 0], ["food", 0]], [["conj", 0], ["aFrench", 0], ["food", 0]]],
-    "positive": [[["i", 0], ["wantWhitespot", 0], ["aEnglish", 0]], [["i", 0], ["wantMcDonalds", 0], ["aEnglish", 0]], [["wantMcDonalds", 0], ["count", 0], ["food", 0]], [["wantWhitespot", 0], ["count", 0], ["food", 0]], [["conj", 0], ["aEnglish", 0], ["food", 0]]],
+    "negative": [[["wantMcDonalds", 0], ["number", 0], ["food", 0]], [["wantWhitespot", 0], ["number", 0], ["food", 0]], [["conj", 0], ["aFrench", 0], ["food", 0]], [["i", 0], ["wantMcDonalds", 0], ["food", 0], ["fromW", 0]], [["i", 0], ["wantWhitespot", 0], ["food", 0], ["fromM", 0]], [["food", 0], ["fromM", 0], ["whitespot", 0]]],
+    "positive": [[["i", 0], ["wantWhitespot", 0], ["aEnglish", 0]], [["i", 0], ["wantMcDonalds", 0], ["aEnglish", 0]], [["wantMcDonalds", 0], ["count", 0], ["food", 0]], [["wantWhitespot", 0], ["count", 0], ["food", 0]], [["conj", 0], ["aEnglish", 0], ["food", 0]], [["i", 0], ["wantWhitespot", 0], ["food", 0], ["fromW", 0]], [["food", 0], ["fromW", 0], ["whitespot", 0]]],
   },
   "words": {
     "cheeseburger": [{"id": "food", "initial": {"name": "cheeseburger"}}],

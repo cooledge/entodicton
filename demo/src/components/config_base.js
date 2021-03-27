@@ -43,7 +43,6 @@ module.exports =
     {"id": "query", "level": 0, "bridge": "{ marker: 'query', isQuery: true }"},
     {"id": "property", "level": 0, "bridge": "{ object: after[0], ...next(operator) }"},
     {"id": "property", "level": 1, "bridge": "{ value: objects.tanks[operator.object['id']][before[0].name], marker: operator(objects.types[before[0].name].id, objects.types[before[0].name].level), propertyName: before[0].name, object:operator.object.id, isProperty: true }"},
-    {"id": "equalProperty", "level": 1, "bridge": "{ ...next(operator), objects: append(before[0], operator.objects) }"},
     {"id": "equal", "level": 0, "bridge": "{ objects: after[0], ...next(operator) }"},
     {"id": "equal", "level": 1, "bridge": "{ ...next(operator), objects: append(before[0], operator.objects) }"},
     {"id": "plus", "level": 0, "bridge": "{ ...next(operator), value: add(before, after), marker: before[0].marker }"},
@@ -110,10 +109,14 @@ module.exports =
     [["deplacez", 0], ["move", 0], ["vers", 0]],
     [["deplacez", 0], ["move", 0], ["to", 0]],
     [["deplacez", 0], ["move", 0], ["vers", 0], ["to", 0]],
+    [["create", 0], ["move", 0], ["to", 0], ["aEnglish", 0]],
+    [["create", 0], ["move", 0], ["to", 1]],
+    [["equal", 0], ["property", 0], ["query", 0], ["tankConcept", 0]],
+    [["deplacez", 0], ["move", 0], ["to", 1]],
   ],
   "associations": {
     "negative": [[["tankConcept", 0], ["french", 0], ["aEnglish", 0], ["buildingConcept", 0]], [["conj", 0], ["count", 0], ["plus", 0]]],
-    "positive": [[["tankConcept", 0], ["french", 0], ["aFrench", 0], ["buildingConcept", 0]], [["conj", 0], ["number", 0], ["plus", 0]]],
+    "positive": [[["tankConcept", 0], ["french", 0], ["aFrench", 0], ["buildingConcept", 0]], [["conj", 0], ["number", 0], ["plus", 0]], [["the", 0], ["propertyConcept", 0], ["property", 0]]],
   },
   "words": {
     "+": [{"id": "plus"}],
