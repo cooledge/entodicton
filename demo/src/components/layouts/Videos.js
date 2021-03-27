@@ -7,6 +7,7 @@ class Tutorial extends Component {
       <div className='videos'>
         <h1 className='header'>Developer Workflow Videos</h1>
         <a href={"https://www.youtube.com/watch?v=SRwJrvSVW7U"} target="_blank">Submit Bug Workflow</a>
+        <a href={"https://www.youtube.com/watch?v=dR93bFJqCYA"} target="_blank">Debugging - Neural Nets Problems</a>
         <br/>
         <h2>Tutorial Follow-up Videos</h2>
         <a href={"https://youtu.be/ES6UoSAIYbY"} target="_blank">Earning Tutorial - Part 1 - What does Joe earn</a>
