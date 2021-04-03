@@ -2,6 +2,7 @@
   {
     "name": "store",
     "description": "question about products for sale",
+    "source": "https://thinktelligence.com",
     "examples": [
       "list products"
     ]

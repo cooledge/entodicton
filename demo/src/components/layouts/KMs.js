@@ -13,6 +13,7 @@ const KM = (km) => {
         <span class='arrow right' onClick={ () => setOpen(true)} />
       }
       <span class='kmName'>{km.name}</span> - <span class='kmDescription'>{km.description}</span>
+      <a href={km.source} target="_blank">(source)</a>
       <br/>
       {open &&
         <div class='kmUtterances'>
@@ -31,7 +32,7 @@ const KMs = () => {
 
   return (
     <div className='kms'>
-      <h1 className='header'>Knowledge Module</h1>
+      <h1 className='header'>Knowledge Modules</h1>
       <p>
         A knowledge module is a predefined config file that can either be used as-is or by defining how new interface functions. The knowledge modules can be found in the <a href={"https://www.npmjs.com/package/ekms"} target="_blank">EKMS package</a>.
       </p>
