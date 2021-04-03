@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-const kms = require('./kms.json');
+const kms = require('./KMs.json');
 
 const KM = (km) => {
   const [open, setOpen] = useState(false)
