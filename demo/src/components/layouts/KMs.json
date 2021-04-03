@@ -1,8 +1,8 @@
 [
   {
     "name": "store",
-    "description": "question about products for sale",
-    "source": "https://thinktelligence.com",
+    "description": "questions about products for sale in a store",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
     "examples": [
       "list products"
     ]
