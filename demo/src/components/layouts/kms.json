@@ -1,0 +1,9 @@
+[
+  {
+    "name": "store",
+    "description": "question about products for sale",
+    "examples": [
+      "list products"
+    ]
+  }
+]
