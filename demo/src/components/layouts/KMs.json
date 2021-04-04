@@ -4,7 +4,8 @@
     "description": "questions about products for sale in a store",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
     "examples": [
-      "list products"
+      "list products",
+      "list the products"
     ]
   }
 ]
