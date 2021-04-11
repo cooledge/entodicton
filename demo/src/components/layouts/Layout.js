@@ -15,6 +15,7 @@ class Layout extends Component {
                       <li className="barItem"><Link to='/demo'>DEMO</Link></li>
                       <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li>
                       <li className="barItem"><Link to='/videos'>VIDEOS</Link></li>
+                      <li className="barItem"><Link to='/kms'>KMS</Link></li>
                       <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li>
                       <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li>
                       <li className="barItem"><Link to='/contact'>ABOUT</Link></li>

@@ -434,3 +434,45 @@ form {
   margin-right: 5px;
   margin-bottom: 30px;
 }
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  margin-right: 10px;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.kms {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.kmUtterances {
+  margin-left: 20px;
+}
+
+.kmName {
+  font-weight: bold;
+}
+
