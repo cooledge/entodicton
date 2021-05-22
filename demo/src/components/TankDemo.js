@@ -5,7 +5,7 @@ import building from '../building.png';
 import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
 //import client from 'entodicton/client'
-const client = require('entodicton/client')
+const entodicton = require('entodicton')
 import Config from 'entodicton/src/config'
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery, showTrainingTimeWarning } from '../actions/actions'
 import store from '../stores/store';
@@ -319,7 +319,7 @@ class QueryPane extends Component {
     config.set('objects', objects);
     
     startedQuery();
-    client.process(parameters.thinktelligence.url, key, config)
+    entodicton.process(parameters.thinktelligence.url, key, config)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
