@@ -1,11 +1,30 @@
 [
   {
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
-    "description": "questions about products for sale in a store",
     "examples": [
       "list products",
       "list the products"
     ],
-    "name": "store"
+    "description": "questions about products for sale in a store",
+    "name": "store",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js"
+  },
+  {
+    "examples": [
+      "20"
+    ],
+    "description": "talking about numbers",
+    "name": "numbers",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js"
+  },
+  {
+    "examples": [
+      "20 dollar",
+      "1 dollars",
+      "1 pound",
+      "20 euros"
+    ],
+    "description": "Ways of specifying currency amount",
+    "name": "currency",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js"
   }
 ]
