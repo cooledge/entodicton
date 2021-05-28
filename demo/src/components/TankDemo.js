@@ -6,14 +6,13 @@ import Button from 'react-bootstrap/Button';
 //import PropTypes from 'prop-types'
 //import client from 'entodicton/client'
 const entodicton = require('entodicton')
-import Config from 'entodicton/src/config'
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery, showTrainingTimeWarning } from '../actions/actions'
 import store from '../stores/store';
 const parameters = require('./parameters')
 //import config from './config';
-import config_base from './config_base';
-import config_earn from './config_earn';
-import config_food from './config_food';
+const config_base = require('./config_base');
+const config_earn = require('./config_earn');
+const config_food = require('./config_food');
 import Includes from './Includes';
 const uuidGen = require('uuid/v1')
 
@@ -312,14 +311,20 @@ class QueryPane extends Component {
         return { name: namess[0][0], 'id': ids[0] } 
     }
 
-    const config = new Config(config_base).add(config_earn).add(config_food);
-    config.set('url', url);
-    config.set('utterances', [query]);
+    const config = new entodicton.Config(config_base).add(config_earn).add(config_food);
+    /*
+    debugger;
+    console.log(config_base);
+    const config = new entodicton.Config(config_base)
+    config.add(config_earn)
+    config.add(config_food);
+    */
     config.set('words', this.props.words());
     config.set('objects', objects);
+    config.server(parameters.thinktelligence.url, key)
     
     startedQuery();
-    entodicton.process(parameters.thinktelligence.url, key, config)
+    config.process(query)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
