@@ -172,6 +172,11 @@
   font-weight: bold;
 }
 
+.logo .motto {
+  display: inline;
+  font-size: 5px;
+}
+
 .bar {
   line-height: 27px;
   width: 100%;
