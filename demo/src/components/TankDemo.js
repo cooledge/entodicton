@@ -353,7 +353,7 @@ class QueryPane extends Component {
         console.log('in the catch js');
         console.log(error.stack)
         console.log(error)
-        window.alert(error, 'Error');
+        window.alert(JSON.stringify(error), 'Error');
         const response = {
           description: `Error: ${error}`,
           wantsPosition: false
