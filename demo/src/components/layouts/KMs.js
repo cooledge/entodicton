@@ -34,7 +34,7 @@ const KMs = () => {
     <div className='kms'>
       <h1 className='header'>Knowledge Modules</h1>
       <p>
-        A knowledge module is a predefined config file that can either be used as-is or by defining how new interface functions. The knowledge modules can be found in the <a href={"https://www.npmjs.com/package/ekms"} target="_blank">EKMS package</a>. Here is a list of existing KM's.
+        A knowledge module is a predefined config file that can either be used as-is or by defining how new interface functions. The knowledge modules can be found in the <a href={"https://www.npmjs.com/package/ekms"} target="_blank">EKMS package</a>. <a href={"https://youtu.be/WbrMExswiis"} target="_blank">Demo of knowledge module usage</a> Here is a list of existing KM's.
       </p>
       { listing }
     </div>
