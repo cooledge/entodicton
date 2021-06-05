@@ -13,7 +13,7 @@ class Layout extends Component {
                         THINKtelligence
                       </div>
                       <div className='motto'>
-                      we put the think in telligence
+                      code from the future, today
                       </div>
                     </div>
                     <div className='menuBar'>
