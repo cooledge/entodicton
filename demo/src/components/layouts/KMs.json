@@ -1,7 +1,5 @@
 [
   {
-    "description": "questions about products for sale in a store",
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
     "examples": [
       "list products",
       "list the products",
@@ -9,20 +7,20 @@
       "answer with sentences list the products",
       "show the price list the products"
     ],
-    "name": "store"
+    "name": "store",
+    "description": "questions about products for sale in a store",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js"
   },
   {
-    "description": "talking about numbers",
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "examples": [
       "20",
       "44"
     ],
-    "name": "numbers"
+    "name": "numbers",
+    "description": "talking about numbers",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js"
   },
   {
-    "description": "Ways of specifying currency amount",
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
     "examples": [
       "20 dollar",
       "1 dollars",
@@ -33,14 +31,16 @@
       "20 dollars in euros",
       "1 dollar in euros"
     ],
-    "name": "currency"
+    "name": "currency",
+    "description": "Ways of specifying currency amount",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js"
   },
   {
-    "description": "Help the user with the current knowledge modules",
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
     "examples": [
       "help"
     ],
-    "name": "help"
+    "name": "help",
+    "description": "Help the user with the current knowledge modules",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js"
   }
 ]
