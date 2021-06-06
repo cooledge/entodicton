@@ -325,7 +325,7 @@ class QueryPane extends Component {
     config.server(parameters.thinktelligence.url, key)
     
     startedQuery();
-    config.process(query)
+    config.process([query])
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
