@@ -9,6 +9,7 @@
       "show the price list the products"
     ],
     "description": "questions about products for sale in a store",
+    "includes": ["numbers", "currency", "help"],
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js"
   },
   {

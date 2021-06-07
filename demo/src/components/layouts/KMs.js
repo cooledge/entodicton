@@ -4,6 +4,7 @@ const kms = require('./KMs.json');
 const KM = (km) => {
   const [open, setOpen] = useState(false)
   const examples = km.examples.map( (example) => (<li>{example}</li>) );
+  const includes = (km.includes || []).join(',');
   return (
     <span className='km'>
       { open &&
@@ -15,6 +16,15 @@ const KM = (km) => {
       <span class='kmName'>{km.name}</span> - <span class='kmDescription'>{km.description}</span>
       <a href={km.source} target="_blank">(source)</a>
       <br/>
+      {open && km.includes && km.includes.length > 0 &&
+        <div class='kmUtterances'>
+          <br/>
+          <span><b>Includes:</b></span>
+          <span>
+          {includes}
+          </span>
+        </div>
+      }
       {open &&
         <div class='kmUtterances'>
           <h4>Sample utterances</h4>
