@@ -1,32 +1,38 @@
 [
   {
+    "name": "store",
+    "description": "questions about products for sale in a store",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
+    "includes": [
+      "currency",
+      "numbers",
+      "help"
+    ],
     "examples": [
       "list products",
       "list the products",
       "answer with tables list the products",
       "answer with sentences list the products",
       "show the price list the products"
-    ],
-    "description": "questions about products for sale in a store",
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
-    "name": "store",
-    "includes": [
-      "currency",
-      "numbers",
-      "help"
     ]
   },
   {
+    "name": "numbers",
+    "description": "talking about numbers",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
+    "includes": [],
     "examples": [
       "20",
       "44"
-    ],
-    "description": "talking about numbers",
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
-    "name": "numbers",
-    "includes": []
+    ]
   },
   {
+    "name": "currency",
+    "description": "Ways of specifying currency amount",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
+    "includes": [
+      "numbers"
+    ],
     "examples": [
       "20 dollar",
       "1 dollars",
@@ -36,21 +42,15 @@
       "20 dollars",
       "20 dollars in euros",
       "1 dollar in euros"
-    ],
-    "description": "Ways of specifying currency amount",
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
-    "name": "currency",
-    "includes": [
-      "numbers"
     ]
   },
   {
-    "examples": [
-      "help"
-    ],
+    "name": "help",
     "description": "Help the user with the current knowledge modules",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
-    "name": "help",
-    "includes": []
+    "includes": [],
+    "examples": [
+      "help"
+    ]
   }
 ]
