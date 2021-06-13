@@ -51,8 +51,8 @@ class Tutorial extends Component {
         </p>
         <pre>
         {"["}<br/>
-        {"  (objects, context) => context.marker == 'worked', "}<br/>
-        {"  (objects, context) => {,"}<br/>
+        {"  ({objects, context}) => context.marker == 'worked', "}<br/>
+        {"  ({objects, context}) => {,"}<br/>
         {"      if (! objects.workingTime ) {,"}<br/>
         {"          objects.workingTime = [],"}<br/>
         {"      },"}<br/>
@@ -76,9 +76,9 @@ class Tutorial extends Component {
         into the string <span className='quote'>"Sally worked 10 weeks"</span>
         </p>
         <pre>
-          {"[ (context) => context.marker == 'weekConcept' && context.duration == 1, (g, context) => `${context.duration} week` ],"}<br/>
-          {"[ (context) => context.marker == 'weekConcept' && context.duration > 1, (g, context) => `${context.duration} weeks` ],"}<br/>
-          {"[ (context) => context.marker == 'worked', (g, context) => `${g(context.who)} worked ${ g({ marker: context.units, duration: context.duration}) }` ],"}<br/>
+          {"[ ({context}) => context.marker == 'weekConcept' && context.duration == 1, ({g, context}) => `${context.duration} week` ],"}<br/>
+          {"[ ({context}) => context.marker == 'weekConcept' && context.duration > 1, ({g, context}) => `${context.duration} weeks` ],"}<br/>
+          {"[ ({context}) => context.marker == 'worked', ({g, context}) => `${g(context.who)} worked ${ g({ marker: context.units, duration: context.duration}) }` ],"}<br/>
         </pre>
         <p>
         {"Generators are of the form [<matcher>, <generator>]. The matcher should return true if the context argument should use the corresponding generator. The generator takes the current context and and function 'g' which can be called to applied the generated to any value"}
@@ -137,8 +137,8 @@ class Tutorial extends Component {
         This is the semantics white reads from the objects context and create updates the existing contexts to have the answer
         </p>
         <pre>
-          {"[(objects, context) => context.marker == 'earn' && context.isQuery, "}<br/>
-          {" (objects, context) => {"}<br/>
+          {"[({objects, context}) => context.marker == 'earn' && context.isQuery, "}<br/>
+          {" ({objects, context}) => {"}<br/>
           {"   context.marker = 'response';"}<br/>
           {"   var employee_record = objects.employees.find( (er) => er.name == context.who )"}<br/>
           {"   let totalIncome = 0"}<br/>
@@ -168,8 +168,8 @@ class Tutorial extends Component {
         Then we have set up a generator to process this and turn it into the reponse string <span className='quote'>'joe earned 150 dollars'</span>
         </p>
         <pre>
-          {"(context) => context.marker == 'response',"}<br/>
-          {"(g, context) => `${context.who} earned ${context.earnings} ${context.units}` ],"}<br/>
+          {"({context}) => context.marker == 'response',"}<br/>
+          {"({g, context}) => `${context.who} earned ${context.earnings} ${context.units}` ],"}<br/>
         </pre>
         <h1 className='step4'>Step 4 - Try stuff</h1>
         <p>
