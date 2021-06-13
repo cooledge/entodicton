@@ -1,8 +1,8 @@
 [
   {
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js",
     "name": "avatar",
     "description": "avatar for dialogues",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js",
     "examples": [
       "your name",
       "what is your name",
@@ -15,9 +15,9 @@
     ]
   },
   {
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
     "name": "currency",
     "description": "Ways of specifying currency amount",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
     "examples": [
       "20 dollar",
       "1 dollars",
@@ -33,27 +33,27 @@
     ]
   },
   {
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js",
     "name": "dialogues",
     "description": "framework for dialogues",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js",
     "examples": [
       "what is it"
     ],
     "includes": []
   },
   {
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
     "name": "help",
     "description": "Help the user with the current knowledge modules",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
     "examples": [
       "help"
     ],
     "includes": []
   },
   {
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "name": "numbers",
     "description": "talking about numbers",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "examples": [
       "20",
       "44"
@@ -61,9 +61,9 @@
     "includes": []
   },
   {
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
     "name": "store",
     "description": "questions about products for sale in a store",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
     "examples": [
       "list products",
       "list the products",
