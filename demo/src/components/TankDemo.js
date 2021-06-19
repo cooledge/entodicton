@@ -325,7 +325,7 @@ class QueryPane extends Component {
     config.server(parameters.thinktelligence.url, key)
     
     startedQuery();
-    config.process([query])
+    config.process(query)
       .then( (responses) => {
         console.log('responses ==============')
         console.log(responses);
@@ -334,15 +334,11 @@ class QueryPane extends Component {
         } else {
           let actions = []
           let i = 0, j = 0
-          responses.results.forEach( (rs) => { 
-            rs.forEach((r) => { 
-              const g = responses.generated[i][j];
+          responses.results.forEach((r) => { 
+              const g = responses.generated[j];
               actions.push(this.processResponse(objects, this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
               j += 1;
             } );
-            i += 1;
-            j = 0;
-          } );
           console.log('actions ========================');
           console.log(actions);
           //actions.forEach( ({wantsPosition, dispatch}) => dispatch() );
