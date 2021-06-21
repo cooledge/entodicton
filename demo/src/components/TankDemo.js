@@ -334,7 +334,7 @@ class QueryPane extends Component {
         } else {
           let actions = []
           let i = 0, j = 0
-          responses.results.forEach((r) => { 
+          responses.contexts.forEach((r) => { 
               const g = responses.generated[j];
               actions.push(this.processResponse(objects, this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
               j += 1;
