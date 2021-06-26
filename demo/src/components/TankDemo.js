@@ -272,7 +272,10 @@ class QueryPane extends Component {
 
     console.log(`sending query ${query}`);
     const utterances = [query]
-    config.initializer(({objects}) => {
+    config.initializer(({objects, config}) => {
+      config.config.url = url
+      config.config.key= key
+
       objects['types'] = {
                            "position": { "id": "position", "level": 0 },
                            "velocity": { "id": "number", "level": 0 }
@@ -328,6 +331,7 @@ class QueryPane extends Component {
     config.server(parameters.thinktelligence.url, key)
     
     startedQuery();
+    debugger;
     config.process(query)
       .then( (responses) => {
         console.log('responses ==============')
