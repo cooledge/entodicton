@@ -268,50 +268,52 @@ class QueryPane extends Component {
     */
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
+    const config = new entodicton.Config(config_base).add(config_earn).add(config_food);
+
     console.log(`sending query ${query}`);
     const utterances = [query]
-    const objects = this.props.getObjects()
-    objects['types'] = {
-                         "position": { "id": "position", "level": 0 },
-                         "velocity": { "id": "number", "level": 0 }
-                       };
-    objects.counters = { tank: 23, building: 32 }
-    objects.counters = counters;
-    objects.generated_ids = []
-    objects.generated_names = []
-    objects.newTank = (context) => { 
-        let count = context.klass.number || 1;
-        let ids = []
-        let namess = []
-        let currentCount = objects.counters.tank;
-        objects.counters.tank += count;
-        for (let i = 0; i < count; ++i) {
-          ids.push(uuidGen())
-          namess.push([`tank${currentCount + i}`, `char${currentCount + i}`]);
-        }
-        objects.generated_ids = objects.generated_ids.concat(ids)
-        objects.generated_names = objects.generated_names.concat(namess)
+    config.initializer(({objects}) => {
+      objects['types'] = {
+                           "position": { "id": "position", "level": 0 },
+                           "velocity": { "id": "number", "level": 0 }
+                         };
+      objects.counters = { tank: 23, building: 32 }
+      objects.counters = counters;
+      objects.generated_ids = []
+      objects.generated_names = []
+      objects.newTank = (context) => { 
+          let count = context.klass.number || 1;
+          let ids = []
+          let namess = []
+          let currentCount = objects.counters.tank;
+          objects.counters.tank += count;
+          for (let i = 0; i < count; ++i) {
+            ids.push(uuidGen())
+            namess.push([`tank${currentCount + i}`, `char${currentCount + i}`]);
+          }
+          objects.generated_ids = objects.generated_ids.concat(ids)
+          objects.generated_names = objects.generated_names.concat(namess)
 
-        return { name: namess[0][0], 'id': ids[0] } 
-    }
-    objects.newBuilding = (context) => { 
-        //return { name: 'building1', 'id': 'building1id' } 
-        let count = context.klass.number || 1;
-        let ids = []
-        let namess = []
-        let currentCount = objects.counters.building;
-        objects.counters.building += count;
-        for (let i = 0; i < count; ++i) {
-          ids.push(uuidGen())
-          namess.push([`building${currentCount + i}`, `batiment${currentCount + i}`]);
-        }
-        objects.generated_ids = objects.generated_ids.concat(ids)
-        objects.generated_names = objects.generated_names.concat(namess)
+          return { name: namess[0][0], 'id': ids[0] } 
+      }
+      objects.newBuilding = (context) => { 
+          //return { name: 'building1', 'id': 'building1id' } 
+          let count = context.klass.number || 1;
+          let ids = []
+          let namess = []
+          let currentCount = objects.counters.building;
+          objects.counters.building += count;
+          for (let i = 0; i < count; ++i) {
+            ids.push(uuidGen())
+            namess.push([`building${currentCount + i}`, `batiment${currentCount + i}`]);
+          }
+          objects.generated_ids = objects.generated_ids.concat(ids)
+          objects.generated_names = objects.generated_names.concat(namess)
 
-        return { name: namess[0][0], 'id': ids[0] } 
-    }
+          return { name: namess[0][0], 'id': ids[0] } 
+      }
+    })
 
-    const config = new entodicton.Config(config_base).add(config_earn).add(config_food);
     /*
     debugger;
     console.log(config_base);
@@ -321,8 +323,8 @@ class QueryPane extends Component {
     */
     config.config.url = url
     config.set('words', this.props.words());
-    config.set('objects', objects);
-    config.server(parameters.thinktelligence.url, key)
+    //config.set('objects', objects);
+    //config.server(parameters.thinktelligence.url, key)
     
     startedQuery();
     config.process(query)
@@ -336,7 +338,7 @@ class QueryPane extends Component {
           let i = 0, j = 0
           responses.contexts.forEach((r) => { 
               const g = responses.generated[j];
-              actions.push(this.processResponse(objects, this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
+              actions.push(this.processResponse(config.get('objects').namespaced[config._uuid], this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
               j += 1;
             } );
           console.log('actions ========================');
@@ -349,8 +351,7 @@ class QueryPane extends Component {
         console.log('in the catch js');
         console.log(error.stack)
         console.log(error)
-        debugger;
-        window.alert(JSON.stringify(error), 'Error');
+        window.alert(JSON.stringify(error.toString()), 'Error');
         const response = {
           description: `Error: ${error}`,
           wantsPosition: false
