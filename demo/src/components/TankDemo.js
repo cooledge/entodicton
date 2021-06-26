@@ -324,7 +324,8 @@ class QueryPane extends Component {
     config.config.url = url
     config.set('words', this.props.words());
     //config.set('objects', objects);
-    //config.server(parameters.thinktelligence.url, key)
+    // GREG
+    config.server(parameters.thinktelligence.url, key)
     
     startedQuery();
     config.process(query)
