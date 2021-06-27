@@ -1,10 +1,9 @@
 [
   {
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js",
     "includes": [
       "dialogues"
     ],
-    "name": "avatar",
-    "description": "avatar for dialogues",
     "examples": [
       "your name",
       "what is your name",
@@ -12,14 +11,14 @@
       "my name is greg",
       "what is my name"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js"
+    "name": "avatar",
+    "description": "avatar for dialogues"
   },
   {
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
     "includes": [
       "numbers"
     ],
-    "name": "currency",
-    "description": "Ways of specifying currency amount",
     "examples": [
       "20 dollar",
       "1 dollars",
@@ -30,55 +29,55 @@
       "20 dollars in euros",
       "1 dollar in euros"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js"
+    "name": "currency",
+    "description": "Ways of specifying currency amount"
   },
   {
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js",
     "includes": [],
-    "name": "dialogues",
-    "description": "framework for dialogues",
     "examples": [
       "what is it"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js"
+    "name": "dialogues",
+    "description": "framework for dialogues"
   },
   {
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
     "includes": [],
-    "name": "help",
-    "description": "Help the user with the current knowledge modules",
     "examples": [
       "help"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js"
+    "name": "help",
+    "description": "Help the user with the current knowledge modules"
   },
   {
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js",
     "includes": [
       "dialogues"
     ],
-    "name": "javascript",
-    "description": "javascript interpreter",
     "examples": [
       "let c = 23"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js"
+    "name": "javascript",
+    "description": "javascript interpreter"
   },
   {
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "includes": [],
-    "name": "numbers",
-    "description": "talking about numbers",
     "examples": [
       "20",
       "44"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js"
+    "name": "numbers",
+    "description": "talking about numbers"
   },
   {
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js",
     "includes": [
       "currency",
       "numbers",
       "help"
     ],
-    "name": "store",
-    "description": "questions about products for sale in a store",
     "examples": [
       "list products",
       "list the products",
@@ -86,6 +85,7 @@
       "answer with sentences list the products",
       "show the price list the products"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/store.js"
+    "name": "store",
+    "description": "questions about products for sale in a store"
   }
 ]
