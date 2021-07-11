@@ -36,7 +36,7 @@ function DeployVersion({refreshHandler, subscription_id, password}) {
 
   return (
       <span className='deployVersion'>
-        <Button disabled={disabled} onClick={ handleDeploy() }>Upgrade to current version {VERSION}</Button>
+        <Button disabled={disabled} onClick={ handleDeploy() }>Upgrade to current version {VERSION.version}</Button>
         <a href={'https://github.com/thinktelligence/entodicton/blob/main/versions.json'} target="_blank">Version Info</a>
       </span>
   );
