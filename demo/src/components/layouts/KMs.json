@@ -1,38 +1,33 @@
 [
   {
-    "includes": [
-      "dialogues"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js",
     "description": "avatar for dialogues",
-    "name": "avatar",
     "examples": [
       "your name",
       "what is your name",
       "my name is greg what is my name",
       "my name is greg",
       "what is my name"
-    ]
+    ],
+    "name": "avatar",
+    "includes": [
+      "dialogues"
+    ],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js"
   },
   {
-    "includes": [
-      "help"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/characters.js",
     "description": "this module is for creating a team of characters that can respond to commands",
-    "name": "characters",
     "examples": [
       "sally what is the time",
       "bob 20 euros in dollars"
-    ]
+    ],
+    "name": "characters",
+    "includes": [
+      "help"
+    ],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/characters.js"
   },
   {
-    "includes": [
-      "numbers"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
     "description": "Ways of specifying currency amount",
-    "name": "currency",
     "examples": [
       "20 dollar",
       "1 dollars",
@@ -42,56 +37,54 @@
       "20 dollars",
       "20 dollars in euros",
       "1 dollar in euros"
-    ]
+    ],
+    "name": "currency",
+    "includes": [
+      "numbers"
+    ],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js"
   },
   {
-    "includes": [],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js",
     "description": "framework for dialogues",
-    "name": "dialogues",
     "examples": [
       "what is it"
-    ]
+    ],
+    "name": "dialogues",
+    "includes": [],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js"
   },
   {
-    "includes": [],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
     "description": "Help the user with the current knowledge modules",
-    "name": "help",
     "examples": [
       "help"
-    ]
+    ],
+    "name": "help",
+    "includes": [],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js"
   },
   {
+    "description": "javascript interpreter",
+    "examples": [
+      "let c = 23"
+    ],
+    "name": "javascript",
     "includes": [
       "dialogues"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js",
-    "description": "javascript interpreter",
-    "name": "javascript",
-    "examples": [
-      "let c = 23"
-    ]
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js"
   },
   {
-    "includes": [],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "description": "talking about numbers",
-    "name": "numbers",
     "examples": [
       "20",
       "44"
-    ]
+    ],
+    "name": "numbers",
+    "includes": [],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js"
   },
   {
-    "includes": [
-      "currency",
-      "numbers",
-      "help"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/reports.js",
     "description": "this module is for getting info about a concept with properties",
-    "name": "reports",
     "examples": [
       "list products",
       "list the products",
@@ -101,20 +94,27 @@
       "list the clothes",
       "list the models",
       "answer with sentences list the models"
-    ]
+    ],
+    "name": "reports",
+    "includes": [
+      "currency",
+      "numbers",
+      "help"
+    ],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/reports.js"
   },
   {
-    "includes": [
-      "dialogues"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/time.js",
     "description": "Time related concepts",
-    "name": "time",
     "examples": [
       "what is the time",
       "use 12 hour format what is the time",
       "use 24 hour format what is the time",
       "use 36 hour format"
-    ]
+    ],
+    "name": "time",
+    "includes": [
+      "dialogues"
+    ],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/time.js"
   }
 ]
