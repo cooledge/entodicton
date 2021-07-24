@@ -15,6 +15,9 @@ const KM = (km) => {
       }
       <span class='kmName'>{km.name}</span> - <span class='kmDescription'>{km.description}</span>
       <a href={km.source} target="_blank">(source)</a>
+      { km.demo &&
+        <a href={km.demo} target="_blank">(demo)</a>
+      }
       <br/>
       {open && km.includes && km.includes.length > 0 &&
         <div class='kmUtterances'>

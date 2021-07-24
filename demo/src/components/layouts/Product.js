@@ -54,7 +54,7 @@ class Product extends Component {
         <div className='brief'>natural language to json</div>
         <div className='details'>
           <p>
-          Entodicton converts natural language input into JSON data structures. We handle analyzing language structure and ambiguity. You get unambigous JSON that can be processed by standard algorithms. Entodiction employs learning based on neural networks while allowing control over the interpretation. <a href={'https://youtu.be/0C171rvNZGU'} target="_blank">Overview of the design and implementation</a>
+          Entodicton converts natural language input into JSON data structures. We handle analyzing language structure and ambiguity. You get unambigous JSON that can be processed by standard algorithms. Entodiction employs learning based on neural networks while allowing control over the interpretation. <a href={'https://youtu.be/b-fjpM238oQ'} target="_blank">Overview of the design and implementation</a>
           </p>
           <p>
           The tutorial shows how how to use the api to process this input

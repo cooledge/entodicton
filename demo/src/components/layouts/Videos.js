@@ -6,7 +6,7 @@ class Tutorial extends Component {
     return (
       <div className='videos'>
         <h1 className='header'>Developer Workflow Videos</h1>
-        <a href={'https://youtu.be/0C171rvNZGU'} target="_blank">Overview of the design and implemetation</a>
+        <a href={'https://youtu.be/b-fjpM238oQ'} target="_blank">Overview of the design and implementation</a>
         <a href={"https://youtu.be/4QDPLGjlq3g"} target="_blank">Demo of using knowledge modules from the EKMS package</a>
         <a href={"https://www.youtube.com/watch?v=SRwJrvSVW7U"} target="_blank">Submit Bug Workflow</a>
         <a href={"https://www.youtube.com/watch?v=dR93bFJqCYA"} target="_blank">Debugging - Neural Nets Problems</a>
@@ -19,6 +19,10 @@ class Tutorial extends Component {
         <a href={"https://www.youtube.com/watch?v=lYVBri14IDQ"} target="_blank">Developer Demo - Parping - Part 2</a>
         <a href={"https://www.youtube.com/watch?v=vfNAD7ZaJVA"} target="_blank">Developer Demo - Parping - Part 3</a>
         <h2>Star Trek API Demo- setup a trek like app</h2>
+        <a href={"https://youtu.be/eA25GZ0ZAHo"} target="_blank">Developer Demo using KMs - Star Trek API - Part 1</a>
+        <a href={"https://youtu.be/gJctzTrNEDs"} target="_blank">Developer Demo using KMs - Star Trek API - Part 2</a>
+        <a href={"https://youtu.be/y8hEvn8260o"} target="_blank">Developer Demo using KMs - Star Trek API - Part 3</a>
+        <h3>Old Demo not using knowledge modules</h3>
         <a href={"https://youtu.be/D8a1dPnwJDA"} target="_blank">Developer Demo - Star Trek API - Part 1</a>
         <a href={"https://youtu.be/sBtvPU9mKnI"} target="_blank">Developer Demo - Star Trek API - Part 2</a>
         <h2>Fallout API Demo- setup a language based UI for fallout 3 merchants</h2>
