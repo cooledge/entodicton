@@ -1,10 +1,8 @@
 [
   {
-    "name": "avatar",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js",
-    "includes": [
-      "dialogues"
-    ],
+    "description": "avatar for dialogues",
+    "name": "avatar",
     "examples": [
       "your name",
       "what is your name",
@@ -12,27 +10,27 @@
       "my name is greg",
       "what is my name"
     ],
-    "description": "avatar for dialogues"
+    "includes": [
+      "dialogues"
+    ]
   },
   {
-    "name": "characters",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/characters.js",
+    "description": "this module is for creating a team of characters that can respond to commands",
     "demo": "https://youtu.be/eA25GZ0ZAHo",
+    "name": "characters",
     "examples": [
       "sally what is the time",
       "bob 20 euros in dollars"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/characters.js",
     "includes": [
       "help"
-    ],
-    "description": "this module is for creating a team of characters that can respond to commands"
+    ]
   },
   {
-    "name": "currency",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
-    "includes": [
-      "numbers"
-    ],
+    "description": "Ways of specifying currency amount",
+    "name": "currency",
     "examples": [
       "20 dollar",
       "1 dollars",
@@ -43,55 +41,53 @@
       "20 dollars in euros",
       "1 dollar in euros"
     ],
-    "description": "Ways of specifying currency amount"
+    "includes": [
+      "numbers"
+    ]
   },
   {
-    "name": "dialogues",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js",
-    "includes": [],
+    "description": "framework for dialogues",
+    "name": "dialogues",
     "examples": [
       "what is it"
     ],
-    "description": "framework for dialogues"
+    "includes": []
   },
   {
-    "name": "help",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
-    "includes": [],
+    "description": "Help the user with the current knowledge modules",
+    "name": "help",
     "examples": [
       "help"
     ],
-    "description": "Help the user with the current knowledge modules"
+    "includes": []
   },
   {
-    "name": "javascript",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js",
-    "includes": [
-      "dialogues"
-    ],
+    "description": "javascript interpreter",
+    "name": "javascript",
     "examples": [
       "let c = 23"
     ],
-    "description": "javascript interpreter"
+    "includes": [
+      "dialogues"
+    ]
   },
   {
-    "name": "numbers",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
-    "includes": [],
+    "description": "talking about numbers",
+    "name": "numbers",
     "examples": [
       "20",
       "44"
     ],
-    "description": "talking about numbers"
+    "includes": []
   },
   {
-    "name": "reports",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/reports.js",
-    "includes": [
-      "currency",
-      "numbers",
-      "help"
-    ],
+    "description": "this module is for getting info about a concept with properties",
+    "name": "reports",
     "examples": [
       "list products",
       "list the products",
@@ -102,20 +98,24 @@
       "list the models",
       "answer with sentences list the models"
     ],
-    "description": "this module is for getting info about a concept with properties"
+    "includes": [
+      "currency",
+      "numbers",
+      "help"
+    ]
   },
   {
-    "name": "time",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/time.js",
-    "includes": [
-      "dialogues"
-    ],
+    "description": "Time related concepts",
+    "name": "time",
     "examples": [
       "what is the time",
       "use 12 hour format what is the time",
       "use 24 hour format what is the time",
       "use 36 hour format"
     ],
-    "description": "Time related concepts"
+    "includes": [
+      "dialogues"
+    ]
   }
 ]
