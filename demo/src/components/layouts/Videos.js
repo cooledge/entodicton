@@ -22,6 +22,7 @@ class Tutorial extends Component {
         <a href={"https://youtu.be/eA25GZ0ZAHo"} target="_blank">Developer Demo using KMs - Star Trek API - Part 1</a>
         <a href={"https://youtu.be/gJctzTrNEDs"} target="_blank">Developer Demo using KMs - Star Trek API - Part 2</a>
         <a href={"https://youtu.be/y8hEvn8260o"} target="_blank">Developer Demo using KMs - Star Trek API - Part 3</a>
+        <a href={"https://youtu.be/hv9U8x7H_T0"} target="_blank">Developer Demo using KMs - Star Trek API - Part 4</a>
         <h3>Old Demo not using knowledge modules</h3>
         <a href={"https://youtu.be/D8a1dPnwJDA"} target="_blank">Developer Demo - Star Trek API - Part 1</a>
         <a href={"https://youtu.be/sBtvPU9mKnI"} target="_blank">Developer Demo - Star Trek API - Part 2</a>
