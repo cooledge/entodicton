@@ -3,34 +3,45 @@ import { Link } from 'react-router-dom';
  
 class Layout extends Component {
    render() {
-         return (
-                 <div className='layout'>
-                    <div className="logo">
-                      <div className='motto'>
-                      we put the think in telligence
-                      </div>
-                      <div className='name'>
-                        THINKtelligence
-                      </div>
-                      <div className='motto'>
-                      code from the future, today
-                      </div>
+     if (window.location.href.endsWith('srdemo')) {
+       return (
+             <div className='layout'>
+               <div>
+                 { this.props.children }
+               </div>
+             </div>
+           );
+     } else {
+       return (
+               <div className='layout'>
+                  <div className="logo">
+                    <div className='motto'>
+                    we put the think in telligence
                     </div>
-                    <div className='menuBar'>
-                      <li className="barItem"><Link to='/product'>PRODUCT</Link></li>
-                      <li className="barItem"><Link to='/demo'>DEMO</Link></li>
-                      <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li>
-                      <li className="barItem"><Link to='/videos'>VIDEOS</Link></li>
-                      <li className="barItem"><Link to='/kms'>KMS</Link></li>
-                      <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li>
-                      <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li>
-                      <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
+                    <div className='name'>
+                      THINKtelligence
                     </div>
-                   <div>
-                     { this.props.children }
-                   </div>
+                    <div className='motto'>
+                    code from the future, today
+                    </div>
+                  </div>
+                  <div className='menuBar'>
+                    <li className="barItem"><Link to='/product'>PRODUCT</Link></li>
+                    <li className="barItem"><Link to='/demo'>DEMO</Link></li>
+                    <li className="barItem"><Link to='/srdemo'>SRDEMO</Link></li>
+                    <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li>
+                    <li className="barItem"><Link to='/videos'>VIDEOS</Link></li>
+                    <li className="barItem"><Link to='/kms'>KMS</Link></li>
+                    <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li>
+                    <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li>
+                    <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
+                  </div>
+                 <div>
+                   { this.props.children }
                  </div>
-                );
+               </div>
+              );
+     }
    }
 }
 
