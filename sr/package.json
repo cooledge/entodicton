@@ -1,5 +1,6 @@
 {
-  "name": "my-new-app",
+  "name": "speech recogition demoes",
+  "homepage": "https://think-think-gbjycyo1xhub-961513749.ca-central-1.elb.amazonaws.com/sr",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
