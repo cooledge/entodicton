@@ -1,4 +1,3 @@
-# one of these two will work
 cd ~/code/entodicton/sr
 cd ~/entodicton/sr
 
