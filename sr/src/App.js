@@ -2,9 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import SRDemo from './srdemo';
 import parameters from './parameters'
-const { avatar } = require('ekms')
+const { avatar, help, Config } = require('ekms')
+
 
 const config = avatar;
+config.add(help)
 
 // chrome does not like me directly calling an http server from a page that loaded https. 
 config.config.url = parameters.entodicton.url
