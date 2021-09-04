@@ -195,7 +195,7 @@ class QueryPane extends Component {
         placeOrder(name, quantity, who, from);
       }
     } else if (response.action === 'move') {
-      let tank = response.thing.id;
+      let tank = response.thing.word;
       if (response.thing.number == 'all') {
         tank = response.thing;
       }
