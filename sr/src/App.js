@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import SRDemo from './srdemo';
 import parameters from './parameters'
-const { avatar, time, help, Config } = require('ekms')
+const { avatar, time, reports, help, Config } = require('ekms')
 
 const setupForDemo = (km) => {
   const config = km;
@@ -23,7 +23,8 @@ const setupForDemo = (km) => {
 
 const configs = [
   setupForDemo(avatar),
-  setupForDemo(time) 
+  setupForDemo(time),
+  setupForDemo(reports),
 ]
 
 function App() {
