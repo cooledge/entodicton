@@ -26,6 +26,8 @@ const SRDemo = ({km}) => {
       for (const r of results.responses) {
         if (r.length > 0) {
           addResponse(r);
+        } else {
+          addResponse('ok');
         }
        }
      });
@@ -34,7 +36,7 @@ const SRDemo = ({km}) => {
 
   const list = []
   for (const response of responses) {
-    list.push(<li>{response}</li>)
+    list.push(<li><pre>{response}</pre></li>)
   }
   return (
            <div>
