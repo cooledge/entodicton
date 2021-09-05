@@ -21,10 +21,16 @@ const setupForDemo = (km) => {
   return config;
 }
 
+const all = new Config({ name: 'all' })
+all.add(avatar)
+all.add(time)
+all.add(reports)
+
 const configs = [
   setupForDemo(avatar),
   setupForDemo(time),
   setupForDemo(reports),
+  setupForDemo(all),
 ]
 
 function App() {
@@ -36,7 +42,9 @@ function App() {
 
   const choices = []
   for (let i = 0; i < configs.length; ++i) {
-    choices.push(<button onClick={() => choose(i)}>{configs[i].name}</button>)
+    const className = i == current ? 'selected' : '';
+    
+    choices.push(<button className={className} onClick={() => choose(i)}>{configs[i].name}</button>)
     //choices.push(<button onClick={setCurrent(i)}>{configs[i].name}</button>)
   }
 
