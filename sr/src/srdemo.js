@@ -14,7 +14,7 @@ const SRDemo = ({km}) => {
     setResponses([response].concat(responses))
   }
   if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
+    return <span>Browser doesn't support speech recognition. Try Chrome.</span>;
   }
 
   //<button onClick={SpeechRecognition.stopListening}>Stop</button>
