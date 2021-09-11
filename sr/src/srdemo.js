@@ -23,11 +23,13 @@ const SRDemo = ({km}) => {
   if (!listening && transcript.length > 0 && lastQuery !== transcript) {
     km.process(transcript).then((results) => {
       setLastQuery(transcript)
-      for (const r of results.responses) {
+      for (let i = 0; i < results.responses.length; ++i) {
+        const r = results.responses[i]
+        const p = results.paraphrases[i]
         if (r.length > 0) {
           addResponse(r);
         } else {
-          addResponse('ok');
+          addResponse(`paraphrase: ${p}`);
         }
        }
      });
