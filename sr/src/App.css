@@ -13,6 +13,10 @@
   }
 }
 
+pre {
+  font-family: Courier;
+}
+
 .selected {
   background-color: grey;
 }

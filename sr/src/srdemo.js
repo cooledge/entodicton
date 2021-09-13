@@ -8,7 +8,9 @@ const SRDemo = ({km}) => {
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
-  const [responses, setResponses] = useState([]);
+  const [responses, setResponses] = useState([
+// "╔════════╗\n║ name   ║\n╟────────╢\n║ pants1 ║\n╟────────╢\n║ shirt1 ║\n╚════════╝\n"
+  ]);
   const [lastQuery, setLastQuery] = useState()
   const addResponse = (response) => {
     setResponses([response].concat(responses))
@@ -51,7 +53,7 @@ const SRDemo = ({km}) => {
              } }>Start</button>
              <p>{transcript}</p>
              <h2>Responses</h2>
-             <p>{list}</p>
+             <ul>{list}</ul>
            </div>
          );
 };
