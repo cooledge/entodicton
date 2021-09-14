@@ -54,7 +54,7 @@ const SRDemo = ({km}) => {
              } }>Start</button>
              <p>{transcript}</p>
              <h2>Responses</h2>
-             <ul>{list}</ul>
+             <ul className='Responses'>{list}</ul>
            </div>
          );
 };
