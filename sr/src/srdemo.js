@@ -10,6 +10,7 @@ const SRDemo = ({km}) => {
   } = useSpeechRecognition();
   const [responses, setResponses] = useState([
 // "╔════════╗\n║ name   ║\n╟────────╢\n║ pants1 ║\n╟────────╢\n║ shirt1 ║\n╚════════╝\n"
+    "try saying 'help'"
   ]);
   const [lastQuery, setLastQuery] = useState()
   const addResponse = (response) => {
