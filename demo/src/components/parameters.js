@@ -12,5 +12,12 @@ module.exports =
   "entodicton": {
     "url": "http://184.67.27.82",
     "apiKey": "6804954f-e56d-471f-bbb8-08e3c54d9321"
-  }
+  },
+  "idiocy": [
+    "we put the think in telligence",
+    "code from the future today",
+    "i thought you bought the peanut butter",
+    "ramanujan that's why",
+    "I am the golden boy",
+  ]
 };
