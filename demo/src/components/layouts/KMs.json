@@ -1,10 +1,11 @@
 [
   {
-    "name": "avatar",
+    "description": "avatar for dialogues",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js",
     "includes": [
       "dialogues"
     ],
+    "name": "avatar",
     "examples": [
       "your name",
       "what is your name",
@@ -12,26 +13,26 @@
       "my name is greg",
       "what is my name",
       "what is your name what"
-    ],
-    "description": "avatar for dialogues"
+    ]
   },
   {
     "description": "this module is for creating a team of characters that can respond to commands",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/characters.js",
-    "includes": [],
-    "name": "characters",
     "demo": "https://youtu.be/eA25GZ0ZAHo",
+    "name": "characters",
+    "includes": [],
     "examples": [
       "sally what is the time",
       "bob 20 euros in dollars"
     ]
   },
   {
-    "name": "currency",
+    "description": "Ways of specifying currency amount",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
     "includes": [
       "numbers"
     ],
+    "name": "currency",
     "examples": [
       "20 dollar",
       "1 dollars",
@@ -41,77 +42,77 @@
       "20 dollars",
       "20 dollars in euros",
       "1 dollar in euros"
-    ],
-    "description": "Ways of specifying currency amount"
+    ]
   },
   {
-    "name": "dialogues",
+    "description": "framework for dialogues",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js",
     "includes": [],
+    "name": "dialogues",
     "examples": [
       "what is it"
-    ],
-    "description": "framework for dialogues"
+    ]
   },
   {
-    "name": "help",
+    "description": "Help the user with the current knowledge modules",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
     "includes": [
       "dialogues"
     ],
+    "name": "help",
     "examples": [
       "help"
-    ],
-    "description": "Help the user with the current knowledge modules"
+    ]
   },
   {
-    "name": "javascript",
+    "description": "javascript interpreter",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js",
     "includes": [
       "dialogues"
     ],
+    "name": "javascript",
     "examples": [
       "let c = 23"
-    ],
-    "description": "javascript interpreter"
+    ]
   },
   {
-    "name": "motivations",
+    "description": "framework for character motivations",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/motivations.js",
     "includes": [],
+    "name": "motivations",
     "examples": [
       "test1 do motivations",
       "do motivations",
       "test1 test1",
       "test1 test1 do motivations"
-    ],
-    "description": "framework for character motivations"
+    ]
   },
   {
-    "name": "numbers",
+    "description": "talking about numbers",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "includes": [],
+    "name": "numbers",
     "examples": [
       "20",
       "44"
-    ],
-    "description": "talking about numbers"
+    ]
   },
   {
-    "name": "people",
+    "description": "about people",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/people.js",
     "includes": [],
+    "name": "people",
     "examples": [
       "people"
-    ],
-    "description": "about people"
+    ]
   },
   {
-    "name": "properties",
+    "description": "properties of objects",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/properties.js",
     "includes": [
       "dialogues"
     ],
+    "name": "properties",
     "examples": [
       "property of object",
       "what is the property of object",
@@ -119,11 +120,10 @@
       "the property of the object",
       "the property",
       "whose property"
-    ],
-    "description": "properties of objects"
+    ]
   },
   {
-    "name": "reports",
+    "description": "this module is for getting info about a concept with properties",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/reports.js",
     "includes": [
       "currency",
@@ -131,6 +131,7 @@
       "numbers",
       "dialogues"
     ],
+    "name": "reports",
     "examples": [
       "list products",
       "list the products",
@@ -140,17 +141,17 @@
       "list the clothes",
       "list the models",
       "answer with sentences list the models"
-    ],
-    "description": "this module is for getting info about a concept with properties"
+    ]
   },
   {
-    "name": "scorekeeper",
+    "description": "scorekeeper for card or dice games",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/scorekeeper.js",
     "includes": [
       "numbers",
       "properties",
       "dialogues"
     ],
+    "name": "scorekeeper",
     "examples": [
       "start a game",
       "the winning score is 37 points",
@@ -168,27 +169,27 @@
       "start a new game",
       "whose turn is it",
       "greg got 10 points sara got 3 points greg got 2 points whose turn is it"
-    ],
-    "description": "scorekeeper for card or dice games"
+    ]
   },
   {
-    "name": "tell",
+    "description": "telling entities things",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/tell.js",
     "includes": [
       "dialogues"
     ],
+    "name": "tell",
     "examples": [
       "tell me when event"
-    ],
-    "description": "telling entities things"
+    ]
   },
   {
-    "name": "time",
+    "description": "Time related concepts",
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/time.js",
     "includes": [
       "tell",
       "dialogues"
     ],
+    "name": "time",
     "examples": [
       "what is the time",
       "use 12 hour format what is the time",
@@ -196,7 +197,6 @@
       "use 36 hour format",
       "2 pm",
       "tell me when the time is 2 pm"
-    ],
-    "description": "Time related concepts"
+    ]
   }
 ]
