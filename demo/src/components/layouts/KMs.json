@@ -1,7 +1,8 @@
 [
   {
-    "name": "avatar",
     "description": "avatar for dialogues",
+    "name": "avatar",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js",
     "includes": [
       "dialogues"
     ],
@@ -12,23 +13,23 @@
       "my name is greg",
       "what is my name",
       "what is your name what"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/avatar.js"
+    ]
   },
   {
-    "name": "characters",
-    "includes": [],
+    "description": "this module is for creating a team of characters that can respond to commands",
+    "demo": "https://youtu.be/eA25GZ0ZAHo",
     "examples": [
       "sally what is the time",
       "bob 20 euros in dollars"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/characters.js",
-    "description": "this module is for creating a team of characters that can respond to commands",
-    "demo": "https://youtu.be/eA25GZ0ZAHo"
+    "name": "characters",
+    "includes": [],
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/characters.js"
   },
   {
-    "name": "currency",
     "description": "Ways of specifying currency amount",
+    "name": "currency",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js",
     "includes": [
       "numbers"
     ],
@@ -41,74 +42,74 @@
       "20 dollars",
       "20 dollars in euros",
       "1 dollar in euros"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/currency.js"
+    ]
   },
   {
-    "name": "dialogues",
     "description": "framework for dialogues",
+    "name": "dialogues",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js",
     "includes": [],
     "examples": [
       "what is it"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/dialogues.js"
+    ]
   },
   {
-    "name": "help",
     "description": "Help the user with the current knowledge modules",
+    "name": "help",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js",
     "includes": [
       "dialogues"
     ],
     "examples": [
       "help"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/help.js"
+    ]
   },
   {
-    "name": "javascript",
     "description": "javascript interpreter",
+    "name": "javascript",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js",
     "includes": [
       "dialogues"
     ],
     "examples": [
       "let c = 23"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/javascript.js"
+    ]
   },
   {
-    "name": "motivations",
     "description": "framework for character motivations",
+    "name": "motivations",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/motivations.js",
     "includes": [],
     "examples": [
       "test1 do motivations",
       "do motivations",
       "test1 test1",
       "test1 test1 do motivations"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/motivations.js"
+    ]
   },
   {
-    "name": "numbers",
     "description": "talking about numbers",
+    "name": "numbers",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "includes": [],
     "examples": [
       "20",
       "44"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js"
+    ]
   },
   {
-    "name": "people",
     "description": "about people",
+    "name": "people",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/people.js",
     "includes": [],
     "examples": [
       "people"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/people.js"
+    ]
   },
   {
-    "name": "properties",
     "description": "properties of objects",
+    "name": "properties",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/properties.js",
     "includes": [
       "dialogues"
     ],
@@ -119,12 +120,12 @@
       "the property of the object",
       "the property",
       "whose property"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/properties.js"
+    ]
   },
   {
-    "name": "reports",
     "description": "this module is for getting info about a concept with properties",
+    "name": "reports",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/reports.js",
     "includes": [
       "currency",
       "help",
@@ -140,12 +141,12 @@
       "list the clothes",
       "list the models",
       "answer with sentences list the models"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/reports.js"
+    ]
   },
   {
-    "name": "scorekeeper",
     "description": "scorekeeper for card or dice games",
+    "name": "scorekeeper",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/scorekeeper.js",
     "includes": [
       "numbers",
       "motivations",
@@ -170,24 +171,25 @@
       "whose turn is it",
       "greg got 10 points sara got 3 points greg got 2 points whose turn is it",
       "start a new game 100 points",
-      "greg got 100 points start a new game what are the scores"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/scorekeeper.js"
+      "greg got 100 points start a new game what are the scores",
+      "start a new game greg got 10 points start a new game greg got 10 points what are the scores"
+    ]
   },
   {
-    "name": "tell",
     "description": "telling entities things",
+    "name": "tell",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/tell.js",
     "includes": [
       "dialogues"
     ],
     "examples": [
       "tell me when event"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/tell.js"
+    ]
   },
   {
-    "name": "time",
     "description": "Time related concepts",
+    "name": "time",
+    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/time.js",
     "includes": [
       "tell",
       "dialogues"
@@ -199,7 +201,6 @@
       "use 36 hour format",
       "2 pm",
       "tell me when the time is 2 pm"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/time.js"
+    ]
   }
 ]
