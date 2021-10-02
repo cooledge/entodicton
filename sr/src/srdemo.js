@@ -24,10 +24,12 @@ const SRDemo = ({km}) => {
   //<button onClick={SpeechRecognition.stopListening}>Stop</button>
   //<button onClick={resetTranscript}>Reset</button>
 
-  if (!doingIt && !listening && transcript.length > 0 && lastQuery !== transcript) {
-    setLastQuery(transcript)
+  //if (!doingIt && !listening && transcript.length > 0 && lastQuery !== transcript) {
+  if (!doingIt && !listening && transcript.length > 0) {
+    //setLastQuery(transcript)
     doingIt = true; // seem to get called twice
     km.process(transcript).then((results) => {
+      resetTranscript()
       for (let i = 0; i < results.responses.length; ++i) {
         const r = results.responses[i]
         const p = results.paraphrases[i]
