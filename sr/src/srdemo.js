@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
+var doingIt = false;
 const SRDemo = ({km}) => {
   const {
     transcript,
@@ -23,9 +24,10 @@ const SRDemo = ({km}) => {
   //<button onClick={SpeechRecognition.stopListening}>Stop</button>
   //<button onClick={resetTranscript}>Reset</button>
 
-  if (!listening && transcript.length > 0 && lastQuery !== transcript) {
+  if (!doingIt && !listening && transcript.length > 0 && lastQuery !== transcript) {
+    setLastQuery(transcript)
+    doingIt = true; // seem to get called twice
     km.process(transcript).then((results) => {
-      setLastQuery(transcript)
       for (let i = 0; i < results.responses.length; ++i) {
         const r = results.responses[i]
         const p = results.paraphrases[i]
@@ -35,6 +37,7 @@ const SRDemo = ({km}) => {
           addResponse(`paraphrase: ${p}`);
         }
        }
+       doingIt = false;
      });
 
   }
