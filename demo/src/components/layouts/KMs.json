@@ -77,18 +77,6 @@
   },
   {
     "includes": [],
-    "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/motivations.js",
-    "description": "framework for character motivations",
-    "name": "motivations",
-    "examples": [
-      "test1 do motivations",
-      "do motivations",
-      "test1 test1",
-      "test1 test1 do motivations"
-    ]
-  },
-  {
-    "includes": [],
     "source": "https://github.com/thinktelligence/entodicton/blob/main/kms/common/numbers.js",
     "description": "talking about numbers",
     "name": "numbers",
