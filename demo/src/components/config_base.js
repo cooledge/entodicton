@@ -22,8 +22,8 @@ module.exports =
     "([destroy] ([tankConcept|tank]))",
     "([destroy] (<all> (<the> ([tankConcept]))))",
     "([destroy] (<all> (<the> ([buildingConcept]))))",
-    "([call] ([tankConcept|tank]) (joe))",
-    "([appellez] ([tankConcept|char]) francois)",
+    "([call] ([nameableConcept|]) ([name]))",
+    "([appellez] ([nameableConcept|]) ([name]))",
     "([deplacez] ([tankConcept|char]) ([vers] batiment))",
     "([bougez] (([tankConcept]) [([aFrench] ([buildingConcept]))]))",
     "(([tankConcept|char]) [conj|et] ([tankConcept]))",
@@ -37,6 +37,8 @@ module.exports =
   "bridges": [
     {"id": "english", "level": 0, "bridge": "{ ...after }"},
     {"id": "french", "level": 0, "bridge": "{ ...after }"},
+    {"id": "name", "level": 0, "bridge": "{ ...after }"},
+    {"id": "nameableConcept", "level": 0, "bridge": "{ ...after }"},
     {"id": "all", "level": 0, "bridge": "{ ...after, number: 'all' }"},
     {"id": "the", "level": 0, "bridge": "{ ...after, concept: true }"},
     {"id": "la", "level": 0, "bridge": "{ ...after, gender: 'f', concept: true }"},
@@ -83,6 +85,8 @@ module.exports =
     {"id": "anyConcept", "level": 0, "bridge": "{ ...next(operator) }"},
   ],
   "hierarchy": [
+    ["tankConcept", "nameableConcept"],
+    ["buildingConcept", "nameableConcept"],
     ["tankConcept", "anyConcept"],
     ["buildingConcept", "anyConcept"],
   ],
