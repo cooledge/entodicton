@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
+var doingIt = false;
 const SRDemo = ({km}) => {
   const {
     transcript,
@@ -8,7 +9,10 @@ const SRDemo = ({km}) => {
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
-  const [responses, setResponses] = useState([]);
+  const [responses, setResponses] = useState([
+// "╔════════╗\n║ name   ║\n╟────────╢\n║ pants1 ║\n╟────────╢\n║ shirt1 ║\n╚════════╝\n"
+    "try saying 'help'"
+  ]);
   const [lastQuery, setLastQuery] = useState()
   const addResponse = (response) => {
     setResponses([response].concat(responses))
@@ -20,16 +24,22 @@ const SRDemo = ({km}) => {
   //<button onClick={SpeechRecognition.stopListening}>Stop</button>
   //<button onClick={resetTranscript}>Reset</button>
 
-  if (!listening && transcript.length > 0 && lastQuery !== transcript) {
+  //if (!doingIt && !listening && transcript.length > 0 && lastQuery !== transcript) {
+  if (!doingIt && !listening && transcript.length > 0) {
+    //setLastQuery(transcript)
+    doingIt = true; // seem to get called twice
     km.process(transcript).then((results) => {
-      setLastQuery(transcript)
-      for (const r of results.responses) {
+      resetTranscript()
+      for (let i = 0; i < results.responses.length; ++i) {
+        const r = results.responses[i]
+        const p = results.paraphrases[i]
         if (r.length > 0) {
           addResponse(r);
         } else {
-          addResponse('ok');
+          addResponse(`paraphrase: ${p}`);
         }
        }
+       doingIt = false;
      });
 
   }
@@ -49,7 +59,7 @@ const SRDemo = ({km}) => {
              } }>Start</button>
              <p>{transcript}</p>
              <h2>Responses</h2>
-             <p>{list}</p>
+             <ul className='Responses'>{list}</ul>
            </div>
          );
 };

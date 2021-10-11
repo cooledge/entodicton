@@ -21,18 +21,20 @@ const setupForDemo = (km) => {
   return config;
 }
 
+/*
 const all = new Config({ name: 'all' })
 all.add(avatar)
 all.add(time)
 all.add(reports)
 all.add(scorekeeper)
+*/
 
 const configs = [
   setupForDemo(avatar),
   setupForDemo(time),
   setupForDemo(reports),
   setupForDemo(scorekeeper),
-  setupForDemo(all),
+  //setupForDemo(all),
 ]
 
 function App() {
