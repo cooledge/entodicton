@@ -1,33 +1,33 @@
 {
-  "name": "server",
-  "devDependencies": {},
-  "private": true,
-  "version": "0.1.0",
-  "scripts": {
-    "eject": "react-scripts eject",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
-  },
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react-bootstrap": "^1.4.0",
+    "node-fetch": "^2.6.1",
+    "react-paypal-button-v2": "^2.6.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "0.9.5",
-    "react-paypal-button-v2": "^2.6.2",
+    "react-redux": "^7.1.3",
     "base-64": "^1.0.0",
     "uuid": "^3.4.0",
-    "react": "^16.12.0",
-    "underscore": "^1.12.0",
-    "bootstrap": "^4.5.3",
-    "react-async-script-loader": "^0.3.0",
-    "react-dom": "^16.12.0",
-    "node-fetch": "^2.6.1",
-    "redux-thunk": "^2.3.0",
-    "entodicton": "6.12.0",
-    "react-redux": "^7.1.3",
-    "redux": "^4.0.5",
+    "lodash": "^4.17.15",
     "fs": "0.0.1-security",
-    "lodash": "^4.17.15"
-  }
+    "react-async-script-loader": "^0.3.0",
+    "bootstrap": "^4.5.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "redux": "^4.0.5",
+    "entodicton": "6.12.1",
+    "react-bootstrap": "^1.4.0",
+    "prop-types": "^15.7.2",
+    "underscore": "^1.12.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "name": "server",
+  "private": true,
+  "devDependencies": {},
+  "scripts": {
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "version": "0.1.0"
 }
