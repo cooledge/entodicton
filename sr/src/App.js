@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import SRDemo from './srdemo';
 import parameters from './parameters'
-const { avatar, time, reports, scorekeeper, help, properties, Config } = require('ekms')
+const { avatar, time, reports, scorekeeper, help, properties, hierarchy, Config } = require('ekms')
 
 const setupForDemo = (km) => {
   const config = km;
@@ -35,6 +35,7 @@ const configs = [
   setupForDemo(reports),
   setupForDemo(scorekeeper),
   setupForDemo(properties),
+  setupForDemo(hierarchy),
   //setupForDemo(all),
 ]
 
