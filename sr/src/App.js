@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import SRDemo from './srdemo';
 import parameters from './parameters'
-const { animals, scorekeeper, reports, help, properties, hierarchy, Config } = require('ekms')
+const { animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('ekms')
 
 const setupForDemo = (km) => {
   const config = km;
@@ -31,6 +31,7 @@ all.add(scorekeeper)
 
 const configs = [
   setupForDemo(animals),
+  setupForDemo(kirk),
   setupForDemo(scorekeeper),
   setupForDemo(reports),
   setupForDemo(properties),
