@@ -1,28 +1,16 @@
 {
+  "homepage": "http://localhost:10000/sr",
   "dependencies": {
-    "ekms": "6.13.19-beta.0",
     "react-dom": "^17.0.2",
     "@testing-library/jest-dom": "^5.14.1",
-    "react-scripts": "4.0.3",
-    "react": "^17.0.2",
-    "@testing-library/react": "^11.2.7",
-    "web-vitals": "^1.1.2",
-    "entodicton": "6.13.19-beta.0",
+    "@testing-library/user-event": "^12.8.3",
     "react-speech-recognition": "^3.8.2",
-    "@testing-library/user-event": "^12.8.3"
-  },
-  "homepage": "http://localhost:10000/sr",
-  "browserslist": {
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ],
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ]
+    "entodicton": "6.13.19-beta.1",
+    "react": "^17.0.2",
+    "web-vitals": "^1.1.2",
+    "react-scripts": "4.0.3",
+    "@testing-library/react": "^11.2.7",
+    "ekms": "6.13.19-beta.1"
   },
   "eslintConfig": {
     "extends": [
@@ -30,13 +18,25 @@
       "react-app/jest"
     ]
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "version": "0.1.0",
+  "name": "speech-recogition-demoes",
+  "private": true,
   "scripts": {
+    "build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "react-scripts test",
-    "start": "PORT=3006 react-scripts start",
-    "build": "react-scripts build"
-  },
-  "private": true,
-  "name": "speech-recogition-demoes",
-  "version": "0.1.0"
+    "start": "PORT=3006 react-scripts start"
+  }
 }
