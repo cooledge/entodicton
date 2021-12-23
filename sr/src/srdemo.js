@@ -40,6 +40,9 @@ const SRDemo = ({km}) => {
         }
        }
        doingIt = false;
+     }).catch( e => {
+       doingIt = false; // seem to get called twice
+       console.log('Error processing request')
      });
 
   }

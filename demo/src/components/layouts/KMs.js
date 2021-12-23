@@ -1,10 +1,12 @@
 import React, {Component, useState} from 'react';
 const kms = require('./KMs.json');
+const VERSION = require('./VERSION')
 
 const KM = (km) => {
   const [open, setOpen] = useState(false)
   const examples = km.examples.map( (example) => (<li>{example}</li>) );
   const includes = (km.includes || []).join(',');
+  // https://github.com/thinktelligence/entodicton/blob/TAG/tutorial/command_line_demo_1.js
   return (
     <span className='km'>
       { open &&
@@ -14,7 +16,7 @@ const KM = (km) => {
         <span class='arrow right' onClick={ () => setOpen(true)} />
       }
       <span class='kmName'>{km.name}</span> - <span class='kmDescription'>{km.description}</span>
-      <a href={km.source} target="_blank">(source)</a>
+      <a href={km.source.replace("TAG", VERSION.version)} target="_blank">(source)</a>
       { km.demo &&
         <a href={km.demo} target="_blank">(demo)</a>
       }
