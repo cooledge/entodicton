@@ -91,6 +91,9 @@ module.exports =
     ["buildingConcept", "anyConcept"],
   ],
   "priorities": [
+    [["all", 0], ["stop", 0], ["the", 0]],
+    [["all", 0], ["destroy", 0], ["the", 0]],
+    [["all", 0], ["move", 0], ["to", 0], ["the", 0]],
     [["equal", 0], ["query", 0]],
     [["move", 1], ["to", 0]],
     [["anyConcept", 0], ["create", 0], ["move", 0], ["to", 1], ["aEnglish", 0]],

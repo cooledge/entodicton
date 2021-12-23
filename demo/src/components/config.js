@@ -113,6 +113,9 @@ module.exports =
     ["buildingConcept", "anyConcept"],
   ],
   "priorities": [
+    [["all", 0], ["stop", 0], ["the", 0]],
+    [["all", 0], ["destroy", 0], ["the", 0]],
+    [["all", 0], ["move", 0], ["to", 0], ["the", 0]],
     [["equal", 0], ["query", 0]],
     [["move", 1], ["to", 0]],
     [["anyConcept", 0], ["create", 0], ["move", 0], ["to", 1], ["aEnglish", 0]],
@@ -146,6 +149,7 @@ module.exports =
     [["plus", 0], ["equal", 0], ["count", 0]],
     [["earn", 0], ["worked", 0], ["every", 0], ["query", 0]],
     [["earn", 0], ["worked", 0], ["query", 0], ["count", 0]],
+    [["earn", 0], ["every", 0], ["worked", 0]],
     [["fromW", 0], ["wantWhitespot", 0], ["aEnglish", 0]],
     [["aEnglish", 0], ["wantWhitespot", 0], ["i", 0]],
     [["wantWhitespot", 0], ["aEnglish", 0], ["count", 0]],
