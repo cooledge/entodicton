@@ -3,11 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import SRDemo from './srdemo';
 import parameters from './parameters'
-const { animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('ekms')
+const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('ekms')
 
 const setupForDemo = (km) => {
   const config = km;
-  config.add(help)
+  if (km.name !== 'stgame') {
+    config.add(help)
+  }
 
   // chrome does not like me directly calling an http server from a page that loaded https. that is why.
   // If you are using your own copy of entoditon make your own proxy server that will be configured with 
@@ -21,6 +23,20 @@ const setupForDemo = (km) => {
   return config;
 }
 
+const stgame_callback = (config, update) => {
+  stgame.api.response = ({result, context}) => {
+    console.log("response in srdemo")
+    update(`${context.value} says '${result.generated}'`)
+  }
+}
+
+/*
+stgame.process('kirk what is your name').then( (result) => {
+  console.log('result.paraphrarese', result.paraphrases)
+  console.log('result.responses', result.responses)
+})
+*/
+
 /*
 const all = new Config({ name: 'all' })
 all.add(avatar)
@@ -31,11 +47,21 @@ all.add(scorekeeper)
 
 const configs = [
   setupForDemo(animals),
-  setupForDemo(kirk),
+  setupForDemo(stgame),
   setupForDemo(scorekeeper),
   setupForDemo(reports),
   setupForDemo(properties),
   setupForDemo(hierarchy),
+  //setupForDemo(all),
+]
+
+const callbacks = [
+  () => {}, 
+  stgame_callback,
+  () => {}, 
+  () => {}, 
+  () => {}, 
+  () => {}, 
   //setupForDemo(all),
 ]
 
@@ -62,7 +88,7 @@ function App() {
             { choices }
           </list>
         </h2>
-        <SRDemo km={configs[current]}></SRDemo>
+        <SRDemo km={configs[current]} callback={callbacks[current]}></SRDemo>
       </header>
     </div>
   );
