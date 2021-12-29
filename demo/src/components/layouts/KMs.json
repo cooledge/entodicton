@@ -1,5 +1,10 @@
 [
   {
+    "includes": [
+      "hierarchy",
+      "properties",
+      "dialogues"
+    ],
     "examples": [
       "are bats mammals do mammals have wings do bats have wings do dogs have wings",
       "do dogs have skin",
@@ -7,17 +12,17 @@
       "what are the types of canines",
       "what are the types of mammals"
     ],
+    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/animals.js",
+    "template": {},
+    "description": "animals related concepts",
+    "name": "animals"
+  },
+  {
     "includes": [
       "hierarchy",
       "properties",
       "dialogues"
     ],
-    "name": "animals",
-    "description": "animals related concepts",
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/animals.js",
-    "template": {}
-  },
-  {
     "examples": [
       "my name is greg what is my name",
       "what is the rank of mccoy",
@@ -25,28 +30,30 @@
       "you are kirk",
       "your name is greg what is your name"
     ],
-    "includes": [
-      "hierarchy",
-      "properties",
-      "dialogues"
-    ],
-    "name": "avatar",
-    "description": "avatar for dialogues",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/avatar.js",
-    "template": {}
+    "template": {},
+    "description": "avatar for dialogues",
+    "name": "avatar"
   },
   {
+    "includes": [],
     "examples": [
       "bob 20 euros in dollars",
       "sally what is the time"
     ],
-    "includes": [],
-    "name": "characters",
-    "description": "this module is for creating a team of characters that can respond to commands",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/characters.js",
-    "demo": "https://youtu.be/eA25GZ0ZAHo"
+    "demo": "https://youtu.be/eA25GZ0ZAHo",
+    "description": "this module is for creating a team of characters that can respond to commands",
+    "name": "characters"
   },
   {
+    "includes": [
+      "avatar",
+      "animals",
+      "hierarchy",
+      "properties",
+      "dialogues"
+    ],
     "examples": [
       "arm the phasers",
       "is a bat a mammal",
@@ -61,19 +68,17 @@
       "what is the status of the photon torpedoes",
       "who are the crew members"
     ],
-    "includes": [
-      "avatar",
-      "animals",
-      "hierarchy",
-      "properties",
-      "dialogues"
-    ],
-    "name": "crew",
-    "description": "Knowledge about the enterprise and crew using a KM template",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/crew.js",
-    "template": {}
+    "section": "star trek demo",
+    "description": "Knowledge about the enterprise and crew using a KM template",
+    "template": {},
+    "name": "crew"
   },
   {
+    "includes": [
+      "numbers"
+    ],
+    "description": "Ways of specifying currency amount",
     "examples": [
       "1 dollar",
       "1 dollar in euros",
@@ -84,14 +89,12 @@
       "20 dollars in euros",
       "20 euros"
     ],
-    "includes": [
-      "numbers"
-    ],
-    "name": "currency",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/currency.js",
-    "description": "Ways of specifying currency amount"
+    "name": "currency"
   },
   {
+    "includes": [],
+    "description": "framework for dialogues",
     "examples": [
       "1 2 and 3",
       "is x y",
@@ -100,23 +103,25 @@
       "x is y?",
       "yes"
     ],
-    "includes": [],
-    "name": "dialogues",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/dialogues.js",
-    "description": "framework for dialogues"
+    "name": "dialogues"
   },
   {
-    "examples": [
-      "help"
-    ],
     "includes": [
       "dialogues"
     ],
-    "name": "help",
+    "description": "Help the user with the current knowledge modules",
+    "examples": [
+      "help"
+    ],
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/help.js",
-    "description": "Help the user with the current knowledge modules"
+    "name": "help"
   },
   {
+    "includes": [
+      "properties",
+      "dialogues"
+    ],
     "examples": [
       "a cat is a feline a cat is an animal?",
       "a cat is an animal",
@@ -146,31 +151,23 @@
       "mccoy is a man\\nmccoy is a doctor\\nis mccoy a man",
       "mccoy's rank is doctor is mccoy a doctor"
     ],
-    "includes": [
-      "properties",
-      "dialogues"
-    ],
-    "name": "hierarchy",
-    "description": "hierarchy of objects",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/hierarchy.js",
-    "template": {}
+    "template": {},
+    "description": "hierarchy of objects",
+    "name": "hierarchy"
   },
   {
+    "includes": [
+      "dialogues"
+    ],
+    "description": "javascript interpreter",
     "examples": [
       "let c = 23"
     ],
-    "includes": [
-      "dialogues"
-    ],
-    "name": "javascript",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/javascript.js",
-    "description": "javascript interpreter"
+    "name": "javascript"
   },
   {
-    "examples": [
-      "what is the name of kirk",
-      "what is your name"
-    ],
     "includes": [
       "crew",
       "avatar",
@@ -179,33 +176,41 @@
       "properties",
       "dialogues"
     ],
-    "name": "kirk",
-    "description": "Captain Kirk Simulator using a KM template",
+    "examples": [
+      "what is the name of kirk",
+      "what is your name"
+    ],
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/kirk.js",
-    "template": {}
+    "section": "star trek demo",
+    "description": "Captain Kirk Simulator using a KM template",
+    "template": {},
+    "name": "kirk"
   },
   {
+    "includes": [],
+    "description": "talking about numbers",
     "examples": [
       "20",
       "44"
     ],
-    "includes": [],
-    "name": "numbers",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/numbers.js",
-    "description": "talking about numbers"
+    "name": "numbers"
   },
   {
-    "examples": [
-      "people"
-    ],
     "includes": [
       "dialogues"
     ],
-    "name": "people",
+    "description": "about people",
+    "examples": [
+      "people"
+    ],
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/people.js",
-    "description": "about people"
+    "name": "people"
   },
   {
+    "includes": [
+      "dialogues"
+    ],
     "examples": [
       "greg doesnt have wings",
       "greg doesnt have wings does greg have wings",
@@ -227,15 +232,19 @@
       "what is the property of object",
       "whose property"
     ],
-    "includes": [
-      "dialogues"
-    ],
-    "name": "properties",
-    "description": "properties of objects",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/properties.js",
-    "template": {}
+    "template": {},
+    "description": "properties of objects",
+    "name": "properties"
   },
   {
+    "includes": [
+      "currency",
+      "help",
+      "numbers",
+      "dialogues"
+    ],
+    "description": "this module is for getting info about a concept with properties",
     "examples": [
       "answer with sentences list the models",
       "answer with sentences list the products",
@@ -246,17 +255,15 @@
       "list the products",
       "show the price list the products"
     ],
-    "includes": [
-      "currency",
-      "help",
-      "numbers",
-      "dialogues"
-    ],
-    "name": "reports",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/reports.js",
-    "description": "this module is for getting info about a concept with properties"
+    "name": "reports"
   },
   {
+    "includes": [
+      "numbers",
+      "properties",
+      "dialogues"
+    ],
     "examples": [
       "20 points",
       "greg got 1 point hana got 2 points greg got 1 point start a new game",
@@ -286,21 +293,12 @@
       "who is next",
       "whose turn is it"
     ],
-    "includes": [
-      "numbers",
-      "properties",
-      "dialogues"
-    ],
-    "name": "scorekeeper",
-    "description": "scorekeeper for card or dice games",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/scorekeeper.js",
-    "template": {}
+    "template": {},
+    "description": "scorekeeper for card or dice games",
+    "name": "scorekeeper"
   },
   {
-    "examples": [
-      "what is the name of kirk",
-      "what is your name"
-    ],
     "includes": [
       "crew",
       "avatar",
@@ -309,35 +307,45 @@
       "properties",
       "dialogues"
     ],
-    "name": "spock",
-    "description": "Spock Simulator using a KM template",
+    "examples": [
+      "what is the name of kirk",
+      "what is your name"
+    ],
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/spock.js",
-    "template": {}
+    "section": "star trek demo",
+    "description": "Spock Simulator using a KM template",
+    "template": {},
+    "name": "spock"
   },
   {
+    "includes": [
+      "characters"
+    ],
+    "description": "Game simulator for star trek with characters",
     "examples": [
       "kirk what is your name",
       "spock what is your name"
     ],
-    "includes": [
-      "characters"
-    ],
-    "name": "stgame",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/stgame.js",
-    "description": "Game simulator for star trek with characters"
+    "name": "stgame"
   },
   {
-    "examples": [
-      "tell me when event"
-    ],
     "includes": [
       "dialogues"
     ],
-    "name": "tell",
+    "description": "telling entities things",
+    "examples": [
+      "tell me when event"
+    ],
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/tell.js",
-    "description": "telling entities things"
+    "name": "tell"
   },
   {
+    "includes": [
+      "tell",
+      "dialogues"
+    ],
+    "description": "Time related concepts",
     "examples": [
       "2 pm",
       "tell me when the time is 2 pm",
@@ -346,12 +354,7 @@
       "use 36 hour format",
       "what is the time"
     ],
-    "includes": [
-      "tell",
-      "dialogues"
-    ],
-    "name": "time",
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/time.js",
-    "description": "Time related concepts"
+    "name": "time"
   }
 ]
