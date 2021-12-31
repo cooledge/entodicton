@@ -1,4 +1,14 @@
 {
+  "homepage": "http://localhost:10000/sr",
+  "version": "0.1.0",
+  "name": "speech-recogition-demoes",
+  "private": true,
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -12,31 +22,21 @@
     ]
   },
   "scripts": {
-    "test": "react-scripts test",
-    "start": "PORT=3006 react-scripts start",
+    "eject": "react-scripts eject",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test",
+    "start": "PORT=3006 react-scripts start"
   },
-  "homepage": "http://localhost:10000/sr",
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "name": "speech-recogition-demoes",
-  "version": "0.1.0",
-  "private": true,
   "dependencies": {
-    "@testing-library/react": "^11.2.7",
-    "react-dom": "^17.0.2",
-    "react-speech-recognition": "^3.8.2",
     "@testing-library/user-event": "^12.8.3",
+    "react-speech-recognition": "^3.8.2",
+    "react-scripts": "4.0.3",
+    "ekms": "6.13.24-beta.1",
     "web-vitals": "^1.1.2",
+    "react-dom": "^17.0.2",
+    "@testing-library/react": "^11.2.7",
     "@testing-library/jest-dom": "^5.14.1",
     "react": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "entodicton": "6.13.24-beta.0",
-    "ekms": "6.13.24-beta.0"
+    "entodicton": "6.13.24-beta.1"
   }
 }
