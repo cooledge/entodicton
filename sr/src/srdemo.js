@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 var doingIt = false;
-const SRDemo = ({km}) => {
+const SRDemo = ({km, callback}) => {
   const {
     transcript,
     listening,
@@ -17,6 +17,7 @@ const SRDemo = ({km}) => {
   const addResponse = (response) => {
     setResponses([response].concat(responses))
   }
+  callback(km, addResponse)
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition. Try Chrome.</span>;
   }

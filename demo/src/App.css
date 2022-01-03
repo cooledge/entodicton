@@ -468,9 +468,20 @@ form {
   -webkit-transform: rotate(45deg);
 }
 
+.section {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-size: large;
+}
+
 .kms {
   padding-left: 50px;
   padding-right: 50px;
+}
+
+.km {
+  padding-left: 20px;
 }
 
 .kmUtterances {
