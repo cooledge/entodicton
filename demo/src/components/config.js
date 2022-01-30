@@ -113,7 +113,10 @@ module.exports =
     ["buildingConcept", "anyConcept"],
   ],
   "priorities": [
-    [["equal", 0], ["property", 0], ["propertyConcept", 0], ["query", 0], ["the", 0], ["tankConcept", 0]],
+    [["equal", 0], ["the", 0], ["propertyConcept", 0], ["query", 0], ["property", 0], ["tankConcept", 0]],
+    [["equal", 0], ["the", 0], ["property", 0], ["query", 0], ["propertyConcept", 0]],
+    [["equal", 0], ["property", 0], ["query", 0]],
+    [["equal", 0], ["property", 1]],
     [["earn", 0], ["worked", 0], ["every", 0], ["query", 0]],
     [["earn", 0], ["worked", 0], ["query", 0], ["count", 0]],
     [["earn", 0], ["every", 0], ["worked", 0]],
