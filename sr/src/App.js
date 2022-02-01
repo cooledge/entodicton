@@ -48,6 +48,7 @@ all.add(scorekeeper)
 const configs = [
   setupForDemo(animals),
   setupForDemo(stgame),
+  setupForDemo(kirk),
   setupForDemo(scorekeeper),
   setupForDemo(reports),
   setupForDemo(properties),
