@@ -1,8 +1,8 @@
 import constants from '../constants/actionTypes'
-const uuidGen = require('uuid/v1')
-const _ = require('lodash')
 import config from '../components/config';
 import parameters from '../components/parameters';
+const uuidGen = require('uuid/v1')
+const _ = require('lodash')
 
 const idTank1 = 'tank1'
 const idTank2 = 'tank2'

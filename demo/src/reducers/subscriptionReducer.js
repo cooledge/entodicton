@@ -1,6 +1,6 @@
 import constants from '../constants/actionTypes'
-const _ = require('lodash')
 import config from '../components/config';
+const _ = require('lodash')
 
 var initialState = {
   subscription: {},
