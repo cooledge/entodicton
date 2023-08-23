@@ -50,7 +50,7 @@ class Product extends Component {
 
     return (
       <div className='product'>
-        <div className='name'>The Programmable Mind (aka Entodiction)</div>
+        <div className='name'>The Programmable Mind</div>
         <div className='brief'>natural language to json</div>
         <div className='details'>
           <p>

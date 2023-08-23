@@ -35,7 +35,7 @@ class Layout extends Component {
                     { /* <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li> */ }
                     { /* <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li> */ }
                     <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
-                    <span style={ { float: 'right', 'margin-right': '20px' } }>The Programmable Mind</span>
+                    <span style={ { float: 'right', 'marginRight': '20px' } }>The Programmable Mind</span>
                   </div>
                  <div>
                    { this.props.children }
