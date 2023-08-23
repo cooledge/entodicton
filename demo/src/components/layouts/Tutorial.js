@@ -24,7 +24,7 @@ class Tutorial extends Component {
         </pre>
         <h1 className='step1'>Step 1 - <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/tutorial/command_line_demo_1.js`} target="_blank">Code</a></h1>
         <p>
-        This starts with setting up the processing of the input <span className='quote'>"sally worked 10 weeks"</span>. The first part is to define the operators. This approach is not based on grammar but instead a generalization of the operator precedence parser. For example, <span className='quote'>1 + 2 * 3</span> is processed by applying the highest priority operator first. That is multiply. Then the next highest priority operator is applied that is addition. Entodicton works the same way but for languages. For our test sentence, <span className='quote'>'10'</span> is a prefix operator and <span className='quote'>'worked'</span> is an infix operator. To define the operators in the operators array we would use
+        This starts with setting up the processing of the input <span className='quote'>"sally worked 10 weeks"</span>. The first part is to define the operators. This approach is not based on grammar but instead a generalization of the operator precedence parser. For example, <span className='quote'>1 + 2 * 3</span> is processed by applying the highest priority operator first. That is multiply. Then the next highest priority operator is applied that is addition. The Programmable Mind works the same way but for languages. For our test sentence, <span className='quote'>'10'</span> is a prefix operator and <span className='quote'>'worked'</span> is an infix operator. To define the operators in the operators array we would use
         </p>
 
         <pre>

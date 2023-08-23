@@ -8,7 +8,7 @@ class About extends Component {
   render(){
     return (
       <div className='about'>
-        Contact Support: <a href="mailto: support@thinktelligence.com">email</a>
+        Contact: <a href="mailto: dev@thinktelligence.com">email</a>
       </div>
     )
   }

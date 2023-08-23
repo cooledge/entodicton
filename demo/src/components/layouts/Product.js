@@ -50,11 +50,11 @@ class Product extends Component {
 
     return (
       <div className='product'>
-        <div className='name'>Entodicton</div>
+        <div className='name'>The Programmable Mind (aka Entodiction)</div>
         <div className='brief'>natural language to json</div>
         <div className='details'>
           <p>
-          Entodicton converts natural language input into JSON data structures. We handle analyzing language structure and ambiguity. You get unambigous JSON that can be processed by standard algorithms. Entodiction employs learning based on neural networks while allowing control over the interpretation. <a href={'https://youtu.be/b-fjpM238oQ'} target="_blank">Overview of the design and implementation</a>
+          The Programmable Mind converts natural language input into JSON data structures. We handle analyzing language structure and ambiguity. You get unambigous JSON that can be processed by standard algorithms. The Programmable Mind employs learning based on neural networks while allowing control over the interpretation. The Programmable Mind was formerly known as Entodicton. <a href={'https://youtu.be/b-fjpM238oQ'} target="_blank">Overview of the design and implementation</a>
           </p>
           <p>
           The tutorial shows how how to use the api to process this input
