@@ -37,9 +37,12 @@ class Layout extends Component {
                     <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
                     <span style={ { float: 'right', 'marginRight': '20px' } }>The Programmable Mind</span>
                   </div>
-                 <div>
-                   { this.props.children }
-                 </div>
+                  <div>
+                    { this.props.children }
+                  </div>
+                  <div className='footer'>
+                    Note: The server is up from ~6 am to ~10 pm PST.
+                  </div>
                </div>
               );
      }
