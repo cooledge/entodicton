@@ -40,9 +40,6 @@ class Layout extends Component {
                   <div>
                     { this.props.children }
                   </div>
-                  <div className='footer'>
-                    Note: The server is up from ~6 am to ~10 pm PST.
-                  </div>
                </div>
               );
      }
