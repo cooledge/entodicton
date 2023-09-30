@@ -1,0 +1,26 @@
+{
+  "name": "tpmkmssr",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "latest",
+    "node-fetch": "^3.3.2",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-speech-recognition": "^3.10.0",
+    "tpmkms": "7.3.5-beta.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest"
+  }
+}
