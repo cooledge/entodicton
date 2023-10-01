@@ -31,10 +31,10 @@
     "react-dom": "^17.0.2",
     "react-speech-recognition": "^3.8.2",
     "web-vitals": "^1.1.2",
-    "ekms": "7.3.5-beta.13",
+    "ekms": "7.3.5-beta.14",
     "@testing-library/user-event": "^12.8.3",
     "@testing-library/react": "^11.2.7",
-    "entodicton": "7.3.5-beta.13",
+    "entodicton": "7.3.5-beta.14",
     "@testing-library/jest-dom": "^5.14.1",
     "react-scripts": "4.0.3"
   },
