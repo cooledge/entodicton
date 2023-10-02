@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import SRDemo from './srdemo';
 import parameters from './parameters'
-const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('ekms')
+const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
 const setupForDemo = (km) => {
   const config = km;
@@ -77,7 +77,7 @@ function App() {
   for (let i = 0; i < configs.length; ++i) {
     const className = i == current ? 'selected' : '';
     
-    choices.push(<button className={className} onClick={() => choose(i)}>{configs[i].name}</button>)
+    choices.push(<button className={className} key={configs[i].name} onClick={() => choose(i)}>{configs[i].name}</button>)
     //choices.push(<button onClick={setCurrent(i)}>{configs[i].name}</button>)
   }
 
