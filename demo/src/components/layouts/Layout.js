@@ -15,9 +15,6 @@ class Layout extends Component {
        return (
                <div className='layout'>
                   <div className="logo">
-                    <div className='motto'>
-                    we put the think in telligence
-                    </div>
                     <div className='name'>
                       THINKtelligence
                     </div>

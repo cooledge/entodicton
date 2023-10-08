@@ -51,37 +51,12 @@ class Product extends Component {
     return (
       <div className='product'>
         <div className='name'>The Programmable Mind</div>
-        <div className='brief'>natural language to json</div>
         <div className='details'>
           <p>
-          The Programmable Mind converts natural language input into JSON data structures. We handle analyzing language structure and ambiguity. You get unambigous JSON that can be processed by standard algorithms. The Programmable Mind employs learning based on neural networks while allowing control over the interpretation. The Programmable Mind was formerly known as Entodicton. <a href={'https://youtu.be/b-fjpM238oQ'} target="_blank">Overview of the design and implementation</a>
+          The Programmable Mind converts natural language input into JSON data structures that can be processed by standard algorithms. <a href={'https://youtu.be/b-fjpM238oQ'} target="_blank">Overview of the design and implementation</a>
           </p>
           <p>
-          The tutorial shows how how to use the api to process this input
-          <code>
-            joe earns 10 dollars every week sally earns 25 dollars per week sally worked 10 weeks joe worked 15 weeks joe earns what sally earns what
-          </code>
-          to generate these responses
-          <code>
-            "joe earns 10 dollars per week"<br/>
-            "sally earns 25 dollars per week"<br/>
-            "sally worked 10 weeks"<br/>
-            "joe worked 15 weeks"<br/>
-            "joe earned 150 dollars"<br/>
-            "sally earned 250 dollars"
-          </code>
-          and this json
-          <code>
-            {lines[0]}<br/>
-            {lines[1]}<br/>
-            {lines[2]}<br/>
-            {lines[3]}<br/>
-            {lines[4]}<br/>
-            {lines[5]}<br/>
-          </code>
-          </p>
-          <p>
-          Left as an exercise you can update the code to accept input such as <span className="quote">"what does joe earn"</span> instead of <span className="quote">"joe earns what"</span>. Or you can add another language such as French, for example <span className="quote">"joe gagne 10 dollars par semaine"</span> means <span className="quote">"joe earns 10 dollars per week"</span>. Or you can add punctionation etc...
+          ChatGPT is a neural net based solution that is trained on the internet. The Programmable Mind is a programmed solution. The use case of the Programmable Mind is as a UI for programs not as a chat based interaction. Such use cases would be controlling a report writer, ordering products by calling a API, logistics (for example "move box 1 to warehouse 5 bay 10"), language based UI for a webpages (knowledge module for webpage is loaded), language based UI for a location with devices (for example asking "where is the blender" in a kitchen), or controlling a robot ("go to the bathroom and clean the sink"). In other words, language based UI for an object that has internal state for which no training data exists. The Progammable Mind will do what it is programmed to do nothing more. Knowledge modules allow multiple skills to be loaded at the same time.
           </p>
         </div>
       </div>
