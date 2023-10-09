@@ -3,22 +3,23 @@ import {connect} from 'react-redux';
 import tank from '../tank.jpeg';
 import building from '../building.png';
 import Button from 'react-bootstrap/Button';
-//import PropTypes from 'prop-types'
-//import client from 'entodicton/client'
-const entodicton = require('entodicton')
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery, showTrainingTimeWarning } from '../actions/actions'
 import store from '../stores/store';
+import Includes from './Includes';
+
+//import PropTypes from 'prop-types'
+//import client from 'entodicton/client'
+const entodicton = require('theprogrammablemind_4wp')
 const parameters = require('./parameters')
 //import config from './config';
 const config_base = require('./config_base');
 const config_earn = require('./config_earn');
 const config_food = require('./config_food');
-import Includes from './Includes';
 const uuidGen = require('uuid/v1')
 
 const timersOn = true;
-const offsetForPosition_x = 20;
-const offsetForPosition_y = 240;
+const offsetForPosition_x = 30;
+const offsetForPosition_y = 160;
 
 function SlownessWarning() {
   const [visible, setVisible] = useState(false)
@@ -376,7 +377,7 @@ class QueryPane extends Component {
       <div className={className}>
         { !wantsPosition && 
           <div>
-            Request <input id='query' placeholder='some queries are below. there is only one default server' onKeyPress={ 
+            Request <input id='query' placeholder='some queries are below.' onKeyPress={ 
               (event) => {
                 if (event.key === 'Enter') {
                   this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning);
@@ -495,6 +496,7 @@ class TankDemo extends Component {
     this.apiKey = this.apiKey || this.props.apiKey
     return ( 
       <div className='tankDemo'>
+          { /*
         <h1>
           <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
           <span className='credentials'>
@@ -514,6 +516,7 @@ class TankDemo extends Component {
             <a href={`https://github.com/thinktelligence/entodicton/blob/${parameters.version}/kms/website/config_food.js`} target="_blank">food</a>
           </span>
         </h1>
+          */ }
         <QueryPane 
               responses = {this.props.responses}
               addAlias={this.addAlias(this.props.dispatch)} 
