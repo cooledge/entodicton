@@ -324,7 +324,7 @@ class QueryPane extends Component {
     config.add(config_earn)
     config.add(config_food);
     */
-    url = new URL(window.location.href).origin
+    url = `${new URL(window.location.href).origin}/entodicton`
     config.config.url = url
     config.set('words', this.props.words());
     //config.set('objects', objects);
