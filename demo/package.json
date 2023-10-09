@@ -42,7 +42,8 @@
     "underscore": "^1.12.0",
     "@testing-library/react": "^13.4.0",
     "react-scripts": "5.0.1",
-    "@testing-library/jest-dom": "^5.17.0"
+    "@testing-library/jest-dom": "^5.17.0",
+    "theprogrammablemind_w4p": "7.3.9-beta.0"
   },
   "version": "0.1.0"
 }
