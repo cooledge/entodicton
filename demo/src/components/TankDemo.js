@@ -259,7 +259,7 @@ class QueryPane extends Component {
 
   processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW) {
     const query = document.getElementById("query").value;
-    key = document.getElementById("key").value;
+    // key = document.getElementById("key").value;
 
     /*
     if (showTTW) {
@@ -274,8 +274,8 @@ class QueryPane extends Component {
     console.log(`sending query ${query}`);
     const utterances = [query]
     config.initializer(({objects, config}) => {
-      config.config.url = url
-      config.config.key= key
+      // config.config.url = url
+      // config.config.key= key
 
       objects['types'] = {
                            "position": { "id": "position", "level": 0 },
