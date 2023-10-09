@@ -17,7 +17,6 @@ module.exports =
     "we put the think in telligence",
     "code from the future today",
     "i thought you bought the peanut butter",
-    "ramanujan that's why",
-    "I am the golden boy",
+    "ramanujan that's why"
   ]
 };

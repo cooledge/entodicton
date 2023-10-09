@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import { alias, stopTank, setCredentials, placeOrder, moveTank, tick, createAction, destroy, showProperty, setPosition, clearResponse, setResponses, startedQuery, showTrainingTimeWarning } from '../actions/actions'
 import store from '../stores/store';
 import Includes from './Includes';
-
 //import PropTypes from 'prop-types'
 //import client from 'entodicton/client'
 const entodicton = require('theprogrammablemind_4wp')
@@ -325,14 +324,15 @@ class QueryPane extends Component {
     config.add(config_earn)
     config.add(config_food);
     */
+    url = new URL(window.location.href).origin
     config.config.url = url
     config.set('words', this.props.words());
     //config.set('objects', objects);
     // GREG
-    config.server(parameters.thinktelligence.url, key)
+    // config.server(parameters.thinktelligence.url, key)
+    config.server(url, key)
     
     startedQuery();
-    debugger;
     config.process(query)
       .then( (responses) => {
         console.log('responses ==============')
