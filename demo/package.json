@@ -34,7 +34,7 @@
     "@testing-library/user-event": "^13.5.0",
     "lodash": "^4.17.15",
     "react-bootstrap": "^1.4.0",
-    "theprogrammablemind_4wp": "7.3.9-beta.9",
+    "theprogrammablemind_4wp": "7.3.9-beta.10",
     "react-redux": "^7.1.3",
     "node-fetch": "^2.6.1",
     "redux": "^4.0.5",
