@@ -300,11 +300,12 @@ export default (state = initialState, action) => {
       return updated
 
     case constants.CREATE:
+      const offset = 15
       for ( let i = 0; i < action.count; ++i ) {
         if (action.klass === 'tankConcept') {
-          newTank(updated, action.ids[i], action.namess[0], action.x, action.y);
+          newTank(updated, action.ids[i], action.namess[i], action.x + offset*i, action.y + offset*i);
         } else if (action.klass === 'buildingConcept') {
-          newBuilding(updated, action.ids[0], action.namess[0], action.x, action.y);
+          newBuilding(updated, action.ids[i], action.namess[i], action.x + offset*i, action.y + offset*i);
         }
       }
       return updated

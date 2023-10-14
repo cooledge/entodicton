@@ -223,7 +223,7 @@ class QueryPane extends Component {
       }
     } else if (response.marker === 'alias') {
       const id = response.thing.id;
-      const newName = response.name.marker;
+      const newName = response.name.value;
       action = () => addAlias(id, newName);
     } else if (response.marker === 'stop') {
       let name = response.thing.id;
@@ -256,7 +256,7 @@ class QueryPane extends Component {
     return {wantsPosition, description: description, dispatch: action}
   }
 
-  processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW) {
+  processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW, { tanks, buildings }) {
     const query = document.getElementById("query").value;
     // key = document.getElementById("key").value;
 
@@ -275,7 +275,6 @@ class QueryPane extends Component {
     config.initializer(({objects, config}) => {
       // config.config.url = url
       // config.config.key= key
-
       objects['types'] = {
                            "position": { "id": "position", "level": 0 },
                            "velocity": { "id": "number", "level": 0 }
@@ -283,6 +282,14 @@ class QueryPane extends Component {
       objects.counters = { tank: 23, building: 32 }
       objects.counters = counters;
       objects.generated_ids = []
+      objects.tanks = {}
+      for (let tank of tanks) {
+        objects.tanks[tank.id] = tank
+      }
+      objects.buildings = buildings
+      for (let building of buildings) {
+        objects.buildings[building.id] = building
+      }
       objects.generated_names = []
       objects.newTank = (context) => { 
           let count = context.klass.number || 1;
@@ -326,7 +333,16 @@ class QueryPane extends Component {
     */
     url = `${new URL(window.location.href).origin}/entodicton`
     config.config.url = url
-    config.set('words', this.props.words());
+    {
+      // add uuid
+      let words = this.props.words()
+      for (let word in words) {
+        for (let def of words[word]) {
+          def['uuid'] = config.uuid
+        }
+      }
+      config.set('words', words);
+    }
     //config.set('objects', objects);
     // GREG
     // config.server(parameters.thinktelligence.url, key)
@@ -355,6 +371,11 @@ class QueryPane extends Component {
       })
       .catch( (error) => {
         console.log('in the catch js');
+        if (error.logs) {
+          for (let log of error.logs) {
+            console.log(log)
+          }
+        }
         console.log(error.stack)
         console.log(error)
         window.alert(JSON.stringify(error.toString()), 'Error');
@@ -373,6 +394,7 @@ class QueryPane extends Component {
     if (wantsPosition) {
       className += ' question';
     }
+    const onClick = () => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning, { tanks: this.props.tanks, buildings: this.props.buildings });
     return ( 
       <div className={className}>
         { !wantsPosition && 
@@ -380,11 +402,11 @@ class QueryPane extends Component {
             Request <input id='query' placeholder='some queries are below.' onKeyPress={ 
               (event) => {
                 if (event.key === 'Enter') {
-                  this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning);
+                  onClick()
                 }
               } }
               type='text' className='request' />
-              <Button variant='contained' onClick={() => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning) }>Submit</Button>
+              <Button variant='contained' onClick={onClick}>Submit</Button>
             { this.props.inProcess != 0 && 
               (
                 <span className='inProcess'>
@@ -532,6 +554,8 @@ class TankDemo extends Component {
               inProcess={this.props.inProcess}
               words={this.getWords(this.props)}
               getObjects={this.getObjects(this.props)}
+              tanks={this.props.tanks}
+              buildings={this.props.buildings}
               url={this.url}
               apiKey={this.apiKey}
               showTrainingTimeWarning={this.props.showTrainingTimeWarning}
