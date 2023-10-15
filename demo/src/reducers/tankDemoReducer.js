@@ -17,22 +17,22 @@ var initialState = {
     logs: '',
     subscription_id: 'sub123',
     password: 'password1',
-    includes: ['base', 'earn', 'food'],
+    includes: ['base', 'earn'],
 
     orders: [
       {who: 'i', item: 'cheeseburger', quantity: 1, from: 'mcdonalds'}
     ],
     // { position, id }
     tanks: [
-      {id: idTank1, velocity: 2, left: 10, top: 20}, 
-      {id: idTank2, velocity: 1, left: 100, top: 200},
-      {id: idTank3, velocity: 1, left: 400, top: 50},
-      {id: idTank4, velocity: 1, left: 300, top: 150},
+      {id: idTank1, velocity: 3, left: 23, top: 42, position: '(23, 42)'}, 
+      {id: idTank2, velocity: 2, left: 100, top: 200, position: '(100, 200)'},
+      {id: idTank3, velocity: 1, left: 400, top: 50, position: '(400, 50}'},
+      {id: idTank4, velocity: 1, left: 300, top: 150, position: '(300, 150)'},
     ],
     buildings: [
-      {id: idBuilding1, velocity: 0, left: 150, top: 150},
-      {id: idBuilding2, velocity: 0, left: 350, top: 55},
-      {id: idBuilding3, velocity: 0, left: 650, top: 25}
+      {id: idBuilding1, velocity: 0, left: 150, top: 150, position: '(150, 150)'},
+      {id: idBuilding2, velocity: 0, left: 350, top: 55, position: '(350, 55)'},
+      {id: idBuilding3, velocity: 0, left: 650, top: 25, position: '(650, 25)'}
     ],
     destinations: {},
     uuidToNames: { 

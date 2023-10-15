@@ -121,7 +121,7 @@ class Completed extends Component {
     let items = this.props.completed.map( (completed) => {
       const key = completed[0];
       const name = completed[1].description;
-      return (<li key={key}>{name}</li>)
+      return (<li class='response' key={key}>{name}</li>)
     })
     return ( 
       <div className='completed'>
@@ -202,7 +202,7 @@ class QueryPane extends Component {
       const destination = response.place.id;
       action = () => moveTank(tank, destination);
     } else if (response.isProperty === true || response.marker == 'equal') {
-      window.alert(generated, 'Answer');
+      // window.alert(generated, 'Answer');
     } else if (response.marker === 'equalProperty') {
       var isQuery = false;
       var property;
@@ -256,7 +256,7 @@ class QueryPane extends Component {
     return {wantsPosition, description: description, dispatch: action}
   }
 
-  processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW, { tanks, buildings }) {
+  processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW, { tanks, buildings, objects : tanksAndBuildings}) {
     const query = document.getElementById("query").value;
     // key = document.getElementById("key").value;
 
@@ -282,14 +282,8 @@ class QueryPane extends Component {
       objects.counters = { tank: 23, building: 32 }
       objects.counters = counters;
       objects.generated_ids = []
-      objects.tanks = {}
-      for (let tank of tanks) {
-        objects.tanks[tank.id] = tank
-      }
+      objects.tanks = tanks
       objects.buildings = buildings
-      for (let building of buildings) {
-        objects.buildings[building.id] = building
-      }
       objects.generated_names = []
       objects.newTank = (context) => { 
           let count = context.klass.number || 1;
@@ -394,7 +388,7 @@ class QueryPane extends Component {
     if (wantsPosition) {
       className += ' question';
     }
-    const onClick = () => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning, { tanks: this.props.tanks, buildings: this.props.buildings });
+    const onClick = () => this.processQuery(this.props.setResponses, this.props.startedQuery, this.props.url, this.props.apiKey, this.props.dispatch, this.props.counters, this.props.showTrainingTimeWarning, { ...this.props.getObjects() });
     return ( 
       <div className={className}>
         { !wantsPosition && 
@@ -406,7 +400,7 @@ class QueryPane extends Component {
                 }
               } }
               type='text' className='request' />
-              <Button variant='contained' onClick={onClick}>Submit</Button>
+              <Button id='submit' variant='contained' onClick={onClick}>Submit</Button>
             { this.props.inProcess != 0 && 
               (
                 <span className='inProcess'>

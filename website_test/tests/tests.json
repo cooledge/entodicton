@@ -1,0 +1,245 @@
+[
+  {
+    "expected": [
+      "create 1 tank",
+      "move tank1 to building1",
+      "create 1 building",
+      "move tank1 to building1"
+    ],
+    "query": "create a tank move it to building1 create a building move tank1 to it"
+  },
+  {
+    "expected": [
+      "create 1 tank",
+      "move tank1 to building1"
+    ],
+    "query": "create a tank move it to building1"
+  },
+  {
+    "expected": [
+      "the velocity of tank1 is 3",
+      "the velocity of tank2 is 2"
+    ],
+    "query": "what is the speed of tank1 and tank2"
+  },
+  {
+    "expected": [
+      "3",
+      "50"
+    ],
+    "query": "what is 1 + 1 + 1 and 20 + 30"
+  },
+  {
+    "expected": [
+      "move tank1 to building2",
+      "move tank2 to building2",
+      "move tank3 to building3",
+      "move tank4 to building3"
+    ],
+    "query": "move tank1 and tank2 to building2 and tank3 and tank4 to building3"
+  },
+  {
+    "expected": [
+      "move tank1 to building1",
+      "deplacez char1 vers char2"
+    ],
+    "query": "move tank1 to building1 deplacez char1 vers char2"
+  },
+  {
+    "expected": [
+      "move tank1 to building2",
+      "move tank2 to building1",
+      "move tank3 to building3"
+    ],
+    "query": "move tank1 to building2 tank2 to building1 and tank3 to building3"
+  },
+  {
+    "expected": [
+      "create 4 tanks"
+    ],
+    "query": "create 4 tanks"
+  },
+  {
+    "expected": [
+      "move all tanks to building3"
+    ],
+    "query": "move all the tanks to building3"
+  },
+  {
+    "expected": [
+      "move all tanks to building3"
+    ],
+    "query": "move all tanks to building3"
+  },
+  {
+    "expected": [
+      "move tank1 to tank2"
+    ],
+    "query": "move tank1 to tank2"
+  },
+  {
+    "expected": [
+      "2"
+    ],
+    "query": "quel est 1 + 1"
+  },
+  {
+    "expected": [
+      "2"
+    ],
+    "query": "what is 1 + 1"
+  },
+  {
+    "expected": [
+      "la velocity de tank1 est 3"
+    ],
+    "query": "quelle est la vitesse de char1"
+  },
+  {
+    "expected": [
+      "the position of tank1 is (23, 42)"
+    ],
+    "query": "what is the position of tank1"
+  },
+  {
+    "expected": [
+      "the velocity of tank1 is 3"
+    ],
+    "query": "what is the speed of tank1"
+  },
+  {
+    "expected": [
+      "deplacez char1 vers batiment1",
+      "deplacez char2 vers batiment1"
+    ],
+    "query": "deplacez char1 et char2 vers batiment1"
+  },
+  {
+    "expected": [
+      "move tank1 to building2",
+      "move tank2 to building2"
+    ],
+    "query": "move tank1 and tank2 to building2"
+  },
+  {
+    "expected": [
+      "create 1 tank"
+    ],
+    "query": "create a tank"
+  },
+  {
+    "expected": [
+      "create 1 building"
+    ],
+    "query": "create a building"
+  },
+  {
+    "expected": [
+      "destroy tank1"
+    ],
+    "query": "destroy tank1"
+  },
+  {
+    "expected": [
+      "move tank1 to tank2"
+    ],
+    "query": "move tank1 to tank2"
+  },
+  {
+    "expected": [
+      "move tank1 to building1",
+      "move tank2 to building1"
+    ],
+    "query": "move tank1 and tank2 to building1"
+  },
+  {
+    "expected": [
+      "deplacez char1 vers char2"
+    ],
+    "query": "deplacez char1 vers char2"
+  },
+  {
+    "expected": [
+      "move tank1 to building1"
+    ],
+    "query": "move tank1 to building1"
+  },
+  {
+    "expected": [
+      "deplacez char1 vers batiment1"
+    ],
+    "query": "deplacez char1 vers batiment1"
+  },
+  {
+    "expected": [
+      "deplacez char1 vers batiment1",
+      "move tank1 to tank2"
+    ],
+    "query": "deplacez char1 vers batiment1 move tank1 to tank2"
+  },
+  {
+    "expected": [
+      "call tank1 commander"
+    ],
+    "query": "call tank1 commander"
+  },
+  {
+    "expected": [
+      "appellez char1 commandeur"
+    ],
+    "query": "appellez char1 commandeur"
+  },
+  {
+    "expected": [
+      "call building1 CIA"
+    ],
+    "query": "call building1 cia"
+  },
+  {
+    "expected": [
+      "appellez batiment1 CIA"
+    ],
+    "query": "appellez batiment1 cia"
+  },
+  {
+    "expected": [
+      "stop tank1"
+    ],
+    "query": "stop tank1"
+  },
+  {
+    "expected": [
+      "stop char1"
+    ],
+    "query": "arreter char1"
+  },
+  {
+    "expected": [
+      "destroy all buildings"
+    ],
+    "query": "destroy all the buildings"
+  },
+  {
+    "expected": [
+      "stop all tanks"
+    ],
+    "query": "stop all the tanks"
+  },
+  {
+    "expected": [
+      "destroy all tanks"
+    ],
+    "query": "destroy all the tanks"
+  },
+  {
+    "expected": [
+      "joe earns 10 dollars per week",
+      "sally earns 25 dollars per week",
+      "sally worked 10 weeks",
+      "joe worked 15 weeks",
+      "joe earned 150 dollars",
+      "sally earned 250 dollars"
+    ],
+    "query": "joe earns 10 dollars every week sally earns 25 dollars per week sally worked 10 weeks joe worked 15 weeks joe earns what sally earns what"
+  }
+]
