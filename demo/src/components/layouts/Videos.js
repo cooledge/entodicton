@@ -6,6 +6,7 @@ class Tutorial extends Component {
     return (
       <div className='videos'>
         <h1 className='header'>Developer Workflow Videos</h1>
+        <p>Previously called Entodicton/EKMS in some videos. The new name is TheProgrammableMind/TPMKMS</p>
         <a href={'https://youtu.be/b-fjpM238oQ'} target="_blank">Overview of the design and implementation</a>
         <a href={"https://youtu.be/4QDPLGjlq3g"} target="_blank">Demo of using knowledge modules from the TPMKMS package</a>
         <a href={"https://www.youtube.com/watch?v=dR93bFJqCYA"} target="_blank">Debugging - Neural Nets Problems</a>
