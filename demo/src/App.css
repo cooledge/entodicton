@@ -225,6 +225,10 @@
   padding-right: 200px;
 }
 
+.demo {
+  margin-left: 10px;
+}
+
 .product code {
   font-family: courier;
   display: block;
