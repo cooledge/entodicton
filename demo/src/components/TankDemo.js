@@ -125,7 +125,7 @@ class Completed extends Component {
     })
     return ( 
       <div className='completed'>
-        <p><a href={"https://youtu.be/4QDPLGjlq3g"} target="_blank">Video demo of newer knowledge modules. This page uses the old ones that I havent had time to update yet</a></p>
+        <p>Note: this demo is using an older version of the client side so its missing newer feature.</p>
         <h2>Responses</h2>
         <ul>
           {items}
