@@ -155,6 +155,7 @@
     "name": "help",
     "description": "Help the user with the current knowledge modules",
     "examples": [
+      "help with help and dialogues",
       "help"
     ],
     "includes": [
