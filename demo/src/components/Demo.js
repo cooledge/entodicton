@@ -38,6 +38,8 @@ const Demo = () => {
       for (let i = 0; i < response.contexts.length; ++i) {
         if (response.contexts[i].isResponse) {
           addResponse(response.responses[i])
+        } else {
+          addResponse(response.paraphrases[i])
         }
       }
     } catch( e ) {
