@@ -40,17 +40,6 @@
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/avatar.js"
   },
   {
-    "name": "characters",
-    "description": "this module is for creating a team of characters that can respond to commands",
-    "examples": [
-      "bob 20 euros in dollars",
-      "sally what is the time"
-    ],
-    "includes": [],
-    "demo": "https://youtu.be/eA25GZ0ZAHo",
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/characters.js"
-  },
-  {
     "name": "crew",
     "description": "Knowledge about the enterprise and crew using a KM template",
     "examples": [
@@ -150,20 +139,6 @@
     ],
     "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/events.js"
-  },
-  {
-    "name": "help",
-    "description": "Help the user with the current knowledge modules",
-    "examples": [
-      "help with help and dialogues",
-      "help"
-    ],
-    "includes": [
-      "dialogues",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/help.js"
   },
   {
     "name": "hierarchy",
@@ -389,57 +364,6 @@
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/properties.js"
   },
   {
-    "name": "reports",
-    "description": "this module is for getting info about a concept with properties",
-    "examples": [
-      "answer with sentences list the models",
-      "answer with sentences list the products",
-      "answer with tables list the products",
-      "list products",
-      "list the clothes",
-      "list the models",
-      "list the products",
-      "show the price list the products",
-      "show the price descending list the products",
-      "show the quantity descending list the products",
-      "show the quantity descending and the price ascending list the products",
-      "show the quantity descending and the price ascending",
-      "call this report1\\nshow report1",
-      "call this report1\\ndescribe report1",
-      "call this report1\\ndescribe the reports",
-      "call this report1\\nlist the models\\ncall this report2\\nshow report1 show report2",
-      "call this report1\\nlist the models\\ncall this report2\\nshow report1 and report2",
-      "worth means price times quantity",
-      "list the clothes\\ncall this report1\\nshow report1",
-      "list the models\\ncall this report1\\nshow report1",
-      "column 2",
-      "move column 2 to column 1",
-      "call this report1 show it",
-      "show price and supplier",
-      "call this report1",
-      "after the report changes show the report\\nmove column 2 to column 1",
-      "after the report changes show the report\\nanswer with tables",
-      "answer with sentences show the report",
-      "after the report changes show the report\\nanswer with sentences",
-      "remove column 2 show the report",
-      "x is 20 show the report",
-      "show the worth list the models",
-      "worthtest means price times quantity\\nshow the worthtest list the models",
-      "worthtest is price times quantity\\nshow the worthtest list the models"
-    ],
-    "includes": [
-      "currency",
-      "help",
-      "math",
-      "events",
-      "numbers",
-      "dialogues",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/reports.js"
-  },
-  {
     "name": "scorekeeper",
     "description": "scorekeeper for card or dice games",
     "examples": [
@@ -499,18 +423,6 @@
     ],
     "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/spock.js"
-  },
-  {
-    "name": "stgame",
-    "description": "Game simulator for trek-like characters",
-    "examples": [
-      "kirk what is your name",
-      "spock what is your name"
-    ],
-    "includes": [
-      "characters"
-    ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/stgame.js"
   },
   {
     "name": "tell",
