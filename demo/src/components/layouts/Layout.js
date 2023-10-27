@@ -24,8 +24,8 @@ class Layout extends Component {
                   </div>
                   <div className='menuBar'>
                     <li className="barItem"><Link to='/product'>PRODUCT</Link></li>
-                    <li className="barItem"><Link to='/demo'>DEMO</Link></li>
-                    <li className="barItem"><Link to='/tankdemo'>OLD DEMO</Link></li>
+                    { /* <li className="barItem"><Link to='/demo'>DEMO</Link></li> */ }
+                    <li className="barItem"><Link to='/tankdemo'>DEMO</Link></li>
                     { /* <li className="barItem"><Link to='/sr' target="_blank">SRDEMO</Link></li> */ }
                     <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li>
                     <li className="barItem"><Link to='/videos'>VIDEOS</Link></li>

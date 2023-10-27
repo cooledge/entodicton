@@ -39,8 +39,8 @@
     "react-scripts": "5.0.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "theprogrammablemind_4wp": "7.3.12",
-    "tpmkms_4wp": "7.3.9-beta.14",
+    "theprogrammablemind_4wp": "7.3.12-beta.2",
+    "tpmkms_4wp": "7.3.12",
     "underscore": "^1.12.0",
     "uuid": "^3.4.0"
   },

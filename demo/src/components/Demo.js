@@ -11,7 +11,18 @@ const kms = [
   animals
 ].map( (km) => km.add(help) )
 
-const demoKM = scorekeeper.add(reports).add(animals).add(crew);
+reports.rebuild({ isModule: false })
+const demoKM = new Config({ name: 'tester' }).add(scorekeeper).add(reports).add(animals).add(crew);
+const url = `${new URL(window.location.href).origin}/entodicton`
+demoKM.server(url)
+
+/*
+demoKM.process("help with reports").then( (result) => {
+  console.log(JSON.stringify(result[0], null, 2))
+}).catch( (e) => {
+  console.log(e)
+})
+*/
 
 const Demo = () => {
   const [count, setCount] = useState(0)
@@ -29,7 +40,7 @@ const Demo = () => {
   }
   const onClick = async () => {
     try {
-      const km = scorekeeper
+      const km = demoKM
       const url = `${new URL(window.location.href).origin}/entodicton`
       km.server(url)
       const query = document.getElementById("query").value;
@@ -43,7 +54,7 @@ const Demo = () => {
         }
       }
     } catch( e ) {
-      console.log(e)
+      console.log(e.error)
     }
   }
   const responseItems = [...responses].reverse().map((r) => (<li key={r.key}><pre>{r.response}</pre></li>))
