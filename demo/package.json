@@ -40,7 +40,11 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "theprogrammablemind_4wp": "7.3.12-beta.2",
+<<<<<<< HEAD
     "tpmkms_4wp": "7.3.12",
+=======
+    "tpmkms_4wp": "7.3.9-beta.14",
+>>>>>>> 74aea6a851c0dbbb02e736cd1c3d373e41a9b774
     "underscore": "^1.12.0",
     "uuid": "^3.4.0"
   },
