@@ -4,8 +4,8 @@ const tests = require('./tests.json')
 // const URL = 'http://thinktelligence.com'
 const URL = process.env.URL || 'http://localhost:10000'
 const headless = process.env.HEADLESS !== 'false'
-const sloMo = 50
-const timeout = 30000
+const sloMo = 25
+const timeout = 60000
 
 describe('tests for website', () => {
   let browser;
