@@ -36,8 +36,8 @@
     "tpmkms_4wp": "7.3.5-beta.34",
     "@testing-library/jest-dom": "^6.1.3",
     "react-scripts": "5.0.1",
-    "entodicton": "7.4.0",
-    "ekms": "7.4.0"
+    "entodicton": "7.4.0-beta.3",
+    "ekms": "7.4.0-beta.3"
   },
   "version": "0.1.0"
 }
