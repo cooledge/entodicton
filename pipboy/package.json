@@ -19,7 +19,7 @@
     "start": "PORT=3007 react-scripts start"
   },
   "name": "speech-recogition-demoes",
-  "homepage": "http://localhost:10000/sr",
+  "homepage": "http://localhost:10000/pipboy",
   "eslintConfig": {
     "extends": [
       "react-app",
