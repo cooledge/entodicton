@@ -13,7 +13,9 @@ const kms = [
 
 reports.rebuild({ isModule: false })
 const demoKM = new Config({ name: 'tester' }).add(scorekeeper).add(reports).add(animals).add(crew);
-const url = `${new URL(window.location.href).origin}/entodicton`
+let url = new URL(`${new URL(window.location.href).origin}/entodicton`)
+url.port = 3001
+url = url.toString()
 demoKM.server(url)
 
 /*
@@ -41,7 +43,9 @@ const Demo = () => {
   const onClick = async () => {
     try {
       const km = demoKM
-      const url = `${new URL(window.location.href).origin}/entodicton`
+      let url = new URL(`${new URL(window.location.href).origin}/entodicton`)
+      url.port = 3001
+      url = url.toString()
       km.server(url)
       const query = document.getElementById("query").value;
       document.getElementById("query").value = '';

@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import SRDemo from './srdemo';
+import './css/tether.min.css';
+import './css/bootstrap.min.css';
+import './css/pipboy.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import Stat from './Stat'
+import ToDo from './ToDo'
+import Inv from './Inv'
+import Footer from './Footer'
+import Header from './Header'
 import parameters from './parameters'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
@@ -67,36 +75,31 @@ const callbacks = [
 ]
 
 function App() {
-  const [current, setCurrent] = useState(0);
+  const [active, setActive] = useState('stat');
+  const [weapon, setWeapon] = useState('44_Pistol');
 
   const choose = (i) => {
-    setCurrent(i)
+    setActive(i)
   }
 
   const choices = []
   for (let i = 0; i < configs.length; ++i) {
-    const className = i == current ? 'selected' : '';
+    const className = i == active ? 'selected' : '';
     
     choices.push(<button className={className} key={configs[i].name} onClick={() => choose(i)}>{configs[i].name}</button>)
     //choices.push(<button onClick={setCurrent(i)}>{configs[i].name}</button>)
   }
-
   return (
     <div className="App">
-      <header className="App-header">
-        <h2>
-          <list>
-            { choices }
-          </list>
-        </h2>
-        <SRDemo km={configs[current]} callback={callbacks[current]}></SRDemo>
-      </header>
+      <Header active={active} setActive={setActive}/>
+      { active == 'stat' && <Stat /> }
+      { active == 'inv' && <Inv weapon={weapon} setWeapon={setWeapon}/> }
+      { active == 'data' && <ToDo /> }
+      { active == 'map' && <ToDo /> }
+      { active == 'radio' && <ToDo /> }
+      <Footer />
     </div>
   );
 }
 
 export default App;
-
-
-
-
