@@ -513,7 +513,6 @@ class TankDemo extends Component {
     this.apiKey = this.apiKey || this.props.apiKey
     return ( 
       <div className='tankDemo'>
-        <iframe src='https://thinktelligence:81/pipboy' />
           { /*
         <h1>
           <Includes includes={this.props.includes} dispatch={this.props.dispatch}/>
