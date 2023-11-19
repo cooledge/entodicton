@@ -326,10 +326,7 @@ class QueryPane extends Component {
     config.add(config_earn)
     config.add(config_food);
     */
-    url = new URL(`${new URL(window.location.href).origin}/entodicton`)
-    url.port = 3001
-    url = url.toString()
-
+    url = `${new URL(window.location.href).origin}/entodicton`
     config.config.url = url
     {
       // add uuid
