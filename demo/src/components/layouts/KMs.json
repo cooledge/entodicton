@@ -288,6 +288,28 @@
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/numbers.js"
   },
   {
+    "name": "pipboy",
+    "description": "Control a pipboy with speech",
+    "examples": [
+      "statistics",
+      "radio",
+      "stats",
+      "the stats",
+      "the stats tab",
+      "show the statistics",
+      "show the stats",
+      "show stats"
+    ],
+    "includes": [
+      "hierarchy",
+      "properties",
+      "dialogues",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/pipboy.js"
+  },
+  {
     "name": "people",
     "description": "about people",
     "examples": [
