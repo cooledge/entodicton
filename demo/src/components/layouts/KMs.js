@@ -16,7 +16,7 @@ const sections = [
   {
     name: "Misc",
     description: "Fun stuff I was fiddling around with",
-    includes: ['javascript', 'scorekeeper', 'reports', 'tell'], // setup in script
+    includes: ['javascript', 'scorekeeper', 'reports', 'tell', 'pipboy'], // setup in script
   },
   {
     name: "Trek-like Characters",

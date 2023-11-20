@@ -10,6 +10,7 @@ import ToDo from './ToDo'
 import Inv from './Inv'
 import Footer from './Footer'
 import Header from './Header'
+import Speech from './Speech'
 import parameters from './parameters'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
@@ -91,6 +92,7 @@ function App() {
   }
   return (
     <div className="App">
+      <Speech />
       <Header active={active} setActive={setActive}/>
       { active == 'stat' && <Stat /> }
       { active == 'inv' && <Inv weapon={weapon} setWeapon={setWeapon}/> }

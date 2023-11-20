@@ -27,6 +27,9 @@
     margin: 0px 10px;
 }
 
+.Speech {
+}
+
 .navbar.navbar-light::before, .navbar.navbar-light::after {
     height: 7px;
     width: 2px;
