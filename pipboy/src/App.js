@@ -90,9 +90,10 @@ function App() {
     choices.push(<button className={className} key={configs[i].name} onClick={() => choose(i)}>{configs[i].name}</button>)
     //choices.push(<button onClick={setCurrent(i)}>{configs[i].name}</button>)
   }
+  const speech = { active, setActive, weapon, setWeapon }
   return (
     <div className="App">
-      <Speech />
+      <Speech {...speech} />
       <Header active={active} setActive={setActive}/>
       { active == 'stat' && <Stat /> }
       { active == 'inv' && <Inv weapon={weapon} setWeapon={setWeapon}/> }
