@@ -77,6 +77,7 @@ const callbacks = [
 
 function App() {
   const [active, setActive] = useState('stat');
+  const [activeStat, setActiveStat] = useState('status')
   const [weapon, setWeapon] = useState('44_Pistol');
 
   const choose = (i) => {
@@ -95,7 +96,7 @@ function App() {
     <div className="App">
       <Speech {...speech} />
       <Header active={active} setActive={setActive}/>
-      { active == 'stat' && <Stat /> }
+      { active == 'stat' && <Stat {...{ activeStat, setActiveStat } }/> }
       { active == 'inv' && <Inv weapon={weapon} setWeapon={setWeapon}/> }
       { active == 'data' && <ToDo /> }
       { active == 'map' && <ToDo /> }

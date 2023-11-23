@@ -15,135 +15,51 @@ import Navbar from 'react-bootstrap/Navbar'
 import 'bootstrap/dist/css/bootstrap.css'
 import SRDemo from './srdemo';
 import Inv from './Inv'
+import Status from './Status'
+import Special from './Special'
 import parameters from './parameters'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
-function Stat() {
-  // const [current, setCurrent] = useState(0);
+/*
 
+  return (
+    <div className="Header">
+      <Nav className="navbar navbar-expand-lg navbar-light">
+        <div className="collapse navbar-collapse" id="mainNav">
+          <ul className="navbar-nav ">
+            { navLink("stat", "index.html") }
+            { navLink("inv", "inv.html") }
+            { navLink("data", "#") }
+            { navLink("map", "#") }
+            { navLink("radio", "#") }
+          </ul>
+
+*/
+
+function Stat({ activeStat, setActiveStat }) {
+  const navLink = (name) => {
+    const role = name.toLowerCase() == activeStat.toLowerCase() ? "tab" : ""
+    return (
+      <li className="nav-item">
+          <a className="nav-link" data-toggle="tab" role={role} onClick={() => setActiveStat(name)}>{name.toUpperCase()}</a>                         
+      </li>
+    )
+  }
+
+  // const [current, setCurrent] = useState(0);
+console.log('activeStat ------------', activeStat)
   return (
     <div className="Stat">
       <div className="container">
         <div className="row">
           <div className="col-12">  
             <ul className="nav nav-tabs">
-
-              <li className="nav-item">
-                  <a href="#status" className="nav-link" data-toggle="tab" role="tab">STATUS</a>                         
-              </li>
-
-              <li className="nav-item">
-                  <a href="#special" className="nav-link" data-toggle="tab">SPECIAL</a>                       
-              </li>
-
-              <li className="nav-item">
-                  <a href="#perks" className="nav-link" data-toggle="tab">PERKS</a>                    
-              </li>
-
+              { navLink('status') }
+              { navLink('special') }
+              { navLink('perks') }
             </ul>
-
-            <div className="tab-content">
-              <div className="tab-pane active" id="status" role="tabpanel">
-                  <div className="center-image">
-                    <img src={_2344} alt="" />
-                  </div>
-                  <div className="stat-bars">   
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w-25"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row">
-                    <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w-50"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-6">
-                    </div>
-
-                    <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w30"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w60"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                    </div>
-                    <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w80"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row stat-numbers">
-                    <div className="spacer-numbers"></div>
-                      <div className="col-2">
-                        <img src={_333} className="img-responsive" />
-                      </div>
-                      <div className="col-1">
-                        <div className="icon">
-                          <img src={_33} className="sm-image img-responsive"/>
-                        </div>
-                        <div className="points">10</div>
-                      </div>
-                      <div className="col-1 transparent">
-                      </div>
-                      <div className="col-2">
-                        <img src={helmet} alt=""/>
-                      </div>
-                      <div className="col-1">
-                        <div className="icon">
-                          <img src={energy} className="en-image img-responsive" />
-                        </div>
-                      <div className="points">10</div>
-                    </div>
-                    <div className="col-1">
-                      <div className="icon">
-                        <img src={radiation} className="rad-image img-responsive" />
-                      </div>
-                      <div className="points">18</div>
-                    </div>
-                    <div className="col-2 transparent"></div>
-                  </div>
-                  <div className="tab-pane" id="special" role="tabpanel">
-                    SPECIAL2
-                  </div>
-                  <div className="tab-pane " id="perks" role="tabpanel">
-                    PERKS
-                  </div> -->
-                </div>
-              </div>
-            </div>
+            { activeStat == 'status' && <Status/> }
+            { activeStat == 'special' && <Special/> }
           </div>
         </div>
       </div>

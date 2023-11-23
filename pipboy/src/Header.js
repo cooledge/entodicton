@@ -1,7 +1,7 @@
 import Nav from 'react-bootstrap/Nav'
 
 function Header({ active, setActive }) {
-  const navLink = (name, href) => {
+  const navLink = (name) => {
     const activeClass = name.toLowerCase() == active.toLowerCase() ? "active" : ""
     return (
       <li  className={`nav-item ${activeClass}`}>
@@ -15,11 +15,11 @@ function Header({ active, setActive }) {
       <Nav className="navbar navbar-expand-lg navbar-light"> 
         <div className="collapse navbar-collapse" id="mainNav">
           <ul className="navbar-nav ">
-            { navLink("stat", "index.html") }
-            { navLink("inv", "inv.html") }
-            { navLink("data", "#") }
-            { navLink("map", "#") }
-            { navLink("radio", "#") }
+            { navLink("stat") }
+            { navLink("inv") }
+            { navLink("data") }
+            { navLink("map") }
+            { navLink("radio") }
           </ul>
         </div>
       </Nav>
