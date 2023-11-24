@@ -15,8 +15,8 @@ class API {
       this.callbacks.setActiveTab('inv')
       this.callbacks.setInvTag(id)
     } else if (['status', 'special', 'perks'].includes(id)) {
-      this.callbacks.setActiveTab('status')
-      this.callbacks.setAactiveStatTab(id)
+      this.callbacks.setActiveTab('stats')
+      this.callbacks.setActiveStatTab(id)
     }
   }
 
@@ -24,6 +24,12 @@ class API {
   }
 
   getWeapons() {
+  }
+
+  apply(item) {
+    if (item.item == 'stimpack') {
+      this.callbacks.applyStimpack(item)
+    }
   }
 
   initialize(callbacks) {

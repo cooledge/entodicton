@@ -81,6 +81,10 @@ function App() {
   const [activeInvTab, setActiveInvTab] = useState('weapons')
   const [weapon, setWeapon] = useState('44_Pistol');
 
+  const applyStimpack = (request) => {
+    console.log(`applyStimpack(${JSON.stringify(request)})`)
+  }
+
   const choose = (i) => {
     setActiveTab(i)
   }
@@ -91,7 +95,7 @@ function App() {
     
     choices.push(<button className={className} key={configs[i].name} onClick={() => choose(i)}>{configs[i].name}</button>)
   }
-  const speech = { activeTab, setActiveTab, weapon, setWeapon }
+  const speech = { activeTab, setActiveTab, weapon, setWeapon, applyStimpack, setActiveStatTab, setActiveInvTab }
   return (
     <div className="App">
       <Speech {...speech} />
