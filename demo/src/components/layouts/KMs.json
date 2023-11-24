@@ -298,7 +298,8 @@
       "the stats tab",
       "show the statistics",
       "show the stats",
-      "show stats"
+      "show stats",
+      "apply a stimpack"
     ],
     "includes": [
       "hierarchy",
