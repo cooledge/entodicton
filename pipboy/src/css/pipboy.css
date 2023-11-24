@@ -175,7 +175,6 @@ ul > li.nav-item > a.nav-link, ul > li.nav-item.active > a.nav-link {
     background: #14fe17;
     position: relative;
     width: 70%;
-    
 }
 
 .navbar.navbar-light.pip-footer {
@@ -188,13 +187,11 @@ ul > li.nav-item > a.nav-link, ul > li.nav-item.active > a.nav-link {
 .navbar.pip-footer .col-3, .navbar.pip-footer .col-6 {
     background: rgba(16,255,0, 0.15);
     padding: 5px 10px;
-     
 }
 
 .navbar.pip-footer .col-6 {
     margin: 0px 5px;
     flex: 0 0 48%;
-     
 }
 
 .stat-bar {

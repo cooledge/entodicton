@@ -20,7 +20,8 @@ import Special from './Special'
 import parameters from './parameters'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
-function Stat({ activeStatTab, setActiveStatTab }) {
+function Stat(props) {
+  const { activeStatTab, setActiveStatTab } = props
   const navLink = (name) => {
     const role = name.toLowerCase() == activeStatTab.toLowerCase() ? "tab" : ""
     return (
@@ -42,8 +43,8 @@ console.log('activeStatTab ------------', activeStatTab)
               { navLink('special') }
               { navLink('perks') }
             </ul>
-            { activeStatTab == 'status' && <Status/> }
-            { activeStatTab == 'special' && <Special/> }
+            { activeStatTab == 'status' && <Status { ...props } /> }
+            { activeStatTab == 'special' && <Special { ...props } /> }
           </div>
         </div>
       </div>

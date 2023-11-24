@@ -18,9 +18,21 @@ import Inv from './Inv'
 import parameters from './parameters'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
-function Status() {
+function Status({ health }) {
   // const [current, setCurrent] = useState(0);
-
+console.log('Status - health', health)
+  const width = (value) => {
+    return 40 * (value / 100)
+  }
+  const bar = (value) => {
+    return (
+              <div className="stat-bar">
+                <div className="level-progress">
+                  <div className="level-progress-indicator" style={ { 'width': width(value) } }></div>
+                </div>
+              </div>
+    )
+  }
   return (
             <div className="tab-content">
               <div className="tab-pane active" id="status" role="tabpanel">
@@ -30,59 +42,35 @@ function Status() {
                   <div className="stat-bars">   
                   <div className="row">
                     <div className="col-12">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w-25"></div>
-                        </div>
-                      </div>
+                      { bar( health.head ) }
                     </div>
                   </div>
 
                   <div className="row">
                     <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w-50"></div>
-                        </div>
-                      </div>
+                      { bar( health.arm.right ) }
                     </div>
 
                     <div className="col-6">
                     </div>
 
                     <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w30"></div>
-                        </div>
-                      </div>
+                      { bar( health.arm.left ) }
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w60"></div>
-                        </div>
-                      </div>
+                      { bar( health.leg.right ) }
                     </div>
                     <div className="col-6">
                     </div>
                     <div className="col-3">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator w80"></div>
-                        </div>
-                      </div>
+                      { bar( health.leg.left ) }
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-12">
-                      <div className="stat-bar">
-                        <div className="level-progress">
-                          <div className="level-progress-indicator"></div>
-                        </div>
-                      </div>
+                      { bar( health.torso ) }
                     </div>
                   </div>
                   <div className="row stat-numbers">

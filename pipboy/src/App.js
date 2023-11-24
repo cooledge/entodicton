@@ -80,9 +80,31 @@ function App() {
   const [activeStatTab, setActiveStatTab] = useState('status')
   const [activeInvTab, setActiveInvTab] = useState('weapons')
   const [weapon, setWeapon] = useState('44_Pistol');
+  const [health, setHealth] = useState({arm: { left: 80, right: 30 }, leg: { left: 75, right: 60 }, torso: 80, head: 90 });
+  const props = {
+    activeTab, setActiveTab,
+    activeStatTab, setActiveStatTab,
+    activeInvTab, setActiveInvTab,
+    weapon, setWeapon,
+    health, setHealth,
+  }
 
   const applyStimpack = (request) => {
     console.log(`applyStimpack(${JSON.stringify(request)})`)
+    const potency = 20;
+    const delta = potency / 6;
+    setHealth({
+      arm: {
+        left: Math.min(health.arm.left+delta, 100),
+        right: Math.min(health.arm.rigth+delta, 100),
+      },
+      leg: {
+        left: Math.min(health.leg.left+delta, 100),
+        right: Math.min(health.leg.rigth+delta, 100),
+      },
+      torso: Math.min(health.torso+delta, 100),
+      head: Math.min(health.head+delta, 100),
+    })
   }
 
   const choose = (i) => {
@@ -100,7 +122,7 @@ function App() {
     <div className="App">
       <Speech {...speech} />
       <Header activeTab={activeTab} setActiveTab={setActiveTab}/>
-      { activeTab == 'stat' && <Stat {...{ activeStatTab, setActiveStatTab } }/> }
+      { activeTab == 'stat' && <Stat {...props }/> }
       { activeTab == 'inv' && <Inv { ...{ weapon, setWeapon, activeInvTab, setActiveInvTab } }/> }
       { activeTab == 'data' && <ToDo /> }
       { activeTab == 'map' && <ToDo /> }
