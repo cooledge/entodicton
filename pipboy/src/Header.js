@@ -1,11 +1,11 @@
 import Nav from 'react-bootstrap/Nav'
 
-function Header({ active, setActive }) {
+function Header({ activeTab, setActiveTab }) {
   const navLink = (name) => {
-    const activeClass = name.toLowerCase() == active.toLowerCase() ? "active" : ""
+    const activeClass = name.toLowerCase() == activeTab.toLowerCase() ? "active" : ""
     return (
       <li  className={`nav-item ${activeClass}`}>
-        <a className="nav-link" onClick={() => setActive(name)}>{name.toUpperCase()}</a>
+        <a className="nav-link" onClick={() => setActiveTab(name)}>{name.toUpperCase()}</a>
       </li>
     )
   }

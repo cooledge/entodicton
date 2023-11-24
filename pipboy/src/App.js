@@ -76,31 +76,31 @@ const callbacks = [
 ]
 
 function App() {
-  const [active, setActive] = useState('stat');
+  const [activeTab, setActiveTab] = useState('stat');
   const [activeStatTab, setActiveStatTab] = useState('status')
   const [activeInvTab, setActiveInvTab] = useState('weapons')
   const [weapon, setWeapon] = useState('44_Pistol');
 
   const choose = (i) => {
-    setActive(i)
+    setActiveTab(i)
   }
 
   const choices = []
   for (let i = 0; i < configs.length; ++i) {
-    const className = i == active ? 'selected' : '';
+    const className = i == activeTab ? 'selected' : '';
     
     choices.push(<button className={className} key={configs[i].name} onClick={() => choose(i)}>{configs[i].name}</button>)
   }
-  const speech = { active, setActive, weapon, setWeapon }
+  const speech = { activeTab, setActiveTab, weapon, setWeapon }
   return (
     <div className="App">
       <Speech {...speech} />
-      <Header active={active} setActive={setActive}/>
-      { active == 'stat' && <Stat {...{ activeStatTab, setActiveStatTab } }/> }
-      { active == 'inv' && <Inv { ...{ weapon, setWeapon, activeInvTab, setActiveInvTab } }/> }
-      { active == 'data' && <ToDo /> }
-      { active == 'map' && <ToDo /> }
-      { active == 'radio' && <ToDo /> }
+      <Header activeTab={activeTab} setActiveTab={setActiveTab}/>
+      { activeTab == 'stat' && <Stat {...{ activeStatTab, setActiveStatTab } }/> }
+      { activeTab == 'inv' && <Inv { ...{ weapon, setWeapon, activeInvTab, setActiveInvTab } }/> }
+      { activeTab == 'data' && <ToDo /> }
+      { activeTab == 'map' && <ToDo /> }
+      { activeTab == 'radio' && <ToDo /> }
       <Footer />
     </div>
   );

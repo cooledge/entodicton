@@ -10,12 +10,12 @@ class API {
     // this.objects.display = id
     console.log("calling setActive with ", id)
     if (['stats', 'inv', 'data', 'map', 'radio'].includes(id)) {
-      this.callbacks.setActive(id)
+      this.callbacks.setActiveTab(id)
     } else if (['weapons', 'armour', 'aid'].includes(id)) {
-      this.callbacks.setActive('inv')
+      this.callbacks.setActiveTab('inv')
       this.callbacks.setInvTag(id)
     } else if (['status', 'special', 'perks'].includes(id)) {
-      this.callbacks.setActive('status')
+      this.callbacks.setActiveTab('status')
       this.callbacks.setAactiveStatTab(id)
     }
   }
@@ -49,7 +49,7 @@ function Speech(args) {
   }, [])
 
   pipboy.api.initialize(args)
-  const { active, setActive } = args
+  const { activeTab, setActiveTab } = args
   const [ processing, setProcessing ] = useState(false)
   console.log('transcript', transcript)
   console.log('listening', listening)
