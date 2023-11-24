@@ -20,34 +20,18 @@ import Special from './Special'
 import parameters from './parameters'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
-/*
-
-  return (
-    <div className="Header">
-      <Nav className="navbar navbar-expand-lg navbar-light">
-        <div className="collapse navbar-collapse" id="mainNav">
-          <ul className="navbar-nav ">
-            { navLink("stat", "index.html") }
-            { navLink("inv", "inv.html") }
-            { navLink("data", "#") }
-            { navLink("map", "#") }
-            { navLink("radio", "#") }
-          </ul>
-
-*/
-
-function Stat({ activeStat, setActiveStat }) {
+function Stat({ activeStatTab, setActiveStatTab }) {
   const navLink = (name) => {
-    const role = name.toLowerCase() == activeStat.toLowerCase() ? "tab" : ""
+    const role = name.toLowerCase() == activeStatTab.toLowerCase() ? "tab" : ""
     return (
       <li className="nav-item">
-          <a className="nav-link" data-toggle="tab" role={role} onClick={() => setActiveStat(name)}>{name.toUpperCase()}</a>                         
+          <a className="nav-link" data-toggle="tab" role={role} onClick={() => setActiveStatTab(name)}>{name.toUpperCase()}</a>                         
       </li>
     )
   }
 
   // const [current, setCurrent] = useState(0);
-console.log('activeStat ------------', activeStat)
+console.log('activeStatTab ------------', activeStatTab)
   return (
     <div className="Stat">
       <div className="container">
@@ -58,8 +42,8 @@ console.log('activeStat ------------', activeStat)
               { navLink('special') }
               { navLink('perks') }
             </ul>
-            { activeStat == 'status' && <Status/> }
-            { activeStat == 'special' && <Special/> }
+            { activeStatTab == 'status' && <Status/> }
+            { activeStatTab == 'special' && <Special/> }
           </div>
         </div>
       </div>

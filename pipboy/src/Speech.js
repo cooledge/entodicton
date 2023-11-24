@@ -9,7 +9,15 @@ class API {
   setDisplay(id) {
     // this.objects.display = id
     console.log("calling setActive with ", id)
-    this.callbacks.setActive(id)
+    if (['stats', 'inv', 'data', 'map', 'radio'].includes(id)) {
+      this.callbacks.setActive(id)
+    } else if (['weapons', 'armour', 'aid'].includes(id)) {
+      this.callbacks.setActive('inv')
+      this.callbacks.setInvTag(id)
+    } else if (['status', 'special', 'perks'].includes(id)) {
+      this.callbacks.setActive('status')
+      this.callbacks.setAactiveStatTab(id)
+    }
   }
 
   setWeapon(id) {

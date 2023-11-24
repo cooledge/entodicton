@@ -77,7 +77,8 @@ const callbacks = [
 
 function App() {
   const [active, setActive] = useState('stat');
-  const [activeStat, setActiveStat] = useState('status')
+  const [activeStatTab, setActiveStatTab] = useState('status')
+  const [activeInvTab, setActiveInvTab] = useState('weapons')
   const [weapon, setWeapon] = useState('44_Pistol');
 
   const choose = (i) => {
@@ -89,15 +90,14 @@ function App() {
     const className = i == active ? 'selected' : '';
     
     choices.push(<button className={className} key={configs[i].name} onClick={() => choose(i)}>{configs[i].name}</button>)
-    //choices.push(<button onClick={setCurrent(i)}>{configs[i].name}</button>)
   }
   const speech = { active, setActive, weapon, setWeapon }
   return (
     <div className="App">
       <Speech {...speech} />
       <Header active={active} setActive={setActive}/>
-      { active == 'stat' && <Stat {...{ activeStat, setActiveStat } }/> }
-      { active == 'inv' && <Inv weapon={weapon} setWeapon={setWeapon}/> }
+      { active == 'stat' && <Stat {...{ activeStatTab, setActiveStatTab } }/> }
+      { active == 'inv' && <Inv { ...{ weapon, setWeapon, activeInvTab, setActiveInvTab } }/> }
       { active == 'data' && <ToDo /> }
       { active == 'map' && <ToDo /> }
       { active == 'radio' && <ToDo /> }

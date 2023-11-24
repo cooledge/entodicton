@@ -16,11 +16,21 @@ import 'bootstrap/dist/css/bootstrap.css'
 import SRDemo from './srdemo';
 import parameters from './parameters'
 import weapons from './weapons.json'
+import Weapons from './Weapons'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
-function Inv({weapon, setWeapon}) {
-  // const [current, setCurrent] = useState(0);
+function Inv(props) {
+  const {weapon, setWeapon, activeInvTab, setActiveInvTab} = props;
   const data = weapons.find( (w) => w.id == weapon )
+
+  const navLink = (name) => {
+    const role = name.toLowerCase() == activeInvTab.toLowerCase() ? "tab" : ""
+    return (
+      <li className="nav-item">
+          <a className="nav-link" data-toggle="tab" role={role} onClick={() => setActiveInvTab(name)}>{name.toUpperCase()}</a>
+      </li>
+    )
+  }
 
   const weaponsList = weapons.map((weapon) => {
     return (<li><a onMouseEnter={ () => setWeapon(weapon.id) } className={weapon.name}>{weapon.name}</a></li>)
@@ -32,102 +42,14 @@ function Inv({weapon, setWeapon}) {
         <div className="row">
           <div className="col-12">  
             <ul className="nav nav-tabs">
-              <li className="nav-item">
-                  <a href="#status" className="nav-link" data-toggle="tab" role="tab">WEAPONS</a>                         
-              </li>
-
-              <li className="nav-item">
-                  <a href="#special" className="nav-link" data-toggle="tab">ARMOUR</a>                       
-              </li>
-
-              <li className="nav-item">
-                  <a href="#perks" className="nav-link" data-toggle="tab">AID</a>                    
-              </li>
+              { navLink('weapons') }
+              { navLink('armour') }
+              { navLink('aid') }
             </ul>
-            <div className="tab-content">
-              <div className="tab-pane active full" id="status" role="tabpane">
-                <ul className="item-list">
-                  {weaponsList}
-                </ul>
-                <div className="item-stats">
-                  <div className="row-highlight">
-                    <div className="row"> 
-                      <div className="col-12"> 
-                        <span className="damage pull-right">{data.damage}</span>
-                        <div className="pull-left">Damage</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row-highlight">
-                    <div className="row"> 
-                      <div className="col-12"> 
-                        <span className="fire_rate pull-right">{data.fire_rate}</span>
-                        <div className="pull-left">Fire Rate</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row-highlight">
-                    <div className="row"> 
-                      <div className="col-12"> 
-                        <span className="range pull-right">{data.range}</span>
-                        <div className="pull-left">Range</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row-highlight">
-                    <div className="row"> 
-                      <div className="col-12"> 
-                        <span className="accuracy pull-right">{data.accuracy}</span>
-                        <div className="pull-left">Accuracy</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row-highlight">
-                    <div className="row"> 
-                      <div className="col-12"> 
-                        <span className="weight pull-right">{data.weight}</span>
-                        <div className="pull-left">Weight</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row-highlight">
-                    <div className="row"> 
-                      <div className="col-12"> 
-                        <span className="value pull-right">{data.value}</span>
-                        <div className="pull-left">Value</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            { activeInvTab == 'weapons' && <Weapons {...props} /> }
           </div>
-        </div>
-        <div className="tab-pane-active" id="status" role="tabpanel">
         </div>
       </div>
-
-      <navbar className="navbar navbar-light pip-footer">
-        <dic className="row">
-          <div className="col-3">
-            HP 90/90
-          </div>
-          <div className="col-6">
-           <span>LEVEL 1</span>   
-             <div className="level-progress">
-                 <div className="level-progress-indicator"></div>
-             </div>
-          </div>
-          <div className="col-3 text-right">
-            AP 50/50
-          </div>
-        </dic>
-      </navbar>
     </div>
   );
 }
