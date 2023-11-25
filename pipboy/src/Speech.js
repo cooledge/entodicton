@@ -9,14 +9,14 @@ class API {
   setDisplay(id) {
     // this.objects.display = id
     console.log("calling setActive with ", id)
-    if (['stats', 'inv', 'data', 'map', 'radio'].includes(id)) {
-      this.callbacks.setActiveTab(id)
-    } else if (['weapons', 'armour', 'aid'].includes(id)) {
-      this.callbacks.setActiveTab('inv')
-      this.callbacks.setInvTag(id)
+    if (['stat', 'inv', 'data', 'map', 'radio'].includes(id)) {
+      this.props.setActiveTab(id)
+    } else if (['weapons', 'armor', 'aid'].includes(id)) {
+      this.props.setActiveTab('inv')
+      this.props.setInvTag(id)
     } else if (['status', 'special', 'perks'].includes(id)) {
-      this.callbacks.setActiveTab('stats')
-      this.callbacks.setActiveStatTab(id)
+      this.props.setActiveTab('stat')
+      this.props.setActiveStatTab(id)
     }
   }
 
@@ -26,14 +26,22 @@ class API {
   getWeapons() {
   }
 
+  // what: armor, weapon
+  change(what) {
+    debugger
+    console.log('this.props.weapons', JSON.stringify(this.props.weapons))
+    this.props.changeWeapon()
+    // callback to pass the list to the API
+  }
+
   apply(item) {
     if (item.item == 'stimpack') {
-      this.callbacks.applyStimpack(item)
+      this.props.applyStimpack(item)
     }
   }
 
-  initialize(callbacks) {
-    this.callbacks = callbacks
+  initialize(props) {
+    this.props = props
   }
 }
 
@@ -47,6 +55,8 @@ function Speech(args) {
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
+
+  const [lastQuery, setLastQuery] = useState('')
 
   useEffect( () => {
     if (browserSupportsSpeechRecognition) {
@@ -68,14 +78,15 @@ function Speech(args) {
 
   if (!processing && !listening && transcript) {
     console.log('doing processing', transcript)
+    setLastQuery(transcript)
     setProcessing(true)
     pipboy.process(transcript).then( () => {
       console.log('got result-------------------------------------------')
       setProcessing(false)
       SpeechRecognition.startListening()
       console.log("after start listening")
-    }).catch( () => {
-      console.log('got error--------------------------------------------')
+    }).catch( (e) => {
+      console.log('got error--------------------------------------------', e)
       setProcessing(false)
       SpeechRecognition.startListening()
     });
@@ -98,7 +109,11 @@ function Speech(args) {
         </div>
       }
       {browserSupportsSpeechRecognition &&
-        <span>Speech recognizer is { listening ? "on" : "off" }</span>
+        <>
+          <span>Speech recognizer is { listening ? "on" : "off" }</span>
+          <br/>
+          <span>{ lastQuery }</span>
+        </>
       }
     </div>
   );

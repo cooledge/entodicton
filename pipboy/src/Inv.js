@@ -40,7 +40,7 @@ function Inv(props) {
           <div className="col-12">  
             <ul className="nav nav-tabs">
               { navLink('weapons') }
-              { navLink('armour') }
+              { navLink('armor') }
               { navLink('aid') }
             </ul>
             { activeInvTab == 'weapons' && <Weapons {...props} /> }

@@ -94,13 +94,13 @@ console.log('Status - health', health)
                         <div className="icon">
                           <img src={energy} className="en-image img-responsive" />
                         </div>
-                        { /* electricity resistance from armour */ }
+                        { /* electricity resistance from armor */ }
                       <div className="points">10</div>
                     </div>
                     <div className="col-1">
                       <div className="icon">
                         <img src={radiation} className="rad-image img-responsive" />
-                        { /* radiation resistance from armour */ }
+                        { /* radiation resistance from armor */ }
                       </div>
                       <div className="points">18</div>
                     </div>

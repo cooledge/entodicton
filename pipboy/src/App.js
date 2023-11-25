@@ -11,6 +11,7 @@ import Inv from './Inv'
 import Footer from './Footer'
 import Header from './Header'
 import Speech from './Speech'
+import Message from './Message'
 import parameters from './parameters'
 import character from './character.json'
 
@@ -21,14 +22,14 @@ function App() {
   const [weapon, setWeapon] = useState('44_Pistol');
   const [health, setHealth] = useState(character.health)
   const [weapons, setWeapons] = useState(character.weapons)
+  const [showMessage, setShowMessage] = useState(false)
+  const [messageContent, setMessageContent] = useState()
 
-  const props = {
-    activeTab, setActiveTab,
-    activeStatTab, setActiveStatTab,
-    activeInvTab, setActiveInvTab,
-    weapon, setWeapon,
-    health, setHealth,
-    weapons, setWeapons,
+  const changeWeapon = () => {
+  }
+
+  const getWeapon = (id) => {
+    return weapons.find( (weapon) => weapon.id == id )
   }
 
   const applyStimpack = (request) => {
@@ -49,11 +50,27 @@ function App() {
     })
   }
 
-  const speech = { activeTab, setActiveTab, weapon, setWeapon, applyStimpack, setActiveStatTab, setActiveInvTab }
+  const props = {
+    activeTab, setActiveTab,
+    activeStatTab, setActiveStatTab,
+    activeInvTab, setActiveInvTab,
+    weapon, setWeapon,
+    health, setHealth,
+    weapons, setWeapons,
+    getWeapon,
+    applyStimpack,
+    changeWeapon,
+  }
+
   return (
     <div className="App">
-      <Speech {...speech} />
+      <Speech {...props} />
       <Header activeTab={activeTab} setActiveTab={setActiveTab}/>
+      { showMessage &&
+        <Message>
+          { messageContent }
+        </Message>
+      }
       { activeTab == 'stat' && <Stat {...props }/> }
       { activeTab == 'inv' && <Inv { ...props }/> }
       { activeTab == 'data' && <ToDo /> }
