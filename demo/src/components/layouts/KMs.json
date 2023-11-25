@@ -303,7 +303,8 @@
       "go to statistics",
       "change weapon",
       "change armour",
-      "change armor"
+      "change armor",
+      "change weapons"
     ],
     "includes": [
       "hierarchy",
