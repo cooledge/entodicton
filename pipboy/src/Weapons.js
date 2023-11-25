@@ -15,14 +15,14 @@ import Navbar from 'react-bootstrap/Navbar'
 import 'bootstrap/dist/css/bootstrap.css'
 import SRDemo from './srdemo';
 import parameters from './parameters'
-import weapons from './weapons.json'
 
-function Weapons({weapon, setWeapon}) {
+function Weapons({weapon, setWeapon, weapons}) {
   const data = weapons.find( (w) => w.id == weapon )
 
   const weaponsList = weapons.map((weapon) => {
     return (<li><a onMouseEnter={ () => setWeapon(weapon.id) } className={weapon.name}>{weapon.name}</a></li>)
   })
+
   return (
             <div className="tab-content">
               <div className="tab-pane active full" id="status" role="tabpane">

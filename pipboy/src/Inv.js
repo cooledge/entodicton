@@ -15,14 +15,11 @@ import Navbar from 'react-bootstrap/Navbar'
 import 'bootstrap/dist/css/bootstrap.css'
 import SRDemo from './srdemo';
 import parameters from './parameters'
-import weapons from './weapons.json'
 import Weapons from './Weapons'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
 function Inv(props) {
-  const {weapon, setWeapon, activeInvTab, setActiveInvTab} = props;
-  const data = weapons.find( (w) => w.id == weapon )
-
+  const {weapon, setWeapon, activeInvTab, setActiveInvTab, weapons} = props;
   const navLink = (name) => {
     const role = name.toLowerCase() == activeInvTab.toLowerCase() ? "tab" : ""
     return (

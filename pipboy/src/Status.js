@@ -82,6 +82,7 @@ console.log('Status - health', health)
                         <div className="icon">
                           <img src={_33} className="sm-image img-responsive"/>
                         </div>
+                        { /* gun damage */ }
                         <div className="points">10</div>
                       </div>
                       <div className="col-1 transparent">
@@ -93,11 +94,13 @@ console.log('Status - health', health)
                         <div className="icon">
                           <img src={energy} className="en-image img-responsive" />
                         </div>
+                        { /* electricity resistance from armour */ }
                       <div className="points">10</div>
                     </div>
                     <div className="col-1">
                       <div className="icon">
                         <img src={radiation} className="rad-image img-responsive" />
+                        { /* radiation resistance from armour */ }
                       </div>
                       <div className="points">18</div>
                     </div>

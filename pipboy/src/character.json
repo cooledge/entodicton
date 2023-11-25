@@ -1,4 +1,17 @@
 {
+  "health": {
+    "arm": { 
+      "left": 80, 
+      "right": 30 
+    }, 
+    "leg": { 
+      "left": 75, 
+      "right": 60 
+    }, 
+    "torso": 80, 
+    "head": 90 
+  },
+  
   "weapons": [
     {
       "id": "44_Pistol",
