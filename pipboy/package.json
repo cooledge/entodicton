@@ -41,5 +41,9 @@
     "tpmkms_4wp": "7.4.3-beta.11",
     "web-vitals": "^3.5.0"
   },
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "eslint-plugin-react": "^7.33.2"
+  }
 }
