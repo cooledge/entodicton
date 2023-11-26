@@ -1,15 +1,7 @@
-function AidList(props) {
-  const {setAidId, aid} = props
+import ItemList from './ItemList'
 
-  const list = aid.map((item) => {
-    return (<li><a onMouseEnter={ () => setAidId(item.id) } className={item.name}>{item.name}</a></li>)
-  })
-
-  return (
-    <ul className="item-list">
-      {list}
-    </ul>
-  );
+function AidList({ setAidId, aidId, aid }) {
+  return ( <ItemList setItemId={setAidId} itemId={aidId} items={aid}/> )
 }
 
 export default AidList;

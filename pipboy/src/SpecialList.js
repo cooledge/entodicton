@@ -1,15 +1,7 @@
-function SpecialList(props) {
-  const {setSpecialId, special} = props
+import ItemList from './ItemList'
 
-  const list = special.map((item) => {
-    return (<li><a onMouseEnter={ () => setSpecialId(item.id) } className={item.name}>{item.name}</a></li>)
-  })
-
-  return (
-    <ul className="item-list">
-      {list}
-    </ul>
-  );
+function SpecialList({ specialId, setSpecialId, special }) {
+  return ( <ItemList setItemId={setSpecialId} itemId={specialId} items={special}/> )
 }
 
 export default SpecialList;

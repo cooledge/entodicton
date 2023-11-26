@@ -1,15 +1,7 @@
-function WeaponList(props) {
-  const {setWeapon, weapons} = props
+import ItemList from './ItemList'
 
-  const list = weapons.map((item) => {
-    return (<li><a onMouseEnter={ () => setWeapon(item.id) } className={item.name}>{item.name}</a></li>)
-  })
-
-  return (
-    <ul className="item-list">
-      {list}
-    </ul>
-  );
+function WeaponList({ setWeapon, weapon, weapons }) {
+  return ( <ItemList setItemId={setWeapon} itemId={weapon} items={weapons}/> )
 }
 
 export default WeaponList;

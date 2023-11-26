@@ -1,15 +1,7 @@
-function ApparelList(props) {
-  const {setApparelId, apparel} = props
+import ItemList from './ItemList'
 
-  const list = apparel.map((item) => {
-    return (<li><a onMouseEnter={ () => setApparelId(item.id) } className={item.name}>{item.name}</a></li>)
-  })
-
-  return (
-    <ul className="item-list">
-      {list}
-    </ul>
-  );
+function ApparelList({ setApparelId, apparelId, apparel }) {
+  return ( <ItemList setItemId={setApparelId} itemId={apparelId} items={apparel}/> )
 }
 
 export default ApparelList;
