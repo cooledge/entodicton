@@ -302,9 +302,11 @@
       "apply a stimpack",
       "go to statistics",
       "change weapon",
-      "change armour",
-      "change armor",
-      "change weapons"
+      "change apparel",
+      "change apparel",
+      "change weapons",
+      "move down",
+      "move up"
     ],
     "includes": [
       "hierarchy",
