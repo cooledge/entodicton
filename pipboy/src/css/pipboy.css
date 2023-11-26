@@ -304,10 +304,14 @@ ul > li.nav-item > a.nav-link, ul > li.nav-item.active > a.nav-link {
     text-decoration:none;
 }
 
-a .selected {
-    text-decoration: none;
+.item-list li a.selected {
+    display: block;
+    width: 300px;
+    padding: 5px 10px;
+    border-radius: 2px;
     background: #14fe17;
     color: #272b23;
+    text-decoration:none;
 }
 
 .item-list li a:hover {
