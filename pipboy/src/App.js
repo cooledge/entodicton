@@ -1,10 +1,4 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import './css/tether.min.css';
-import './css/bootstrap.min.css';
-import './css/pipboy.css';
-import 'bootstrap/dist/css/bootstrap.css'
 import Stat from './Stat'
 import ToDo from './ToDo'
 import Inv from './Inv'
@@ -12,24 +6,29 @@ import Footer from './Footer'
 import Header from './Header'
 import Speech from './Speech'
 import Message from './Message'
-import parameters from './parameters'
 import character from './character.json'
+import WeaponList from './WeaponList'
 
 function App() {
   const [activeTab, setActiveTab] = useState('stat');
   const [activeStatTab, setActiveStatTab] = useState('status')
   const [activeInvTab, setActiveInvTab] = useState('weapons')
-  const [weapon, setWeapon] = useState('44_Pistol');
-  const [health, setHealth] = useState(character.health)
+
+  const [apparelId, setApparelId] = useState();
+  const [apparel, setApparel] = useState(character.apparel);
+
+  const [aidId, setAidId] = useState();
+  const [aid, setAid] = useState(character.aid);
+
+  const [weapon, setWeapon] = useState();
   const [weapons, setWeapons] = useState(character.weapons)
+
+  const [health, setHealth] = useState(character.health)
   const [showMessage, setShowMessage] = useState(false)
   const [messageContent, setMessageContent] = useState()
 
-  const changeWeapon = () => {
-  }
-
   const getWeapon = (id) => {
-    return weapons.find( (weapon) => weapon.id == id )
+    return weapons.find( (weapon) => weapon.id === id )
   }
 
   const applyStimpack = (request) => {
@@ -59,8 +58,18 @@ function App() {
     weapons, setWeapons,
     getWeapon,
     applyStimpack,
-    changeWeapon,
+    changeWeapon: () => {
+      setMessageContent((<WeaponList {...props} />))
+      setShowMessage(true)
+    },
+
+    apparelId, setApparelId,
+    apparel, setApparel,
+
+    aidId, setAidId,
+    aid, setAid,
   }
+
 
   return (
     <div className="App">
@@ -71,11 +80,11 @@ function App() {
           { messageContent }
         </Message>
       }
-      { activeTab == 'stat' && <Stat {...props }/> }
-      { activeTab == 'inv' && <Inv { ...props }/> }
-      { activeTab == 'data' && <ToDo /> }
-      { activeTab == 'map' && <ToDo /> }
-      { activeTab == 'radio' && <ToDo /> }
+      { activeTab === 'stat' && <Stat {...props }/> }
+      { activeTab === 'inv' && <Inv { ...props }/> }
+      { activeTab === 'data' && <ToDo /> }
+      { activeTab === 'map' && <ToDo /> }
+      { activeTab === 'radio' && <ToDo /> }
       <Footer />
     </div>
   );

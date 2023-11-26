@@ -11,7 +11,7 @@ class API {
     console.log("calling setActive with ", id)
     if (['stat', 'inv', 'data', 'map', 'radio'].includes(id)) {
       this.props.setActiveTab(id)
-    } else if (['weapons', 'armor', 'aid'].includes(id)) {
+    } else if (['weapons', 'apparel', 'aid'].includes(id)) {
       this.props.setActiveTab('inv')
       this.props.setInvTag(id)
     } else if (['status', 'special', 'perks'].includes(id)) {
@@ -26,10 +26,8 @@ class API {
   getWeapons() {
   }
 
-  // what: armor, weapon
+  // what: apparel, weapon
   change(what) {
-    debugger
-    console.log('this.props.weapons', JSON.stringify(this.props.weapons))
     this.props.changeWeapon()
     // callback to pass the list to the API
   }

@@ -16,6 +16,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import SRDemo from './srdemo';
 import parameters from './parameters'
 import Weapons from './Weapons'
+import Apparel from './Apparel'
+import Aid from './Aid'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
 function Inv(props) {
@@ -40,10 +42,12 @@ function Inv(props) {
           <div className="col-12">  
             <ul className="nav nav-tabs">
               { navLink('weapons') }
-              { navLink('armor') }
+              { navLink('apparel') }
               { navLink('aid') }
             </ul>
             { activeInvTab == 'weapons' && <Weapons {...props} /> }
+            { activeInvTab == 'apparel' && <Apparel {...props} /> }
+            { activeInvTab == 'aid' && <Aid {...props} /> }
           </div>
         </div>
       </div>

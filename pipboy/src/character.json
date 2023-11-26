@@ -12,6 +12,78 @@
     "head": 90 
   },
   
+  "aid": [
+    {
+      "id": "Bloatfly_Meat",
+      "name": "Bloatfly Meat",
+      "hp": 5,
+      "rads": 6,
+      "weight": 0.5,
+      "value": 8
+    },
+    {
+      "id": "Sugar_Bombs",
+      "name": "Sugar Bombs",
+      "hp": 15,
+      "rads": 7,
+      "weight": 0.5,
+      "value": 11
+    },
+    {
+      "id": "Nuka_Cola",
+      "name": "Nuka Cola",
+      "hp": 20,
+      "rads": 5,
+      "ap": 10,
+      "weight": 1,
+      "value": 20
+    },
+    {
+      "id": "Stimpak",
+      "name": "Stimpak",
+      "hp": 30,
+      "percent": true,
+      "weight": 0,
+      "value": 48
+    }
+  ],
+
+  "apparel": [
+    {
+      "id": "Vault_111_Jumpsuit",
+      "name": "Vault 111 Jumpsuit",
+      "dmg_resist": 5,
+      "rad_resist": 10,
+      "weight": 1,
+      "value": 20
+    },
+    {
+      "id": "Clean_Grey_Suit",
+      "name": "Clean Grey Suit",
+      "dmg_resist": 0,
+      "rad_resist": 0,
+      "CHR": 2,
+      "weight": 3,
+      "value": 32
+    },
+    {
+      "id": "Chef_Hat",
+      "name": "Chef Hat",
+      "dmg_resist": 0,
+      "rad_resist": 0,
+      "LCK": 1,
+      "weight": 0.5,
+      "value": 15
+    },
+    {
+      "id": "Eyeglasses",
+      "name": "Eyeglasses",
+      "PER": 1,
+      "weight": 0.1,
+      "value": 7
+    }
+  ],
+
   "weapons": [
     {
       "id": "44_Pistol",
