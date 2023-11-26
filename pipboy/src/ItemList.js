@@ -3,7 +3,6 @@ function ItemList(props) {
 
   const list = items.map((item) => {
     const className = item.id === itemId ? 'selected' : ''
-    debugger
     return (<li><a className={className} onMouseEnter={ () => setItemId(item.id) }>{item.name}</a></li>)
   })
 
