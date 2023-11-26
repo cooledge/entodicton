@@ -1,11 +1,11 @@
 import ItemStat from './ItemStat'
 
-function WeaponStat({weapon, weapons}) {
-  if (!weapon) {
+function WeaponStat({weaponId, weapons}) {
+  if (!weaponId) {
     return (<div/>)
   }
 
-  const data = weapons.find( (w) => w.id === weapon )
+  const data = weapons.find( (w) => w.id === weaponId )
 
   return (
     <ItemStat>

@@ -3,7 +3,8 @@ function ItemList(props) {
 
   const list = items.map((item) => {
     const className = item.id === itemId ? 'selected' : ''
-    return (<li><a className={className} onMouseEnter={ () => setItemId(item.id) }>{item.name}</a></li>)
+    const quantity = item.quantity > 1 ? `(${item.quantity})` : ''
+    return (<li><a className={className} onMouseEnter={ () => setItemId(item.id) }>{item.name}{quantity}</a></li>)
   })
 
   return (

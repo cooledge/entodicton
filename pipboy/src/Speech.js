@@ -8,12 +8,11 @@ class API {
   // id in stats, inv, data, map, radio
   setDisplay(id) {
     // this.objects.display = id
-    console.log("calling setActive with ", id)
     if (['stat', 'inv', 'data', 'map', 'radio'].includes(id)) {
       this.props.setActiveTab(id)
     } else if (['weapons', 'apparel', 'aid'].includes(id)) {
       this.props.setActiveTab('inv')
-      this.props.setInvTag(id)
+      this.props.setInvTab(id)
     } else if (['status', 'special', 'perks'].includes(id)) {
       this.props.setActiveTab('stat')
       this.props.setActiveStatTab(id)
@@ -33,7 +32,7 @@ class API {
   }
 
   apply(item) {
-    if (item.item == 'stimpack') {
+    if (item.item === 'stimpack') {
       this.props.applyStimpack(item)
     }
   }
@@ -41,12 +40,19 @@ class API {
   initialize(props) {
     this.props = props
   }
+
+  move(direction) {
+    debugger
+    this.props.move(direction.marker)
+  }
 }
 
 pipboy.api = new API()
 pipboy.server(parameters.thinktelligence.url)
 
-function Speech(args) {
+let processing = false
+
+function Speech(props) {
   const {
     transcript,
     listening,
@@ -54,38 +60,28 @@ function Speech(args) {
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
-  const [lastQuery, setLastQuery] = useState('')
-
   useEffect( () => {
     if (browserSupportsSpeechRecognition) {
       SpeechRecognition.startListening()
     }
   }, [])
 
-  pipboy.api.initialize(args)
-  const { activeTab, setActiveTab } = args
-  const [ processing, setProcessing ] = useState(false)
-  console.log('transcript', transcript)
-  console.log('listening', listening)
-  console.log('processing', processing)
+  const { lastQuery, setLastQuery } = props
   const [ query, setQuery ] = useState('')
+
+  pipboy.api.initialize(props)
   const onClick = () => {
-    console.log('clicked', query)
     pipboy.process(query)
   }
-
   if (!processing && !listening && transcript) {
-    console.log('doing processing', transcript)
     setLastQuery(transcript)
-    setProcessing(true)
-    pipboy.process(transcript).then( () => {
-      console.log('got result-------------------------------------------')
-      setProcessing(false)
+    processing = true
+    pipboy.process(transcript.toLowerCase()).then( () => {
+      processing = false
       SpeechRecognition.startListening()
-      console.log("after start listening")
     }).catch( (e) => {
       console.log('got error--------------------------------------------', e)
-      setProcessing(false)
+      processing = false
       SpeechRecognition.startListening()
     });
   }

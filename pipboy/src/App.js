@@ -33,8 +33,45 @@ function App() {
   const [showMessage, setShowMessage] = useState(false)
   const [messageContent, setMessageContent] = useState()
 
+  const [lastQuery, setLastQuery] = useState('');
+
   const getWeapon = (id) => {
     return weapons.find( (weapon) => weapon.id === id )
+  }
+
+  // direction: up/down
+  const moveTo = (direction, id, setId, items) => {
+    const index = items.findIndex((item) => item.id === id)
+    let toId;
+    if (direction === 'down') {
+      if (index+1 < items.length)
+        toId = items[index+1].id
+    } else {
+      if (index-1 >= 0)
+        toId = items[index-1].id
+    }
+    if (toId) {
+      console.log("moving to ---------------", toId)
+      setId(toId)
+    }
+  }
+
+  const move = (direction) => {
+    if (activeTab === 'stat') {
+      if (activeStatTab === 'special') {
+        moveTo(direction, specialId, setSpecialId, special)
+      } else if (activeStatTab === 'perks') {
+        moveTo(direction, perkId, setPerkId, perks)
+      }
+    } else if (activeTab === 'inv') {
+      if (activeInvTab === 'weapons') {
+        moveTo(direction, weaponId, setWeaponId, weapons)
+      } else if (activeInvTab === 'apparel') {
+        moveTo(direction, apparelId, setApparelId, apparel)
+      } else if (activeInvTab === 'aid') {
+        moveTo(direction, aidId, setAidId, aid)
+      }
+    }
   }
 
   const applyStimpack = (request) => {
@@ -60,6 +97,9 @@ function App() {
     activeStatTab, setActiveStatTab,
     activeInvTab, setActiveInvTab,
     health, setHealth,
+
+    lastQuery, setLastQuery,
+    move,
     getWeapon,
     applyStimpack,
     changeWeapon: () => {

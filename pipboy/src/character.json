@@ -81,6 +81,7 @@
       "name": "Stimpak",
       "hp": 30,
       "percent": true,
+      "quantity": 5,
       "weight": 0,
       "value": 48
     }
