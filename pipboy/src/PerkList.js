@@ -1,8 +1,10 @@
 function PerkList(props) {
-  const {setPerkId, perks} = props
+  const {setPerkId, perkId, perks} = props
 
   const list = perks.map((item) => {
-    return (<li><a onMouseEnter={ () => setPerkId(item.id) } className={item.name}>{item.name}</a></li>)
+    const className = item.id == perkId ? 'selected' : ''
+    debugger
+    return (<li><a className={className} onMouseEnter={ () => setPerkId(item.id) }>{item.name}</a></li>)
   })
 
   return (

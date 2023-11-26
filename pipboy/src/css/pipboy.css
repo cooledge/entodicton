@@ -304,6 +304,12 @@ ul > li.nav-item > a.nav-link, ul > li.nav-item.active > a.nav-link {
     text-decoration:none;
 }
 
+a .selected {
+    text-decoration: none;
+    background: #14fe17;
+    color: #272b23;
+}
+
 .item-list li a:hover {
     text-decoration: none;
     background: #14fe17;
