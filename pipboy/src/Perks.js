@@ -15,18 +15,16 @@ import Navbar from 'react-bootstrap/Navbar'
 import 'bootstrap/dist/css/bootstrap.css'
 import SRDemo from './srdemo';
 import Inv from './Inv'
-import SpecialList from './SpecialList'
-import parameters from './parameters'
-const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
+import PerkList from './PerkList'
 
-function Status(props) {
+function Perks(props) {
   return (
             <div className="tab-content">
               <div className="tab-pane active" id="status" role="tabpanel">
-                <SpecialList {...props} />
+                <PerkList {...props} />
               </div>
             </div>
   );
 }
 
-export default Status;
+export default Perks;

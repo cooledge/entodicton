@@ -17,6 +17,7 @@ import SRDemo from './srdemo';
 import Inv from './Inv'
 import Status from './Status'
 import Special from './Special'
+import Perks from './Perks'
 import parameters from './parameters'
 const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy, Config } = require('tpmkms_4wp')
 
@@ -45,6 +46,7 @@ console.log('activeStatTab ------------', activeStatTab)
             </ul>
             { activeStatTab == 'status' && <Status { ...props } /> }
             { activeStatTab == 'special' && <Special { ...props } /> }
+            { activeStatTab == 'perks' && <Perks { ...props } /> }
           </div>
         </div>
       </div>

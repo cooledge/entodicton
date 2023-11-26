@@ -11,7 +11,45 @@
     "torso": 80, 
     "head": 90 
   },
-  
+
+  "perks": [
+    { 
+      "id": "perk1",
+      "name": "Perk1"
+    }
+  ],
+
+  "special": [
+    { 
+      "id": "strength",
+      "name": "Strength"
+    }, 
+    {
+      "id": "perception",
+      "name": "Perception"
+    }, 
+    {
+      "id": "endurence",
+      "name": "Endurence"
+    }, 
+    {
+      "id": "charisma",
+      "name": "Charisma"
+    }, 
+    {
+      "id": "intelligence",
+      "name": "Intelligence"
+    }, 
+    {
+      "id": "agility",
+      "name": "Agility"
+    }, 
+    {
+      "id": "luck",
+      "name": "Luck"
+    }
+  ],
+
   "aid": [
     {
       "id": "Bloatfly_Meat",

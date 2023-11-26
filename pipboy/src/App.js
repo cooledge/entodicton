@@ -14,13 +14,19 @@ function App() {
   const [activeStatTab, setActiveStatTab] = useState('status')
   const [activeInvTab, setActiveInvTab] = useState('weapons')
 
-  const [apparelId, setApparelId] = useState();
+  const [perkId, setPerkId] = useState(character.perks[0].id);
+  const [perks, setPerks] = useState(character.perks);
+
+  const [specialId, setSpecialId] = useState(character.special[0].id);
+  const [special, setSpecial] = useState(character.special);
+
+  const [apparelId, setApparelId] = useState(character.apparel[0].id);
   const [apparel, setApparel] = useState(character.apparel);
 
-  const [aidId, setAidId] = useState();
+  const [aidId, setAidId] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
 
-  const [weapon, setWeapon] = useState();
+  const [weapon, setWeapon] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
 
   const [health, setHealth] = useState(character.health)
@@ -68,6 +74,12 @@ function App() {
 
     aidId, setAidId,
     aid, setAid,
+
+    specialId, setSpecialId,
+    special, setSpecial,
+
+    perkId, setPerkId,
+    perks, setPerks,
   }
 
 
