@@ -26,7 +26,7 @@ function App() {
   const [aidId, setAidId] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
 
-  const [weapon, setWeapon] = useState(character.weapons[0].id);
+  const [weaponId, setWeaponId] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
 
   const [health, setHealth] = useState(character.health)
@@ -59,15 +59,16 @@ function App() {
     activeTab, setActiveTab,
     activeStatTab, setActiveStatTab,
     activeInvTab, setActiveInvTab,
-    weapon, setWeapon,
     health, setHealth,
-    weapons, setWeapons,
     getWeapon,
     applyStimpack,
     changeWeapon: () => {
       setMessageContent((<WeaponList {...props} />))
       setShowMessage(true)
     },
+
+    weaponId, setWeaponId,
+    weapons, setWeapons,
 
     apparelId, setApparelId,
     apparel, setApparel,

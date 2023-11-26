@@ -1,7 +1,7 @@
 import ItemList from './ItemList'
 
-function WeaponList({ setWeapon, weapon, weapons }) {
-  return ( <ItemList setItemId={setWeapon} itemId={weapon} items={weapons}/> )
+function WeaponList({ setWeaponId, weaponId, weapons }) {
+  return ( <ItemList setItemId={setWeaponId} itemId={weaponId} items={weapons}/> )
 }
 
 export default WeaponList;
