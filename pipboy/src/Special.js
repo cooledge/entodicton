@@ -22,7 +22,7 @@ const { stgame, animals, kirk, scorekeeper, reports, help, properties, hierarchy
 function Status(props) {
   return (
             <div className="tab-content">
-              <div className="tab-pane active" id="status" role="tabpanel">
+              <div className="tab-pane active full" id="status" role="tabpanel">
                 <SpecialList {...props} />
               </div>
             </div>

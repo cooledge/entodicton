@@ -20,7 +20,7 @@ function Status({ health }) {
   }
   return (
             <div className="tab-content">
-              <div className="tab-pane active" id="status" role="tabpanel">
+              <div className="tab-pane active" style={ { height: "calc(100vh - 180px)" } } id="status" role="tabpanel">
                   <div className="center-image">
                     <img src={_2344} alt="" />
                   </div>
