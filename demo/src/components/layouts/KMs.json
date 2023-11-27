@@ -304,13 +304,9 @@
       "change weapon",
       "change apparel",
       "change apparel",
-      "change weapons",
-      "move down",
-      "move up"
+      "change weapons"
     ],
     "includes": [
-      "hierarchy",
-      "properties",
       "dialogues",
       "meta"
     ],
@@ -571,5 +567,21 @@
     ],
     "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/time.js"
+  },
+  {
+    "name": "ui",
+    "description": "Control a ui with speech",
+    "examples": [
+      "move up",
+      "move left",
+      "move down",
+      "move right"
+    ],
+    "includes": [
+      "dialogues",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/ui.js"
   }
 ]
