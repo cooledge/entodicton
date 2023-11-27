@@ -38,7 +38,7 @@
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^3.8.2",
     "sass": "^1.69.5",
-    "tpmkms_4wp": "7.4.3-beta.14",
+    "tpmkms_4wp": "7.4.3-beta.15",
     "web-vitals": "^3.5.0"
   },
   "version": "0.1.0",
