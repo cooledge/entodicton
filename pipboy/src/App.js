@@ -77,21 +77,26 @@ function App() {
   const applyStimpack = (request) => {
     console.log(`applyStimpack(${JSON.stringify(request)})`)
     const potency = 20;
-    const delta = potency / 6;
+    const n = [health.arm.left, health.arm.right, health.leg.left, health.leg.right, health.torso, health.head].map( (value) => value < 100 ? 1 : 0 ).reduce((x,y) => x+y)
+    if (n === 0) {
+      return
+    }
+    const delta = potency / n;
     setHealth({
       arm: {
         left: Math.min(health.arm.left+delta, 100),
-        right: Math.min(health.arm.rigth+delta, 100),
+        right: Math.min(health.arm.right+delta, 100),
       },
       leg: {
         left: Math.min(health.leg.left+delta, 100),
-        right: Math.min(health.leg.rigth+delta, 100),
+        right: Math.min(health.leg.right+delta, 100),
       },
       torso: Math.min(health.torso+delta, 100),
       head: Math.min(health.head+delta, 100),
     })
   }
 
+  console.log('health', JSON.stringify(health, null, 2))
   const props = {
     activeTab, setActiveTab,
     activeStatTab, setActiveStatTab,
