@@ -44,6 +44,14 @@ class API {
   move(direction) {
     this.props.move(direction.marker)
   }
+
+  select() {
+    this.props.select()
+  }
+
+  cancel() {
+    this.props.cancel()
+  }
 }
 
 pipboy.api = new API()

@@ -61,6 +61,35 @@ function App() {
     }
   }
 
+  const select = () => {
+    if (selectingWeapon) {
+      setCurrentWeaponId(selectingWeaponId)
+      setSelectingWeapon(false)
+      return
+    }
+    if (activeTab === 'stat') {
+      if (activeStatTab === 'special') {
+        // moveTo(direction, specialId, setSpecialId, special)
+      } else if (activeStatTab === 'perks') {
+        // moveTo(direction, perkId, setPerkId, perks)
+      }
+    } else if (activeTab === 'inv') {
+      if (activeInvTab === 'weapons') {
+        setCurrentWeaponId(weaponId)
+      } else if (activeInvTab === 'apparel') {
+        // moveTo(direction, apparelId, setApparelId, apparel)
+      } else if (activeInvTab === 'aid') {
+        // moveTo(direction, aidId, setAidId, aid)
+      }
+    }
+  }
+
+  const cancel = () => {
+    if (selectingWeapon) {
+      setSelectingWeapon(false)
+    }
+  }
+
   const move = (direction) => {
     if (selectingWeapon) {
       moveTo(direction, selectingWeaponId, setSelectingWeaponId, weapons)
@@ -113,7 +142,7 @@ function App() {
     health, setHealth,
 
     lastQuery, setLastQuery,
-    move,
+    move, select, cancel,
     getWeapon,
     applyStimpack,
 
