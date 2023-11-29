@@ -575,7 +575,9 @@
       "move up",
       "move left",
       "move down",
-      "move right"
+      "move right",
+      "select",
+      "cancel"
     ],
     "includes": [
       "dialogues",
