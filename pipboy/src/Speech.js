@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import parameters from './parameters'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-const { pipboy } = require('tpmkms_4wp')
+const { pipboy, ui } = require('tpmkms_4wp')
 
 class API {
   // id in stats, inv, data, map, radio
@@ -42,12 +42,13 @@ class API {
   }
 
   move(direction) {
-    debugger
     this.props.move(direction.marker)
   }
 }
 
 pipboy.api = new API()
+ui.api = pipboy.api
+pipboy.add(ui)
 pipboy.server(parameters.thinktelligence.url)
 
 let processing = false
@@ -70,6 +71,8 @@ function Speech(props) {
   const [ query, setQuery ] = useState('')
 
   pipboy.api.initialize(props)
+  pipboy.getConfigs().ui.api.initialize(props)
+
   const onClick = () => {
     pipboy.process(query)
   }

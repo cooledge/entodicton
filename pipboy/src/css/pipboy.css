@@ -9,6 +9,12 @@
     background: #272b23;
 }
 
+.modal-content {
+    font-family: pipboy, sans-serif;
+    color: #14fe17 !important;  
+    background: #272b23 !important;
+}
+
 .body::after {
     height: 100%;
     width: 100%;

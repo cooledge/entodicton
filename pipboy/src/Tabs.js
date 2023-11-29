@@ -2,7 +2,7 @@ function Tabs({ children, active, setActive }) {
   const navLink = (name, opacity) => {
     const role = name.toLowerCase() === active.toLowerCase() ? "tab" : ""
     return (
-      <li className="nav-item">
+      <li key={name} className="nav-item">
           <a className="nav-link" style={{opacity}} data-toggle="tab" role={role} onClick={() => setActive(name)}>{name.toUpperCase()}</a>                         
       </li>
     )

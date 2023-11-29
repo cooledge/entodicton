@@ -1,10 +1,26 @@
-import Nav from 'react-bootstrap/Nav'
+import React, { useState } from 'react';
+import { Modal, Button, Form } from "react-bootstrap";
+import './css/pipboy.css'
 
-function Message({ children }) {
+function Message({ children, show, setShow }) {
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const title = children[0]
+  const body = children.slice(1)
   return (
-    <div className="message w-25 lh-3 border rounded" style={ {'min-height': '100px' } }>
-       { children }
-    </div>
+    <>
+      <Modal show={show}>
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {body}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleClose} variant="secondary">Close Modal</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 }
 

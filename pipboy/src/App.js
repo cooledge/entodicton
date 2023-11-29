@@ -8,6 +8,7 @@ import Speech from './Speech'
 import Message from './Message'
 import character from './character.json'
 import WeaponList from './WeaponList'
+import ItemList from './WeaponList'
 
 function App() {
   const [activeTab, setActiveTab] = useState('stat');
@@ -26,12 +27,16 @@ function App() {
   const [aidId, setAidId] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
 
+  const [currentWeaponId, setCurrentWeaponId] = useState()
+
   const [weaponId, setWeaponId] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
 
   const [health, setHealth] = useState(character.health)
-  const [showMessage, setShowMessage] = useState(false)
   const [messageContent, setMessageContent] = useState()
+
+  const [selectingWeapon, setSelectingWeapon] = useState(false)
+  const [selectingWeaponId, setSelectingWeaponId] = useState()
 
   const [lastQuery, setLastQuery] = useState('');
 
@@ -57,6 +62,10 @@ function App() {
   }
 
   const move = (direction) => {
+    if (selectingWeapon) {
+      moveTo(direction, selectingWeaponId, setSelectingWeaponId, weapons)
+      return
+    }
     if (activeTab === 'stat') {
       if (activeStatTab === 'special') {
         moveTo(direction, specialId, setSpecialId, special)
@@ -96,7 +105,7 @@ function App() {
     })
   }
 
-  console.log('health', JSON.stringify(health, null, 2))
+  console.log('in app selectingWeaponId', selectingWeaponId)
   const props = {
     activeTab, setActiveTab,
     activeStatTab, setActiveStatTab,
@@ -107,11 +116,8 @@ function App() {
     move,
     getWeapon,
     applyStimpack,
-    changeWeapon: () => {
-      setMessageContent((<WeaponList {...props} />))
-      setShowMessage(true)
-    },
 
+    currentWeaponId, setCurrentWeaponId,
     weaponId, setWeaponId,
     weapons, setWeapons,
 
@@ -129,15 +135,20 @@ function App() {
   }
 
 
+  props.changeWeapon = () => {
+    setSelectingWeaponId(weapons[0].id)
+    setSelectingWeapon(true)
+  }
+  props.changeWeapon = props.changeWeapon.bind(this)
+
   return (
     <div className="App">
       <Speech {...props} />
+      <Message show={selectingWeapon} setShow={setSelectingWeapon}>
+        <h1>Arm with a new weapon</h1>
+        <WeaponList {...props} weaponId={selectingWeaponId} setWeaponId={setSelectingWeaponId}/>
+      </Message>
       <Header activeTab={activeTab} setActiveTab={setActiveTab}/>
-      { showMessage &&
-        <Message>
-          { messageContent }
-        </Message>
-      }
       { activeTab === 'stat' && <Stat {...props }/> }
       { activeTab === 'inv' && <Inv { ...props }/> }
       { activeTab === 'data' && <ToDo /> }
