@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Stat from './Stat'
 import ToDo from './ToDo'
 import Inv from './Inv'
+import Data from './Data'
+import Radio from './Radio'
 import Footer from './Footer'
 import Header from './Header'
 import Speech from './Speech'
@@ -14,6 +16,14 @@ function App() {
   const [activeTab, setActiveTab] = useState('stat');
   const [activeStatTab, setActiveStatTab] = useState('status')
   const [activeInvTab, setActiveInvTab] = useState('weapons')
+  const [activeDataTab, setActiveDataTab] = useState('quests')
+
+  const [currentQuestId, setCurrentQuestId] = useState(character.quests[0].id);
+  const [questId, setQuestId] = useState(character.quests[0].id);
+  const [quests, setQuests] = useState(character.quests);
+
+  const [radioStationId, setRadioStationId] = useState(character.radioStations[0].id);
+  const [radioStations, setRadioStations] = useState(character.radioStations);
 
   const [perkId, setPerkId] = useState(character.perks[0].id);
   const [perks, setPerks] = useState(character.perks);
@@ -56,7 +66,6 @@ function App() {
         toId = items[index-1].id
     }
     if (toId) {
-      console.log("moving to ---------------", toId)
       setId(toId)
     }
   }
@@ -113,7 +122,6 @@ function App() {
   }
 
   const applyStimpack = (request) => {
-    console.log(`applyStimpack(${JSON.stringify(request)})`)
     const potency = 20;
     const n = [health.arm.left, health.arm.right, health.leg.left, health.leg.right, health.torso, health.head].map( (value) => value < 100 ? 1 : 0 ).reduce((x,y) => x+y)
     if (n === 0) {
@@ -134,12 +142,19 @@ function App() {
     })
   }
 
-  console.log('in app selectingWeaponId', selectingWeaponId)
   const props = {
     activeTab, setActiveTab,
     activeStatTab, setActiveStatTab,
     activeInvTab, setActiveInvTab,
+    activeDataTab, setActiveDataTab,
     health, setHealth,
+
+    currentQuestId, setCurrentQuestId,
+    questId, setQuestId,
+    quests, setQuests,
+
+    radioStationId, setRadioStationId,
+    radioStations, setRadioStations,
 
     lastQuery, setLastQuery,
     move, select, cancel,
@@ -180,9 +195,9 @@ function App() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab}/>
       { activeTab === 'stat' && <Stat {...props }/> }
       { activeTab === 'inv' && <Inv { ...props }/> }
-      { activeTab === 'data' && <ToDo /> }
+      { activeTab === 'data' && <Data { ...props } /> }
       { activeTab === 'map' && <ToDo /> }
-      { activeTab === 'radio' && <ToDo /> }
+      { activeTab === 'radio' && <Radio { ...props } /> }
       <Footer />
     </div>
   );

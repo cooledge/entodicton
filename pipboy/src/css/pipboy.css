@@ -301,6 +301,13 @@ ul > li.nav-item > a.nav-link, ul > li.nav-item.active > a.nav-link {
     width: 200px;
 }
 
+.item-desc {
+    position: absolute;
+    left: 600px;
+    top: 400px;
+    width: 200px;
+}
+
 .pull-left {
     float: left !important;
     

@@ -14,39 +14,105 @@
 
   "perks": [
     { 
-      "id": "perk1",
-      "name": "Perk1"
+      "id": "big_leagues",
+      "name": "Big Leagues",
+      "description": "Swing for the fences! Do 20% more melee weapon damage",
+      "stars": 1,
+      "max_stars": 5
+    },
+    { 
+      "id": "cap_collector",
+      "name": "Cap Collector",
+      "description": "You've mastered the art of the deal! Buying and selling prices at vensors are better.",
+      "stars": 1,
+      "max_stars": 3
+    },
+    { 
+      "id": "chemist",
+      "name": "Chemist",
+      "description": "Any chems you take last 50% longer. Far out",
+      "stars": 1,
+      "max_stars": 4
+    },
+    { 
+      "id": "covert_operations",
+      "name": "Covert Operations",
+      "description": "You are more difficult to detect while sneaking",
+      "stars": 1,
+      "max_stars": 10
+    },
+    { 
+      "id": "gun_nut",
+      "name": "Gun Nut",
+      "description": "Shoot first, kill first, with access to base level and Rank 1 gun mods",
+      "stars": 1,
+      "max_stars": 4
+    },
+    { 
+      "id": "guns_and_bullets",
+      "name": "Guns and Bullets",
+      "description": "Ballistic weapons do +5% critical damage.",
+      "stars": 1,
+      "max_stars": 10
+    },
+    { 
+      "id": "hacker",
+      "name": "Hacker",
+      "description": "Knowledge of cuttin-edge computer encrytion allows you to hack Advanced terminals.",
+      "stars": 1,
+      "max_stars": 4
+    },
+    { 
+      "id": "iron_fist",
+      "name": "Iron Fist",
+      "description": "Channel you chi to unleast devastating fury! PUnching attackes do 20% more damage to you opponent.",
+      "stars": 1,
+      "max_stars": 5
+    },
+    { 
+      "id": "medic",
+      "name": "Medic",
+      "description": "Is there a doctor in the house? Stimpaks restore 40% of lost Health, and RadAway removes 40% of radiation.",
+      "stars": 1,
+      "max_stars": 4
     }
   ],
 
   "special": [
     { 
       "id": "strength",
-      "name": "Strength"
+      "name": "Strength",
+      "description": "Strength is a measure of you raw physical power. It affect how much you can carry, and the damage of all melee attacks"
     }, 
     {
       "id": "perception",
-      "name": "Perception"
+      "name": "Perception",
+      "description": "Perception is you environmental awareness and \"sixth sense\" and affect weapon accuracy in V.A.T.S."
     }, 
     {
       "id": "endurence",
-      "name": "Endurence"
+      "name": "Endurence",
+      "description": "Endurange is a measure of you overall physical fitness. It affects you total Health and Action Point drain from sprinting."
     }, 
     {
       "id": "charisma",
-      "name": "Charisma"
+      "name": "Charisma",
+      "description": "Charisma is you ability to charm and convince others. It affects you success to persuade in dialuge and prices when you barter."
     }, 
     {
       "id": "intelligence",
-      "name": "Intelligence"
+      "name": "Intelligence",
+      "description": "Intelligence is a measure of you overall mental acuity, and affects the number of Experience Points earned."
     }, 
     {
       "id": "agility",
-      "name": "Agility"
+      "name": "Agility",
+      "description": "Agility is a measure of you overall finess and reflexes. It affects the number of Action Points in V.A.T.S and you ability to sneak."
     }, 
     {
       "id": "luck",
-      "name": "Luck"
+      "name": "Luck",
+      "description": "Luck is a measure of you general good fortune, and affects the recharge rate of Critical Hits."
     }
   ],
 
@@ -155,6 +221,40 @@
       "accuracy": 80,
       "weight": 14.8,
       "value": 150
+    }
+  ],
+
+  "radioStations": [
+    {
+      "id": "classical_radio",
+      "name": "Classical Radio"
+    },
+    {
+      "id": "diamond_city_radio",
+      "name": "Diamond City Radio"
+    },
+    {
+      "id": "boston_city_works_beacon",
+      "name": "Boston City Works Beacon"
+    },
+    {
+      "id": "civil_alert_system_broadcast",
+      "name": "Civil Alert System Broadcast"
+    },
+    {
+      "id": "distress_signal",
+      "name": "Distress Signal"
+    },
+    {
+      "id": "rj1138",
+      "name": "Emergency Frequency RJ1138"
+    }
+  ],
+
+  "quests": [
+    {
+      "id": "",
+      "name": "rj1138"
     }
   ]
 }
