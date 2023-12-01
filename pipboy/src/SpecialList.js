@@ -1,7 +1,21 @@
-import ItemList from './ItemList'
+function SpecialList({ specialId:itemId, setSpecialId:setItemId, special:items }) {
+  const list = items.map((item) => {
+    const className = item.id === itemId ? 'current ' : ''
+    return (
+            <li className="special special" key={item.id} onMouseEnter={ () => setItemId(item.id) }>
+              <a className={className}>
+                <span class="specialName">{item.name}</span>
+              </a>
+                <span class='specialValue'>{item.value}</span>
+            </li>
+           )
+  })
 
-function SpecialList({ specialId, setSpecialId, special }) {
-  return ( <ItemList setItemId={setSpecialId} itemId={specialId} items={special}/> )
+  return (
+    <ul className="item-list special-list">
+      {list}
+    </ul>
+  );
 }
 
 export default SpecialList;

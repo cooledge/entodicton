@@ -5,7 +5,7 @@ import _33 from './images/33.ico'
 import radiation from './images/radiation.png'
 import energy from './images/energy.png'
 
-function Status({ health }) {
+function Status({ health, currentWeapon }) {
   const width = (value) => {
     return 40 * (value / 100)
   }
@@ -18,6 +18,7 @@ function Status({ health }) {
               </div>
     )
   }
+  const weapon = currentWeapon() || {}
   return (
             <div className="tab-content">
               <div className="tab-pane active" style={ { height: "calc(100vh - 180px)" } } id="status" role="tabpanel">
@@ -68,7 +69,7 @@ function Status({ health }) {
                           <img src={_33} className="sm-image img-responsive"/>
                         </div>
                         { /* gun damage */ }
-                        <div className="points">10</div>
+                        <div className="points">{weapon.damage}</div>
                       </div>
                       <div className="col-1 transparent">
                       </div>

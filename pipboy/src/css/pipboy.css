@@ -36,6 +36,39 @@
 .Speech {
 }
 
+.special {
+  font-family: pipboy, sans-serif;
+  color: #14fe17;  
+  background: #272b23;
+}
+
+.specialName {
+  left: 0px;
+}
+
+.specialValue {
+  right: 10px;
+}
+
+.item-list.special-list {
+  text-align: left;
+}
+
+.star {
+  font-size: 44px;
+}
+
+.star.checked {
+  color: white;
+}
+
+li.special {
+  display: flex;
+}
+
+.star.unchecked {
+}
+
 .navbar.navbar-light::before, .navbar.navbar-light::after {
     height: 7px;
     width: 2px;
@@ -274,7 +307,7 @@ ul > li.nav-item > a.nav-link, ul > li.nav-item.active > a.nav-link {
     text-decoration:none;
 }
 
-.item-list li a.selected {
+.item-list li a.current {
     display: block;
     width: 300px;
     padding: 5px 10px;
@@ -284,7 +317,15 @@ ul > li.nav-item > a.nav-link, ul > li.nav-item.active > a.nav-link {
     text-decoration:none;
 }
 
-.item-list li a:hover {
+.item-list li a.equipped:before {
+  width:18px;
+  height:18px;
+  top:0px;
+  left:0;
+  content:"*";
+}
+
+.item-list li:hover {
     text-decoration: none;
     background: #14fe17;
     color: #272b23;

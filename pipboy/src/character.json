@@ -31,14 +31,14 @@
       "id": "chemist",
       "name": "Chemist",
       "description": "Any chems you take last 50% longer. Far out",
-      "stars": 1,
+      "stars": 2,
       "max_stars": 4
     },
     { 
       "id": "covert_operations",
       "name": "Covert Operations",
       "description": "You are more difficult to detect while sneaking",
-      "stars": 1,
+      "stars": 4,
       "max_stars": 10
     },
     { 
@@ -52,7 +52,7 @@
       "id": "guns_and_bullets",
       "name": "Guns and Bullets",
       "description": "Ballistic weapons do +5% critical damage.",
-      "stars": 1,
+      "stars": 6,
       "max_stars": 10
     },
     { 
@@ -82,36 +82,43 @@
     { 
       "id": "strength",
       "name": "Strength",
+      "value": 5,
       "description": "Strength is a measure of you raw physical power. It affect how much you can carry, and the damage of all melee attacks"
     }, 
     {
       "id": "perception",
       "name": "Perception",
+      "value": 3,
       "description": "Perception is you environmental awareness and \"sixth sense\" and affect weapon accuracy in V.A.T.S."
     }, 
     {
       "id": "endurence",
       "name": "Endurence",
+      "value": 1,
       "description": "Endurange is a measure of you overall physical fitness. It affects you total Health and Action Point drain from sprinting."
     }, 
     {
       "id": "charisma",
       "name": "Charisma",
+      "value": 4,
       "description": "Charisma is you ability to charm and convince others. It affects you success to persuade in dialuge and prices when you barter."
     }, 
     {
       "id": "intelligence",
       "name": "Intelligence",
+      "value": 8,
       "description": "Intelligence is a measure of you overall mental acuity, and affects the number of Experience Points earned."
     }, 
     {
       "id": "agility",
       "name": "Agility",
+      "value": 1,
       "description": "Agility is a measure of you overall finess and reflexes. It affects the number of Action Points in V.A.T.S and you ability to sneak."
     }, 
     {
       "id": "luck",
       "name": "Luck",
+      "value": 6,
       "description": "Luck is a measure of you general good fortune, and affects the recharge rate of Critical Hits."
     }
   ],
@@ -191,6 +198,53 @@
 
   "weapons": [
     {
+      "id": "bottlecap_mine",
+      "name": "Bottlecap Mine",
+      "damage": 301,
+      "fire_rate": 0,
+      "range": 93,
+      "accuracy": 0,
+      "weight": 0.5,
+      "value": 75,
+      "quantity": 2
+    },
+    {
+      "id": "fragmentation_grenade",
+      "name": "Fragmentation Grenade",
+      "damage": 151,
+      "fire_rate": 0,
+      "range": 93,
+      "accuracy": 0,
+      "weight": 0.5,
+      "value": 50,
+      "quantity": 3
+    },
+    {
+      "id": "fragmentation_mine",
+      "name": "Fragmentation Mine",
+      "damage": 101,
+      "fire_rate": 0,
+      "range": 93,
+      "accuracy": 0,
+      "weight": 0.5,
+      "value": 50,
+      "quantity": 2
+    },
+    {
+      "id": "freezing_pipe_revolver_pistol",
+      "name": "Freezing Pipe Revolver Pistol",
+      "damage": 24,
+      "damage_electrical": 10,
+      "fire_rate": 6,
+      "range": 83,
+      "accuracy": 61,
+      "weight": 4.2,
+      ".45": 184,
+      "value": 125,
+      "favorite": true,
+      "description": "Does 10 points cryo damage and will freeze targets on critical hits."
+    },
+    {
       "id": "44_Pistol",
       "name": "44 Pistol",
       "damage": 48,
@@ -198,7 +252,8 @@
       "range": 119,
       "accuracy": 66,
       "weight": 4.2,
-      "value": 99
+      "value": 99,
+      "selected": true
     },
 
     {
@@ -254,7 +309,8 @@
   "quests": [
     {
       "id": "",
-      "name": "rj1138"
+      "name": "rj1138",
+      "selected": true
     }
   ]
 }

@@ -37,8 +37,7 @@ function App() {
   const [aidId, setAidId] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
 
-  const [currentWeaponId, setCurrentWeaponId] = useState()
-
+  const [currentWeaponId, setCurrentWeaponId] = useState(character.weapons[2].id)
   const [weaponId, setWeaponId] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
 
@@ -164,6 +163,8 @@ function App() {
     currentWeaponId, setCurrentWeaponId,
     weaponId, setWeaponId,
     weapons, setWeapons,
+
+    currentWeapon: () => weapons.find( (w) => w.id == weaponId ),
 
     apparelId, setApparelId,
     apparel, setApparel,
