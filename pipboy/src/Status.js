@@ -1,7 +1,7 @@
 import _2344 from './images/2344.png'
 import _333 from './images/333.png'
 import helmet from './images/helmet.png'
-import _33 from './images/33.ico'
+import aimer from './images/33.ico'
 import radiation from './images/radiation.png'
 import energy from './images/energy.png'
 
@@ -66,7 +66,7 @@ function Status({ health, currentWeapon }) {
                       </div>
                       <div className="col-1">
                         <div className="icon">
-                          <img src={_33} className="sm-image img-responsive"/>
+                          <img src={aimer} className="sm-image img-responsive"/>
                         </div>
                         { /* gun damage */ }
                         <div className="points">{weapon.damage}</div>

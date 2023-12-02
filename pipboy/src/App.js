@@ -10,7 +10,6 @@ import Speech from './Speech'
 import Message from './Message'
 import character from './character.json'
 import WeaponList from './WeaponList'
-import ItemList from './WeaponList'
 
 function App() {
   const [activeTab, setActiveTab] = useState('stat');
@@ -18,7 +17,6 @@ function App() {
   const [activeInvTab, setActiveInvTab] = useState('weapons')
   const [activeDataTab, setActiveDataTab] = useState('quests')
 
-  const [currentQuestId, setCurrentQuestId] = useState(character.quests[0].id);
   const [questId, setQuestId] = useState(character.quests[0].id);
   const [quests, setQuests] = useState(character.quests);
 
@@ -37,11 +35,14 @@ function App() {
   const [aidId, setAidId] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
 
-  const [currentWeaponId, setCurrentWeaponId] = useState(character.weapons[2].id)
   const [weaponId, setWeaponId] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
 
+  const [hp, setHP] = useState(character.hp)
+  const [ap, setAP] = useState(character.ap)
+  const [caps, setCaps] = useState(character.caps)
   const [health, setHealth] = useState(character.health)
+  const [maxWeight, setMaxWeight] = useState(character.maxWeight)
   const [messageContent, setMessageContent] = useState()
 
   const [selectingWeapon, setSelectingWeapon] = useState(false)
@@ -71,8 +72,9 @@ function App() {
 
   const select = () => {
     if (selectingWeapon) {
-      setCurrentWeaponId(selectingWeaponId)
-      setSelectingWeapon(false)
+      weapons.forEach((weapon) => {
+        weapon.selected = selectingWeaponId === weapon.id
+      })
       return
     }
     if (activeTab === 'stat') {
@@ -83,7 +85,9 @@ function App() {
       }
     } else if (activeTab === 'inv') {
       if (activeInvTab === 'weapons') {
-        setCurrentWeaponId(weaponId)
+        weapons.forEach((weapon) => {
+          weapon.selected = weaponId === weapon.id
+        })
       } else if (activeInvTab === 'apparel') {
         // moveTo(direction, apparelId, setApparelId, apparel)
       } else if (activeInvTab === 'aid') {
@@ -141,14 +145,25 @@ function App() {
     })
   }
 
+  let currentWeight = 0
+  aid.forEach( (item) => currentWeight += item.weight )
+  weapons.forEach( (item) => currentWeight += item.weight )
+  apparel.forEach( (item) => currentWeight += item.weight )
+  currentWeight = currentWeight.toFixed(0)
+
   const props = {
+    maxWeight, setMaxWeight,
+    currentWeight,
+
     activeTab, setActiveTab,
     activeStatTab, setActiveStatTab,
     activeInvTab, setActiveInvTab,
     activeDataTab, setActiveDataTab,
+    hp, setHP,
+    ap, setAP,
+    caps, setCaps,
     health, setHealth,
 
-    currentQuestId, setCurrentQuestId,
     questId, setQuestId,
     quests, setQuests,
 
@@ -160,11 +175,10 @@ function App() {
     getWeapon,
     applyStimpack,
 
-    currentWeaponId, setCurrentWeaponId,
     weaponId, setWeaponId,
     weapons, setWeapons,
 
-    currentWeapon: () => weapons.find( (w) => w.id == weaponId ),
+    currentWeapon: () => weapons.find( (w) => w.selected ),
 
     apparelId, setApparelId,
     apparel, setApparel,
@@ -188,7 +202,6 @@ function App() {
 
   return (
     <div className="App">
-      <Speech {...props} />
       <Message show={selectingWeapon} setShow={setSelectingWeapon}>
         <h1>Arm with a new weapon</h1>
         <WeaponList {...props} weaponId={selectingWeaponId} setWeaponId={setSelectingWeaponId}/>
@@ -197,9 +210,9 @@ function App() {
       { activeTab === 'stat' && <Stat {...props }/> }
       { activeTab === 'inv' && <Inv { ...props }/> }
       { activeTab === 'data' && <Data { ...props } /> }
-      { activeTab === 'map' && <ToDo /> }
+      { activeTab === 'map' && <ToDo { ...props }/> }
       { activeTab === 'radio' && <Radio { ...props } /> }
-      <Footer />
+      <Footer {...props}/>
     </div>
   );
 }

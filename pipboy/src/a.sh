@@ -1,5 +1,6 @@
-	git restore --staged    ../../tpmkmssr/app/srdemo.js
-	git restore --staged    ../../tpmkmssr/app/srpage.js
-	git restore --staged    ../../tpmkmssr/next.config.js
-	git restore --staged    ../../tpmkmssr/package-lock.json
-	git restore --staged    ../../tpmkmssr/package.json
+vi App.js
+vi ItemList.js
+vi QuestList.js
+vi SpecialList.js
+vi Status.js
+vi WeaponList.js

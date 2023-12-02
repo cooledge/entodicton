@@ -1,4 +1,7 @@
-function Tabs({ children, active, setActive }) {
+import Speech from './Speech'
+
+function Tabs(props) {
+  const { children, active, setActive } = props
   const navLink = (name, opacity) => {
     const role = name.toLowerCase() === active.toLowerCase() ? "tab" : ""
     return (
@@ -27,6 +30,7 @@ function Tabs({ children, active, setActive }) {
   return (
     <ul className="nav nav-tabs">
       { links }
+      <Speech {...props}/> 
     </ul>
   )
 }

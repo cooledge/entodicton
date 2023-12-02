@@ -1,4 +1,14 @@
 {
+  "hp": {
+    "current": 88,
+    "total": 90
+  },
+  "caps": 186,
+  "ap": {
+    "current": 44,
+    "total": 50
+  },
+  "maxWeight": 265,
   "health": {
     "arm": { 
       "left": 80, 
@@ -130,7 +140,8 @@
       "hp": 5,
       "rads": 6,
       "weight": 0.5,
-      "value": 8
+      "value": 8,
+      "categories": ["meat"]
     },
     {
       "id": "Sugar_Bombs",
@@ -138,7 +149,8 @@
       "hp": 15,
       "rads": 7,
       "weight": 0.5,
-      "value": 11
+      "value": 11,
+      "categories": ["cereal"]
     },
     {
       "id": "Nuka_Cola",
@@ -147,7 +159,8 @@
       "rads": 5,
       "ap": 10,
       "weight": 1,
-      "value": 20
+      "value": 20,
+      "categories": ["drink"]
     },
     {
       "id": "Stimpak",
@@ -156,7 +169,8 @@
       "percent": true,
       "quantity": 5,
       "weight": 0,
-      "value": 48
+      "value": 48,
+      "categories": ["medicine"]
     }
   ],
 
@@ -167,7 +181,8 @@
       "dmg_resist": 5,
       "rad_resist": 10,
       "weight": 1,
-      "value": 20
+      "value": 20,
+      "categories": ["suit"]
     },
     {
       "id": "Clean_Grey_Suit",
@@ -176,7 +191,8 @@
       "rad_resist": 0,
       "CHR": 2,
       "weight": 3,
-      "value": 32
+      "value": 32,
+      "categories": ["suit"]
     },
     {
       "id": "Chef_Hat",
@@ -185,14 +201,16 @@
       "rad_resist": 0,
       "LCK": 1,
       "weight": 0.5,
-      "value": 15
+      "value": 15,
+      "categories": ["hat"]
     },
     {
       "id": "Eyeglasses",
       "name": "Eyeglasses",
       "PER": 1,
       "weight": 0.1,
-      "value": 7
+      "value": 7,
+      "categories": ["glasses"]
     }
   ],
 
@@ -206,7 +224,8 @@
       "accuracy": 0,
       "weight": 0.5,
       "value": 75,
-      "quantity": 2
+      "quantity": 2,
+      "categories": ["mine"]
     },
     {
       "id": "fragmentation_grenade",
@@ -217,7 +236,8 @@
       "accuracy": 0,
       "weight": 0.5,
       "value": 50,
-      "quantity": 3
+      "quantity": 3,
+      "categories": ["grenade"]
     },
     {
       "id": "fragmentation_mine",
@@ -228,7 +248,8 @@
       "accuracy": 0,
       "weight": 0.5,
       "value": 50,
-      "quantity": 2
+      "quantity": 2,
+      "categories": ["mine"]
     },
     {
       "id": "freezing_pipe_revolver_pistol",
@@ -242,7 +263,8 @@
       ".45": 184,
       "value": 125,
       "favorite": true,
-      "description": "Does 10 points cryo damage and will freeze targets on critical hits."
+      "description": "Does 10 points cryo damage and will freeze targets on critical hits.",
+      "categories": ["pistol"]
     },
     {
       "id": "44_Pistol",
@@ -253,7 +275,8 @@
       "accuracy": 66,
       "weight": 4.2,
       "value": 99,
-      "selected": true
+      "selected": true,
+      "categories": ["pistol"]
     },
 
     {
@@ -264,7 +287,8 @@
       "range": 119,
       "accuracy": 56,
       "weight": 4.2,
-      "value": 53
+      "value": 53,
+      "categories": ["pistol"]
     },
 
     {
@@ -275,7 +299,8 @@
       "range": 200,
       "accuracy": 80,
       "weight": 14.8,
-      "value": 150
+      "value": 150,
+      "categories": ["rifle"]
     }
   ],
 
