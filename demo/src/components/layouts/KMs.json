@@ -305,7 +305,8 @@
       "change apparel",
       "change apparel",
       "change weapons",
-      "testsetup1 equipable equip that"
+      "testsetup1 equipable equip that",
+      "testsetup1 weapon equip that"
     ],
     "includes": [
       "hierarchy",
