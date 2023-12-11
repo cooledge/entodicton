@@ -304,9 +304,12 @@
       "change weapon",
       "change apparel",
       "change apparel",
-      "change weapons"
+      "change weapons",
+      "testsetup1 equipable equip that"
     ],
     "includes": [
+      "hierarchy",
+      "properties",
       "dialogues",
       "meta"
     ],
@@ -567,23 +570,5 @@
     ],
     "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/time.js"
-  },
-  {
-    "name": "ui",
-    "description": "Control a ui with speech",
-    "examples": [
-      "move up",
-      "move left",
-      "move down",
-      "move right",
-      "select",
-      "cancel"
-    ],
-    "includes": [
-      "dialogues",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/ui.js"
   }
 ]
