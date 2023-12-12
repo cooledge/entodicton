@@ -51,6 +51,20 @@
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/characters.js"
   },
   {
+    "name": "countable",
+    "description": "Countable things",
+    "examples": [
+      "2 countable"
+    ],
+    "includes": [
+      "dialogues",
+      "numbers",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/countable.js"
+  },
+  {
     "name": "crew",
     "description": "Knowledge about the enterprise and crew using a KM template",
     "examples": [
@@ -571,5 +585,23 @@
     ],
     "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/time.js"
+  },
+  {
+    "name": "ui",
+    "description": "Control a ui with speech",
+    "examples": [
+      "move up",
+      "move left",
+      "move down",
+      "move right",
+      "select",
+      "cancel"
+    ],
+    "includes": [
+      "dialogues",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/ui.js"
   }
 ]
