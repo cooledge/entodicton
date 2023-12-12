@@ -31,6 +31,7 @@ describe('tests for website', () => {
         const message = `Did not find '${e}' on the page`
         expect(content.includes(e.toLowerCase()) ? message : '').toBe(message)
       }
+      page.close()
     }, timeout);
   }
 });
