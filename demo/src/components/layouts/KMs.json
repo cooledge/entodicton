@@ -320,12 +320,18 @@
       "change apparel",
       "change weapons",
       "testsetup1 equipable equip that",
-      "testsetup1 weapon equip that"
+      "testsetup1 weapon equip that",
+      "apply 10 stimpacks",
+      "the work outfit",
+      "wear the city outfit",
+      "call this the city outfit"
     ],
     "includes": [
       "hierarchy",
+      "countable",
       "properties",
       "dialogues",
+      "numbers",
       "meta"
     ],
     "template": {},
