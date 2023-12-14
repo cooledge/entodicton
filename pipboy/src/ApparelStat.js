@@ -1,5 +1,15 @@
 import ItemStat from './ItemStat'
 
+const propertyToName = {
+  dmg_resist: 'Damage Resitance', 
+  rad_resist: 'Rad Resistance', 
+  CHR: 'CHR', 
+  LCK: 'LCK', 
+  PER: 'PER', 
+  weight: 'Weight', 
+  value: 'Value', 
+}
+
 function ApparelStat({apparelId, apparel}) {
   if (!apparelId) {
     return (<div/>)
@@ -7,15 +17,11 @@ function ApparelStat({apparelId, apparel}) {
 
   const data = apparel.find( (item) => item.id === apparelId )
 
+  const stats = Object.keys(propertyToName).map( (property) => { return { name: propertyToName[property], value: data[property] } } ).filter( (stat) => stat.value )
+
   return (
     <ItemStat>
-      { {name: 'Damage Resitance', value: data.dmg_resist} }
-      { {name: 'Rad Resistance', value: data.rad_resist} } 
-      { {name: 'CHR', value: data.CHR} } 
-      { {name: 'LCK', value: data.LCK} } 
-      { {name: 'PER', value: data.PER} } 
-      { {name: 'Weight', value: data.weight} } 
-      { {name: 'Value', value: data.value} } 
+      { stats } 
     </ItemStat>
   );
 }

@@ -1,20 +1,25 @@
 import ItemStat from './ItemStat'
 
+const propertyToName = {
+  damage: 'Damage', 
+  fire_rate: 'Fire Rate', 
+  range: 'Range', 
+  accuracy: 'Accuracy', 
+  weight: 'Weight', 
+  value: 'Value', 
+}
+
 function WeaponStat({weaponId, weapons}) {
   if (!weaponId) {
     return (<div/>)
   }
 
   const data = weapons.find( (w) => w.id === weaponId )
+  const stats = Object.keys(propertyToName).map( (property) => { return { name: propertyToName[property], value: data[property] } } ).filter( (stat) => stat.value )
 
   return (
     <ItemStat>
-      { {name: 'Damage', value: data.damage} }
-      { {name: 'Fire Rate', value: data.fire_rate} } 
-      { {name: 'Range', value: data.range} } 
-      { {name: 'Accuracy', value: data.accuracy} } 
-      { {name: 'Weight', value: data.weight} } 
-      { {name: 'Value', value: data.value} }
+      { stats }
     </ItemStat>
   );
 }
