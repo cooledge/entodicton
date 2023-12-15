@@ -13,7 +13,6 @@ function AidStat({aidId, aid}) {
   }
   const data = aid.find( (item) => item.id === aidId )
 
-  console.log("mapping", Object.keys(propertyToName).map( (property) => { return { name: propertyToName[property], value: data[property] } } ))
   const stats = Object.keys(propertyToName).map( (property) => { return { name: propertyToName[property], value: data[property] } } ).filter( (stat) => stat.value )
   if (data.percent) {
     stats.unshift({name: 'Percent', value: `${data.hp}%`})

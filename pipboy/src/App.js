@@ -54,6 +54,48 @@ function App() {
     return weapons.find( (weapon) => weapon.id === id )
   }
 
+  const selectAid = (id) => {
+    const index = aid.findIndex( (item) => item.id === id )
+    const newAid = aid.map( (item) => {
+        if (item.id == id) {
+          item.quantity -= 1
+        }
+        return item.quantity > 0 ? item : null
+      }).filter((item) => item)
+    setAid(newAid)
+    if (newAid[index]) {
+      setAidId(newAid[index].id)
+    } else if (newAid[index-1]) {
+      setAidId(newAid[index-1].id)
+    } else {
+      setAidId(null)
+    }
+  }
+
+  const selectWeapon = (id) => {
+    setWeapons(weapons.map( (weapon) => {
+        if (weapon.id == id) {
+          weapon.selected = true
+        } else {
+          weapon.selected = false
+        }
+        return weapon
+      })
+    )
+  }
+
+  const selectApparel = (id) => {
+    setApparel(apparel.map( (item) => {
+        if (item.id == id) {
+          item.selected = true
+        } else {
+          item.selected = false
+        }
+        return item
+      })
+    )
+  }
+
   // direction: up/down
   const moveTo = (direction, id, setId, items, steps = 1) => {
     const index = items.findIndex((item) => item.id === id)
@@ -177,14 +219,17 @@ function App() {
 
     weaponId, setWeaponId,
     weapons, setWeapons,
+    selectWeapon,
 
     currentWeapon: () => weapons.find( (w) => w.selected ),
 
     apparelId, setApparelId,
     apparel, setApparel,
+    selectApparel,
 
     aidId, setAidId,
     aid, setAid,
+    selectAid,
 
     specialId, setSpecialId,
     special, setSpecial,

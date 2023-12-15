@@ -140,6 +140,7 @@
       "hp": 5,
       "rads": 6,
       "weight": 0.5,
+      "quantity": 1,
       "value": 8,
       "categories": ["meat"]
     },
@@ -149,6 +150,7 @@
       "hp": 15,
       "rads": 7,
       "weight": 0.5,
+      "quantity": 1,
       "value": 11,
       "categories": ["cereal"]
     },
@@ -159,6 +161,7 @@
       "rads": 5,
       "ap": 10,
       "weight": 1,
+      "quantity": 1,
       "value": 20,
       "categories": ["drink"]
     },
@@ -167,8 +170,8 @@
       "name": "Stimpak",
       "hp": 30,
       "percent": true,
-      "quantity": 5,
       "weight": 0,
+      "quantity": 5,
       "value": 48,
       "categories": ["medicine"]
     }
@@ -180,6 +183,7 @@
       "name": "Vault 111 Jumpsuit",
       "dmg_resist": 5,
       "rad_resist": 10,
+      "selected": true,
       "weight": 1,
       "value": 20,
       "categories": ["suit"]
