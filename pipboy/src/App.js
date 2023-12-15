@@ -17,6 +17,9 @@ function App() {
   const [activeInvTab, setActiveInvTab] = useState('weapons')
   const [activeDataTab, setActiveDataTab] = useState('quests')
 
+  const [selector, setSelector] = useState()
+  const [message, setMessage] = useState()
+
   const [questId, setQuestId] = useState(character.quests[0].id);
   const [quests, setQuests] = useState(character.quests);
 
@@ -29,13 +32,13 @@ function App() {
   const [specialId, setSpecialId] = useState(character.special[0].id);
   const [special, setSpecial] = useState(character.special);
 
-  const [apparelId, setApparelId] = useState(character.apparel[0].id);
+  const [apparelId, setApparelIdDirect] = useState(character.apparel[0].id);
   const [apparel, setApparel] = useState(character.apparel);
 
-  const [aidId, setAidId] = useState(character.aid[0].id);
+  const [aidId, setAidIdDirect] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
 
-  const [weaponId, setWeaponId] = useState(character.weapons[0].id);
+  const [weaponId, setWeaponIdDirect] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
 
   const [hp, setHP] = useState(character.hp)
@@ -72,6 +75,11 @@ function App() {
     }
   }
 
+  const setAidId = (id) => {
+    setAidIdDirect(id)
+    setSelector(() => () => selectAid(id))
+  }
+
   const selectWeapon = (id) => {
     setWeapons(weapons.map( (weapon) => {
         if (weapon.id == id) {
@@ -84,6 +92,11 @@ function App() {
     )
   }
 
+  const setWeaponId = (id) => {
+    setWeaponIdDirect(id)
+    setSelector(() => () => selectWeapon(id))
+  }
+
   const selectApparel = (id) => {
     setApparel(apparel.map( (item) => {
         if (item.id == id) {
@@ -94,6 +107,11 @@ function App() {
         return item
       })
     )
+  }
+
+  const setApparelId = (id) => {
+    setApparelIdDirect(id)
+    setSelector(() => () => selectApparel(id))
   }
 
   // direction: up/down
@@ -118,7 +136,12 @@ function App() {
         weapon.selected = selectingWeaponId === weapon.id
       })
       return
+    } else {
+      if (selector) {
+        selector()
+      }
     }
+    /*
     if (activeTab === 'stat') {
       if (activeStatTab === 'special') {
         // moveTo(direction, specialId, setSpecialId, special)
@@ -136,6 +159,7 @@ function App() {
         // moveTo(direction, aidId, setAidId, aid)
       }
     }
+    */
   }
 
   const cancel = () => {
@@ -194,6 +218,9 @@ function App() {
   currentWeight = currentWeight.toFixed(0)
 
   const props = {
+    selector, setSelector,
+    message, setMessage,
+
     maxWeight, setMaxWeight,
     currentWeight,
 

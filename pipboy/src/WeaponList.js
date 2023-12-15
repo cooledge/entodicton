@@ -2,7 +2,7 @@ import ItemList from './ItemList'
 
 function WeaponList(props) {
   const { setWeaponId, weaponId, weapons, selectWeapon } = props
-  return ( <ItemList setItemId={setWeaponId} itemId={weaponId} items={weapons} selectItem={selectWeapon}/> )
+  return ( <ItemList {...props} setItemId={setWeaponId} itemId={weaponId} items={weapons}/> )
 }
 
 export default WeaponList;

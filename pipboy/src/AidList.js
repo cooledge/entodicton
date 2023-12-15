@@ -1,7 +1,8 @@
 import ItemList from './ItemList'
 
-function AidList({ setAidId, aidId, aid, selectAid }) {
-  return ( <ItemList setItemId={setAidId} itemId={aidId} items={aid} selectItem={selectAid}/> )
+function AidList(props) {
+  const { setAidId, aidId, aid, selectAid } = props
+  return ( <ItemList {...props} setItemId={setAidId} itemId={aidId} items={aid}/> )
 }
 
 export default AidList;
