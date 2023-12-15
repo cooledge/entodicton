@@ -601,9 +601,12 @@
       "move down",
       "move right",
       "select",
-      "cancel"
+      "cancel",
+      "move down 2"
     ],
     "includes": [
+      "math",
+      "numbers",
       "dialogues",
       "meta"
     ],
