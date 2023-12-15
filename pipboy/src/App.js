@@ -59,7 +59,6 @@ function App() {
     const index = items.findIndex((item) => item.id === id)
     let toId;
     if (direction === 'down') {
-      debugger;
       if (index+1 < items.length)
         toId = items[Math.min(index+steps, items.length-1)].id
     } else {

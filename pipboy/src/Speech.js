@@ -42,7 +42,7 @@ class API {
   }
 
   move(direction, steps = 1) {
-    this.props.move(direction.marker, steps)
+    this.props.move(direction, steps)
   }
 
   select() {
