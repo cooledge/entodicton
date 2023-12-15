@@ -11,7 +11,7 @@ function Data(props) {
       <div className="container">
         <div className="row">
           <div className="col-12">  
-            <Tabs active={activeDataTab} setActive={setActiveDataTab}>
+            <Tabs {...props} active={activeDataTab} setActive={setActiveDataTab}>
               { 'quests' }
               { 'workshops' }
               { 'stats' }

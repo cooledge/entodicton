@@ -50,7 +50,7 @@ function InvFooter({currentWeight, maxWeight, currentWeapon, caps}) {
         <span>CAPS {caps}</span>   
       </div>
       <div className="col-3 text-right">
-        <img style={{ 'margin-right': '10px' }} src={aimer} className="sm-image img-responsive"/>
+        <img style={{ 'marginRight': '10px' }} src={aimer} className="sm-image img-responsive"/>
         { /* gun damage */ }
         {weapon.damage}
       </div>

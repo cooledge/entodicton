@@ -1,7 +1,7 @@
 function ItemStat({ children }) {
   const row = (name, value) => {
     return (
-      <div className="row-highlight">
+      <div key={name} className="row-highlight">
         <div className="row"> 
           <div className="col-12"> 
             <span className="pull-right">{value}</span>

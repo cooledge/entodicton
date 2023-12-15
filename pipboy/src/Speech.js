@@ -12,7 +12,7 @@ class API {
       this.props.setActiveTab(id)
     } else if (['weapons', 'apparel', 'aid'].includes(id)) {
       this.props.setActiveTab('inv')
-      this.props.setInvTab(id)
+      this.props.setActiveInvTab(id)
     } else if (['status', 'special', 'perks'].includes(id)) {
       this.props.setActiveTab('stat')
       this.props.setActiveStatTab(id)
@@ -41,8 +41,8 @@ class API {
     this.props = props
   }
 
-  move(direction) {
-    this.props.move(direction.marker)
+  move(direction, steps = 1) {
+    this.props.move(direction.marker, steps)
   }
 
   select() {

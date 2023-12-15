@@ -55,15 +55,16 @@ function App() {
   }
 
   // direction: up/down
-  const moveTo = (direction, id, setId, items) => {
+  const moveTo = (direction, id, setId, items, steps = 1) => {
     const index = items.findIndex((item) => item.id === id)
     let toId;
     if (direction === 'down') {
+      debugger;
       if (index+1 < items.length)
-        toId = items[index+1].id
+        toId = items[Math.min(index+steps, items.length-1)].id
     } else {
       if (index-1 >= 0)
-        toId = items[index-1].id
+        toId = items[Math.max(index-steps, 0)].id
     }
     if (toId) {
       setId(toId)
@@ -102,24 +103,24 @@ function App() {
     }
   }
 
-  const move = (direction) => {
+  const move = (direction, steps) => {
     if (selectingWeapon) {
-      moveTo(direction, selectingWeaponId, setSelectingWeaponId, weapons)
+      moveTo(direction, selectingWeaponId, setSelectingWeaponId, weapons, steps)
       return
     }
     if (activeTab === 'stat') {
       if (activeStatTab === 'special') {
-        moveTo(direction, specialId, setSpecialId, special)
+        moveTo(direction, specialId, setSpecialId, special, steps)
       } else if (activeStatTab === 'perks') {
-        moveTo(direction, perkId, setPerkId, perks)
+        moveTo(direction, perkId, setPerkId, perks, steps)
       }
     } else if (activeTab === 'inv') {
       if (activeInvTab === 'weapons') {
-        moveTo(direction, weaponId, setWeaponId, weapons)
+        moveTo(direction, weaponId, setWeaponId, weapons, steps)
       } else if (activeInvTab === 'apparel') {
-        moveTo(direction, apparelId, setApparelId, apparel)
+        moveTo(direction, apparelId, setApparelId, apparel, steps)
       } else if (activeInvTab === 'aid') {
-        moveTo(direction, aidId, setAidId, aid)
+        moveTo(direction, aidId, setAidId, aid, steps)
       }
     }
   }
@@ -206,7 +207,7 @@ function App() {
         <h1>Arm with a new weapon</h1>
         <WeaponList {...props} weaponId={selectingWeaponId} setWeaponId={setSelectingWeaponId}/>
       </Message>
-      <Header activeTab={activeTab} setActiveTab={setActiveTab}/>
+      <Header {...props}/>
       { activeTab === 'stat' && <Stat {...props }/> }
       { activeTab === 'inv' && <Inv { ...props }/> }
       { activeTab === 'data' && <Data { ...props } /> }

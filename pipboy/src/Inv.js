@@ -11,7 +11,7 @@ function Inv(props) {
       <div className="container">
         <div className="row">
           <div className="col-12">  
-            <Tabs active={activeInvTab} setActive={setActiveInvTab}>
+            <Tabs {...props} active={activeInvTab} setActive={setActiveInvTab}>
               { 'weapons' }
               { 'apparel' }
               { 'aid' }

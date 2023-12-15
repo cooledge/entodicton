@@ -11,7 +11,7 @@ function Stat(props) {
       <div className="container">
         <div className="row">
           <div className="col-12">  
-            <Tabs active={activeStatTab} setActive={setActiveStatTab}>
+            <Tabs {...props} active={activeStatTab} setActive={setActiveStatTab}>
               {"status"}
               {"special"}
               {"perks"}
