@@ -602,7 +602,8 @@
       "move right",
       "select",
       "cancel",
-      "move down 2"
+      "move down 2",
+      "down"
     ],
     "includes": [
       "math",
