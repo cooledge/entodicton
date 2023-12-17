@@ -313,7 +313,6 @@
       "show the statistics",
       "show the stats",
       "show stats",
-      "apply a stimpack",
       "go to statistics",
       "change weapon",
       "change apparel",
@@ -321,10 +320,11 @@
       "change weapons",
       "testsetup1 equipable equip that",
       "testsetup1 weapon equip that",
-      "apply 10 stimpacks",
       "the work outfit",
       "wear the city outfit",
-      "call this the city outfit"
+      "call this the city outfit",
+      "apply a stimpak",
+      "apply 10 stimpaks"
     ],
     "includes": [
       "hierarchy",
