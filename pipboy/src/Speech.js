@@ -31,9 +31,10 @@ class API {
     // callback to pass the list to the API
   }
 
-  apply(item) {
-    if (item.item === 'stimpack') {
-      this.props.applyStimpack(item)
+  apply({ item, quantity }) {
+    debugger;
+    if (item === 'stimpak') {
+      this.props.applyStimpak(quantity)
     }
   }
 

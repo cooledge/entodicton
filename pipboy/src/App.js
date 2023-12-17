@@ -10,6 +10,7 @@ import Speech from './Speech'
 import Message from './Message'
 import character from './character.json'
 import WeaponList from './WeaponList'
+import Popup from './Popup'
 
 function App() {
   const [activeTab, setActiveTab] = useState('stat');
@@ -190,7 +191,7 @@ function App() {
     }
   }
 
-  const applyStimpack = (request) => {
+  const applyStimpak = (quantity) => {
     const potency = 20;
     const n = [health.arm.left, health.arm.right, health.leg.left, health.leg.right, health.torso, health.head].map( (value) => value < 100 ? 1 : 0 ).reduce((x,y) => x+y)
     if (n === 0) {
@@ -209,6 +210,13 @@ function App() {
       torso: Math.min(health.torso+delta, 100),
       head: Math.min(health.head+delta, 100),
     })
+    const aidPrime = aid.map( (aid) => {
+      if (aid.id === 'Stimpak') {
+        aid = { ...aid, quantity: aid.quantity - quantity }
+      }
+      return aid
+    })
+    setAid(aidPrime)
   }
 
   let currentWeight = 0
@@ -242,7 +250,7 @@ function App() {
     lastQuery, setLastQuery,
     move, select, cancel,
     getWeapon,
-    applyStimpack,
+    applyStimpak,
 
     weaponId, setWeaponId,
     weapons, setWeapons,
@@ -279,6 +287,9 @@ function App() {
         <WeaponList {...props} weaponId={selectingWeaponId} setWeaponId={setSelectingWeaponId}/>
       </Message>
       <Header {...props}/>
+      <Popup> 
+      the message etc
+      </Popup>
       { activeTab === 'stat' && <Stat {...props }/> }
       { activeTab === 'inv' && <Inv { ...props }/> }
       { activeTab === 'data' && <Data { ...props } /> }
