@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Form } from "react-bootstrap";
 import messageHead from './images/messageHead.png'
 import './css/pipboy.css'
 
 function Popup({ children }) {
-  const [show, setShow] = useState(true)
   const [fade, setFade] = useState('fadeIn')
   setTimeout(() => setFade('fadeOut'), 5000)
   return (
