@@ -32,7 +32,6 @@ class API {
   }
 
   apply({ item, quantity }) {
-    debugger;
     if (item === 'stimpak') {
       this.props.applyStimpak(quantity)
     }

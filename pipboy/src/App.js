@@ -6,7 +6,6 @@ import Data from './Data'
 import Radio from './Radio'
 import Footer from './Footer'
 import Header from './Header'
-import Speech from './Speech'
 import Message from './Message'
 import character from './character.json'
 import WeaponList from './WeaponList'
@@ -61,7 +60,7 @@ function App() {
   const selectAid = (id) => {
     const index = aid.findIndex( (item) => item.id === id )
     const newAid = aid.map( (item) => {
-        if (item.id == id) {
+        if (item.id === id) {
           item.quantity -= 1
         }
         return item.quantity > 0 ? item : null
@@ -83,7 +82,7 @@ function App() {
 
   const selectWeapon = (id) => {
     setWeapons(weapons.map( (weapon) => {
-        if (weapon.id == id) {
+        if (weapon.id === id) {
           weapon.selected = true
         } else {
           weapon.selected = false
@@ -100,7 +99,7 @@ function App() {
 
   const selectApparel = (id) => {
     setApparel(apparel.map( (item) => {
-        if (item.id == id) {
+        if (item.id === id) {
           item.selected = true
         } else {
           item.selected = false
@@ -210,13 +209,23 @@ function App() {
       torso: Math.min(health.torso+delta, 100),
       head: Math.min(health.head+delta, 100),
     })
+    const stimpak = aid.find( aid => aid.id == 'Stimpak' )
+    if (!stimpak || stimpak.quantity < quantity) {
+      if (stimpak) {
+        setMessage(`There are only ${stimpak.quantity} stimpaks.`)
+        return
+      } else {
+        setMessage(`There are no stimpaks!`)
+        return
+      }
+    }
     const aidPrime = aid.map( (aid) => {
       if (aid.id === 'Stimpak') {
         aid = { ...aid, quantity: aid.quantity - quantity }
       }
       return aid
     })
-    setAid(aidPrime)
+    setAid(aidPrime.filter( (aid) => aid.quantity > 0 ))
   }
 
   let currentWeight = 0
@@ -287,9 +296,11 @@ function App() {
         <WeaponList {...props} weaponId={selectingWeaponId} setWeaponId={setSelectingWeaponId}/>
       </Message>
       <Header {...props}/>
-      <Popup> 
-      the message etc
-      </Popup>
+      { message && 
+        <Popup> 
+          {message}
+        </Popup>
+      }
       { activeTab === 'stat' && <Stat {...props }/> }
       { activeTab === 'inv' && <Inv { ...props }/> }
       { activeTab === 'data' && <Data { ...props } /> }
