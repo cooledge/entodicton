@@ -326,7 +326,9 @@
       "apply a stimpak",
       "apply 10 stimpaks",
       "apply four stimpacks",
-      "call this outfit the city outfit"
+      "call this outfit the city outfit",
+      "strip",
+      "disarm"
     ],
     "includes": [
       "hierarchy",
