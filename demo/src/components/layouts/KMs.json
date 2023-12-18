@@ -328,7 +328,8 @@
       "apply four stimpacks",
       "call this outfit the city outfit",
       "strip",
-      "disarm"
+      "disarm",
+      "put on the city outfit"
     ],
     "includes": [
       "hierarchy",
