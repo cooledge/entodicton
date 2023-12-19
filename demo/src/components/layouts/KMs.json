@@ -608,7 +608,8 @@
       "select",
       "cancel",
       "move down 2",
-      "down"
+      "down",
+      "unselect"
     ],
     "includes": [
       "math",
