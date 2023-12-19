@@ -45,6 +45,10 @@ class API {
     this.props.move(direction, steps)
   }
 
+  unselect() {
+    this.props.select(true)
+  }
+
   select() {
     this.props.select()
   }

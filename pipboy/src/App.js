@@ -74,7 +74,11 @@ function App() {
     return weapons.find( (weapon) => weapon.id === id )
   }
 
-  const selectAid = (id) => {
+  const selectAid = (id, unselect) => {
+    if (unselect) {
+      setMessage("Aid is not unselectable")
+      return
+    }
     const index = aid.findIndex( (item) => item.id === id )
     const newAid = aid.map( (item) => {
         if (item.id === id) {
@@ -94,10 +98,20 @@ function App() {
 
   const setAidId = (id) => {
     setAidIdDirect(id)
-    setSelector(() => () => selectAid(id))
+    setSelector(() => (unselect) => selectAid(id))
   }
 
-  const selectWeapon = (id) => {
+  const selectWeapon = (id, unselect) => {
+    if (unselect) {
+      setWeapons(weapons.map( (weapon) => {
+          if (weapon.id === id) {
+            weapon.selected = false
+          } 
+          return weapon
+        })
+      )
+      return
+    }
     setWeapons(weapons.map( (weapon) => {
         if (weapon.id === id) {
           weapon.selected = true
@@ -111,10 +125,21 @@ function App() {
 
   const setWeaponId = (id) => {
     setWeaponIdDirect(id)
-    setSelector(() => () => selectWeapon(id))
+    setSelector(() => (unselect) => selectWeapon(id))
   }
 
-  const selectApparel = (id) => {
+  const selectApparel = (id, unselect) => {
+    if (unselect) {
+      const app = apparel.find( (item) => item.id === id )
+      setApparel(apparel.map( (item) => {
+          if (item.id === id) {
+            item.selected = false
+          }
+          return item
+        })
+      )
+      return
+    }
     const app = apparel.find( (item) => item.id === id )
     setApparel(apparel.map( (item) => {
         if (item.id === id) {
@@ -131,7 +156,7 @@ function App() {
 
   const setApparelId = (id) => {
     setApparelIdDirect(id)
-    setSelector(() => () => selectApparel(id))
+    setSelector(() => (unselect) => selectApparel(id))
   }
 
   // direction: up/down
@@ -149,8 +174,8 @@ function App() {
       setId(toId)
     }
   }
-  console.log('weaponId', weaponId)
-  const select = () => {
+
+  const select = (...args) => {
     if (selectingWeapon) {
       weapons.forEach((weapon) => {
         weapon.selected = selectingWeaponId === weapon.id
@@ -160,7 +185,7 @@ function App() {
       console.log('selector', selector)
       if (selector) {
         console.log('calling selector')
-        selector()
+        selector(...args)
       }
     }
     /*

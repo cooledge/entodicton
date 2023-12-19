@@ -18,7 +18,7 @@ function ItemList(props) {
            </li>)
   })
 
-  setSelector( () => () => selectItem(itemId) )
+  setSelector( () => (unselect) => selectItem(itemId, unselect) )
 
   return (
     <ul className="item-list">
