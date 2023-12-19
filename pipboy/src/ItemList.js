@@ -6,7 +6,7 @@ function ItemList(props) {
     if (item.selected) {
       className += " selected"
     }
-    return (<li key={item.id}>
+    return (<li id={item.id} key={item.id}>
               <a 
                 className={className} 
                 onMouseEnter={ () => setItemId(item.id) }

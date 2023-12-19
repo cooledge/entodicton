@@ -123,12 +123,10 @@ function Speech(props) {
 
   return (
     <div className="Speech">
-      {!browserSupportsSpeechRecognition &&
-        <div>
-          Request <input id='query' placeholder='some queries are below.' onKeyPress={ keyPressed } type='text' value={query} className='request' />
-          <Button id='submit' variant='contained' onClick={onClick}>Submit</Button>
-        </div>
-      }
+      <div hidden={!browserSupportsSpeechRecognition}>
+        Request <input id='query' placeholder='some queries are below.' onKeyDown ={ keyPressed } type='text' value={query} className='request' />
+        <Button id='submit' variant='contained' onClick={onClick}>Submit</Button>
+      </div>
       {browserSupportsSpeechRecognition &&
         <>
           <span>Speech recognizer is { listening ? "on" : "off" }</span>

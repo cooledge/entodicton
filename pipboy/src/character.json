@@ -271,7 +271,7 @@
       "categories": ["pistol"]
     },
     {
-      "id": "44_Pistol",
+      "id": "a_44_Pistol",
       "name": "44 Pistol",
       "damage": 48,
       "fire_rate": 6,
@@ -284,7 +284,7 @@
     },
 
     {
-      "id": "10mm_Pistol",
+      "id": "a_10mm_Pistol",
       "name": "10mm Pistol",
       "damage": 28,
       "fire_rate": 46,
