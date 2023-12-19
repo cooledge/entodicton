@@ -49,6 +49,22 @@ class API {
     this.props.select()
   }
 
+  wear(name) {
+    this.props.wearOutfit(name)
+  }
+
+  strip() {
+    this.props.strip()
+  }
+
+  disarm() {
+    this.props.disarm()
+  }
+
+  setName(item, name) {
+    this.props.setOutfitName(name)
+  }
+
   cancel() {
     this.props.cancel()
   }

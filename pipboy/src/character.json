@@ -186,7 +186,7 @@
       "selected": true,
       "weight": 1,
       "value": 20,
-      "categories": ["suit"]
+      "covers": ["larm", "rarm", "lleg", "rleg", "torso"]
     },
     {
       "id": "Clean_Grey_Suit",
@@ -196,7 +196,7 @@
       "CHR": 2,
       "weight": 3,
       "value": 32,
-      "categories": ["suit"]
+      "covers": ["larm", "rarm", "lleg", "rleg", "torso"]
     },
     {
       "id": "Chef_Hat",
@@ -206,7 +206,7 @@
       "LCK": 1,
       "weight": 0.5,
       "value": 15,
-      "categories": ["hat"]
+      "covers": ["head"]
     },
     {
       "id": "Eyeglasses",
@@ -214,7 +214,7 @@
       "PER": 1,
       "weight": 0.1,
       "value": 7,
-      "categories": ["glasses"]
+      "covers": ["eyes"]
     }
   ],
 

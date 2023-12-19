@@ -11,6 +11,18 @@ import character from './character.json'
 import WeaponList from './WeaponList'
 import Popup from './Popup'
 
+/*
+  head, larm, rarm, lleg, rleg, torso, feet, hands, eyes
+*/
+function overlaps(covers1, covers2) {
+  for (let cover1 of covers1) {
+    if (covers2.includes(cover1)) {
+      return true
+    }
+  }
+  return false
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState('stat');
   const [activeStatTab, setActiveStatTab] = useState('status')
@@ -25,6 +37,8 @@ function App() {
 
   const [radioStationId, setRadioStationId] = useState(character.radioStations[0].id);
   const [radioStations, setRadioStations] = useState(character.radioStations);
+
+  const [outfits, setOutfits] = useState({});
 
   const [perkId, setPerkId] = useState(character.perks[0].id);
   const [perks, setPerks] = useState(character.perks);
@@ -98,11 +112,14 @@ function App() {
   }
 
   const selectApparel = (id) => {
+    const app = apparel.find( (item) => item.id === id )
     setApparel(apparel.map( (item) => {
         if (item.id === id) {
           item.selected = true
         } else {
-          item.selected = false
+          if (overlaps(app.covers, item.covers)) {
+            item.selected = false
+          }
         }
         return item
       })
@@ -250,6 +267,8 @@ function App() {
     caps, setCaps,
     health, setHealth,
 
+    outfits, setOutfits,
+
     questId, setQuestId,
     quests, setQuests,
 
@@ -282,6 +301,32 @@ function App() {
     perks, setPerks,
   }
 
+  props.setOutfitName = (name) => {
+    const currentApparel = apparel.filter( (item) => item.selected ).map( (item) => item.id )
+    const currentWeapons = weapons.filter( (item) => item.selected ).map( (item) => item.id )
+    const newOutfits = { ...outfits }
+    newOutfits[name] = { apparel: currentApparel, weapons: currentWeapons }
+    setOutfits(newOutfits)
+  }
+
+  props.disarm = () => {
+    setWeapons(weapons.map((item) => { return { ...item, selected: false } }))
+  }
+
+  props.strip = () => {
+    setApparel(apparel.map((item) => { return { ...item, selected: false } }))
+  }
+
+  props.wearOutfit = (name) => {
+    if (!outfits[name]) {
+      setMessage(`There is no outfit named ${name} outfit`)
+      return
+    }
+    const newApparel = apparel.map((item) => { return { ...item, selected: outfits[name].apparel.includes(item.id) } })
+    const newWeapons = weapons.map((item) => { return { ...item, selected: outfits[name].weapons.includes(item.id) } })
+    setApparel(newApparel)
+    setWeapons(newWeapons)
+  }
 
   props.changeWeapon = () => {
     setSelectingWeaponId(weapons[0].id)
