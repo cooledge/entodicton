@@ -4,7 +4,7 @@ import Aid from './Aid'
 import Tabs from './Tabs'
 
 function Inv(props) {
-  const {activeInvTab, setActiveInvTab} = props;
+  const {activeInvTab, setActiveInvTab, weaponId, selectWeaponId, setSelector} = props;
 
   return (
     <div className="Inv">

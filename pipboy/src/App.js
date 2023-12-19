@@ -23,13 +23,16 @@ function overlaps(covers1, covers2) {
   return false
 }
 
+let selector;
 function App() {
+  const setSelector = (value) => selector = value()
+
   const [activeTab, setActiveTab] = useState('stat');
   const [activeStatTab, setActiveStatTab] = useState('status')
   const [activeInvTab, setActiveInvTab] = useState('weapons')
   const [activeDataTab, setActiveDataTab] = useState('quests')
 
-  const [selector, setSelector] = useState()
+  //const [selector, setSelector] = useState()
   const [message, setMessage] = useState()
 
   const [questId, setQuestId] = useState(character.quests[0].id);
@@ -79,7 +82,6 @@ function App() {
         }
         return item.quantity > 0 ? item : null
       }).filter((item) => item)
-    setAid(newAid)
     if (newAid[index]) {
       setAidId(newAid[index].id)
     } else if (newAid[index-1]) {
@@ -87,6 +89,7 @@ function App() {
     } else {
       setAidId(null)
     }
+    setAid(newAid)
   }
 
   const setAidId = (id) => {
@@ -146,7 +149,7 @@ function App() {
       setId(toId)
     }
   }
-
+  console.log('weaponId', weaponId)
   const select = () => {
     if (selectingWeapon) {
       weapons.forEach((weapon) => {
@@ -154,7 +157,9 @@ function App() {
       })
       return
     } else {
+      console.log('selector', selector)
       if (selector) {
+        console.log('calling selector')
         selector()
       }
     }
