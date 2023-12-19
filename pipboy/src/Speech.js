@@ -98,6 +98,7 @@ function Speech(props) {
   pipboy.getConfigs().ui.api.initialize(props)
 
   const onClick = () => {
+    const query = document.getElementById('query').value
     pipboy.process(query)
   }
   if (!processing && !listening && transcript) {
@@ -116,15 +117,13 @@ function Speech(props) {
   const keyPressed = (event) => {
         if (event.key === 'Enter') {
           onClick()
-        } else {
-          setQuery(query + event.key)
         }
       }
 
   return (
     <div className="Speech">
       <div hidden={!browserSupportsSpeechRecognition}>
-        Request <input id='query' placeholder='some queries are below.' onKeyDown ={ keyPressed } type='text' value={query} className='request' />
+        Request <input id='query' placeholder='some queries are below.' onKeyDown ={ keyPressed } type='text' className='request' />
         <Button id='submit' variant='contained' onClick={onClick}>Submit</Button>
       </div>
       {browserSupportsSpeechRecognition &&
