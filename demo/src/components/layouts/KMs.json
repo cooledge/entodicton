@@ -61,7 +61,6 @@
       "numbers",
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/countable.js"
   },
   {
@@ -133,7 +132,6 @@
     "includes": [
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/dialogues.js"
   },
   {
@@ -162,7 +160,6 @@
       "dialogues",
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/events.js"
   },
   {
@@ -176,7 +173,6 @@
       "dialogues",
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/help.js"
   },
   {
@@ -229,7 +225,6 @@
       "dialogues",
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/javascript.js"
   },
   {
@@ -262,7 +257,6 @@
       "undefined means defined"
     ],
     "includes": [],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/meta.js"
   },
   {
@@ -288,7 +282,6 @@
       "dialogues",
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/math.js"
   },
   {
@@ -575,7 +568,6 @@
       "dialogues",
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/tell.js"
   },
   {
@@ -594,7 +586,6 @@
       "dialogues",
       "meta"
     ],
-    "template": {},
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/time.js"
   },
   {
