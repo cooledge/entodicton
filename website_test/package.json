@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "HEADLESS=false jest -t ONE23",
+    "neo": "HEADLESS=false jest -t ONE23",
+    "pipboy": "HEADLESS=false jest -t PIPBOY",
+    "test": "HEADLESS=false jest",
     "test:dev": "URL=http://localhost:10000 HEADLESS=false jest",
     "test:box1": "URL=http://10.192.168.41:10000 HEADLESS=false jest",
-    "test:box2": "URL=http://10.192.168.44:10000 HEADLESS=false jest"
+    "test:box2": "URL=http://10.192.168.41:10000 HEADLESS=false jest"
   },
   "author": "",
   "license": "ISC",
