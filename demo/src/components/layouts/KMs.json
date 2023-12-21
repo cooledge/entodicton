@@ -325,6 +325,7 @@
       "put on the city outfit"
     ],
     "includes": [
+      "pipboyTemplate",
       "hierarchy",
       "countable",
       "properties",
