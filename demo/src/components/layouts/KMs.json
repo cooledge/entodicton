@@ -295,6 +295,21 @@
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/numbers.js"
   },
   {
+    "name": "pipboyTemplate",
+    "description": "Template for pipboy with speech",
+    "examples": [],
+    "includes": [
+      "hierarchy",
+      "countable",
+      "properties",
+      "dialogues",
+      "numbers",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/pipboyTemplate.js"
+  },
+  {
     "name": "pipboy",
     "description": "Control a pipboy with speech",
     "examples": [
