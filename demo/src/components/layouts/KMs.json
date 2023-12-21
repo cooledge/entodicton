@@ -340,7 +340,9 @@
       "disarm",
       "put on the city outfit",
       "equip a pistol",
-      "show all the weapons"
+      "show all the weapons",
+      "show the pistols",
+      "show the weapons"
     ],
     "includes": [
       "pipboyTemplate",
