@@ -54,7 +54,8 @@
     "name": "countable",
     "description": "Countable things",
     "examples": [
-      "2 countable"
+      "2 countable",
+      "all countable"
     ],
     "includes": [
       "dialogues",
@@ -337,7 +338,9 @@
       "call this outfit the city outfit",
       "strip",
       "disarm",
-      "put on the city outfit"
+      "put on the city outfit",
+      "equip a pistol",
+      "show all the weapons"
     ],
     "includes": [
       "pipboyTemplate",
