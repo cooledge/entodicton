@@ -22,6 +22,8 @@ describe('tests for pipboy page', () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy`)
+    await page.waitForNavigation();
+
     await page.waitForSelector('#query')
     page.close()
   }, timeout);
@@ -30,6 +32,8 @@ describe('tests for pipboy page', () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy`)
+    await page.waitForNavigation();
+
     await page.waitForSelector('#query')
     await page.type('#query', 'show the weapons')
     await page.click('#submit')
@@ -44,6 +48,8 @@ describe('tests for pipboy page', () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy`)
+    await page.waitForNavigation();
+
     await page.waitForSelector('#query')
     await page.type('#query', 'go to the apparel')
     await page.click('#submit')
@@ -58,6 +64,8 @@ describe('tests for pipboy page', () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy`)
+    await page.waitForNavigation();
+
     await page.waitForSelector('#query')
     await page.type('#query', 'show the apparel')
     await page.click('#submit')
@@ -72,6 +80,8 @@ describe('tests for pipboy page', () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy`)
+    await page.waitForNavigation();
+
     await page.waitForSelector('#query')
     await page.type('#query', 'show the aid')
     await page.click('#submit')
@@ -86,6 +96,8 @@ describe('tests for pipboy page', () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy`)
+    await page.waitForNavigation();
+
     await page.waitForSelector('#query')
 
     for (let i = 0; i < queries.length; ++i) {
