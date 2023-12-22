@@ -51,12 +51,15 @@ function App() {
 
   const [apparelId, setApparelIdDirect] = useState(character.apparel[0].id);
   const [apparel, setApparel] = useState(character.apparel);
+  const [apparelFilter, setApparelFilter] = useState( () => () => true )
 
   const [aidId, setAidIdDirect] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
+  const [aidFilter, setAidFilter] = useState( () => () => true )
 
   const [weaponId, setWeaponIdDirect] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
+  const [weaponsFilter, setWeaponsFilter] = useState( () => () => true )
 
   const [hp, setHP] = useState(character.hp)
   const [ap, setAP] = useState(character.ap)
@@ -188,25 +191,6 @@ function App() {
         selector(...args)
       }
     }
-    /*
-    if (activeTab === 'stat') {
-      if (activeStatTab === 'special') {
-        // moveTo(direction, specialId, setSpecialId, special)
-      } else if (activeStatTab === 'perks') {
-        // moveTo(direction, perkId, setPerkId, perks)
-      }
-    } else if (activeTab === 'inv') {
-      if (activeInvTab === 'weapons') {
-        weapons.forEach((weapon) => {
-          weapon.selected = weaponId === weapon.id
-        })
-      } else if (activeInvTab === 'apparel') {
-        // moveTo(direction, apparelId, setApparelId, apparel)
-      } else if (activeInvTab === 'aid') {
-        // moveTo(direction, aidId, setAidId, aid)
-      }
-    }
-    */
   }
 
   const cancel = () => {
@@ -228,11 +212,11 @@ function App() {
       }
     } else if (activeTab === 'inv') {
       if (activeInvTab === 'weapons') {
-        moveTo(direction, weaponId, setWeaponId, weapons, steps)
+        moveTo(direction, weaponId, setWeaponId, weapons.filter(weaponsFilter), steps)
       } else if (activeInvTab === 'apparel') {
-        moveTo(direction, apparelId, setApparelId, apparel, steps)
+        moveTo(direction, apparelId, setApparelId, apparel.filter(apparelFilter), steps)
       } else if (activeInvTab === 'aid') {
-        moveTo(direction, aidId, setAidId, aid, steps)
+        moveTo(direction, aidId, setAidId, aid.filter(aidFilter), steps)
       }
     }
   }
@@ -256,7 +240,7 @@ function App() {
       torso: Math.min(health.torso+delta, 100),
       head: Math.min(health.head+delta, 100),
     })
-    const stimpak = aid.find( aid => aid.id == 'Stimpak' )
+    const stimpak = aid.find( aid => aid.id === 'Stimpak' )
     if (!stimpak || stimpak.quantity < quantity) {
       if (stimpak) {
         setMessage(`There are only ${stimpak.quantity} stimpaks.`)
@@ -313,16 +297,19 @@ function App() {
     weaponId, setWeaponId,
     weapons, setWeapons,
     selectWeapon,
+    weaponsFilter, setWeaponsFilter,
 
     currentWeapon: () => weapons.find( (w) => w.selected ),
 
     apparelId, setApparelId,
     apparel, setApparel,
     selectApparel,
+    apparelFilter, setApparelFilter,
 
     aidId, setAidId,
     aid, setAid,
     selectAid,
+    aidFilter, setAidFilter,
 
     specialId, setSpecialId,
     special, setSpecial,
@@ -372,7 +359,7 @@ function App() {
       </Message>
       <Header {...props}/>
       { message && 
-        <Popup> 
+        <Popup {...props }> 
           {message}
         </Popup>
       }

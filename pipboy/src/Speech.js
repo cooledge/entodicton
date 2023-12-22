@@ -10,12 +10,24 @@ class API {
     // this.objects.display = id
     if (['stat', 'inv', 'data', 'map', 'radio'].includes(id)) {
       this.props.setActiveTab(id)
-    } else if (['weapons', 'apparel', 'aid'].includes(id)) {
+    } else if (['weapon', 'apparel', 'aid'].includes(id)) {
+      this.props.weaponsFilter(() => () => true)
       this.props.setActiveTab('inv')
+      if (id == 'weapon') {
+        id = 'weapons'
+      }
       this.props.setActiveInvTab(id)
     } else if (['status', 'special', 'perks'].includes(id)) {
       this.props.setActiveTab('stat')
       this.props.setActiveStatTab(id)
+    }
+  }
+
+  showWeapons(id) {
+    if (id == 'weapon') {
+      this.props.weaponsFilter(() => () => true)
+      this.props.setActiveTab('inv')
+      this.props.setActiveInvTab('weapons')
     }
   }
 
@@ -29,6 +41,27 @@ class API {
   change(what) {
     this.props.changeWeapon()
     // callback to pass the list to the API
+  }
+
+  equip(what) {
+    if (['mine', 'grenade', 'pistol', 'rifle', 'shotgun'].includes(what)) {
+      const filter = (item) => item.categories.includes(what)
+      const selected = this.props.weapons.filter(filter)
+      if (selected.length == 0) {
+        this.props.setMessage(`There are none.`)
+      } else if (selected.length == 1) {
+        this.props.selectWeapon(selected[0].id)
+        this.props.setMessage(`The current weapon is now ${selected[0].name}.`)
+      } else {
+        this.props.setWeaponsFilter(() => filter)
+        this.props.setActiveTab('inv')
+        this.props.setActiveInvTab('weapons')
+        this.props.setMessage('Which one?')
+      }
+      return
+
+    }
+    this.props.setMessage(`${what}. What's that?!?!`)
   }
 
   apply({ item, quantity }) {

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import messageHead from './images/messageHead.png'
 import './css/pipboy.css'
 
-function Popup({ children }) {
+function Popup({ children, setMessage }) {
   const [fade, setFade] = useState('fadeIn')
   setTimeout(() => setFade('fadeOut'), 5000)
+  setTimeout(() => setMessage(''), 6000)
   return (
     <>
       <div className={`popup ${fade}`}>

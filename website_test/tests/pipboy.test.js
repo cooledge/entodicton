@@ -40,14 +40,14 @@ describe('tests for pipboy page', () => {
     page.close()
   }, timeout);
 
-  test(`PIPBOY go to the weapons`, async () => {
+  test(`PIPBOY go to the apparel`, async () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy`)
     await page.waitForSelector('#query')
-    await page.type('#query', 'go to the weapons')
+    await page.type('#query', 'go to the apparel')
     await page.click('#submit')
-    for (let item of character.weapons) {
+    for (let item of character.apparel) {
       await page.waitForSelector(`#${item.id}`)
     }
     await new Promise(resolve => setTimeout(resolve, 1000))
@@ -110,6 +110,9 @@ describe('tests for pipboy page', () => {
     const test = async (page) => {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       await page.waitForSelector('.current')
+      if (selected) {
+        await page.waitForSelector('.selected')
+      }
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
@@ -175,6 +178,9 @@ describe('tests for pipboy page', () => {
     const test = (selected) => async (page) => {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       await page.waitForSelector('.current')
+      if (selected) {
+        await page.waitForSelector('.selected')
+      }
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
@@ -195,6 +201,9 @@ describe('tests for pipboy page', () => {
     const test = (selected) => async (page) => {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       await page.waitForSelector('.current')
+      if (selected) {
+        await page.waitForSelector('.selected')
+      }
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
@@ -215,6 +224,9 @@ describe('tests for pipboy page', () => {
     const test = (selected) => async (page) => {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       await page.waitForSelector('.current')
+      if (selected) {
+        await page.waitForSelector('.selected')
+      }
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
@@ -235,6 +247,9 @@ describe('tests for pipboy page', () => {
     const test = (selected) => async (page) => {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       await page.waitForSelector('.current')
+      if (selected) {
+        await page.waitForSelector('.selected')
+      }
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
@@ -261,7 +276,13 @@ describe('tests for pipboy page', () => {
     const test = (selected) => async (page) => {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       await page.waitForSelector('.current')
+      if (selected) {
+        await page.waitForSelector('.selected')
+      }
       const a = await page.$(`#${item.id}`)
+      if (selected) {
+        await page.waitForSelector('.selected')
+      }
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
         expect(classNames.includes('selected')).toBeTruthy()
@@ -280,4 +301,62 @@ describe('tests for pipboy page', () => {
     ]
     await testQueries(queries, tests)
   }, timeout);
+
+  const testEquip = async (type, message, checkList, moreQueries, moreTests) => {
+    const queries = [`equip a ${type}`]
+    const item = character.apparel[0]
+    const items = character.weapons.filter( (item) => item.categories.includes(type) )
+    const test = () => async (page) => {
+      if (checkList) {
+        await page.waitForSelector('.current')
+        let counter = 1
+        for (let item of items) {
+          const selector = `.item-list > li:nth-child(${counter})`
+          const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, selector);
+          expect(name).toBe(item.name)
+          await page.$(`#${item.id}`)
+          counter += 1
+        }
+      } else {
+        await page.waitForSelector('.message')
+      }
+
+      const messageText = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, ".message");
+      expect(messageText).toBe(message)
+    }
+    const tests = [ test() ]
+    await testQueries(queries.concat(moreQueries), tests.concat(moreTests))
+  }
+
+  test(`ONE23 PIPBOY equip a pistol`, async () => {
+    const moreQueries = ['down', 'select']
+    const type = 'pistol'
+    const items = character.weapons.filter( (item) => item.categories.includes(type) )
+    const item = items[1]
+    const moreTests = [
+      () => {},
+      async (page) => {
+        const counter = 2;
+        const selector = `.item-list > li:nth-child(${counter})`
+        const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, selector);
+        expect(name).toBe(item.name)
+
+        const a = await page.$(`#${item.id}`)
+        await page.waitForSelector('.selected')
+        const classNames = await (await a.getProperty('className')).jsonValue()
+        expect(classNames.includes('selected')).toBeTruthy()
+        expect(classNames.includes('current')).toBeTruthy()
+      }
+    ]
+    await testEquip('pistol', "Which one?", true, moreQueries, moreTests)
+  }, timeout);
+
+  test(`PIPBOY equip a rifle`, async () => {
+    await testEquip('rifle', "The current weapon is now Assault Rifle.", false, [], [])
+  }, timeout);
+
+  test(`PIPBOY equip a shotgun`, async () => {
+    await testEquip('shotgun', "There are none.", false, [], [])
+  }, timeout);
+
 });
