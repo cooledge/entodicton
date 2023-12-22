@@ -110,7 +110,9 @@ class API {
 pipboy.api = new API()
 ui.api = pipboy.api
 pipboy.add(ui)
-pipboy.server(parameters.thinktelligence.url)
+const url = `${new URL(window.location.href).origin}/entodicton`
+pipboy.config.url = url
+pipboy.server(url)
 
 let processing = false
 
