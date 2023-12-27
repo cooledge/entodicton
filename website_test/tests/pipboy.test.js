@@ -3,7 +3,7 @@ const tests = require('./tests.json')
 const character = require('../../pipboy/src/character.json')
 
 // const URL = 'http://thinktelligence.com'
-const URL = process.env.URL || 'http://localhost:10000'
+const URL = 'https://thinktelligence.com:81' || process.env.URL || 'http://localhost:10000'
 const headless = process.env.HEADLESS !== 'false'
 const sloMo = 750
 const timeout = 60000
@@ -21,8 +21,7 @@ describe('tests for pipboy page', () => {
   test(`PIPBOY test page loads`, async () => {
     const page = await browser.newPage();
 
-    await page.goto(`${URL}/pipboy`)
-    await page.waitForNavigation();
+    await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
     page.close()
@@ -31,8 +30,7 @@ describe('tests for pipboy page', () => {
   test(`PIPBOY show the weapons`, async () => {
     const page = await browser.newPage();
 
-    await page.goto(`${URL}/pipboy`)
-    await page.waitForNavigation();
+    await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
     await page.type('#query', 'show the weapons')
@@ -47,8 +45,7 @@ describe('tests for pipboy page', () => {
   test(`PIPBOY go to the apparel`, async () => {
     const page = await browser.newPage();
 
-    await page.goto(`${URL}/pipboy`)
-    await page.waitForNavigation();
+    await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
     await page.type('#query', 'go to the apparel')
@@ -63,8 +60,7 @@ describe('tests for pipboy page', () => {
   test(`PIPBOY show the apparel`, async () => {
     const page = await browser.newPage();
 
-    await page.goto(`${URL}/pipboy`)
-    await page.waitForNavigation();
+    await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
     await page.type('#query', 'show the apparel')
@@ -79,8 +75,7 @@ describe('tests for pipboy page', () => {
   test(`PIPBOY show the aid`, async () => {
     const page = await browser.newPage();
 
-    await page.goto(`${URL}/pipboy`)
-    await page.waitForNavigation();
+    await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
     await page.type('#query', 'show the aid')
@@ -95,8 +90,7 @@ describe('tests for pipboy page', () => {
   const testQueries = async (queries, tests) => {
     const page = await browser.newPage();
 
-    await page.goto(`${URL}/pipboy`)
-    await page.waitForNavigation();
+    await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
 
@@ -340,7 +334,7 @@ describe('tests for pipboy page', () => {
     await testQueries(queries.concat(moreQueries), tests.concat(moreTests))
   }
 
-  test(`ONE23 PIPBOY equip a pistol`, async () => {
+  test(`PIPBOY equip a pistol`, async () => {
     const moreQueries = ['down', 'select']
     const type = 'pistol'
     const items = character.weapons.filter( (item) => item.categories.includes(type) )
