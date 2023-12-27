@@ -3,8 +3,8 @@ const tests = require('./tests.json')
 const character = require('../../pipboy/src/character.json')
 
 // const URL = 'http://thinktelligence.com'
-const URL = 'https://thinktelligence.com:81' || process.env.URL || 'http://localhost:10000'
-// const URL = process.env.URL || 'http://localhost:10000'
+// const URL = 'https://thinktelligence.com:81' || process.env.URL || 'http://localhost:10000'
+const URL = process.env.URL || 'http://localhost:10000'
 const headless = process.env.HEADLESS !== 'false'
 const sloMo = 750
 const timeout = 60000
@@ -122,7 +122,6 @@ describe('tests for pipboy page', () => {
       }
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
-      console.log('classNames', classNames)
       if (selected) {
         expect(classNames.includes('selected')).toBeTruthy()
       }
