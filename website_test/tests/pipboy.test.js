@@ -334,23 +334,34 @@ describe('tests for pipboy page', () => {
     await testQueries(queries.concat(moreQueries), tests.concat(moreTests))
   }
 
-  const testUseList = async (query, allItems, type, message, checkList) => {
+  const testUseList = async (query, allItems, type, message, checkList, getsUsedUp) => {
     return test(`PIPBOY ${query}`, async () => {
       const moreQueries = ['down', 'select']
       const items = allItems.filter( (item) => item.categories.includes(type) )
-      const item = items[1]
+      let item = items[1]
       const moreTests = [
         () => {},
         async (page) => {
           const counter = 2;
           const selector = `.item-list > li:nth-child(${counter})`
-          const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, selector);
-          expect(name).toBe(item.name)
+          if (getsUsedUp) {
+            const element = await page.evaluate((selector) => { return document.querySelector(selector) }, selector);
+            expect(element).toBe(null)
+            item = items[0] // used up so current moves up
+          } else {
+            const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, selector);
+            expect(name).toBe(item.name)
+          }
 
           const a = await page.$(`#${item.id}`)
-          await page.waitForSelector('.selected')
+          await page.waitForSelector('.current')
+          if (!getsUsedUp) {
+            await page.waitForSelector('.selected')
+          }
           const classNames = await (await a.getProperty('className')).jsonValue()
-          expect(classNames.includes('selected')).toBeTruthy()
+          if (!getsUsedUp) {
+            expect(classNames.includes('selected')).toBeTruthy()
+          }
           expect(classNames.includes('current')).toBeTruthy()
         }
       ]
@@ -360,6 +371,7 @@ describe('tests for pipboy page', () => {
 
   testUseList('equip a pistol', character.weapons, 'pistol', "Which one?", true)
   testUseList('wear a suit', character.apparel, 'suit', "Which one?", true)
+  testUseList('eat a fruit', character.aid, 'fruit', "Which one?", true, true)
 
   test(`PIPBOY equip a rifle`, async () => {
     await testUse('equip a rifle', character.weapons, 'rifle', "The current weapon is now Assault Rifle.", false, [], [])
@@ -367,6 +379,10 @@ describe('tests for pipboy page', () => {
 
   test(`PIPBOY wear a hat`, async () => {
     await testUse('wear a hat', character.weapons, 'hat', "Put on Chef Hat.", false, [], [])
+  }, timeout);
+
+  test(`PIPBOY eat meat`, async () => {
+    await testUse('eat meat', character.weapons, 'meat', "Put on Bloatfly Meat.", false, [], [], true)
   }, timeout);
 
   test(`PIPBOY equip a shotgun`, async () => {
@@ -377,12 +393,20 @@ describe('tests for pipboy page', () => {
     await testUse('wear a glove', character.apparel, 'glove', "There are none.", false, [], [])
   }, timeout);
 
+  test(`PIPBOY eat fish`, async () => {
+    await testUse('eat fish', character.apparel, 'fish', "There are none.", false, [], [])
+  }, timeout);
+
   test(`PIPBOY equip a glop`, async () => {
     await testUse('equip a glop', character.weapons, 'glop', "glop. What's that?!?!", false, [], [])
   }, timeout);
 
   test(`PIPBOY wear a glop`, async () => {
     await testUse('wear a glop', character.weapons, 'glop', "glop. What's that?!?!", false, [], [])
+  }, timeout);
+
+  test(`PIPBOY eat glop`, async () => {
+    await testUse('eat glop', character.weapons, 'glop', "glop. What's that?!?!", false, [], [])
   }, timeout);
 
 });

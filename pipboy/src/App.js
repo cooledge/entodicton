@@ -57,6 +57,7 @@ function App() {
   const [aidId, setAidIdDirect] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
   const [aidFilter, setAidFilter] = useState( () => () => true )
+  const [aidCategories, setAidCategories] = useState(character.categories.aid);
 
   const [weaponId, setWeaponIdDirect] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
@@ -314,6 +315,7 @@ function App() {
     aid, setAid,
     selectAid,
     aidFilter, setAidFilter,
+    aidCategories, setAidCategories,
 
     specialId, setSpecialId,
     special, setSpecial,

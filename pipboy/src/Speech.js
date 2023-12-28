@@ -59,6 +59,36 @@ class API {
     this.props.setMessage(`${what}. What's that?!?!`)
   }
 
+  useAid({type, name, description}) {
+    const what = type
+    const categories = this.props.aidCategories
+    const items = this.props.aid
+    const selectItem = this.props.selectAid
+    const currentMessage = (selected) => `Put on ${selected[0].name}.`
+    const filter = (item) => item.categories.includes(what)
+    const choicesTab = () => {
+      this.props.setAidFilter(() => filter)
+      this.props.setActiveTab('inv')
+      this.props.setActiveInvTab('aid')
+      this.props.setMessage('Which one?')
+    }
+
+    this.handleSelect({what, categories, items, selectItem, currentMessage, filter, choicesTab})
+  }
+
+  drink(type) {
+    this.useAid({type, description: (what) => `Drinking ${what}`})
+  }
+
+  eat(type) {
+    debugger
+    this.useAid({type, description: (what) => `Eating ${what}`})
+  }
+
+  take(type) {
+    this.useAid({type, description: (what) => `Taking ${what}`})
+  }
+
   wear({type, name}) {
     if (type == 'outfit') {
       this.props.wearOutfit(name)

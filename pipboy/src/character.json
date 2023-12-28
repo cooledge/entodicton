@@ -142,7 +142,7 @@
       "weight": 0.5,
       "quantity": 1,
       "value": 8,
-      "categories": ["meat"]
+      "categories": ["meat", "food"]
     },
     {
       "id": "Sugar_Bombs",
@@ -152,7 +152,27 @@
       "weight": 0.5,
       "quantity": 1,
       "value": 11,
-      "categories": ["cereal"]
+      "categories": ["cereal", "food"]
+    },
+    {
+      "id": "Apple",
+      "name": "Apple",
+      "hp": 5,
+      "rads": 3,
+      "weight": 0.2,
+      "quantity": 1,
+      "value": 4,
+      "categories": ["fruit", "food"]
+    },
+    {
+      "id": "Orange",
+      "name": "Orange",
+      "hp": 5,
+      "rads": 3,
+      "weight": 0.2,
+      "quantity": 1,
+      "value": 4,
+      "categories": ["fruit", "food"]
     },
     {
       "id": "Nuka_Cola",
@@ -163,7 +183,7 @@
       "weight": 1,
       "quantity": 1,
       "value": 20,
-      "categories": ["drink"]
+      "categories": ["drink", "food", "cola"]
     },
     {
       "id": "Stimpak",
@@ -239,6 +259,18 @@
       "clothes",
       "apparel",
       "glove"
+    ],
+    "aid": [
+      "fish",
+      "cola",
+      "pop",
+      "medicine",
+      "stimpak",
+      "vegetable",
+      "fruit",
+      "meat",
+      "drink",
+      "food"
     ]
   },
 
