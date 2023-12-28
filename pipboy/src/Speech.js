@@ -43,25 +43,57 @@ class API {
     // callback to pass the list to the API
   }
 
-  equip(what) {
-    if (['mine', 'grenade', 'pistol', 'rifle', 'shotgun'].includes(what)) {
-      const filter = (item) => item.categories.includes(what)
-      const selected = this.props.weapons.filter(filter)
+  handleSelect({what, categories, items, selectItem, currentMessage, filter, choicesTab}) {
+    if (categories.includes(what)) {
+      const selected = items.filter(filter)
       if (selected.length == 0) {
         this.props.setMessage(`There are none.`)
       } else if (selected.length == 1) {
-        this.props.selectWeapon(selected[0].id)
-        this.props.setMessage(`The current weapon is now ${selected[0].name}.`)
+        selectItem(selected[0].id)
+        this.props.setMessage(currentMessage(selected))
       } else {
-        this.props.setWeaponsFilter(() => filter)
-        this.props.setActiveTab('inv')
-        this.props.setActiveInvTab('weapons')
-        this.props.setMessage('Which one?')
+        choicesTab()
       }
       return
-
     }
     this.props.setMessage(`${what}. What's that?!?!`)
+  }
+
+  wear({type, name}) {
+    if (type == 'outfit') {
+      this.props.wearOutfit(name)
+      return
+    }
+    const what = type
+    const categories = this.props.apparelCategories
+    const items = this.props.apparel
+    const selectItem = this.props.selectApparel
+    const currentMessage = (selected) => `Put on ${selected[0].name}.`
+    const filter = (item) => item.categories.includes(what)
+    const choicesTab = () => {
+      this.props.setApparelFilter(() => filter)
+      this.props.setActiveTab('inv')
+      this.props.setActiveInvTab('apparel')
+      this.props.setMessage('Which one?')
+    }
+
+    this.handleSelect({what, categories, items, selectItem, currentMessage, filter, choicesTab})
+  }
+
+  equip(what) {
+    const categories = this.props.weaponsCategories
+    const items = this.props.weapons
+    const selectItem = this.props.selectWeapon
+    const currentMessage = (selected) => `The current weapon is now ${selected[0].name}.`
+    const filter = (item) => item.categories.includes(what)
+    const choicesTab = () => {
+      this.props.setWeaponsFilter(() => filter)
+      this.props.setActiveTab('inv')
+      this.props.setActiveInvTab('weapons')
+      this.props.setMessage('Which one?')
+    }
+
+    this.handleSelect({what, categories, items, selectItem, currentMessage, filter, choicesTab})
   }
 
   apply({ item, quantity }) {
@@ -84,10 +116,6 @@ class API {
 
   select() {
     this.props.select()
-  }
-
-  wear(name) {
-    this.props.wearOutfit(name)
   }
 
   strip() {

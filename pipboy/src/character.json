@@ -186,7 +186,8 @@
       "selected": true,
       "weight": 1,
       "value": 20,
-      "covers": ["larm", "rarm", "lleg", "rleg", "torso"]
+      "covers": ["larm", "rarm", "lleg", "rleg", "torso"],
+      "categories": ["suit", "clothes"]
     },
     {
       "id": "Clean_Grey_Suit",
@@ -196,7 +197,8 @@
       "CHR": 2,
       "weight": 3,
       "value": 32,
-      "covers": ["larm", "rarm", "lleg", "rleg", "torso"]
+      "covers": ["larm", "rarm", "lleg", "rleg", "torso"],
+      "categories": ["suit", "clothes"]
     },
     {
       "id": "Chef_Hat",
@@ -206,7 +208,8 @@
       "LCK": 1,
       "weight": 0.5,
       "value": 15,
-      "covers": ["head"]
+      "covers": ["head"],
+      "categories": ["hat", "clothes"]
     },
     {
       "id": "Eyeglasses",
@@ -214,9 +217,30 @@
       "PER": 1,
       "weight": 0.1,
       "value": 7,
-      "covers": ["eyes"]
+      "covers": ["eyes"],
+      "categories": ["glasses"]
     }
   ],
+
+  "categories": {
+    "weapons": [
+      "mines",
+      "grenade",
+      "rifle",
+      "pistol",
+      "shotgun",
+      "explosive",
+      "firearm",
+      "weapon"
+    ],
+    "apparel": [
+      "hat",
+      "suit",
+      "clothes",
+      "apparel",
+      "glove"
+    ]
+  },
 
   "weapons": [
     {
@@ -229,7 +253,7 @@
       "weight": 0.5,
       "value": 75,
       "quantity": 2,
-      "categories": ["mine"]
+      "categories": ["mine", "explosive"]
     },
     {
       "id": "fragmentation_grenade",
@@ -241,7 +265,7 @@
       "weight": 0.5,
       "value": 50,
       "quantity": 3,
-      "categories": ["grenade"]
+      "categories": ["grenade", "explosive"]
     },
     {
       "id": "fragmentation_mine",
@@ -253,7 +277,7 @@
       "weight": 0.5,
       "value": 50,
       "quantity": 2,
-      "categories": ["mine"]
+      "categories": ["mine", "explosive"]
     },
     {
       "id": "freezing_pipe_revolver_pistol",
@@ -268,7 +292,7 @@
       "value": 125,
       "favorite": true,
       "description": "Does 10 points cryo damage and will freeze targets on critical hits.",
-      "categories": ["pistol"]
+      "categories": ["pistol", "firearm"]
     },
     {
       "id": "a_44_Pistol",
@@ -280,7 +304,7 @@
       "weight": 4.2,
       "value": 99,
       "selected": true,
-      "categories": ["pistol"]
+      "categories": ["pistol", "firearm"]
     },
 
     {
@@ -292,7 +316,7 @@
       "accuracy": 56,
       "weight": 4.2,
       "value": 53,
-      "categories": ["pistol"]
+      "categories": ["pistol", "firearm"]
     },
 
     {
@@ -304,7 +328,7 @@
       "accuracy": 80,
       "weight": 14.8,
       "value": 150,
-      "categories": ["rifle"]
+      "categories": ["rifle", "firearm"]
     }
   ],
 

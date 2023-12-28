@@ -52,6 +52,7 @@ function App() {
   const [apparelId, setApparelIdDirect] = useState(character.apparel[0].id);
   const [apparel, setApparel] = useState(character.apparel);
   const [apparelFilter, setApparelFilter] = useState( () => () => true )
+  const [apparelCategories, setApparelCategories] = useState(character.categories.apparel);
 
   const [aidId, setAidIdDirect] = useState(character.aid[0].id);
   const [aid, setAid] = useState(character.aid);
@@ -60,6 +61,7 @@ function App() {
   const [weaponId, setWeaponIdDirect] = useState(character.weapons[0].id);
   const [weapons, setWeapons] = useState(character.weapons)
   const [weaponsFilter, setWeaponsFilter] = useState( () => () => true )
+  const [weaponsCategories, setWeaponsCategories] = useState(character.categories.weapons);
 
   const [hp, setHP] = useState(character.hp)
   const [ap, setAP] = useState(character.ap)
@@ -298,6 +300,7 @@ function App() {
     weapons, setWeapons,
     selectWeapon,
     weaponsFilter, setWeaponsFilter,
+    weaponsCategories, setWeaponsCategories,
 
     currentWeapon: () => weapons.find( (w) => w.selected ),
 
@@ -305,6 +308,7 @@ function App() {
     apparel, setApparel,
     selectApparel,
     apparelFilter, setApparelFilter,
+    apparelCategories, setApparelCategories,
 
     aidId, setAidId,
     aid, setAid,

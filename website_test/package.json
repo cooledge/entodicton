@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "neo": "HEADLESS=false jest -t ONE23",
+    "neo": "HEADLESS=false jest -t NEO23",
+    "neos": "HEADLESS=false jest -t NEOS23",
     "pipboy": "HEADLESS=false jest -t PIPBOY",
     "test": "HEADLESS=false jest",
     "test:dev": "URL=http://localhost:10000 HEADLESS=false jest",

@@ -309,10 +309,9 @@ describe('tests for pipboy page', () => {
     await testQueries(queries, tests)
   }, timeout);
 
-  const testEquip = async (type, message, checkList, moreQueries, moreTests) => {
-    const queries = [`equip a ${type}`]
-    const item = character.apparel[0]
-    const items = character.weapons.filter( (item) => item.categories.includes(type) )
+  const testUse = async (query, allItems, type, message, checkList, moreQueries, moreTests) => {
+    const queries = [query]
+    const items = allItems.filter( (item) => item.categories.includes(type) )
     const test = () => async (page) => {
       if (checkList) {
         await page.waitForSelector('.current')
@@ -335,35 +334,55 @@ describe('tests for pipboy page', () => {
     await testQueries(queries.concat(moreQueries), tests.concat(moreTests))
   }
 
-  test(`PIPBOY equip a pistol`, async () => {
-    const moreQueries = ['down', 'select']
-    const type = 'pistol'
-    const items = character.weapons.filter( (item) => item.categories.includes(type) )
-    const item = items[1]
-    const moreTests = [
-      () => {},
-      async (page) => {
-        const counter = 2;
-        const selector = `.item-list > li:nth-child(${counter})`
-        const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, selector);
-        expect(name).toBe(item.name)
+  const testUseList = async (query, allItems, type, message, checkList) => {
+    return test(`PIPBOY ${query}`, async () => {
+      const moreQueries = ['down', 'select']
+      const items = allItems.filter( (item) => item.categories.includes(type) )
+      const item = items[1]
+      const moreTests = [
+        () => {},
+        async (page) => {
+          const counter = 2;
+          const selector = `.item-list > li:nth-child(${counter})`
+          const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, selector);
+          expect(name).toBe(item.name)
 
-        const a = await page.$(`#${item.id}`)
-        await page.waitForSelector('.selected')
-        const classNames = await (await a.getProperty('className')).jsonValue()
-        expect(classNames.includes('selected')).toBeTruthy()
-        expect(classNames.includes('current')).toBeTruthy()
-      }
-    ]
-    await testEquip('pistol', "Which one?", true, moreQueries, moreTests)
-  }, timeout);
+          const a = await page.$(`#${item.id}`)
+          await page.waitForSelector('.selected')
+          const classNames = await (await a.getProperty('className')).jsonValue()
+          expect(classNames.includes('selected')).toBeTruthy()
+          expect(classNames.includes('current')).toBeTruthy()
+        }
+      ]
+      await testUse(query, allItems, type, message, checkList, moreQueries, moreTests)
+    }, timeout);
+  }
+
+  testUseList('equip a pistol', character.weapons, 'pistol', "Which one?", true)
+  testUseList('wear a suit', character.apparel, 'suit', "Which one?", true)
 
   test(`PIPBOY equip a rifle`, async () => {
-    await testEquip('rifle', "The current weapon is now Assault Rifle.", false, [], [])
+    await testUse('equip a rifle', character.weapons, 'rifle', "The current weapon is now Assault Rifle.", false, [], [])
+  }, timeout);
+
+  test(`PIPBOY wear a hat`, async () => {
+    await testUse('wear a hat', character.weapons, 'hat', "Put on Chef Hat.", false, [], [])
   }, timeout);
 
   test(`PIPBOY equip a shotgun`, async () => {
-    await testEquip('shotgun', "There are none.", false, [], [])
+    await testUse('equip a shotgun', character.weapons, 'shotgun', "There are none.", false, [], [])
+  }, timeout);
+
+  test(`PIPBOY wear a glove`, async () => {
+    await testUse('wear a glove', character.apparel, 'glove', "There are none.", false, [], [])
+  }, timeout);
+
+  test(`PIPBOY equip a glop`, async () => {
+    await testUse('equip a glop', character.weapons, 'glop', "glop. What's that?!?!", false, [], [])
+  }, timeout);
+
+  test(`PIPBOY wear a glop`, async () => {
+    await testUse('wear a glop', character.weapons, 'glop', "glop. What's that?!?!", false, [], [])
   }, timeout);
 
 });
