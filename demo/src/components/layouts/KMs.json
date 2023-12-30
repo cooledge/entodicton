@@ -51,11 +51,26 @@
     "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/characters.js"
   },
   {
+    "name": "comparable",
+    "description": "Comparable things",
+    "examples": [
+      "highest comparable",
+      "lowest comparable"
+    ],
+    "includes": [
+      "dialogues",
+      "numbers",
+      "meta"
+    ],
+    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/comparable.js"
+  },
+  {
     "name": "countable",
     "description": "Countable things",
     "examples": [
       "2 countable",
-      "all countable"
+      "all countable",
+      "1 countable"
     ],
     "includes": [
       "dialogues",
@@ -302,6 +317,7 @@
     "includes": [
       "hierarchy",
       "countable",
+      "comparable",
       "properties",
       "dialogues",
       "numbers",
@@ -327,8 +343,6 @@
       "change apparel",
       "change apparel",
       "change weapons",
-      "testsetup1 equipable equip that",
-      "testsetup1 weapon equip that",
       "the work outfit",
       "wear the city outfit",
       "call this the city outfit",
@@ -349,12 +363,15 @@
       "equip a firearm",
       "drink a cola",
       "take a stimpak",
-      "eat food"
+      "eat food",
+      "highest damage pistol",
+      "equip the highest damage pistol"
     ],
     "includes": [
       "pipboyTemplate",
       "hierarchy",
       "countable",
+      "comparable",
       "properties",
       "dialogues",
       "numbers",
