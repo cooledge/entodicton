@@ -365,7 +365,8 @@
       "take a stimpak",
       "eat food",
       "highest damage pistol",
-      "equip the highest damage pistol"
+      "equip the highest damage pistol",
+      "equip a glop"
     ],
     "includes": [
       "pipboyTemplate",
