@@ -366,7 +366,8 @@
       "eat food",
       "highest damage pistol",
       "equip the highest damage pistol",
-      "equip a glop"
+      "equip a glop",
+      "go to the apparel"
     ],
     "includes": [
       "pipboyTemplate",
