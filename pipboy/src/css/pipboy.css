@@ -15,6 +15,11 @@
     background: #272b23 !important;
 }
 
+.button {
+    color: #14fe17 !important;  
+    background: rgba(16,255,0, 0.15) !important;
+}
+
 .body::after {
     height: 100%;
     width: 100%;

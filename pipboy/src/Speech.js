@@ -81,7 +81,6 @@ class API {
   }
 
   eat(type) {
-    debugger
     this.useAid({type, description: (what) => `Eating ${what}`})
   }
 
@@ -110,12 +109,22 @@ class API {
     this.handleSelect({what, categories, items, selectItem, currentMessage, filter, choicesTab})
   }
 
-  equip(what) {
+  equip({ type, condition }) {
     const categories = this.props.weaponsCategories
     const items = this.props.weapons
     const selectItem = this.props.selectWeapon
     const currentMessage = (selected) => `The current weapon is now ${selected[0].name}.`
-    const filter = (item) => item.categories.includes(what)
+    let filtered = items.filter( (item) => item.categories.includes(type) )
+    if (condition) {
+      const { property, selector } = condition
+      const values = filtered.map( (item) => item[property] )
+      const extremus = selector === 'highest' ? Math.max(...values) : Math.min(...values)
+      filtered = filtered.filter( (item) => item[property] === extremus )
+    }
+    const filteredIds = filtered.map( (item) => item.id )
+    const filter = (item) => {
+      return filteredIds.includes(item.id)
+    }
     const choicesTab = () => {
       this.props.setWeaponsFilter(() => filter)
       this.props.setActiveTab('inv')
@@ -123,7 +132,7 @@ class API {
       this.props.setMessage('Which one?')
     }
 
-    this.handleSelect({what, categories, items, selectItem, currentMessage, filter, choicesTab})
+    this.handleSelect({what: type, categories, items, selectItem, currentMessage, filter, choicesTab})
   }
 
   apply({ item, quantity }) {
@@ -198,10 +207,23 @@ function Speech(props) {
     const query = document.getElementById('query').value
     pipboy.process(query)
   }
+  const onRestart = () => {
+    SpeechRecognition.startListening()
+  }
   if (!processing && !listening && transcript) {
     setLastQuery(transcript)
     processing = true
-    pipboy.process(transcript.toLowerCase()).then( () => {
+    pipboy.process(transcript.toLowerCase()).then( (result) => {
+      console.log('result', result)
+      let message = ''
+      for (let i = 0; i < result.contexts.length; ++i) {
+        if (result.contexts[i].isResponse) {
+          message += result.responses[i] + ' '
+        }
+      }
+      if (message) {
+        props.setMessage(message)
+      }
       processing = false
       SpeechRecognition.startListening()
     }).catch( (e) => {
@@ -219,17 +241,17 @@ function Speech(props) {
 
   return (
     <div className="Speech">
-      <div hidden={!browserSupportsSpeechRecognition}>
-        Request <input id='query' placeholder='some queries are below.' onKeyDown ={ keyPressed } type='text' className='request' />
-        <Button id='submit' variant='contained' onClick={onClick}>Submit</Button>
+      <div>
+        Request <input id='query' placeholder='press enter to submit.' onKeyDown ={ keyPressed } type='text' className='request' />
+        <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onClick}>Submit</Button>
+        <span style={{"margin-left": "10px"}}>Speech recognizer is { listening ? "on" : "off" }</span>
+        { !listening && !processing &&
+          <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onRestart}>Restart</Button>
+        }
       </div>
-      {browserSupportsSpeechRecognition &&
-        <>
-          <span>Speech recognizer is { listening ? "on" : "off" }</span>
-          <br/>
-          <span>{ lastQuery }</span>
-        </>
-      }
+      <div>
+        <span>{ lastQuery }</span>
+      </div>
     </div>
   );
 }

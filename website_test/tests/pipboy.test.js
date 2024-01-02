@@ -377,6 +377,10 @@ describe('tests for pipboy page', () => {
     await testUse('equip a rifle', character.weapons, 'rifle', "The current weapon is now Assault Rifle.", false, [], [])
   }, timeout);
 
+  test(`PIPBOY equip the highest damage pistol`, async () => {
+    await testUse('equip the highest damage pistol', character.weapons, 'pistol', "The current weapon is now 44 Pistol.", false, [], [])
+  }, timeout);
+
   test(`PIPBOY wear a hat`, async () => {
     await testUse('wear a hat', character.weapons, 'hat', "Put on Chef Hat.", false, [], [])
   }, timeout);
