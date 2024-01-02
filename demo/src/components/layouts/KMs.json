@@ -647,7 +647,8 @@
       "cancel",
       "move down 2",
       "down",
-      "unselect"
+      "unselect",
+      "stop action"
     ],
     "includes": [
       "math",
