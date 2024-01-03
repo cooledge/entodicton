@@ -22,7 +22,9 @@ function ItemList(props) {
            </li>)
   })
 
-  setSelector( () => (unselect) => selectItem(itemId, unselect) )
+  if (setSelector) {
+    setSelector( () => (unselect) => selectItem(itemId, unselect) )
+  }
 
   return (
     <ul className="item-list">

@@ -28,19 +28,91 @@ describe('tests for pipboy page', () => {
     page.close()
   }, timeout);
 
-  test(`PIPBOY show the weapons`, async () => {
+  async function showTest({query, items, tab}) {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
-    await page.type('#query', 'show the weapons')
+    await page.type('#query', query)
     await page.click('#submit')
-    for (let item of character.weapons) {
-      await page.waitForSelector(`#${item.id}`)
+
+    if (false) {
+      await page.waitForSelector(`.${tab}`)
+      console.log('query', query)
+      await page.$('.ToDo')
+      const mainTab = await page.$('#mainNav > ul > li.nav-item.active > a')
+      const mainTabText = await (await mainTab.getProperty('textContent')).jsonValue()
+      console.log('mainTabText', mainTabText)
+
+      const paraphrase = await page.$(`.paraphrase`)
+      const text = await (await paraphrase.getProperty('textContent')).jsonValue()
+      console.log('paraphrase----------------------------', paraphrase)
+      console.log('text----------------------------', text)
     }
-    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    // const a = await page.$(`#${item.id}`)
+    // const text = await (await a.getProperty('textContent')).jsonValue()
+
+    if (items) {
+      for (let item of items) {
+        await page.waitForSelector(`#${item.id}`)
+      }
+      await new Promise(resolve => setTimeout(resolve, 10000))
+    }
     page.close()
+  }
+
+  test(`PIPBOY show the status`, async () => {
+    await showTest({ query: 'show the status', items: null, tab: 'STAT' })
+  }, timeout);
+
+  test(`PIPBOY show the special`, async () => {
+    await showTest({ query: 'show the special', items: character.special })
+  }, timeout);
+
+  test(`PIPBOY show the perks`, async () => {
+    await showTest({ query: 'show the perks', items: character.perks })
+  }, timeout);
+
+  test(`PIPBOY show the weapons`, async () => {
+    await showTest({ query: 'show the weapon', items: character.weapons })
+  }, timeout);
+
+  test(`PIPBOY show the apparel`, async () => {
+    await showTest({ query: 'show the apparel', items: character.apparel })
+  }, timeout);
+
+  test(`PIPBOY show the aid`, async () => {
+    await showTest({ query: 'show the aid', items: character.aid })
+  }, timeout);
+
+  test(`PIPBOY show the quests`, async () => {
+    await showTest({ query: 'show the quests', items: character.quests, tab: 'DATA' })
+  }, timeout);
+
+  test(`PIPBOY show the map`, async () => {
+    await showTest({ query: 'show the map', items: null, tab: 'MAP' })
+  }, timeout);
+
+  test(`PIPBOY show the radio`, async () => {
+    await showTest({ query: 'show the radio', items: null, tab: 'RADIO' })
+  }, timeout);
+
+  xtest(`PIPBOY show data`, async () => {
+    await showTest({ query: 'show data', items: null, tab: 'data' })
+  }, timeout);
+
+  test(`NEO23 PIPBOY show the quests`, async () => {
+    await showTest({ query: 'show the quests', items: null, tab: 'data' })
+  }, timeout);
+
+  test(`PIPBOY show the workshops`, async () => {
+    await showTest({ query: 'show the workshops', items: null, tab: 'data' })
+  }, timeout);
+
+  test(`PIPBOY show the stats`, async () => {
+    await showTest({ query: 'show the stats', items: null, tab: 'data' })
   }, timeout);
 
   test(`PIPBOY go to the apparel`, async () => {
@@ -58,35 +130,6 @@ describe('tests for pipboy page', () => {
     page.close()
   }, timeout);
 
-  test(`PIPBOY show the apparel`, async () => {
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/pipboy/`)
-
-    await page.waitForSelector('#query')
-    await page.type('#query', 'show the apparel')
-    await page.click('#submit')
-    for (let item of character.apparel) {
-      await page.waitForSelector(`#${item.id}`)
-    }
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    page.close()
-  }, timeout);
-
-  test(`PIPBOY show the aid`, async () => {
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/pipboy/`)
-
-    await page.waitForSelector('#query')
-    await page.type('#query', 'show the aid')
-    await page.click('#submit')
-    for (let item of character.aid) {
-      await page.waitForSelector(`#${item.id}`)
-    }
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    page.close()
-  }, timeout);
 
   const testQueries = async (queries, tests) => {
     const page = await browser.newPage();

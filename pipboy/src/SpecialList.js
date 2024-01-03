@@ -3,7 +3,7 @@ function SpecialList({ specialId:itemId, setSpecialId:setItemId, special:items }
     const className = item.id === itemId ? 'current ' : ''
     return (
             <li className="special special" key={item.id} onMouseEnter={ () => setItemId(item.id) }>
-              <a className={className}>
+              <a id={item.id} className={className}>
                 <span class="specialName">{item.name}</span>
               </a>
                 <span class='specialValue'>{item.value}</span>

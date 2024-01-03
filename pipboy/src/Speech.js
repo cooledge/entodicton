@@ -20,6 +20,9 @@ class API {
     } else if (['status', 'special', 'perks'].includes(id)) {
       this.props.setActiveTab('stat')
       this.props.setActiveStatTab(id)
+    } else if (['quest', 'workshops', 'stats'].includes(id)) {
+      this.props.setActiveTab('data')
+      this.props.setActiveDataTab(id)
     }
   }
 
@@ -203,17 +206,8 @@ function Speech(props) {
   pipboy.api.initialize(props)
   pipboy.getConfigs().ui.api.initialize(props)
 
-  const onClick = () => {
-    const query = document.getElementById('query').value
-    pipboy.process(query)
-  }
-  const onRestart = () => {
-    SpeechRecognition.startListening()
-  }
-  if (!processing && !listening && transcript) {
-    setLastQuery(transcript)
-    processing = true
-    pipboy.process(transcript.toLowerCase()).then( (result) => {
+  const doQuery = (query) => {
+    pipboy.process(query.toLowerCase()).then( (result) => {
       console.log('result', result)
       let message = ''
       for (let i = 0; i < result.contexts.length; ++i) {
@@ -230,7 +224,22 @@ function Speech(props) {
       console.log('got error--------------------------------------------', e)
       processing = false
       SpeechRecognition.startListening()
-    });
+    }
+    );
+  }
+
+  const onClick = () => {
+    const query = document.getElementById('query').value.toLowerCase()
+    console.log('doing the query', query)
+    doQuery(query)
+  }
+  const onRestart = () => {
+    SpeechRecognition.startListening()
+  }
+  if (!processing && !listening && transcript) {
+    setLastQuery(transcript)
+    processing = true
+    doQuery(transcript)
   }
 
   const keyPressed = (event) => {
@@ -250,7 +259,7 @@ function Speech(props) {
         }
       </div>
       <div>
-        <span>{ lastQuery }</span>
+        <span class='paraphrase'>{ lastQuery }</span>
       </div>
     </div>
   );
