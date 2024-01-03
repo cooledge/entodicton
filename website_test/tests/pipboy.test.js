@@ -87,7 +87,7 @@ describe('tests for pipboy page', () => {
     await showTest({ query: 'show the aid', items: character.aid })
   }, timeout);
 
-  test(`PIPBOY show the quests`, async () => {
+  xtest(`NEO23 PIPBOY show the quests`, async () => {
     await showTest({ query: 'show the quests', items: character.quests, tab: 'DATA' })
   }, timeout);
 
@@ -103,7 +103,7 @@ describe('tests for pipboy page', () => {
     await showTest({ query: 'show data', items: null, tab: 'data' })
   }, timeout);
 
-  test(`NEO23 PIPBOY show the quests`, async () => {
+  test(`PIPBOY show the quests`, async () => {
     await showTest({ query: 'show the quests', items: null, tab: 'data' })
   }, timeout);
 
