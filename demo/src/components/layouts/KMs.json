@@ -367,10 +367,14 @@
       "highest damage pistol",
       "equip the highest damage pistol",
       "equip a glop",
-      "go to the apparel"
+      "go to the apparel",
+      "what are the types of item properties",
+      "show the quests",
+      "show the workshops"
     ],
     "includes": [
       "pipboyTemplate",
+      "help",
       "hierarchy",
       "countable",
       "comparable",
