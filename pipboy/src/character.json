@@ -210,6 +210,17 @@
       "categories": ["suit", "clothes"]
     },
     {
+      "id": "Leather_Chest_Piece",
+      "name": "Leather Chest Piece",
+      "dmg_resist": 3,
+      "rad_resist": 0,
+      "selected": false,
+      "weight": 5,
+      "value": 25,
+      "covers": ["torso"],
+      "categories": ["clothes", "armour"]
+    },
+    {
       "id": "Clean_Grey_Suit",
       "name": "Clean Grey Suit",
       "dmg_resist": 0,

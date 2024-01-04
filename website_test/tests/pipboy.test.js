@@ -222,9 +222,9 @@ describe('tests for pipboy page', () => {
     await testMovements(queries, item)
   }, timeout);
 
-  test(`PIPBOY strip`, async () => {
-    const queries = ['show the apparel', 'select', 'strip']
-    const item = character.apparel[0]
+  test(`PIPBOY disarm`, async () => {
+    const queries = ['show the weapons', 'select', 'disarm']
+    const item = character.weapons[0]
     const test = (selected) => async (page) => {
       // await new Promise(resolve => setTimeout(resolve, 5000))
       await page.waitForSelector('.current')
