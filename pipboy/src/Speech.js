@@ -253,9 +253,15 @@ function Speech(props) {
       <div>
         Request <input id='query' placeholder='press enter to submit.' onKeyDown ={ keyPressed } type='text' className='request' />
         <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onClick}>Submit</Button>
+        { !browserSupportsSpeechRecognition &&
+          <br/>
+        }
         <span style={{"margin-left": "10px"}}>Speech recognizer is { listening ? "on" : "off" }</span>
-        { !listening && !processing &&
+        { !listening && !processing && browserSupportsSpeechRecognition &&
           <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onRestart}>Restart</Button>
+        }
+        { !browserSupportsSpeechRecognition &&
+          <span style={{"margin-left": "10px"}} >(Chrome supports speech recognition)</span>
         }
       </div>
       <div>
