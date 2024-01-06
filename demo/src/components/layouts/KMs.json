@@ -16,7 +16,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/animals.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/animals.js"
   },
   {
     "name": "avatar",
@@ -37,7 +37,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/avatar.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/avatar.js"
   },
   {
     "name": "characters",
@@ -48,7 +48,7 @@
     ],
     "includes": [],
     "demo": "https://youtu.be/eA25GZ0ZAHo",
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/characters.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/characters.js"
   },
   {
     "name": "comparable",
@@ -62,7 +62,7 @@
       "numbers",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/comparable.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
   },
   {
     "name": "countable",
@@ -77,7 +77,7 @@
       "numbers",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/countable.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
   },
   {
     "name": "crew",
@@ -108,7 +108,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/crew.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/crew.js"
   },
   {
     "name": "currency",
@@ -126,7 +126,7 @@
     "includes": [
       "numbers"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/currency.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/currency.js"
   },
   {
     "name": "dialogues",
@@ -148,7 +148,7 @@
     "includes": [
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/dialogues.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
   },
   {
     "name": "emotions",
@@ -163,7 +163,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/emotions.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/emotions.js"
   },
   {
     "name": "events",
@@ -176,7 +176,7 @@
       "dialogues",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/events.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
   },
   {
     "name": "help",
@@ -189,7 +189,7 @@
       "dialogues",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/help.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/help.js"
   },
   {
     "name": "hierarchy",
@@ -229,7 +229,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/hierarchy.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/hierarchy.js"
   },
   {
     "name": "javascript",
@@ -241,7 +241,7 @@
       "dialogues",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/javascript.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/javascript.js"
   },
   {
     "name": "kirk",
@@ -261,7 +261,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/kirk.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/kirk.js"
   },
   {
     "name": "meta",
@@ -273,7 +273,7 @@
       "undefined means defined"
     ],
     "includes": [],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/meta.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
   },
   {
     "name": "math",
@@ -298,7 +298,7 @@
       "dialogues",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/math.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
   },
   {
     "name": "numbers",
@@ -308,7 +308,7 @@
       "44"
     ],
     "includes": [],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/numbers.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
   },
   {
     "name": "pipboyTemplate",
@@ -324,7 +324,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/pipboyTemplate.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboyTemplate.js"
   },
   {
     "name": "pipboy",
@@ -384,7 +384,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/pipboy.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
   },
   {
     "name": "people",
@@ -413,7 +413,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/people.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
   },
   {
     "name": "ordering",
@@ -429,7 +429,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/ordering.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
   },
   {
     "name": "pokemon",
@@ -446,7 +446,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/pokemon.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
   },
   {
     "name": "properties",
@@ -485,7 +485,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/properties.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
   },
   {
     "name": "reports",
@@ -536,7 +536,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/reports.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
   },
   {
     "name": "scorekeeper",
@@ -575,7 +575,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/scorekeeper.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/scorekeeper.js"
   },
   {
     "name": "spock",
@@ -595,7 +595,7 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/spock.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/spock.js"
   },
   {
     "name": "stgame",
@@ -607,7 +607,7 @@
     "includes": [
       "characters"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/stgame.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stgame.js"
   },
   {
     "name": "tell",
@@ -619,7 +619,7 @@
       "dialogues",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/tell.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
   },
   {
     "name": "time",
@@ -637,7 +637,7 @@
       "dialogues",
       "meta"
     ],
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/time.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
   },
   {
     "name": "ui",
@@ -661,6 +661,6 @@
       "meta"
     ],
     "template": {},
-    "source": "https://github.com/thinktelligence/entodicton/blob/TAG/kms/common/ui.js"
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
   }
 ]
