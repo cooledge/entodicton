@@ -218,7 +218,7 @@
       "weight": 5,
       "value": 25,
       "covers": ["torso"],
-      "categories": ["clothes", "armour"]
+      "categories": ["clothes", "armor"]
     },
     {
       "id": "Clean_Grey_Suit",

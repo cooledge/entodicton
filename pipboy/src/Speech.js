@@ -11,7 +11,9 @@ class API {
     if (['stat', 'inv', 'data', 'map', 'radio'].includes(id)) {
       this.props.setActiveTab(id)
     } else if (['weapon', 'apparel', 'aid'].includes(id)) {
-      this.props.weaponsFilter(() => () => true)
+      this.props.setWeaponsFilter(() => () => true)
+      this.props.setApparelFilter(() => () => true)
+      this.props.setAidFilter(() => () => true)
       this.props.setActiveTab('inv')
       if (id == 'weapon') {
         id = 'weapons'
