@@ -163,6 +163,7 @@ describe('tests for pipboy page', () => {
       if (selected) {
         await page.waitForSelector('.selected')
       }
+      await new Promise(resolve => setTimeout(resolve, 300))
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
@@ -300,6 +301,7 @@ describe('tests for pipboy page', () => {
       if (selected) {
         await page.waitForSelector('.selected')
       }
+      await new Promise(resolve => setTimeout(resolve, 300))
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
