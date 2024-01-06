@@ -37,7 +37,7 @@ function DeployVersion({refreshHandler, subscription_id, password}) {
   return (
       <span className='deployVersion'>
         <Button disabled={disabled} onClick={ handleDeploy() }>Upgrade to current version {VERSION.version}</Button>
-        <a href={'https://github.com/thinktelligence/entodicton/blob/main/versions.json'} target="_blank">Version Info</a>
+        <a href={'https://github.com/thinktelligence/theprogrammablemind/blob/main/versions.json'} target="_blank">Version Info</a>
       </span>
   );
 }
@@ -236,13 +236,6 @@ function Bugs({subscription_id, password}) {
         setBugs(json.Items)
       });
   }
-
-  /*
-  const handleSubmit = () => {
-    const url = `https://github.com/thinktelligence/entodicton/blob/${parameters.version}/bugs/bug.js`
-    window.open(url, "_blank")
-  }
-  */
 
   if (!initialized) {
     setInitialized(true)
