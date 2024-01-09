@@ -12,6 +12,7 @@ function Header({ activeTab, setActiveTab }) {
   
   return (
     <div className="Header">
+      <a href={'https://www.youtube.com/watch?v=cZTpy1vPdz4&t=25s'} target="_blank">YouTube Demo of Using This Page</a>
       <Nav className="navbar navbar-expand-lg navbar-light"> 
         <div className="collapse navbar-collapse" id="mainNav">
           <ul className="navbar-nav ">
