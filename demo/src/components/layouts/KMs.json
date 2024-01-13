@@ -51,35 +51,6 @@
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/characters.js"
   },
   {
-    "name": "comparable",
-    "description": "Comparable things",
-    "examples": [
-      "highest comparable",
-      "lowest comparable"
-    ],
-    "includes": [
-      "dialogues",
-      "numbers",
-      "meta"
-    ],
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
-  },
-  {
-    "name": "countable",
-    "description": "Countable things",
-    "examples": [
-      "2 countable",
-      "all countable",
-      "1 countable"
-    ],
-    "includes": [
-      "dialogues",
-      "numbers",
-      "meta"
-    ],
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
-  },
-  {
     "name": "crew",
     "description": "Knowledge about the enterprise and crew using a KM template",
     "examples": [
@@ -309,83 +280,6 @@
     ],
     "includes": [],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
-  },
-  {
-    "name": "pipboyTemplate",
-    "description": "Template for pipboy with speech",
-    "examples": [],
-    "includes": [
-      "hierarchy",
-      "countable",
-      "comparable",
-      "properties",
-      "dialogues",
-      "numbers",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboyTemplate.js"
-  },
-  {
-    "name": "pipboy",
-    "description": "Control a pipboy with speech",
-    "examples": [
-      "statistics",
-      "radio",
-      "stats",
-      "the stats",
-      "the stats tab",
-      "show the statistics",
-      "show the stats",
-      "show stats",
-      "go to statistics",
-      "change weapon",
-      "change apparel",
-      "change apparel",
-      "change weapons",
-      "the work outfit",
-      "wear the city outfit",
-      "call this the city outfit",
-      "apply a stimpak",
-      "apply 10 stimpaks",
-      "apply four stimpacks",
-      "call this outfit the city outfit",
-      "strip",
-      "disarm",
-      "put on the city outfit",
-      "equip a pistol",
-      "show all the weapons",
-      "show the pistols",
-      "show the weapons",
-      "wear a hat",
-      "wear a clothes",
-      "wear clothes",
-      "equip a firearm",
-      "drink a cola",
-      "take a stimpak",
-      "eat food",
-      "highest damage pistol",
-      "equip the highest damage pistol",
-      "equip a glop",
-      "go to the apparel",
-      "what are the types of item properties",
-      "show the quests",
-      "show the workshops",
-      "wear armor"
-    ],
-    "includes": [
-      "pipboyTemplate",
-      "help",
-      "hierarchy",
-      "countable",
-      "comparable",
-      "properties",
-      "dialogues",
-      "numbers",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
   },
   {
     "name": "people",
@@ -639,29 +533,5 @@
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
-  },
-  {
-    "name": "ui",
-    "description": "Control a ui with speech",
-    "examples": [
-      "move up",
-      "move left",
-      "move down",
-      "move right",
-      "select",
-      "cancel",
-      "move down 2",
-      "down",
-      "unselect",
-      "stop action"
-    ],
-    "includes": [
-      "math",
-      "numbers",
-      "dialogues",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
   }
 ]
