@@ -370,7 +370,8 @@
       "go to the apparel",
       "what are the types of item properties",
       "show the quests",
-      "show the workshops"
+      "show the workshops",
+      "wear armor"
     ],
     "includes": [
       "pipboyTemplate",
