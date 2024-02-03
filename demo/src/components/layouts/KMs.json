@@ -303,7 +303,8 @@
       "x is 3 y is 4 what is x what is y",
       "x is 3 y is 4 x times y",
       "price is 20 quantity is 30 what is price times quantity",
-      "price is 20 quantity is 30 worth is price times quantity what is the worth"
+      "price is 20 quantity is 30 worth is price times quantity what is the worth",
+      "10 / 2"
     ],
     "includes": [
       "numbers",
@@ -431,23 +432,6 @@
     ],
     "template": {},
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
-  },
-  {
-    "name": "ordering",
-    "description": "ordering related concepts",
-    "examples": [
-      "wendy loves bananas does wendy want bananas",
-      "wendy loves bananas what does wendy like"
-    ],
-    "includes": [
-      "hierarchy",
-      "properties",
-      "dialogues",
-      "gdefaults",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
   },
   {
     "name": "pokemon",
