@@ -14,6 +14,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -36,6 +38,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -63,6 +67,8 @@
       "dialogues",
       "numbers",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
@@ -79,6 +85,8 @@
       "dialogues",
       "numbers",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
@@ -110,6 +118,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -152,9 +162,41 @@
     ],
     "includes": [
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
+  },
+  {
+    "name": "dimension",
+    "description": "Used to define numeric temperature such as currency, temperature or weight",
+    "examples": [
+      "degrees",
+      "10 degrees",
+      "10 degrees fahrenheit",
+      "10 celcius",
+      "10 degrees celcius",
+      "10 degrees celcius in fahrenheit",
+      "10 degree celcius in fahrenheit",
+      "a unit of length"
+    ],
+    "includes": [
+      "dimensionTemplate",
+      "formulas",
+      "testing",
+      "hierarchy",
+      "math",
+      "properties",
+      "numbers",
+      "dialogues",
+      "gdefaults",
+      "pos",
+      "stm",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
   },
   {
     "name": "emotions",
@@ -167,6 +209,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -182,9 +226,34 @@
     "includes": [
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
+  },
+  {
+    "name": "formulas",
+    "description": "Formulas using math",
+    "examples": [
+      "x equals y + 10",
+      "y equals 4",
+      "x = 4 calculate x",
+      "y equals 4 x = y + 10 calculate x",
+      "solve x = y for x",
+      "solve x = y for y",
+      "solve x = y + 1 for x"
+    ],
+    "includes": [
+      "math",
+      "numbers",
+      "dialogues",
+      "gdefaults",
+      "pos",
+      "stm",
+      "meta"
+    ],
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
   },
   {
     "name": "help",
@@ -196,6 +265,8 @@
     "includes": [
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/help.js"
@@ -236,6 +307,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -250,6 +323,8 @@
     "includes": [
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/javascript.js"
@@ -270,6 +345,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -304,12 +381,18 @@
       "x is 3 y is 4 x times y",
       "price is 20 quantity is 30 what is price times quantity",
       "price is 20 quantity is 30 worth is price times quantity what is the worth",
-      "10 / 2"
+      "10 / 2",
+      "4 + x",
+      "4 - x",
+      "4 * x",
+      "4 / x"
     ],
     "includes": [
       "numbers",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
@@ -336,6 +419,8 @@
       "dialogues",
       "numbers",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -398,6 +483,8 @@
       "dialogues",
       "numbers",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -428,10 +515,38 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
+  },
+  {
+    "name": "pos",
+    "description": "parts of speech",
+    "examples": [],
+    "includes": [],
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
+  },
+  {
+    "name": "ordering",
+    "description": "ordering related concepts",
+    "examples": [
+      "wendy loves bananas does wendy want bananas",
+      "wendy loves bananas what does wendy like"
+    ],
+    "includes": [
+      "hierarchy",
+      "properties",
+      "dialogues",
+      "gdefaults",
+      "pos",
+      "stm",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
   },
   {
     "name": "pokemon",
@@ -446,6 +561,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -486,6 +603,8 @@
     "includes": [
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -538,6 +657,8 @@
       "numbers",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -578,6 +699,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -599,6 +722,8 @@
       "properties",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
@@ -617,6 +742,13 @@
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stgame.js"
   },
   {
+    "name": "stm",
+    "description": "short term memory",
+    "examples": [],
+    "includes": [],
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stm.js"
+  },
+  {
     "name": "tell",
     "description": "telling entities things",
     "examples": [
@@ -625,6 +757,8 @@
     "includes": [
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
@@ -644,6 +778,8 @@
       "tell",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
@@ -668,6 +804,8 @@
       "numbers",
       "dialogues",
       "gdefaults",
+      "pos",
+      "stm",
       "meta"
     ],
     "template": {},
