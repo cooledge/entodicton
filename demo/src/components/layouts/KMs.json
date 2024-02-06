@@ -256,6 +256,13 @@
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
   },
   {
+    "name": "gdefaults",
+    "description": "defaults for generators",
+    "examples": [],
+    "includes": [],
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/gdefaults.js"
+  },
+  {
     "name": "help",
     "description": "Help the user with the current knowledge modules",
     "examples": [
