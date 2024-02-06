@@ -169,6 +169,22 @@
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
   },
   {
+    "name": "dimensionTemplate",
+    "description": "template for dimension",
+    "examples": [],
+    "includes": [
+      "hierarchy",
+      "properties",
+      "dialogues",
+      "gdefaults",
+      "pos",
+      "stm",
+      "meta"
+    ],
+    "template": {},
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimensionTemplate.js"
+  },
+  {
     "name": "dimension",
     "description": "Used to define numeric temperature such as currency, temperature or weight",
     "examples": [
@@ -769,6 +785,17 @@
       "meta"
     ],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
+  },
+  {
+    "name": "testing",
+    "description": "code for testing",
+    "examples": [
+      "testingEvaluate testingValue"
+    ],
+    "includes": [
+      "gdefaults"
+    ],
+    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/testing.js"
   },
   {
     "name": "time",
