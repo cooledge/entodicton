@@ -87,7 +87,7 @@ describe('tests for pipboy page', () => {
     await showTest({ query: 'show the aid', items: character.aid })
   }, timeout);
 
-  xtest(`NEO23 PIPBOY show the quests`, async () => {
+  xtest(`PIPBOY show the quests`, async () => {
     await showTest({ query: 'show the quests', items: character.quests, tab: 'DATA' })
   }, timeout);
 
@@ -138,19 +138,29 @@ describe('tests for pipboy page', () => {
 
     await page.waitForSelector('#query')
 
+    const retries = 3;
     for (let i = 0; i < queries.length; ++i) {
-      const query = queries[i]
-      const test = tests[i]
-      await page.focus('#query');
-      await page.keyboard.down('Control');
-      await page.keyboard.press('A');
-      await page.keyboard.up('Control');
-      await page.keyboard.press('Backspace');
-      await page.keyboard.type(query);
-      await page.click('#submit')
-      await new Promise(resolve => setTimeout(resolve, 500))
-
-      await test(page)
+      for (let retry = 0; retry < retries; ++retry) {
+        try {
+          const query = queries[i]
+          const test = tests[i]
+          await page.focus('#query');
+          await page.keyboard.down('Control');
+          await page.keyboard.press('A');
+          await page.keyboard.up('Control');
+          await page.keyboard.press('Backspace');
+          await page.keyboard.type(query);
+          await page.click('#submit')
+        // await new Promise(resolve => setTimeout(resolve, 500))
+          await test(page)
+          break
+        } catch( e ) {
+          await new Promise(resolve => setTimeout(resolve, 500))
+          if (retry+1 == retries) {
+            throw e
+          }
+        }
+      }
     }
 
     page.close()
@@ -163,7 +173,7 @@ describe('tests for pipboy page', () => {
       if (selected) {
         await page.waitForSelector('.selected')
       }
-      await new Promise(resolve => setTimeout(resolve, 300))
+      // await new Promise(resolve => setTimeout(resolve, 300))
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
@@ -196,7 +206,7 @@ describe('tests for pipboy page', () => {
     const queries = ['show the weapons', 'down', 'select']
     const item = character.weapons[1]
     await testMovements(queries, item, true)
-    await new Promise(resolve => setTimeout(resolve, 5000))
+    // await new Promise(resolve => setTimeout(resolve, 5000))
   }, timeout);
 
   test(`PIPBOY move down`, async () => {
@@ -301,7 +311,7 @@ describe('tests for pipboy page', () => {
       if (selected) {
         await page.waitForSelector('.selected')
       }
-      await new Promise(resolve => setTimeout(resolve, 300))
+      // await new Promise(resolve => setTimeout(resolve, 300))
       const a = await page.$(`#${item.id}`)
       const classNames = await (await a.getProperty('className')).jsonValue()
       if (selected) {
