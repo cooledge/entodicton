@@ -2,32 +2,10 @@ import React, {Component, useState} from 'react';
 const kms = require('./KMs.json');
 const VERSION = require('./VERSION')
 
-const sections = [
-  {
-    name: "Basic Types",
-    description: "Definition for basic types of things",
-    includes: ['currency', 'numbers', 'people', 'time'], // setup in script
-  },
-  {
-    name: "General",
-    description: "General purpose KM's",
-    includes: [], // setup in script
-  },
-  {
-    name: "Misc",
-    description: "Fun stuff I was fiddling around with",
-    includes: ['javascript', 'scorekeeper', 'reports', 'tell', 'pipboy'], // setup in script
-  },
-  {
-    name: "Trek-like Characters",
-    description: "These KM's are for setting up a Trek-like game with characters that can be talked to.",
-    includes: [ 'crew', 'stgame', 'kirk', 'spock' ],
-  },
-]
-
+const sections = kms.sections
 const generalSection = sections.find( (section) => section.name == 'General' )
 
-for (const km of kms) {
+for (const km of kms.modules) {
   let found = false
   for (const section of sections) {
     if (section.includes.includes(km.name)) {
@@ -93,7 +71,7 @@ const KMs = () => {
   const listing = []
   for (const section of sections) {
     listing.push(SECTION(section))
-    for (const km of kms) {
+    for (const km of kms.modules) {
       if (section.includes.includes(km.name)) {
         listing.push(KM(km))
       }
