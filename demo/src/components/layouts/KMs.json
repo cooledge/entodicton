@@ -169,22 +169,6 @@
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
   },
   {
-    "name": "dimensionTemplate",
-    "description": "template for dimension",
-    "examples": [],
-    "includes": [
-      "hierarchy",
-      "properties",
-      "dialogues",
-      "gdefaults",
-      "pos",
-      "stm",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimensionTemplate.js"
-  },
-  {
     "name": "dimension",
     "description": "Used to define numeric temperature such as currency, temperature or weight",
     "examples": [
@@ -194,8 +178,7 @@
       "10 celcius",
       "10 degrees celcius",
       "10 degrees celcius in fahrenheit",
-      "10 degree celcius in fahrenheit",
-      "a unit of length"
+      "10 degree celcius in fahrenheit"
     ],
     "includes": [
       "dimensionTemplate",
@@ -425,29 +408,13 @@
     "description": "talking about numbers",
     "examples": [
       "20",
-      "44"
+      "44",
+      "10 ",
+      "10.23 ",
+      ".23 "
     ],
     "includes": [],
     "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
-  },
-  {
-    "name": "pipboyTemplate",
-    "description": "Template for pipboy with speech",
-    "examples": [],
-    "includes": [
-      "hierarchy",
-      "countable",
-      "comparable",
-      "properties",
-      "dialogues",
-      "numbers",
-      "gdefaults",
-      "pos",
-      "stm",
-      "meta"
-    ],
-    "template": {},
-    "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboyTemplate.js"
   },
   {
     "name": "pipboy",
