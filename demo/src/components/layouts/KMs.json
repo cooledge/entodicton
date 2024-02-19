@@ -208,6 +208,39 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
     },
     {
+      "name": "dimension",
+      "description": "Used to define numeric temperature such as currency, temperature or weight",
+      "examples": [
+        "degrees",
+        "10 degrees",
+        "10 degrees fahrenheit",
+        "10 celcius",
+        "10 degrees celcius",
+        "10 degrees celcius in fahrenheit",
+        "10 degree celcius in fahrenheit"
+      ],
+      "includes": [
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "template": {},
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
+    },
+    {
       "name": "emotions",
       "description": "emotions related concepts",
       "examples": [
@@ -240,6 +273,36 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
+    },
+    {
+      "name": "formulas",
+      "description": "Formulas using math",
+      "examples": [
+        "x equals y + 10",
+        "y equals 4",
+        "x = 4 calculate x",
+        "y equals 4 x = y + 10 calculate x",
+        "solve x = y for x",
+        "solve x = y for y",
+        "solve x = y + 1 for x"
+      ],
+      "includes": [
+        "math",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "template": {},
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
     },
     {
       "name": "gdefaults",
@@ -356,6 +419,53 @@
       ],
       "includes": [],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
+    },
+    {
+      "name": "math",
+      "description": "talking about math",
+      "examples": [
+        "what is 10 times 2",
+        "what is 10 times 2 times 3",
+        "what is 10 plus 2 plus 3",
+        "what is 10 plus 2 times 3",
+        "what is 10 plus 2 times 3 minus 2",
+        "what is 10 + 10",
+        "what is 10 * 10 + 2 - 3",
+        "4 times 5",
+        "x is 3 y is 4 what is x",
+        "x is 3 y is 4 what is x what is y",
+        "x is 3 y is 4 x times y",
+        "price is 20 quantity is 30 what is price times quantity",
+        "price is 20 quantity is 30 worth is price times quantity what is the worth",
+        "10 / 2",
+        "4 + x",
+        "4 - x",
+        "4 * x",
+        "4 / x",
+        "price is 20 what is the price",
+        "x is 4 x is 5 what is x",
+        "worth is price times quantity",
+        "price is 20 quantity is 30 worth is price times quantity what is worth",
+        "the price is 20 what is the price",
+        "(4+5)",
+        "2*(4+5)"
+      ],
+      "includes": [
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "template": {},
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
     },
     {
       "name": "numbers",
@@ -566,6 +676,66 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
     },
     {
+      "name": "reports",
+      "description": "this module is for getting info about a concept with properties",
+      "examples": [
+        "answer with sentences list the models",
+        "answer with sentences list the products",
+        "answer with tables list the products",
+        "list products",
+        "list the clothes",
+        "list the models",
+        "list the products",
+        "show the price list the products",
+        "show the price descending list the products",
+        "show the quantity descending list the products",
+        "show the quantity descending and the price ascending list the products",
+        "show the quantity descending and the price ascending",
+        "call this report1\\nshow report1",
+        "call this report1\\ndescribe report1",
+        "call this report1\\ndescribe the reports",
+        "call this report1\\nlist the models\\ncall this report2\\nshow report1 show report2",
+        "call this report1\\nlist the models\\ncall this report2\\nshow report1 and report2",
+        "worth means price times quantity",
+        "list the clothes\\ncall this report1\\nshow report1",
+        "list the models\\ncall this report1\\nshow report1",
+        "column 2",
+        "move column 2 to column 1",
+        "call this report1 show it",
+        "show price and supplier",
+        "call this report1",
+        "after the report changes show the report\\nmove column 2 to column 1",
+        "after the report changes show the report\\nanswer with tables",
+        "answer with sentences show the report",
+        "after the report changes show the report\\nanswer with sentences",
+        "remove column 2 show the report",
+        "x is 20 show the report",
+        "show the worth list the models",
+        "worthtest means price times quantity\\nshow the worthtest list the models",
+        "worthtest is price times quantity\\nshow the worthtest list the models"
+      ],
+      "includes": [
+        "currency",
+        "help",
+        "math",
+        "events",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "template": {},
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
+    },
+    {
       "name": "scorekeeper",
       "description": "scorekeeper for card or dice games",
       "examples": [
@@ -695,6 +865,39 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
+    },
+    {
+      "name": "ui",
+      "description": "Control a ui with speech",
+      "examples": [
+        "move up",
+        "move left",
+        "move down",
+        "move right",
+        "select",
+        "cancel",
+        "move down 2",
+        "down",
+        "unselect",
+        "stop action"
+      ],
+      "includes": [
+        "math",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "template": {},
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
     }
   ]
 }
