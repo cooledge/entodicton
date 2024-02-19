@@ -474,6 +474,17 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
     },
     {
+      "name": "punctuation",
+      "description": "punctuation",
+      "examples": [
+        "(a)"
+      ],
+      "includes": [
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
+    },
+    {
       "name": "ordering",
       "description": "ordering related concepts",
       "examples": [
