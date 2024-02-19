@@ -69,7 +69,8 @@ class API {
     const categories = this.props.aidCategories
     const items = this.props.aid
     const selectItem = this.props.selectAid
-    const currentMessage = (selected) => `Put on ${selected[0].name}.`
+    // const currentMessage = (selected) => `Put on ${selected[0].name}.`
+    const currentMessage = (selected) => description(selected[0].name)
     const filter = (item) => item.categories.includes(what)
     const choicesTab = () => {
       this.props.setAidFilter(() => filter)
@@ -82,15 +83,15 @@ class API {
   }
 
   drink(type) {
-    this.useAid({type, description: (what) => `Drinking ${what}`})
+    this.useAid({type, description: (what) => `Drinking ${what}.`})
   }
 
   eat(type) {
-    this.useAid({type, description: (what) => `Eating ${what}`})
+    this.useAid({type, description: (what) => `Eating ${what}.`})
   }
 
   take(type) {
-    this.useAid({type, description: (what) => `Taking ${what}`})
+    this.useAid({type, description: (what) => `Taking ${what}.`})
   }
 
   wear({type, name}) {

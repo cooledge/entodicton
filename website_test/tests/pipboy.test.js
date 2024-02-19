@@ -441,7 +441,7 @@ describe('tests for pipboy page', () => {
   }, timeout);
 
   test(`PIPBOY eat meat`, async () => {
-    await testUse('eat meat', character.weapons, 'meat', "Put on Bloatfly Meat.", false, [], [], true)
+    await testUse('eat meat', character.weapons, 'meat', "Eating Bloatfly Meat.", false, [], [], true)
   }, timeout);
 
   test(`PIPBOY equip a shotgun`, async () => {
