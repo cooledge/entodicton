@@ -525,7 +525,9 @@
         "what are the types of item properties",
         "show the quests",
         "show the workshops",
-        "wear armor"
+        "wear armor",
+        "eat meat",
+        "eat fruit"
       ],
       "includes": [
         "pipboyTemplate",
