@@ -16,6 +16,40 @@
       "includes": []
     },
     {
+      "name": "Hidden",
+      "description": "Don't show in the UI",
+      "includes": [
+        "dimensionTemplate",
+        "formulasTemplate",
+        "mathTemplate",
+        "pipboyTemplate"
+      ]
+    },
+    {
+      "name": "Language",
+      "description": "Knowledge related to language",
+      "includes": [
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "punctuation",
+        "stm",
+        "ui"
+      ]
+    },
+    {
+      "name": "Math",
+      "description": "Knowledge related to mathematics",
+      "includes": [
+        "math",
+        "formulas",
+        "pos",
+        "punctuation",
+        "stm",
+        "ui"
+      ]
+    },
+    {
       "name": "Misc",
       "description": "Fun stuff I was fiddling around with",
       "includes": [
@@ -224,6 +258,7 @@
         "formulas",
         "testing",
         "math",
+        "formulasTemplate",
         "punctuation",
         "mathTemplate",
         "hierarchy",
@@ -284,10 +319,14 @@
         "y equals 4 x = y + 10 calculate x",
         "solve x = y for x",
         "solve x = y for y",
-        "solve x = y + 1 for x"
+        "solve x = y + 1 for x",
+        "fahrenheit = celcius*9/5 + 32",
+        "the formulas for fahrenheit",
+        "fahrenheit = celcius*9/5 + 32 what are the formulas for fahrenheit"
       ],
       "includes": [
         "math",
+        "formulasTemplate",
         "punctuation",
         "mathTemplate",
         "hierarchy",
@@ -867,39 +906,6 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
-    },
-    {
-      "name": "ui",
-      "description": "Control a ui with speech",
-      "examples": [
-        "move up",
-        "move left",
-        "move down",
-        "move right",
-        "select",
-        "cancel",
-        "move down 2",
-        "down",
-        "unselect",
-        "stop action"
-      ],
-      "includes": [
-        "math",
-        "punctuation",
-        "mathTemplate",
-        "hierarchy",
-        "countable",
-        "comparable",
-        "properties",
-        "dialogues",
-        "numbers",
-        "gdefaults",
-        "pos",
-        "stm",
-        "meta"
-      ],
-      "template": {},
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
     }
   ]
 }
