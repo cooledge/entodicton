@@ -28,6 +28,7 @@ const SECTION = (section) => {
 
 const KM = (km) => {
   const [open, setOpen] = useState(false)
+  const template = km.template.map( (template) => (<li>{template}</li>) );
   const examples = km.examples.map( (example) => (<li>{example}</li>) );
   const includes = (km.includes || []).join(',');
   // https://github.com/thinktelligence/entodicton/blob/TAG/tutorial/command_line_demo_1.js
@@ -59,6 +60,14 @@ const KM = (km) => {
           <h4>Sample utterances</h4>
           <ul>
           {examples}
+          </ul>
+        </div>
+      }
+      {open && template.length > 0 &&
+        <div class='kmUtterances'>
+          <h4>Initial Knowledge</h4>
+          <ul>
+          {template}
           </ul>
         </div>
       }
