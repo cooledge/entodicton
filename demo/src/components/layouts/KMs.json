@@ -13,7 +13,16 @@
     {
       "name": "General",
       "description": "General purpose KM's",
-      "includes": []
+      "includes": [
+        "avatar",
+        "comparable",
+        "countable",
+        "help",
+        "meta",
+        "hierarchy",
+        "ordering",
+        "properties"
+      ]
     },
     {
       "name": "Hidden",
@@ -53,11 +62,22 @@
       "name": "Physics",
       "description": "Knowledge related to physics",
       "includes": [
-        "dimension"
+        "dimension",
+        "length",
+        "pressure",
+        "temperature",
+        "weight"
       ]
     },
     {
-      "name": "Misc",
+      "name": "Basic Facts",
+      "description": "Knowledge related to basic facts",
+      "includes": [
+        "animals"
+      ]
+    },
+    {
+      "name": "Fun",
       "description": "Fun stuff I was fiddling around with",
       "includes": [
         "javascript",
@@ -68,9 +88,10 @@
       ]
     },
     {
-      "name": "Trek-like Characters",
+      "name": "Characters",
       "description": "These KM's are for setting up a Trek-like game with characters that can be talked to.",
       "includes": [
+        "characters",
         "crew",
         "stgame",
         "kirk",
@@ -722,6 +743,41 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
     },
     {
+      "name": "pressure",
+      "description": "Pressure dimension",
+      "examples": [
+        "what are 2 atmospheres in pascals",
+        "what are 200000 pascals in atmospheres"
+      ],
+      "template": [
+        "pressure is a dimension",
+        "pascals and atmospheres are units of pressure",
+        "pascals = atmospheres * 101325",
+        "atmospheres = pascals / 101325"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
+    },
+    {
       "name": "punctuation",
       "description": "punctuation",
       "examples": [
@@ -998,6 +1054,41 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
     },
     {
+      "name": "temperature",
+      "description": "Weight dimension",
+      "examples": [
+        "what is 10 celcius in fahrenheit",
+        "what is 10 fahrenheit in celcius"
+      ],
+      "template": [
+        "temperature is a dimension",
+        "celcius fahrenheit and kelvin are units of temperature",
+        "fahrenheit = celcius*9/5 + 32",
+        "celcius = (fahrenheit - 32)*5/8 + 32"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/temperature.js"
+    },
+    {
       "name": "testing",
       "description": "code for testing",
       "examples": [
@@ -1030,6 +1121,43 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
+    },
+    {
+      "name": "weight",
+      "description": "Weight dimension",
+      "examples": [],
+      "template": [
+        "weight is a dimension",
+        "kilograms grams pounds ounces and tons are units of weight",
+        "kilograms = pounds * 0.453592",
+        "grams = kilograms * 1000",
+        "kilograms = grams / 1000",
+        "pounds = kilograms * 2.20462",
+        "ounces = pounds * 16",
+        "ton = tonne * 0.907185",
+        "pounds = ton * 2000"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
     }
   ]
 }
