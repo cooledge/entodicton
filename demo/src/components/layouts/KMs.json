@@ -399,9 +399,9 @@
         "solve x = y for x",
         "solve x = y for y",
         "solve x = y + 1 for x",
-        "fahrenheit = celcius*9/5 + 32",
+        "fahrenheit = celcius*(9/5) + 32",
         "the formulas for fahrenheit",
-        "fahrenheit = celcius*9/5 + 32 what are the formulas for fahrenheit"
+        "fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit"
       ],
       "template": [
         "mathematical modifies operator",
