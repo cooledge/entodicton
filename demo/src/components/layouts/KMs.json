@@ -548,6 +548,58 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
     },
     {
+      "name": "length",
+      "description": "Length dimension",
+      "examples": [
+        "10 meters",
+        "10 feet",
+        "what are the units of length",
+        "what is 1 meter in centimeters",
+        "what is 110 centimeters in meters",
+        "what is 10 centimeters in centimeters",
+        "what is 3 feet in inches",
+        "what is 36 inches in feet"
+      ],
+      "template": [
+        "length is a dimension",
+        "meter centimeter foot and inch are units of length",
+        "meters = centimeters / 100",
+        "centimeters = meters * 100",
+        "centimeters = millimeters / 10",
+        "millimeters = centimeters * 10",
+        "millimeters = meters * 1000",
+        "meters = millimeters / 1000",
+        "feet = inches / 12",
+        "inches = feet * 12",
+        "meters = feet / 3.28",
+        "miles = 5280 * feet",
+        "feet = miles / 5280",
+        "kilometers = meters / 1000",
+        "meters = kilometers * 1000"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "hierarchy",
+        "countable",
+        "comparable",
+        "properties",
+        "dialogues",
+        "numbers",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/length.js"
+    },
+    {
       "name": "math",
       "description": "talking about math",
       "examples": [
