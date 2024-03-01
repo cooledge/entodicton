@@ -51,11 +51,7 @@
       "description": "Knowledge related to mathematics",
       "includes": [
         "math",
-        "formulas",
-        "pos",
-        "punctuation",
-        "stm",
-        "ui"
+        "formulas"
       ]
     },
     {
