@@ -79,6 +79,9 @@ const KM = (km) => {
 const KMs = () => {
   const listing = []
   for (const section of sections) {
+    if (section.name == 'Hidden') {
+      continue
+    }
     listing.push(SECTION(section))
     for (const km of kms.modules) {
       if (section.includes.includes(km.name)) {
