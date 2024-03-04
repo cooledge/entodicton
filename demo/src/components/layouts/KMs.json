@@ -281,7 +281,8 @@
       ],
       "template": [],
       "includes": [
-        "numbers"
+        "numbers",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/currency.js"
     },
@@ -300,7 +301,8 @@
         "x is 3 what is x",
         "x is 3 what is x what is it",
         "be brief x is 3 what is x what is it",
-        "to it"
+        "to it",
+        "why"
       ],
       "template": [],
       "includes": [
@@ -321,7 +323,10 @@
         "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 celcius",
         "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees celcius",
         "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees celcius in fahrenheit",
-        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\nfahrenheit = celcius*9/5 + 32\\nwhat is 10 degrees celcius in fahrenheit"
+        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\nfahrenheit = celcius*9/5 + 32\\nwhat is 10 degrees celcius in fahrenheit",
+        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1 ",
+        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhat is the reason",
+        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhy"
       ],
       "template": [
         "dimension and unit are concepts"
@@ -623,7 +628,8 @@
         "price is 20 quantity is 30 worth is price times quantity what is worth",
         "the price is 20 what is the price",
         "(4+5)",
-        "2*(4+5)"
+        "2*(4+5)",
+        "an expression"
       ],
       "template": [
         "mathematical modifies operator",
@@ -653,10 +659,13 @@
         "44",
         "10 ",
         "10.23 ",
-        ".23 "
+        ".23 ",
+        "c1"
       ],
       "template": [],
-      "includes": [],
+      "includes": [
+        "gdefaults"
+      ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
     },
     {
