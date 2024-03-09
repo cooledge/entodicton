@@ -99,13 +99,7 @@
     {
       "name": "animals",
       "description": "animals related concepts",
-      "examples": [
-        "are bats mammals do mammals have wings do bats have wings do dogs have wings",
-        "do dogs have skin",
-        "is a dog a mammal",
-        "what are the types of canines",
-        "what are the types of mammals"
-      ],
+      "examples": [],
       "template": [
         "birds and mammals are animals",
         "mammals have ears",
@@ -377,7 +371,8 @@
       "description": "do stuff after events",
       "examples": [
         "after event1 action1 event1 event1",
-        "changable changes"
+        "changable changes",
+        "changeable changes"
       ],
       "template": [],
       "includes": [
@@ -984,6 +979,7 @@
         "worthtest is price times quantity\\nshow the worthtest list the models"
       ],
       "template": [
+        "price and quantity are properties",
         "worth means price times quantity"
       ],
       "includes": [
