@@ -422,8 +422,8 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/foods.js"
     },
     {
-      "name": "fastfoods",
-      "description": "fastfoods related concepts",
+      "name": "fastfood",
+      "description": "fastfood related concepts",
       "examples": [
         "what are the types of hamburgers",
         "2 big macs",
