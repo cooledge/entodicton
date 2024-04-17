@@ -422,6 +422,38 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/foods.js"
     },
     {
+      "name": "fastfood",
+      "description": "fastfood related concepts",
+      "examples": [
+        "what are the types of hamburgers",
+        "2 big macs",
+        "2 french fries",
+        "big mac and french fries",
+        "show the order"
+      ],
+      "template": [
+        "food is countable",
+        "big modifies mac",
+        "a big mac is a hamburger",
+        "quarter modifies pounder",
+        "a quarter pounder is a hamburger"
+      ],
+      "includes": [
+        "foods",
+        "countable",
+        "events",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
+    },
+    {
       "name": "formulas",
       "description": "Formulas using math",
       "examples": [
