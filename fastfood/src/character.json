@@ -1,0 +1,413 @@
+{
+  "hp": {
+    "current": 88,
+    "total": 90
+  },
+  "caps": 186,
+  "ap": {
+    "current": 44,
+    "total": 50
+  },
+  "maxWeight": 265,
+  "health": {
+    "arm": { 
+      "left": 80, 
+      "right": 30 
+    }, 
+    "leg": { 
+      "left": 75, 
+      "right": 60 
+    }, 
+    "torso": 80, 
+    "head": 90 
+  },
+
+  "perks": [
+    { 
+      "id": "big_leagues",
+      "name": "Big Leagues",
+      "description": "Swing for the fences! Do 20% more melee weapon damage",
+      "stars": 1,
+      "max_stars": 5
+    },
+    { 
+      "id": "cap_collector",
+      "name": "Cap Collector",
+      "description": "You've mastered the art of the deal! Buying and selling prices at vensors are better.",
+      "stars": 1,
+      "max_stars": 3
+    },
+    { 
+      "id": "chemist",
+      "name": "Chemist",
+      "description": "Any chems you take last 50% longer. Far out",
+      "stars": 2,
+      "max_stars": 4
+    },
+    { 
+      "id": "covert_operations",
+      "name": "Covert Operations",
+      "description": "You are more difficult to detect while sneaking",
+      "stars": 4,
+      "max_stars": 10
+    },
+    { 
+      "id": "gun_nut",
+      "name": "Gun Nut",
+      "description": "Shoot first, kill first, with access to base level and Rank 1 gun mods",
+      "stars": 1,
+      "max_stars": 4
+    },
+    { 
+      "id": "guns_and_bullets",
+      "name": "Guns and Bullets",
+      "description": "Ballistic weapons do +5% critical damage.",
+      "stars": 6,
+      "max_stars": 10
+    },
+    { 
+      "id": "hacker",
+      "name": "Hacker",
+      "description": "Knowledge of cuttin-edge computer encrytion allows you to hack Advanced terminals.",
+      "stars": 1,
+      "max_stars": 4
+    },
+    { 
+      "id": "iron_fist",
+      "name": "Iron Fist",
+      "description": "Channel you chi to unleast devastating fury! PUnching attackes do 20% more damage to you opponent.",
+      "stars": 1,
+      "max_stars": 5
+    },
+    { 
+      "id": "medic",
+      "name": "Medic",
+      "description": "Is there a doctor in the house? Stimpaks restore 40% of lost Health, and RadAway removes 40% of radiation.",
+      "stars": 1,
+      "max_stars": 4
+    }
+  ],
+
+  "special": [
+    { 
+      "id": "strength",
+      "name": "Strength",
+      "value": 5,
+      "description": "Strength is a measure of you raw physical power. It affect how much you can carry, and the damage of all melee attacks"
+    }, 
+    {
+      "id": "perception",
+      "name": "Perception",
+      "value": 3,
+      "description": "Perception is you environmental awareness and \"sixth sense\" and affect weapon accuracy in V.A.T.S."
+    }, 
+    {
+      "id": "endurence",
+      "name": "Endurence",
+      "value": 1,
+      "description": "Endurange is a measure of you overall physical fitness. It affects you total Health and Action Point drain from sprinting."
+    }, 
+    {
+      "id": "charisma",
+      "name": "Charisma",
+      "value": 4,
+      "description": "Charisma is you ability to charm and convince others. It affects you success to persuade in dialuge and prices when you barter."
+    }, 
+    {
+      "id": "intelligence",
+      "name": "Intelligence",
+      "value": 8,
+      "description": "Intelligence is a measure of you overall mental acuity, and affects the number of Experience Points earned."
+    }, 
+    {
+      "id": "agility",
+      "name": "Agility",
+      "value": 1,
+      "description": "Agility is a measure of you overall finess and reflexes. It affects the number of Action Points in V.A.T.S and you ability to sneak."
+    }, 
+    {
+      "id": "luck",
+      "name": "Luck",
+      "value": 6,
+      "description": "Luck is a measure of you general good fortune, and affects the recharge rate of Critical Hits."
+    }
+  ],
+
+  "aid": [
+    {
+      "id": "Bloatfly_Meat",
+      "name": "Bloatfly Meat",
+      "hp": 5,
+      "rads": 6,
+      "weight": 0.5,
+      "quantity": 2,
+      "value": 8,
+      "categories": ["meat", "food"]
+    },
+    {
+      "id": "Sugar_Bombs",
+      "name": "Sugar Bombs",
+      "hp": 15,
+      "rads": 7,
+      "weight": 0.5,
+      "quantity": 1,
+      "value": 11,
+      "categories": ["cereal", "food"]
+    },
+    {
+      "id": "Apple",
+      "name": "Apple",
+      "hp": 5,
+      "rads": 3,
+      "weight": 0.2,
+      "quantity": 1,
+      "value": 4,
+      "categories": ["fruit", "food"]
+    },
+    {
+      "id": "Orange",
+      "name": "Orange",
+      "hp": 5,
+      "rads": 3,
+      "weight": 0.2,
+      "quantity": 1,
+      "value": 4,
+      "categories": ["fruit", "food"]
+    },
+    {
+      "id": "Nuka_Cola",
+      "name": "Nuka Cola",
+      "hp": 20,
+      "rads": 5,
+      "ap": 10,
+      "weight": 1,
+      "quantity": 1,
+      "value": 20,
+      "categories": ["drink", "food", "cola"]
+    },
+    {
+      "id": "Stimpak",
+      "name": "Stimpak",
+      "hp": 30,
+      "percent": true,
+      "weight": 0,
+      "quantity": 5,
+      "value": 48,
+      "categories": ["medicine"]
+    }
+  ],
+
+  "apparel": [
+    {
+      "id": "Vault_111_Jumpsuit",
+      "name": "Vault 111 Jumpsuit",
+      "dmg_resist": 5,
+      "rad_resist": 10,
+      "selected": true,
+      "weight": 1,
+      "value": 20,
+      "covers": ["larm", "rarm", "lleg", "rleg", "torso"],
+      "categories": ["suit", "clothes"]
+    },
+    {
+      "id": "Leather_Chest_Piece",
+      "name": "Leather Chest Piece",
+      "dmg_resist": 3,
+      "rad_resist": 0,
+      "selected": false,
+      "weight": 5,
+      "value": 25,
+      "covers": ["torso"],
+      "categories": ["clothes", "armor"]
+    },
+    {
+      "id": "Clean_Grey_Suit",
+      "name": "Clean Grey Suit",
+      "dmg_resist": 0,
+      "rad_resist": 0,
+      "CHR": 2,
+      "weight": 3,
+      "value": 32,
+      "covers": ["larm", "rarm", "lleg", "rleg", "torso"],
+      "categories": ["suit", "clothes"]
+    },
+    {
+      "id": "Chef_Hat",
+      "name": "Chef Hat",
+      "dmg_resist": 0,
+      "rad_resist": 0,
+      "LCK": 1,
+      "weight": 0.5,
+      "value": 15,
+      "covers": ["head"],
+      "categories": ["hat", "clothes"]
+    },
+    {
+      "id": "Eyeglasses",
+      "name": "Eyeglasses",
+      "PER": 1,
+      "weight": 0.1,
+      "value": 7,
+      "covers": ["eyes"],
+      "categories": ["glasses"]
+    }
+  ],
+
+  "categories": {
+    "weapons": [
+      "mines",
+      "grenade",
+      "rifle",
+      "pistol",
+      "shotgun",
+      "explosive",
+      "firearm",
+      "weapon"
+    ],
+    "apparel": [
+      "hat",
+      "suit",
+      "clothes",
+      "apparel",
+      "glove",
+      "armor"
+    ],
+    "aid": [
+      "fish",
+      "cola",
+      "pop",
+      "medicine",
+      "stimpak",
+      "vegetable",
+      "fruit",
+      "meat",
+      "drink",
+      "food"
+    ]
+  },
+
+  "weapons": [
+    {
+      "id": "bottlecap_mine",
+      "name": "Bottlecap Mine",
+      "damage": 301,
+      "fire_rate": 0,
+      "range": 93,
+      "accuracy": 0,
+      "weight": 0.5,
+      "value": 75,
+      "quantity": 2,
+      "categories": ["mine", "explosive"]
+    },
+    {
+      "id": "fragmentation_grenade",
+      "name": "Fragmentation Grenade",
+      "damage": 151,
+      "fire_rate": 0,
+      "range": 93,
+      "accuracy": 0,
+      "weight": 0.5,
+      "value": 50,
+      "quantity": 3,
+      "categories": ["grenade", "explosive"]
+    },
+    {
+      "id": "fragmentation_mine",
+      "name": "Fragmentation Mine",
+      "damage": 101,
+      "fire_rate": 0,
+      "range": 93,
+      "accuracy": 0,
+      "weight": 0.5,
+      "value": 50,
+      "quantity": 2,
+      "categories": ["mine", "explosive"]
+    },
+    {
+      "id": "freezing_pipe_revolver_pistol",
+      "name": "Freezing Pipe Revolver Pistol",
+      "damage": 24,
+      "damage_electrical": 10,
+      "fire_rate": 6,
+      "range": 83,
+      "accuracy": 61,
+      "weight": 4.2,
+      ".45": 184,
+      "value": 125,
+      "favorite": true,
+      "description": "Does 10 points cryo damage and will freeze targets on critical hits.",
+      "categories": ["pistol", "firearm"]
+    },
+    {
+      "id": "a_44_Pistol",
+      "name": "44 Pistol",
+      "damage": 48,
+      "fire_rate": 6,
+      "range": 119,
+      "accuracy": 66,
+      "weight": 4.2,
+      "value": 99,
+      "selected": true,
+      "categories": ["pistol", "firearm"]
+    },
+
+    {
+      "id": "a_10mm_Pistol",
+      "name": "10mm Pistol",
+      "damage": 28,
+      "fire_rate": 46,
+      "range": 119,
+      "accuracy": 56,
+      "weight": 4.2,
+      "value": 53,
+      "categories": ["pistol", "firearm"]
+    },
+
+    {
+      "id": "Assault_Rifle",
+      "name": "Assault Rifle",
+      "damage": 78,
+      "fire_rate": 30,
+      "range": 200,
+      "accuracy": 80,
+      "weight": 14.8,
+      "value": 150,
+      "categories": ["rifle", "firearm"]
+    }
+  ],
+
+  "radioStations": [
+    {
+      "id": "classical_radio",
+      "name": "Classical Radio"
+    },
+    {
+      "id": "diamond_city_radio",
+      "name": "Diamond City Radio"
+    },
+    {
+      "id": "boston_city_works_beacon",
+      "name": "Boston City Works Beacon"
+    },
+    {
+      "id": "civil_alert_system_broadcast",
+      "name": "Civil Alert System Broadcast"
+    },
+    {
+      "id": "distress_signal",
+      "name": "Distress Signal"
+    },
+    {
+      "id": "rj1138",
+      "name": "Emergency Frequency RJ1138"
+    }
+  ],
+
+  "quests": [
+    {
+      "id": "",
+      "name": "rj1138",
+      "selected": true
+    }
+  ]
+}
