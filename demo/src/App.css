@@ -187,6 +187,20 @@
   background-color: lightgrey;
 }
 
+.subMenuItem {
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: rbg(119,119,119);
+  outline-color: rbg(119,119,119);
+  text-decoration-color: rbg(119,119,119);
+}
+
+.subMenuItem:hover {
+  background-color: lightgrey;
+}
+
 .credentials {
   font-size: 15px;
   border-style: solid;

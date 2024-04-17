@@ -1,47 +1,90 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import { Link } from 'react-router-dom';
  
-class Layout extends Component {
-   render() {
-     if (window.location.href.endsWith('srdemo')) {
-       return (
-             <div className='layout'>
-               <div>
-                 { this.props.children }
-               </div>
+function Layout({ children }) {
+   const [ isOpen, setIsOpen ] = useState(false);
+   const [ demoIsOpen, setDemoIsOpen ] = useState(false);
+   if (window.location.href.endsWith('srdemo')) {
+     return (
+           <div className='layout'>
+             <div>
+               { this.props.children }
              </div>
-           );
-     } else {
-       return (
-               <div className='layout'>
-                  <div className="logo">
-                    <div className='name'>
-                      THINKtelligence
-                    </div>
-                    <div className='motto'>
-                    code from the future, today
-                    </div>
-                  </div>
-                  <div className='menuBar'>
-                    <li className="barItem"><Link to='/product'>PRODUCT</Link></li>
-                    { /* <li className="barItem"><Link to='/demo'>DEMO</Link></li> */ }
-                    <li className="barItem"><Link to='/tankdemo'>DEMO</Link></li>
-                    { /* <li className="barItem"><Link to='/pipboy/'>PIPBOY DEMO</Link></li> */ }
-                    <li className="barItem"><Link to='/pipboy/' target="_blank">PIPBOY</Link></li>
-                    { /* <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li> */ }
-                    <li className="barItem"><Link to='/videos'>VIDEOS</Link></li>
-                    <li className="barItem"><Link to='/kms'>KMS</Link></li>
-                    { /* <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li> */ }
-                    { /* <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li> */ }
-                    <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
-                    <span style={ { float: 'right', 'marginRight': '20px' } }>The Programmable Mind</span>
-                  </div>
-                  <div>
-                    { this.props.children }
-                  </div>
-               </div>
-              );
+           </div>
+         );
+   } else {
+     const menuButtonStyle = {
+        background: isOpen ? '#ededed' : undefined,
      }
+     const style = {
+        opacity: isOpen ? 1 : 0,
+        visibility: isOpen ? 'visible' : 'hidden',
+        position: 'absolute',
+        top: '90px', // same as your nav height
+        left: '90px',
+        width: '200px',
+        background: '#ededed',
+        border: '1px solid gray',
+        'text-align': 'center',
+        transition: 'all 1000ms ease',
+     };
+     const handleDemoButton = { 
+       onMouseEnter: () => {
+         setIsOpen(true)
+       }, 
+       onMouseLeave: () => {
+         setIsOpen(false) 
+       }
+     }
+     const handleSubMenu = { 
+       onMouseEnter: () => {
+         setIsOpen(true)
+       }, 
+       onMouseLeave: () => {
+         setIsOpen(false) 
+       },
+     }
+     return (
+             <div className='layout'>
+                <div className="logo">
+                  <div className='name'>
+                    THINKtelligence
+                  </div>
+                  <div className='motto'>
+                  code from the future, today
+                  </div>
+                </div>
+                <div className='menuBar'>
+                  <li className="barItem"><Link to='/product'>PRODUCT</Link></li>
+                  { /* <li className="barItem"><Link to='/demo'>DEMO</Link></li> */ }
+                  <li className="barItem" {...handleDemoButton} {...menuButtonStyle}>DEMOES</li>
+                  <div style={style} {...handleSubMenu}>
+                    <div className="subMenuItem">
+                      <Link to='/tankdemo'>OLD DEMO</Link>
+                    </div>
+                    <div className="subMenuItem">
+                      <Link to='/pipboy/' target="_blank">PIPBOY</Link>
+                    </div>
+                    <div className="subMenuItem">
+                      <Link to='/fastfood/' target="_blank">FAST FOOD</Link>
+                    </div>
+                  </div>
+                  { /* <li className="barItem"><Link to='/tankdemo'>DEMO</Link></li> */ }
+                  { /* <li className="barItem"><Link to='/pipboy/'>PIPBOY DEMO</Link></li> */ }
+                  { /* <li className="barItem"><Link to='/pipboy/' target="_blank">PIPBOY</Link></li> */ }
+                  { /* <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li> */ }
+                  <li className="barItem"><Link to='/videos'>VIDEOS</Link></li>
+                  <li className="barItem"><Link to='/kms'>KMS</Link></li>
+                  { /* <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li> */ }
+                  { /* <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li> */ }
+                  <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
+                  <span style={ { float: 'right', 'marginRight': '20px' } }>The Programmable Mind</span>
+                </div>
+                <div>
+                  { children }
+                </div>
+             </div>
+            );
    }
 }
 
