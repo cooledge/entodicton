@@ -4,14 +4,6 @@ import parameters from './parameters'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const { fastfood, ui } = require('tpmkms_4wp')
 
-class API {
-  initialize(props) {
-    this.props = props
-  }
-}
-
-fastfood.api = new API()
-ui.api = fastfood.api
 fastfood.add(ui)
 const url = `${new URL(window.location.href).origin}/entodicton`
 fastfood.config.url = url
@@ -34,10 +26,13 @@ function Speech(props) {
   }, [])
 
   const { lastQuery, setLastQuery } = props
+  const { order, setOrder } = props
   const [ query, setQuery ] = useState('')
 
-  fastfood.api.initialize(props)
-  fastfood.getConfigs().ui.api.initialize(props)
+  // fastfood.api.initialize(props)
+  // fastfood.getConfigs().ui.api.initialize(props)
+  debugger
+  setOrder(fastfood.api.order())
 
   const doQuery = (query) => {
     fastfood.process(query.toLowerCase()).then( (result) => {

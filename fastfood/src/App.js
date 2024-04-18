@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import Footer from './Footer'
-import Header from './Header'
 import Speech from './Speech'
-import Message from './Message'
-import Popup from './Popup'
 import Order from './Order'
 import wendys from './images/wendys.jpg'
 
@@ -15,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <div class="Header">
-        <Speech />
+        <Speech order={order} setOrder={setOrder} />
       </div>
       <div class="Body">
         <Order order={order} />
