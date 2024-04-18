@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Speech from './Speech'
 import Order from './Order'
 import wendys from './images/wendys.jpg'
+import './css/fastfood.css'
 
 let selector;
 function App() {

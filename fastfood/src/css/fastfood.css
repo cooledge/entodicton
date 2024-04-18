@@ -16,7 +16,7 @@
   margin-left: 25px;
   margin-right: 25px;
   padding: 20px;
-  background: lightgray;
+  background: #E8E8E8;
 }
 
 .Menu {
@@ -38,5 +38,18 @@
   margin-left: 25px;
   margin-right: 25px;
   padding: 10px;
-  background: lightgray;
+  background: #E8E8E8;
+}
+
+.Button {
+  height: 100px;
+  background-color: lightgray;
+  border: 1px thin;
+  border-radius: 8px;
+  margin-left: 10px;
+  padding: 2px 8px 2px 8px;
+}
+
+.Button:hover {
+  background-color: #A9A9A9;
 }

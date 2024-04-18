@@ -1,6 +1,6 @@
 function Order({ order }) {
-  const items = order.map( (item) => <li class="Item">
-        <span class="Name J1" style={{ 'flex-grow': '1' }}>{item.name}</span>
+  const items = order.map( (item) => <li class="Item" key={item.name}>
+        <span class="Name" style={{ 'flexGrow': '1' }}>{item.name}</span>
         <span class="Cost">${item.cost}</span>
       </li> )
   return (

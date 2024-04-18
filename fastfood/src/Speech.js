@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'react-native';
 import parameters from './parameters'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const { fastfood, ui } = require('tpmkms_4wp')
@@ -31,7 +31,6 @@ function Speech(props) {
 
   // fastfood.api.initialize(props)
   // fastfood.getConfigs().ui.api.initialize(props)
-  debugger
   setOrder(fastfood.api.order())
 
   const doQuery = (query) => {
@@ -80,17 +79,17 @@ function Speech(props) {
     <div className="Speech">
       <div>
         Request <input id='query' placeholder='press enter to submit.' onKeyDown ={ keyPressed } type='text' className='request' />
-        <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onClick}>Submit</Button>
-        <span style={{"margin-left": "10px"}}>Speech recognizer is { listening ? "on" : "off" }</span>
+        <a className="Button" id='submit' onClick={onClick}>Submit</a>
+        <span style={{"marginLeft": "10px"}}>Speech recognizer is { listening ? "on" : "off" }</span>
         { !listening && !processing && browserSupportsSpeechRecognition &&
-          <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onRestart}>Restart</Button>
+          <a className="Button" id='submit' onClick={onRestart}>Restart</a>
         }
         { !browserSupportsSpeechRecognition &&
-          <span style={{"margin-left": "10px"}} >(Chrome supports speech recognition)</span>
+          <span style={{"marginLeft": "10px"}} >(Chrome supports speech recognition)</span>
         }
       </div>
       <div>
-        <span class='paraphrase'>{ lastQuery }</span>
+        <span className='paraphrase'>{ lastQuery }</span>
       </div>
     </div>
   );
