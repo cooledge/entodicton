@@ -7,15 +7,21 @@ import './css/fastfood.css'
 let selector;
 function App() {
   const setSelector = (value) => selector = value()
+  const [lastQuery, setLastQuery] = useState('');
   const [order, setOrder] = useState([{ name: 'Whopper', cost: 4.95 }])
+
+  const props = {
+    lastQuery, setLastQuery,
+    order, setOrder,
+  }
 
   return (
     <div className="App">
       <div class="Header">
-        <Speech order={order} setOrder={setOrder} />
+        <Speech {...props} />
       </div>
       <div class="Body">
-        <Order order={order} />
+        <Order {...props} />
         <img className='Menu' src={wendys} />
       </div>
     </div>

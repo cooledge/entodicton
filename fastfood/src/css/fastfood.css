@@ -39,6 +39,8 @@
   margin-right: 25px;
   padding: 10px;
   background: #E8E8E8;
+
+  display: flex;
 }
 
 .Button {

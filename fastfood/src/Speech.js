@@ -1,10 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Button } from 'react-native';
 import parameters from './parameters'
+import products from './products.json';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const { fastfood, ui } = require('tpmkms_4wp')
 
+class API {
+  initialize() {
+    this.objects.items = []
+  }
+
+  changed() {
+    this.objects.changes = this.objects.items
+  }
+
+  say(response) {
+    this.objects.response = response
+  }
+}
+
+const api = new API()
+
 fastfood.add(ui)
+fastfood.api = api
 const url = `${new URL(window.location.href).origin}/entodicton`
 fastfood.config.url = url
 fastfood.server(url)
@@ -33,7 +51,7 @@ function Speech(props) {
 
   // fastfood.api.initialize(props)
   // fastfood.getConfigs().ui.api.initialize(props)
-  setOrder(fastfood.api.order())
+  setOrder(fastfood.api.objects.items)
 
   const doQuery = (query) => {
     fastfood.process(query.toLowerCase()).then( (result) => {
@@ -87,7 +105,7 @@ function Speech(props) {
 
   return (
     <div className="Speech">
-      <div>
+      <div style={{ 'flexGrow': '1' }}>
         Request <input id='query' placeholder='press enter to submit.' onKeyDown ={ keyPressed } type='text' className='request' />
         <a className="Button" id='submit' onClick={onClick}>Submit</a>
         <span style={{"marginLeft": "10px"}}>Speech recognizer is { listening ? "on" : "off" }</span>
@@ -98,9 +116,7 @@ function Speech(props) {
           <span style={{"marginLeft": "10px"}} >(Chrome supports speech recognition)</span>
         }
       </div>
-      <div>
-        <span className='paraphrase'>{ lastQuery }</span>
-      </div>
+      <span className='paraphrase'>{ lastQuery } greg</span>
     </div>
   );
 }
