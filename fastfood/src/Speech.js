@@ -29,6 +29,8 @@ function Speech(props) {
   const { order, setOrder } = props
   const [ query, setQuery ] = useState('')
 
+  const msg = new SpeechSynthesisUtterance()
+
   // fastfood.api.initialize(props)
   // fastfood.getConfigs().ui.api.initialize(props)
   setOrder(fastfood.api.order())
@@ -36,6 +38,12 @@ function Speech(props) {
   const doQuery = (query) => {
     fastfood.process(query.toLowerCase()).then( (result) => {
       console.log('result', result)
+      for (let response of result.responses) {
+        if (response.length > 0) {
+          msg.text = response
+          window.speechSynthesis.speak(msg)
+        }
+      }
       let message = ''
       for (let i = 0; i < result.contexts.length; ++i) {
         if (result.contexts[i].isResponse) {
@@ -60,9 +68,11 @@ function Speech(props) {
     console.log('doing the query', query)
     doQuery(query)
   }
+
   const onRestart = () => {
     SpeechRecognition.startListening()
   }
+
   if (!processing && !listening && transcript) {
     setLastQuery(transcript)
     processing = true
