@@ -318,6 +318,46 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
     },
     {
+      "name": "dimension",
+      "description": "Used to define numeric temperature such as currency, temperature or weight",
+      "examples": [
+        "10 degrees",
+        "degrees",
+        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees fahrenheit",
+        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 celcius",
+        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees celcius",
+        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees celcius in fahrenheit",
+        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\nfahrenheit = celcius*9/5 + 32\\nwhat is 10 degrees celcius in fahrenheit",
+        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1 ",
+        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhat is the reason",
+        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhy"
+      ],
+      "template": [
+        "dimension and unit are concepts"
+      ],
+      "includes": [
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
+    },
+    {
       "name": "emotions",
       "description": "emotions related concepts",
       "examples": [
@@ -355,6 +395,112 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
+    },
+    {
+      "name": "foods",
+      "description": "foods related concepts",
+      "examples": [
+        "what are the types of food"
+      ],
+      "template": [
+        "chicken modifies strips",
+        "chicken strips are food",
+        "sushi is food",
+        "apples oranges and bananas are fruit",
+        "hot modifies dog",
+        "hot dogs are sausages",
+        "sausages are meat",
+        "french modifies fries",
+        "french fries are food",
+        "meat is food",
+        "fruits are food",
+        "sandwiches are food",
+        "carrots peas cabbage and brocoli are vegetables",
+        "vegetables are food",
+        "a hamburger is a sandwich"
+      ],
+      "includes": [
+        "hierarchy",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/foods.js"
+    },
+    {
+      "name": "fastfood",
+      "description": "fastfood related concepts",
+      "examples": [
+        "what are the types of hamburgers",
+        "2 french fries",
+        "show the order"
+      ],
+      "template": [
+        "food is countable",
+        "bacon modifies deluxe",
+        "chicken modifies sandwich",
+        "premium modifies cod",
+        "spicy modifies homestyle",
+        "single double triple baconater and bacon deluxe are hamburgers",
+        "spicy homestyle and premium cod are sandwiches"
+      ],
+      "includes": [
+        "foods",
+        "countable",
+        "events",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
+    },
+    {
+      "name": "formulas",
+      "description": "Formulas using math",
+      "examples": [
+        "x equals y + 10",
+        "y equals 4",
+        "x = 4 calculate x",
+        "y equals 4 x = y + 10 calculate x",
+        "solve x = y for x",
+        "solve x = y for y",
+        "solve x = y + 1 for x",
+        "fahrenheit = celcius*(9/5) + 32",
+        "the formulas for fahrenheit",
+        "fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit"
+      ],
+      "template": [
+        "mathematical modifies operator",
+        "* + / and - are mathematical operators"
+      ],
+      "includes": [
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
     },
     {
       "name": "gdefaults",
@@ -481,6 +627,111 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
     },
     {
+      "name": "length",
+      "description": "Length dimension",
+      "examples": [
+        "10 meters",
+        "10 feet",
+        "what are the units of length",
+        "what is 1 meter in centimeters",
+        "what is 110 centimeters in meters",
+        "what is 10 centimeters in centimeters",
+        "what is 3 feet in inches",
+        "what is 36 inches in feet"
+      ],
+      "template": [
+        "length is a dimension",
+        "meter centimeter foot and inch are units of length",
+        "meters = centimeters / 100",
+        "centimeters = meters * 100",
+        "centimeters = millimeters / 10",
+        "millimeters = centimeters * 10",
+        "millimeters = meters * 1000",
+        "meters = millimeters / 1000",
+        "feet = inches / 12",
+        "inches = feet * 12",
+        "meters = feet / 3.28",
+        "miles = 5280 * feet",
+        "feet = miles / 5280",
+        "kilometers = meters / 1000",
+        "meters = kilometers * 1000"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/length.js"
+    },
+    {
+      "name": "math",
+      "description": "talking about math",
+      "examples": [
+        "what is 10 times 2",
+        "what is 10 times 2 times 3",
+        "what is 10 plus 2 plus 3",
+        "what is 10 plus 2 times 3",
+        "what is 10 plus 2 times 3 minus 2",
+        "what is 10 + 10",
+        "what is 10 * 10 + 2 - 3",
+        "4 times 5",
+        "x is 3 y is 4 what is x",
+        "x is 3 y is 4 what is x what is y",
+        "x is 3 y is 4 x times y",
+        "price is 20 quantity is 30 what is price times quantity",
+        "price is 20 quantity is 30 worth is price times quantity what is the worth",
+        "10 / 2",
+        "4 + x",
+        "4 - x",
+        "4 * x",
+        "4 / x",
+        "price is 20 what is the price",
+        "x is 4 x is 5 what is x",
+        "worth is price times quantity",
+        "price is 20 quantity is 30 worth is price times quantity what is worth",
+        "the price is 20 what is the price",
+        "(4+5)",
+        "2*(4+5)",
+        "an expression"
+      ],
+      "template": [
+        "mathematical modifies operator",
+        "* + / and - are mathematical operators"
+      ],
+      "includes": [
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
+    },
+    {
       "name": "numbers",
       "description": "talking about numbers",
       "examples": [
@@ -498,12 +749,173 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
     },
     {
+      "name": "pipboy",
+      "description": "Control a pipboy with speech",
+      "examples": [
+        "statistics",
+        "radio",
+        "stats",
+        "the stats",
+        "the stats tab",
+        "show the statistics",
+        "show the stats",
+        "show stats",
+        "go to statistics",
+        "change weapon",
+        "change apparel",
+        "change apparel",
+        "change weapons",
+        "the work outfit",
+        "wear the city outfit",
+        "call this the city outfit",
+        "apply a stimpak",
+        "apply 10 stimpaks",
+        "apply four stimpacks",
+        "call this outfit the city outfit",
+        "strip",
+        "disarm",
+        "put on the city outfit",
+        "equip a pistol",
+        "show all the weapons",
+        "show the pistols",
+        "show the weapons",
+        "wear a hat",
+        "wear a clothes",
+        "wear clothes",
+        "equip a firearm",
+        "drink a cola",
+        "take a stimpak",
+        "eat food",
+        "highest damage pistol",
+        "equip the highest damage pistol",
+        "equip a glop",
+        "go to the apparel",
+        "what are the types of item properties",
+        "show the quests",
+        "show the workshops",
+        "wear armor",
+        "eat meat",
+        "eat fruit"
+      ],
+      "template": [
+        "pistols rifles grenades mines and shotguns are weapons",
+        "mines and grenades are explosives",
+        "explosives are weapons",
+        "pistols rifles and shotguns are firearms",
+        "firearms are weapons",
+        "hats armor and suits are clothes",
+        "a weapon is equipable",
+        "clothes are wearable",
+        "edible is a concept",
+        "food is edible",
+        "drinks are drinkable",
+        "meat is food",
+        "vegetables and fruit are food",
+        "cola and pop are drinks",
+        "medicine and stimpaks are takeable",
+        "item modifies properties",
+        "damage luck hp rads value ap charisma range and accuracy are item properties"
+      ],
+      "includes": [
+        "pipboyTemplate",
+        "help",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
+    },
+    {
+      "name": "people",
+      "description": "about people",
+      "examples": [
+        "cleo is a cat wendy owns cleo who is the cat owned by wendy",
+        "cleo is owned by wendy who owns cleo",
+        "fred is a cat wendy owns cleo who is the cat owned by wendy",
+        "given name means first name the first name of greg is greg23 what is the given name of greg",
+        "greg owns x what does greg own",
+        "wendy owns cleo wendy owns mary what does wendy own",
+        "wendy owns cleo what does wendy own",
+        "ownee is owned by owner",
+        "ownee is owned by owner means owner owns ownee",
+        "ownee23 is owned by owner23 who is ownee23 owned by",
+        "people",
+        "the cat owned by wendy",
+        "the given name of greg is greg23",
+        "who owns cleo",
+        "who is ownee23 owned by"
+      ],
+      "template": [
+        "first modifies name",
+        "last modifies name",
+        "surname means last name",
+        "given modifies name",
+        "given name means first name",
+        "ownee is owned by owner means owner owns ownee"
+      ],
+      "includes": [
+        "hierarchy",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
+    },
+    {
       "name": "pos",
       "description": "parts of speech",
       "examples": [],
       "template": [],
       "includes": [],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
+    },
+    {
+      "name": "pressure",
+      "description": "Pressure dimension",
+      "examples": [
+        "what are 2 atmospheres in pascals",
+        "what are 200000 pascals in atmospheres"
+      ],
+      "template": [
+        "pressure is a dimension",
+        "pascals and atmospheres are units of pressure",
+        "pascals = atmospheres * 101325",
+        "atmospheres = pascals / 101325"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
     },
     {
       "name": "punctuation",
@@ -540,6 +952,41 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
+    },
+    {
+      "name": "pokemon",
+      "description": "Knowledge about the pokemon using a KM template",
+      "examples": [
+        "what is the type of pikachu",
+        "what type is pikachu",
+        "who is electric type"
+      ],
+      "template": [
+        "pokemon modifies type",
+        "pokemon type is a type",
+        "pikachu squirtle weedle and pidgeot are pokemon",
+        "fire modifies type",
+        "water modifies type",
+        "earth modifies type",
+        "electric modifies type",
+        "fire type is a pokemon type",
+        "water type is a pokemon type",
+        "electric type is a pokemon type",
+        "earth type is a pokemon type",
+        "pikachu is an electric type",
+        "charmander is a fire type"
+      ],
+      "includes": [
+        "hierarchy",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
     },
     {
       "name": "properties",
@@ -583,6 +1030,70 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
+    },
+    {
+      "name": "reports",
+      "description": "this module is for getting info about a concept with properties",
+      "examples": [
+        "answer with sentences list the models",
+        "answer with sentences list the products",
+        "answer with tables list the products",
+        "list products",
+        "list the clothes",
+        "list the models",
+        "list the products",
+        "show the price list the products",
+        "show the price descending list the products",
+        "show the quantity descending list the products",
+        "show the quantity descending and the price ascending list the products",
+        "show the quantity descending and the price ascending",
+        "call this report1\\nshow report1",
+        "call this report1\\ndescribe report1",
+        "call this report1\\ndescribe the reports",
+        "call this report1\\nlist the models\\ncall this report2\\nshow report1 show report2",
+        "call this report1\\nlist the models\\ncall this report2\\nshow report1 and report2",
+        "worth means price times quantity",
+        "list the clothes\\ncall this report1\\nshow report1",
+        "list the models\\ncall this report1\\nshow report1",
+        "column 2",
+        "move column 2 to column 1",
+        "call this report1 show it",
+        "show price and supplier",
+        "call this report1",
+        "after the report changes show the report\\nmove column 2 to column 1",
+        "after the report changes show the report\\nanswer with tables",
+        "answer with sentences show the report",
+        "after the report changes show the report\\nanswer with sentences",
+        "remove column 2 show the report",
+        "x is 20 show the report",
+        "show the worth list the models",
+        "worthtest means price times quantity\\nshow the worthtest list the models",
+        "worthtest is price times quantity\\nshow the worthtest list the models"
+      ],
+      "template": [
+        "price and quantity are properties",
+        "worth means price times quantity"
+      ],
+      "includes": [
+        "currency",
+        "help",
+        "math",
+        "events",
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
     },
     {
       "name": "scorekeeper",
@@ -691,6 +1202,42 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
     },
     {
+      "name": "temperature",
+      "description": "Weight dimension",
+      "examples": [
+        "what is 10 celcius in fahrenheit",
+        "what is 10 fahrenheit in celcius"
+      ],
+      "template": [
+        "temperature is a dimension",
+        "celcius fahrenheit and kelvin are units of temperature",
+        "fahrenheit = celcius*9/5 + 32",
+        "celcius = (fahrenheit - 32)*5/8 + 32"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/temperature.js"
+    },
+    {
       "name": "testing",
       "description": "code for testing",
       "examples": [
@@ -723,6 +1270,56 @@
         "meta"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
+    },
+    {
+      "name": "weight",
+      "description": "Weight dimension",
+      "examples": [
+        "what is 10 pounds in kilograms",
+        "troy ounces",
+        "(troy ounces) and ounces",
+        "kilos (troy ounces) and ounces",
+        "what is 1 ounce in troy ounces",
+        "what is 1 troy ounce in ounces",
+        "the weight of greg is 213 pounds what is greg's weight",
+        "the weight of greg is 213 pounds what is greg's weight in kilograms"
+      ],
+      "template": [
+        "troy modifies ounces",
+        "weight is a dimension",
+        "kilograms grams pounds (troy ounces) ounces and tons are units of weight",
+        "ounces = 1.097 * troy ounces",
+        "troy ounces = ounces / 1.097",
+        "kilograms = pounds * 0.453592",
+        "grams = kilograms * 1000",
+        "kilograms = grams / 1000",
+        "pounds = kilograms * 2.20462",
+        "ounces = pounds * 16",
+        "ton = tonne * 0.907185",
+        "pounds = ton * 2000"
+      ],
+      "includes": [
+        "dimension",
+        "dimensionTemplate",
+        "formulas",
+        "testing",
+        "math",
+        "formulasTemplate",
+        "punctuation",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "gdefaults",
+        "pos",
+        "stm",
+        "meta"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
     }
   ]
 }
