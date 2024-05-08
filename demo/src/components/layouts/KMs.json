@@ -1290,6 +1290,41 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
     },
     {
+      "name": "ui",
+      "description": "Control a ui with speech",
+      "examples": [
+        "move up",
+        "move left",
+        "move down",
+        "move right",
+        "select",
+        "cancel",
+        "move down 2",
+        "down",
+        "unselect",
+        "stop action"
+      ],
+      "template": [],
+      "includes": [
+        "math",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
+    },
+    {
       "name": "weight",
       "description": "Weight dimension",
       "examples": [
