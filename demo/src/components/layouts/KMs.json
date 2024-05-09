@@ -16,11 +16,13 @@
       "includes": [
         "avatar",
         "comparable",
+        "concept",
         "countable",
         "help",
         "hierarchy",
         "ordering",
-        "properties"
+        "properties",
+        "sizeable"
       ]
     },
     {
@@ -120,11 +122,14 @@
       "includes": [
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/animals.js"
     },
@@ -146,11 +151,14 @@
         "emotions",
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/avatar.js"
     },
@@ -177,10 +185,12 @@
       "includes": [
         "dialogues",
         "numbers",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
     },
@@ -197,11 +207,14 @@
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
     },
@@ -256,11 +269,14 @@
         "emotions",
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/crew.js"
     },
@@ -304,10 +320,12 @@
       ],
       "template": [],
       "includes": [
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
     },
@@ -335,18 +353,20 @@
         "testing",
         "math",
         "formulasTemplate",
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
     },
@@ -362,11 +382,14 @@
       "includes": [
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/emotions.js"
     },
@@ -381,10 +404,12 @@
       "template": [],
       "includes": [
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
     },
@@ -406,52 +431,24 @@
         "french fries are food",
         "meat is food",
         "fruits are food",
+        "sandwiches are food",
         "carrots peas cabbage and brocoli are vegetables",
         "vegetables are food",
-        "a hamburger is a food"
+        "a hamburger is a sandwich"
       ],
       "includes": [
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/foods.js"
-    },
-    {
-      "name": "fastfood",
-      "description": "fastfood related concepts",
-      "examples": [
-        "what are the types of hamburgers",
-        "2 big macs",
-        "2 french fries",
-        "big mac and french fries",
-        "show the order"
-      ],
-      "template": [
-        "food is countable",
-        "big modifies mac",
-        "a big mac is a hamburger",
-        "quarter modifies pounder",
-        "a quarter pounder is a hamburger"
-      ],
-      "includes": [
-        "foods",
-        "countable",
-        "events",
-        "hierarchy",
-        "numbers",
-        "properties",
-        "dialogues",
-        "gdefaults",
-        "pos",
-        "stm",
-        "meta"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
     },
     {
       "name": "formulas",
@@ -475,18 +472,20 @@
       "includes": [
         "math",
         "formulasTemplate",
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
     },
@@ -508,10 +507,12 @@
       "template": [],
       "includes": [
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/help.js"
     },
@@ -550,11 +551,14 @@
       "template": [],
       "includes": [
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/hierarchy.js"
     },
@@ -567,10 +571,12 @@
       "template": [],
       "includes": [
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/javascript.js"
     },
@@ -591,11 +597,14 @@
         "emotions",
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/kirk.js"
     },
@@ -649,18 +658,20 @@
         "testing",
         "math",
         "formulasTemplate",
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/length.js"
     },
@@ -700,18 +711,20 @@
         "* + / and - are mathematical operators"
       ],
       "includes": [
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
     },
@@ -808,11 +821,14 @@
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
     },
@@ -847,11 +863,14 @@
       "includes": [
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
     },
@@ -883,18 +902,20 @@
         "testing",
         "math",
         "formulasTemplate",
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
     },
@@ -925,11 +946,14 @@
       "includes": [
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
     },
@@ -959,11 +983,14 @@
       "includes": [
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
     },
@@ -1001,11 +1028,14 @@
       ],
       "template": [],
       "includes": [
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
     },
@@ -1057,18 +1087,20 @@
         "help",
         "math",
         "events",
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
     },
@@ -1106,11 +1138,14 @@
       "includes": [
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/scorekeeper.js"
     },
@@ -1131,11 +1166,14 @@
         "emotions",
         "hierarchy",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/spock.js"
     },
@@ -1169,10 +1207,12 @@
       "template": [],
       "includes": [
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
     },
@@ -1196,18 +1236,20 @@
         "testing",
         "math",
         "formulasTemplate",
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/temperature.js"
     },
@@ -1238,12 +1280,49 @@
       "includes": [
         "tell",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
+    },
+    {
+      "name": "ui",
+      "description": "Control a ui with speech",
+      "examples": [
+        "move up",
+        "move left",
+        "move down",
+        "move right",
+        "select",
+        "cancel",
+        "move down 2",
+        "down",
+        "unselect",
+        "stop action"
+      ],
+      "template": [],
+      "includes": [
+        "math",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
     },
     {
       "name": "weight",
@@ -1279,18 +1358,20 @@
         "testing",
         "math",
         "formulasTemplate",
-        "punctuation",
         "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
         "numbers",
         "properties",
+        "concept",
         "dialogues",
-        "gdefaults",
+        "sdefaults",
         "pos",
         "stm",
-        "meta"
+        "meta",
+        "punctuation",
+        "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
     }
