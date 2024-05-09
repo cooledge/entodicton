@@ -59,7 +59,7 @@ class Product extends Component {
           ChatGPT is a neural net based solution that is trained on the internet. The Programmable Mind is a programmed solution. The use case of the Programmable Mind is as a UI for programs not as a chat based interaction. Such use cases would be controlling a report writer, ordering products by calling a API, logistics (for example "move box 1 to warehouse 5 bay 10"), language based UI for a webpages (knowledge module for webpage is loaded), language based UI for a location with devices (for example asking "where is the blender" in a kitchen), or controlling a robot ("go to the bathroom and clean the sink"). In other words, language based UI for an object or system that has internal state for which no training data exists. The Progammable Mind will do what it is programmed to do nothing more. Knowledge modules allow multiple skills to be loaded at the same time. The Programmable Mind does not require tremendous computational resources or training.
           </p>
           <p>
-          The TLS port is 442. In order for the voice control to work on the pipboy demo the server must be hit using TLS at https://thinktelligence.com:442 . I have a ticket in with the ISP on why 443 is not working. They say its their router but seem unable to fix it.
+          The TLS port is 442. In order for the voice control to work on the pipboy demo the server must be hit using TLS at <a href="https://thinktelligence.com:442">https://thinktelligence.com:442</a>. I have a ticket in with the ISP on why 443 is not working. They say its their router but seem unable to fix it.
           </p>
         </div>
       </div>
