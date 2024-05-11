@@ -45,6 +45,7 @@
         "pos",
         "punctuation",
         "stm",
+        "sdefaults",
         "ui"
       ]
     },
@@ -1167,6 +1168,14 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/scorekeeper.js"
+    },
+    {
+      "name": "sdefaults",
+      "description": "defaults for semantics",
+      "examples": [],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sdefaults.js"
     },
     {
       "name": "sizeable",
