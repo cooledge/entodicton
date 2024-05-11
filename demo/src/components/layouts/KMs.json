@@ -1374,6 +1374,25 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
+    },
+    {
+      "name": "concept",
+      "description": "The idea of a concept whatever that might end up being",
+      "examples": [
+        "chicken modifies strips",
+        "ice and hand modify cream\\n ice cream hand cream"
+      ],
+      "template": [],
+      "includes": [
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/concept.js"
     }
   ]
 }
