@@ -195,6 +195,25 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
     },
     {
+      "name": "concept",
+      "description": "The idea of a concept whatever that might end up being",
+      "examples": [
+        "chicken modifies strips",
+        "ice and hand modify cream\\n ice cream hand cream"
+      ],
+      "template": [],
+      "includes": [
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/concept.js"
+    },
+    {
       "name": "countable",
       "description": "Countable things",
       "examples": [
@@ -609,19 +628,6 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/kirk.js"
     },
     {
-      "name": "meta",
-      "description": "Ways of defining new language elements",
-      "examples": [
-        "a means b",
-        "a means x",
-        "if f then g gq",
-        "undefined means defined"
-      ],
-      "template": [],
-      "includes": [],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
-    },
-    {
       "name": "length",
       "description": "Length dimension",
       "examples": [
@@ -729,6 +735,19 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
     },
     {
+      "name": "meta",
+      "description": "Ways of defining new language elements",
+      "examples": [
+        "a means b",
+        "a means x",
+        "if f then g gq",
+        "undefined means defined"
+      ],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
+    },
+    {
       "name": "numbers",
       "description": "talking about numbers",
       "examples": [
@@ -744,6 +763,73 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
+    },
+    {
+      "name": "ordering",
+      "description": "ordering related concepts",
+      "examples": [
+        "wendy loves bananas does wendy want bananas",
+        "wendy loves bananas what does wendy like"
+      ],
+      "template": [
+        "wants is xfx between wanter and wantee",
+        "if x likes y or x loves y then x wants y"
+      ],
+      "includes": [
+        "hierarchy",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
+    },
+    {
+      "name": "people",
+      "description": "about people",
+      "examples": [
+        "cleo is a cat wendy owns cleo who is the cat owned by wendy",
+        "cleo is owned by wendy who owns cleo",
+        "fred is a cat wendy owns cleo who is the cat owned by wendy",
+        "given name means first name the first name of greg is greg23 what is the given name of greg",
+        "greg owns x what does greg own",
+        "wendy owns cleo wendy owns mary what does wendy own",
+        "wendy owns cleo what does wendy own",
+        "ownee is owned by owner",
+        "ownee is owned by owner means owner owns ownee",
+        "ownee23 is owned by owner23 who is ownee23 owned by",
+        "people",
+        "the cat owned by wendy",
+        "the given name of greg is greg23",
+        "who owns cleo",
+        "who is ownee23 owned by"
+      ],
+      "template": [
+        "first modifies name",
+        "last modifies name",
+        "surname means last name",
+        "given modifies name",
+        "given name means first name",
+        "ownee is owned by owner means owner owns ownee"
+      ],
+      "includes": [
+        "hierarchy",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
     },
     {
       "name": "pipboy",
@@ -833,32 +919,27 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
     },
     {
-      "name": "people",
-      "description": "about people",
+      "name": "pokemon",
+      "description": "Knowledge about the pokemon using a KM template",
       "examples": [
-        "cleo is a cat wendy owns cleo who is the cat owned by wendy",
-        "cleo is owned by wendy who owns cleo",
-        "fred is a cat wendy owns cleo who is the cat owned by wendy",
-        "given name means first name the first name of greg is greg23 what is the given name of greg",
-        "greg owns x what does greg own",
-        "wendy owns cleo wendy owns mary what does wendy own",
-        "wendy owns cleo what does wendy own",
-        "ownee is owned by owner",
-        "ownee is owned by owner means owner owns ownee",
-        "ownee23 is owned by owner23 who is ownee23 owned by",
-        "people",
-        "the cat owned by wendy",
-        "the given name of greg is greg23",
-        "who owns cleo",
-        "who is ownee23 owned by"
+        "what is the type of pikachu",
+        "what type is pikachu",
+        "who is electric type"
       ],
       "template": [
-        "first modifies name",
-        "last modifies name",
-        "surname means last name",
-        "given modifies name",
-        "given name means first name",
-        "ownee is owned by owner means owner owns ownee"
+        "pokemon modifies type",
+        "pokemon type is a type",
+        "pikachu squirtle weedle and pidgeot are pokemon",
+        "fire modifies type",
+        "water modifies type",
+        "earth modifies type",
+        "electric modifies type",
+        "fire type is a pokemon type",
+        "water type is a pokemon type",
+        "electric type is a pokemon type",
+        "earth type is a pokemon type",
+        "pikachu is an electric type",
+        "charmander is a fire type"
       ],
       "includes": [
         "hierarchy",
@@ -872,7 +953,7 @@
         "punctuation",
         "gdefaults"
       ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
     },
     {
       "name": "pos",
@@ -920,81 +1001,6 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
     },
     {
-      "name": "punctuation",
-      "description": "punctuation",
-      "examples": [
-        "(a)",
-        ":"
-      ],
-      "template": [],
-      "includes": [
-        "gdefaults"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
-    },
-    {
-      "name": "ordering",
-      "description": "ordering related concepts",
-      "examples": [
-        "wendy loves bananas does wendy want bananas",
-        "wendy loves bananas what does wendy like"
-      ],
-      "template": [
-        "wants is xfx between wanter and wantee",
-        "if x likes y or x loves y then x wants y"
-      ],
-      "includes": [
-        "hierarchy",
-        "properties",
-        "concept",
-        "dialogues",
-        "sdefaults",
-        "pos",
-        "stm",
-        "meta",
-        "punctuation",
-        "gdefaults"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
-    },
-    {
-      "name": "pokemon",
-      "description": "Knowledge about the pokemon using a KM template",
-      "examples": [
-        "what is the type of pikachu",
-        "what type is pikachu",
-        "who is electric type"
-      ],
-      "template": [
-        "pokemon modifies type",
-        "pokemon type is a type",
-        "pikachu squirtle weedle and pidgeot are pokemon",
-        "fire modifies type",
-        "water modifies type",
-        "earth modifies type",
-        "electric modifies type",
-        "fire type is a pokemon type",
-        "water type is a pokemon type",
-        "electric type is a pokemon type",
-        "earth type is a pokemon type",
-        "pikachu is an electric type",
-        "charmander is a fire type"
-      ],
-      "includes": [
-        "hierarchy",
-        "properties",
-        "concept",
-        "dialogues",
-        "sdefaults",
-        "pos",
-        "stm",
-        "meta",
-        "punctuation",
-        "gdefaults"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
-    },
-    {
       "name": "properties",
       "description": "properties of objects",
       "examples": [
@@ -1038,6 +1044,19 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
+    },
+    {
+      "name": "punctuation",
+      "description": "punctuation",
+      "examples": [
+        "(a)",
+        ":"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
     },
     {
       "name": "reports",
@@ -1148,6 +1167,30 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/scorekeeper.js"
+    },
+    {
+      "name": "sizeable",
+      "description": "Sizeable things",
+      "examples": [
+        "small sizeable",
+        "medium sizeable",
+        "large sizeable"
+      ],
+      "template": [],
+      "includes": [
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sizeable.js"
     },
     {
       "name": "spock",
@@ -1374,25 +1417,6 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
-    },
-    {
-      "name": "concept",
-      "description": "The idea of a concept whatever that might end up being",
-      "examples": [
-        "chicken modifies strips",
-        "ice and hand modify cream\\n ice cream hand cream"
-      ],
-      "template": [],
-      "includes": [
-        "dialogues",
-        "sdefaults",
-        "pos",
-        "stm",
-        "meta",
-        "punctuation",
-        "gdefaults"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/concept.js"
     }
   ]
 }
