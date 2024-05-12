@@ -102,6 +102,51 @@
   ],
   "modules": [
     {
+      "name": "currency",
+      "description": "Ways of specifying currency amount",
+      "examples": [
+        "1 dollar",
+        "1 dollar in euros",
+        "1 dollars",
+        "1 pound",
+        "20 dollar",
+        "20 dollars",
+        "20 dollars in euros",
+        "20 euros"
+      ],
+      "template": [],
+      "includes": [
+        "numbers",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/currency.js"
+    },
+    {
+      "name": "gdefaults",
+      "description": "defaults for generators",
+      "examples": [],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/gdefaults.js"
+    },
+    {
+      "name": "numbers",
+      "description": "talking about numbers",
+      "examples": [
+        "20",
+        "44",
+        "10 ",
+        "10.23 ",
+        ".23 ",
+        "c1"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
+    },
+    {
       "name": "pos",
       "description": "parts of speech",
       "examples": [],
@@ -110,12 +155,45 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
     },
     {
+      "name": "punctuation",
+      "description": "punctuation",
+      "examples": [
+        "(a)",
+        ":"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
+    },
+    {
       "name": "sdefaults",
       "description": "defaults for semantics",
       "examples": [],
       "template": [],
       "includes": [],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sdefaults.js"
+    },
+    {
+      "name": "stm",
+      "description": "short term memory",
+      "examples": [],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stm.js"
+    },
+    {
+      "name": "testing",
+      "description": "code for testing",
+      "examples": [
+        "testingEvaluate testingValue"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/testing.js"
     }
   ]
 }
