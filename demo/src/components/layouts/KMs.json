@@ -434,6 +434,62 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
     },
     {
+      "name": "fastfood",
+      "description": "fastfood related concepts",
+      "examples": [
+        "what are the types of hamburgers",
+        "2 french fries",
+        "show the order",
+        "2 doubles",
+        "double combo",
+        "2 double combos",
+        "single and double combo",
+        "combo one",
+        "number one",
+        "combo 1",
+        "combo one and two",
+        "number one and two",
+        "two combo ones",
+        "combo one and combo two",
+        "combo number one and two",
+        "two combo number ones",
+        "one number one",
+        "number 1 combo",
+        "combo one and two combo twos",
+        "combo one and combo two and three",
+        "combo one combo two and combo three"
+      ],
+      "template": [
+        "food is countable",
+        "bacon modifies deluxe",
+        "chicken modifies sandwich",
+        "premium modifies cod",
+        "spicy modifies homestyle",
+        "single double triple baconater and bacon deluxe are hamburgers",
+        "spicy homestyle and premium cod are sandwiches",
+        "a meals is food",
+        "a combo is a meal",
+        "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"
+      ],
+      "includes": [
+        "foods",
+        "countable",
+        "events",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
+    },
+    {
       "name": "foods",
       "description": "foods related concepts",
       "examples": [
