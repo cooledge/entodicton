@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import parameters from './parameters'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-const { pipboy, ui } = require('tpmkms_4wp')
+debugger
+const tpmkms = require('tpmkms_4wp')
+
+const pipboy = tpmkms.pipboy()
+const ui = tpmkms.ui()
 
 class API {
   // id in stats, inv, data, map, radio
