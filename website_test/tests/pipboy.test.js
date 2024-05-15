@@ -6,7 +6,7 @@ const character = require('../../pipboy/src/character.json')
 // const URL = 'https://thinktelligence.com:81' || process.env.URL || 'http://localhost:10000'
 const URL = process.env.URL || 'http://localhost:10000'
 const headless = process.env.HEADLESS !== 'false'
-const sloMo = 0
+const sloMo = 750
 const timeout = 60000
 
 describe('tests for pipboy page', () => {
