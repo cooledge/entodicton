@@ -1,5 +1,37 @@
 {
-  "cost": {
-    "big_mac": 4.59
+  "items": [
+    { "id": "single", "name": "Single Hamburger", "cost": 4.59 },
+    { "id": "single", "name": "Single Combo", "cost": 6.79, "combo": true },
+    { "id": "double", "name": "Double Hamburger", "cost": 5.99 },
+    { "id": "double", "name": "Double Combo", "cost": 8.09, "combo": true },
+    { "id": "triple", "name": "Triple Hamburger", "cost": 6.99 },
+    { "id": "triple", "name": "Triple Combo", "cost": 8.99, "combo": true },
+    { "id": "baconator", "name": "Baconator Hamburger", "cost": 6.99 },
+    { "id": "baconator", "name": "Baconabor Combo", "cost": 8.89, "combo": true },
+    { "id": "bacon deluxe", "name": "Bacon Deluxe Hamburger", "cost": 5.89 },
+    { "id": "bacon deluxe", "name": "Bacon Deluxe Combo", "cost": 7.79, "combo": true },
+    { "id": "spicy", "name": "Spicy Chikenburger", "cost": 5.99 },
+    { "id": "spicy", "name": "Spicy Combo", "cost": 8.19, "combo": true },
+    { "id": "homestyle", "name": "Homestyle Chickburger", "cost": 5.99 },
+    { "id": "homestyle", "name": "Homestyle Chickenburger", "cost": 8.19, "combo": true },
+    { "id": "asiago range chicken club", "name": "Asiago Range Chicken Club", "cost": 6.89 },
+    { "id": "asiago range chicken club", "name": "Asiago Range Chicken Club", "cost": 8.89, "combo": true },
+    { "id": "ultimate chicken grill", "name": "Ultimate Chicken Grill", "cost": 5.99 },
+    { "id": "ultimate chicken grill", "name": "Ultimate Chicken Grill Combo", "cost": 8.19, "combo": true },
+    { "id": "10 piece nuggets", "name": "10 Piece Nuggets", "cost": 5.49 },
+    { "id": "10 piece nuggets", "name": "10 Piece Nuggets Combo", "cost": 7.49, "combo": true }
+  ],
+  "combos": {
+      "1": "single",
+      "2": "double",
+      "3": "triple",
+      "4": "baconater",
+      "5": "bacon deluxe",
+      "6": "spicy",
+      "7": "homestyle",
+      "8": "asiago range chicken club",
+      "9": "ultimate chicken grill",
+      "10": "10 piece nuggets",
+      "11": "premium cod"
   }
 }

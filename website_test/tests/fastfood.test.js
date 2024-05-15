@@ -7,15 +7,23 @@ const headless = process.env.HEADLESS !== 'false'
 const sloMo = 750
 const timeout = 60000
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 describe('tests for fastfood page', () => {
 
-  let browser;
+  let browser
+
   beforeAll( async () => {
     browser = await puppeteer.launch({ headless, sloMo });
-  });
+  })
+
   afterAll( async () => {
     await browser.close()
-  });
+  })
 
   test(`FASTFOOD test page loads`, async () => {
     const page = await browser.newPage();
@@ -24,8 +32,19 @@ describe('tests for fastfood page', () => {
 
     await page.waitForSelector('#query')
     page.close()
-  }, timeout);
+  }, timeout)
 
+  test('NEO23 DO query', async () => {
+    const page = await browser.newPage();
+
+    await page.goto(`${URL}/fastfood/`)
+
+    const query = 'combo 1'
+    await page.waitForSelector('#query')
+    await page.type('#query', query)
+    await page.click('#submit')
+    await sleep(10000)
+  }, timeout)
   /*
   async function showTest({query, items, tab}) {
     const page = await browser.newPage();

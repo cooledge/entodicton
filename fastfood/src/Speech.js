@@ -30,6 +30,8 @@ class FastFoodAPI {
   }
 
   getCombo(number) {
+    return products.combos[`${number}`]
+    /*
     const map = {
       1: 'single',
       2: 'double',
@@ -44,6 +46,7 @@ class FastFoodAPI {
       11: 'premium cod',
     }
     return map[number]
+    */
   }
 }
 
