@@ -17,7 +17,7 @@ describe('tests for website', () => {
   });
 
   for (let t of tests) {
-    test(`test ${t.query}`, async () => {
+    test(`DEMO test ${t.query}`, async () => {
       const page = await browser.newPage();
 
       await page.goto(`${URL}/tankDemo`)

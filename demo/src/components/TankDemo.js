@@ -120,7 +120,7 @@ class Completed extends Component {
   render() {
     let items = this.props.completed.map( (completed) => {
       const key = completed[0];
-      const name = completed[1].description;
+      const name = completed[1].description || completed[1].paraphrase;
       return (<li class='response' key={key}>{name}</li>)
     })
     return ( 
@@ -355,7 +355,9 @@ class QueryPane extends Component {
           let i = 0, j = 0
           responses.contexts.forEach((r) => { 
               const g = responses.generated[j];
-              actions.push(this.processResponse(config.get('objects').namespaced[config._uuid], this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g))
+              const action = this.processResponse(config.get('objects').namespaced[config._uuid], this.props.addAlias, this.props.stopTank, this.props.placeOrder, this.props.moveTank, this.props.create, this.props.destroy, this.props.showProperty, r, g)
+              action.paraphrase = responses.paraphrases[j]
+              actions.push(action)
               j += 1;
             } );
           console.log('actions ========================');
