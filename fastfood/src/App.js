@@ -15,18 +15,19 @@ function App() {
   const setOrder = (items) => {
     const fullItems = items.map((item) => {
         const product = products.items.find( (product) => {
-          if (product.id == item.name && product.combo == item.combo) {
+          if (product.base == item.name && product.combo == item.combo) {
             return product
           }
         })
         return product
-      })
+      }).filter( (item) => item )
+
     setOrderInternal(fullItems)
     let acc = 0
     for (const item of fullItems) {
       acc += item.cost
     }
-    setTotal(acc)
+    setTotal(Math.round(acc*100)/100)
   }
 
   const props = {

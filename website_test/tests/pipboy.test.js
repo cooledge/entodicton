@@ -25,7 +25,7 @@ describe('tests for pipboy page', () => {
     await page.goto(`${URL}/pipboy/`)
 
     await page.waitForSelector('#query')
-    page.close()
+    await page.close()
   }, timeout);
 
   async function showTest({query, items, tab}) {
@@ -60,7 +60,7 @@ describe('tests for pipboy page', () => {
       }
       await new Promise(resolve => setTimeout(resolve, 10000))
     }
-    page.close()
+    await page.close()
   }
 
   test(`PIPBOY show the status`, async () => {
@@ -127,7 +127,7 @@ describe('tests for pipboy page', () => {
       await page.waitForSelector(`#${item.id}`)
     }
     await new Promise(resolve => setTimeout(resolve, 1000))
-    page.close()
+    await page.close()
   }, timeout);
 
 
@@ -163,7 +163,7 @@ describe('tests for pipboy page', () => {
       }
     }
 
-    page.close()
+    await page.close()
   }
 
   const testMovements = async (queries, item, selected) => {

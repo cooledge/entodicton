@@ -5,13 +5,17 @@ function Order({ order, total }) {
       </li> )
   return (
     <div className="Order">
-      <h1>Order</h1>
+      { total > 0 &&
+        <h1>Order</h1>
+      }
       <ul className="Items">
         {items}
-        <li class="Total">
-          <span class='Heading' style={{ 'flexGrow': '1' }}>Total</span>
-          <span class='Cost'>${total}</span>
-        </li>
+        { total > 0 &&
+          <li class="Total">
+            <span class='Heading' style={{ 'flexGrow': '1' }}>Total</span>
+            <span class='Total'>${total}</span>
+          </li>
+        }
       </ul>
     </div>
   );
