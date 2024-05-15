@@ -213,32 +213,40 @@ function Speech(props) {
   pipboy.api.initialize(props)
   pipboy.getConfigs().ui.api.initialize(props)
 
-  const doQuery = (query) => {
-    pipboy.process(query.toLowerCase()).then( (result) => {
-      console.log('result', result)
-      let message = ''
-      for (let i = 0; i < result.contexts.length; ++i) {
-        if (result.contexts[i].isResponse) {
-          message += result.responses[i] + ' '
-        }
-      }
-      if (message) {
-        props.setMessage(message)
-      }
-      processing = false
-      SpeechRecognition.startListening()
-    }).catch( (e) => {
-      console.log('got error--------------------------------------------', e)
-      processing = false
-      SpeechRecognition.startListening()
+  useEffect( () => {
+    if (query == '') {
+      return
     }
-    );
-  }
+    const doQuery = async () => {
+      pipboy.process(query.toLowerCase()).then( (result) => {
+        console.log('result', result)
+        let message = ''
+        for (let i = 0; i < result.contexts.length; ++i) {
+          if (result.contexts[i].isResponse) {
+            message += result.responses[i] + ' '
+          }
+        }
+        if (message) {
+          props.setMessage(message)
+        }
+        processing = false
+        SpeechRecognition.startListening()
+      }).catch( (e) => {
+        console.log('got error--------------------------------------------', e)
+        processing = false
+        SpeechRecognition.startListening()
+      }
+      );
+    }
+    doQuery()
+    setQuery('')
+  }, [query])
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
     console.log('doing the query', query)
-    doQuery(query)
+    // doQuery(query)
+    setQuery(query)
   }
   const onRestart = () => {
     SpeechRecognition.startListening()
@@ -246,7 +254,7 @@ function Speech(props) {
   if (!processing && !listening && transcript) {
     setLastQuery(transcript)
     processing = true
-    doQuery(transcript)
+    // doQuery(transcript)
   }
 
   const keyPressed = (event) => {
