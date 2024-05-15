@@ -8,7 +8,7 @@ let selector;
 function App() {
   const setSelector = (value) => selector = value()
   const [lastQuery, setLastQuery] = useState('');
-  const [order, setOrder] = useState([{ name: 'Whopper', cost: 4.95 }])
+  const [order, setOrder] = useState([])
 
   const props = {
     lastQuery, setLastQuery,

@@ -1,28 +1,97 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { Button } from 'react-native';
 import parameters from './parameters'
 import products from './products.json';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-const { fastfood, ui } = require('tpmkms_4wp')
+const tpmkms = require('tpmkms_4wp')
 
-class API {
-  initialize() {
+class FastFoodAPI {
+  initialize({ objects }) {
+    this.objects = objects
     this.objects.items = []
   }
 
-  changed() {
-    this.objects.changes = this.objects.items
+  setProps(props) {
+    this.props = props
   }
 
-  say(response) {
-    this.objects.response = response
+  // from fastfood
+
+  add(item) {
+    this.objects.items.push(item)
+    for (let i = 0; i < this.objects.items.length; ++i) {
+      this.objects.items[i].index = i+1
+    }
+    this.props.setOrder([...this.objects.items])
+  }
+
+  say(message) {
+    console.log('say', message)
+  }
+
+  getCombo(number) {
+    const map = {
+      1: 'single',
+      2: 'double',
+      3: 'triple',
+      4: 'baconater',
+      5: 'bacon deluxe',
+      6: 'spicy',
+      7: 'homestyle',
+      8: 'asiago range chicken club',
+      9: 'ultimate chicken grill',
+      10: '10 peice nuggets',
+      11: 'premium cod',
+    }
+    return map[number]
   }
 }
 
-const api = new API()
+class UIAPI {
+  initialize({ objects }) {
+  }
+
+  setProps(props) {
+    this.props = props
+  }
+
+  move(direction, steps = 1) {
+    // this.props.move(direction, steps)
+  }
+
+  unselect() {
+    // this.props.select(true)
+  }
+
+  select() {
+    // this.props.select()
+  }
+
+  strip() {
+    // this.props.strip()
+  }
+
+  disarm() {
+    // this.props.disarm()
+  }
+
+  setName(item, name) {
+    // this.props.setOutfitName(name)
+  }
+
+  cancel() {
+    // this.props.cancel()
+  }
+
+}
+
+const ui = tpmkms.ui()
+ui.api = new UIAPI()
+
+const fastfood = tpmkms.fastfood()
+fastfood.api = new FastFoodAPI()
 
 fastfood.add(ui)
-fastfood.api = api
 const url = `${new URL(window.location.href).origin}/entodicton`
 fastfood.config.url = url
 fastfood.server(url)
@@ -41,50 +110,57 @@ function Speech(props) {
     if (browserSupportsSpeechRecognition) {
       SpeechRecognition.startListening()
     }
-  }, [])
+  }, [browserSupportsSpeechRecognition])
 
   const { lastQuery, setLastQuery } = props
-  const { order, setOrder } = props
+  // const { order, setOrder } = props
   const [ query, setQuery ] = useState('')
 
-  const msg = new SpeechSynthesisUtterance()
+  const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
 
-  // fastfood.api.initialize(props)
-  // fastfood.getConfigs().ui.api.initialize(props)
-  setOrder(fastfood.api.objects.items)
-
-  const doQuery = (query) => {
-    fastfood.process(query.toLowerCase()).then( (result) => {
-      console.log('result', result)
-      for (let response of result.responses) {
-        if (response.length > 0) {
-          msg.text = response
+  fastfood.api.setProps(props)
+  fastfood.getConfigs().ui.api.setProps(props)
+  // setOrder(fastfood.api.objects.items)
+  useEffect( () => {
+    if (query === '') {
+      return
+    }
+    const doQuery = async () => {
+      return fastfood.process(query.toLowerCase()).then( (result) => {
+        for (let response of result.responses) {
+          if (response.length > 0) {
+            msg.text = response
+            window.speechSynthesis.speak(msg)
+          }
+        }
+        let message = ''
+        for (let i = 0; i < result.contexts.length; ++i) {
+          if (result.contexts[i].isResponse) {
+            message += result.responses[i] + ' '
+          }
+        }
+        if (message) {
+          fastfood.api.say(message)
+          msg.text = message
           window.speechSynthesis.speak(msg)
         }
+        processing = false
+        SpeechRecognition.startListening()
+      }).catch( (e) => {
+        console.log('got error--------------------------------------------', e)
+        processing = false
+        SpeechRecognition.startListening()
       }
-      let message = ''
-      for (let i = 0; i < result.contexts.length; ++i) {
-        if (result.contexts[i].isResponse) {
-          message += result.responses[i] + ' '
-        }
-      }
-      if (message) {
-        props.setMessage(message)
-      }
-      processing = false
-      SpeechRecognition.startListening()
-    }).catch( (e) => {
-      console.log('got error--------------------------------------------', e)
-      processing = false
-      SpeechRecognition.startListening()
+      );
     }
-    );
-  }
+
+    doQuery()
+    setQuery('')
+  }, [query, msg])
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
-    console.log('doing the query', query)
-    doQuery(query)
+    setQuery(query)
   }
 
   const onRestart = () => {
@@ -94,7 +170,7 @@ function Speech(props) {
   if (!processing && !listening && transcript) {
     setLastQuery(transcript)
     processing = true
-    doQuery(transcript)
+    // setQuery(transcript)
   }
 
   const keyPressed = (event) => {
