@@ -18,9 +18,9 @@ module.exports =
   "hierarchy": [
   ],
   "priorities": [
-    [["earn", 0], ["worked", 0], ["every", 0], ["query", 0]],
-    [["earn", 0], ["worked", 0], ["query", 0], ["count", 0]],
-    [["earn", 0], ["every", 0], ["worked", 0]],
+    [["query", 0], ["earn", 0], ["worked", 0], ["every", 0]],
+    [["count", 0], ["earn", 0], ["worked", 0], ["query", 0]],
+    [["worked", 0], ["earn", 0], ["every", 0]],
   ],
   "associations": {
     "negative": [],
