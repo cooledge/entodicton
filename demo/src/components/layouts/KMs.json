@@ -199,7 +199,8 @@
       "description": "The idea of a concept whatever that might end up being",
       "examples": [
         "chicken modifies strips",
-        "ice and hand modify cream\\n ice cream hand cream"
+        "ice and hand modify cream\\n ice cream hand cream",
+        "raw chicken modifies strips\\n raw chicken strips"
       ],
       "template": [],
       "includes": [
@@ -463,9 +464,10 @@
         "bacon modifies deluxe",
         "chicken modifies sandwich",
         "premium modifies cod",
-        "spicy modifies homestyle",
+        "ultimate chicken modifies grill",
+        "asiago ranch chicken modifies club",
         "single double triple baconater and bacon deluxe are hamburgers",
-        "spicy homestyle and premium cod are sandwiches",
+        "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
         "a meals is food",
         "a combo is a meal",
         "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"
