@@ -457,7 +457,11 @@
         "number 1 combo",
         "combo one and two combo twos",
         "combo one and combo two and three",
-        "combo one combo two and combo three"
+        "combo one combo two and combo three",
+        "single combo",
+        "3 single and 2 double combos",
+        "french fries",
+        "curly fries"
       ],
       "template": [
         "food is countable",
@@ -466,6 +470,8 @@
         "premium modifies cod",
         "ultimate chicken modifies grill",
         "asiago ranch chicken modifies club",
+        "curly modifies fries",
+        "curly fries are french fries",
         "single double triple baconater and bacon deluxe are hamburgers",
         "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
         "a meals is food",
