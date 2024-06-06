@@ -22,7 +22,7 @@ module.exports =
   "hierarchy": [
   ],
   "priorities": [
-    [["plus", 0], ["conj", 0]],
+    {"context": [["plus", 0], ["conj", 0]], "choose": [0]},
   ],
   "associations": {
     "negative": [],

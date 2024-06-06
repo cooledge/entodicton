@@ -18,9 +18,9 @@ module.exports =
   "hierarchy": [
   ],
   "priorities": [
-    [["query", 0], ["earn", 0], ["worked", 0], ["every", 0]],
-    [["count", 0], ["earn", 0], ["worked", 0], ["query", 0]],
-    [["worked", 0], ["earn", 0], ["every", 0]],
+    {"context": [["query", 0], ["earn", 0], ["worked", 0], ["every", 0]], "choose": [0]},
+    {"context": [["count", 0], ["earn", 0], ["worked", 0], ["query", 0]], "choose": [0]},
+    {"context": [["worked", 0], ["earn", 0], ["every", 0]], "choose": [0]},
   ],
   "associations": {
     "negative": [],
