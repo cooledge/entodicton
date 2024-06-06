@@ -73,7 +73,7 @@
       "description": "Knowledge related to basic facts",
       "includes": [
         "animals",
-        "foods"
+        "edible"
       ]
     },
     {
@@ -200,7 +200,8 @@
       "examples": [
         "chicken modifies strips",
         "ice and hand modify cream\\n ice cream hand cream",
-        "raw chicken modifies strips\\n raw chicken strips"
+        "raw chicken modifies strips\\n raw chicken strips",
+        "mango modifies passion\\nmango passion modifies smoothie\\nmango passion smoothie"
       ],
       "template": [],
       "includes": [
@@ -391,6 +392,45 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
     },
     {
+      "name": "edible",
+      "description": "Edible things",
+      "examples": [
+        "what are the types of food"
+      ],
+      "template": [
+        "food and drinks are edible",
+        "chicken modifies strips",
+        "chicken strips are food",
+        "sushi is food",
+        "apples oranges and bananas are fruit",
+        "hot modifies dog",
+        "hot dogs are sausages",
+        "sausages are meat",
+        "french modifies fries",
+        "french fries are food",
+        "meat is food",
+        "fruits are food",
+        "sandwiches are food",
+        "carrots peas cabbage and brocoli are vegetables",
+        "vegetables are food",
+        "a hamburger is a sandwich",
+        "pop soda and juice are drinks"
+      ],
+      "includes": [
+        "hierarchy",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/edible.js"
+    },
+    {
       "name": "emotions",
       "description": "emotions related concepts",
       "examples": [
@@ -457,23 +497,55 @@
         "number 1 combo",
         "combo one and two combo twos",
         "combo one and combo two and three",
-        "combo one combo two and combo three"
+        "combo one combo two and combo three",
+        "single combo",
+        "3 single and 2 double combos",
+        "french fries",
+        "2 french fries and 3 waffle fries",
+        "combo 1 with waffle fries",
+        "strawberry smoothie",
+        "guava smoothie",
+        "mango passion smoothie",
+        "wild berry smoothie",
+        "strawberry banana smoothie",
+        "2 bananas",
+        "(a strawberry and guava) smoothie",
+        "a mango passion smoothie",
+        "a wild berry smoothie",
+        "a strawberry banana smoothie",
+        "2 mango passion smoothies",
+        "2 mango passion smoothies and 3 strawberry smoothies",
+        "3 strawberry smoothies",
+        "(2 mango passion and (3 strawberry)) smoothies",
+        "2 mango passion and 3 strawberry smoothies"
       ],
       "template": [
         "food is countable",
+        "drinks are countable",
         "bacon modifies deluxe",
         "chicken modifies sandwich",
         "premium modifies cod",
         "ultimate chicken modifies grill",
         "asiago ranch chicken modifies club",
+        "waffle modifies fries",
+        "waffle fries are french fries",
+        "mango modifies passion",
+        "wild modifies berry",
+        "strawberry modifies banana",
+        "strawberry guava mango passion wild berry and strawberry banana modify smoothie",
+        "strawberry guava mango passion wild berry and strawberry banana are countable",
+        "smoothie modifies ingredients",
+        "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients",
+        "a smoothie is a drink",
+        "french fries and waffle fries are fries",
         "single double triple baconater and bacon deluxe are hamburgers",
-        "spicy homestyle asiago ranch chicken club 10 piece nuggets ultimate chicken grill and premium cod are sandwiches",
+        "spicy homestyle asiago ranch chicken club ultimate chicken grill and premium cod are sandwiches",
         "a meals is food",
         "a combo is a meal",
         "single double triple baconater bacon deluxe spicy homestyle and premium cod are meals"
       ],
       "includes": [
-        "foods",
+        "edible",
         "countable",
         "events",
         "hierarchy",
@@ -489,43 +561,6 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
-    },
-    {
-      "name": "foods",
-      "description": "foods related concepts",
-      "examples": [
-        "what are the types of food"
-      ],
-      "template": [
-        "chicken modifies strips",
-        "chicken strips are food",
-        "sushi is food",
-        "apples oranges and bananas are fruit",
-        "hot modifies dog",
-        "hot dogs are sausages",
-        "sausages are meat",
-        "french modifies fries",
-        "french fries are food",
-        "meat is food",
-        "fruits are food",
-        "sandwiches are food",
-        "carrots peas cabbage and brocoli are vegetables",
-        "vegetables are food",
-        "a hamburger is a sandwich"
-      ],
-      "includes": [
-        "hierarchy",
-        "properties",
-        "concept",
-        "dialogues",
-        "sdefaults",
-        "pos",
-        "stm",
-        "meta",
-        "punctuation",
-        "gdefaults"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/foods.js"
     },
     {
       "name": "formulas",
@@ -1397,6 +1432,41 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
+    },
+    {
+      "name": "ui",
+      "description": "Control a ui with speech",
+      "examples": [
+        "move up",
+        "move left",
+        "move down",
+        "move right",
+        "select",
+        "cancel",
+        "move down 2",
+        "down",
+        "unselect",
+        "stop action"
+      ],
+      "template": [],
+      "includes": [
+        "math",
+        "mathTemplate",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
     },
     {
       "name": "weight",
