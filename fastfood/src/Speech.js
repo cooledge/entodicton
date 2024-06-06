@@ -114,17 +114,36 @@ function Speech(props) {
     }
     const doQuery = async () => {
       return fastfood.process(query.toLowerCase()).then( (result) => {
-        for (let response of result.responses) {
+        /*
+        console.log(result)
+        
+        for (let index in result.responses) {
+          if (result.contexts[index].marker == 'error') {
+            console.log('error', result.contexts[index])
+            continue
+          }
+          const response = result.responses[index]
           if (response.length > 0) {
             msg.text = response
             window.speechSynthesis.speak(msg)
           }
         }
+        */
+
         let message = ''
+        let hasError = false
         for (let i = 0; i < result.contexts.length; ++i) {
+          if (result.contexts[i].marker == 'error') {
+            console.log('error', result.contexts[i])
+            hasError = true
+            continue
+          }
           if (result.contexts[i].isResponse) {
             message += result.responses[i] + ' '
           }
+        }
+        if (hasError) {
+          message += '. There are errors shown in the console'
         }
         if (message) {
           fastfood.api.say(message)
