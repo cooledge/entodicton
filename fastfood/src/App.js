@@ -15,10 +15,15 @@ function App() {
   const setOrder = (items) => {
     const fullItems = items.map((item) => {
         const product = products.items.find( (product) => {
-          if (product.base == item.name && product.combo == item.combo) {
+          const id = item.name + (item.combo ? "_combo" : "");
+          console.log(`id=${id} product.id: ${product.id}`)
+          if (product.id == id) {
             return product
           }
         })
+        if (!product) {
+          debugger
+        }
         return product
       }).filter( (item) => item )
 

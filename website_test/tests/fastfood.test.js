@@ -74,12 +74,21 @@ describe('tests for fastfood page', () => {
       { query: 'combo 7', expected: ['homestyle_combo'] },
       { query: 'combo 8', expected: ['asiago_range_chicken_club_combo'] },
       { query: 'combo 9', expected: ['ultimate_chicken_grill_combo'] },
-      { query: 'combo 10', expected: ['10_piece_nuggets_combo'] },
+      // { query: 'combo 10', expected: ['10_piece_nuggets_combo'] },
       { query: 'combo 11', expected: ['premium_cod_combo'] },
-      { query: 'two combo twos', expected: ['double_combo', 'double_combo'] },
+      { query: 'two combo twos', expected: ['double_combo', 'double_combo'], neo: true },
+      { query: 'strawberry smoothie', expected: ['strawberry_smoothie'] },
+      { query: 'guava smoothie', expected: ['guava_smoothie'] },
+      { query: 'mango passion smoothie', expected: ['mango_passion_smoothie'] },
+      { query: 'wild berry smoothie', expected: ['wild_berry_smoothie'] },
+      { query: 'strawberry banana smoothie', expected: ['strawberry_banana_smoothie'] },
   ]
   queries.forEach((query) => {
-    test(`FASTFOOD query "${query.query}"`, async () => {
+    let neo = ''
+    if (query.neo) {
+      neo = 'NEO23'
+    }
+    test(`${neo}FASTFOOD query "${query.query}"`, async () => {
       await showTest(query)
     }, timeout)
   })

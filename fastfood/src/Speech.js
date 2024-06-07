@@ -5,7 +5,7 @@ import products from './products.json';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const tpmkms = require('tpmkms_4wp')
 
-class FastFoodAPI {
+class XFastFoodAPI {
   initialize({ objects }) {
     this.objects = objects
     this.objects.items = []
@@ -22,6 +22,7 @@ class FastFoodAPI {
     for (let i = 0; i < this.objects.items.length; ++i) {
       this.objects.items[i].index = i+1
     }
+    debugger
     this.props.setOrder([...this.objects.items])
   }
 
@@ -32,7 +33,101 @@ class FastFoodAPI {
   getCombo(number) {
     return products.combos[`${number}`]
   }
+
+  hasAskedForButNotAvailable(item) {
+    debugger
+    return true
+ }
 }
+
+class FastFoodAPI {
+  initialize({ objects, config }) {
+    this._objects = objects
+    this._objects.items = []
+    this._objects.notAvailable = []
+  }
+
+  setProps(props) {
+    this.props = props
+  }
+
+  show() {
+    this._objects.show = this._objects.items
+  }
+
+  // add({ name, combo, modifications }) {
+  add(item) {
+    // this._objects.items.push({ name, combo, modifications })
+    this._objects.items.push(item)
+    for (let i = 0; i < this._objects.items.length; ++i) {
+      this._objects.items[i].index = i+1
+    }
+    debugger
+    this.props.setOrder([...this._objects.items])
+  }
+
+  say(message) {
+    // this._objects.response = response
+    console.log('say', message)
+  }
+
+  // return true if you want the NLI layer to handle this
+  hasAskedForButNotAvailable(item) {
+    return this._objects.notAvailable.length > 0
+  }
+
+  getAskedForButNotAvailable(item) {
+    const na = this._objects.notAvailable
+    this._objects.notAvailable = []
+    return na
+  }
+
+  addAskedForButNotAvailable(item) {
+    this._objects.notAvailable.push(item)
+  }
+
+  isAvailable(id) {
+    return [
+      "double",
+      "french_fry",
+      "single",
+      "triple",
+      'baconator',
+      'bacon_deluxe',
+      'spicy',
+      'homestyle',
+      'asiago_range_chicken_club',
+      'ultimate_chicken_grill',
+      '10_peice_nuggets',
+      'premium_cod',
+      "waffle_fry",
+      "strawberry_smoothie",
+      "guava_smoothie",
+      "mango_passion_smoothie",
+      "wild_berry_smoothie",
+      "strawberry_banana_smoothie",
+    ].includes(id)
+  }
+
+  getCombo(number) {
+    debugger
+    const map = {
+      1: 'single',
+      2: 'double',
+      3: 'triple',
+      4: 'baconator',
+      5: 'bacon_deluxe',
+      6: 'spicy',
+      7: 'homestyle',
+      8: 'asiago_range_chicken_club',
+      9: 'ultimate_chicken_grill',
+      10: '10_peice_nuggets',
+      11: 'premium_cod',
+    }
+    return map[number]
+  }
+}
+
 
 class UIAPI {
   initialize({ objects }) {

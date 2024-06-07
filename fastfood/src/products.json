@@ -21,7 +21,12 @@
     { "id": "10_piece_nuggets", "base": "10 piece nuggets", "name": "10 Piece Nuggets", "cost": 5.49 },
     { "id": "10_piece_nuggets_combo", "base": "10 piece nuggets", "name": "10 Piece Nuggets Combo", "cost": 7.49, "combo": true },
     { "id": "premium_cod", "base": "premium cod", "name": "Premium Cod", "cost": 5.49 },
-    { "id": "premium_cod_combo", "base": "premium cod", "name": "Premium Cod Combo", "cost": 7.49, "combo": true }
+    { "id": "premium_cod_combo", "base": "premium cod", "name": "Premium Cod Combo", "cost": 7.49, "combo": true },
+    { "id": "strawberry_smoothie", "base": "strawberry smoothie", "name": "Strawberry Smoothie", "cost": 7.49, "combo": false },
+    { "id": "guava_smoothie", "base": "guava smoothie", "name": "Guava Smoothie", "cost": 7.49, "combo": false },
+    { "id": "mango_passion_smoothie", "base": "mango passion smoothie", "name": "Mango Passion Smoothie", "cost": 7.49, "combo": false },
+    { "id": "wild_berry_smoothie", "base": "wild berry smoothie", "name": "Wild Berry Smoothie", "cost": 7.49, "combo": false },
+    { "id": "strawberry_banana_smoothie", "base": "strawberry banana smoothie", "name": "Strawberry Banana Smoothie", "cost": 7.49, "combo": false }
   ],
   "combos": {
       "1": "single",
