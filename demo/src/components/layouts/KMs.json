@@ -517,7 +517,17 @@
         "2 mango passion smoothies and 3 strawberry smoothies",
         "3 strawberry smoothies",
         "(2 mango passion and (3 strawberry)) smoothies",
-        "2 mango passion and 3 strawberry smoothies"
+        "2 mango passion and 3 strawberry smoothies",
+        "hamburger\\ncombo 1",
+        "combo 4",
+        "combo 5",
+        "combo 6",
+        "combo 7",
+        "combo 8",
+        "combo 9",
+        "combo 10",
+        "combo 11",
+        "combo 12"
       ],
       "template": [
         "food is countable",
