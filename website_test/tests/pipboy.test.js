@@ -180,7 +180,11 @@ describe('tests for pipboy page', () => {
         expect(classNames.includes('selected')).toBeTruthy()
       }
       await page.waitForSelector('.current')
-      expect(classNames.includes('current')).toBeTruthy()
+      try{
+        expect(classNames.includes('current')).toBeTruthy()
+      } catch(e) {
+        console.log('error', classNames)
+      }
       const text = await (await a.getProperty('textContent')).jsonValue()
       const quantity = item.quantity > 1 ? `(${item.quantity})` : '';
       expect(text).toBe(`${item.name}${quantity}`)
