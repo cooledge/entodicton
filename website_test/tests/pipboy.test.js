@@ -179,6 +179,7 @@ describe('tests for pipboy page', () => {
       if (selected) {
         expect(classNames.includes('selected')).toBeTruthy()
       }
+      await page.waitForSelector('.current')
       expect(classNames.includes('current')).toBeTruthy()
       const text = await (await a.getProperty('textContent')).jsonValue()
       const quantity = item.quantity > 1 ? `(${item.quantity})` : '';
@@ -227,7 +228,7 @@ describe('tests for pipboy page', () => {
     await testMovements(queries, item)
   }, timeout);
 
-  test(`PIPBOY move up 2`, async () => {
+  test(`NEO23 PIPBOY move up 2`, async () => {
     const queries = ['show the weapons', 'down 3', 'up 2']
     const item = character.weapons[1]
     await testMovements(queries, item)

@@ -76,7 +76,7 @@ describe('tests for fastfood page', () => {
       { query: 'combo 9', expected: ['ultimate_chicken_grill_combo'] },
       // { query: 'combo 10', expected: ['10_piece_nuggets_combo'] },
       { query: 'combo 11', expected: ['premium_cod_combo'] },
-      { query: 'two combo twos', expected: ['double_combo', 'double_combo'], neo: true },
+      { query: 'two combo twos', expected: ['double_combo', 'double_combo'] },
       { query: 'strawberry smoothie', expected: ['strawberry_smoothie'] },
       { query: 'guava smoothie', expected: ['guava_smoothie'] },
       { query: 'mango passion smoothie', expected: ['mango_passion_smoothie'] },

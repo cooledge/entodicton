@@ -9,7 +9,7 @@
     "tos": "HEADLESS=false jest -t NEOS23",
     "demo": "HEADLESS=false jest -t DEMO",
     "demo": "HEADLESS=false jest -t DEMO",
-    "pipboyh": "HEADLESS=true jest -t PIPBOY",
+    "pipboy": "HEADLESS=false jest -t PIPBOY",
     "pipboyh": "HEADLESS=true jest -t PIPBOY",
     "fastfood": "HEADLESS=false jest -t FASTFOOD",
     "fastfoodh": "HEADLESS=true jest -t FASTFOOD",
