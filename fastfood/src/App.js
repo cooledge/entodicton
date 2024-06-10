@@ -15,7 +15,7 @@ function App() {
   const setOrder = (items) => {
     const fullItems = items.map((item) => {
         const product = products.items.find( (product) => {
-          const id = item.name + (item.combo ? "_combo" : "");
+          const id = item.id + (item.combo ? "_combo" : "");
           console.log(`id=${id} product.id: ${product.id}`)
           if (product.id == id) {
             return product
@@ -24,7 +24,13 @@ function App() {
         if (!product) {
           debugger
         }
-        return product
+        item.cost = product.cost[item.size || 'small']
+        if (item.size && item.size !== 'small') {
+          item.name = `${item.size == 'large' ? 'Large': 'Medium' } ${product.name}`
+        } else {
+          item.name = product.name
+        }
+        return item
       }).filter( (item) => item )
 
     setOrderInternal(fullItems)

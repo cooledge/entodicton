@@ -22,7 +22,6 @@ class XFastFoodAPI {
     for (let i = 0; i < this.objects.items.length; ++i) {
       this.objects.items[i].index = i+1
     }
-    debugger
     this.props.setOrder([...this.objects.items])
   }
 
@@ -172,7 +171,7 @@ ui.api = new UIAPI()
 
 const fastfood = tpmkms.fastfood()
 fastfood.api = new FastFoodAPI()
-
+fastfood.config.debug = true
 fastfood.add(ui)
 const url = `${new URL(window.location.href).origin}/entodicton`
 fastfood.config.url = url

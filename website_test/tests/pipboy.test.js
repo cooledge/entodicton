@@ -232,7 +232,7 @@ describe('tests for pipboy page', () => {
     await testMovements(queries, item)
   }, timeout);
 
-  test(`NEO23 PIPBOY move up 2`, async () => {
+  test(`PIPBOY move up 2`, async () => {
     const queries = ['show the weapons', 'down 3', 'up 2']
     const item = character.weapons[1]
     await testMovements(queries, item)

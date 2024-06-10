@@ -3,6 +3,7 @@ function Order({ order, total }) {
         <span class="Name" style={{ 'flexGrow': '1' }}>{item.name}</span>
         <span class="Cost">${item.cost}</span>
       </li> )
+  console.log(order)
   return (
     <div className="Order">
       { total > 0 &&
