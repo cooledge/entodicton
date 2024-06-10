@@ -34,7 +34,6 @@ class XFastFoodAPI {
   }
 
   hasAskedForButNotAvailable(item) {
-    debugger
     return true
  }
 }
@@ -61,7 +60,6 @@ class FastFoodAPI {
     for (let i = 0; i < this._objects.items.length; ++i) {
       this._objects.items[i].index = i+1
     }
-    debugger
     this.props.setOrder([...this._objects.items])
   }
 
@@ -109,7 +107,6 @@ class FastFoodAPI {
   }
 
   getCombo(number) {
-    debugger
     const map = {
       1: 'single',
       2: 'double',

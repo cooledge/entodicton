@@ -14,21 +14,35 @@ function App() {
 
   const setOrder = (items) => {
     const fullItems = items.map((item) => {
-        const product = products.items.find( (product) => {
-          const id = item.id + (item.combo ? "_combo" : "");
-          console.log(`id=${id} product.id: ${product.id}`)
-          if (product.id == id) {
-            return product
+        const addDetails = (item) => {
+          const product = products.items.find( (product) => {
+            const id = item.id + (item.combo ? "_combo" : "");
+            console.log(`id=${id} product.id: ${product.id}`)
+            if (product.id == id) {
+              return product
+            }
+          })
+          if (!product) {
+            debugger
           }
-        })
-        if (!product) {
-          debugger
+          item.cost = product.cost[item.size || 'small']
+          if (item.size && item.size !== 'small') {
+            item.name = `${item.size == 'large' ? 'Large': 'Medium' } ${product.name}`
+          } else {
+            item.name = product.name
+          }
+          return item
         }
-        item.cost = product.cost[item.size || 'small']
-        if (item.size && item.size !== 'small') {
-          item.name = `${item.size == 'large' ? 'Large': 'Medium' } ${product.name}`
-        } else {
-          item.name = product.name
+        addDetails(item)
+        if (item.modifications && item.modifications.length > 0) {
+          item.name += ' -'
+          for (let modification of item.modifications) {
+            addDetails(modification)
+            item.name += ' ' + modification.name
+            if (modification.id == 'waffle_fry') {
+              item.cost += products.waffle_fry_extra_cost
+            }
+          }
         }
         return item
       }).filter( (item) => item )

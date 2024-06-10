@@ -36,13 +36,27 @@ describe('tests for fastfood page', () => {
 
   async function showTest({query, expected}) {
     items = expected.map((expected) => {
-      const product = products.items.find( (item) => item.id == expected.id )
-      if (expected.size && expected.size != 'small') {
-        expected.cost = product.cost[expected.size]
-        expected.name = `${expected.size == 'large' ? 'Large' : 'Medium'} ${product.name}`
-      } else {
-        expected.cost = product.cost['small']
-        expected.name = product.name
+      const addDetails = (expected) => {
+        const product = products.items.find( (item) => item.id == expected.id )
+        if (expected.size && expected.size != 'small') {
+          expected.cost = product.cost[expected.size]
+          expected.name = `${expected.size == 'large' ? 'Large' : 'Medium'} ${product.name}`
+        } else {
+          expected.cost = product.cost['small']
+          expected.name = product.name
+        }
+      }
+      addDetails(expected)
+
+      if (expected.modifications) {
+        expected.name += ' -'
+        for (let modification of expected.modifications) {
+          addDetails(modification)
+          expected.name += ' ' + modification.name
+          if (modification.id == 'waffle_fry') {
+            expected.cost += products.waffle_fry_extra_cost
+          }
+        }
       }
       return expected
     })
@@ -97,6 +111,7 @@ describe('tests for fastfood page', () => {
       { query: 'waffle fries', expected: [{id: 'waffle_fry'}] },
       { query: 'medium waffle fries', expected: [{id: 'waffle_fry', size: 'medium'}] },
       { query: 'large waffle fries', expected: [{id: 'waffle_fry', size: 'large'}] },
+      { query: 'combo 1 with waffle fries', expected: [{id: 'single_combo', modifications: [{ id: 'waffle_fry' }] }], neo: true },
   ]
   queries.forEach((query) => {
     let neo = ''
