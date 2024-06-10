@@ -527,7 +527,10 @@
         "combo 9",
         "combo 10",
         "combo 11",
-        "combo 12"
+        "combo 12",
+        "combo 1 with a guava smoothie",
+        "combo 1 with waffle fries and a guava smoothie",
+        "a large guava smoothie"
       ],
       "template": [
         "food is countable",
@@ -552,12 +555,15 @@
         "spicy homestyle asiago ranch chicken club ultimate chicken grill and premium cod are sandwiches",
         "a meals is food",
         "a combo is a meal",
-        "single double triple baconator bacon deluxe spicy homestyle and premium cod are meals"
+        "single double triple baconator bacon deluxe spicy homestyle and premium cod are meals",
+        "fries and smoothies are modifications",
+        "fries and smoothies are sizeable"
       ],
       "includes": [
         "edible",
         "countable",
         "events",
+        "sizeable",
         "hierarchy",
         "numbers",
         "properties",
