@@ -414,7 +414,8 @@
         "carrots peas cabbage and brocoli are vegetables",
         "vegetables are food",
         "a hamburger is a sandwich",
-        "pop soda and juice are drinks"
+        "pop, soda, coffee, tea, shakes and juice are drinks",
+        "lemonade is a drink"
       ],
       "includes": [
         "hierarchy",
@@ -530,7 +531,21 @@
         "combo 12",
         "combo 1 with a guava smoothie",
         "combo 1 with waffle fries and a guava smoothie",
-        "a large guava smoothie"
+        "a large guava smoothie",
+        "coca cola",
+        "diet coke",
+        "sprite",
+        "fanta",
+        "barqs",
+        "iced tea",
+        "sweet black coffee",
+        "french vanilla coffee",
+        "cappuccino coffee",
+        "mocha shake",
+        "caramel shake",
+        "lemonade",
+        "strawberry lemonade",
+        "wild berry lemonade"
       ],
       "template": [
         "food is countable",
@@ -556,6 +571,18 @@
         "a meals is food",
         "a combo is a meal",
         "single double triple baconator bacon deluxe spicy homestyle and premium cod are meals",
+        "coca modifies cola",
+        "diet modifies coke",
+        "iced modifies tea",
+        "coca cola, diet coke, sprite, fanta, barqs and iced tea are pop",
+        "sweet black modifies coffee",
+        "french vanilla modifies coffee",
+        "cappuccino modifies coffee",
+        "mocha modifies shake",
+        "caramel modifies shake",
+        "strawberry modifies lemonade",
+        "wild berry modifies lemonade",
+        "plain modifies lemonade",
         "fries and smoothies are modifications",
         "fries and smoothies are sizeable"
       ],
