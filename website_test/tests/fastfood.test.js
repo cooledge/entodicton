@@ -111,7 +111,21 @@ describe('tests for fastfood page', () => {
       { query: 'waffle fries', expected: [{id: 'waffle_fry'}] },
       { query: 'medium waffle fries', expected: [{id: 'waffle_fry', size: 'medium'}] },
       { query: 'large waffle fries', expected: [{id: 'waffle_fry', size: 'large'}] },
-      { query: 'combo 1 with waffle fries', expected: [{id: 'single_combo', modifications: [{ id: 'waffle_fry' }] }], neo: true },
+      { query: 'combo 1 with waffle fries', expected: [{id: 'single_combo', modifications: [{ id: 'waffle_fry' }] }] },
+      { query: 'coca cola', expected: [{id: 'coca_cola'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'diet coke', expected: [{id: 'diet_coke'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'barq', expected: [{id: 'barq'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'fanta', expected: [{id: 'fanta'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'sprite', expected: [{id: 'sprite'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'iced tea', expected: [{id: 'iced_tea'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'sweet black coffee', expected: [{id: 'sweet_black_coffee'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'french vanilla coffee', expected: [{id: 'french_vanilla_coffee'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'cappuccino coffee', expected: [{id: 'cappuccino_coffee'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'mocha shake', expected: [{id: 'mocha_shake'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'caramel shake', expected: [{id: 'caramel_shake'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'lemonade', expected: [{id: 'lemonade'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'strawberry lemonade', expected: [{id: 'strawberry_lemonade'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'wild berry lemonade', expected: [{id: 'wild_berry_lemonade'}], neo: true, sizes: ['small', 'medium', 'large'], neo: true },
   ]
   queries.forEach((query) => {
     let neo = ''
@@ -121,5 +135,18 @@ describe('tests for fastfood page', () => {
     test(`${neo}FASTFOOD query "${query.query}"`, async () => {
       await showTest(query)
     }, timeout)
+    if (query.sizes) {
+      for (let size of query.sizes) {
+        const queryStr = `${size} ${query.query}`
+        test(`${neo}FASTFOOD query "${queryStr}"`, async () => {
+          const squery = {...query, query: queryStr }
+          squery.expected.forEach( (expected) => {
+            expected = {...expected}
+            expected.size = size
+          })
+          await showTest(squery)
+        }, timeout)
+      }
+    }
   })
 });

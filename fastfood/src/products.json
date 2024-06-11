@@ -28,7 +28,21 @@
     { "id": "wild_berry_smoothie", "base": "wild berry smoothie", "name": "Wild Berry Smoothie", "cost": { "small": 2.99, "large": 3.79 }, "combo": false },
     { "id": "strawberry_banana_smoothie", "base": "strawberry banana smoothie", "name": "Strawberry Banana Smoothie", "cost": { "small": 2.99, "large": 3.79 }, "combo": false },
     { "id": "french_fry", "base": "french fries", "name": "French Fries", "combo": false, "cost": { "small": 1.59, "medium": 1.79, "large": 2.29 } },
-    { "id": "waffle_fry", "base": "waffle fries", "name": "Waffle Fries", "combo": false, "cost": { "small": 2.18, "medium": 2.28, "large": 2.78 } }
+    { "id": "waffle_fry", "base": "waffle fries", "name": "Waffle Fries", "combo": false, "cost": { "small": 2.18, "medium": 2.28, "large": 2.78 } },
+    { "id": "coca_cola", "base": "coca cola", "name": "Coca Cola", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "diet_coke", "base": "diet coke", "name": "Diet Coke", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "barq", "base": "barq", "name": "Barqs", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "fanta", "base": "fanta", "name": "Fanta", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "sprite", "base": "sprite", "name": "Sprite", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "iced_tea", "base": "iced tea", "name": "Iced Tea", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "sweet_black_coffee", "base": "sweet black coffee", "name": "Sweet Black Coffee", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "french_vanilla_coffee", "base": "french vanilla coffee", "name": "French Vanilla Coffee", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "cappuccino_coffee", "base": "cappuccino coffee", "name": "Cappuccino Coffee", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "mocha_shake", "base": "mocka shake", "name": "Mocha Shake", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "caramel_shake", "base": "caramel shake", "name": "Caramel Shake", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "lemonade", "base": "lemonade", "name": "Lemonade", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "strawberry_lemonade", "base": "strawberry lemonade", "name": "Strawberry Lemonade", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } },
+    { "id": "wild_berry_lemonade", "base": "wild berry lemonade", "name": "Wild Berry Lemonade", "combo": false, "cost": { "small": 2.09, "medium": 2.59, "large": 2.89 } }
   ],
   "combos": {
       "1": "single",

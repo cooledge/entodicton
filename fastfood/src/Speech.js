@@ -84,26 +84,7 @@ class FastFoodAPI {
   }
 
   isAvailable(id) {
-    return [
-      "double",
-      "french_fry",
-      "single",
-      "triple",
-      'baconator',
-      'bacon_deluxe',
-      'spicy',
-      'homestyle',
-      'asiago_range_chicken_club',
-      'ultimate_chicken_grill',
-      '10_peice_nuggets',
-      'premium_cod',
-      "waffle_fry",
-      "strawberry_smoothie",
-      "guava_smoothie",
-      "mango_passion_smoothie",
-      "wild_berry_smoothie",
-      "strawberry_banana_smoothie",
-    ].includes(id)
+    return !!products.items.find( (item) => item.id == id )
   }
 
   getCombo(number) {
