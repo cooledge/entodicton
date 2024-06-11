@@ -25,8 +25,22 @@ function App() {
           if (!product) {
             debugger
           }
-          item.cost = product.cost[item.size || 'small']
-          if (item.size && item.size !== 'small') {
+          debugger
+          if (!item.size) {
+            if (product.cost.half) {
+              item.size = 'half'
+            } else {
+              item.size = 'small'
+            }
+          }
+          if (isNaN(product.cost)) {
+            item.cost = product.cost[item.size]
+          } else {
+            item.cost = product.cost
+          }
+          if (item.size !== 'half' && product.cost.half) {
+            item.name = `Full ${product.name}`
+          } else if (item.size !== 'small' && product.cost.small) {
             item.name = `${item.size == 'large' ? 'Large': 'Medium' } ${product.name}`
           } else {
             item.name = product.name

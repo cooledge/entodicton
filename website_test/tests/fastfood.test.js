@@ -42,7 +42,16 @@ describe('tests for fastfood page', () => {
           expected.cost = product.cost[expected.size]
           expected.name = `${expected.size == 'large' ? 'Large' : 'Medium'} ${product.name}`
         } else {
-          expected.cost = product.cost['small']
+          if (isNaN(product.cost)) {
+            if (product.cost.half) {
+              expected.cost = product.cost['half']
+            }
+            else {
+              expected.cost = product.cost['small']
+            }
+          } else {
+            expected.cost = product.cost
+          }
           expected.name = product.name
         }
       }
@@ -125,7 +134,26 @@ describe('tests for fastfood page', () => {
       { query: 'caramel shake', expected: [{id: 'caramel_shake'}], sizes: ['small', 'medium', 'large'] },
       { query: 'lemonade', expected: [{id: 'lemonade'}], sizes: ['small', 'medium', 'large'] },
       { query: 'strawberry lemonade', expected: [{id: 'strawberry_lemonade'}], sizes: ['small', 'medium', 'large'] },
-      { query: 'wild berry lemonade', expected: [{id: 'wild_berry_lemonade'}], neo: true, sizes: ['small', 'medium', 'large'], neo: true },
+      { query: 'wild berry lemonade', expected: [{id: 'wild_berry_lemonade'}], sizes: ['small', 'medium', 'large'] },
+      { query: 'loaded fries', expected: [{id: 'loaded_fry'}] },
+      { query: 'chili fries', expected: [{id: 'chili_fry'}] },
+      { query: 'garden salad', expected: [{id: 'garden_salad'}] },
+      { query: 'caesar salad', expected: [{id: 'caesar_salad'}] },
+      { query: 'chili', expected: [{id: 'chili'}] },
+      { query: 'vanilla shake', expected: [{id: 'vanilla_shake'}] },
+      { query: 'mango passion shake', expected: [{id: 'mango_passion_shake'}] },
+      { query: 'strawberry shake', expected: [{id: 'strawberry_shake'}] },
+      { query: 'guava shake', expected: [{id: 'guava_shake'}] },
+      { query: 'chocolate shake', expected: [{id: 'chocolate_shake'}] },
+      { query: 'banana shake', expected: [{id: 'banana_shake'}] },
+      { query: 'wild berry shake', expected: [{id: 'wild_berry_shake'}] },
+      { query: 'vanilla frosty', expected: [{id: 'vanilla_frosty'}] },
+      { query: 'chocolate frosty', expected: [{id: 'chocolate_frosty'}] },
+      { query: 'apple pie', expected: [{id: 'apple_pie'}] },
+      { query: 'apple pecan salad', expected: [{id: 'apple_pecan_salad'}] },
+      { query: 'spicy caesar salad', expected: [{id: 'spicy_caesar_salad'}], neo: true },
+      { query: 'taco salad', expected: [{id: 'taco_salad'}] },
+      { query: 'southwest avacado salad', expected: [{id: 'southwest_avacado_salad'}] },
   ]
   queries.forEach((query) => {
     let neo = ''
