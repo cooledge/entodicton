@@ -221,7 +221,10 @@
       "examples": [
         "2 countable",
         "all countable",
-        "1 countable"
+        "1 countable",
+        "10 piece",
+        "2 piece hasCountOfPieces",
+        "10 2 piece hasCountOfPieces"
       ],
       "template": [],
       "includes": [
@@ -395,12 +398,15 @@
       "name": "edible",
       "description": "Edible things",
       "examples": [
-        "what are the types of food"
+        "what are the types of food",
+        "2 piece nuggets",
+        "5 2 piece nuggets"
       ],
       "template": [
         "food and drinks are edible",
         "chicken modifies strips",
-        "chicken strips are food",
+        "chicken modifies nugget",
+        "chicken strips and chicken nuggets are food",
         "sushi is food",
         "apples oranges and bananas are fruit",
         "hot modifies dog",
@@ -420,7 +426,9 @@
         "lemonade is a drink"
       ],
       "includes": [
+        "countable",
         "hierarchy",
+        "numbers",
         "properties",
         "concept",
         "dialogues",
@@ -556,7 +564,9 @@
         "apple pecan salad",
         "spicy caesar salad",
         "taco salad",
-        "southwest avacado salad"
+        "southwest avacado salad",
+        "10 piece chicken nuggets",
+        "3 10 piece chicken nuggets"
       ],
       "template": [
         "food is countable",
@@ -576,14 +586,14 @@
         "mango modifies passion",
         "wild modifies berry",
         "strawberry modifies banana",
-        "strawberry guava mango passion wild berry and strawberry banana modify smoothie",
-        "strawberry guava mango passion wild berry and strawberry banana are countable",
+        "strawberry, guava, mango passion, wild berry and strawberry banana modify smoothie",
+        "strawberry, guava, mango passion, wild berry, and strawberry banana are countable",
         "smoothie modifies ingredients",
-        "strawberry guava mango passion wild berry and strawberry banana are smoothie ingredients",
+        "strawberry, guava, mango passion, wild berry, and strawberry banana are smoothie ingredients",
         "a smoothie is a drink",
         "french fries and waffle fries are fries",
-        "single double triple baconator and bacon deluxe are hamburgers",
-        "spicy homestyle asiago ranch chicken club ultimate chicken grill and premium cod are sandwiches",
+        "single, double, triple, baconator, and bacon deluxe are hamburgers",
+        "spicy, homestyle, asiago ranch chicken club, ultimate chicken grill and premium cod are sandwiches",
         "a meals is food",
         "a combo is a meal",
         "chili is a meal",
@@ -602,7 +612,7 @@
         "spicy modifies caesar salad",
         "taco modifies salad",
         "southwest avacado modifies salad",
-        "single double triple baconator bacon deluxe spicy homestyle and premium cod are meals",
+        "single, double, triple, baconator, bacon deluxe, spicy homestyle and premium cod are meals",
         "coca modifies cola",
         "diet modifies coke",
         "iced modifies tea",
@@ -620,9 +630,9 @@
       ],
       "includes": [
         "edible",
-        "countable",
         "events",
         "sizeable",
+        "countable",
         "hierarchy",
         "numbers",
         "properties",
