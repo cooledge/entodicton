@@ -400,7 +400,8 @@
       "examples": [
         "what are the types of food",
         "2 piece nuggets",
-        "5 2 piece nuggets"
+        "5 2 piece nuggets",
+        "a cheeseburger"
       ],
       "template": [
         "food and drinks are edible",
@@ -428,6 +429,7 @@
         "oatmeal is a cereal grain",
         "sausage is a meat",
         "a hamburger is a sandwich",
+        "a cheeseburger is a hamburger",
         "pop, soda, coffee, tea, shakes and juice are drinks",
         "lemonade is a drink"
       ],
@@ -572,7 +574,17 @@
         "taco salad",
         "southwest avacado salad",
         "10 piece chicken nuggets",
-        "3 10 piece chicken nuggets"
+        "3 10 piece chicken nuggets",
+        "french toast sandwich",
+        "egg muffin",
+        "chicken on french toast",
+        "pancake platter",
+        "double sausage muffin",
+        "pancakes",
+        "french toast",
+        "oatmeal",
+        "junior bacon cheeseburger",
+        "junior crispy chicken club"
       ],
       "template": [
         "food is countable",
@@ -581,7 +593,11 @@
         "chicken modifies sandwich",
         "premium modifies cod",
         "ultimate chicken modifies grill",
-        "asiago ranch chicken modifies club",
+        "chicken modifies club",
+        "asiago ranch modifies chicken club",
+        "crispy modifies chicken club",
+        "chicken club is a sandwich",
+        "junior modifies crispy chicken club",
         "waffle modifies fries",
         "loaded modifies fries",
         "chili modifies fries",
@@ -626,6 +642,11 @@
         "southwest avacado modifies salad",
         "breakfast modifies meals",
         "breakfast modifies baconator",
+        "bacon modifies cheeseburger",
+        "junior modifies bacon cheeseburger",
+        "go modifies wrap",
+        "a go wrap is a sandwich",
+        "chicken modifies go wrap",
         "breakfast baconator, french toast sandwich, egg muffin, chicken on french toast, pancake platter, double sausage muffin, pancakes, french toast and oatmeal are breakfast meals",
         "single, double, triple, baconator, bacon deluxe, spicy homestyle and premium cod are meals",
         "coca modifies cola",
