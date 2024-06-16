@@ -151,9 +151,20 @@ describe('tests for fastfood page', () => {
       { query: 'chocolate frosty', expected: [{id: 'chocolate_frosty'}] },
       { query: 'apple pie', expected: [{id: 'apple_pie'}] },
       { query: 'apple pecan salad', expected: [{id: 'apple_pecan_salad'}] },
-      { query: 'spicy caesar salad', expected: [{id: 'spicy_caesar_salad'}], neo: true },
+      { query: 'spicy caesar salad', expected: [{id: 'spicy_caesar_salad'}] },
       { query: 'taco salad', expected: [{id: 'taco_salad'}] },
       { query: 'southwest avacado salad', expected: [{id: 'southwest_avacado_salad'}] },
+      { query: 'breakfast baconator', expected: [{id: 'breakfast_baconator'}] },
+      { query: 'french toast sandwich', expected: [{id: 'french_toast_sandwich'}] },
+      { query: 'egg muffin', expected: [{id: 'egg_muffin'}] },
+      { query: 'chicken on french toast', expected: [{id: 'chicken_on_french_toast'}] },
+      { query: 'pancake platter', expected: [{id: 'pancake_platter'}] },
+      { query: 'double sausage muffin', expected: [{id: 'double_sausage_muffin'}] },
+      { query: 'pancakes', expected: [{id: 'pancake'}], neo: true },
+      { query: 'french toast', expected: [{id: 'french_toast'}] },
+      { query: 'oatmeal', expected: [{id: 'oatmeal'}] },
+      { query: 'junior bacon cheeseburger', expected: [{id: 'junior_bacon_cheeseburger'}] },
+      { query: 'junior crispy chicken club', expected: [{id: 'junior_crispy_chicken_club'}] },
   ]
   queries.forEach((query) => {
     let neo = ''

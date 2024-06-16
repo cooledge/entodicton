@@ -84,6 +84,7 @@ class FastFoodAPI {
   }
 
   isAvailable(id) {
+    debugger
     return !!products.items.find( (item) => item.id == id )
   }
 
