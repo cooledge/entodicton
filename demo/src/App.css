@@ -106,6 +106,15 @@
   padding-left: 25px;
 }
 
+.about {
+  .line {
+    line-height: 1.5em;
+    .label {
+      font-weight: bold;
+    }
+  }
+}
+
 .logo {
   padding-top: 1px;
   padding-bottom: 4px;
