@@ -1,5 +1,8 @@
 {
   "items": [
+    { "id": "broccoli_list_cheddar_potato", "name": "Broccoli and Cheddar Potato", "cost": 3.49 },
+    { "id": "bacon_list_cheddar_potato", "name": "Bacon and Cheddar Potato", "cost": 3.49 },
+    { "id": "chili_list_cheese_potato", "name": "Chili and Cheese Potato", "cost": 3.49 },
     { "id": "breakfast_baconator", "name": "Breakfast Baconator", "cost": 4.59 },
     { "id": "breakfast_baconator", "name": "Breakfast Baconator", "combo": true, "cost": 5.99 },
     { "id": "french_toast_sandwich", "name": "French Toast Sandwich", "cost": 4.29 },

@@ -165,7 +165,9 @@ describe('tests for fastfood page', () => {
       { query: 'oatmeal', expected: [{id: 'oatmeal'}] },
       { query: 'junior bacon cheeseburger', expected: [{id: 'junior_bacon_cheeseburger'}] },
       { query: 'junior crispy chicken club', expected: [{id: 'junior_crispy_chicken_club'}] },
-      { query: 'chicken go wrap', expected: [{id: 'chicken_go_wrap'}], neo: true },
+      { query: 'chicken go wrap', expected: [{id: 'chicken_go_wrap'}] },
+      { query: 'broccoli and cheddar potato', expected: [{id: 'broccoli_list_cheddar_potato'}] },
+      { query: 'bacon and cheddar potato', expected: [{id: 'bacon_list_cheddar_potato'}], neo: true },
   ]
   queries.forEach((query) => {
     let neo = ''
