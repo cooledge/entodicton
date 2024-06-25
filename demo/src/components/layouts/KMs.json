@@ -589,7 +589,9 @@
         "junior bacon cheeseburger",
         "junior crispy chicken club",
         "chicken go wrap",
-        "broccoli and cheddar potato"
+        "broccoli and cheddar potato",
+        "bacon and cheddar potato",
+        "chili and cheese potato"
       ],
       "template": [
         "food is countable",
@@ -609,7 +611,6 @@
         "garden modifies salad",
         "caesar modifies salad",
         "cheese modifies potato",
-        "broccoli and cheddar literally modifies potato",
         "waffle fries are french fries",
         "mango modifies passion",
         "wild modifies berry",
@@ -668,7 +669,10 @@
         "wild berry modifies lemonade",
         "plain modifies lemonade",
         "fries and smoothies are modifications",
-        "fries and smoothies are sizeable"
+        "fries and smoothies are sizeable",
+        "broccoli and cheddar literally modifies potato",
+        "bacon and cheddar literally modifies potato",
+        "chili and cheese literally modifies potato"
       ],
       "includes": [
         "edible",
