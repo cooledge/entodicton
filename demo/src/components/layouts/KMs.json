@@ -22,7 +22,8 @@
         "hierarchy",
         "ordering",
         "properties",
-        "sizeable"
+        "sizeable",
+        "yesno"
       ]
     },
     {
@@ -608,7 +609,9 @@
         "cheeseburger",
         "4 piece nuggets",
         "6 piece nuggets",
-        "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals"
+        "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
+        "large chili",
+        "combo 1 with coke"
       ],
       "template": [
         "food is countable",
@@ -654,7 +657,7 @@
         "frosty is a drink",
         "vanilla modifies frosty",
         "chocolate modifies frosty",
-        "breakast modifies baconator",
+        "breakfast modifies baconator",
         "french toast modifies sandwich",
         "egg modifies muffin",
         "chicken on modifies french toast",
@@ -665,7 +668,6 @@
         "taco modifies salad",
         "southwest avacado modifies salad",
         "breakfast modifies meals",
-        "breakfast modifies baconator",
         "bacon modifies cheeseburger",
         "junior modifies bacon cheeseburger",
         "go modifies wrap",
@@ -676,7 +678,7 @@
         "coca modifies cola",
         "diet modifies coke",
         "iced modifies tea",
-        "coca cola, diet coke, sprite, fanta, barqs and iced tea are pop",
+        "coke, coca cola, diet coke, sprite, fanta, barqs and iced tea are pop",
         "sweet black modifies coffee",
         "french vanilla modifies coffee",
         "cappuccino modifies coffee",
@@ -686,7 +688,6 @@
         "wild berry modifies lemonade",
         "plain modifies lemonade",
         "fries and drinks are modifications",
-        "combos, fries and drinks are sizeable",
         "broccoli and cheddar literally modifies potato",
         "bacon and cheddar literally modifies potato",
         "chili and cheese literally modifies potato",
@@ -698,7 +699,8 @@
         "natural cut modifies fries",
         "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
         "junior modifies crispy chicken club",
-        "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals"
+        "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
+        "combos, chili, fries and drinks are sizeable"
       ],
       "includes": [
         "edible",
@@ -1677,6 +1679,21 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
+    },
+    {
+      "name": "yesno",
+      "description": "yesno",
+      "examples": [
+        "yes",
+        "no",
+        "yep",
+        "nope"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/yesno.js"
     }
   ]
 }
