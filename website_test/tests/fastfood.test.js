@@ -113,10 +113,7 @@ describe('tests for fastfood page', () => {
       { query: 'mango passion smoothie', expected: [{id: 'mango_passion_smoothie'}] },
       { query: 'wild berry smoothie', expected: [{id: 'wild_berry_smoothie'}] },
       { query: 'strawberry banana smoothie', expected: [{id: 'strawberry_banana_smoothie'}] },
-      { query: 'french fries', expected: [{id: 'french_fry'}] },
-      { query: 'small french fries', expected: [{id: 'french_fry', size: 'small'}] },
-      { query: 'medium french fries', expected: [{id: 'french_fry', size: 'medium'}] },
-      { query: 'large french fries', expected: [{id: 'french_fry', size: 'large'}] },
+      { query: 'french fries', expected: [{id: 'french_fry'}], sizes: ['small', 'medium', 'large'] },
       { query: 'waffle fries', expected: [{id: 'waffle_fry'}] },
       { query: 'medium waffle fries', expected: [{id: 'waffle_fry', size: 'medium'}] },
       { query: 'large waffle fries', expected: [{id: 'waffle_fry', size: 'large'}] },
@@ -139,7 +136,7 @@ describe('tests for fastfood page', () => {
       { query: 'chili fries', expected: [{id: 'chili_fry'}] },
       { query: 'garden salad', expected: [{id: 'garden_salad'}] },
       { query: 'caesar salad', expected: [{id: 'caesar_salad'}] },
-      { query: 'chili', expected: [{id: 'chili'}] },
+      { query: 'chili', expected: [{id: 'chili'}], sizes: ['small', 'large'], neo: true },
       { query: 'vanilla shake', expected: [{id: 'vanilla_shake'}] },
       { query: 'mango passion shake', expected: [{id: 'mango_passion_shake'}] },
       { query: 'strawberry shake', expected: [{id: 'strawberry_shake'}] },
@@ -167,7 +164,16 @@ describe('tests for fastfood page', () => {
       { query: 'junior crispy chicken club', expected: [{id: 'junior_crispy_chicken_club'}] },
       { query: 'chicken go wrap', expected: [{id: 'chicken_go_wrap'}] },
       { query: 'broccoli and cheddar potato', expected: [{id: 'broccoli_list_cheddar_potato'}] },
-      { query: 'bacon and cheddar potato', expected: [{id: 'bacon_list_cheddar_potato'}], neo: true },
+      { query: 'bacon and cheddar potato', expected: [{id: 'bacon_list_cheddar_potato'}] },
+      { query: 'hamburger', expected: [{id: 'hamburger'}] },
+      { query: 'cheeseburger', expected: [{id: 'cheeseburger'}] },
+      { query: 'crispy chicken', expected: [{id: 'crispy_chicken'}] },
+      { query: '10 piece chicken nuggets', expected: [{id: '10_piece_chicken_nugget'}] },
+      { query: '4 piece chicken nuggets', expected: [{id: '4_piece_chicken_nugget'}] },
+      { query: '5 piece chicken nuggets', expected: [{id: '5_piece_chicken_nugget'}] },
+      { query: '6 piece chicken nuggets', expected: [{id: '6_piece_chicken_nugget'}] },
+      { query: 'loaded fries', expected: [{id: 'loaded_fry'}] },
+      { query: 'chili fries', expected: [{id: 'chili_fry'}], neo: true },
   ]
   queries.forEach((query) => {
     let neo = ''
@@ -183,9 +189,9 @@ describe('tests for fastfood page', () => {
         test(`${neo}FASTFOOD query "${queryStr}"`, async () => {
           const squery = {...query, query: queryStr }
           squery.expected.forEach( (expected) => {
-            expected = {...expected}
             expected.size = size
           })
+          console.log('squery', JSON.stringify(squery, null, 2))
           await showTest(squery)
         }, timeout)
       }

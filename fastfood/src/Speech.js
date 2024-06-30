@@ -83,9 +83,15 @@ class FastFoodAPI {
     this._objects.notAvailable.push(item)
   }
 
-  isAvailable(id) {
-    debugger
-    return !!products.items.find( (item) => item.id == id )
+  isAvailable(item) {
+    if (item.id == 'chicken_nugget') {
+      if (![4,5,6,10].includes(item.pieces)) {
+        return false
+      }
+      item.id = `${item.pieces}_piece_chicken_nugget`
+    }
+
+    return !!products.items.find( (i) => i.id == item.id )
   }
 
   getCombo(number) {
@@ -99,7 +105,7 @@ class FastFoodAPI {
       7: 'homestyle',
       8: 'asiago_range_chicken_club',
       9: 'ultimate_chicken_grill',
-      10: '10_peice_nuggets',
+      10: '10_piece_nuggets',
       11: 'premium_cod',
     }
     return map[number]
