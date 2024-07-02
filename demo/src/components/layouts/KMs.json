@@ -611,7 +611,11 @@
         "6 piece nuggets",
         "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
         "large chili",
-        "combo 1 with coke"
+        "combo 1 with coke",
+        "2 combo ones\\nsprite\\nfanta",
+        "2 combo ones\\nsprite and fanta",
+        "2 combo ones\\n2 sprites",
+        "2 combo ones\\nsprites"
       ],
       "template": [
         "food is countable",
