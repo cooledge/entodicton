@@ -11,21 +11,24 @@ function App() {
   const [lastQuery, setLastQuery] = useState('');
   const [order, setOrderInternal] = useState([])
   const [total, setTotal] = useState(0)
+  const findProduct = (item) => {
+    const product = products.items.find( (product) => {
+      let id = item.id
+      console.log(`id=${id} product.id: ${product.id}`)
+      if (product.id == id && !!item.combo == !!product.combo) {
+        return product
+      }
+    })
+    if (!product) {
+      debugger
+    }
+    return product
+  }
 
   const setOrder = (items) => {
     const fullItems = items.map((item) => {
         const addDetails = (item) => {
-          const product = products.items.find( (product) => {
-            const id = item.id + (item.combo ? "_combo" : "");
-            console.log(`id=${id} product.id: ${product.id}`)
-            if (product.id == id) {
-              return product
-            }
-          })
-          if (!product) {
-            debugger
-          }
-          debugger
+          const product = findProduct(item)
           if (!item.size) {
             if (product.cost.half) {
               item.size = 'half'
@@ -73,6 +76,7 @@ function App() {
     lastQuery, setLastQuery,
     order, setOrder,
     total, setTotal,
+    findProduct
   }
 
   return (

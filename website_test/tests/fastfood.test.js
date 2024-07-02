@@ -37,7 +37,7 @@ describe('tests for fastfood page', () => {
   async function showTest({query, expected}) {
     items = expected.map((expected) => {
       const addDetails = (expected) => {
-        const product = products.items.find( (item) => item.id == expected.id )
+        const product = products.items.find( (item) => item.id == expected.id && !!item.combo == !!expected.combo )
         if (expected.size && expected.size != 'small') {
           expected.cost = product.cost[expected.size]
           expected.name = `${expected.size == 'large' ? 'Large' : 'Medium'} ${product.name}`
@@ -96,18 +96,18 @@ describe('tests for fastfood page', () => {
   }
   
   const queries = [
-      { query: 'combo 1', expected: [{id: 'single_combo'}] },
-      { query: 'combo 2', expected: [{id: 'double_combo'}] },
-      { query: 'combo 3', expected: [{id: 'triple_combo'}] },
-      { query: 'combo 4', expected: [{id: 'baconator_combo'}] },
-      { query: 'combo 5', expected: [{id: 'bacon_deluxe_combo'}] },
-      { query: 'combo 6', expected: [{id: 'spicy_combo'}] },
-      { query: 'combo 7', expected: [{id: 'homestyle_combo'}] },
-      { query: 'combo 8', expected: [{id: 'asiago_range_chicken_club_combo'}] },
-      { query: 'combo 9', expected: [{id: 'ultimate_chicken_grill_combo'}] },
-      // { query: 'combo 10', expected: ['10_piece_nuggets_combo'] },
-      { query: 'combo 11', expected: [{id: 'premium_cod_combo'}] },
-      { query: 'two combo twos', expected: [{id: 'double_combo'}, {id: 'double_combo'}] },
+      { query: 'combo 1', expected: [{id: 'single', combo: true}], neo: true },
+      { query: 'combo 2', expected: [{id: 'double', combo: true}] },
+      { query: 'combo 3', expected: [{id: 'triple', combo: true}] },
+      { query: 'combo 4', expected: [{id: 'baconator', combo: true}] },
+      { query: 'combo 5', expected: [{id: 'bacon_deluxe', combo: true}] },
+      { query: 'combo 6', expected: [{id: 'spicy', combo: true}] },
+      { query: 'combo 7', expected: [{id: 'homestyle', combo: true}] },
+      { query: 'combo 8', expected: [{id: 'asiago_range_chicken_club', combo: true}] },
+      { query: 'combo 9', expected: [{id: 'ultimate_chicken_grill', combo: true}] },
+      // { query: 'combo 10', expected: ['10_piece_nuggets', combo: true] },
+      { query: 'combo 11', expected: [{id: 'premium_cod', combo: true}] },
+      { query: 'two combo twos', expected: [{id: 'double', combo: true}, {id: 'double_combo'}] },
       { query: 'strawberry smoothie', expected: [{id: 'strawberry_smoothie'}] },
       { query: 'guava smoothie', expected: [{id: 'guava_smoothie'}] },
       { query: 'mango passion smoothie', expected: [{id: 'mango_passion_smoothie'}] },
@@ -117,7 +117,7 @@ describe('tests for fastfood page', () => {
       { query: 'waffle fries', expected: [{id: 'waffle_fry'}] },
       { query: 'medium waffle fries', expected: [{id: 'waffle_fry', size: 'medium'}] },
       { query: 'large waffle fries', expected: [{id: 'waffle_fry', size: 'large'}] },
-      { query: 'combo 1 with waffle fries', expected: [{id: 'single_combo', modifications: [{ id: 'waffle_fry' }] }] },
+      { query: 'combo 1 with waffle fries', expected: [{id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }] }] },
       { query: 'coca cola', expected: [{id: 'coca_cola'}], sizes: ['small', 'medium', 'large'] },
       { query: 'diet coke', expected: [{id: 'diet_coke'}], sizes: ['small', 'medium', 'large'] },
       { query: 'barq', expected: [{id: 'barq'}], sizes: ['small', 'medium', 'large'] },
@@ -136,7 +136,7 @@ describe('tests for fastfood page', () => {
       { query: 'chili fries', expected: [{id: 'chili_fry'}] },
       { query: 'garden salad', expected: [{id: 'garden_salad'}] },
       { query: 'caesar salad', expected: [{id: 'caesar_salad'}] },
-      { query: 'chili', expected: [{id: 'chili'}], sizes: ['small', 'large'], neo: true },
+      { query: 'chili', expected: [{id: 'chili'}], sizes: ['small', 'large'] },
       { query: 'vanilla shake', expected: [{id: 'vanilla_shake'}] },
       { query: 'mango passion shake', expected: [{id: 'mango_passion_shake'}] },
       { query: 'strawberry shake', expected: [{id: 'strawberry_shake'}] },
@@ -160,20 +160,20 @@ describe('tests for fastfood page', () => {
       { query: 'pancakes', expected: [{id: 'pancake'}] },
       { query: 'french toast', expected: [{id: 'french_toast'}] },
       { query: 'oatmeal', expected: [{id: 'oatmeal'}] },
-      { query: 'junior bacon cheeseburger', expected: [{id: 'junior_bacon_cheeseburger'}] },
-      { query: 'junior crispy chicken club', expected: [{id: 'junior_crispy_chicken_club'}] },
-      { query: 'chicken go wrap', expected: [{id: 'chicken_go_wrap'}] },
+      { query: 'junior bacon cheeseburger', expected: [{id: 'junior_bacon_cheeseburger', combo: true}] },
+      { query: 'junior crispy chicken club', expected: [{id: 'junior_crispy_chicken_club', combo: true}] },
+      { query: 'chicken go wrap', expected: [{id: 'chicken_go_wrap', combo: true}] },
       { query: 'broccoli and cheddar potato', expected: [{id: 'broccoli_list_cheddar_potato'}] },
       { query: 'bacon and cheddar potato', expected: [{id: 'bacon_list_cheddar_potato'}] },
       { query: 'hamburger', expected: [{id: 'hamburger'}] },
-      { query: 'cheeseburger', expected: [{id: 'cheeseburger'}] },
-      { query: 'crispy chicken', expected: [{id: 'crispy_chicken'}] },
+      { query: 'cheeseburger', expected: [{id: 'cheeseburger', combo: true}] },
+      { query: 'crispy chicken', expected: [{id: 'crispy_chicken', combo: true}] },
       { query: '10 piece chicken nuggets', expected: [{id: '10_piece_chicken_nugget'}] },
-      { query: '4 piece chicken nuggets', expected: [{id: '4_piece_chicken_nugget'}] },
+      { query: '4 piece chicken nuggets', expected: [{id: '4_piece_chicken_nugget', combo: true}] },
       { query: '5 piece chicken nuggets', expected: [{id: '5_piece_chicken_nugget'}] },
-      { query: '6 piece chicken nuggets', expected: [{id: '6_piece_chicken_nugget'}] },
+      { query: '6 piece chicken nuggets', expected: [{id: '6_piece_chicken_nugget', combo: true}] },
       { query: 'loaded fries', expected: [{id: 'loaded_fry'}] },
-      { query: 'chili fries', expected: [{id: 'chili_fry'}], neo: true },
+      { query: 'chili fries', expected: [{id: 'chili_fry'}] },
   ]
   queries.forEach((query) => {
     let neo = ''

@@ -5,39 +5,6 @@ import products from './products.json';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const tpmkms = require('tpmkms_4wp')
 
-class XFastFoodAPI {
-  initialize({ objects }) {
-    this.objects = objects
-    this.objects.items = []
-  }
-
-  setProps(props) {
-    this.props = props
-  }
-
-  // from fastfood
-
-  add(item) {
-    this.objects.items.push(item)
-    for (let i = 0; i < this.objects.items.length; ++i) {
-      this.objects.items[i].index = i+1
-    }
-    this.props.setOrder([...this.objects.items])
-  }
-
-  say(message) {
-    console.log('say', message)
-  }
-
-  getCombo(number) {
-    return products.combos[`${number}`]
-  }
-
-  hasAskedForButNotAvailable(item) {
-    return true
- }
-}
-
 class FastFoodAPI {
   initialize({ objects, config }) {
     this._objects = objects
@@ -55,11 +22,27 @@ class FastFoodAPI {
 
   // add({ name, combo, modifications }) {
   add(item) {
+    item.item_id = this._objects.items.length
+    if (!item.modifications) {
+      item.modifications = []
+    }
     // this._objects.items.push({ name, combo, modifications })
     this._objects.items.push(item)
     for (let i = 0; i < this._objects.items.length; ++i) {
       this._objects.items[i].index = i+1
     }
+    this.props.setOrder([...this._objects.items])
+    return item.item_id
+  }
+
+  get(item_id) {
+    return this._objects.items[item_id]
+  }
+
+  addDrink(item_id, drink) {
+    this._objects.items[item_id].modifications.push(drink)
+    this._objects.items[item_id].needsDrink = false
+    console.log(this._objects)
     this.props.setOrder([...this._objects.items])
   }
 
@@ -91,7 +74,20 @@ class FastFoodAPI {
       item.id = `${item.pieces}_piece_chicken_nugget`
     }
 
-    return !!products.items.find( (i) => i.id == item.id )
+    if (['hamburger', 'cheeseburger', 'junior_bacon_cheeseburger', 'junior_crispy_chicken_club', 'chicken_go_wrap'].includes(item.id)) {
+      item.combo = true
+    }
+
+    if (item.combo) {
+      item.needsDrink = true
+    }
+
+    if (item.id == 'coke') {
+      item.id = 'coca_cola'
+    }
+
+    // return !!products.items.find( (i) => i.id == item.id )
+    return this.props.findProduct(item)
   }
 
   getCombo(number) {
