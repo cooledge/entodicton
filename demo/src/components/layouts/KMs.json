@@ -618,7 +618,9 @@
         "2 combo ones\\nsprites",
         "2 bananas\\ncombo 1",
         "2 bananas\\ncombo 1\\nfanta",
-        "breakfast baconator"
+        "breakfast baconator",
+        "combo 1\\n2 bananas",
+        "combo 1\\n2 bananas\\nfanta"
       ],
       "template": [
         "food is countable",
