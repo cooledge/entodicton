@@ -53,9 +53,11 @@ function App() {
         addDetails(item)
         if (item.modifications && item.modifications.length > 0) {
           item.name += ' -'
+          let separator = ' '
           for (let modification of item.modifications) {
             addDetails(modification)
-            item.name += ' ' + modification.name
+            item.name += separator + modification.name
+            separator = ', '
             if (modification.id == 'waffle_fry') {
               item.cost += products.waffle_fry_extra_cost
             }
