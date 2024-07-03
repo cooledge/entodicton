@@ -39,6 +39,10 @@ class FastFoodAPI {
     return this._objects.items[item_id]
   }
 
+  items() {
+    return this._objects.items
+  }
+
   addDrink(item_id, drink) {
     this._objects.items[item_id].modifications.push(drink)
     this._objects.items[item_id].needsDrink = false
@@ -71,10 +75,13 @@ class FastFoodAPI {
       if (![4,5,6,10].includes(item.pieces)) {
         return false
       }
+      if ([4,6].includes(item.pieces)) {
+        item.combo = true
+      }
       item.id = `${item.pieces}_piece_chicken_nugget`
     }
 
-    if (['hamburger', 'cheeseburger', 'junior_bacon_cheeseburger', 'junior_crispy_chicken_club', 'chicken_go_wrap'].includes(item.id)) {
+    if (['hamburger', 'cheeseburger', 'crispy_chicken', 'junior_bacon_cheeseburger', 'junior_crispy_chicken_club', 'chicken_go_wrap'].includes(item.id)) {
       item.combo = true
     }
 
@@ -241,6 +248,7 @@ function Speech(props) {
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
+    document.getElementById('query').value = ''
     setQuery(query)
   }
 
@@ -273,7 +281,7 @@ function Speech(props) {
           <span style={{"marginLeft": "10px"}} >(Chrome supports speech recognition)</span>
         }
       </div>
-      <span className='paraphrase'>{ lastQuery } greg</span>
+      <span className='paraphrase'>{ lastQuery }</span>
     </div>
   );
 }

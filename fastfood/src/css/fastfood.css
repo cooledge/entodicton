@@ -1,6 +1,11 @@
 .App {
 }
 
+.request {
+  margin-left: 10px;
+  width: 300px;
+}
+
 .Header {
   display: block;
 }
