@@ -107,20 +107,28 @@ describe('tests for fastfood page', () => {
 
     await page.close()
   }
-  
+ 
+  const withAndWithoutDrink = ({query, expected, neo}) => {
+    const queries = []
+    queries.push({ queries: [query], neo, expecteds: [[expected]] })
+    queries.push({ queries: [query, 'sprite'], neo, expecteds: [[expected], [{...expected, modifiers: (expected.modifiers || []).concat([{ id: 'sprite' }])}]] })
+    return queries
+  }
+  //    { queries: ['combo 1', 'sprite'], expecteds: [[{id: 'single', combo: true}], [{id: 'single', combo: true, modifiers: [{ id: 'sprite' }]}]] },
   const queries = [
-      { queries: ['combo 1'], expecteds: [[{id: 'single', combo: true}]] },
-      { queries: ['combo 1', 'sprite'], expecteds: [[{id: 'single', combo: true}], [{id: 'single', combo: true, modifiers: [{ id: 'sprite' }]}]] },
-      { queries: ['combo 2'], expecteds: [[{id: 'double', combo: true}]] },
-      { queries: ['combo 3'], expecteds: [[{id: 'triple', combo: true}]] },
-      { queries: ['combo 4'], expecteds: [[{id: 'baconator', combo: true}]] },
-      { queries: ['combo 5'], expecteds: [[{id: 'bacon_deluxe', combo: true}]] },
-      { queries: ['combo 6'], expecteds: [[{id: 'spicy', combo: true}]] },
-      { queries: ['combo 7'], expecteds: [[{id: 'homestyle', combo: true}]] },
-      { queries: ['combo 8'], expecteds: [[{id: 'asiago_range_chicken_club', combo: true}]] },
-      { queries: ['combo 9'], expecteds: [[{id: 'ultimate_chicken_grill', combo: true}]] },
+      // { queries: ['combo 1'], expecteds: [[{id: 'single', combo: true}]] },
+      // { queries: ['combo 1', 'sprite'], expecteds: [[{id: 'single', combo: true}], [{id: 'single', combo: true, modifiers: [{ id: 'sprite' }]}]] },
+      ...withAndWithoutDrink({query: 'combo 1', expected: {id: 'single', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 2', expected: {id: 'double', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 3', expected: {id: 'triple', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 4', expected: {id: 'baconator', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 5', expected: {id: 'bacon_deluxe', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 6', expected: {id: 'spicy', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 7', expected: {id: 'homestyle', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 8', expected: {id: 'asiago_range_chicken_club', combo: true}}),
+      ...withAndWithoutDrink({query: 'combo 9', expected: {id: 'ultimate_chicken_grill', combo: true}}),
       // { queries: ['combo 10'], expecteds: [['10_piece_nuggets', combo: true]] },
-      { queries: ['combo 11'], expecteds: [[{id: 'premium_cod', combo: true}]] },
+      ...withAndWithoutDrink({query: 'combo 11', expected: {id: 'premium_cod', combo: true}}),
       { queries: ['two combo twos'], expecteds: [[{id: 'double', combo: true}, {id: 'double', combo: true}]] },
       { queries: ['strawberry smoothie'], expecteds: [[{id: 'strawberry_smoothie'}]] },
       { queries: ['guava smoothie'], expecteds: [[{id: 'guava_smoothie'}]] },
@@ -132,6 +140,7 @@ describe('tests for fastfood page', () => {
       { queries: ['medium waffle fries'], expecteds: [[{id: 'waffle_fry', size: 'medium'}]] },
       { queries: ['large waffle fries'], expecteds: [[{id: 'waffle_fry', size: 'large'}]] },
       { queries: ['combo 1 with waffle fries'], expecteds: [[{id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }] }]] },
+      ...withAndWithoutDrink({query: 'combo 1 with waffle fries', neo: true, expected: {id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }]}}),
       { queries: ['coca cola'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'coca_cola'}]] },
       { queries: ['diet coke'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'diet_coke'}]] },
       { queries: ['barq'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'barq'}]] },
