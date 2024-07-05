@@ -10,6 +10,10 @@ body {
     background: #272b23;
 }
 
+.query {
+  margin-left: 20px;
+}
+
 .body::after {
     height: 100%;
     width: 100%;

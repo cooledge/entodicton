@@ -22,7 +22,8 @@
         "hierarchy",
         "ordering",
         "properties",
-        "sizeable"
+        "sizeable",
+        "yesno"
       ]
     },
     {
@@ -201,7 +202,8 @@
         "chicken modifies strips",
         "ice and hand modify cream\\n ice cream hand cream",
         "raw chicken modifies strips\\n raw chicken strips",
-        "mango modifies passion\\nmango passion modifies smoothie\\nmango passion smoothie"
+        "mango modifies passion\\nmango passion modifies smoothie\\nmango passion smoothie",
+        "apple and cheddar literally modifies pie\\napple and cheddar pie"
       ],
       "template": [],
       "includes": [
@@ -401,13 +403,15 @@
         "what are the types of food",
         "2 piece nuggets",
         "5 2 piece nuggets",
-        "a cheeseburger"
+        "a cheeseburger",
+        "apple juice",
+        "chocolate milk"
       ],
       "template": [
         "food and drinks are edible",
         "chicken modifies strips",
         "chicken modifies nugget",
-        "chicken strips and chicken nuggets are food",
+        "nuggets, chicken strips and chicken nuggets are food",
         "sushi is food",
         "apples oranges and bananas are fruit",
         "hot modifies dog",
@@ -420,7 +424,7 @@
         "pie and salad are foods",
         "apple modifies pie",
         "sandwiches are food",
-        "carrots, peas, cabbage, potatoes and brocoli are vegetables",
+        "carrots, peas, cabbage, potatoes and broccoli are vegetables",
         "vegetables and bread are food",
         "french modifies toast",
         "muffins, french toast and pancakes are bread",
@@ -430,7 +434,11 @@
         "sausage is a meat",
         "a hamburger is a sandwich",
         "a cheeseburger is a hamburger",
-        "pop, soda, coffee, tea, shakes and juice are drinks",
+        "cheese is a food",
+        "cheddar is a cheese",
+        "milk, pop, soda, coffee, tea, shakes and juice are drinks",
+        "apple modifies juice",
+        "chocolate modifies milk",
         "lemonade is a drink"
       ],
       "includes": [
@@ -585,7 +593,34 @@
         "oatmeal",
         "junior bacon cheeseburger",
         "junior crispy chicken club",
-        "chicken go wrap"
+        "chicken go wrap",
+        "broccoli and cheddar potato",
+        "bacon and cheddar potato",
+        "chili and cheese potato",
+        "combo 1 with sprite",
+        "combo 1 with large sprite",
+        "large combo 1",
+        "4 piece chicken nuggets",
+        "5 piece chicken nuggets",
+        "6 piece chicken nuggets",
+        "11 piece chicken nuggets",
+        "10 piece nuggets",
+        "hamburger",
+        "cheeseburger",
+        "4 piece nuggets",
+        "6 piece nuggets",
+        "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
+        "large chili",
+        "combo 1 with coke",
+        "2 combo ones\\nsprite\\nfanta",
+        "2 combo ones\\nsprite and fanta",
+        "2 combo ones\\n2 sprites",
+        "2 combo ones\\nsprites",
+        "2 bananas\\ncombo 1",
+        "2 bananas\\ncombo 1\\nfanta",
+        "breakfast baconator",
+        "combo 1\\n2 bananas",
+        "combo 1\\n2 bananas\\nfanta"
       ],
       "template": [
         "food is countable",
@@ -596,9 +631,9 @@
         "ultimate chicken modifies grill",
         "chicken modifies club",
         "asiago ranch modifies chicken club",
-        "crispy modifies chicken club",
-        "chicken club is a sandwich",
-        "junior modifies crispy chicken club",
+        "crispy modifies chicken",
+        "crispy chicken modifies club",
+        "club is a sandwich",
         "waffle modifies fries",
         "loaded modifies fries",
         "chili modifies fries",
@@ -631,7 +666,7 @@
         "frosty is a drink",
         "vanilla modifies frosty",
         "chocolate modifies frosty",
-        "breakast modifies baconator",
+        "breakfast modifies baconator",
         "french toast modifies sandwich",
         "egg modifies muffin",
         "chicken on modifies french toast",
@@ -642,7 +677,6 @@
         "taco modifies salad",
         "southwest avacado modifies salad",
         "breakfast modifies meals",
-        "breakfast modifies baconator",
         "bacon modifies cheeseburger",
         "junior modifies bacon cheeseburger",
         "go modifies wrap",
@@ -653,7 +687,7 @@
         "coca modifies cola",
         "diet modifies coke",
         "iced modifies tea",
-        "coca cola, diet coke, sprite, fanta, barqs and iced tea are pop",
+        "coke, coca cola, diet coke, sprite, fanta, barqs and iced tea are pop",
         "sweet black modifies coffee",
         "french vanilla modifies coffee",
         "cappuccino modifies coffee",
@@ -662,8 +696,20 @@
         "strawberry modifies lemonade",
         "wild berry modifies lemonade",
         "plain modifies lemonade",
-        "fries and smoothies are modifications",
-        "fries and smoothies are sizeable"
+        "fries and drinks are modifications",
+        "broccoli and cheddar literally modifies potato",
+        "bacon and cheddar literally modifies potato",
+        "chili and cheese literally modifies potato",
+        "kids modifies meal",
+        "value modifies meal",
+        "bottled modifies water",
+        "bottled water is a drink",
+        "apple modifies slice",
+        "natural cut modifies fries",
+        "hamburgers, cheeseburgers, crispy chicken and nuggets are kids meals",
+        "junior modifies crispy chicken club",
+        "nuggets, junior bacon cheeseburgers, chicken go wraps and junior crispy chicken clubs are value meals",
+        "combos, chili, fries and drinks are sizeable"
       ],
       "includes": [
         "edible",
@@ -1642,6 +1688,21 @@
         "gdefaults"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
+    },
+    {
+      "name": "yesno",
+      "description": "yesno",
+      "examples": [
+        "yes",
+        "no",
+        "yep",
+        "nope"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/yesno.js"
     }
   ]
 }

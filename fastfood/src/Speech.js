@@ -5,39 +5,6 @@ import products from './products.json';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const tpmkms = require('tpmkms_4wp')
 
-class XFastFoodAPI {
-  initialize({ objects }) {
-    this.objects = objects
-    this.objects.items = []
-  }
-
-  setProps(props) {
-    this.props = props
-  }
-
-  // from fastfood
-
-  add(item) {
-    this.objects.items.push(item)
-    for (let i = 0; i < this.objects.items.length; ++i) {
-      this.objects.items[i].index = i+1
-    }
-    this.props.setOrder([...this.objects.items])
-  }
-
-  say(message) {
-    console.log('say', message)
-  }
-
-  getCombo(number) {
-    return products.combos[`${number}`]
-  }
-
-  hasAskedForButNotAvailable(item) {
-    return true
- }
-}
-
 class FastFoodAPI {
   initialize({ objects, config }) {
     this._objects = objects
@@ -55,11 +22,31 @@ class FastFoodAPI {
 
   // add({ name, combo, modifications }) {
   add(item) {
+    item.item_id = this._objects.items.length
+    if (!item.modifications) {
+      item.modifications = []
+    }
     // this._objects.items.push({ name, combo, modifications })
     this._objects.items.push(item)
     for (let i = 0; i < this._objects.items.length; ++i) {
       this._objects.items[i].index = i+1
     }
+    this.props.setOrder([...this._objects.items])
+    return item.item_id
+  }
+
+  get(item_id) {
+    return this._objects.items[item_id]
+  }
+
+  items() {
+    return this._objects.items
+  }
+
+  addDrink(item_id, drink) {
+    this._objects.items[item_id].modifications.push(drink)
+    this._objects.items[item_id].needsDrink = false
+    console.log(this._objects)
     this.props.setOrder([...this._objects.items])
   }
 
@@ -83,9 +70,31 @@ class FastFoodAPI {
     this._objects.notAvailable.push(item)
   }
 
-  isAvailable(id) {
-    debugger
-    return !!products.items.find( (item) => item.id == id )
+  isAvailable(item) {
+    if (item.id == 'chicken_nugget') {
+      if (![4,5,6,10].includes(item.pieces)) {
+        return false
+      }
+      if ([4,6].includes(item.pieces)) {
+        item.combo = true
+      }
+      item.id = `${item.pieces}_piece_chicken_nugget`
+    }
+
+    if (['hamburger', 'cheeseburger', 'crispy_chicken', 'junior_bacon_cheeseburger', 'junior_crispy_chicken_club', 'chicken_go_wrap'].includes(item.id)) {
+      item.combo = true
+    }
+
+    if (item.combo) {
+      item.needsDrink = true
+    }
+
+    if (item.id == 'coke') {
+      item.id = 'coca_cola'
+    }
+
+    // return !!products.items.find( (i) => i.id == item.id )
+    return this.props.findProduct(item)
   }
 
   getCombo(number) {
@@ -99,7 +108,7 @@ class FastFoodAPI {
       7: 'homestyle',
       8: 'asiago_range_chicken_club',
       9: 'ultimate_chicken_grill',
-      10: '10_peice_nuggets',
+      10: '10_piece_nuggets',
       11: 'premium_cod',
     }
     return map[number]
@@ -239,6 +248,7 @@ function Speech(props) {
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
+    document.getElementById('query').value = ''
     setQuery(query)
   }
 
@@ -271,7 +281,7 @@ function Speech(props) {
           <span style={{"marginLeft": "10px"}} >(Chrome supports speech recognition)</span>
         }
       </div>
-      <span className='paraphrase'>{ lastQuery } greg</span>
+      <span className='paraphrase'>{ lastQuery }</span>
     </div>
   );
 }
