@@ -1,4 +1,5 @@
 import Speech from './Speech'
+import Text from './Text'
 
 function Tabs(props) {
   const { children, active, setActive } = props
@@ -30,7 +31,7 @@ function Tabs(props) {
   return (
     <ul className="nav nav-tabs">
       { links }
-      <Speech {...props}/> 
+      <Text {...props}/> 
     </ul>
   )
 }

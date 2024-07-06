@@ -3,6 +3,10 @@
     src: url('../fonts/pipboy.ttf')
 }
 
+.request {
+    width: 300px;
+}
+
 .App {
     font-family: pipboy, sans-serif;
     color: #14fe17;  

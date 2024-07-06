@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const tpmkms = require('tpmkms_4wp')
 
 const pipboy = tpmkms.pipboy()
@@ -191,20 +190,7 @@ pipboy.server(url)
 
 let processing = false
 
-function Speech(props) {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
-
-  useEffect( () => {
-    if (browserSupportsSpeechRecognition) {
-      SpeechRecognition.startListening()
-    }
-  }, [browserSupportsSpeechRecognition])
-
+function Text(props) {
   const { lastQuery, setLastQuery, setMessage } = props
   const [ query, setQuery ] = useState('')
 
@@ -228,11 +214,8 @@ function Speech(props) {
           setMessage(message)
         }
         processing = false
-        SpeechRecognition.startListening()
       }).catch( (e) => {
-        console.log('got error--------------------------------------------', e)
-        processing = false
-        SpeechRecognition.startListening()
+        console.log('got error', e)
       }
       );
     }
@@ -243,39 +226,21 @@ function Speech(props) {
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
     console.log('doing the query', query)
-    // doQuery(query)
     setQuery(query)
-  }
-  const onRestart = () => {
-    SpeechRecognition.startListening()
-  }
-  if (!processing && !listening && transcript) {
-    setLastQuery(transcript)
-    processing = true
-    // doQuery(transcript)
+    document.getElementById('query').value = ''
   }
 
   const keyPressed = (event) => {
-        if (event.key === 'Enter') {
-          onClick()
-        }
-      }
+    if (event.key === 'Enter') {
+      onClick()
+    }
+  }
 
   return (
     <div className="Speech">
       <div>
-        Request <input id='query' placeholder='press enter to submit.' onKeyDown ={ keyPressed } type='text' className='request' />
+        Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
         <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onClick}>Submit</Button>
-        { !browserSupportsSpeechRecognition &&
-          <br/>
-        }
-        <span style={{"margin-left": "10px"}}>Speech recognizer is { listening ? "on" : "off" }</span>
-        { !listening && !processing && browserSupportsSpeechRecognition &&
-          <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onRestart}>Restart</Button>
-        }
-        { !browserSupportsSpeechRecognition &&
-          <span style={{"margin-left": "10px"}} >(Chrome supports speech recognition)</span>
-        }
       </div>
       <div>
         <span class='paraphrase'>{ lastQuery }</span>
@@ -284,4 +249,4 @@ function Speech(props) {
   );
 }
 
-export default Speech;
+export default Text;
