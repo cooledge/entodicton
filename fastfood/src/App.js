@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Speech from './Speech'
 import Order from './Order'
+import Popup from './Popup'
 import wendys from './images/wendys.jpg'
 import products from './products.json';
 import './css/fastfood.css'
@@ -11,6 +12,7 @@ function App() {
   const [lastQuery, setLastQuery] = useState('');
   const [order, setOrderInternal] = useState([])
   const [total, setTotal] = useState(0)
+  const [message, setMessage] = useState()
   const findProduct = (item) => {
     const product = products.items.find( (product) => {
       let id = item.id
@@ -78,7 +80,8 @@ function App() {
     lastQuery, setLastQuery,
     order, setOrder,
     total, setTotal,
-    findProduct
+    findProduct,
+    setMessage,
   }
 
   return (
@@ -86,6 +89,11 @@ function App() {
       <div class="Header">
         <Speech {...props} />
       </div>
+      { message &&
+        <Popup {...props }>
+          {message}
+        </Popup>
+      }
       <div class="Body">
         <Order {...props} />
         <img className='Menu' src={wendys} />

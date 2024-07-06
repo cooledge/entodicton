@@ -3,7 +3,8 @@
 
 .request {
   margin-left: 10px;
-  width: 300px;
+  width: 500px;
+  display: inline-grid;
 }
 
 .Header {

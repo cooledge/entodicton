@@ -1,7 +1,6 @@
 import { useMemo, useEffect, useState } from 'react';
 import { Button } from 'react-native';
-import parameters from './parameters'
-import products from './products.json';
+import CreatableSelect from 'react-select/creatable';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 const tpmkms = require('tpmkms_4wp')
 
@@ -51,8 +50,8 @@ class FastFoodAPI {
   }
 
   say(message) {
-    // this._objects.response = response
     console.log('say', message)
+    this.props.setMessage(message)
   }
 
   // return true if you want the NLI layer to handle this
@@ -71,7 +70,7 @@ class FastFoodAPI {
   }
 
   isAvailable(item) {
-    if (item.id == 'chicken_nugget') {
+    if (item.id === 'chicken_nugget') {
       if (![4,5,6,10].includes(item.pieces)) {
         return false
       }
@@ -89,11 +88,11 @@ class FastFoodAPI {
       item.needsDrink = true
     }
 
-    if (item.id == 'coke') {
+    if (item.id === 'coke') {
       item.id = 'coca_cola'
     }
 
-    // return !!products.items.find( (i) => i.id == item.id )
+    // return !!products.items.find( (i) => i.id === item.id )
     return this.props.findProduct(item)
   }
 
@@ -165,13 +164,43 @@ const url = `${new URL(window.location.href).origin}/entodicton`
 fastfood.config.url = url
 fastfood.server(url)
 
-let processing = false
+
+async function main() {
+  await speak("Say something");
+  var spokenWord = await hear();
+  await speak(spokenWord);
+}
+
+async function speak(message) {
+  return new Promise((resolve, reject) => {
+    var synth = window.speechSynthesis;
+    var utterThis = new SpeechSynthesisUtterance(message);
+    synth.speak(utterThis);
+    utterThis.onend = resolve;
+  });
+}
+
+async function hear() {
+  return new Promise((resolve, reject) => {
+    var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    recognition.start();
+
+    recognition.onresult = function (event) {
+        var current = event.resultIndex;
+        var transcript = event.results[current][0].transcript;
+        console.log(transcript);
+        recognition.stop();
+        resolve(transcript);
+    }
+  });
+}
 
 function Speech(props) {
   const {
     transcript,
     listening,
-    resetTranscript,
+    // resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
@@ -181,9 +210,10 @@ function Speech(props) {
     }
   }, [browserSupportsSpeechRecognition])
 
-  const { lastQuery, setLastQuery } = props
-  // const { order, setOrder } = props
+  const { setMessage } = props
+  const [ processing, setProcessing ] = useState(false)
   const [ query, setQuery ] = useState('')
+  const [ selectedOption, setSelectedOption ] = useState()
 
   const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
 
@@ -194,57 +224,64 @@ function Speech(props) {
     if (query === '') {
       return
     }
+    fastfood.api.say("Hello world!")
     const doQuery = async () => {
-      return fastfood.process(query.toLowerCase()).then( (result) => {
-        /*
-        console.log(result)
-        
-        for (let index in result.responses) {
-          if (result.contexts[index].marker == 'error') {
-            console.log('error', result.contexts[index])
-            continue
-          }
-          const response = result.responses[index]
-          if (response.length > 0) {
-            msg.text = response
-            window.speechSynthesis.speak(msg)
-          }
-        }
-        */
-
+      return fastfood.process(query.toLowerCase()).then( async (result) => {
         let message = ''
         let hasError = false
-        for (let i = 0; i < result.contexts.length; ++i) {
-          if (result.contexts[i].marker == 'error') {
-            console.log('error', result.contexts[i])
-            hasError = true
-            continue
+        if (!result) {
+          debugger
+        }
+        setProcessing(false)
+        setQuery('')
+        if (result.error) {
+          console.log(result.error)
+        } else {
+          for (let i = 0; i < result.contexts.length; ++i) {
+            if (result.contexts[i].marker === 'error') {
+              console.log('error', result.contexts[i])
+              hasError = true
+              continue
+            }
+            if (result.contexts[i].isResponse) {
+              message += result.responses[i] + ' '
+            }
           }
-          if (result.contexts[i].isResponse) {
-            message += result.responses[i] + ' '
+          if (hasError) {
+            message += '. There are errors shown in the console'
+          }
+          if (message) {
+            fastfood.api.say(message)
+            // await speak(message)
+            /*
+            msg.text = message
+            window.speechSynthesis.speak(msg)
+            msg.onend = () => {
+              debugger
+              SpeechRecognition.startListening()
+            }
+            */
+            // setMessage(message)
+            /*
+            await new Promise((resolve, reject) => {
+              msg.text = message
+              msg.onend = resolve
+              debugger
+              window.speechSynthesis.speak(msg)
+              debugger
+            });
+            */
           }
         }
-        if (hasError) {
-          message += '. There are errors shown in the console'
-        }
-        if (message) {
-          fastfood.api.say(message)
-          msg.text = message
-          window.speechSynthesis.speak(msg)
-        }
-        processing = false
         SpeechRecognition.startListening()
       }).catch( (e) => {
-        console.log('got error--------------------------------------------', e)
-        processing = false
+        setProcessing(false)
         SpeechRecognition.startListening()
       }
       );
     }
-
     doQuery()
-    setQuery('')
-  }, [query, msg])
+  }, [query, msg, processing])
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
@@ -256,32 +293,47 @@ function Speech(props) {
     SpeechRecognition.startListening()
   }
 
-  if (!processing && !listening && transcript) {
-    setLastQuery(transcript)
-    processing = true
-    // setQuery(transcript)
+  if (!processing && !listening && transcript.length > 0) {
+    setProcessing(true)
+    setQuery(`${transcript}`)
   }
 
   const keyPressed = (event) => {
-        if (event.key === 'Enter') {
-          onClick()
-        }
-      }
+    if (event.key === 'Enter') {
+      onClick()
+    }
+  }
+
+  const info = fastfood.getInfo()
+  const options = []
+  for (let example of info.examples) {
+    options.push({ value: example, label: example })
+  }
+  const handleChange = (query) => {
+    setSelectedOption(null)
+    setQuery(query.value)
+  };
 
   return (
     <div className="Speech">
       <div style={{ 'flexGrow': '1' }}>
-        Request <input id='query' placeholder='press enter to submit.' onKeyDown ={ keyPressed } type='text' className='request' />
+        Request <CreatableSelect 
+                  label="Request" 
+                  autoFocus={true}
+                  className='request' 
+                  createOptionPosition="first"
+                  formatCreateLabel={(value) => `query: ${value}`} 
+                  value={selectedOption} 
+                  onChange={handleChange} options={options} />
         <a className="Button" id='submit' onClick={onClick}>Submit</a>
-        <span style={{"marginLeft": "10px"}}>Speech recognizer is { listening ? "on" : "off" }</span>
+        <span>{query}</span>
         { !listening && !processing && browserSupportsSpeechRecognition &&
-          <a className="Button" id='submit' onClick={onRestart}>Restart</a>
+          <Button style={{"margin-left": "10px"}} id='restart' className='button' variant='contained' onClick={onRestart}>Restart</Button>
         }
         { !browserSupportsSpeechRecognition &&
-          <span style={{"marginLeft": "10px"}} >(Chrome supports speech recognition)</span>
+          <span style={{"margin-left": "10px"}} >(Chrome supports speech recognition)</span>
         }
       </div>
-      <span className='paraphrase'>{ lastQuery }</span>
     </div>
   );
 }
