@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Speech from './Speech'
+import Text from './Text'
 import Order from './Order'
 import Popup from './Popup'
 import wendys from './images/wendys.jpg'
@@ -87,7 +88,8 @@ function App() {
   return (
     <div className="App">
       <div class="Header">
-        <Speech {...props} />
+        // <Speech {...props} />
+        <Text {...props} />
       </div>
       { message &&
         <Popup {...props }>
