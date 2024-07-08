@@ -1,7 +1,8 @@
 import { useMemo, useEffect, useState } from 'react';
 import { Button } from 'react-native';
-import CreatableSelect from 'react-select/creatable';
+console.time('load')
 const tpmkms = require('tpmkms_4wp')
+console.timeEnd('load')
 
 class FastFoodAPI {
   initialize({ objects, config }) {
@@ -152,23 +153,26 @@ class UIAPI {
 
 }
 
-const ui = tpmkms.ui()
-ui.api = new UIAPI()
-
-const fastfood = tpmkms.fastfood()
-fastfood.api = new FastFoodAPI()
-fastfood.config.debug = true
-fastfood.add(ui)
-const url = `${new URL(window.location.href).origin}/entodicton`
-fastfood.config.url = url
-fastfood.server(url)
-
 function Text(props) {
   const { setMessage } = props
   const [ query, setQuery ] = useState('')
   const [ selectedOption, setSelectedOption ] = useState()
 
   const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
+  const fastfood = useMemo( () => {
+    console.time('create fastfood km')
+    const ui = tpmkms.ui()
+    ui.api = new UIAPI()
+    const fastfoodI = tpmkms.fastfood()
+    fastfoodI.api = new FastFoodAPI()
+    fastfoodI.config.debug = true
+    fastfoodI.add(ui)
+    const url = `${new URL(window.location.href).origin}/entodicton`
+    fastfoodI.config.url = url
+    fastfoodI.server(url)
+    console.timeEnd('create fastfood km')
+    return fastfoodI
+  }, [])
 
   fastfood.api.setProps(props)
   fastfood.getConfigs().ui.api.setProps(props)
@@ -176,7 +180,6 @@ function Text(props) {
     if (query === '') {
       return
     }
-    fastfood.api.say("Hello world!")
     const doQuery = async () => {
       return fastfood.process(query.toLowerCase()).then( async (result) => {
         let message = ''
@@ -235,17 +238,12 @@ function Text(props) {
 
   return (
     <div className="Speech">
-      <div style={{ 'flexGrow': '1' }}>
-        Request <CreatableSelect 
-                  label="Request" 
-                  autoFocus={true}
-                  className='request' 
-                  createOptionPosition="first"
-                  formatCreateLabel={(value) => `query: ${value}`} 
-                  value={selectedOption} 
-                  onChange={handleChange} options={options} />
-        <a className="Button" id='submit' onClick={onClick}>Submit</a>
-        <span>{query}</span>
+      <div>
+        Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
+        <a style={{"margin-left": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
+      </div>
+      <div>
+        <span class='paraphrase'>{ query }</span>
       </div>
     </div>
   );

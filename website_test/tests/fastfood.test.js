@@ -77,14 +77,14 @@ describe('tests for fastfood page', () => {
 
     const page = await browser.newPage();
     await page.goto(`${URL}/fastfood/`)
-    console.log('queries', queries)
     for (let i = 0; i < queries.length; ++i) {
       const query = queries[i]
       const expected = expecteds[i]
 
       await page.waitForSelector('#query')
       await page.type('#query', query)
-      await page.click('#submit')
+      await page.type('#query', '\n')
+      // await page.click('#submit')
       await page.waitForSelector(`.Cost`)
 
       const items = getItems(expected)
