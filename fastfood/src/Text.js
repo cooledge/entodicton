@@ -181,7 +181,6 @@ function Text(props) {
       return fastfood.process(query.toLowerCase()).then( async (result) => {
         let message = ''
         let hasError = false
-        setProcessing(false)
         setQuery('')
         if (result.error) {
           console.log(result.error)
@@ -206,7 +205,6 @@ function Text(props) {
           }
         }
       }).catch( (e) => {
-        setProcessing(false)
       }
       );
     }

@@ -88,7 +88,6 @@ function App() {
   return (
     <div className="App">
       <div class="Header">
-        // <Speech {...props} />
         <Text {...props} />
       </div>
       { message &&

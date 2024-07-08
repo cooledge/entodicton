@@ -69,3 +69,53 @@
 .Button:hover {
   background-color: #A9A9A9;
 }
+
+.popup {
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    position: absolute;
+    background: lightgray;
+    min-width: 500px;
+    top: 25%;
+    left: 40%;
+    animation-fill-mode: forwards;
+}
+
+.fadeIn {
+    opacity: 2;
+    animation-name: fadeIn;
+    animation-duration: 2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 2; }
+}
+
+.fadeOut {
+    opacity: 2;
+    animation-name: fadeOut;
+    animation-duration: 2s;
+}
+
+@keyframes fadeOut {
+    from { opacity: 2; }
+    to { opacity: 0; }
+}
+
+.popup img {
+    max-height: 300px;
+    /* margin-top: 100px; */
+    filter: grayscale(1) sepia(100%) hue-rotate(55deg) saturate(7) brightness(1) contrast(2) invert(70%);
+    margin-right: 2%;
+}
+
+.popup .message {
+    display: inline-flex;
+    align-items: center;
+    border-left: 2px double;
+    padding-left: 10px;
+    height: 100px;
+}
+
