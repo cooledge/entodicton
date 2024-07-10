@@ -620,7 +620,16 @@
         "2 bananas\\ncombo 1\\nfanta",
         "breakfast baconator",
         "combo 1\\n2 bananas",
-        "combo 1\\n2 bananas\\nfanta"
+        "combo 1\\n2 bananas\\nfanta",
+        "combo 2 and 2 combo threes",
+        "2 sprites and a fanta",
+        "combo 2 and 2 combo threes\\n2 sprites and a fanta",
+        "combo 4 with iced tea",
+        "a guava and strawberry banana smoothie",
+        "single combo with waffle fries",
+        "2 10 piece chicken nuggets",
+        "2 large chili fries",
+        "a guava and a strawberry banana smoothie"
       ],
       "template": [
         "food is countable",
@@ -1163,6 +1172,8 @@
       "includes": [
         "pipboyTemplate",
         "help",
+        "math",
+        "mathTemplate",
         "countable",
         "comparable",
         "hierarchy",
