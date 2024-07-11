@@ -88,6 +88,7 @@ function App() {
   return (
     <div className="App">
       <div class="Header">
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://www.youtube.com/watch?v=I-soouThRzc'} target="_blank" rel="noreferrer">YouTube Demo of Using This Page (with speech recognition)</a>
         <Text {...props} />
       </div>
       { message &&
