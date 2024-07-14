@@ -1196,7 +1196,8 @@
       "examples": [
         "what is the type of pikachu",
         "what type is pikachu",
-        "who is electric type"
+        "who is electric type",
+        "what are the pokemon types"
       ],
       "template": [
         "pokemon modifies type",
