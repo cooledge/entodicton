@@ -136,14 +136,13 @@ describe('tests for pipboy page', () => {
 
     await page.goto(`${URL}/pipboy/`)
 
-    await page.waitForSelector('#query')
-
     const retries = 3;
     for (let i = 0; i < queries.length; ++i) {
       for (let retry = 0; retry < retries; ++retry) {
         try {
           const query = queries[i]
           const test = tests[i]
+          await page.waitForSelector('#query')
           await page.focus('#query');
           await page.keyboard.down('Control');
           await page.keyboard.press('A');
