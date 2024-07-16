@@ -160,22 +160,22 @@ function Text(props) {
 
   const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
   const fastfood = useMemo( () => {
-    console.time('create fastfood km')
-    const ui = tpmkms.ui()
-    ui.api = new UIAPI()
+    // const ui = tpmkms.ui()
+    // ui.api = new UIAPI()
     const fastfoodI = tpmkms.fastfood()
-    fastfoodI.api = new FastFoodAPI()
-    fastfoodI.config.debug = true
-    fastfoodI.add(ui)
-    const url = `${new URL(window.location.href).origin}/entodicton`
-    fastfoodI.config.url = url
-    fastfoodI.server(url)
-    console.timeEnd('create fastfood km')
+    fastfoodI.stop_auto_rebuild()
+      fastfoodI.api = new FastFoodAPI()
+      fastfoodI.config.debug = true
+      // fastfoodI.add(ui)
+      const url = `${new URL(window.location.href).origin}/entodicton`
+      fastfoodI.config.url = url
+      fastfoodI.server(url)
+    fastfoodI.restart_auto_rebuild()
     return fastfoodI
   }, [])
 
   fastfood.api.setProps(props)
-  fastfood.getConfigs().ui.api.setProps(props)
+  // fastfood.getConfigs().ui.api.setProps(props)
   useEffect( () => {
     if (query === '') {
       return
