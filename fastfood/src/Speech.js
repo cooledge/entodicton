@@ -153,16 +153,17 @@ class UIAPI {
 
 }
 
-const ui = tpmkms.ui()
-ui.api = new UIAPI()
+// const ui = tpmkms.ui()
+// ui.api = new UIAPI()
 
-const fastfood = tpmkms.fastfood()
-fastfood.api = new FastFoodAPI()
-fastfood.config.debug = true
-fastfood.add(ui)
-const url = `${new URL(window.location.href).origin}/entodicton`
-fastfood.config.url = url
-fastfood.server(url)
+const fastfood = tpmkms.fastfood((fastfood) => {
+  fastfood.api = new FastFoodAPI()
+  fastfood.config.debug = true
+  // fastfood.add(ui)
+  const url = `${new URL(window.location.href).origin}/entodicton`
+  fastfood.config.url = url
+  fastfood.server(url)
+})
 
 
 async function main() {
@@ -218,7 +219,7 @@ function Speech(props) {
   const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
 
   fastfood.api.setProps(props)
-  fastfood.getConfigs().ui.api.setProps(props)
+  // fastfood.getConfigs().ui.api.setProps(props)
   // setOrder(fastfood.api.objects.items)
   useEffect( () => {
     if (query === '') {
