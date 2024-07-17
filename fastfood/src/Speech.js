@@ -92,6 +92,10 @@ class FastFoodAPI {
       item.id = 'coca_cola'
     }
 
+    if (item.id === 'fry') {
+      item.id = 'french_fry'
+    }
+
     // return !!products.items.find( (i) => i.id === item.id )
     return this.props.findProduct(item)
   }
