@@ -629,7 +629,13 @@
         "single combo with waffle fries",
         "2 10 piece chicken nuggets",
         "2 large chili fries",
-        "a guava and a strawberry banana smoothie"
+        "a guava and a strawberry banana smoothie",
+        "fries",
+        "combo 1 with a banana",
+        "combo 1 with fries",
+        "combo 1 with iced tea and combo 2 with fanta",
+        "combo 1 and a guava smoothie",
+        "combo 1 with iced tea change combo 1 to combo 2"
       ],
       "template": [
         "food is countable",
