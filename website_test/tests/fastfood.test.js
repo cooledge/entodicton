@@ -95,15 +95,24 @@ describe('tests for fastfood page', () => {
       let counter = 1
       for (let item of items) {
         console.log('item', item)
-        const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
-        const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
-        expect(name).toBe(item.name)
-        expect(cost).toBe(`$${item.cost}`)
+        const nTries = 3;
+        for (let nTry = 0; nTry < nTries; ++nTry) {
+          const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
+          const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
+          try {
+            expect(name).toBe(item.name)
+            expect(cost).toBe(`$${item.cost}`)
+          } catch( e ) {
+            if (nTry + 1 == nTries) {
+              throw e
+            }
+            await sleep(100)
+          }
+        }
         counter += 1
       }
       const total = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Total`)
       expect(total).toBe(items_total)
-      // await sleep(10000)
     }
 
     await page.close()
@@ -197,6 +206,14 @@ describe('tests for fastfood page', () => {
       ...withAndWithoutDrink({query: '6 piece chicken nuggets', expected: {id: '6_piece_chicken_nugget', combo: true}}),
       { queries: ['loaded fries'], expecteds: [[{id: 'loaded_fry'}]] },
       { queries: ['chili fries'], expecteds: [[{id: 'chili_fry'}]] },
+      { 
+        queries: ['combo 1 with iced tea', 'change the single combo to a baconator combo'], 
+        expecteds: [
+          [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
+          [{id: 'baconator', combo: true, modifications: [{id: 'iced_tea'}] }],
+        ], 
+        // neo: true
+      },
   ]
   queries.forEach((query) => {
     let neo = ''
