@@ -635,7 +635,11 @@
         "combo 1 with fries",
         "combo 1 with iced tea and combo 2 with fanta",
         "combo 1 and a guava smoothie",
-        "combo 1 with iced tea change combo 1 to combo 2"
+        "combo 1 with iced tea change combo 1 to combo 2",
+        "combo 1 with iced tea change it to combo 2",
+        "a large sprite change it to coke",
+        "a large sprite change the pop to coke",
+        "a large sprite change the drink to coke"
       ],
       "template": [
         "food is countable",
