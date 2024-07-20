@@ -106,8 +106,10 @@ describe('tests for fastfood page', () => {
             if (nTry + 1 == nTries) {
               throw e
             }
-            await sleep(100)
+            console.log('--------------- doing the retry -----------')
+            await sleep(1000)
           }
+          // await sleep(1000)
         }
         counter += 1
       }
@@ -212,7 +214,34 @@ describe('tests for fastfood page', () => {
           [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
           [{id: 'baconator', combo: true, modifications: [{id: 'iced_tea'}] }],
         ], 
-        // neo: true
+      },
+      { 
+        queries: ['combo 1 with iced tea', 'change it to a baconator combo'], 
+        expecteds: [
+          [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
+          [{id: 'baconator', combo: true, modifications: [{id: 'iced_tea'}] }],
+        ], 
+      },
+      { 
+        queries: ['a large sprite', 'change the drink to a coke'], 
+        expecteds: [
+          [{id: 'sprite', size: 'large'}],
+          [{id: 'coca_cola', size: 'large'}],
+        ], 
+      },
+      { 
+        queries: ['a large sprite', 'change the pop to a coke'], 
+        expecteds: [
+          [{id: 'sprite', size: 'large'}],
+          [{id: 'coca_cola', size: 'large'}],
+        ], 
+      },
+      { 
+        queries: ['a large sprite', 'change the sprite to a coke'], 
+        expecteds: [
+          [{id: 'sprite', size: 'large'}],
+          [{id: 'coca_cola', size: 'large'}],
+        ], 
       },
   ]
   queries.forEach((query) => {

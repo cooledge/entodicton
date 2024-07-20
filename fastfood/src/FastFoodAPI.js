@@ -33,7 +33,18 @@ class FastFoodAPI {
     return item.item_id
   }
 
+  toDefaults(item) {
+    if (item.id === 'coke') {
+      item.id = 'coca_cola'
+    }
+    if (item.id === 'fry') {
+      item.id = 'french_fry'
+    }
+  }
+
   modify(item, changes) {
+    this.toDefaults(item)
+    this.toDefaults(changes)
     Object.assign(this._objects.items[item.item_id], changes)
     this.updated()
   }
@@ -115,12 +126,7 @@ class FastFoodAPI {
       item.needsDrink = true
     }
 
-    if (item.id === 'coke') {
-      item.id = 'coca_cola'
-    }
-    if (item.id === 'fry') {
-      item.id = 'french_fry'
-    }
+    this.toDefaults(item)
 
     // return !!products.items.find( (i) => i.id === item.id )
     return this.props.findProduct(item)
