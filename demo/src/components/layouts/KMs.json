@@ -639,7 +639,13 @@
         "combo 1 with iced tea change it to combo 2",
         "a large sprite change it to coke",
         "a large sprite change the pop to coke",
-        "a large sprite change the drink to coke"
+        "a large sprite change the drink to coke",
+        "combo 1\\nremove combo 1",
+        "combo 1\\nremove the combo",
+        "combo 1 with iced tea no combo 1",
+        "combo 1 reset",
+        "combo 1 clear",
+        "combo 1 restart"
       ],
       "template": [
         "food is countable",
