@@ -9,6 +9,7 @@ class FastFoodAPI {
     this._objects = objects
     this._objects.items = []
     this._objects.notAvailable = []
+    this._objects.item_id_counter = 0
   }
 
   setProps(props) {
@@ -19,9 +20,42 @@ class FastFoodAPI {
     this._objects.show = this._objects.items
   }
 
+  new_item_id() {
+    const item_id = this._objects.item_id_counter
+    this._objects.item_id_counter += 1
+    return item_id
+  }
+
+  updated() {
+    this.props.setOrder([...this._objects.items])
+  }
+
+  reset() {
+    this._objects.items = []
+    this.updated()
+  }
+
+  remove(item) {
+    this._objects.items = this._objects.items.filter( (i) => i.item_id !== item.item_id )
+    this.updated()
+  }
+
+  toItem(item_id) {
+    if (Array.isArray(item_id)) {
+      return this._objects.items[item_id[0]].modifications[item_id[1]]
+    } else {
+      return this._objects.items[item_id]
+    }
+  }
+
+  modify(item, changes) {
+    Object.assign(this.toItem(item.item_id), changes)
+    this.updated()
+  }
+
   // add({ name, combo, modifications }) {
   add(item) {
-    item.item_id = this._objects.items.length
+    item.item_id = this.new_item_id()
     if (!item.modifications) {
       item.modifications = []
     }
@@ -30,12 +64,12 @@ class FastFoodAPI {
     for (let i = 0; i < this._objects.items.length; ++i) {
       this._objects.items[i].index = i+1
     }
-    this.props.setOrder([...this._objects.items])
+    this.updated()
     return item.item_id
   }
 
   get(item_id) {
-    return this._objects.items[item_id]
+    return this.toItem(item_id)
   }
 
   items() {
@@ -43,10 +77,10 @@ class FastFoodAPI {
   }
 
   addDrink(item_id, drink) {
-    this._objects.items[item_id].modifications.push(drink)
-    this._objects.items[item_id].needsDrink = false
-    console.log(this._objects)
-    this.props.setOrder([...this._objects.items])
+    const item = this.toItem(item_id)
+    item.modifications.push(drink)
+    item.needsDrink = false
+    this.updated()
   }
 
   say(message) {

@@ -78,6 +78,7 @@ describe('tests for fastfood page', () => {
     const page = await browser.newPage();
     await page.goto(`${URL}/fastfood/`)
     for (let i = 0; i < queries.length; ++i) {
+      console.log('------------- query', i)
       const query = queries[i]
       const expected = expecteds[i]
 
@@ -88,6 +89,20 @@ describe('tests for fastfood page', () => {
       await page.waitForSelector(`.Cost`)
 
       const items = getItems(expected)
+
+      if (items.length == 0) {
+        const nTries = 5
+        for (let nTry = 0; nTry < nTries; ++nTry) {
+          await sleep(200)
+          const items = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items`)
+          if (items == '' || nTry+1 == nTries) {
+            expect(items).toBe('')
+            break
+          }
+        }
+        continue
+      }
+
       let sum = 0
       items.forEach( (item) => sum += item.cost )
       const items_total = `$${sum}`
@@ -96,6 +111,7 @@ describe('tests for fastfood page', () => {
       for (let item of items) {
         console.log('item', item)
         const nTries = 3;
+        console.log('------------------ here counter:', counter)
         for (let nTry = 0; nTry < nTries; ++nTry) {
           const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
           const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
@@ -241,6 +257,27 @@ describe('tests for fastfood page', () => {
         expecteds: [
           [{id: 'sprite', size: 'large'}],
           [{id: 'coca_cola', size: 'large'}],
+        ], 
+      },
+      { 
+        queries: ['a large sprite', 'reset'], 
+        expecteds: [
+          [{id: 'sprite', size: 'large'}],
+          [],
+        ], 
+      },
+      { 
+        queries: ['combo 1 with iced tea', 'no combo 1'], 
+        expecteds: [
+          [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
+          [],
+        ], 
+      },
+      { 
+        queries: ['combo 1 with iced tea', 'remove the combo'], 
+        expecteds: [
+          [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
+          [],
         ], 
       },
   ]
