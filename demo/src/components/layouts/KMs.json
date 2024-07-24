@@ -661,7 +661,8 @@
         "a combo with iced tea\\ntriple",
         "a shake\\nnevermind",
         "a combo\\nnevermind",
-        "a combo\\n4"
+        "a combo\\n4",
+        "combo 1\\nnevermind"
       ],
       "template": [
         "food is countable",
