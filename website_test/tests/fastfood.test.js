@@ -94,51 +94,66 @@ describe('tests for fastfood page', () => {
       } else if (expected.length == 0) {
         // expected the unexpected
       } else {
-        await page.waitForSelector(`.Cost`)
+        const test = async () => {
+          await page.waitForSelector(`.Cost`)
 
-        const items = getItems(expected)
+          const items = getItems(expected)
 
-        if (items.length == 0) {
-          const nTries = 5
-          for (let nTry = 0; nTry < nTries; ++nTry) {
-            await sleep(200)
-            const items = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items`)
-            if (items == '' || nTry+1 == nTries) {
-              expect(items).toBe('')
-              break
-            }
-          }
-          continue
-        }
-
-        let sum = 0
-        items.forEach( (item) => sum += item.cost )
-        const items_total = `$${sum}`
-
-        let counter = 1
-        for (let item of items) {
-          console.log('item', item)
-          const nTries = 3;
-          console.log('------------------ here counter:', counter)
-          for (let nTry = 0; nTry < nTries; ++nTry) {
-            const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
-            const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
-            try {
-              expect(name).toBe(item.name)
-              expect(cost).toBe(`$${item.cost}`)
-            } catch( e ) {
-              if (nTry + 1 == nTries) {
-                throw e
+          if (items.length == 0) {
+            const nTries = 5
+            for (let nTry = 0; nTry < nTries; ++nTry) {
+              await sleep(200)
+              const items = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items`)
+              if (items == '' || nTry+1 == nTries) {
+                expect(items).toBe('')
+                break
               }
-              console.log('--------------- doing the retry -----------')
-              await sleep(1000)
             }
-            // await sleep(1000)
           }
-          counter += 1
+
+          let sum = 0
+          items.forEach( (item) => sum += item.cost )
+          const items_total = `$${sum}`
+
+          let counter = 1
+          for (let item of items) {
+            console.log('item', item)
+            const nTries = 3;
+            console.log('------------------ here counter:', counter)
+            for (let nTry = 0; nTry < nTries; ++nTry) {
+              const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
+              const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
+              try {
+                expect(name).toBe(item.name)
+                expect(cost).toBe(`$${item.cost}`)
+              } catch( e ) {
+                if (nTry + 1 == nTries) {
+                  throw e
+                }
+                console.log('--------------- doing the retry -----------')
+                await sleep(1000)
+              }
+              // await sleep(1000)
+            }
+            counter += 1
+          }
+          const total = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Total`)
+          expect(total).toBe(items_total)
         }
-        const total = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Total`)
-        expect(total).toBe(items_total)
+        // account for lag in the update for change queries
+
+        const nTries = 5
+        for (let nTry = 0; nTry < nTries; ++nTry) {
+          try {
+            await test()
+            break
+          } catch( e ) {
+            if (nTry + 1 == nTries) {
+              throw e
+            }
+            await sleep(200)
+          }
+        }
       }
     }
 
@@ -239,6 +254,7 @@ describe('tests for fastfood page', () => {
           [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
           [{id: 'baconator', combo: true, modifications: [{id: 'iced_tea'}] }],
         ], 
+        neo: true,
       },
       { 
         queries: ['combo 1 with iced tea', 'change it to a baconator combo'], 
@@ -364,7 +380,6 @@ describe('tests for fastfood page', () => {
           [{id: 'single', combo: true }],
           [],
         ], 
-        neo: true,
       },
       { 
         queries: ['a combo', '3'], 
