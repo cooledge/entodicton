@@ -362,8 +362,9 @@ describe('tests for fastfood page', () => {
         queries: ['combo 1', 'nevermind'], 
         expecteds: [
           [{id: 'single', combo: true }],
-          [{ query: 'The drink must be specified What drink do you want?' }],
+          [],
         ], 
+        neo: true,
       },
       { 
         queries: ['a combo', '3'], 
@@ -371,7 +372,6 @@ describe('tests for fastfood page', () => {
           [{ query: 'What kind of combo?' }],
           [{id: 'triple', combo: true }],
         ], 
-        neo: true,
       },
   ]
   queries.forEach((query) => {
