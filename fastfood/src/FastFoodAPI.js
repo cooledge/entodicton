@@ -4,6 +4,7 @@ class FastFoodAPI {
     this._objects.items = []
     this._objects.notAvailable = []
     this._objects.notAvailableModification = []
+    this._objects.item_id_counter = 0
   }
 
   setProps(props) {
@@ -133,6 +134,7 @@ class FastFoodAPI {
   }
 
   isAvailable(item) {
+    item.id = item.id || item.value
     if (item.id === 'chicken_nugget') {
       if (![4,5,6,10].includes(item.pieces)) {
         return false
@@ -173,6 +175,28 @@ class FastFoodAPI {
     }
     return map[number]
   }
+
+  canBeCombo(id) {
+    return this.getComboNumber(id) > 0
+  }
+
+  getComboNumber(id) {
+    const combos = [
+       'single',
+       'double',
+       'triple',
+       'baconator',
+       'bacon_deluxe',
+       'spicy',
+       'homestyle',
+       'asiago_range_chicken_club',
+       'ultimate_chicken_grill',
+       'chicken_nugget',
+       'premium_cod',
+       ]
+    return combos.findIndex((e) => e == id) + 1
+  }
+
 }
 
 export default FastFoodAPI;

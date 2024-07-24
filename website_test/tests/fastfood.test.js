@@ -86,51 +86,60 @@ describe('tests for fastfood page', () => {
       await page.type('#query', query)
       await page.type('#query', '\n')
       // await page.click('#submit')
-      await page.waitForSelector(`.Cost`)
+      if (expected.find((e) => e.query)) {
+        const query = expected[0].query
+        await page.waitForSelector(`.message`)
+        const message = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, '.message')
+        expect(message.trim()).toBe(query)
+      } else if (expected.length == 0) {
+        // expected the unexpected
+      } else {
+        await page.waitForSelector(`.Cost`)
 
-      const items = getItems(expected)
+        const items = getItems(expected)
 
-      if (items.length == 0) {
-        const nTries = 5
-        for (let nTry = 0; nTry < nTries; ++nTry) {
-          await sleep(200)
-          const items = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items`)
-          if (items == '' || nTry+1 == nTries) {
-            expect(items).toBe('')
-            break
-          }
-        }
-        continue
-      }
-
-      let sum = 0
-      items.forEach( (item) => sum += item.cost )
-      const items_total = `$${sum}`
-
-      let counter = 1
-      for (let item of items) {
-        console.log('item', item)
-        const nTries = 3;
-        console.log('------------------ here counter:', counter)
-        for (let nTry = 0; nTry < nTries; ++nTry) {
-          const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
-          const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
-          try {
-            expect(name).toBe(item.name)
-            expect(cost).toBe(`$${item.cost}`)
-          } catch( e ) {
-            if (nTry + 1 == nTries) {
-              throw e
+        if (items.length == 0) {
+          const nTries = 5
+          for (let nTry = 0; nTry < nTries; ++nTry) {
+            await sleep(200)
+            const items = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items`)
+            if (items == '' || nTry+1 == nTries) {
+              expect(items).toBe('')
+              break
             }
-            console.log('--------------- doing the retry -----------')
-            await sleep(1000)
           }
-          // await sleep(1000)
+          continue
         }
-        counter += 1
+
+        let sum = 0
+        items.forEach( (item) => sum += item.cost )
+        const items_total = `$${sum}`
+
+        let counter = 1
+        for (let item of items) {
+          console.log('item', item)
+          const nTries = 3;
+          console.log('------------------ here counter:', counter)
+          for (let nTry = 0; nTry < nTries; ++nTry) {
+            const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
+            const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
+            try {
+              expect(name).toBe(item.name)
+              expect(cost).toBe(`$${item.cost}`)
+            } catch( e ) {
+              if (nTry + 1 == nTries) {
+                throw e
+              }
+              console.log('--------------- doing the retry -----------')
+              await sleep(1000)
+            }
+            // await sleep(1000)
+          }
+          counter += 1
+        }
+        const total = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Total`)
+        expect(total).toBe(items_total)
       }
-      const total = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Total`)
-      expect(total).toBe(items_total)
     }
 
     await page.close()
@@ -279,6 +288,90 @@ describe('tests for fastfood page', () => {
           [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
           [],
         ], 
+      },
+      { 
+        queries: ['a pop', 'fanta'], 
+        expecteds: [
+          [{ query: 'What kind of pop?' }],
+          [{id: 'fanta', combo: false}],
+        ], 
+      },
+      { 
+        queries: ['a large pop', 'fanta'], 
+        expecteds: [
+          [{ query: 'What kind of pop?' }],
+          [{id: 'fanta', size: 'large', combo: false}],
+        ], 
+      },
+      { 
+        queries: ['2 large pops', 'fanta'], 
+        expecteds: [
+          [{ query: 'What kind of pops?' }],
+          [{id: 'fanta', size: 'large', combo: false}, {id: 'fanta', size: 'large', combo: false}],
+        ], 
+      },
+      { 
+        queries: ['a combo with iced tea', 'triple'], 
+        expecteds: [
+          [{ query: 'What kind of combo?' }],
+          [{id: 'triple', combo: true, modifications: [{id: 'iced_tea'}] }],
+        ], 
+      },
+      { 
+        queries: ['a combo'], 
+        expecteds: [
+          [{ query: 'What kind of combo?' }],
+        ], 
+      },
+      { 
+        queries: ['a combo', 'a single combo'], 
+        expecteds: [
+          [{ query: 'What kind of combo?' }],
+          [{id: 'single', combo: true }],
+        ], 
+      },
+      { 
+        queries: ['a shake', 'vanilla'], 
+        expecteds: [
+          [{ query: 'What kind of shake?' }],
+          [{id: 'vanilla_shake', combo: false}],
+        ], 
+      },
+      { 
+        queries: ['a shake', 'a chocolate shake'], 
+        expecteds: [
+          [{ query: 'What kind of shake?' }],
+          [{id: 'chocolate_shake', combo: false}],
+        ], 
+      },
+      { 
+        queries: ['a shake', 'nevermind'], 
+        expecteds: [
+          [{ query: 'What kind of shake?' }],
+          [],
+        ], 
+      },
+      { 
+        queries: ['a combo', 'nevermind'], 
+        expecteds: [
+          [{ query: 'What kind of combo?' }],
+          [],
+        ], 
+      },
+      { 
+        queries: ['combo 1', 'nevermind'], 
+        expecteds: [
+          [{id: 'single', combo: true }],
+          [{ query: 'The drink must be specified What drink do you want?' }],
+        ], 
+      },
+      { 
+        queries: ['a combo', '3'], 
+        expecteds: [
+          [{ query: 'What kind of combo?' }],
+          [{id: 'triple', combo: true }],
+        ], 
+        neo: true,
       },
   ]
   queries.forEach((query) => {

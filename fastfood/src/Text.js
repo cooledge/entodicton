@@ -70,6 +70,7 @@ function Text(props) {
     if (query === '') {
       return
     }
+    fastfood.api.say('')
     const doQuery = async () => {
       return fastfood.process(query.toLowerCase()).then( async (result) => {
         let message = ''
