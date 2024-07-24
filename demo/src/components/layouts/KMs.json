@@ -342,7 +342,9 @@
         "x is 3 what is x what is it",
         "be brief x is 3 what is x what is it",
         "to it",
-        "why"
+        "why",
+        "nevermindTestSetup accept nevermind hi",
+        "nevermindTestSetup reject nevermind hi"
       ],
       "template": [],
       "includes": [
@@ -645,7 +647,20 @@
         "combo 1 with iced tea no combo 1",
         "combo 1 reset",
         "combo 1 clear",
-        "combo 1 restart"
+        "combo 1 restart",
+        "a pop",
+        "a large pop\\nsprite",
+        "2 large pop\\nsprite",
+        "a shake\\nvanilla",
+        "a shake\\na chocolate shake",
+        "combo 1, 2, 3, 4, 5, 6, 7, 9, 10, and 11",
+        "a combo",
+        "a combo\\na single combo",
+        "a combo\\nbaconator",
+        "a combo with iced tea",
+        "a combo with iced tea\\ntriple",
+        "a shake\\nnevermind",
+        "a combo\\nnevermind"
       ],
       "template": [
         "food is countable",
