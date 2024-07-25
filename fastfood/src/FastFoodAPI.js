@@ -1,10 +1,7 @@
 class FastFoodAPI {
   initialize({ objects, config }) {
     this._objects = objects
-    this._objects.items = []
-    this._objects.notAvailable = []
-    this._objects.notAvailableModification = []
-    this._objects.item_id_counter = 0
+    this.reset(false)
   }
 
   setProps(props) {
@@ -33,9 +30,14 @@ class FastFoodAPI {
     this.props.setOrder([...this._objects.items])
   }
 
-  reset() {
+  reset(sendUpdate = true) {
     this._objects.items = []
-    this.updated()
+    this._objects.notAvailable = []
+    this._objects.notAvailableModification = []
+    this._objects.item_id_counter = 0
+    if (sendUpdate) {
+      this.updated()
+    }
   }
 
   remove(item) {
@@ -194,7 +196,7 @@ class FastFoodAPI {
        'chicken_nugget',
        'premium_cod',
        ]
-    return combos.findIndex((e) => e == id) + 1
+    return combos.findIndex((e) => e === id) + 1
   }
 
 }

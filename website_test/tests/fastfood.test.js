@@ -254,7 +254,15 @@ describe('tests for fastfood page', () => {
           [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
           [{id: 'baconator', combo: true, modifications: [{id: 'iced_tea'}] }],
         ], 
-        neo: true,
+      },
+      { 
+        queries: ['combo 1 with iced tea', 'reset', 'combo 1 with iced tea', 'change the single combo to a baconator combo'], 
+        expecteds: [
+          [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
+          [],
+          [{id: 'single', combo: true, modifications: [{id: 'iced_tea'}] }],
+          [{id: 'baconator', combo: true, modifications: [{id: 'iced_tea'}] }],
+        ], 
       },
       { 
         queries: ['combo 1 with iced tea', 'change it to a baconator combo'], 
