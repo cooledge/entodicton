@@ -663,7 +663,8 @@
         "a combo\\nnevermind",
         "a combo\\n4",
         "combo 1\\nnevermind",
-        "fanta\\nreset\\ncombo 1 with iced tea\\nchange combo 1 to combo 2"
+        "fanta\\nreset\\ncombo 1 with iced tea\\nchange combo 1 to combo 2",
+        "combo 1 with iced tea\\nreset\\ncombo 1 with iced tea\\nchange combo 1 to combo 2"
       ],
       "template": [
         "food is countable",
