@@ -11,8 +11,9 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "http://localhost:10000/mongo",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3009 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
