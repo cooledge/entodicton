@@ -1,7 +1,9 @@
 const express = require('express')
 const tpmkms = require('tpmkms')
 const app = express()
-const port = 3000
+const port = 5001
+
+const fastfood = tpmkms.fastfood()
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
