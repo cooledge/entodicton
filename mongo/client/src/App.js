@@ -1,25 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react'
 import Query from './Query'
+import Report from './Report'
+
 
 function App() {
+  const [data, setData] = useState({})
+
+  const doQuery = (query) => {
+    console.log("inDoquery")
+    setData(query)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <Query/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Query doQuery={doQuery}/>
+      <Report data={data}/>
     </div>
   );
 }
