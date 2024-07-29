@@ -79,3 +79,14 @@
   background-color: #A9A9A9;
 }
 
+.Row {
+  display: flex;
+}
+
+.Column {
+  display: flex; 
+  padding: 3px; 
+  border: solid 1px;
+  flex-direction: column;
+}
+
