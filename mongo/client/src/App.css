@@ -80,13 +80,10 @@
 }
 
 .Row {
-  display: flex;
 }
 
 .Column {
-  display: flex; 
   padding: 3px; 
   border: solid 1px;
-  flex-direction: column;
 }
 
