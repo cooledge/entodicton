@@ -15,13 +15,6 @@ const toHTML = (data) => {
 }
 
 const fromTable = (table) => {
-    /*
-      <tr>
-        <th>Company</th>
-        <th>Contact</th>
-        <th>Country</th>
-      </tr>
-    */
     const header = (headers) => {
       if (headers && headers.length > 0) {
         return <tr className='Header'>{ headers.map((h) => <th>{toHTML(h)}</th>) }</tr>

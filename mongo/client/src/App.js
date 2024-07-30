@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Query from './Query'
 import Report from './Report'
+const fetch = require('node-fetch')
 
 const testData = () => {
   const graph = {
@@ -34,13 +35,51 @@ const testData = () => {
   return tdata
 }
 
-function App() {
-  const [data, setData] = useState(testData)
-
-  const doQuery = (query) => {
-    console.log("inDoquery")
-    setData(query)
+const callServer = async (query) => {
+  const url = `${new URL(window.location.href).origin}/mongoapi`
+  // TODO some kind of client id for state
+  const data = { query }
+  const result = await fetch(`${url}/query`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    timeout: 1000 * 60 * 5,
+    headers: {
+      mode: 'no-cors',
+      'Content-Type': 'application/json'
+    }
+  })
+  if (result.ok) {
+    return JSON.parse(JSON.stringify(await result.json()))
   }
+  if (result.status === 504) {
+    throw new Error(`Error ${result.status} - ${result.statusText}`)
+  }
+  if (result.status >= 500 && result.status < 600) {
+    throw new Error(`Error ${result.status} - ${result.statusText}.`)
+  } if (result.status >= 404) {
+    throw new Error(`Error ${result.status} - ${result.statusText} - Trying it connect to ${url}`)
+  } else {
+    throw new Error(`Error ${result.status} - ${result.statusText}`)
+  }
+}
+
+function App() {
+  const [data, setData] = useState('')
+  const [query, doQuery] = useState('')
+
+  useEffect( () => {
+    if (query === '') {
+      return
+    }
+
+    const doIt = async () => {
+      const result = await callServer(query)
+      setData(result)
+      console.log("inDoquery", result)
+    }
+
+    doIt()
+  }, [query])
 
   return (
     <div className="App">
