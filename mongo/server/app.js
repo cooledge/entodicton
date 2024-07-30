@@ -1,5 +1,7 @@
 const express = require('express')
 const tpmkms = require('tpmkms')
+const { MongoClient } = require('mongodb');
+
 const app = express()
 const port = 5001
 
@@ -31,11 +33,45 @@ const data = {
   ]
 }
 
-app.get('/', (req, res) => {
+let db;
+let collection;
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url);
+
+// Database Name
+const dbName = 'sample_supplies';
+const collectionName = 'sales';
+
+async function mongoQuery() {
+  // Use connect method to connect to the server
+  await client.connect();
+  console.log('Connected successfully to server');
+  db = client.db(dbName);
+  collection = db.collection(collectionName)
+
+  // the following code examples can be pasted here...
+  const findResult = await collection.find({}).toArray();
+  return findResult
+  // return 'done.';
+}
+
+/*
+main()
+  .then(() => {
+  })
+  .catch(console.error)
+  .finally(() => client.close());
+*/
+
+app.get('/', async (req, res) => {
+  const result = await mongoQuery()
+  console.log('Found documents =>', result);
   res.send('Hello World!')
 })
 
-app.post('/query', (req, res) => {
+app.post('/query', async (req, res) => {
+  const result = await mongoQuery()
+  data.rows[0].columns[0] = result.length
   res.json(data)
 })
 
