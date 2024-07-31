@@ -29,11 +29,7 @@
     {
       "name": "Hidden",
       "description": "Don't show in the UI",
-      "includes": [
-        "dimensionTemplate",
-        "formulasTemplate",
-        "pipboyTemplate"
-      ]
+      "includes": []
     },
     {
       "name": "Language",
@@ -375,11 +371,9 @@
         "dimension and unit are concepts"
       ],
       "includes": [
-        "dimensionTemplate",
         "formulas",
         "testing",
         "math",
-        "formulasTemplate",
         "countable",
         "comparable",
         "hierarchy",
@@ -788,12 +782,10 @@
         "fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit"
       ],
       "template": [
-        "mathematical modifies operator",
-        "* + / and - are mathematical operators"
+        "formulas are concepts"
       ],
       "includes": [
         "math",
-        "formulasTemplate",
         "countable",
         "comparable",
         "hierarchy",
@@ -961,11 +953,9 @@
       ],
       "includes": [
         "dimension",
-        "dimensionTemplate",
         "formulas",
         "testing",
         "math",
-        "formulasTemplate",
         "countable",
         "comparable",
         "hierarchy",
@@ -1200,7 +1190,6 @@
         "damage luck hp rads value ap charisma range and accuracy are item properties"
       ],
       "includes": [
-        "pipboyTemplate",
         "help",
         "math",
         "countable",
@@ -1280,11 +1269,9 @@
       ],
       "includes": [
         "dimension",
-        "dimensionTemplate",
         "formulas",
         "testing",
         "math",
-        "formulasTemplate",
         "countable",
         "comparable",
         "hierarchy",
@@ -1584,11 +1571,9 @@
       ],
       "includes": [
         "dimension",
-        "dimensionTemplate",
         "formulas",
         "testing",
         "math",
-        "formulasTemplate",
         "countable",
         "comparable",
         "hierarchy",
@@ -1704,11 +1689,9 @@
       ],
       "includes": [
         "dimension",
-        "dimensionTemplate",
         "formulas",
         "testing",
         "math",
-        "formulasTemplate",
         "countable",
         "comparable",
         "hierarchy",
