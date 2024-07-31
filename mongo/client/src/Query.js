@@ -9,7 +9,7 @@ function Query(props) {
       return
     }
     doQuery(query)
-  }, [query])
+  }, [query, doQuery])
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
