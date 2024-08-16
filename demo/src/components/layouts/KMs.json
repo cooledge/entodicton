@@ -1616,6 +1616,11 @@
       "template": [],
       "includes": [
         "tell",
+        "countable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
         "dialogues",
         "sdefaults",
         "pos",
