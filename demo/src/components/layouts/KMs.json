@@ -29,7 +29,9 @@
     {
       "name": "Hidden",
       "description": "Don't show in the UI",
-      "includes": []
+      "includes": [
+        "tokenize"
+      ]
     },
     {
       "name": "Language",
@@ -126,7 +128,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/animals.js"
     },
@@ -155,7 +158,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/avatar.js"
     },
@@ -167,7 +171,10 @@
         "sally what is the time"
       ],
       "template": [],
-      "includes": [],
+      "includes": [
+        "gdefaults",
+        "tokenize"
+      ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/characters.js"
     },
     {
@@ -186,7 +193,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
     },
@@ -208,7 +216,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/concept.js"
     },
@@ -235,7 +244,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
     },
@@ -297,7 +307,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/crew.js"
     },
@@ -317,7 +328,8 @@
       "template": [],
       "includes": [
         "numbers",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/currency.js"
     },
@@ -348,7 +360,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
     },
@@ -386,7 +399,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
     },
@@ -447,7 +461,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/edible.js"
     },
@@ -470,7 +485,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/emotions.js"
     },
@@ -490,7 +506,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
     },
@@ -762,7 +779,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
     },
@@ -798,7 +816,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
     },
@@ -807,7 +826,9 @@
       "description": "defaults for generators",
       "examples": [],
       "template": [],
-      "includes": [],
+      "includes": [
+        "tokenize"
+      ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/gdefaults.js"
     },
     {
@@ -825,7 +846,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/help.js"
     },
@@ -871,7 +893,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/hierarchy.js"
     },
@@ -889,7 +912,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/javascript.js"
     },
@@ -917,7 +941,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/kirk.js"
     },
@@ -968,7 +993,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/length.js"
     },
@@ -1020,7 +1046,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
     },
@@ -1034,7 +1061,10 @@
         "undefined means defined"
       ],
       "template": [],
-      "includes": [],
+      "includes": [
+        "gdefaults",
+        "tokenize"
+      ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
     },
     {
@@ -1050,7 +1080,8 @@
       ],
       "template": [],
       "includes": [
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
     },
@@ -1075,7 +1106,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
     },
@@ -1117,7 +1149,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
     },
@@ -1204,7 +1237,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
     },
@@ -1242,7 +1276,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
     },
@@ -1284,7 +1319,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
     },
@@ -1329,7 +1365,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
     },
@@ -1342,7 +1379,8 @@
       ],
       "template": [],
       "includes": [
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
     },
@@ -1406,7 +1444,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
     },
@@ -1451,7 +1490,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/scorekeeper.js"
     },
@@ -1485,7 +1525,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sizeable.js"
     },
@@ -1513,7 +1554,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/spock.js"
     },
@@ -1526,7 +1568,9 @@
       ],
       "template": [],
       "includes": [
-        "characters"
+        "characters",
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stgame.js"
     },
@@ -1552,7 +1596,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
     },
@@ -1586,7 +1631,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/temperature.js"
     },
@@ -1598,7 +1644,8 @@
       ],
       "template": [],
       "includes": [
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/testing.js"
     },
@@ -1627,9 +1674,18 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
+    },
+    {
+      "name": "tokenize",
+      "description": "tokenize",
+      "examples": [],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tokenize.js"
     },
     {
       "name": "ui",
@@ -1661,7 +1717,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
     },
@@ -1709,7 +1766,8 @@
         "stm",
         "meta",
         "punctuation",
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
     },
@@ -1724,7 +1782,8 @@
       ],
       "template": [],
       "includes": [
-        "gdefaults"
+        "gdefaults",
+        "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/yesno.js"
     }
