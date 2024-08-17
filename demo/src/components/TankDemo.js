@@ -331,12 +331,13 @@ class QueryPane extends Component {
     {
       // add uuid
       let words = this.props.words()
-      for (let word in words) {
-        for (let def of words[word]) {
+      for (let word in words.literals) {
+        for (let def of words.literals[word]) {
           def['uuid'] = config.uuid
         }
       }
-      config.set('words', words);
+      config.config.words.literals = words.literals;
+      // config.set('words', words);
     }
     //config.set('objects', objects);
     // GREG
