@@ -29,9 +29,9 @@ module.exports =
     "positive": [],
   },
   "words": {
-    "cheeseburger": [{"id": "food", "initial": {"name": "cheeseburger"}, "uuid": "7"}],
-    "cheeseburgers": [{"id": "food", "initial": {"name": "cheeseburger"}, "uuid": "7"}],
-    "fries": [{"id": "food", "initial": {"name": "fries", "number": "many"}, "uuid": "7"}],
+    "literals": {"cheeseburger": [{"id": "food", "initial": {"name": "cheeseburger"}, "uuid": "7"}], "cheeseburgers": [{"id": "food", "initial": {"name": "cheeseburger"}, "uuid": "7"}], "fries": [{"id": "food", "initial": {"name": "fries", "number": "many"}, "uuid": "7"}]},
+    "patterns": [],
+    "hierarchy": [],
   },
   "floaters": [
     "isQuery",

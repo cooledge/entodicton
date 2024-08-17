@@ -27,11 +27,9 @@ module.exports =
     "positive": [],
   },
   "words": {
-    "week": [{"id": "week", "initial": {"language": "english"}, "uuid": "4"}],
-    "dollars": [{"id": "dollarConcept", "initial": {"language": "english"}, "uuid": "4"}],
-    "joe": [{"id": "personConcept", "initial": {"id": "joe"}, "uuid": "4"}],
-    "sally": [{"id": "personConcept", "initial": {"id": "sally"}, "uuid": "4"}],
-    "per": [{"id": "every", "uuid": "4"}],
+    "literals": {"dollars": [{"id": "dollarConcept", "initial": {"language": "english"}, "uuid": "4"}], "joe": [{"id": "personConcept", "initial": {"id": "joe"}, "uuid": "4"}], "per": [{"id": "every", "uuid": "4"}], "sally": [{"id": "personConcept", "initial": {"id": "sally"}, "uuid": "4"}], "week": [{"id": "week", "initial": {"language": "english"}, "uuid": "4"}]},
+    "patterns": [],
+    "hierarchy": [],
   },
   "floaters": [
     "isQuery",
