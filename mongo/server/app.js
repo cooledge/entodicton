@@ -33,6 +33,41 @@ const data = {
   ]
 }
 
+const bson = [
+  {
+    "id": "123",
+    "name": "john",
+    "age": 25,
+    "fav_colors": [
+      "red",
+      "black"
+    ],
+    "marks_in_subjects": [
+      {
+        "marks": 90,
+        "subject_id": "abc"
+      },
+      {
+        "marks": 92,
+        "subject_id": "def"
+      }
+    ]
+  }
+]
+
+const bdata = {
+  headers: ['name', 'age', 'favorite colors' ],
+  table: true,
+  rows: [
+    { columns: ['0A', '0B', { table: true, headers: [], rows: [{ columns: ['0Ca1', '0Ca2'] }, '0Cb', '0Cc'] }] },
+    { columns: ['1A', '1B', { graph }] },
+    { columns: ['2A', '2B', '2C'] },
+  ]
+}
+
+const instantiate = (bson, bspec) => {
+}
+
 let db;
 let collection;
 const url = 'mongodb://localhost:27017';
