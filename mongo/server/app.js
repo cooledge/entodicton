@@ -1,8 +1,10 @@
 const express = require('express')
 const tpmkms = require('tpmkms')
 const { MongoClient } = require('mongodb');
+const { query, initialize } = require('./query')
 
 const app = express()
+app.use(express.json())
 const port = 5001
 
 const fastfood = tpmkms.fastfood()
@@ -105,11 +107,19 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/query', async (req, res) => {
+  console.log("json", req.body)
+  if (req.body.dataSpec && req.body.reportSpec) {
+    const result = await query(req.body.dataSpec, req.body.reportSpec)
+    console.log("result", JSON.stringify(result, null, 2))
+    res.json(await query(req.body.dataSpec, req.body.reportSpec))
+    return
+  }
   const result = await mongoQuery()
   data.rows[0].columns[0] = result.length
   res.json(data)
 })
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await initialize()
   console.log(`Example app listening on port ${port}`)
 })

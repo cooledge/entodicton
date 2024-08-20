@@ -3,8 +3,8 @@ import { table } from 'table'
 import Chart from 'react-apexcharts'
 
 const toHTML = (data) => {
-  if (data.graph) {
-    return fromGraph(data.graph)
+  if (data.type) {
+    return fromGraph(data)
   } else if (data.table) {
     return fromTable(data)
   } else if (data.columns) {

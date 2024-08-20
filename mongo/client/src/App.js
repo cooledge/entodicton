@@ -27,12 +27,34 @@ const testData = () => {
     table: true,
     rows: [
       { columns: ['0A', '0B', { table: true, headers: [], rows: [{ columns: ['0Ca1', '0Ca2'] }, '0Cb', '0Cc'] }] },
-      { columns: ['1A', '1B', { graph }] },
+      { columns: ['1A', '1B', { ...graph }] },
       { columns: ['2A', '2B', '2C'] },
     ]
   }
 
   return tdata
+}
+
+const DB_NAME = 'mongos_test_database'
+const COLLECTION_NAME = 'sales'
+
+const testQuery = {
+  dataSpec: { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] },
+  reportSpec: {
+    type: "bar",
+    options: {
+      chart: {
+        id: 'apexchart-example'
+      },
+      xaxis: {
+        categories: { "$push": "$year" },
+      }
+    },
+    series: [{
+      name: 'series-1',
+      data: { "$push": "$sales" },
+    }]
+  },
 }
 
 const callServer = async (query) => {
@@ -41,13 +63,14 @@ const callServer = async (query) => {
   const data = { query }
   const result = await fetch(`${url}/query`, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(testQuery),
     timeout: 1000 * 60 * 5,
     headers: {
       mode: 'no-cors',
       'Content-Type': 'application/json'
     }
   })
+  debugger
   if (result.ok) {
     return JSON.parse(JSON.stringify(await result.json()))
   }
