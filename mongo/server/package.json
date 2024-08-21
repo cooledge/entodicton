@@ -17,7 +17,8 @@
     "express": "^4.19.2",
     "lodash": "^4.17.21",
     "mongodb": "^6.8.0",
-    "tpmkms": "^7.12.8"
+    "theprogrammablemind": "^8.0.0-beta.0",
+    "tpmkms": "^8.0.0-beta.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"

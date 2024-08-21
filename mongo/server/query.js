@@ -25,5 +25,6 @@ const initialize = async () => {
 
 module.exports = {
   initialize,
-  query
+  query,
+  client,
 }

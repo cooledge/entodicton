@@ -63,7 +63,8 @@ const callServer = async (query) => {
   const data = { query }
   const result = await fetch(`${url}/query`, {
     method: 'POST',
-    body: JSON.stringify(testQuery),
+    // body: JSON.stringify(testQuery),
+    body: JSON.stringify({ query }),
     timeout: 1000 * 60 * 5,
     headers: {
       mode: 'no-cors',

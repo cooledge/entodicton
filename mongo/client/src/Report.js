@@ -30,7 +30,7 @@ const fromGraph = (graph) => {
 const fromRows = (data) => {
   const rows = []
   for (const row of data) {
-    const element = <tr className='Row'>{ toHTML(row) }</tr>
+    const element = <tr className='Row'>{ toHTML(row).map( (e) => { return <td>{e}</td>; } )}</tr>
     rows.push(element)
   }
   return rows

@@ -1,13 +1,11 @@
 const express = require('express')
-const tpmkms = require('tpmkms')
+const createMongo = require('./mongo')
 const { MongoClient } = require('mongodb');
 const { query, initialize } = require('./query')
 
 const app = express()
 app.use(express.json())
 const port = 5001
-
-const fastfood = tpmkms.fastfood()
 
 const graph = {
   type: "bar",
@@ -106,7 +104,24 @@ app.get('/', async (req, res) => {
   res.send('Hello World!')
 })
 
+// the km will be setup on a per user basis since there is state
+let lastResponse;
+const mongo = createMongo()
+mongo.api.listen( (shown) => { lastResponse = shown } )
+
 app.post('/query', async (req, res) => {
+  debugger
+  if (req.body.query) {
+    lastResponse = null
+    const qr = await mongo.query(req.body.query)
+    console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
+    if (lastResponse) {
+      res.json(await query(lastResponse.dataSpec, lastResponse.imageSpec))
+      // console.log("result", JSON.stringify(result, null, 2))
+      // res.json(await query(req.body.dataSpec, req.body.reportSpec))
+      return
+    }
+  }
   console.log("json", req.body)
   if (req.body.dataSpec && req.body.reportSpec) {
     const result = await query(req.body.dataSpec, req.body.reportSpec)

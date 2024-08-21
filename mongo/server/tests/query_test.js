@@ -23,7 +23,7 @@ const bsonSales = [
   },
 ]
 
-const DB_NAME = 'mongos_test_database'
+const DB_NAME = 'mongo_test_database'
 const COLLECTION_NAME = 'sales'
 
 describe('Reports Tests', () => {

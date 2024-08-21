@@ -1,0 +1,802 @@
+[
+  {
+    "associations": [
+      [
+        [
+          "make",
+          0
+        ],
+        [
+          "report",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "make",
+        "range": {
+          "end": 10,
+          "start": 0
+        },
+        "report": {
+          "dead": true,
+          "default": true,
+          "level": 1,
+          "marker": "report",
+          "range": {
+            "end": 10,
+            "start": 5
+          },
+          "text": "report",
+          "types": [
+            "report"
+          ],
+          "value": "report",
+          "word": "report"
+        },
+        "text": "make report",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "make",
+        "word": "make"
+      }
+    ],
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "report",
+            0
+          ],
+          "ops": [
+            [
+              "make",
+              0
+            ],
+            [
+              "report",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "make",
+            0
+          ],
+          "ops": [
+            [
+              "make",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "dialogues2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "show": [
+          ]
+        },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+              },
+              "imageSpec": {
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "make",
+            "range": {
+              "end": 10,
+              "start": 0
+            },
+            "report": {
+              "dead": true,
+              "default": true,
+              "level": 1,
+              "marker": "report",
+              "range": {
+                "end": 10,
+                "start": 5
+              },
+              "text": "report",
+              "types": [
+                "report"
+              ],
+              "value": "report",
+              "word": "report"
+            },
+            "text": "make report",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "make",
+            "word": "make"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "make report",
+          "paraphrasesParenthesized": "(make (report))",
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "make report"
+    ],
+    "paraphrasesParenthesized": [
+      "(make (report))"
+    ],
+    "query": "make report",
+    "responses": [
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "a",
+          0
+        ],
+        [
+          "make",
+          0
+        ]
+      ],
+      [
+        [
+          "a",
+          0
+        ],
+        [
+          "make",
+          0
+        ],
+        [
+          "report",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "make",
+        "range": {
+          "end": 12,
+          "start": 0
+        },
+        "report": {
+          "concept": true,
+          "dead": true,
+          "default": true,
+          "determiner": {
+            "default": true,
+            "level": 0,
+            "marker": "a",
+            "range": {
+              "end": 5,
+              "start": 5
+            },
+            "text": "a",
+            "word": "a"
+          },
+          "level": 1,
+          "marker": "report",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "one",
+          "pullFromContext": false,
+          "range": {
+            "end": 12,
+            "start": 5
+          },
+          "text": "a report",
+          "types": [
+            "report"
+          ],
+          "value": "report",
+          "wantsValue": true,
+          "word": "report"
+        },
+        "text": "make a report",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "make",
+        "word": "make"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "report",
+            0
+          ],
+          "ops": [
+            [
+              "a",
+              0
+            ],
+            [
+              "make",
+              0
+            ],
+            [
+              "report",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "a",
+            0
+          ],
+          "ops": [
+            [
+              "a",
+              0
+            ],
+            [
+              "make",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "make",
+            0
+          ],
+          "ops": [
+            [
+              "make",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "dialogues2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "show": [
+          ]
+        },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+              },
+              "imageSpec": {
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "make",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "report": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 5,
+                  "start": 5
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "report",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 12,
+                "start": 5
+              },
+              "text": "a report",
+              "types": [
+                "report"
+              ],
+              "value": "report",
+              "wantsValue": true,
+              "word": "report"
+            },
+            "text": "make a report",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "make",
+            "word": "make"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "make a report",
+          "paraphrasesParenthesized": "(make ((a) (report)))",
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "make a report"
+    ],
+    "paraphrasesParenthesized": [
+      "(make ((a) (report)))"
+    ],
+    "query": "make a report",
+    "responses": [
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "list",
+          0
+        ],
+        [
+          "sales",
+          0
+        ],
+        [
+          "show",
+          0
+        ],
+        [
+          "year",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          0
+        ],
+        [
+          "show",
+          0
+        ],
+        [
+          "year",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          1
+        ],
+        [
+          "show",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 18,
+          "start": 0
+        },
+        "show": {
+          "default": true,
+          "isList": true,
+          "level": 1,
+          "listable": true,
+          "marker": "list",
+          "range": {
+            "end": 18,
+            "start": 5
+          },
+          "text": "sales and year",
+          "types": [
+            "list",
+            "sales"
+          ],
+          "value": [
+            {
+              "collection": "sales",
+              "database": "mongo_test_database",
+              "dead": true,
+              "level": 1,
+              "marker": "sales",
+              "path": [
+                "sales"
+              ],
+              "range": {
+                "end": 9,
+                "start": 5
+              },
+              "text": "sales",
+              "word": "sales"
+            },
+            {
+              "collection": "sales",
+              "database": "mongo_test_database",
+              "level": 0,
+              "marker": "year",
+              "path": [
+                "year"
+              ],
+              "range": {
+                "end": 18,
+                "start": 15
+              },
+              "text": "year",
+              "word": "year"
+            }
+          ],
+          "word": "and"
+        },
+        "text": "show sales and year",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "sales",
+            0
+          ],
+          "ops": [
+            [
+              "list",
+              0
+            ],
+            [
+              "sales",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "year",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "list",
+            0
+          ],
+          "ops": [
+            [
+              "list",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "year",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "dialogues2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "show": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "sales",
+                "dbName": "mongo_test_database"
+              },
+              "imageSpec": {
+                "field": [
+                ],
+                "headers": [
+                  "sales",
+                  "year"
+                ],
+                "rows": [
+                  "$sales",
+                  "$year"
+                ],
+                "table": true
+              },
+              "marker": "report"
+            }
+          ]
+        },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+              },
+              "imageSpec": {
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 18,
+              "start": 0
+            },
+            "show": {
+              "default": true,
+              "isList": true,
+              "level": 1,
+              "listable": true,
+              "marker": "list",
+              "range": {
+                "end": 18,
+                "start": 5
+              },
+              "text": "sales and year",
+              "types": [
+                "list",
+                "sales"
+              ],
+              "value": [
+                {
+                  "collection": "sales",
+                  "database": "mongo_test_database",
+                  "dead": true,
+                  "level": 1,
+                  "marker": "sales",
+                  "path": [
+                    "sales"
+                  ],
+                  "range": {
+                    "end": 9,
+                    "start": 5
+                  },
+                  "text": "sales",
+                  "word": "sales"
+                },
+                {
+                  "collection": "sales",
+                  "database": "mongo_test_database",
+                  "level": 0,
+                  "marker": "year",
+                  "path": [
+                    "year"
+                  ],
+                  "range": {
+                    "end": 18,
+                    "start": 15
+                  },
+                  "text": "year",
+                  "word": "year"
+                }
+              ],
+              "word": "and"
+            },
+            "text": "show sales and year",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show sales and year",
+          "paraphrasesParenthesized": "(show ((sales) and (year)))",
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show sales and year"
+    ],
+    "paraphrasesParenthesized": [
+      "(show ((sales) and (year)))"
+    ],
+    "query": "show sales and year",
+    "responses": [
+      ""
+    ]
+  }
+]
