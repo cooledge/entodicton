@@ -52,7 +52,7 @@ describe('Reports Tests', () => {
     await client.close()
   })
 
-  it('NEO23 nested graph table', async () => {
+  it('nested graph table', async () => {
     const imageSpec = {
                 type: "bar",
                 options: {
