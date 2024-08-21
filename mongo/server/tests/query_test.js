@@ -53,7 +53,7 @@ describe('Reports Tests', () => {
   })
 
   it('NEO23 nested graph table', async () => {
-    const reportSpec = {
+    const imageSpec = {
                 type: "bar",
                 options: {
                   chart: {
@@ -86,7 +86,7 @@ describe('Reports Tests', () => {
     }
 
     const dataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
-    const actual = await query.query(dataSpec, reportSpec)
+    const actual = await query.query(dataSpec, imageSpec)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })

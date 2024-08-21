@@ -1,11 +1,11 @@
 const { MongoClient } = require('mongodb');
 const _ = require('lodash')
-const reports = require('./reports')
+const image = require('./image')
 
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 
-const query = async (dataSpec, reportSpec) => {
+const query = async (dataSpec, imageSpec) => {
   const { dbName, collectionName, aggregation } = dataSpec
   db = client.db(dbName);
   collection = db.collection(collectionName)
@@ -15,7 +15,7 @@ const query = async (dataSpec, reportSpec) => {
   } else {
     data = await collection.aggregate(aggregation).toArray();
   }
-  return reports.instantiate(reportSpec, data)
+  return image.instantiate(imageSpec, data)
 }
 
 const initialize = async () => {

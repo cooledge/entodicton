@@ -84,6 +84,7 @@ let configStruct = {
           // rows: ['$name', '$age', '$fav_colors'],
           rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
         }
+
         console.log(JSON.stringify(report))
         api.show(report)
       }

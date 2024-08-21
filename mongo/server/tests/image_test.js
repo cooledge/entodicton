@@ -1,4 +1,4 @@
-const reports = require('../reports')
+const image = require('../image')
 
 const bson = [
   {
@@ -66,7 +66,7 @@ const bsonSales = [
 
 describe('Reports Tests', () => {
   it('simple list', async () => {
-    const bspec = {
+    const imageSpec = {
       headers: ['name', 'age', 'favorite colors' ],
       table: true,
       field: [],
@@ -91,12 +91,12 @@ describe('Reports Tests', () => {
     }
 
 
-    const actual = reports.instantiate(bspec, bson)
+    const actual = image.instantiate(imageSpec, bson)
     expect(actual).toStrictEqual(expected)
   })
 
   it('nested table', async () => {
-    const bspec = {
+    const imageSpec = {
       headers: ['name', 'age', 'favorite colors' ],
       table: true,
       field: [],
@@ -137,12 +137,12 @@ describe('Reports Tests', () => {
       ]
     }
 
-    const actual = reports.instantiate(bspec, bson)
+    const actual = image.instantiate(imageSpec, bson)
     expect(actual).toStrictEqual(expected)
   })
 
   it('nested graph table', async () => {
-    const bspec = {
+    const imageSpec = {
                 type: "bar",
                 options: {
                   chart: {
@@ -174,9 +174,8 @@ describe('Reports Tests', () => {
       ]
     }
 
-    const actual = reports.instantiate(bspec, bsonSales)
+    const actual = image.instantiate(imageSpec, bsonSales)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
 })
-

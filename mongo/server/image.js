@@ -41,52 +41,52 @@ const setValue = (dest, path, value) => {
   return value
 }
 
-const instantiateValue = (path, bspec, rows, instantiation) => {
-  const bspecValue = getValue(path, bspec)
-  if (bspecValue['$push']) {
+const instantiateValue = (path, imageSpec, rows, instantiation) => {
+  const imageSpecValue = getValue(path, imageSpec)
+  if (imageSpecValue['$push']) {
     const value = setValue(instantiation, path, [])
     for (const row of rows) {
-      value.push(instantiate(bspecValue['$push'], row))
+      value.push(instantiate(imageSpecValue['$push'], row))
     }
-  } else if (bspec.options.xaxis.categories['$first']) {
+  } else if (imageSpec.options.xaxis.categories['$first']) {
     setValue(instantiation, path, instantiate(bSpecValue['$first'], rows[0]))
   }
 }
 
-const instantiate = (bspec, bson) => {
-  if (bspec.type) {
-    const instantiation = _.cloneDeep(bspec)
+const instantiate = (imageSpec, bson) => {
+  if (imageSpec.type) {
+    const instantiation = _.cloneDeep(imageSpec)
     const rows = bson
 
-    instantiateValue(['options', 'xaxis', 'categories'], bspec, rows, instantiation)
-    for (let i = 0; i < bspec.series.length; ++i) {
-      instantiateValue(['data'], bspec.series[i], rows, instantiation.series[i])
+    instantiateValue(['options', 'xaxis', 'categories'], imageSpec, rows, instantiation)
+    for (let i = 0; i < imageSpec.series.length; ++i) {
+      instantiateValue(['data'], imageSpec.series[i], rows, instantiation.series[i])
     }
 
     return instantiation
-  } else if (bspec.table) {
-    const instantiation = { headers: bspec.headers, table: true }
+  } else if (imageSpec.table) {
+    const instantiation = { headers: imageSpec.headers, table: true }
     const rows = []
     let field = bson
-    for (let name of bspec.field) {
+    for (let name of imageSpec.field) {
       field = bson[name]
     }
     for (const row of field) {
-      rows.push(instantiate(bspec.rows, row))
+      rows.push(instantiate(imageSpec.rows, row))
     }
     instantiation.rows = rows
     return instantiation
-  } else if (Array.isArray(bspec)) {
+  } else if (Array.isArray(imageSpec)) {
     const values = []
-    for (const field of bspec) {
+    for (const field of imageSpec) {
       values.push(instantiate(field, bson))
     }
     return values
   } else {
-    if (bspec.startsWith("$")) {
-      return bson[bspec.slice(1)]
+    if (imageSpec.startsWith("$")) {
+      return bson[imageSpec.slice(1)]
     } else {
-      return bspec
+      return imageSpec
     }
   }
 }
