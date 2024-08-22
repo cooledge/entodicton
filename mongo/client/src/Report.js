@@ -9,18 +9,20 @@ const toHTML = (data) => {
     return fromTable(data)
   } else if (data.columns) {
     return fromCols(data.columns)
+  } else if (Array.isArray(data)) {
+    return data.map( (element) => toHTML(element) )
   } else {
     return data
   }
 }
 
 const fromTable = (table) => {
-    const header = (headers) => {
-      if (headers && headers.length > 0) {
-        return <tr className='Header'>{ headers.map((h) => <th>{toHTML(h)}</th>) }</tr>
-      }
+  const header = (headers) => {
+    if (headers && headers.length > 0) {
+      return <tr className='Header'>{ headers.map((h) => <th>{toHTML(h)}</th>) }</tr>
     }
-    return <table className="Table">{header(table.headers)}{fromRows(table.rows)}</table>
+  }
+  return <table className="Table">{header(table.headers)}{fromRows(table.rows)}</table>
 }
 
 const fromGraph = (graph) => {

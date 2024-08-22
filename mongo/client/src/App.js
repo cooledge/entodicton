@@ -71,7 +71,6 @@ const callServer = async (query) => {
       'Content-Type': 'application/json'
     }
   })
-  debugger
   if (result.ok) {
     return JSON.parse(JSON.stringify(await result.json()))
   }

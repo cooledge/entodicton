@@ -90,14 +90,6 @@ async function mongoQuery() {
   // return 'done.';
 }
 
-/*
-main()
-  .then(() => {
-  })
-  .catch(console.error)
-  .finally(() => client.close());
-*/
-
 app.get('/', async (req, res) => {
   const result = await mongoQuery()
   console.log('Found documents =>', result);
@@ -110,18 +102,21 @@ const mongo = createMongo()
 mongo.api.listen( (shown) => { lastResponse = shown } )
 
 app.post('/query', async (req, res) => {
-  debugger
   if (req.body.query) {
     lastResponse = null
     const qr = await mongo.query(req.body.query)
     console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
     if (lastResponse) {
-      res.json(await query(lastResponse.dataSpec, lastResponse.imageSpec))
+      const report = await query(lastResponse.dataSpec, lastResponse.imageSpec)
+      console.log("report sent back", JSON.stringify(report, null, 2))
+      res.json(report)
       // console.log("result", JSON.stringify(result, null, 2))
       // res.json(await query(req.body.dataSpec, req.body.reportSpec))
-      return
+    } else {
+      res.json({})
     }
   }
+  /*
   console.log("json", req.body)
   if (req.body.dataSpec && req.body.reportSpec) {
     const result = await query(req.body.dataSpec, req.body.reportSpec)
@@ -132,6 +127,7 @@ app.post('/query', async (req, res) => {
   const result = await mongoQuery()
   data.rows[0].columns[0] = result.length
   res.json(data)
+  */
 })
 
 app.listen(port, async () => {

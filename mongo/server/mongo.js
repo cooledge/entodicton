@@ -2,6 +2,12 @@ const { Config, knowledgeModule, where } = require('theprogrammablemind')
 const { defaultContextCheck, dialogues } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 
+/*
+  capitalize the header
+  make a new report
+  always capitalize the header
+ */
+
 class API {
   initialize(args) {
     this.args = args
@@ -33,6 +39,8 @@ let configStruct = {
     "([make] ([report]))",
     "([reportable])",
     "([show] ([reportable]))",
+    "([capitalize] ([reportElement]))",
+    "([header])",
     "([sales|])",
     "([year])",
     "([user])",
@@ -46,9 +54,33 @@ let configStruct = {
       parents: ['verby'],
       generatorp: ({context, g}) => `make ${g(context.report)}`,
       semantic: ({context, km, api}) => {
-        const report = api.newReport()
+        api.newReport()
       },
     },
+
+    {
+      id: 'capitalize',
+      parents: ['verby'],
+      bridge: "{ ...next(operator), element: after[0] }",
+      generatorp: ({context, gp}) => `${context.word} ${gp(context.element)}`,
+      semantic: ({context, mentions, api}) => {
+        if (context.element.marker == 'header') {
+          const report = mentions({ marker: 'report' }) || api.newReport()
+          report.imageSpec.capitalizeHeader = true
+          if (report.imageSpec.explicit) {
+            report.imageSpec.rows.forEach( (row) => {
+              row.forEach( (column) => {
+                column.capitalizeHeader = true
+              })
+            })
+          }
+          api.show(report)
+        }
+      },
+    },
+
+    { id: 'reportElement' },
+    { id: 'header', parents: ['theAble', 'reportElement'] },
 
     { id: 'report',
       parents: ['theAble']
@@ -71,6 +103,59 @@ let configStruct = {
         }
 
         const properties = toArray(context.show)
+
+        // split by table
+        const components = {}
+        for (const property of properties) {
+          if (!components[property.database]) {
+            components[property.database] = {}
+          }
+          const dbs = components[property.database]
+          if (!dbs[property.collection]) {
+            dbs[property.collection] = []
+          }
+          const collection = dbs[property.collection]
+          collection.push(property)
+        }
+
+        const dataSpecs = []
+        const imageSpecs = []
+        for (const dbName in components) {
+          for (const collectionName in components[dbName]) {
+            dataSpecs.push({
+                dbName: dbName,
+                collectionName: collectionName,
+                limit: 10,
+                aggregation: [] 
+            })
+            const properties = components[dbName][collectionName]
+            imageSpecs.push({
+              headers: properties.map( gp ),
+              table: true,
+              field: [],
+              // rows: ['$name', '$age', '$fav_colors'],
+              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
+            })
+          }
+        }
+
+        if (dataSpecs.length == 1) {
+          report.dataSpec = dataSpecs[0]
+          report.imageSpec = imageSpecs[0]
+        } else {
+          report.dataSpec = dataSpecs
+          for (let i = 0; i < imageSpecs.length; ++i) {
+            imageSpecs[i].field = [i]
+          }
+          report.imageSpec = {
+              headers: [],
+              table: true,
+              explicit: true,
+              field: [],
+              rows: [imageSpecs]
+            }
+        }
+        /*
         report.dataSpec = { 
           dbName: properties[0].database, 
           collectionName: properties[0].collection, 
@@ -84,8 +169,8 @@ let configStruct = {
           // rows: ['$name', '$age', '$fav_colors'],
           rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
         }
+        */
 
-        console.log(JSON.stringify(report))
         api.show(report)
       }
     },

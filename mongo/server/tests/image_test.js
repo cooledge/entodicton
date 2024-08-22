@@ -5,62 +5,29 @@ const bson = [
     "id": "123",
     "name": "john",
     "age": 25,
-    "fav_colors": [
-      "red",
-      "black"
-    ],
+    "fav_colors": [ "red", "black" ],
     "marks_in_subjects": [
-      {
-        "marks": 90,
-        "subject_id": "abc"
-      },
-      {
-        "marks": 92,
-        "subject_id": "def"
-      }
+      { "marks": 90, "subject_id": "abc" },
+      { "marks": 92, "subject_id": "def" }
     ]
   },
   {
     "id": "123",
     "name": "greg",
     "age": 55,
-    "fav_colors": [
-      "blue",
-      "green"
-    ],
+    "fav_colors": [ "blue", "green" ],
     "marks_in_subjects": [
-      {
-        "marks": 70,
-        "subject_id": "abc"
-      },
-      {
-        "marks": 82,
-        "subject_id": "def"
-      }
+      { "marks": 70, "subject_id": "abc" },
+      { "marks": 82, "subject_id": "def" }
     ]
   }
 ]
 
 const bsonSales = [
-  {
-    "id": "123",
-    "year": "1990",
-    "sales": "100",
-  },
-  {
-    "id": "123",
-    "year": "1991",
-    "sales": "110",
-  },
-  {
-    "id": "123",
-    "year": "1992",
-    "sales": "120",
-  },
-  {
-    "id": "123",
-    "year": "1993",
-    "sales": "130",
+  { "id": "123", "year": "1990", "sales": "100", },
+  { "id": "123", "year": "1991", "sales": "110", },
+  { "id": "123", "year": "1992", "sales": "120", },
+  { "id": "123", "year": "1993", "sales": "130",
   },
 ]
 
@@ -77,16 +44,8 @@ describe('Reports Tests', () => {
       "headers": [ "name", "age", "favorite colors" ],
       "table": true,
       "rows": [
-        [
-          "john",
-          25,
-          [ "red", "black" ]
-        ],
-        [
-          "greg",
-          55,
-          [ "blue", "green" ]
-        ]
+        [ "john", 25, [ "red", "black" ] ],
+        [ "greg", 55, [ "blue", "green" ] ]
       ]
     }
 
@@ -175,6 +134,83 @@ describe('Reports Tests', () => {
     }
 
     const actual = image.instantiate(imageSpec, bsonSales)
+    console.log(JSON.stringify(actual, null, 2))
+    expect(actual).toStrictEqual(expected)
+  })
+
+  it('NEO23 array data selected by field', async () => {
+    const imageSpec = {
+      "table": true,
+      "field": [],
+      "explicit": true,
+      "rows": [
+        [
+          {
+            "headers": [ "users" ],
+            "table": true,
+            "field": [ 0 ],
+            "rows": [ "$name" ]
+          },
+          {
+            "headers": [ "movies" ],
+            "table": true,
+            "field": [ 1 ],
+            "rows": [ "$title" ]
+          }
+        ]
+      ]
+    }
+
+    const data = [
+      [
+        { "name": "Robert Baratheon", "email": "mark_addy@gameofthron.es", },
+        { "name": "Sandor Clegane", "email": "rory_mccann@gameofthron.es", },
+      ],
+      [
+        { "title": "A Corner in Wheat", },
+        { "title": "Rocky", },
+      ],
+    ]
+
+
+    const expected = {
+      "table": true,
+      "headers": [],
+      "rows": [
+        [
+          {
+            "headers": [
+              "users"
+            ],
+            "table": true,
+            "rows": [
+              [
+                "Robert Baratheon"
+              ],
+              [
+                "Sandor Clegane"
+              ]
+            ]
+          },
+          {
+            "headers": [
+              "movies"
+            ],
+            "table": true,
+            "rows": [
+              [
+                "A Corner in Wheat"
+              ],
+              [
+                "Rocky"
+              ]
+            ]
+          }
+        ]
+      ]
+    }
+
+    const actual = image.instantiate(imageSpec, data)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })

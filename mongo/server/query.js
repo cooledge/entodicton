@@ -4,7 +4,9 @@ const data = require('./data')
 const image = require('./image')
 
 const query = async (dataSpec, imageSpec) => {
-  return image.instantiate(imageSpec, await data.instantiate(dataSpec))
+  const dataV = await data.instantiate(dataSpec)
+  console.log('dataV', JSON.stringify(dataV, null, 2))
+  return image.instantiate(imageSpec, dataV)
 }
 
 const initialize = async () => {

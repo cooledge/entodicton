@@ -18,14 +18,14 @@ const instantiate = async (dataSpec) => {
   } 
 
   if (dataSpec.dbName && dataSpec.collectionName && dataSpec.aggregation) {
-    const { dbName, collectionName, aggregation } = dataSpec
-    db = client.db(dbName);
-    collection = db.collection(collectionName)
+    const { dbName, collectionName, aggregation, limit = 0} = dataSpec
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName)
     let data;
     if (_.isEmpty()) {
-      data = await collection.find().toArray();
+      data = await collection.find().limit(limit).toArray();
     } else {
-      data = await collection.aggregate(aggregation).toArray();
+      data = await collection.aggregate(aggregation).limit(limit).toArray();
     }
     return data
   }

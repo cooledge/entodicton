@@ -124,6 +124,7 @@
             {
               "dataSpec": {
               },
+              "fromSTM": true,
               "imageSpec": {
               },
               "marker": "report",
@@ -273,7 +274,6 @@
         "word": "make"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -370,6 +370,7 @@
             {
               "dataSpec": {
               },
+              "fromSTM": true,
               "imageSpec": {
               },
               "marker": "report",
@@ -571,7 +572,6 @@
         "word": "show"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       ""
     ],
@@ -668,8 +668,10 @@
                 "aggregation": [
                 ],
                 "collectionName": "sales",
-                "dbName": "mongo_test_database"
+                "dbName": "mongo_test_database",
+                "limit": 10
               },
+              "fromSTM": true,
               "imageSpec": {
                 "field": [
                 ],
@@ -683,7 +685,8 @@
                 ],
                 "table": true
               },
-              "marker": "report"
+              "marker": "report",
+              "pullFromContext": false
             }
           ]
         },
@@ -697,8 +700,25 @@
           "mentioned": [
             {
               "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "sales",
+                "dbName": "mongo_test_database",
+                "limit": 10
               },
+              "fromSTM": true,
               "imageSpec": {
+                "field": [
+                ],
+                "headers": [
+                  "sales",
+                  "year"
+                ],
+                "rows": [
+                  "$sales",
+                  "$year"
+                ],
+                "table": true
               },
               "marker": "report",
               "pullFromContext": false
@@ -796,6 +816,1418 @@
     ],
     "query": "show sales and year",
     "responses": [
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "capitalize",
+          0
+        ],
+        [
+          "header",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "capitalize",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "element": {
+          "concept": true,
+          "dead": true,
+          "default": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "header",
+          "modifiers": [
+            "determiner"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 20,
+            "start": 11
+          },
+          "text": "the header",
+          "types": [
+            "header"
+          ],
+          "value": "header",
+          "wantsValue": true,
+          "word": "header"
+        },
+        "level": 1,
+        "marker": "capitalize",
+        "range": {
+          "end": 20,
+          "start": 0
+        },
+        "text": "capitalize the header",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "capitalize",
+        "word": "capitalize"
+      }
+    ],
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "header",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "capitalize",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "dialogues2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "show": [
+            {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ]
+        },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "element": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "header",
+              "modifiers": [
+                "determiner"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 20,
+                "start": 11
+              },
+              "text": "the header",
+              "types": [
+                "header"
+              ],
+              "value": "header",
+              "wantsValue": true,
+              "word": "header"
+            },
+            "level": 1,
+            "marker": "capitalize",
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "text": "capitalize the header",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "capitalize",
+            "word": "capitalize"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "capitalize the header",
+          "paraphrasesParenthesized": "(capitalize (the (header)))",
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "capitalize the header"
+    ],
+    "paraphrasesParenthesized": [
+      "(capitalize (the (header)))"
+    ],
+    "query": "capitalize the header",
+    "responses": [
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "capitalize",
+          0
+        ],
+        [
+          "header",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "capitalize",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "show",
+          0
+        ],
+        [
+          "user",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 9,
+          "start": 0
+        },
+        "show": {
+          "collection": "users",
+          "database": "sample_mflix",
+          "dead": true,
+          "level": 1,
+          "marker": "user",
+          "path": [
+            "name"
+          ],
+          "range": {
+            "end": 9,
+            "start": 5
+          },
+          "text": "users",
+          "types": [
+            "user"
+          ],
+          "word": "users"
+        },
+        "text": "show users",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "element": {
+          "concept": true,
+          "dead": true,
+          "default": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "header",
+          "modifiers": [
+            "determiner"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 31,
+            "start": 22
+          },
+          "text": "the header",
+          "types": [
+            "header"
+          ],
+          "value": "header",
+          "wantsValue": true,
+          "word": "header"
+        },
+        "level": 1,
+        "marker": "capitalize",
+        "range": {
+          "end": 31,
+          "start": 11
+        },
+        "text": "capitalize the header",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call9"
+        ],
+        "value": "capitalize",
+        "word": "capitalize"
+      }
+    ],
+    "generatedParenthesized": [
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "user",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "user",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "header",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "op": [
+            "capitalize",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "dialogues2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "show": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "field": [
+                ],
+                "headers": [
+                  "users"
+                ],
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            },
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "field": [
+                ],
+                "headers": [
+                  "users"
+                ],
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ]
+        },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "field": [
+                ],
+                "headers": [
+                  "users"
+                ],
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "element": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "header",
+              "modifiers": [
+                "determiner"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 31,
+                "start": 22
+              },
+              "text": "the header",
+              "types": [
+                "header"
+              ],
+              "value": "header",
+              "wantsValue": true,
+              "word": "header"
+            },
+            "level": 1,
+            "marker": "capitalize",
+            "range": {
+              "end": 31,
+              "start": 11
+            },
+            "text": "capitalize the header",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call9"
+            ],
+            "value": "capitalize",
+            "word": "capitalize"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "capitalize the header",
+          "paraphrasesParenthesized": "(capitalize (the (header)))",
+          "responses": [
+            "",
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 9,
+              "start": 0
+            },
+            "show": {
+              "collection": "users",
+              "database": "sample_mflix",
+              "dead": true,
+              "level": 1,
+              "marker": "user",
+              "path": [
+                "name"
+              ],
+              "range": {
+                "end": 9,
+                "start": 5
+              },
+              "text": "users",
+              "types": [
+                "user"
+              ],
+              "word": "users"
+            },
+            "text": "show users",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show users",
+          "paraphrasesParenthesized": "(show (users))",
+          "responses": [
+            "",
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show users",
+      "capitalize the header"
+    ],
+    "paraphrasesParenthesized": [
+      "(show (users))",
+      "(capitalize (the (header)))"
+    ],
+    "query": "show users capitalize the header",
+    "responses": [
+      "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "capitalize",
+          0
+        ],
+        [
+          "header",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "capitalize",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          0
+        ],
+        [
+          "movie",
+          0
+        ],
+        [
+          "show",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          0
+        ],
+        [
+          "movie",
+          0
+        ],
+        [
+          "show",
+          0
+        ],
+        [
+          "user",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          1
+        ],
+        [
+          "show",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 20,
+          "start": 0
+        },
+        "show": {
+          "default": true,
+          "isList": true,
+          "level": 1,
+          "listable": true,
+          "marker": "list",
+          "range": {
+            "end": 20,
+            "start": 5
+          },
+          "text": "users and movies",
+          "types": [
+            "list",
+            "user"
+          ],
+          "value": [
+            {
+              "collection": "users",
+              "database": "sample_mflix",
+              "dead": true,
+              "level": 1,
+              "marker": "user",
+              "path": [
+                "name"
+              ],
+              "range": {
+                "end": 9,
+                "start": 5
+              },
+              "text": "users",
+              "word": "users"
+            },
+            {
+              "collection": "movies",
+              "database": "sample_mflix",
+              "level": 0,
+              "marker": "movie",
+              "path": [
+                "title"
+              ],
+              "range": {
+                "end": 20,
+                "start": 15
+              },
+              "text": "movies",
+              "word": "movies"
+            }
+          ],
+          "word": "and"
+        },
+        "text": "show users and movies",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "element": {
+          "concept": true,
+          "dead": true,
+          "default": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "header",
+          "modifiers": [
+            "determiner"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 42,
+            "start": 33
+          },
+          "text": "the header",
+          "types": [
+            "header"
+          ],
+          "value": "header",
+          "wantsValue": true,
+          "word": "header"
+        },
+        "level": 1,
+        "marker": "capitalize",
+        "range": {
+          "end": 42,
+          "start": 22
+        },
+        "text": "capitalize the header",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call14"
+        ],
+        "value": "capitalize",
+        "word": "capitalize"
+      }
+    ],
+    "generatedParenthesized": [
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "user",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "movie",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "user",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "list",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "movie",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "header",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "header",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "capitalize",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "dialogues2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "show": [
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "explicit": true,
+                "field": [
+                ],
+                "headers": [
+                ],
+                "rows": [
+                  [
+                    {
+                      "capitalizeHeader": true,
+                      "field": [
+                        0
+                      ],
+                      "headers": [
+                        "users"
+                      ],
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    },
+                    {
+                      "capitalizeHeader": true,
+                      "field": [
+                        1
+                      ],
+                      "headers": [
+                        "movies"
+                      ],
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            },
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "explicit": true,
+                "field": [
+                ],
+                "headers": [
+                ],
+                "rows": [
+                  [
+                    {
+                      "capitalizeHeader": true,
+                      "field": [
+                        0
+                      ],
+                      "headers": [
+                        "users"
+                      ],
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    },
+                    {
+                      "capitalizeHeader": true,
+                      "field": [
+                        1
+                      ],
+                      "headers": [
+                        "movies"
+                      ],
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ]
+        },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "explicit": true,
+                "field": [
+                ],
+                "headers": [
+                ],
+                "rows": [
+                  [
+                    {
+                      "capitalizeHeader": true,
+                      "field": [
+                        0
+                      ],
+                      "headers": [
+                        "users"
+                      ],
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    },
+                    {
+                      "capitalizeHeader": true,
+                      "field": [
+                        1
+                      ],
+                      "headers": [
+                        "movies"
+                      ],
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "element": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "header",
+              "modifiers": [
+                "determiner"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 42,
+                "start": 33
+              },
+              "text": "the header",
+              "types": [
+                "header"
+              ],
+              "value": "header",
+              "wantsValue": true,
+              "word": "header"
+            },
+            "level": 1,
+            "marker": "capitalize",
+            "range": {
+              "end": 42,
+              "start": 22
+            },
+            "text": "capitalize the header",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call14"
+            ],
+            "value": "capitalize",
+            "word": "capitalize"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "capitalize the header",
+          "paraphrasesParenthesized": "(capitalize (the (header)))",
+          "responses": [
+            "",
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 20,
+              "start": 0
+            },
+            "show": {
+              "default": true,
+              "isList": true,
+              "level": 1,
+              "listable": true,
+              "marker": "list",
+              "range": {
+                "end": 20,
+                "start": 5
+              },
+              "text": "users and movies",
+              "types": [
+                "list",
+                "user"
+              ],
+              "value": [
+                {
+                  "collection": "users",
+                  "database": "sample_mflix",
+                  "dead": true,
+                  "level": 1,
+                  "marker": "user",
+                  "path": [
+                    "name"
+                  ],
+                  "range": {
+                    "end": 9,
+                    "start": 5
+                  },
+                  "text": "users",
+                  "word": "users"
+                },
+                {
+                  "collection": "movies",
+                  "database": "sample_mflix",
+                  "level": 0,
+                  "marker": "movie",
+                  "path": [
+                    "title"
+                  ],
+                  "range": {
+                    "end": 20,
+                    "start": 15
+                  },
+                  "text": "movies",
+                  "word": "movies"
+                }
+              ],
+              "word": "and"
+            },
+            "text": "show users and movies",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show users and movies",
+          "paraphrasesParenthesized": "(show ((users) and (movies)))",
+          "responses": [
+            "",
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show users and movies",
+      "capitalize the header"
+    ],
+    "paraphrasesParenthesized": [
+      "(show ((users) and (movies)))",
+      "(capitalize (the (header)))"
+    ],
+    "query": "show users and movies capitalize the header",
+    "responses": [
+      "",
       ""
     ]
   }

@@ -65,17 +65,32 @@ const instantiate = (imageSpec, bson) => {
 
     return instantiation
   } else if (imageSpec.table) {
-    const instantiation = { headers: imageSpec.headers, table: true }
-    const rows = []
-    let field = bson
-    for (let name of imageSpec.field) {
-      field = bson[name]
+    // rows is the values to be instantiated rather than instantiated over the rows of the data
+    if (imageSpec.explicit) {
+      const instantiation = { headers: [], table: true }
+      const rows = []
+      let field = bson
+      for (let name of imageSpec.field) {
+        field = bson[name]
+      }
+      instantiation.rows = imageSpec.rows.map((is) => instantiate(is, field))
+      return instantiation
+    } else {
+      const instantiation = { headers: imageSpec.headers, table: true }
+      if (imageSpec.capitalizeHeader) {
+        instantiation.headers = instantiation.headers.map((header) => header.toUpperCase())
+      }
+      const rows = []
+      let field = bson
+      for (let name of imageSpec.field) {
+        field = bson[name]
+      }
+      for (const row of field) {
+        rows.push(instantiate(imageSpec.rows, row))
+      }
+      instantiation.rows = rows
+      return instantiation
     }
-    for (const row of field) {
-      rows.push(instantiate(imageSpec.rows, row))
-    }
-    instantiation.rows = rows
-    return instantiation
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const field of imageSpec) {
