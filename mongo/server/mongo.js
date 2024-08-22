@@ -6,14 +6,20 @@ const mongo_tests = require('./mongo.test.json')
   capitalize the header
   make a new report
   always capitalize the header
+  capitalize all headers
+  capitalize the users header
+  capitalize the column 1 header
  */
 
 class API {
   initialize(args) {
     this.args = args
     this.objects = this.args.objects
-    this.objects.show = []
     this.listeners = []
+
+    // these are just for testing
+    this.objects.show = []
+    this.objects.select = []
   }
 
   show(report) {
@@ -46,6 +52,7 @@ let configStruct = {
     "([user])",
     "([email])",
     "([movie])",
+    "([this])",
   ],
   bridges: [
     { 
@@ -64,8 +71,8 @@ let configStruct = {
       bridge: "{ ...next(operator), element: after[0] }",
       generatorp: ({context, gp}) => `${context.word} ${gp(context.element)}`,
       semantic: ({context, mentions, api}) => {
+        const report = mentions({ marker: 'report' }) || api.newReport()
         if (context.element.marker == 'header') {
-          const report = mentions({ marker: 'report' }) || api.newReport()
           report.imageSpec.capitalizeHeader = true
           if (report.imageSpec.explicit) {
             report.imageSpec.rows.forEach( (row) => {
@@ -75,8 +82,16 @@ let configStruct = {
             })
           }
           api.show(report)
+        } else if (context.element.marker == 'this') {
+          report.select = context
+          api.show(report)
         }
       },
+    },
+
+    { 
+      id: 'this',
+      parents: ['reportElement']
     },
 
     { id: 'reportElement' },
@@ -257,7 +272,7 @@ knowledgeModule( {
     contents: mongo_tests,
     checks: {
       context: defaultContextCheck,
-      objects: ['show', { km: 'stm' }],
+      objects: ['show', 'select', { km: 'stm' }],
     },
 
   },

@@ -110,6 +110,8 @@
         "meta2": {
         },
         "mongo1": {
+          "select": [
+          ],
           "show": [
           ]
         },
@@ -356,6 +358,8 @@
         "meta2": {
         },
         "mongo1": {
+          "select": [
+          ],
           "show": [
           ]
         },
@@ -662,6 +666,8 @@
         "meta2": {
         },
         "mongo1": {
+          "select": [
+          ],
           "show": [
             {
               "dataSpec": {
@@ -973,6 +979,8 @@
         "meta2": {
         },
         "mongo1": {
+          "select": [
+          ],
           "show": [
             {
               "dataSpec": {
@@ -1329,6 +1337,8 @@
         "meta2": {
         },
         "mongo1": {
+          "select": [
+          ],
           "show": [
             {
               "dataSpec": {
@@ -1890,6 +1900,8 @@
         "meta2": {
         },
         "mongo1": {
+          "select": [
+          ],
           "show": [
             {
               "dataSpec": [
@@ -2228,6 +2240,231 @@
     "query": "show users and movies capitalize the header",
     "responses": [
       "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "capitalize",
+          0
+        ],
+        [
+          "this",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "element": {
+          "dead": true,
+          "default": true,
+          "level": 1,
+          "marker": "this",
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 11
+          },
+          "text": "this",
+          "types": [
+            "this"
+          ],
+          "unknown": true,
+          "value": "this",
+          "word": "this"
+        },
+        "level": 1,
+        "marker": "capitalize",
+        "range": {
+          "end": 14,
+          "start": 0
+        },
+        "text": "capitalize this",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "capitalize",
+        "word": "capitalize"
+      }
+    ],
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "this",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ],
+            [
+              "this",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "capitalize",
+            0
+          ],
+          "ops": [
+            [
+              "capitalize",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "pos": "pos2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "dialogues2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "select": [
+            {
+              "dead": true,
+              "default": true,
+              "element": {
+                "dead": true,
+                "default": true,
+                "level": 1,
+                "marker": "this",
+                "pullFromContext": true,
+                "range": {
+                  "end": 14,
+                  "start": 11
+                },
+                "text": "this",
+                "types": [
+                  "this"
+                ],
+                "unknown": true,
+                "value": "this",
+                "word": "this"
+              },
+              "level": 1,
+              "marker": "capitalize",
+              "range": {
+                "end": 14,
+                "start": 0
+              },
+              "text": "capitalize this",
+              "topLevel": true,
+              "touchedBy": [
+                "mongo#call2"
+              ],
+              "value": "capitalize",
+              "word": "capitalize"
+            }
+          ],
+          "show": [
+          ]
+        },
+        "pos2": {
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "element": {
+              "dead": true,
+              "default": true,
+              "level": 1,
+              "marker": "this",
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 11
+              },
+              "text": "this",
+              "types": [
+                "this"
+              ],
+              "unknown": true,
+              "value": "this",
+              "word": "this"
+            },
+            "level": 1,
+            "marker": "capitalize",
+            "range": {
+              "end": 14,
+              "start": 0
+            },
+            "text": "capitalize this",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "capitalize",
+            "word": "capitalize"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "capitalize this",
+          "paraphrasesParenthesized": "(capitalize (this))",
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "capitalize this"
+    ],
+    "paraphrasesParenthesized": [
+      "(capitalize (this))"
+    ],
+    "query": "capitalize this",
+    "responses": [
       ""
     ]
   }

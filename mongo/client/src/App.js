@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react'
 import Query from './Query'
 import Report from './Report'
+import $ from 'jquery';
 const fetch = require('node-fetch')
 
 const testData = () => {
@@ -86,9 +87,101 @@ const callServer = async (query) => {
   }
 }
 
+const initData = {
+  "headers": [
+    "users"
+  ],
+  selecting: {
+    headers: {
+      each: [ 'h1c1' ],
+      all: 'h1'
+    } 
+  },
+  "table": true,
+  "rows": [
+    [
+      "Robert Baratheon"
+    ],
+    [
+      "Sandor Clegane"
+    ],
+    [
+      "Tyrion Lannister"
+    ],
+    [
+      "Khal Drogo"
+    ],
+    [
+      "Joffrey Baratheon"
+    ],
+    [
+      "Viserys Targaryen"
+    ],
+    [
+      "Cersei Lannister"
+    ],
+    [
+      "Samwell Tarly"
+    ],
+    [
+      "Davos Seaworth"
+    ],
+    [
+      "Ned Stark"
+    ]
+  ]
+}
+
+const setupHover = (label, className, doQuery) => {
+  const selector = `.${className}`
+  console.log('selector', selector)
+  // $(selector).mouseover(function(){ console.log("OVER"); $(selector).addClass('highlight');});
+  // $(selector).mouseout(function(){$(selector).removeClass('highlight');});
+  return <button onClick={ () => doQuery("show movies") } onMouseEnter={ () => $(selector).addClass('highlight') } onMouseLeave={ () => $(selector).removeClass('highlight') }  >
+            {label}
+         </button>
+}
+
+const initButtons = (report, doQuery) => {
+  if (!report.selecting) {
+    return {}
+  }
+  report = {...report}
+  report.state = {}
+  const eachWithButtons = []
+  for (let i = 0; i < report.selecting.headers.each.length; ++i) {
+    eachWithButtons.push({ list: [
+        report.headers[i], 
+        setupHover('CELL', report.selecting.headers.each[i], doQuery),
+        setupHover('HEADER', report.selecting.headers.all, doQuery)
+      ] 
+    })
+  }
+  report.headers = eachWithButtons
+  return report
+}
+
 function App() {
-  const [data, setData] = useState('')
+  // const [selectingState, setSelectingState] = useState(initSelectingState(initData))
   const [query, doQuery] = useState('')
+  const [data, setData] = useState(initButtons(initData, doQuery))
+
+  /*
+  console.log('query', JSON.stringify(query))
+  if (data.headers) {
+    const s = {
+      headers: 
+    }
+  }
+  */
+
+  /*
+  const [selecting, setSelecting] = useState(true)
+  const [hoverH1C1, setHoverH1C1] = useState(false)
+  const [hoverH1C2, setHoverH1C2] = useState(false)
+  const [hoverH1C3, setHoverH1C3] = useState(false)
+  const [thisRow, setThisRow] = useState(false)
+  */
 
   useEffect( () => {
     if (query === '') {
@@ -97,8 +190,9 @@ function App() {
 
     const doIt = async () => {
       const result = await callServer(query)
-      setData(result)
       console.log("inDoquery", result)
+      setData(result)
+      // setSelectingState(selectingState)
     }
 
     doIt()
@@ -108,8 +202,29 @@ function App() {
     <div className="App">
       <Query doQuery={doQuery}/>
       <Report data={data}/>
+
     </div>
   );
 }
+
+/*
+      <table>
+        <tr>
+          <th className={hoverH1C1 || thisRow ? "highlight":""}>Company { setupHover("THIS", setHoverH1C1) } { setupHover("THIS", setThisRow) }</th>
+          <th className={hoverH1C2 || thisRow ? "highlight":""}>Company { setupHover("THIS", setHoverH1C2) } { setupHover("THIS", setThisRow) }</th>
+          <th className={hoverH1C3 || thisRow ? "highlight":""}>Company { setupHover("THIS", setHoverH1C3) } { setupHover("THIS", setThisRow) }</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>Centro comercial Moctezuma</td>
+          <td>Francisco Chang</td>
+          <td>Mexico</td>
+        </tr>
+      </table>
+*/
 
 export default App;
