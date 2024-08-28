@@ -93,8 +93,8 @@ const initData = {
   ],
   selecting: {
     headers: {
-      each: [ 'h1c1' ],
-      all: 'h1'
+      each: [ [0, 0] ],
+      all: [ [0] ],
     } 
   },
   "table": true,
@@ -132,19 +132,20 @@ const initData = {
   ]
 }
 
-const setupHover = (label, className, doQuery) => {
+const setupHover = (label, identifier, doQuery) => {
+  const className = identifier.join('_')
   const selector = `.${className}`
   console.log('selector', selector)
   // $(selector).mouseover(function(){ console.log("OVER"); $(selector).addClass('highlight');});
   // $(selector).mouseout(function(){$(selector).removeClass('highlight');});
-  return <button onClick={ () => doQuery("show movies") } onMouseEnter={ () => $(selector).addClass('highlight') } onMouseLeave={ () => $(selector).removeClass('highlight') }  >
+  return <button onClick={ () => doQuery({ selected: identifier }) } onMouseEnter={ () => $(selector).addClass('highlight') } onMouseLeave={ () => $(selector).removeClass('highlight') }  >
             {label}
          </button>
 }
 
 const initButtons = (report, doQuery) => {
   if (!report.selecting) {
-    return {}
+    return report
   }
   report = {...report}
   report.state = {}
@@ -190,9 +191,10 @@ function App() {
 
     const doIt = async () => {
       const result = await callServer(query)
-      console.log("inDoquery", result)
-      setData(result)
-      // setSelectingState(selectingState)
+      if (!result.noChange) {
+        console.log("inDoquery", result)
+        setData(initButtons(result, doQuery))
+      }
     }
 
     doIt()

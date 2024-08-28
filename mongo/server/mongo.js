@@ -24,11 +24,16 @@ class API {
 
   show(report) {
     this.objects.show.push(report)
+    console.log('show -----------', report)
     this.listeners.forEach( (l) => l(report) )
   }
 
   listen(listener) {
     this.listeners.push(listener)
+  }
+
+  current() {
+    return this.objects.show.slice(-1)[0]
   }
 
   newReport() {
@@ -83,8 +88,22 @@ let configStruct = {
           }
           api.show(report)
         } else if (context.element.marker == 'this') {
-          report.select = context
-          api.show(report)
+          if (context.selected) {
+            console.log('the user selected', context.selected)
+          } else {
+            const headerIds = []
+            for (let ctr = 0; ctr < report.imageSpec.headers.length; ++ctr) {
+              headerIds.push([0, 'header', ctr])
+            }
+            report.imageSpec.selecting = {
+              headers: {
+                each: headerIds,
+                all: [0, 'header'],
+              },
+            }
+            report.select = context
+            api.show(report)
+          }
         }
       },
     },
@@ -108,7 +127,6 @@ let configStruct = {
       generatorp: ({context, g}) => `show ${g(context.show)}`,
       semantic: ({context, km, mentions, api, flatten, gp}) => {
         const report = mentions({ marker: 'report' }) || api.newReport()
-
         const toArray = (context) => {
           if (context.isList) {
             return context.value

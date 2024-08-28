@@ -80,6 +80,7 @@ const instantiate = (imageSpec, bson) => {
       if (imageSpec.capitalizeHeader) {
         instantiation.headers = instantiation.headers.map((header) => header.toUpperCase())
       }
+      instantiation.selecting = imageSpec.selecting
       const rows = []
       let field = bson
       for (let name of imageSpec.field) {
