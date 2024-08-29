@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react'
 import Query from './Query'
-import Report from './Report'
+import Image from './Image'
 import $ from 'jquery';
 const fetch = require('node-fetch')
 
@@ -88,48 +88,59 @@ const callServer = async (query) => {
 }
 
 const initData = {
-  "headers": [
-    "users"
+  colgroups: ['column_0'],
+  rules: [
+    '.column_0 { color: blue }',
   ],
+  headers: {
+    className: 'header',
+    selecting: [
+      { 
+        id: 'header', 
+        name: 'Header', 
+        className: 'header' 
+      }
+    ],
+    data: [
+      {
+        className: 'header_0',
+        data: "users",
+        selecting: [{ id: 'column_0', name: 'Column', className: 'column_0' }],
+     }
+    ]
+  },
+  /*
   selecting: {
     headers: {
       each: [ [0, 0] ],
       all: [ [0] ],
     } 
   },
+  */
   "table": true,
-  "rows": [
-    [
-      "Robert Baratheon"
-    ],
-    [
-      "Sandor Clegane"
-    ],
-    [
-      "Tyrion Lannister"
-    ],
-    [
-      "Khal Drogo"
-    ],
-    [
-      "Joffrey Baratheon"
-    ],
-    [
-      "Viserys Targaryen"
-    ],
-    [
-      "Cersei Lannister"
-    ],
-    [
-      "Samwell Tarly"
-    ],
-    [
-      "Davos Seaworth"
-    ],
-    [
-      "Ned Stark"
+  "rows": { 
+    className: 'rows23', 
+    data: [
+      { 
+        className: 'row0 col1',
+        data: [
+          "Robert Baratheon"
+        ] 
+      },
+      {
+        className: 'row1 col0',
+        data: [
+          "Sandor Clegane"
+        ]
+      },
+      {
+        className: 'row2 col0',
+        data: [
+            "Tyrion Lannister"
+        ],
+      },
     ]
-  ]
+  }
 }
 
 const setupHover = (label, identifier, doQuery) => {
@@ -143,29 +154,22 @@ const setupHover = (label, identifier, doQuery) => {
          </button>
 }
 
-const initButtons = (report, doQuery) => {
-  if (!report.selecting) {
-    return report
+const setupHover2 = (doQuery) => (label, identifier, className) => {
+  const selector = `.${className}`
+  const onClick = () => {
+    $('.highlight').removeClass('highlight')
+    doQuery({ selected: identifier }) 
   }
-  report = {...report}
-  report.state = {}
-  const eachWithButtons = []
-  for (let i = 0; i < report.selecting.headers.each.length; ++i) {
-    eachWithButtons.push({ list: [
-        report.headers[i], 
-        setupHover('CELL', report.selecting.headers.each[i], doQuery),
-        setupHover('HEADER', report.selecting.headers.all, doQuery)
-      ] 
-    })
-  }
-  report.headers = eachWithButtons
-  return report
+  return <button onClick={ onClick } onMouseEnter={ () => $(selector).addClass('highlight') } onMouseLeave={ () => $(selector).removeClass('highlight') }  >
+            {label}
+         </button>
 }
 
 function App() {
   // const [selectingState, setSelectingState] = useState(initSelectingState(initData))
   const [query, doQuery] = useState('')
-  const [data, setData] = useState(initButtons(initData, doQuery))
+  const [data, setData] = useState(initData, doQuery)
+  const [rules, setRules] = useState([])  // { rule, index }
 
   /*
   console.log('query', JSON.stringify(query))
@@ -192,18 +196,65 @@ function App() {
     const doIt = async () => {
       const result = await callServer(query)
       if (!result.noChange) {
-        console.log("inDoquery", result)
-        setData(initButtons(result, doQuery))
+        const existing = [...rules]
+        // console.log("inDoquery", result)
+        setData(result)
+        const sheet = window.document.styleSheets[0]
+        // console.log('cssRules', sheet.cssRules)
+        for (const rule of (result.rules || [])) {
+          let found = false
+          for (const cssRule of sheet.cssRules) {
+            // console.log('cssRule', cssRule)
+            if (cssRule.cssText == rule) {
+              found = true
+              break
+            }
+          }
+          if (!found) {
+            console.log('inserting rule', rule)
+            sheet.insertRule(rule)
+          }
+        }
+        /*
+        result.rules = result.rules || []
+        const additions = []
+        const removals = []
+        const sames = []
+        for (const rule of existing) {
+          if (result.rules.includes(rule)) {
+            sames.push(rule)
+          } else {
+            removals.push(rule.index)
+          }
+        }
+        for (const rule of result.rules) {
+          if (!rules.includes(rule)) {
+            additions.push(rule)
+          }
+        }
+        const sheet = window.document.styleSheets[0]
+
+        /* TODO fix this
+        removals.reverse()
+        removals.forEach( (i) => sheet.deleteRule(i) )
+        */
+        /*
+        additions.forEach((rule) => {
+          const index = sheet.insertRule(rule)
+          existing.push({ rule, index })
+        })
+        setRules(existing)
+        */
       }
     }
 
     doIt()
-  }, [query])
+  }, [query, rules])
 
   return (
     <div className="App">
       <Query doQuery={doQuery}/>
-      <Report data={data}/>
+      <Image data={data} setupHover={setupHover2(doQuery)}/>
 
     </div>
   );

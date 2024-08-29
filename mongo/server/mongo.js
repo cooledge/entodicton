@@ -9,6 +9,11 @@ const mongo_tests = require('./mongo.test.json')
   capitalize all headers
   capitalize the users header
   capitalize the column 1 header
+  capitalize everything
+  capitalize the names
+  call that 'the cool image'
+  for column 1 make the background blue and the text red
+  for the header of column 1 make the color green / the color should be green / i want the color green / make it green
  */
 
 class API {
@@ -89,19 +94,40 @@ let configStruct = {
           api.show(report)
         } else if (context.element.marker == 'this') {
           if (context.selected) {
+            debugger
             console.log('the user selected', context.selected)
+            const imageSpec = report.imageSpec
+            if (!imageSpec.rules) {
+              imageSpec.rules = []
+            }
+            const rule = `.${context.selected.selected} { text-transform: capitalize; }`
+            if (!imageSpec.rules.includes(rule)) {
+              imageSpec.rules.unshift(rule)
+            }
+            imageSpec.headers.selecting = null
+            imageSpec.headers.columns.forEach( (column) => column.selecting = null )
+            api.show(report)
           } else {
+            /*
             const headerIds = []
             for (let ctr = 0; ctr < report.imageSpec.headers.length; ++ctr) {
-              headerIds.push([0, 'header', ctr])
+              headerIds.push(['report', 0, 'header', ctr])
             }
+            */
+            report.imageSpec.headers.columns.forEach( (column, index) => {
+              column.selecting = [{ id: `column_${index}`, name: 'X', className: `column_${index}` }]
+            })
+            report.imageSpec.headers.selecting = [{ id: 'header', name: 'X', className: 'header' }]
+            /*
             report.imageSpec.selecting = {
               headers: {
                 each: headerIds,
                 all: [0, 'header'],
               },
             }
+            */
             report.select = context
+            console.log("after capitalize", JSON.stringify(report, null, 2))
             api.show(report)
           }
         }
@@ -163,11 +189,14 @@ let configStruct = {
             })
             const properties = components[dbName][collectionName]
             imageSpecs.push({
-              headers: properties.map( gp ),
+              headers: {
+                columns: properties.map( (c) => { return { text: gp(c) } }).concat([{ text: 'cField' }])
+              },
+              colgroups: properties.map( (e, i) => `column_${i}` ),
               table: true,
               field: [],
               // rows: ['$name', '$age', '$fav_colors'],
-              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
+              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') ).concat('constant')
             })
           }
         }
@@ -181,12 +210,12 @@ let configStruct = {
             imageSpecs[i].field = [i]
           }
           report.imageSpec = {
-              headers: [],
-              table: true,
-              explicit: true,
-              field: [],
-              rows: [imageSpecs]
-            }
+            headers: { columns: [] },
+            table: true,
+            explicit: true,
+            field: [],
+            rows: [imageSpecs]
+          }
         }
         /*
         report.dataSpec = { 

@@ -102,40 +102,43 @@ const mongo = createMongo()
 mongo.api.listen( (shown) => { lastResponse = shown } )
 
 app.post('/query', async (req, res) => {
-  if (req.body.query) {
-    if (req.body.query.selected) {
-      console.log('selected', req.body.query)
-      lastResponse = null
-      debugger
-      const context = mongo.api.current().select
-      context.selected = req.body.query
-      console.log('context for selecting', JSON.stringify(context, null, 2))
-      await mongo.processContext(context)
-    } else {
-      lastResponse = null
-      const qr = await mongo.query(req.body.query)
+  try {
+    if (req.body.query) {
+      if (req.body.query.selected) {
+        console.log('selected', req.body.query)
+        lastResponse = null
+        const context = mongo.api.current().select
+        context.selected = req.body.query
+        console.log('context for selecting', JSON.stringify(context, null, 2))
+        await mongo.processContext(context)
+      } else {
+        lastResponse = null
+        const qr = await mongo.query(req.body.query)
+      }
     }
+    if (lastResponse) {
+      console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
+      const report = await query(lastResponse.dataSpec, lastResponse.imageSpec)
+      console.log("report sent back", JSON.stringify(report, null, 2))
+      res.json(report)
+    } else {
+      res.json({ noChange: true })
+    }
+    /*
+    console.log("json", req.body)
+    if (req.body.dataSpec && req.body.reportSpec) {
+      const result = await query(req.body.dataSpec, req.body.reportSpec)
+      console.log("result", JSON.stringify(result, null, 2))
+      res.json(await query(req.body.dataSpec, req.body.reportSpec))
+      return
+    }
+    const result = await mongoQuery()
+    data.rows[0].columns[0] = result.length
+    res.json(data)
+    */
+  } catch( e ) {
+    console.log('error', e)
   }
-  if (lastResponse) {
-    console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
-    const report = await query(lastResponse.dataSpec, lastResponse.imageSpec)
-    console.log("report sent back", JSON.stringify(report, null, 2))
-    res.json(report)
-  } else {
-    res.json({ noChange: true })
-  }
-  /*
-  console.log("json", req.body)
-  if (req.body.dataSpec && req.body.reportSpec) {
-    const result = await query(req.body.dataSpec, req.body.reportSpec)
-    console.log("result", JSON.stringify(result, null, 2))
-    res.json(await query(req.body.dataSpec, req.body.reportSpec))
-    return
-  }
-  const result = await mongoQuery()
-  data.rows[0].columns[0] = result.length
-  res.json(data)
-  */
 })
 
 app.listen(port, async () => {

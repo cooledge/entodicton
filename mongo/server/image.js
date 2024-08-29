@@ -62,23 +62,34 @@ const instantiate = (imageSpec, bson) => {
     for (let i = 0; i < imageSpec.series.length; ++i) {
       instantiateValue(['data'], imageSpec.series[i], rows, instantiation.series[i])
     }
-
     return instantiation
   } else if (imageSpec.table) {
     // rows is the values to be instantiated rather than instantiated over the rows of the data
+    const instantiation = { 
+      headers: { 
+        className: 'header', 
+        selecting: imageSpec.headers.selecting, 
+        data: imageSpec.headers.columns.map((column) => { 
+          return { className: '', selecting: column.selecting, data: column.text } 
+        })
+      }, 
+      rules: imageSpec.rules,
+      colgroups: imageSpec.colgroups, 
+      table: true 
+    }
+    console.log('init instantiation imagespec', JSON.stringify(imageSpec, null, 2))
+    console.log('init instantiation instantation', JSON.stringify(instantiation, null, 2))
     if (imageSpec.explicit) {
-      const instantiation = { headers: [], table: true }
       const rows = []
       let field = bson
       for (let name of imageSpec.field) {
         field = bson[name]
       }
-      instantiation.rows = imageSpec.rows.map((is) => instantiate(is, field))
+      instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiate(is, field)) }
       return instantiation
     } else {
-      const instantiation = { headers: imageSpec.headers, table: true }
       if (imageSpec.capitalizeHeader) {
-        instantiation.headers = instantiation.headers.map((header) => header.toUpperCase())
+        instantiation.headers = instantiation.headers.columns.map((column) => column.text.toUpperCase())
       }
       instantiation.selecting = imageSpec.selecting
       const rows = []
@@ -86,23 +97,23 @@ const instantiate = (imageSpec, bson) => {
       for (let name of imageSpec.field) {
         field = bson[name]
       }
-      for (const row of field) {
-        rows.push(instantiate(imageSpec.rows, row))
+      for (const [index, row] of field.entries()) {
+        rows.push({ className: `row_${index}`, data: instantiate(imageSpec.rows, row)})
       }
-      instantiation.rows = rows
+      instantiation.rows = { className: "rows", data: rows }
       return instantiation
     }
   } else if (Array.isArray(imageSpec)) {
     const values = []
-    for (const field of imageSpec) {
-      values.push(instantiate(field, bson))
+    for (const [index, field] of imageSpec.entries()) {
+      values.push({ className: `column column_${index}`, data: instantiate(field, bson) })
     }
     return values
   } else {
     if (imageSpec.startsWith("$")) {
-      return bson[imageSpec.slice(1)]
+      return { className: 'fieldValue', data: bson[imageSpec.slice(1)] }
     } else {
-      return imageSpec
+      return { className:'fieldConstant', data: imageSpec }
     }
   }
 }
