@@ -99,6 +99,8 @@ app.get('/', async (req, res) => {
 // the km will be setup on a per user basis since there is state
 let lastResponse;
 const mongo = createMongo()
+mongo.server('http://localhost:3000')
+
 mongo.api.listen( (shown) => { lastResponse = shown } )
 
 app.post('/query', async (req, res) => {
