@@ -6,6 +6,7 @@
       "includes": [
         "currency",
         "numbers",
+        "colors",
         "people",
         "time"
       ]
@@ -178,6 +179,46 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/characters.js"
     },
     {
+      "name": "colors",
+      "description": "talking about colors",
+      "examples": [
+        "red",
+        "hex color",
+        "#123456",
+        "#1234T6"
+      ],
+      "template": [
+        "setidsuffix _colors",
+        "dark and light are brightness",
+        "red, pink, orange, yellow, purple, green, blue, brown, white and gray are colors",
+        "crimson is a red",
+        "gold and khaki is a yellow",
+        "lavender, violet, magenta and indigo is a purple",
+        "lime, chartruese, olive and teal are a green",
+        "aqua, cyan, aquamarine, turquoise and navy are a blue",
+        "tan, sienna and maroon are a brown",
+        "snow, azure, beige and ivory are a white",
+        "silver and black are a gray",
+        "brightness modifies colors",
+        "hex modifies color",
+        "resetIdSuffix"
+      ],
+      "includes": [
+        "hierarchy",
+        "properties",
+        "concept",
+        "dialogues",
+        "sdefaults",
+        "pos",
+        "stm",
+        "meta",
+        "punctuation",
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/colors.js"
+    },
+    {
       "name": "comparable",
       "description": "Comparable things",
       "examples": [
@@ -269,6 +310,7 @@
         "who are the crew members"
       ],
       "template": [
+        "crew modifies member",
         "kirk's name is jim",
         "kirk's rank is captain",
         "kirk's eyes are blue",
@@ -285,6 +327,7 @@
         "mccoy is a crew member",
         "mccoy is a doctor",
         "the status of the phasers is armed",
+        "photon modifies torpedoes",
         "the status of the photon torpedoes is armed",
         "phasers are weapons",
         "torpedoes are weapons",
@@ -351,7 +394,11 @@
         "to it",
         "why",
         "nevermindTestSetup accept nevermind hi",
-        "nevermindTestSetup reject nevermind hi"
+        "nevermindTestSetup reject nevermind hi",
+        "setidsuffix greg",
+        "setidsuffix greg resetidsuffix",
+        "setidsuffix greg makeObject banana\\nbanana",
+        "setidsuffix _suffy"
       ],
       "template": [],
       "includes": [
@@ -1375,7 +1422,8 @@
       "description": "punctuation",
       "examples": [
         "(a)",
-        ":"
+        ":",
+        "\"hi man\""
       ],
       "template": [],
       "includes": [
@@ -1682,7 +1730,9 @@
     {
       "name": "tokenize",
       "description": "tokenize",
-      "examples": [],
+      "examples": [
+        "hello_world"
+      ],
       "template": [],
       "includes": [],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tokenize.js"
