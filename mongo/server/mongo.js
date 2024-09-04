@@ -58,6 +58,7 @@ let configStruct = {
   name: 'mongo',
   operators: [
     "([make] ([report]))",
+//    "([stateChange|make] ([reportElement]) (color/*))",
     "([reportable])",
     "([show] ([reportable]))",
     "([capitalize] ([reportElement]))",
@@ -99,7 +100,6 @@ let configStruct = {
           api.show(report)
         } else if (context.element.marker == 'this') {
           if (context.selected) {
-            debugger
             console.log('the user selected', context.selected)
             const imageSpec = report.imageSpec
             if (!imageSpec.rules) {
@@ -119,10 +119,12 @@ let configStruct = {
               headerIds.push(['report', 0, 'header', ctr])
             }
             */
-            report.imageSpec.headers.columns.forEach( (column, index) => {
-              column.selecting = [{ id: `column_${index}`, name: 'X', className: `column_${index}` }]
-            })
-            report.imageSpec.headers.selecting = [{ id: 'header', name: 'X', className: 'header' }]
+            if (report.imageSpec.headers) {
+              report.imageSpec.headers.columns.forEach( (column, index) => {
+                column.selecting = [{ id: `column_${index}`, name: 'X', className: `column_${index}` }]
+              })
+              report.imageSpec.headers.selecting = [{ id: 'header', name: 'X', className: 'header' }]
+            }
             /*
             report.imageSpec.selecting = {
               headers: {

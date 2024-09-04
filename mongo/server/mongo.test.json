@@ -100,6 +100,7 @@
       },
       "namespaced": {
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -348,6 +349,7 @@
       },
       "namespaced": {
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -656,6 +658,7 @@
       },
       "namespaced": {
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -679,12 +682,22 @@
               },
               "fromSTM": true,
               "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1"
+                ],
                 "field": [
                 ],
-                "headers": [
-                  "sales",
-                  "year"
-                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "sales"
+                    },
+                    {
+                      "text": "year"
+                    }
+                  ]
+                },
                 "rows": [
                   "$sales",
                   "$year"
@@ -714,12 +727,22 @@
               },
               "fromSTM": true,
               "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1"
+                ],
                 "field": [
                 ],
-                "headers": [
-                  "sales",
-                  "year"
-                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "sales"
+                    },
+                    {
+                      "text": "year"
+                    }
+                  ]
+                },
                 "rows": [
                   "$sales",
                   "$year"
@@ -969,6 +992,7 @@
       },
       "namespaced": {
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -1238,7 +1262,7 @@
         {
           "counter": 2,
           "op": [
-            "show",
+            "header",
             0
           ],
           "ops": [
@@ -1263,7 +1287,7 @@
         {
           "counter": 3,
           "op": [
-            "header",
+            "the",
             0
           ],
           "ops": [
@@ -1272,7 +1296,7 @@
               0
             ],
             [
-              "header",
+              "show",
               0
             ],
             [
@@ -1284,7 +1308,7 @@
         {
           "counter": 4,
           "op": [
-            "the",
+            "show",
             0
           ],
           "ops": [
@@ -1293,7 +1317,7 @@
               0
             ],
             [
-              "the",
+              "show",
               0
             ]
           ]
@@ -1327,6 +1351,7 @@
       },
       "namespaced": {
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -1351,11 +1376,18 @@
               "fromSTM": true,
               "imageSpec": {
                 "capitalizeHeader": true,
+                "colgroups": [
+                  "column_0"
+                ],
                 "field": [
                 ],
-                "headers": [
-                  "users"
-                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
                 "rows": [
                   "$name"
                 ],
@@ -1375,11 +1407,18 @@
               "fromSTM": true,
               "imageSpec": {
                 "capitalizeHeader": true,
+                "colgroups": [
+                  "column_0"
+                ],
                 "field": [
                 ],
-                "headers": [
-                  "users"
-                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
                 "rows": [
                   "$name"
                 ],
@@ -1409,11 +1448,18 @@
               "fromSTM": true,
               "imageSpec": {
                 "capitalizeHeader": true,
+                "colgroups": [
+                  "column_0"
+                ],
                 "field": [
                 ],
-                "headers": [
-                  "users"
-                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
                 "rows": [
                   "$name"
                 ],
@@ -1801,7 +1847,7 @@
         {
           "counter": 3,
           "op": [
-            "show",
+            "header",
             0
           ],
           "ops": [
@@ -1826,7 +1872,7 @@
         {
           "counter": 4,
           "op": [
-            "header",
+            "the",
             0
           ],
           "ops": [
@@ -1835,7 +1881,7 @@
               0
             ],
             [
-              "header",
+              "show",
               0
             ],
             [
@@ -1847,7 +1893,7 @@
         {
           "counter": 5,
           "op": [
-            "the",
+            "show",
             0
           ],
           "ops": [
@@ -1856,7 +1902,7 @@
               0
             ],
             [
-              "the",
+              "show",
               0
             ]
           ]
@@ -1890,6 +1936,7 @@
       },
       "namespaced": {
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -1926,18 +1973,27 @@
                 "explicit": true,
                 "field": [
                 ],
-                "headers": [
-                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
                 "rows": [
                   [
                     {
                       "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
                       "field": [
                         0
                       ],
-                      "headers": [
-                        "users"
-                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "users"
+                          }
+                        ]
+                      },
                       "rows": [
                         "$name"
                       ],
@@ -1945,12 +2001,19 @@
                     },
                     {
                       "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
                       "field": [
                         1
                       ],
-                      "headers": [
-                        "movies"
-                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "movies"
+                          }
+                        ]
+                      },
                       "rows": [
                         "$title"
                       ],
@@ -1986,18 +2049,27 @@
                 "explicit": true,
                 "field": [
                 ],
-                "headers": [
-                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
                 "rows": [
                   [
                     {
                       "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
                       "field": [
                         0
                       ],
-                      "headers": [
-                        "users"
-                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "users"
+                          }
+                        ]
+                      },
                       "rows": [
                         "$name"
                       ],
@@ -2005,12 +2077,19 @@
                     },
                     {
                       "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
                       "field": [
                         1
                       ],
-                      "headers": [
-                        "movies"
-                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "movies"
+                          }
+                        ]
+                      },
                       "rows": [
                         "$title"
                       ],
@@ -2056,18 +2135,27 @@
                 "explicit": true,
                 "field": [
                 ],
-                "headers": [
-                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
                 "rows": [
                   [
                     {
                       "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
                       "field": [
                         0
                       ],
-                      "headers": [
-                        "users"
-                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "users"
+                          }
+                        ]
+                      },
                       "rows": [
                         "$name"
                       ],
@@ -2075,12 +2163,19 @@
                     },
                     {
                       "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
                       "field": [
                         1
                       ],
-                      "headers": [
-                        "movies"
-                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "movies"
+                          }
+                        ]
+                      },
                       "rows": [
                         "$title"
                       ],
@@ -2346,6 +2441,7 @@
       },
       "namespaced": {
         "dialogues2": {
+          "idSuffix": "",
           "mentioned": [
           ],
           "variables": {
@@ -2357,43 +2453,52 @@
         },
         "mongo1": {
           "select": [
-            {
-              "dead": true,
-              "default": true,
-              "element": {
-                "dead": true,
-                "default": true,
-                "level": 1,
-                "marker": "this",
-                "pullFromContext": true,
-                "range": {
-                  "end": 14,
-                  "start": 11
-                },
-                "text": "this",
-                "types": [
-                  "this"
-                ],
-                "unknown": true,
-                "value": "this",
-                "word": "this"
-              },
-              "level": 1,
-              "marker": "capitalize",
-              "range": {
-                "end": 14,
-                "start": 0
-              },
-              "text": "capitalize this",
-              "topLevel": true,
-              "touchedBy": [
-                "mongo#call2"
-              ],
-              "value": "capitalize",
-              "word": "capitalize"
-            }
           ],
           "show": [
+            {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "select": {
+                "dead": true,
+                "default": true,
+                "element": {
+                  "dead": true,
+                  "default": true,
+                  "level": 1,
+                  "marker": "this",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 14,
+                    "start": 11
+                  },
+                  "text": "this",
+                  "types": [
+                    "this"
+                  ],
+                  "unknown": true,
+                  "value": "this",
+                  "word": "this"
+                },
+                "level": 1,
+                "marker": "capitalize",
+                "range": {
+                  "end": 14,
+                  "start": 0
+                },
+                "text": "capitalize this",
+                "topLevel": true,
+                "touchedBy": [
+                  "mongo#call2"
+                ],
+                "value": "capitalize",
+                "word": "capitalize"
+              }
+            }
           ]
         },
         "pos2": {
@@ -2404,6 +2509,50 @@
         },
         "stm2": {
           "mentioned": [
+            {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "select": {
+                "dead": true,
+                "default": true,
+                "element": {
+                  "dead": true,
+                  "default": true,
+                  "level": 1,
+                  "marker": "this",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 14,
+                    "start": 11
+                  },
+                  "text": "this",
+                  "types": [
+                    "this"
+                  ],
+                  "unknown": true,
+                  "value": "this",
+                  "word": "this"
+                },
+                "level": 1,
+                "marker": "capitalize",
+                "range": {
+                  "end": 14,
+                  "start": 0
+                },
+                "text": "capitalize this",
+                "topLevel": true,
+                "touchedBy": [
+                  "mongo#call2"
+                ],
+                "value": "capitalize",
+                "word": "capitalize"
+              }
+            }
           ],
           "variables": {
           }
