@@ -63,10 +63,10 @@ function Layout({ children }) {
                       <Link to='/tankdemo'>OLD DEMO</Link>
                     </div>
                     <div className="subMenuItem">
-                      <Link to='/pipboy/' target="_blank">PIPBOY</Link>
+                      <Link to='/pipboy/' target="_blank">PIPBOY POC</Link>
                     </div>
                     <div className="subMenuItem">
-                      <Link to='/fastfood/' target="_blank">FAST FOOD</Link>
+                      <Link to='/fastfood/' target="_blank">FAST FOOD POC</Link>
                     </div>
                   </div>
                   { /* <li className="barItem"><Link to='/tankdemo'>DEMO</Link></li> */ }
