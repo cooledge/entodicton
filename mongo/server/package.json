@@ -18,7 +18,8 @@
     "lodash": "^4.17.21",
     "mongodb": "^6.8.0",
     "theprogrammablemind": "^8.0.0-beta.0",
-    "tpmkms": "^8.0.0-beta.0"
+    "tpmkms": "^8.0.0-beta.0",
+    "tpmkms_4wp": "8.0.0-beta.3"
   },
   "devDependencies": {
     "jest": "^29.7.0"
