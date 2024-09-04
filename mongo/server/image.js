@@ -41,26 +41,26 @@ const setValue = (dest, path, value) => {
   return value
 }
 
-const instantiateValue = (path, imageSpec, rows, instantiation) => {
+const instantiateValue = (path, imageSpec, rows, instantiation, options) => {
   const imageSpecValue = getValue(path, imageSpec)
   if (imageSpecValue['$push']) {
     const value = setValue(instantiation, path, [])
     for (const row of rows) {
-      value.push(instantiate(imageSpecValue['$push'], row))
+      value.push(instantiate(imageSpecValue['$push'], row, options))
     }
   } else if (imageSpec.options.xaxis.categories['$first']) {
-    setValue(instantiation, path, instantiate(bSpecValue['$first'], rows[0]))
+    setValue(instantiation, path, instantiate(bSpecValue['$first'], rows[0], options))
   }
 }
 
-const instantiate = (imageSpec, bson) => {
+const instantiate = (imageSpec, bson, options = {}) => {
   if (imageSpec.type) {
     const instantiation = _.cloneDeep(imageSpec)
     const rows = bson
 
-    instantiateValue(['options', 'xaxis', 'categories'], imageSpec, rows, instantiation)
+    instantiateValue(['options', 'xaxis', 'categories'], imageSpec, rows, instantiation, { ...options, isGraph: true })
     for (let i = 0; i < imageSpec.series.length; ++i) {
-      instantiateValue(['data'], imageSpec.series[i], rows, instantiation.series[i])
+      instantiateValue(['data'], imageSpec.series[i], rows, instantiation.series[i], { ...options, isGraph: true })
     }
     return instantiation
   } else if (imageSpec.table) {
@@ -85,7 +85,7 @@ const instantiate = (imageSpec, bson) => {
       for (let name of imageSpec.field) {
         field = bson[name]
       }
-      instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiate(is, field)) }
+      instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiate(is, field, options)) }
       return instantiation
     } else {
       if (imageSpec.capitalizeHeader) {
@@ -98,7 +98,7 @@ const instantiate = (imageSpec, bson) => {
         field = bson[name]
       }
       for (const [index, row] of field.entries()) {
-        rows.push({ className: `row_${index}`, data: instantiate(imageSpec.rows, row)})
+        rows.push({ className: `row_${index}`, data: instantiate(imageSpec.rows, row, options)})
       }
       instantiation.rows = { className: "rows", data: rows }
       return instantiation
@@ -106,12 +106,16 @@ const instantiate = (imageSpec, bson) => {
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      values.push({ className: `column column_${index}`, data: instantiate(field, bson) })
+      values.push({ className: `column column_${index}`, data: instantiate(field, bson, options) })
     }
     return values
   } else {
     if (imageSpec.startsWith("$")) {
-      return { className: 'fieldValue', data: bson[imageSpec.slice(1)] }
+      if (options.isGraph) {
+        return bson[imageSpec.slice(1)]
+      } else {
+        return { className: 'fieldValue', data: bson[imageSpec.slice(1)] }
+      }
     } else {
       return { className:'fieldConstant', data: imageSpec }
     }

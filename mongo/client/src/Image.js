@@ -62,7 +62,7 @@ const fromTable = (table, options) => {
     colgroup = <colgroup>{table.colgroups.map((className) => <col key={className} className={className}></col>)}</colgroup>
   }
   console.log('headers', ReactDOMServer.renderToString(header(table.headers)))
-  return <table className="Table">
+  return <table className={`Table table_${options.newTableNumber()}`}>
            {colgroup}
              {header(table.headers)}
            <tbody>
@@ -100,9 +100,16 @@ const fromCols = (data, options) => {
 
 function Image(props) {
   const { data, setupHover } = props
+  const counters = {
+    tableNumber: 0
+  }
   const options = {
     // selecting: true
     setupHover,
+    newTableNumber: () => {
+      counters.tableNumber += 1 
+      return counters.tableNumber
+    }
   }
   return (
     <div className="Image">

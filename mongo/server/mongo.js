@@ -14,6 +14,11 @@ const mongo_tests = require('./mongo.test.json')
   call that 'the cool image'
   for column 1 make the background blue and the text red
   for the header of column 1 make the color green / the color should be green / i want the color green / make it green
+
+  make the header's background blue
+  make that blue
+  make the text blue
+  make the text of that blue
  */
 
 class API {
@@ -146,10 +151,13 @@ let configStruct = {
       parents: ['theAble']
     },
 
-    { id: 'reportable' },
+    { 
+      id: 'reportable',
+    },
 
     { id: 'show',
       bridge: "{ ...next(operator), show: after[0] }",
+      parents: ['verby'],
       generatorp: ({context, g}) => `show ${g(context.show)}`,
       semantic: ({context, km, mentions, api, flatten, gp}) => {
         const report = mentions({ marker: 'report' }) || api.newReport()
@@ -190,13 +198,13 @@ let configStruct = {
             const properties = components[dbName][collectionName]
             imageSpecs.push({
               headers: {
-                columns: properties.map( (c) => { return { text: gp(c) } }).concat([{ text: 'cField' }])
+                columns: properties.map( (c) => { return { text: gp(c) } })
               },
               colgroups: properties.map( (e, i) => `column_${i}` ),
               table: true,
               field: [],
               // rows: ['$name', '$age', '$fav_colors'],
-              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') ).concat('constant')
+              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
             })
           }
         }
@@ -278,8 +286,9 @@ let configStruct = {
     },
 
   ],
-  associations: {
-  },
+  priorities: [
+    { context: [['show', 0], ['list', 0]], choose: [1] },
+  ],
 };
 
 // what are the collections / databases

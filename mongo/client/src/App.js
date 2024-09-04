@@ -168,7 +168,8 @@ const setupHover2 = (doQuery) => (label, identifier, className) => {
 function App() {
   // const [selectingState, setSelectingState] = useState(initSelectingState(initData))
   const [query, doQuery] = useState('')
-  const [data, setData] = useState(initData, doQuery)
+  // const [data, setData] = useState(initData, doQuery)
+  const [data, setData] = useState([], doQuery)
   const [rules, setRules] = useState([])  // { rule, index }
 
   /*

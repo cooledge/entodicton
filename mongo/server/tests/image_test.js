@@ -34,36 +34,119 @@ const bsonSales = [
 describe('Reports Tests', () => {
   it('simple list', async () => {
     const imageSpec = {
-      headers: ['name', 'age', 'favorite colors' ],
+      headers: { columns: ['name', 'age', 'favorite colors' ] },
       table: true,
       field: [],
       rows: ['$name', '$age', '$fav_colors'],
     }
 
-    const expected = {
-      "headers": [ "name", "age", "favorite colors" ],
-      "table": true,
-      "rows": [
-        [ "john", 25, [ "red", "black" ] ],
-        [ "greg", 55, [ "blue", "green" ] ]
-      ]
-    }
-
+    const expected = 
+   {
+        "headers": {
+          "className": "header",
+          "selecting": undefined,
+          "data": [
+            {
+              "className": "",
+              "selecting": undefined,
+              "data": undefined
+            },
+            {
+              "className": "",
+              "selecting": undefined,
+              "data": undefined
+            },
+            {
+              "className": "",
+              "selecting": undefined,
+              "data": undefined
+            }
+          ]
+        },
+        "rules": undefined,
+        "colgroups": undefined,
+        "table": true,
+        "selecting": undefined,
+        "rows": {
+          "className": "rows",
+          "data": [
+            {
+              "className": "row_0",
+              "data": [
+                {
+                  "className": "column column_0",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": "john"
+                  }
+                },
+                {
+                  "className": "column column_1",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": 25
+                  }
+                },
+                {
+                  "className": "column column_2",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": [
+                      "red",
+                      "black"
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "className": "row_1",
+              "data": [
+                {
+                  "className": "column column_0",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": "greg"
+                  }
+                },
+                {
+                  "className": "column column_1",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": 55
+                  }
+                },
+                {
+                  "className": "column column_2",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": [
+                      "blue",
+                      "green"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
 
     const actual = image.instantiate(imageSpec, bson)
+    console.log('answer', JSON.stringify(actual, (k, v) => v === undefined ? null : v, 2))
     expect(actual).toStrictEqual(expected)
   })
 
   it('nested table', async () => {
     const imageSpec = {
-      headers: ['name', 'age', 'favorite colors' ],
+      headers: { columns: ['name', 'age', 'favorite colors' ] },
       table: true,
       field: [],
       rows: [
               '$name', 
               '$age', 
               {
-                headers: ['subject', 'mark'],
+                headers: { columns: ['subject', 'mark'] },
                 field: ['marks_in_subjects'],
                 table: true,
                 rows: ['$subject_id', '$marks']
@@ -71,32 +154,216 @@ describe('Reports Tests', () => {
             ],
     }
 
-    const expected = {
-      "headers": [ "name", "age", "favorite colors" ],
-      "table": true,
-      "rows": [
-        [
-          "john",
-          25,
-          {
-            "headers": [ "subject", "mark" ],
-            "table": true,
-            "rows": [ [ "abc", 90 ], [ "def", 92 ] ]
-          }
-        ],
-        [
-          "greg",
-          55,
-          {
-            "headers": [ "subject", "mark" ],
-            "table": true,
-            "rows": [ [ "abc", 70 ], [ "def", 82 ] ]
-          }
-        ]
-      ]
-    }
+    const expected = 
+    {
+        "headers": {
+          "className": "header",
+          "selecting": undefined,
+          "data": [
+            {
+              "className": "",
+              "selecting": undefined,
+              "data": undefined
+            },
+            {
+              "className": "",
+              "selecting": undefined,
+              "data": undefined
+            },
+            {
+              "className": "",
+              "selecting": undefined,
+              "data": undefined
+            }
+          ]
+        },
+        "rules": undefined,
+        "colgroups": undefined,
+        "table": true,
+        "selecting": undefined,
+        "rows": {
+          "className": "rows",
+          "data": [
+            {
+              "className": "row_0",
+              "data": [
+                {
+                  "className": "column column_0",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": "john"
+                  }
+                },
+                {
+                  "className": "column column_1",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": 25
+                  }
+                },
+                {
+                  "className": "column column_2",
+                  "data": {
+                    "headers": {
+                      "className": "header",
+                      "selecting": undefined,
+                      "data": [
+                        {
+                          "className": "",
+                          "selecting": undefined,
+                          "data": undefined
+                        },
+                        {
+                          "className": "",
+                          "selecting": undefined,
+                          "data": undefined
+                        }
+                      ]
+                    },
+                    "rules": undefined,
+                    "colgroups": undefined,
+                    "table": true,
+                    "selecting": undefined,
+                    "rows": {
+                      "className": "rows",
+                      "data": [
+                        {
+                          "className": "row_0",
+                          "data": [
+                            {
+                              "className": "column column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "abc"
+                              }
+                            },
+                            {
+                              "className": "column column_1",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": 90
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "className": "row_1",
+                          "data": [
+                            {
+                              "className": "column column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "def"
+                              }
+                            },
+                            {
+                              "className": "column column_1",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": 92
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "className": "row_1",
+              "data": [
+                {
+                  "className": "column column_0",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": "greg"
+                  }
+                },
+                {
+                  "className": "column column_1",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": 55
+                  }
+                },
+                {
+                  "className": "column column_2",
+                  "data": {
+                    "headers": {
+                      "className": "header",
+                      "selecting": undefined,
+                      "data": [
+                        {
+                          "className": "",
+                          "selecting": undefined,
+                          "data": undefined
+                        },
+                        {
+                          "className": "",
+                          "selecting": undefined,
+                          "data": undefined
+                        }
+                      ]
+                    },
+                    "rules": undefined,
+                    "colgroups": undefined,
+                    "table": true,
+                    "selecting": undefined,
+                    "rows": {
+                      "className": "rows",
+                      "data": [
+                        {
+                          "className": "row_0",
+                          "data": [
+                            {
+                              "className": "column column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "abc"
+                              }
+                            },
+                            {
+                              "className": "column column_1",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": 70
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "className": "row_1",
+                          "data": [
+                            {
+                              "className": "column column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "def"
+                              }
+                            },
+                            {
+                              "className": "column column_1",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": 82
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
 
     const actual = image.instantiate(imageSpec, bson)
+    // console.log('answer', JSON.stringify(actual, (k, v) => v === undefined ? null : v, 2))
     expect(actual).toStrictEqual(expected)
   })
 
@@ -138,21 +405,22 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
-  it('NEO23 array data selected by field', async () => {
+  it('array data selected by field', async () => {
     const imageSpec = {
+      headers: { columns: [], },
       "table": true,
       "field": [],
       "explicit": true,
       "rows": [
         [
           {
-            "headers": [ "users" ],
+            headers: { columns: [ "users" ] },
             "table": true,
             "field": [ 0 ],
             "rows": [ "$name" ]
           },
           {
-            "headers": [ "movies" ],
+            headers: { columns: [ "movies" ] },
             "table": true,
             "field": [ 1 ],
             "rows": [ "$title" ]
@@ -174,43 +442,125 @@ describe('Reports Tests', () => {
 
 
     const expected = {
-      "table": true,
-      "headers": [],
-      "rows": [
-        [
-          {
-            "headers": [
-              "users"
-            ],
-            "table": true,
-            "rows": [
-              [
-                "Robert Baratheon"
-              ],
-              [
-                "Sandor Clegane"
-              ]
+        "headers": {
+          "className": "header",
+          "selecting": undefined,
+          "data": []
+        },
+        "rules": undefined,
+        "colgroups": undefined,
+        "table": true,
+        "rows": {
+          "className": "rows",
+          "data": [
+            [
+              {
+                "className": "column column_0",
+                "data": {
+                  "headers": {
+                    "className": "header",
+                    "selecting": undefined,
+                    "data": [
+                      {
+                        "className": "",
+                        "selecting": undefined,
+                        "data": undefined
+                      }
+                    ]
+                  },
+                  "rules": undefined,
+                  "colgroups": undefined,
+                  "table": true,
+                  "selecting": undefined,
+                  "rows": {
+                    "className": "rows",
+                    "data": [
+                      {
+                        "className": "row_0",
+                        "data": [
+                          {
+                            "className": "column column_0",
+                            "data": {
+                              "className": "fieldValue",
+                              "data": "Robert Baratheon"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "className": "row_1",
+                        "data": [
+                          {
+                            "className": "column column_0",
+                            "data": {
+                              "className": "fieldValue",
+                              "data": "Sandor Clegane"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "className": "column column_1",
+                "data": {
+                  "headers": {
+                    "className": "header",
+                    "selecting": undefined,
+                    "data": [
+                      {
+                        "className": "",
+                        "selecting": undefined,
+                        "data": undefined
+                      }
+                    ]
+                  },
+                  "rules": undefined,
+                  "colgroups": undefined,
+                  "table": true,
+                  "selecting": undefined,
+                  "rows": {
+                    "className": "rows",
+                    "data": [
+                      {
+                        "className": "row_0",
+                        "data": [
+                          {
+                            "className": "column column_0",
+                            "data": {
+                              "className": "fieldValue",
+                              "data": "A Corner in Wheat"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "className": "row_1",
+                        "data": [
+                          {
+                            "className": "column column_0",
+                            "data": {
+                              "className": "fieldValue",
+                              "data": "Rocky"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
             ]
-          },
-          {
-            "headers": [
-              "movies"
-            ],
-            "table": true,
-            "rows": [
-              [
-                "A Corner in Wheat"
-              ],
-              [
-                "Rocky"
-              ]
-            ]
-          }
-        ]
-      ]
-    }
+          ]
+        }
+      }
+
+
 
     const actual = image.instantiate(imageSpec, data)
+    // console.log('answer', JSON.stringify(actual, (k, v) => v === undefined ? null : v, 2))
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
