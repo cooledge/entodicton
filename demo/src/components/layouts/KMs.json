@@ -24,7 +24,8 @@
         "ordering",
         "properties",
         "sizeable",
-        "yesno"
+        "yesno",
+        "negation"
       ]
     },
     {
@@ -1113,6 +1114,20 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
+    },
+    {
+      "name": "negation",
+      "description": "negation",
+      "examples": [
+        "not negatable",
+        "not negatables"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/negation.js"
     },
     {
       "name": "numbers",
