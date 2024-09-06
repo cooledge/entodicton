@@ -8,7 +8,9 @@
         "numbers",
         "colors",
         "people",
-        "time"
+        "time",
+        "yesno",
+        "negation"
       ]
     },
     {
@@ -23,9 +25,7 @@
         "hierarchy",
         "ordering",
         "properties",
-        "sizeable",
-        "yesno",
-        "negation"
+        "sizeable"
       ]
     },
     {
@@ -126,11 +126,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/animals.js"
@@ -156,11 +157,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/avatar.js"
@@ -210,11 +212,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/colors.js"
@@ -231,11 +234,12 @@
         "dialogues",
         "numbers",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
@@ -254,11 +258,12 @@
       "includes": [
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/concept.js"
@@ -282,11 +287,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
@@ -347,11 +353,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/crew.js"
@@ -404,11 +411,12 @@
       "template": [],
       "includes": [
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
@@ -443,11 +451,12 @@
         "dialogues",
         "numbers",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
@@ -505,11 +514,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/edible.js"
@@ -529,11 +539,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/emotions.js"
@@ -550,11 +561,12 @@
       "includes": [
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
@@ -823,11 +835,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
@@ -860,11 +873,12 @@
         "properties",
         "concept",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
@@ -890,11 +904,12 @@
       "includes": [
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/help.js"
@@ -937,11 +952,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/hierarchy.js"
@@ -956,11 +972,12 @@
       "includes": [
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/javascript.js"
@@ -985,11 +1002,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/kirk.js"
@@ -1037,11 +1055,12 @@
         "dialogues",
         "numbers",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/length.js"
@@ -1078,8 +1097,7 @@
         "an expression"
       ],
       "template": [
-        "mathematical modifies operator",
-        "* + / and - are mathematical operators"
+        "mathematical modifies operator"
       ],
       "includes": [
         "countable",
@@ -1090,11 +1108,12 @@
         "properties",
         "concept",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
@@ -1125,6 +1144,7 @@
       "template": [],
       "includes": [
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/negation.js"
@@ -1164,11 +1184,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
@@ -1207,11 +1228,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
@@ -1295,11 +1317,12 @@
         "dialogues",
         "numbers",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
@@ -1334,11 +1357,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
@@ -1377,11 +1401,12 @@
         "dialogues",
         "numbers",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
@@ -1423,11 +1448,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
@@ -1503,11 +1529,12 @@
         "properties",
         "concept",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
@@ -1549,11 +1576,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/scorekeeper.js"
@@ -1584,11 +1612,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sizeable.js"
@@ -1613,11 +1642,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/spock.js"
@@ -1655,11 +1685,12 @@
       "includes": [
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
@@ -1690,11 +1721,12 @@
         "dialogues",
         "numbers",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/temperature.js"
@@ -1733,11 +1765,12 @@
         "concept",
         "dialogues",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
@@ -1778,11 +1811,12 @@
         "properties",
         "concept",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
@@ -1827,11 +1861,12 @@
         "dialogues",
         "numbers",
         "sdefaults",
-        "pos",
+        "negation",
         "stm",
         "meta",
         "punctuation",
         "gdefaults",
+        "pos",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
