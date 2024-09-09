@@ -202,6 +202,8 @@ function App() {
         setData(result)
         const sheet = window.document.styleSheets[0]
         // console.log('cssRules', sheet.cssRules)
+
+        // add rules
         for (const rule of (result.rules || [])) {
           let found = false
           for (const cssRule of sheet.cssRules) {
@@ -213,9 +215,28 @@ function App() {
           }
           if (!found) {
             console.log('inserting rule', rule)
-            sheet.insertRule(rule)
+            sheet.insertRule(rule, sheet.cssRules.length)
           }
         }
+        console.log('sheet', sheet)
+        // remove rules
+        const removals = []
+        let index = 0;
+        console.log('result.rules', result.rules)
+        for (const cssRule of sheet.cssRules) {
+          console.log('cssRule', cssRule)
+          if (cssRule.cssText.startsWith('body') || cssRule.cssText.startsWith('code')) {
+            // default
+          } else if (result.rules && cssRule.cssText == result.rules.find( (r) => r == cssRule.cssText )) {
+            // okay
+          } else {
+            removals.push(index)
+          }
+          index += 1
+        }
+        removals.reverse()
+        removals.forEach( (i) => sheet.deleteRule(i) )
+
         /*
         result.rules = result.rules || []
         const additions = []

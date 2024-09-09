@@ -46,14 +46,19 @@ const instantiateValue = (path, imageSpec, rows, instantiation, options) => {
   if (imageSpecValue['$push']) {
     const value = setValue(instantiation, path, [])
     for (const row of rows) {
-      value.push(instantiate(imageSpecValue['$push'], row, options))
+      value.push(instantiateImpl(imageSpecValue['$push'], row, options))
     }
   } else if (imageSpec.options.xaxis.categories['$first']) {
-    setValue(instantiation, path, instantiate(bSpecValue['$first'], rows[0], options))
+    setValue(instantiation, path, instantiateImpl(bSpecValue['$first'], rows[0], options))
   }
 }
 
-const instantiate = (imageSpec, bson, options = {}) => {
+const instantiate = (imageSpec, ...args) => {
+  setId(imageSpec)
+  return instantiateImpl(imageSpec, ...args)
+}
+
+const instantiateImpl = (imageSpec, bson, options = {}) => {
   if (imageSpec.type) {
     const instantiation = _.cloneDeep(imageSpec)
     const rows = bson
@@ -77,6 +82,9 @@ const instantiate = (imageSpec, bson, options = {}) => {
       colgroups: imageSpec.colgroups, 
       table: true 
     }
+    if (imageSpec.headers.id) {
+      instantiation.headers.className += ' ' + imageSpec.headers.id
+    }
     console.log('init instantiation imagespec', JSON.stringify(imageSpec, null, 2))
     console.log('init instantiation instantation', JSON.stringify(instantiation, null, 2))
     if (imageSpec.explicit) {
@@ -85,7 +93,7 @@ const instantiate = (imageSpec, bson, options = {}) => {
       for (let name of imageSpec.field) {
         field = bson[name]
       }
-      instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiate(is, field, options)) }
+      instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiateImpl(is, field, options)) }
       return instantiation
     } else {
       if (imageSpec.capitalizeHeader) {
@@ -98,7 +106,7 @@ const instantiate = (imageSpec, bson, options = {}) => {
         field = bson[name]
       }
       for (const [index, row] of field.entries()) {
-        rows.push({ className: `row_${index}`, data: instantiate(imageSpec.rows, row, options)})
+        rows.push({ className: `row_${index}`, data: instantiateImpl(imageSpec.rows, row, options)})
       }
       instantiation.rows = { className: "rows", data: rows }
       return instantiation
@@ -106,7 +114,7 @@ const instantiate = (imageSpec, bson, options = {}) => {
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      values.push({ className: `column column_${index}`, data: instantiate(field, bson, options) })
+      values.push({ className: `column column_${index}`, data: instantiateImpl(field, bson, options) })
     }
     return values
   } else {
@@ -122,6 +130,125 @@ const instantiate = (imageSpec, bson, options = {}) => {
   }
 }
 
+const count = (imageSpec) => {
+  const options = {
+      counters: {
+        header: 0,
+        table: 0,
+        graph: 0,
+      },
+      seen: (what) => {
+        options.counters[what] += 1
+      }
+    }
+
+  traverseImpl(imageSpec, options)
+  return options.counters
+}
+
+const selector = (imageSpec, reportElements) => {
+  return '.header'
+}
+
+const countSelected = (imageSpec, reportElements) => {
+  setId(imageSpec)
+  const ids = new Set(reportElements.map((re) => re.marker))
+  let count = 0
+  const options = {
+    seen: (what, value) => {
+      if (ids.has(what)) {
+        count += 1
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+  return count
+}
+
+// ids are stable once set
+const setId = (imageSpec) => {
+  if (!imageSpec.idCounter) {
+    imageSpec.idCounter = 0
+  }
+  const options = {
+    seen: (what, value) => {
+      if (['header', 'table', 'graph'].includes(what)) {
+        if (!value.id) {
+          value.id = `${what}${imageSpec.idCounter += 1}`
+        }
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+}
+
+const selecting = (selectingWhat, imageSpec) => {
+  setId(imageSpec)
+  const counts = count(imageSpec)
+  console.log('counts', JSON.stringify(counts))
+  const options = {
+    seen: (what, value) => {
+      if (what == selectingWhat) {
+        if (!value.selecting) {
+          value.selecting = [
+            {
+              "id": "header",
+              "name": "X",
+              "className": "header"
+            }
+          ]
+          if (counts.header > 1) {
+            value.selecting.push({
+              "id": value.id,
+              "name": "X",
+              "className": value.id
+            })
+
+          }
+        }
+      } else if (!selectingWhat) {
+        delete value.selecting
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+}
+
+const traverseImpl = (imageSpec, options = {}) => {
+  if (imageSpec.type) {
+    // TODO later alligator
+    options.seen('graph', imageSpec)
+  } else if (imageSpec.table) {
+    options.seen('table', imageSpec)
+    // rows is the values to be traverseImpld rather than traverseImpld over the rows of the data
+    if (imageSpec.headers.columns.length > 0) {
+      options.seen('header', imageSpec.headers)
+    }
+    if (imageSpec.explicit) {
+      imageSpec.rows.map((is) => traverseImpl(is, options))
+    } else {
+      traverseImpl(imageSpec.rows, options)
+    }
+  } else if (Array.isArray(imageSpec)) {
+    const values = []
+    for (const [index, field] of imageSpec.entries()) {
+      values.push({ className: `column column_${index}`, data: traverseImpl(field, options) })
+    }
+    return values
+  } else {
+    /*
+    if (imageSpec.startsWith("$")) {
+    } else {
+    }
+    */
+  }
+}
+
 module.exports = {
-  instantiate
+  instantiate,
+  count,
+  setId,
+  selecting,
+  selector,
+  countSelected,
 }

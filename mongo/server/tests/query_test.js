@@ -52,7 +52,7 @@ describe('Reports Tests', () => {
     await client.close()
   })
 
-  it('nested graph table', async () => {
+  it('NEOS23 nested graph table', async () => {
     const imageSpec = {
                 type: "bar",
                 options: {
@@ -70,6 +70,8 @@ describe('Reports Tests', () => {
               }
 
     const expected = {
+      id: 'graph1',
+      idCounter: 1,
       "type": "bar",
       "options": {
         "chart": {

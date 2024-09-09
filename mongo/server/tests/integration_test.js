@@ -81,7 +81,7 @@ describe('Reports Tests', () => {
       data: columns.map((name, index) => tc(index, name)),
     }
   }
-  it('simple list', async () => {
+  it('NEOS23 simple list', async () => {
     const imageSpec = {
       headers: {
         columns: [{ text: 'name' }, { text: 'age' }, { text: 'favorite colors' }]
@@ -94,7 +94,7 @@ describe('Reports Tests', () => {
 
     const expected = {
         "headers": {
-          "className": "header",
+          "className": "header header2",
           "selecting": undefined,
           "data": [
             {
@@ -192,7 +192,7 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
-  it('nested table', async () => {
+  it('NEOS23 nested table', async () => {
     const imageSpec = {
       headers: {
         columns: [{ text: 'name' }, { text: 'age' }, { text: 'favorite colors' }]
@@ -216,7 +216,7 @@ describe('Reports Tests', () => {
     const expected = 
     {
         "headers": {
-          "className": "header",
+          "className": "header header2",
           "selecting": undefined,
           "data": [
             {
@@ -268,7 +268,7 @@ describe('Reports Tests', () => {
                   "className": "column column_2",
                   "data": {
                     "headers": {
-                      "className": "header",
+                      "className": "header header4",
                       "selecting": undefined,
                       "data": [
                         {
@@ -358,7 +358,7 @@ describe('Reports Tests', () => {
                   "className": "column column_2",
                   "data": {
                     "headers": {
-                      "className": "header",
+                      "className": "header header4",
                       "selecting": undefined,
                       "data": [
                         {
@@ -437,7 +437,7 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
-  it('nested graph table', async () => {
+  it('NEOS23 nested graph table', async () => {
     const imageSpec = {
                 type: "bar",
                 options: {
@@ -455,6 +455,8 @@ describe('Reports Tests', () => {
               }
 
     const expected = {
+      idCounter: 1,
+      id: 'graph1',
       "type": "bar",
       "options": {
         "chart": {

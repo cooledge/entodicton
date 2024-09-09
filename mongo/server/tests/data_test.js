@@ -281,7 +281,7 @@ describe('Reports Tests', () => {
     actual.property[0].forEach( (doc) => {
       delete doc._id
     })
-    console.log(JSON.stringify(actual, null, 2))
+    // console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
 })
