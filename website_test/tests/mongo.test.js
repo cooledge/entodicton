@@ -13,6 +13,13 @@ const headless = process.env.HEADLESS !== 'false'
 const sloMo = 750
 const timeout = 60000
 
+// i fuckin' never remember how to sleep and alway have to fuckin' google. maybe make this a fucking built-in
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const getData = async (client, dbName, collectionName, aggregation = [], limit=LIMIT) => {
   const db = client.db(dbName);
   const collection = db.collection(collectionName)
@@ -63,66 +70,81 @@ describe('tests for the mongo page', () => {
     }
   }
 
-  test(`MONGO show the users`, async () => {
-    const query = 'show the users'
-    const dataDb = users
-    const property = 'name'
+  describe("queries", () => {
+    let page;
+    let counter;
+    beforeEach( async () => {
+      counter = 0
+      page = await browser.newPage();
+      await page.goto(`${URL}/mongo/`)
+      await page.waitForSelector('#query')
+    })
 
-    const page = await browser.newPage();
+    afterEach( async () => {
+      await page.close()
+    })
 
-    await page.goto(`${URL}/mongo/`)
+    const query = async (query) => {
+      await page.type('#query', query)
+      await page.click('#submit')
+      await page.waitForSelector(`#queryCounter${counter+1}`)
+      counter += 1
+    }
 
-    await page.waitForSelector('#query')
-    await page.type('#query', query)
-    await page.click('#submit')
+    const hasRule = async (rule) => {
+      return await page.evaluate((rule) => {
+        const sheet = document.styleSheets[0];
+        for (const cssRule of sheet.cssRules) {
+          const cssText = cssRule.cssText.replace(/(\r\n|\n|\r)/gm, "");
+          console.log(`cssRule '${cssText}' '${rule}'`)
+          if (cssRule.cssText == rule) {
+            console.log('doing the return')
+            return true
+          }
+        }
+      }, rule);
+    }
 
-    await page.waitForSelector('table')
+    test(`MONGO show the users`, async () => {
+      await query('show the users')
+      const dataDb = users
+      const property = 'name'
+      await checkTable(page, 1, users, 'name')
+    }, timeout);
+
+    test(`MONGO show the movies`, async () => {
+      await query('show the movies')
+      const dataDb = movies
+      const property = 'title'
+      await checkTable(page, 1, movies, 'title')
+    }, timeout);
+
+    test(`MONGO show the users and movies`, async () => {
+      await query('show the users and movies')
+      const dataDb = movies
+      const property = 'title'
+      await checkTable(page, 2, users, 'name')
+      await checkTable(page, 3, movies, 'title')
+    }, timeout);
     
-    await checkTable(page, 1, users, 'name')
+    test(`MONGO show users\nmake the header blue`, async () => {
+      await query('show users')
+      await query('make the header blue')
+      expect(await hasRule(".header { color: blue; }")).toBe(true)
+    }, timeout);
 
-    await page.close()
-  }, timeout);
+    test(`MONGO show users\nmake the header uppercase`, async () => {
+      await query('show users')
+      await query('make the header uppercase')
+      expect(await hasRule(".header { text-transform: uppercase; }")).toBe(true)
+    }, timeout);
 
-  test(`MONGO show the movies`, async () => {
-    const query = 'show the movies'
-    const dataDb = movies
-    const property = 'title'
-
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/mongo/`)
-
-    await page.waitForSelector('#query')
-    await page.type('#query', query)
-    await page.click('#submit')
-
-    await page.waitForSelector('table')
-    
-    await checkTable(page, 1, movies, 'title')
-
-    await page.close()
-  }, timeout);
-
-  test(`MONGO show the users and movies`, async () => {
-    const query = 'show the users and movies'
-    const dataDb = movies
-    const property = 'title'
-
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/mongo/`)
-
-    await page.waitForSelector('#query')
-    await page.type('#query', query)
-    await page.click('#submit')
-
-    await page.waitForSelector('table')
-   
-    await checkTable(page, 2, users, 'name')
-    await checkTable(page, 3, movies, 'title')
-
-    await page.close()
-  }, timeout);
+    test(`NEO23 MONGO show users\nmake the header background blue`, async () => {
+      await query('show users')
+      await query('make the header background blue')
+      expect(await hasRule(".header { background-color: blue; }")).toBe(true)
+    }, timeout);
+  })
 
   /*
   async function showTest({query, items, tab}) {

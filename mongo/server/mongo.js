@@ -1,6 +1,7 @@
 const { Config, knowledgeModule, where } = require('theprogrammablemind')
-const { helpers, defaultContextCheck, dialogues, colors, negation } = require('tpmkms')
+const { helpers, defaultContextCheck, colors, negation, hierarchy } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
+const instance = require('./mongo.instance.json')
 const image  = require('./image')
 const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
@@ -19,6 +20,8 @@ const { getReportElements } = require('./mongo_helpers')
   for the header of column 1 make the color green / the color should be green / i want the color green / make it green
 
   make the header's background blue
+  make the users table background blue
+  make the users green
   make that blue
   make the text blue
   make the text of that blue
@@ -111,6 +114,8 @@ let configStruct = {
     "([state])",
     "([changeState|make] ([reportElement]) (state/*))",
 
+    // "([collection])",
+
     "([reportElementProperty])",
 
     // report elements
@@ -132,7 +137,7 @@ let configStruct = {
     "([user])",
     "([email])",
     "([movie])",
-    "([this])",
+    // "([this])",
     "([thisReportElement|this] (reportElement/*))",
   ],
   hierarchy: [
@@ -142,6 +147,13 @@ let configStruct = {
     ['case', 'reportElement'],
   ],
   bridges: [
+    /*
+    {
+      id: 'collection',
+      words: [ ...helpers.words('collection'), ...helpers.words('table') ],
+    },
+    */
+
     {
       id: 'case',
       words: helpers.words('case'),
@@ -196,7 +208,6 @@ let configStruct = {
       parents: ['verby'],
       generatorp: ({context, g}) => `make ${g(context.reportElement)} ${g(context.newState)}`,
       semantic: ({context, km, api, isA}) => {
-
         const getProperty = (reportElements, state) => {
           let property;
           debugger
@@ -528,9 +539,17 @@ let configStruct = {
     make it descending by sales
 */ 
 
+const template = {
+  configs: [
+    configStruct,
+    // "user modifies collection",
+    // "collections are reportable",
+  ],
+}
+
 const createConfig = () => {
-  const config = new Config(configStruct, module)
-  config.add(dialogues()).add(colors()).add(negation())
+  const config = new Config({ name: 'mongo' }, module)
+  config.add(hierarchy()).add(colors()).add(negation())
   config.api = new API()
   return config
 }
@@ -539,6 +558,7 @@ knowledgeModule( {
   module,
   createConfig,
   description: 'language access for mongo databases',
+  template: { template, instance },
   test: {
     name: './mongo.test.json',
     contents: mongo_tests,

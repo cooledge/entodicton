@@ -168,6 +168,7 @@ const setupHover2 = (doQuery) => (label, identifier, className) => {
 function App() {
   // const [selectingState, setSelectingState] = useState(initSelectingState(initData))
   const [query, doQuery] = useState('')
+  const [counter, setCounter] = useState(0)
   // const [data, setData] = useState(initData, doQuery)
   const [data, setData] = useState([], doQuery)
   const [rules, setRules] = useState([])  // { rule, index }
@@ -196,6 +197,7 @@ function App() {
 
     const doIt = async () => {
       const result = await callServer(query)
+      setCounter(counter+1)
       if (!result.noChange) {
         const existing = [...rules]
         // console.log("inDoquery", result)
@@ -275,6 +277,7 @@ function App() {
 
   return (
     <div className="App">
+      <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Query doQuery={doQuery}/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>
 

@@ -10594,22 +10594,14 @@
       {
         "dead": true,
         "default": true,
-        "level": 1,
-        "marker": "this",
-        "pullFromContext": true,
+        "level": 0,
+        "marker": "thisReportElement",
         "range": {
           "end": 3,
           "start": 0
         },
         "text": "this",
         "topLevel": true,
-        "touchedBy": [
-          "mongo#call2"
-        ],
-        "unknown": true,
-        "value": {
-          "marker": "answerNotKnown"
-        },
         "word": "this"
       }
     ],
@@ -10621,12 +10613,12 @@
         {
           "counter": 1,
           "op": [
-            "this",
+            "thisReportElement",
             0
           ],
           "ops": [
             [
-              "this",
+              "thisReportElement",
               0
             ]
           ]
@@ -11285,22 +11277,14 @@
           "context": {
             "dead": true,
             "default": true,
-            "level": 1,
-            "marker": "this",
-            "pullFromContext": true,
+            "level": 0,
+            "marker": "thisReportElement",
             "range": {
               "end": 3,
               "start": 0
             },
             "text": "this",
             "topLevel": true,
-            "touchedBy": [
-              "mongo#call2"
-            ],
-            "unknown": true,
-            "value": {
-              "marker": "answerNotKnown"
-            },
             "word": "this"
           },
           "generatedParenthesized": "",
