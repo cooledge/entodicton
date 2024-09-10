@@ -6,6 +6,7 @@
       "includes": [
         "currency",
         "numbers",
+        "percentages",
         "colors",
         "people",
         "time",
@@ -380,6 +381,7 @@
       "includes": [
         "numbers",
         "gdefaults",
+        "sdefaults",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/currency.js"
@@ -1107,12 +1109,12 @@
         "dialogues",
         "properties",
         "concept",
+        "gdefaults",
         "sdefaults",
         "negation",
         "stm",
         "meta",
         "punctuation",
-        "gdefaults",
         "pos",
         "tokenize"
       ],
@@ -1163,6 +1165,7 @@
       "template": [],
       "includes": [
         "gdefaults",
+        "sdefaults",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
@@ -1237,6 +1240,23 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
+    },
+    {
+      "name": "percentages",
+      "description": "talking about percentages",
+      "examples": [
+        "10 percent",
+        "10%",
+        "10 percent of 110"
+      ],
+      "template": [],
+      "includes": [
+        "numbers",
+        "gdefaults",
+        "sdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/percentages.js"
     },
     {
       "name": "pipboy",
@@ -1528,12 +1548,12 @@
         "dialogues",
         "properties",
         "concept",
+        "gdefaults",
         "sdefaults",
         "negation",
         "stm",
         "meta",
         "punctuation",
-        "gdefaults",
         "pos",
         "tokenize"
       ],
