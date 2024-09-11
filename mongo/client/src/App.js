@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react'
 import Query from './Query'
+import Chooser from './Chooser'
 import Image from './Image'
 import $ from 'jquery';
 const fetch = require('node-fetch')
@@ -172,6 +173,8 @@ function App() {
   // const [data, setData] = useState(initData, doQuery)
   const [data, setData] = useState([], doQuery)
   const [rules, setRules] = useState([])  // { rule, index }
+  const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])
+  const [chosen, setChosen] = useState()
 
   /*
   console.log('query', JSON.stringify(query))
@@ -189,6 +192,15 @@ function App() {
   const [hoverH1C3, setHoverH1C3] = useState(false)
   const [thisRow, setThisRow] = useState(false)
   */
+
+  useEffect( () => {
+    if (!chosen) {
+      return
+    }
+    setChosen(null)
+    setChoices([])
+    console.log('call the server with the results', chosen, choices)
+  }, [chosen, choices])
 
   useEffect( () => {
     if (query === '') {
@@ -278,6 +290,9 @@ function App() {
   return (
     <div className="App">
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
+      { choices.length > 0 &&
+        <Chooser title="the title" choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
+      }
       <Query doQuery={doQuery}/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>
 

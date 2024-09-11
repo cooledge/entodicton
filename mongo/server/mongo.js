@@ -129,12 +129,12 @@ let configStruct = {
     "([uppercase])",
     "([lowercase])",
 
-    "([reportable])",
-    "([show] ([reportable]))",
+    // "([reportable])",
+    "([show] (reportable/*))",
+    "([showCollection|show] (collection/*))",
     "([capitalize] ([reportElement]))",
     "([sales|])",
     "([year])",
-    "([user])",
     "([email])",
     "([movie])",
     // "([this])",
@@ -270,26 +270,6 @@ let configStruct = {
             report.imageSpec.rules.push(`.highlight ${css}`)
             report.select = context
           }
-          /*
-          if (lastContext.marker == 'header') {
-            if (lastContext.number == 'many' || counts.header == 1) {
-              // make sure the state exactely matches correct CSS because the delete "make the header not blue' needs that
-              const state = context.newState
-              const property = getProperty(getReportElements(context))
-              const css = stateToCSS(isA, property, state)
-              if (css) {
-                if (state.negated) {
-                  report.removeRule(`.header ${css}`)
-                } else {
-                  report.addRule(`.header ${css}`)
-                }
-              }
-            } else {
-              selecting('header', report.imageSpec)
-              report.select = context
-            }
-          }
-          */
         }
         api.show(report)
       },
@@ -378,8 +358,30 @@ let configStruct = {
       parents: ['theAble']
     },
 
+/*
     { 
       id: 'reportable',
+    },
+*/
+    { id: 'showCollection',
+      bridge: "{ ...next(operator), show: after[0] }",
+      parents: ['verby'],
+      generatorp: ({context, g}) => `show ${g(context.show)}`,
+      semantic: ({context, km, mentions, api, flatten, gp}) => {
+        if (context.selected) {
+          debugger
+        } else {
+          debugger
+          report.choose = {
+            title: `Select the fields from the ${context.modifier_user.collection} collection in the ${context.modifier_user.database}`
+            choices: {
+              { text: "field1" }, 
+              { text: "field2" },
+            }
+          }
+          report.context = context
+        }
+      }
     },
 
     { id: 'show',
@@ -489,14 +491,6 @@ let configStruct = {
     },
 
     { 
-      id: 'user', 
-      parents: ['reportable', 'theAble'], 
-      words: [ 
-        { word: 'users', database: 'sample_mflix', collection: 'users', path: ['name'] } 
-      ] 
-    },
-
-    { 
       id: 'email', 
       parents: ['reportable', 'theAble'], 
       words: [ 
@@ -541,9 +535,19 @@ let configStruct = {
 
 const template = {
   configs: [
+    "reportable is a concept",
+    { 
+      operators: ['([user|])'],
+      bridges: [
+        { 
+          id: 'user', 
+          parents: ['theAble'], 
+          words: helpers.words('user', { database: 'sample_mflix', collection: 'users', path: ['name'] }),
+        },
+      ],
+    },
+    "user modifies collection",
     configStruct,
-    // "user modifies collection",
-    // "collections are reportable",
   ],
 }
 
