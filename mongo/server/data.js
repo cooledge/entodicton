@@ -4,10 +4,20 @@ const _ = require('lodash')
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 
+const initialize = async () => {
+  if (client.isConnected()) {
+    return
+  }
+  await client.connect()
+  return client
+}
+
 const instantiate = async (dataSpec) => {
   if (!dataSpec) {
     return dataSpec
   }
+
+  await initialize()
 
   if (Array.isArray(dataSpec)) {
     const data = []
@@ -41,14 +51,19 @@ const instantiate = async (dataSpec) => {
   return dataSpec
 }
 
-const initialize = async () => {
-  await client.connect()
-  return client
+const fields = async (dbName, collectionName) => {
+  await initialize()
+  const db = client.db(dbName);
+  const collection = db.collection(collectionName)
+  debugger
+  const data = await collection.findOne()
+  return Object.keys(data)
 }
 
 module.exports = {
   initialize,
   instantiate,
   client,
+  fields,
 }
 

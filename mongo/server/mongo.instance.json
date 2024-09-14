@@ -9,7 +9,8 @@
         {
           "id": "user",
           "parents": [
-            "theAble"
+            "theAble",
+            "reportable"
           ],
           "words": [
             {
@@ -169,7 +170,7 @@
             "verby"
           ],
           "generatorp": "({context, g}) => `make ${g(context.reportElement)} ${g(context.newState)}`",
-          "semantic": "({context, km, api, isA}) => {\n        const getProperty = (reportElements, state) => {\n          let property;\n          debugger\n          for (const re of reportElements) {\n            if (isA(re.marker, 'reportElementProperty')) {\n              if (re.marker == 'background') {\n                property = 'background-color' \n                break;\n              } if (isA(re.marker, 'case')) {\n                property = 'text-transform' \n                break;\n              } if (re.marker == 'color') {\n                property = 'color' \n                break;\n              }\n            }\n          }\n          if (!property) {\n            if (isA(state.marker, 'color_colors')) {\n              return 'color'\n            }\n            if (isA(state.marker, 'case')) {\n              return 'text-transform'\n            }\n          }\n          return property\n        }\n        const report = api.current()\n        const counts = image.count(report.imageSpec)\n        console.log('report -----------------', JSON.stringify(report, null, 2))\n        console.log('counts-----------------', JSON.stringify(counts, null, 2))\n        if (context.selected) {\n          image.selecting(null, report.imageSpec)\n          const reportElements = getReportElements(report.select.reportElement)\n          const property = getProperty(reportElements, context.newState)\n          report.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)\n        } else {\n          debugger\n          const reportElements = getReportElements(context.reportElement)\n          const lastContext = reportElements.slice(-1)[0]\n          const isPlural = lastContext.number == 'many'\n          const state = context.newState\n          const property = getProperty(reportElements, state)\n          const css = stateToCSS(isA, property, state)\n          if (isPlural || image.countSelected(report.imageSpec, reportElements) == 1) {\n            // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n            const selector = image.selector(report.imageSpec, reportElements)\n            if (css) {\n              if (state.negated) {\n                report.removeRule(`${selector} ${css}`)\n              } else {\n                report.addRule(`${selector} ${css}`)\n              }\n            }\n          } else {\n            image.selecting('header', report.imageSpec)\n            if (!report.imageSpec.rules) {\n              report.imageSpec.rules = []\n            }\n            report.imageSpec.rules.push(`.highlight ${css}`)\n            report.select = context\n          }\n          /*\n          if (lastContext.marker == 'header') {\n            if (lastContext.number == 'many' || counts.header == 1) {\n              // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n              const state = context.newState\n              const property = getProperty(getReportElements(context))\n              const css = stateToCSS(isA, property, state)\n              if (css) {\n                if (state.negated) {\n                  report.removeRule(`.header ${css}`)\n                } else {\n                  report.addRule(`.header ${css}`)\n                }\n              }\n            } else {\n              selecting('header', report.imageSpec)\n              report.select = context\n            }\n          }\n          */\n        }\n        api.show(report)\n      }"
+          "semantic": "({context, km, api, isA}) => {\n        const getProperty = (reportElements, state) => {\n          let property;\n          debugger\n          for (const re of reportElements) {\n            if (isA(re.marker, 'reportElementProperty')) {\n              if (re.marker == 'background') {\n                property = 'background-color' \n                break;\n              } if (isA(re.marker, 'case')) {\n                property = 'text-transform' \n                break;\n              } if (re.marker == 'color') {\n                property = 'color' \n                break;\n              }\n            }\n          }\n          if (!property) {\n            if (isA(state.marker, 'color_colors')) {\n              return 'color'\n            }\n            if (isA(state.marker, 'case')) {\n              return 'text-transform'\n            }\n          }\n          return property\n        }\n        const report = api.current()\n        const counts = image.count(report.imageSpec)\n        console.log('report -----------------', JSON.stringify(report, null, 2))\n        console.log('counts-----------------', JSON.stringify(counts, null, 2))\n        if (context.selected) {\n          image.selecting(null, report.imageSpec)\n          const reportElements = getReportElements(report.select.reportElement)\n          const property = getProperty(reportElements, context.newState)\n          report.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)\n        } else {\n          debugger\n          const reportElements = getReportElements(context.reportElement)\n          const lastContext = reportElements.slice(-1)[0]\n          const isPlural = lastContext.number == 'many'\n          const state = context.newState\n          const property = getProperty(reportElements, state)\n          const css = stateToCSS(isA, property, state)\n          if (isPlural || image.countSelected(report.imageSpec, reportElements) == 1) {\n            // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n            const selector = image.selector(report.imageSpec, reportElements)\n            if (css) {\n              if (state.negated) {\n                report.removeRule(`${selector} ${css}`)\n              } else {\n                report.addRule(`${selector} ${css}`)\n              }\n            }\n          } else {\n            image.selecting('header', report.imageSpec)\n            if (!report.imageSpec.rules) {\n              report.imageSpec.rules = []\n            }\n            report.imageSpec.rules.push(`.highlight ${css}`)\n            report.select = context\n          }\n        }\n        api.show(report)\n      }"
         },
         {
           "id": "capitalize",
@@ -254,7 +255,7 @@
             "verby"
           ],
           "generatorp": "({context, g}) => `show ${g(context.show)}`",
-          "semantic": "({context, km, mentions, api, flatten, gp}) => {\n      }"
+          "semantic": "({context, isA, km, mentions, api, flatten, gp}) => {\n        if (context.selected) {\n          debugger\n        } else {\n          debugger\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          const reportable = reportables[0]\n          /*\n          report.choose = {\n            title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,\n            choices: [\n              { text: \"field1\" }, \n              { text: \"field2\" },\n            ]\n          }\n          report.context = context\n          */\n        }\n      }"
         },
         {
           "id": "show",
@@ -2511,7 +2512,8 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "mongo#call2"
+            "mongo#call2",
+            "instance0#mongo#call2"
           ]
         }
       ],
@@ -2603,7 +2605,8 @@
         {
           "id": "user",
           "parents": [
-            "theAble"
+            "theAble",
+            "reportable"
           ],
           "words": [
             {
@@ -4517,6 +4520,11 @@
         ],
         [
           "user",
+          "reportable",
+          false
+        ],
+        [
+          "user",
           "theAble",
           false
         ],
@@ -4774,7 +4782,8 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "mongo#call2"
+            "mongo#call2",
+            "instance0#mongo#call2"
           ]
         }
       ],
