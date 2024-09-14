@@ -2,7 +2,8 @@ const { Config, knowledgeModule, where } = require('theprogrammablemind')
 const { helpers, defaultContextCheck, colors, negation, hierarchy } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
-const image  = require('./image')
+const image = require('./image')
+const { fields } = require('./data')
 const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
 
@@ -367,19 +368,29 @@ let configStruct = {
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verby'],
       generatorp: ({context, g}) => `show ${g(context.show)}`,
-      semantic: ({context, km, mentions, api, flatten, gp}) => {
+      semantic: ({context, isA, km, mentions, api, flatten, gp}) => {
         if (context.selected) {
           debugger
         } else {
           debugger
-          report.choose = {
-            title: `Select the fields from the ${context.modifier_user.collection} collection in the ${context.modifier_user.database}`
-            choices: {
-              { text: "field1" }, 
-              { text: "field2" },
+          const reportables = []
+          for (const modifier of context.show.modifiers) {
+            if (isA(context.show[modifier].marker, 'reportable')) {
+              reportables.push(context.show[modifier])
             }
           }
+          const reportable = reportables[0]
+          // THIS ______________ await fields(reportable.database, reportable.collection)
+          /*
+          report.choose = {
+            title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,
+            choices: [
+              { text: "field1" }, 
+              { text: "field2" },
+            ]
+          }
           report.context = context
+          */
         }
       }
     },
@@ -541,7 +552,7 @@ const template = {
       bridges: [
         { 
           id: 'user', 
-          parents: ['theAble'], 
+          parents: ['theAble', 'reportable'], 
           words: helpers.words('user', { database: 'sample_mflix', collection: 'users', path: ['name'] }),
         },
       ],
