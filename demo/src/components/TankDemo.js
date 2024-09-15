@@ -270,7 +270,7 @@ class QueryPane extends Component {
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
     const config = new entodicton.Config(config_base)
-    await config.add(new entodicton.Config(config_earn), new entodicton.Config(config_food));
+    await config.add(() => new entodicton.Config(config_earn), () => new entodicton.Config(config_food));
 
     console.log(`sending query ${query}`);
     const utterances = [query]
