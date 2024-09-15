@@ -44,11 +44,11 @@ module.exports =
     "joe earns 10 dollars every week sally earns 25 dollars per week sally worked 10 weeks joe worked 15 weeks joe earns what sally earns what",
   ],
   "generators": [
-    [({context}) => context.marker == 'week' && context.duration == 1, ({g, context}) => `${context.duration} week`],
-    [({context}) => context.marker == 'week' && context.duration > 1, ({g, context}) => `${context.duration} weeks`],
-    [({context}) => context.marker == 'earn', ({g, context}) => `${g(context.who)} earns ${g(context.amount)} ${g(context.units)} per ${context.period}`],
-    [({context}) => context.marker == 'worked', ({g, context}) => `${g(context.who)} worked ${ g({ marker: context.units, duration: context.duration}) }`],
-    [({context}) => context.marker == 'response', ({g, context}) => `${context.who} earned ${context.earnings} ${context.units}`],
+    [({context}) => context.marker == 'week' && context.duration == 1, async ({g, gs, context}) => `${context.duration} week`],
+    [({context}) => context.marker == 'week' && context.duration > 1, async ({g, gs, context}) => `${context.duration} weeks`],
+    [({context}) => context.marker == 'earn', async ({g, gs, context}) => `${await g(context.who)} earns ${await g(context.amount)} ${await g(context.units)} per ${context.period}`],
+    [({context}) => context.marker == 'worked', async ({g, gs, context}) => `${await g(context.who)} worked ${ await g({ marker: context.units, duration: context.duration}) }`],
+    [({context}) => context.marker == 'response', async ({g, gs, context}) => `${context.who} earned ${context.earnings} ${context.units}`],
   ],
   "semantics": [
     [({objects, context}) => context.marker == 'earn' && context.isQuery, ({objects, context}) => { 

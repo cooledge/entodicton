@@ -55,12 +55,12 @@ module.exports =
     "i want cheeseburger and fries from whitespot",
   ],
   "generators": [
-    [({context}) => context.marker == 'wantWhitespot', ({g, context}) => `order for ${g(context.items)} from ${g(context.store)}`],
-    [({context}) => context.marker == 'wantMcDonalds', ({g, context}) => `order for ${g(context.items)} from ${g(context.store)}`],
-    [({context}) => context.marker == 'food' && context.number > 0, ({g, context}) => `${g(context.number)} ${g(context.name)}`],
-    [({context}) => context.marker == 'food' && !('number' in context), ({g, context}) => `${g(context.name)}`],
-    [({context}) => context.marker == 'whitespot', ({g, context}) => 'Whitespot'],
-    [({context}) => context.marker == 'mcdonalds', ({g, context}) => 'McDonalds'],
+    [({context}) => context.marker == 'wantWhitespot', async ({g, gs, context}) => `order for ${await g(context.items)} from ${await g(context.store)}`],
+    [({context}) => context.marker == 'wantMcDonalds', async ({g, gs, context}) => `order for ${await g(context.items)} from ${await g(context.store)}`],
+    [({context}) => context.marker == 'food' && context.number > 0, async ({g, gs, context}) => `${await g(context.number)} ${await g(context.name)}`],
+    [({context}) => context.marker == 'food' && !('number' in context), async ({g, gs, context}) => `${await g(context.name)}`],
+    [({context}) => context.marker == 'whitespot', async ({g, gs, context}) => 'Whitespot'],
+    [({context}) => context.marker == 'mcdonalds', async ({g, gs, context}) => 'McDonalds'],
   ],
   "semantics": [
   ],
