@@ -78,7 +78,6 @@ describe('tests for fastfood page', () => {
     const page = await browser.newPage();
     await page.goto(`${URL}/fastfood/`)
     for (let i = 0; i < queries.length; ++i) {
-      console.log('------------- query', i)
       const query = queries[i]
       const expected = expecteds[i]
 
@@ -117,9 +116,7 @@ describe('tests for fastfood page', () => {
 
           let counter = 1
           for (let item of items) {
-            console.log('item', item)
             const nTries = 3;
-            console.log('------------------ here counter:', counter)
             for (let nTry = 0; nTry < nTries; ++nTry) {
               const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
               const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
