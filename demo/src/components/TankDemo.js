@@ -270,7 +270,7 @@ class QueryPane extends Component {
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
     const config = new entodicton.Config(config_base)
-    await config.add(config_earn, config_food);
+    await config.add(new entodicton.Config(config_earn), new entodicton.Config(config_food));
 
     console.log(`sending query ${query}`);
     const utterances = [query]
@@ -320,13 +320,6 @@ class QueryPane extends Component {
       }
     })
 
-    /*
-    debugger;
-    console.log(config_base);
-    const config = new entodicton.Config(config_base)
-    config.add(config_earn)
-    config.add(config_food);
-    */
     url = `${new URL(window.location.href).origin}/entodicton`
     config.config.url = url
     {
