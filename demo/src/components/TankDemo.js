@@ -257,7 +257,7 @@ class QueryPane extends Component {
     return {wantsPosition, description: description, dispatch: action}
   }
 
-  processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW, { tanks, buildings, objects : tanksAndBuildings}) {
+  async processQuery(setResponses, startedQuery, url, key, dispatch, counters, showTTW, { tanks, buildings, objects : tanksAndBuildings}) {
     const query = document.getElementById("query").value;
     // key = document.getElementById("key").value;
 
@@ -269,7 +269,8 @@ class QueryPane extends Component {
     */
 
     //const utterances = ["move tank1 to building2", "call tank1 joe"]
-    const config = new entodicton.Config(config_base).add(config_earn).add(config_food);
+    const config = new entodicton.Config(config_base)
+    await config.add(config_earn, config_food);
 
     console.log(`sending query ${query}`);
     const utterances = [query]

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import pipboy from './Interface'
 
 function Text(props) {
-  const { lastQuery, setMessage } = props
+  const { lastQuery, setMessage, pipboy } = props
   const [ query, setQuery ] = useState('')
 
-  pipboy.api.initialize(props)
-  pipboy.getConfigs().ui.api.initialize(props)
+  if (pipboy) {
+    pipboy.api.initialize(props)
+    pipboy.getConfigs().ui.api.initialize(props)
+  }
 
   useEffect( () => {
     if (query === '') {
@@ -32,7 +33,7 @@ function Text(props) {
     }
     doQuery()
     setQuery('')
-  }, [query, setMessage])
+  }, [pipboy, query, setMessage])
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()

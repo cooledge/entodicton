@@ -1,8 +1,5 @@
 const tpmkms = require('tpmkms_4wp')
 
-const pipboy = tpmkms.pipboy()
-const ui = tpmkms.ui()
-
 class API {
   // id in stats, inv, data, map, radio
   setDisplay(id) {
@@ -179,11 +176,17 @@ class API {
   }
 }
 
-pipboy.api = new API()
-ui.api = pipboy.api
-pipboy.add(ui)
-const url = `${new URL(window.location.href).origin}/entodicton`
-pipboy.config.url = url
-pipboy.server(url)
+const create = async () => {
+  const pipboy = await tpmkms.pipboy()
+  const api = new API()
+  await pipboy.setApi(api)
+  // await ui.setApi(pipboy.api)
+  await pipboy.add(tpmkms.ui)
+  await pipboy.km('ui').setApi(api)
+  const url = `${new URL(window.location.href).origin}/entodicton`
+  pipboy.config.url = url
+  pipboy.server(url)
+  return pipboy
+}
 
-export default pipboy;
+export default create;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Stat from './Stat'
 import ToDo from './ToDo'
 import Inv from './Inv'
@@ -10,6 +10,7 @@ import Message from './Message'
 import character from './character.json'
 import WeaponList from './WeaponList'
 import Popup from './Popup'
+import createPipboy from './Interface'
 
 /*
   head, larm, rarm, lleg, rleg, torso, feet, hands, eyes
@@ -75,6 +76,18 @@ function App() {
   const [selectingWeaponId, setSelectingWeaponId] = useState()
 
   const [lastQuery, setLastQuery] = useState('');
+  const [pipboy, setPipboy] = useState();
+
+  useEffect( () => {
+    const init = async () => {
+      const pipboyI = await createPipboy()
+      setPipboy(pipboyI)
+    }
+
+    if (!pipboy) {
+      init()
+    }
+  }, [pipboy])
 
   const getWeapon = (id) => {
     return weapons.find( (weapon) => weapon.id === id )
@@ -322,6 +335,8 @@ function App() {
 
     perkId, setPerkId,
     perks, setPerks,
+
+    pipboy,
   }
 
   props.setOutfitName = (name) => {
