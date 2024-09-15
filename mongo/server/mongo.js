@@ -180,13 +180,13 @@ let configStruct = {
       convolution: true,
       isA: ['reportElement', 'theAble'],
       bridge: "{ ...next(operator), reportElements: append(default(before[0].reportElements, [before[0]]), default(after[0].reportElements, [after[0]])) }",
-      generatorp: ({context, g, gs}) => gs(context.reportElements),
+      generatorp: ({context, gs}) => gs(context.reportElements),
     },
     { 
       id: 'make', 
       bridge: "{ ...next(operator), report: after[0] }",
       parents: ['verby'],
-      generatorp: ({context, g}) => `make ${g(context.report)}`,
+      generatorp: async ({context, g}) => `make ${await g(context.report)}`,
       semantic: ({context, km, api}) => {
         api.newReport()
       },
@@ -207,7 +207,7 @@ let configStruct = {
       id: 'changeState', 
       bridge: "{ ...next(operator), reportElement: after[0], newState: after[1] }",
       parents: ['verby'],
-      generatorp: ({context, g}) => `make ${g(context.reportElement)} ${g(context.newState)}`,
+      generatorp: async ({context, g}) => `make ${await g(context.reportElement)} ${await g(context.newState)}`,
       semantic: ({context, km, api, isA}) => {
         const getProperty = (reportElements, state) => {
           let property;
@@ -280,7 +280,7 @@ let configStruct = {
       id: 'capitalize',
       parents: ['verby'],
       bridge: "{ ...next(operator), element: after[0] }",
-      generatorp: ({context, gp}) => `${context.word} ${gp(context.element)}`,
+      generatorp: async ({context, gp}) => `${context.word} ${await gp(context.element)}`,
       semantic: ({context, mentions, api}) => {
         const report = api.current()
         if (context.element.marker == 'header') {
@@ -367,8 +367,8 @@ let configStruct = {
     { id: 'showCollection',
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verby'],
-      generatorp: ({context, g}) => `show ${g(context.show)}`,
-      semantic: ({context, isA, km, mentions, api, flatten, gp}) => {
+      generatorp: async ({context, g}) => `show ${await g(context.show)}`,
+      semantic: ({context, isA, km, mentions, api, flatten}) => {
         if (context.selected) {
           debugger
         } else {
@@ -398,8 +398,8 @@ let configStruct = {
     { id: 'show',
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verby'],
-      generatorp: ({context, g}) => `show ${g(context.show)}`,
-      semantic: ({context, km, mentions, api, flatten, gp}) => {
+      generatorp: async ({context, g}) => `show ${await g(context.show)}`,
+      semantic: async ({context, km, mentions, api, flatten, gp}) => {
         const report = api.current()
         const toArray = (context) => {
           if (context.isList) {
@@ -436,9 +436,14 @@ let configStruct = {
                 aggregation: [] 
             })
             const properties = components[dbName][collectionName]
+            const columns = []
+            for (const column of properties) {
+              columns.push({ text: await gp(c) })
+            }
+            // columns: properties.map( (c) => { return { text: gp(c) } })
             imageSpecs.push({
               headers: {
-                columns: properties.map( (c) => { return { text: gp(c) } })
+                columns,
               },
               colgroups: properties.map( (e, i) => `column_${i}` ),
               table: true,
@@ -562,10 +567,10 @@ const template = {
   ],
 }
 
-const createConfig = () => {
+const createConfig = async () => {
   const config = new Config({ name: 'mongo' }, module)
-  config.add(hierarchy()).add(colors()).add(negation())
-  config.api = new API()
+  await config.add(hierarchy, colors, negation)
+  await config.setApi(new API())
   return config
 }
 

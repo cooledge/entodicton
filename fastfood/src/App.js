@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Speech from './Speech'
 import Text from './Text'
 import Order from './Order'
 import Popup from './Popup'
 import wendys from './images/wendys.jpg'
 import products from './products.json';
+import FastFoodAPI from './FastFoodAPI'
 import './css/fastfood.css'
+console.time('load')
+const tpmkms = require('tpmkms_4wp')
+console.timeEnd('load')
 
 let selector;
 function App() {
@@ -14,6 +18,7 @@ function App() {
   const [order, setOrderInternal] = useState([])
   const [total, setTotal] = useState(0)
   const [message, setMessage] = useState()
+  const [ fastfood, setFastFood ] = useState()
   const findProduct = (item) => {
     const product = products.items.find( (product) => {
       let id = item.id
@@ -27,6 +32,32 @@ function App() {
     }
     return product
   }
+
+
+  useEffect( () => {
+    const init = async () => {
+      const fastfoodI = await tpmkms.fastfood()
+      fastfoodI.stop_auto_rebuild()
+        await fastfoodI.setApi(new FastFoodAPI())
+        fastfoodI.config.debug = true
+        // fastfoodI.add(ui)
+        const url = `${new URL(window.location.href).origin}/entodicton`
+        fastfoodI.config.url = url
+        fastfoodI.server(url)
+      await fastfoodI.restart_auto_rebuild()
+      setFastFood(fastfoodI)
+    }
+
+    if (!fastfood) {
+      init()
+    }
+  }, [fastfood])
+
+  /*
+  if (fastfood) {
+    fastfood.api.setProps(props)
+  }
+  */
 
   const setOrder = (items) => {
     const fullItems = items.map((item) => {
@@ -83,23 +114,28 @@ function App() {
     total, setTotal,
     findProduct,
     setMessage,
+    fastfood,
   }
 
   return (
     <div className="App">
-      <div class="Header">
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://www.youtube.com/watch?v=kPqxB3Y2F-k'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
-        <Text {...props} />
-      </div>
+      { fastfood && 
+        <div class="Header">
+          <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://www.youtube.com/watch?v=kPqxB3Y2F-k'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
+          <Text {...props} />
+        </div>
+      }
       { message &&
         <Popup {...props }>
           {message}
         </Popup>
       }
-      <div class="Body">
-        <Order {...props} />
-        <img className='Menu' src={wendys} />
-      </div>
+      { fastfood &&
+        <div class="Body">
+          <Order {...props} />
+          <img className='Menu' src={wendys} />
+        </div>
+      }
     </div>
   );
 }
