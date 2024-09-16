@@ -166,6 +166,48 @@ const setupHover2 = (doQuery) => (label, identifier, className) => {
          </button>
 }
 
+const handleReportResult = (result, rules, setData) => {
+  const existing = [...rules]
+  // console.log("inDoquery", result)
+  setData(result)
+  const sheet = window.document.styleSheets[0]
+  // console.log('cssRules', sheet.cssRules)
+
+  // add rules
+  for (const rule of (result.rules || [])) {
+    let found = false
+    for (const cssRule of sheet.cssRules) {
+      // console.log('cssRule', cssRule)
+      if (cssRule.cssText == rule) {
+        found = true
+        break
+      }
+    }
+    if (!found) {
+      console.log('inserting rule', rule)
+      sheet.insertRule(rule, sheet.cssRules.length)
+    }
+  }
+  console.log('sheet', sheet)
+  // remove rules
+  const removals = []
+  let index = 0;
+  console.log('result.rules', result.rules)
+  for (const cssRule of sheet.cssRules) {
+    console.log('cssRule', cssRule)
+    if (cssRule.cssText.startsWith('body') || cssRule.cssText.startsWith('code')) {
+      // default
+    } else if (result.rules && cssRule.cssText == result.rules.find( (r) => r == cssRule.cssText )) {
+      // okay
+    } else {
+      removals.push(index)
+    }
+    index += 1
+  }
+  removals.reverse()
+  removals.forEach( (i) => sheet.deleteRule(i) )
+}
+
 function App() {
   // const [selectingState, setSelectingState] = useState(initSelectingState(initData))
   const [query, doQuery] = useState('')
@@ -175,6 +217,7 @@ function App() {
   const [rules, setRules] = useState([])  // { rule, index }
   // const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])
   const [choices, setChoices] = useState([])
+  const [chooserTitle, setChooserTitle] = useState('')
   const [chosen, setChosen] = useState()
 
   /*
@@ -198,10 +241,21 @@ function App() {
     if (!chosen) {
       return
     }
-    setChosen(null)
-    setChoices([])
-    console.log('call the server with the results', chosen, choices)
-  }, [chosen, choices])
+
+    const doIt = async () => {
+      if (choices.length > 0) {
+        debugger
+        setChosen(null)
+        setChoices([])
+        console.log('call the server with the results', chosen, choices)
+        const result = await callServer({ chosen, choices })
+        if (!result.noChange) {
+          handleReportResult(result, rules, setData)
+        }
+      }
+    }
+    doIt()
+  }, [chosen, choices, setChosen, setData, rules, setChoices])
 
   useEffect( () => {
     if (query === '') {
@@ -211,88 +265,23 @@ function App() {
     const doIt = async () => {
       const result = await callServer(query)
       setCounter(counter+1)
-      if (!result.noChange) {
-        const existing = [...rules]
-        // console.log("inDoquery", result)
-        setData(result)
-        const sheet = window.document.styleSheets[0]
-        // console.log('cssRules', sheet.cssRules)
-
-        // add rules
-        for (const rule of (result.rules || [])) {
-          let found = false
-          for (const cssRule of sheet.cssRules) {
-            // console.log('cssRule', cssRule)
-            if (cssRule.cssText == rule) {
-              found = true
-              break
-            }
-          }
-          if (!found) {
-            console.log('inserting rule', rule)
-            sheet.insertRule(rule, sheet.cssRules.length)
-          }
-        }
-        console.log('sheet', sheet)
-        // remove rules
-        const removals = []
-        let index = 0;
-        console.log('result.rules', result.rules)
-        for (const cssRule of sheet.cssRules) {
-          console.log('cssRule', cssRule)
-          if (cssRule.cssText.startsWith('body') || cssRule.cssText.startsWith('code')) {
-            // default
-          } else if (result.rules && cssRule.cssText == result.rules.find( (r) => r == cssRule.cssText )) {
-            // okay
-          } else {
-            removals.push(index)
-          }
-          index += 1
-        }
-        removals.reverse()
-        removals.forEach( (i) => sheet.deleteRule(i) )
-
-        /*
-        result.rules = result.rules || []
-        const additions = []
-        const removals = []
-        const sames = []
-        for (const rule of existing) {
-          if (result.rules.includes(rule)) {
-            sames.push(rule)
-          } else {
-            removals.push(rule.index)
-          }
-        }
-        for (const rule of result.rules) {
-          if (!rules.includes(rule)) {
-            additions.push(rule)
-          }
-        }
-        const sheet = window.document.styleSheets[0]
-
-        /* TODO fix this
-        removals.reverse()
-        removals.forEach( (i) => sheet.deleteRule(i) )
-        */
-        /*
-        additions.forEach((rule) => {
-          const index = sheet.insertRule(rule)
-          existing.push({ rule, index })
-        })
-        setRules(existing)
-        */
+      if (result.chooseFields) {
+        console.log('choosefields23', result)
+        setChooserTitle(result.chooseFields.title)
+        setChoices(result.chooseFields.choices)
+      } else if (!result.noChange) {
+        handleReportResult(result, rules, setData)
       }
     }
 
     doIt()
-  }, [query, rules])
+  }, [query, rules, setChoices, setChooserTitle])
 
   return (
     <div className="App">
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       { choices.length > 0 &&
-        <Chooser title="the title" choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
+        <Chooser title={chooserTitle} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
       }
       <Query doQuery={doQuery}/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>

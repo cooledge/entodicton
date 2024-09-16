@@ -65,9 +65,6 @@ const bdata = {
   ]
 }
 
-const instantiate = (bson, bspec) => {
-}
-
 let db;
 let collection;
 const url = 'mongodb://localhost:27017';
@@ -104,7 +101,16 @@ app.post('/query', async (req, res) => {
   try {
     console.log('in query', JSON.stringify(req.body, null, 2))
     if (req.body.query) {
-      if (req.body.query.selected) {
+      if (req.body.query.chosen) {
+        console.log('results chosen', JSON.stringify(req.body.query, null, 2))
+        lastResponse = null
+        const report = mongoKM.api.current()
+        // context.selected = req.body.query
+        console.log('report', JSON.stringify(report, null, 2))
+        report.showCollection.chosens.push(req.body.query)
+        await mongoKM.processContext(report.showCollection)
+        debugger
+      } else if (req.body.query.selected) {
         console.log('selected', req.body.query)
         lastResponse = null
         const context = mongoKM.api.current().select
@@ -118,9 +124,13 @@ app.post('/query', async (req, res) => {
     }
     if (lastResponse) {
       console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
-      const report = await query(lastResponse.dataSpec, lastResponse.imageSpec)
-      console.log("report sent back", JSON.stringify(report, null, 2))
-      res.json(report)
+      if (lastResponse.chooseFields) {
+        res.json({ chooseFields: lastResponse.chooseFields, context: lastResponse.context })
+      } else {
+        const report = await query(lastResponse.dataSpec, lastResponse.imageSpec)
+        console.log("report sent back", JSON.stringify(report, null, 2))
+        res.json(report)
+      }
     } else {
       res.json({ noChange: true })
     }

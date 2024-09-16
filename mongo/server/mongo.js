@@ -33,6 +33,9 @@ const { getReportElements } = require('./mongo_helpers')
   show all the users table fields
   remove column X through Y
 
+  add the users collection
+  also show the users collection
+
   make the header green\n no the background
   pick the header color
   cancel that (selecting)
@@ -66,6 +69,7 @@ class API {
   }
 
   show(report) {
+    // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
     this.objects.show.push(report)
     console.log('show -----------', report)
     this.listeners.forEach( (l) => l(report) )
@@ -211,7 +215,6 @@ let configStruct = {
       semantic: ({context, km, api, isA}) => {
         const getProperty = (reportElements, state) => {
           let property;
-          debugger
           for (const re of reportElements) {
             if (isA(re.marker, 'reportElementProperty')) {
               if (re.marker == 'background') {
@@ -246,7 +249,6 @@ let configStruct = {
           const property = getProperty(reportElements, context.newState)
           report.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)
         } else {
-          debugger
           const reportElements = getReportElements(context.reportElement)
           const lastContext = reportElements.slice(-1)[0]
           const isPlural = lastContext.number == 'many'
@@ -369,9 +371,50 @@ let configStruct = {
       parents: ['verby'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, isA, km, mentions, api, flatten}) => {
-        const report = api.current()
-        if (context.selected) {
-          debugger
+        console.log("in show collection")
+        let report = api.newReport()
+        if (context.chosens) {
+          console.log('in chosen', JSON.stringify(context.chosens))
+          /*
+              < in chosen {
+              <   chosen: 'select',
+              <   choices: [
+              <     { text: '_id', id: '_id' },
+              <     { text: 'name', id: 'name', selected: true },
+              <     { text: 'email', id: 'email', selected: true },
+              <     { text: 'password', id: 'password' }
+              <   ]
+          */
+          const reportable = context.reportables[context.chosens.length-1]
+          const chosen = context.chosens[context.chosens.length-1]
+
+          report.dataSpec = {
+                dbName: reportable.database,
+                collectionName: reportable.collection,
+                limit: 10,
+                aggregation: [] 
+          }
+          const columns = []
+          const properties = []
+          for (const column of chosen.choices) {
+            if (column.selected) {
+              columns.push({ text: column.text })
+              properties.push(`$${column.id}`)
+            }
+          }
+          // columns: properties.map( (c) => { return { text: gp(c) } })
+          report.imageSpec = {
+            headers: {
+              columns,
+            },
+            colgroups: properties.map( (e, i) => `column_${i}` ),
+            table: true,
+            field: [],
+            // rows: ['$name', '$age', '$fav_colors'],
+            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
+            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
+            rows: properties
+          }
         } else {
           const reportables = []
           for (const modifier of context.show.modifiers) {
@@ -379,15 +422,16 @@ let configStruct = {
               reportables.push(context.show[modifier])
             }
           }
+          context.reportables = reportables // save for callback
           const reportable = reportables[0]
           const fields = await getFields(reportable.database, reportable.collection)
           console.log('fields', fields)
-          debugger
-          report.choose = {
+          report.chooseFields = {
             title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,
-            choices: fields.map((field) => { return { text: field } }),
+            choices: fields.map((field) => { return { text: field, id: field } }),
           }
-          report.context = context
+          context.chosens = [] // for callback
+          report.showCollection = context
         }
         debugger
         api.show(report)
