@@ -49,7 +49,7 @@ describe('tests for the mongo page', () => {
     await client.close()
   });
 
-  xtest(`MONGO test page loads`, async () => {
+  test(`MONGO test page loads`, async () => {
     const page = await browser.newPage();
 
     await page.goto(`${URL}/mongo/`)
@@ -105,21 +105,21 @@ describe('tests for the mongo page', () => {
       }, rule);
     }
 
-    xtest(`MONGO show the users`, async () => {
+    test(`MONGO show the users`, async () => {
       await query('show the users')
       const dataDb = users
       const property = 'name'
       await checkTable(page, 1, users, 'name')
     }, timeout);
 
-    xtest(`MONGO show the movies`, async () => {
+    test(`MONGO show the movies`, async () => {
       await query('show the movies')
       const dataDb = movies
       const property = 'title'
       await checkTable(page, 1, movies, 'title')
     }, timeout);
 
-    xtest(`MONGO show the users and movies`, async () => {
+    test(`MONGO show the users and movies`, async () => {
       await query('show the users and movies')
       const dataDb = movies
       const property = 'title'
@@ -127,19 +127,19 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 3, movies, 'title')
     }, timeout);
     
-    xtest(`MONGO show users\nmake the header blue`, async () => {
+    test(`MONGO show users\nmake the header blue`, async () => {
       await query('show users')
       await query('make the header blue')
       expect(await hasRule(".header { color: blue; }")).toBe(true)
     }, timeout);
 
-    xtest(`MONGO show users\nmake the header uppercase`, async () => {
+    test(`MONGO show users\nmake the header uppercase`, async () => {
       await query('show users')
       await query('make the header uppercase')
       expect(await hasRule(".header { text-transform: uppercase; }")).toBe(true)
     }, timeout);
 
-    xtest(`NEO23 MONGO show users\nmake the header background blue`, async () => {
+    test(`NEO23 MONGO show users\nmake the header background blue`, async () => {
       await query('show users')
       await query('make the header background blue')
       expect(await hasRule(".header { background-color: blue; }")).toBe(true)
@@ -182,7 +182,7 @@ describe('tests for the mongo page', () => {
     await page.close()
   }
 
-  xtest(`MONGO show the status`, async () => {
+  test(`MONGO show the status`, async () => {
     await showTest({ query: 'show the status', items: null, tab: 'STAT' })
   }, timeout);
 
@@ -209,7 +209,7 @@ describe('tests for the mongo page', () => {
           await page.keyboard.type(query);
           await page.click('#submit')
         // await new Promise(resolve => setTimeout(resolve, 500))
-          await xtest(page)
+          await test(page)
           break
         } catch( e ) {
           await new Promise(resolve => setTimeout(resolve, 500))
@@ -258,7 +258,7 @@ describe('tests for the mongo page', () => {
     await testQueries(queries, tests)
   }
 
-  xtest(`MONGO select first`, async () => {
+  test(`MONGO select first`, async () => {
     const queries = ['show the weapons', 'select']
     const item = character.weapons[0]
     await testMovements(queries, item, true)

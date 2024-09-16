@@ -1,5 +1,5 @@
 const express = require('express')
-const createMongo = require('./mongo')
+const createMongoKM = require('./mongo')
 const { MongoClient } = require('mongodb');
 const { query, initialize } = require('./query')
 
@@ -98,24 +98,24 @@ app.get('/', async (req, res) => {
 
 // the km will be setup on a per user basis since there is state
 let lastResponse;
-const mongo = createMongo()
-mongo.server('http://localhost:3000')
 
-mongo.api.listen( (shown) => { lastResponse = shown } )
 
 app.post('/query', async (req, res) => {
   try {
+    console.log('in query', JSON.stringify(req.body, null, 2))
     if (req.body.query) {
       if (req.body.query.selected) {
         console.log('selected', req.body.query)
         lastResponse = null
-        const context = mongo.api.current().select
+        const context = mongoKM.api.current().select
         context.selected = req.body.query
         console.log('context for selecting', JSON.stringify(context, null, 2))
-        await mongo.processContext(context)
+        await mongoKM.processContext(context)
       } else {
         lastResponse = null
-        const qr = await mongo.query(req.body.query)
+        console.log('before query')
+        const qr = await mongoKM.query(req.body.query)
+        console.log('after query', JSON.stringify(qr, null, 2))
       }
     }
     if (lastResponse) {
@@ -143,7 +143,10 @@ app.post('/query', async (req, res) => {
   }
 })
 
+let mongoKM;
 app.listen(port, async () => {
   await initialize()
+  mongoKM = await createMongoKM()
+  mongoKM.api.listen( (shown) => { lastResponse = shown } )
   console.log(`Example app listening on port ${port}`)
 })

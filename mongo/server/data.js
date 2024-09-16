@@ -1,14 +1,15 @@
 const { MongoClient } = require('mongodb');
 const _ = require('lodash')
 
-const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
+let client;
 
 const initialize = async () => {
-  if (client.isConnected()) {
-    return
+  console.log('client', client)
+  if (!!client && !!client.topology && client.topology.isConnected()) {
+    return client
   }
-  await client.connect()
+  const url = 'mongodb://localhost:27017';
+  client = await MongoClient.connect(url);
   return client
 }
 

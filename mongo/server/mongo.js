@@ -438,7 +438,7 @@ let configStruct = {
             const properties = components[dbName][collectionName]
             const columns = []
             for (const column of properties) {
-              columns.push({ text: await gp(c) })
+              columns.push({ text: await gp(column) })
             }
             // columns: properties.map( (c) => { return { text: gp(c) } })
             imageSpecs.push({
@@ -571,6 +571,7 @@ const createConfig = async () => {
   const config = new Config({ name: 'mongo' }, module)
   await config.add(hierarchy, colors, negation)
   await config.setApi(new API())
+  config.server('http://localhost:3000')
   return config
 }
 

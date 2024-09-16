@@ -173,7 +173,8 @@ function App() {
   // const [data, setData] = useState(initData, doQuery)
   const [data, setData] = useState([], doQuery)
   const [rules, setRules] = useState([])  // { rule, index }
-  const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])
+  // const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])
+  const [choices, setChoices] = useState([])
   const [chosen, setChosen] = useState()
 
   /*
