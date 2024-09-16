@@ -4,7 +4,6 @@ const _ = require('lodash')
 let client;
 
 const initialize = async () => {
-  console.log('client', client)
   if (!!client && !!client.topology && client.topology.isConnected()) {
     return client
   }
@@ -52,11 +51,10 @@ const instantiate = async (dataSpec) => {
   return dataSpec
 }
 
-const fields = async (dbName, collectionName) => {
+const getFields = async (dbName, collectionName) => {
   await initialize()
   const db = client.db(dbName);
   const collection = db.collection(collectionName)
-  debugger
   const data = await collection.findOne()
   return Object.keys(data)
 }
@@ -65,6 +63,6 @@ module.exports = {
   initialize,
   instantiate,
   client,
-  fields,
+  getFields,
 }
 

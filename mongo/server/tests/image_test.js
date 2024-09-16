@@ -32,6 +32,9 @@ const bsonSales = [
 ]
 
 const imageSpecs = {
+  'no data': {
+    rules: [],
+  },
   'simple list': {
     headers: { columns: ['name', 'age', 'favorite colors' ] },
     table: true,
@@ -93,6 +96,14 @@ const imageSpecs = {
 }
 
 describe('Reports Tests', () => {
+  it('no data', async () => {
+    const imageSpec = imageSpecs['no data']
+    const actual = image.instantiate(imageSpec, bson)
+    console.log('answer', JSON.stringify(actual, (k, v) => v === undefined ? null : v, 2))
+    expected = {}
+    expect(actual).toStrictEqual(expected)
+  })
+
   it('simple list', async () => {
     const imageSpec = imageSpecs['simple list']
 
@@ -575,6 +586,12 @@ describe('Reports Tests', () => {
 
   describe('Traversing', () => {
     describe('Counting', () => {
+      it('no data', async () => {
+        const imageSpec = imageSpecs['no data']
+        const actual = image.count(imageSpec)
+        expect(actual).toStrictEqual({ header: 0, table: 0, graph: 0 })
+      })
+
       it('simple list', async () => {
         const imageSpec = imageSpecs['simple list']
         const actual = image.count(imageSpec)
@@ -601,6 +618,13 @@ describe('Reports Tests', () => {
     })
 
     describe('countSelectedSelected', () => {
+      it('no data', async () => {
+        const imageSpec = imageSpecs['no data']
+        const reportElements = [{ marker: 'header' }, { marker: 'background' }]
+        const actual = image.countSelected(imageSpec, reportElements)
+        expect(actual).toStrictEqual(0)
+      })
+
       it('simple list', async () => {
         const imageSpec = imageSpecs['simple list']
         const reportElements = [{ marker: 'header' }, { marker: 'background' }]
@@ -631,6 +655,14 @@ describe('Reports Tests', () => {
     })
 
     describe('setId', () => {
+      it('no data', async () => {
+        const imageSpec = imageSpecs['no data']
+        image.setId(imageSpec)
+        image.setId(imageSpec) // idempotent
+        console.log(JSON.stringify(imageSpec, null, 2))
+        expect(imageSpec.idCounter).toStrictEqual(0)
+      })
+
       it('simple list', async () => {
         const imageSpec = imageSpecs['simple list']
         image.setId(imageSpec)
@@ -701,6 +733,14 @@ describe('Reports Tests', () => {
 */
 
     describe('selecting header', () => {
+      it('no data', async () => {
+        const imageSpec = imageSpecs['no data']
+        image.selecting('header', imageSpec)
+        image.selecting('header', imageSpec) // idempotent
+        console.log(JSON.stringify(imageSpec, null, 2))
+        image.selecting(null, imageSpec) // removes selecting
+      })
+
       it('simple list', async () => {
         const imageSpec = imageSpecs['simple list']
         image.selecting('header', imageSpec)

@@ -3,7 +3,7 @@ const { helpers, defaultContextCheck, colors, negation, hierarchy } = require('t
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const image = require('./image')
-const { fields } = require('./data')
+const { getFields } = require('./data')
 const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
 
@@ -368,11 +368,11 @@ let configStruct = {
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verby'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
-      semantic: ({context, isA, km, mentions, api, flatten}) => {
+      semantic: async ({context, isA, km, mentions, api, flatten}) => {
+        const report = api.current()
         if (context.selected) {
           debugger
         } else {
-          debugger
           const reportables = []
           for (const modifier of context.show.modifiers) {
             if (isA(context.show[modifier].marker, 'reportable')) {
@@ -380,18 +380,17 @@ let configStruct = {
             }
           }
           const reportable = reportables[0]
-          // THIS ______________ await fields(reportable.database, reportable.collection)
-          /*
+          const fields = await getFields(reportable.database, reportable.collection)
+          console.log('fields', fields)
+          debugger
           report.choose = {
             title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,
-            choices: [
-              { text: "field1" }, 
-              { text: "field2" },
-            ]
+            choices: fields.map((field) => { return { text: field } }),
           }
           report.context = context
-          */
         }
+        debugger
+        api.show(report)
       }
     },
 

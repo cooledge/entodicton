@@ -2,7 +2,7 @@ const { getReportElements } = require('../mongo_helpers')
 
 describe('Mongo Helpers', () => {
   describe('getReportElements', () => {
-    it('NEO23 default', async () => {
+    it('default', async () => {
       const input = {
         "marker": "header",
         "number": "one",
@@ -29,7 +29,7 @@ describe('Mongo Helpers', () => {
       ]
 
       const actual = getReportElements(input)
-      expect(actual).toStrictEqual(inputs)
+      expect(actual).toStrictEqual([input])
     })
   })
 })

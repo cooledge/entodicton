@@ -10,8 +10,7 @@ const query = async (dataSpec, imageSpec) => {
 }
 
 const initialize = async () => {
-  await data.initialize()
-  return data.client
+  return await data.initialize()
 }
 
 module.exports = {

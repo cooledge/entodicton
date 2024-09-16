@@ -117,7 +117,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
       values.push({ className: `column column_${index}`, data: instantiateImpl(field, bson, options) })
     }
     return values
-  } else {
+  } else if (typeof imageSpec !== 'object' ){
     if (imageSpec.startsWith("$")) {
       if (options.isGraph) {
         return bson[imageSpec.slice(1)]
@@ -127,6 +127,8 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     } else {
       return { className:'fieldConstant', data: imageSpec }
     }
+  } else {
+    return {}
   }
 }
 

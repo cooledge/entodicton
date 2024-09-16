@@ -113,9 +113,7 @@ app.post('/query', async (req, res) => {
         await mongoKM.processContext(context)
       } else {
         lastResponse = null
-        console.log('before query')
         const qr = await mongoKM.query(req.body.query)
-        console.log('after query', JSON.stringify(qr, null, 2))
       }
     }
     if (lastResponse) {
