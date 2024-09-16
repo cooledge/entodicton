@@ -14,7 +14,7 @@ describe('Mongo Helpers', () => {
       expect(actual).toStrictEqual([input])
     })
 
-    it('NEO23 no nesting', async () => {
+    it('no nesting', async () => {
       const input = [
         {
           "marker": "header",

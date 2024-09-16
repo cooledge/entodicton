@@ -2,8 +2,17 @@ const express = require('express')
 const createMongoKM = require('./mongo')
 const { MongoClient } = require('mongodb');
 const { query, initialize } = require('./query')
+const session = require('express-session')
+const { v4: uuidv4 } = require('uuid');
+const { Sessions } = require('./sessions')
 
 const app = express()
+app.use(session({
+  genid: function(req) {
+    return uuidv4() + 'banana' // use UUIDs for session IDs
+  },
+  secret: 'anonymous sessions'
+}))
 app.use(express.json())
 const port = 5001
 
@@ -93,42 +102,47 @@ app.get('/', async (req, res) => {
   res.send('Hello World!')
 })
 
+const sessions = new Sessions(createMongoKM)
+
 // the km will be setup on a per user basis since there is state
-let lastResponse;
-
-
 app.post('/query', async (req, res) => {
   try {
-    console.log('in query', JSON.stringify(req.body, null, 2))
+    const mongoKM = await sessions.get(req.sessionID)
+    if (!mongoKM) {
+      res.json({ noSessions: true, max: sessions.max(), ttl: sessions.ttl() })
+      return
+    }
+    console.log('sessionId', req.sessionID)
+    // console.log('in query', JSON.stringify(req.body, null, 2))
     if (req.body.query) {
       if (req.body.query.chosen) {
-        console.log('results chosen', JSON.stringify(req.body.query, null, 2))
-        lastResponse = null
+        // console.log('results chosen', JSON.stringify(req.body.query, null, 2))
+        mongoKM.api.clearLastResponse()
         const report = mongoKM.api.current()
-        // context.selected = req.body.query
-        console.log('report', JSON.stringify(report, null, 2))
+        // console.log('report', JSON.stringify(report, null, 2))
         report.showCollection.chosens.push(req.body.query)
         await mongoKM.processContext(report.showCollection)
         debugger
       } else if (req.body.query.selected) {
-        console.log('selected', req.body.query)
-        lastResponse = null
+        // console.log('selected', req.body.query)
+        mongoKM.api.clearLastResponse()
         const context = mongoKM.api.current().select
         context.selected = req.body.query
-        console.log('context for selecting', JSON.stringify(context, null, 2))
+        // console.log('context for selecting', JSON.stringify(context, null, 2))
         await mongoKM.processContext(context)
       } else {
-        lastResponse = null
+        mongoKM.api.clearLastResponse()
         const qr = await mongoKM.query(req.body.query)
       }
     }
+    const lastResponse = mongoKM.api.lastResponse()
     if (lastResponse) {
-      console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
+      // console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
       if (lastResponse.chooseFields) {
         res.json({ chooseFields: lastResponse.chooseFields, context: lastResponse.context })
       } else {
         const report = await query(lastResponse.dataSpec, lastResponse.imageSpec)
-        console.log("report sent back", JSON.stringify(report, null, 2))
+        // console.log("report sent back", JSON.stringify(report, null, 2))
         res.json(report)
       }
     } else {
@@ -151,10 +165,6 @@ app.post('/query', async (req, res) => {
   }
 })
 
-let mongoKM;
 app.listen(port, async () => {
-  await initialize()
-  mongoKM = await createMongoKM()
-  mongoKM.api.listen( (shown) => { lastResponse = shown } )
   console.log(`Example app listening on port ${port}`)
 })

@@ -62,6 +62,7 @@ class API {
     // these are just for testing
     this.objects.show = []
     this.objects.select = []
+    this.objects.lastResponse = null
   }
 
   current() {
@@ -72,7 +73,16 @@ class API {
     // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
     this.objects.show.push(report)
     console.log('show -----------', report)
+    this.objects.lastResponse = report
     this.listeners.forEach( (l) => l(report) )
+  }
+
+  clearLastResponse() {
+    this.objects.lastReponse = null
+  }
+
+  lastResponse() {
+    return this.objects.lastResponse
   }
 
   listen(listener) {
@@ -628,7 +638,7 @@ knowledgeModule( {
     contents: mongo_tests,
     checks: {
       context: defaultContextCheck,
-      objects: ['show', 'select', { km: 'stm' }],
+      objects: ['show', 'select', 'lastResponse', { km: 'stm' }],
     },
 
   },

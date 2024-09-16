@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react'
 import Query from './Query'
 import Chooser from './Chooser'
+import NoSessionError from './NoSessionError'
 import Image from './Image'
 import $ from 'jquery';
 const fetch = require('node-fetch')
@@ -219,6 +220,8 @@ function App() {
   const [choices, setChoices] = useState([])
   const [chooserTitle, setChooserTitle] = useState('')
   const [chosen, setChosen] = useState()
+  // const [noSession, setNoSession] = useState({ noSessions: true, max: 25, ttl: 1000 * 5 * 60 })
+  const [noSession, setNoSession] = useState()
 
   /*
   console.log('query', JSON.stringify(query))
@@ -243,19 +246,22 @@ function App() {
     }
 
     const doIt = async () => {
+      setNoSession()
       if (choices.length > 0) {
         debugger
         setChosen(null)
         setChoices([])
         console.log('call the server with the results', chosen, choices)
         const result = await callServer({ chosen, choices })
-        if (!result.noChange) {
+        if (result.noSessions) {
+          setNoSession(result)
+        } else if (!result.noChange) {
           handleReportResult(result, rules, setData)
         }
       }
     }
     doIt()
-  }, [chosen, choices, setChosen, setData, rules, setChoices])
+  }, [chosen, choices, setChosen, setData, rules, setChoices, setNoSession])
 
   useEffect( () => {
     if (query === '') {
@@ -263,23 +269,29 @@ function App() {
     }
 
     const doIt = async () => {
+      setNoSession()
       const result = await callServer(query)
       setCounter(counter+1)
       if (result.chooseFields) {
         console.log('choosefields23', result)
         setChooserTitle(result.chooseFields.title)
         setChoices(result.chooseFields.choices)
+      } else if (result.noSessions) {
+        setNoSession(result)
       } else if (!result.noChange) {
         handleReportResult(result, rules, setData)
       }
     }
 
     doIt()
-  }, [query, rules, setChoices, setChooserTitle])
+  }, [query, rules, setChoices, setChooserTitle, setNoSession])
 
   return (
     <div className="App">
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
+      { noSession &&
+        <NoSessionError max={noSession.max} ttl={noSession.ttl}></NoSessionError>
+      }
       { choices.length > 0 &&
         <Chooser title={chooserTitle} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
       }
