@@ -164,5 +164,24 @@ describe('tests for the mongo page', () => {
       await page.click('.ChooserButtonSelect')
       await checkTable(page, 1, users, ['name', 'email'])
     }, timeout);
+
+    test(`MONGO show users collection select name + email and press select`, async () => {
+      await query('show the users')
+      await query('call the report banana')
+      await query('show the movies')
+      await page.waitForSelector(`#Item_banana`)
+      await page.click('#Item_banana')
+      await page.waitForSelector(`#queryCounter4`)
+      await checkTable(page, 1, users, ['name'])
+    }, timeout);
+
+    test(`NEO23 MONGO show users collection select name + email and show the report by name`, async () => {
+      await query('show the users')
+      await query('call the report banana')
+      await query('show the movies')
+      await query('show banana')
+      await page.waitForSelector(`#queryCounter4`)
+      await checkTable(page, 1, users, ['name'])
+    }, timeout);
   })
 });

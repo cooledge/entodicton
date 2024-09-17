@@ -109,6 +109,22 @@ table {
   align-items: center;
 }
 
+.NamedReports {
+  border: solid 1px;
+}
+
+.NamedReports header {
+  background-color: lightgray;
+}
+
+.NamedReports .Item:hover {
+  background-color: #A9A9A9;
+}
+
+.NamedReports .Selected {
+  background-color: lightblue;
+}
+
 .Paraphrase {
   margin-left: 20px;
   flex-grow: 10;

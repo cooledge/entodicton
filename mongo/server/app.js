@@ -115,36 +115,53 @@ app.post('/query', async (req, res) => {
     console.log('sessionId', req.sessionID)
     // console.log('in query', JSON.stringify(req.body, null, 2))
     if (req.body.query) {
-      if (req.body.query.chosen) {
+      mongoKM.api.clearLastResponse()
+      const query = req.body.query
+      if (query.selectReport) {
+        console.log("in select REPORT")
+        console.log("in select REPORT", query.selectReport)
+        mongoKM.api.selectReport(query.selectReport)
+      }
+      else if (req.body.query.chosen) {
         // console.log('results chosen', JSON.stringify(req.body.query, null, 2))
-        mongoKM.api.clearLastResponse()
         const report = mongoKM.api.current()
         // console.log('report', JSON.stringify(report, null, 2))
         report.showCollection.chosens.push(req.body.query)
         await mongoKM.processContext(report.showCollection)
-        debugger
       } else if (req.body.query.selected) {
         // console.log('selected', req.body.query)
-        mongoKM.api.clearLastResponse()
         const context = mongoKM.api.current().select
         context.selected = req.body.query
         // console.log('context for selecting', JSON.stringify(context, null, 2))
         await mongoKM.processContext(context)
       } else {
-        mongoKM.api.clearLastResponse()
-        const qr = await mongoKM.query(req.body.query)
+        await mongoKM.query(req.body.query)
       }
     }
     const lastResponse = mongoKM.api.lastResponse()
     if (lastResponse) {
-      // console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
-      if (lastResponse.chooseFields) {
-        res.json({ chooseFields: lastResponse.chooseFields, context: lastResponse.context })
-      } else {
-        const report = await query(lastResponse.dataSpec, lastResponse.imageSpec)
-        // console.log("report sent back", JSON.stringify(report, null, 2))
-        res.json(report)
+      console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
+
+      const response = {}
+      if (lastResponse.reportNames) {
+        Object.assign(response, { reportNames: lastResponse.reportNames })
       }
+
+      if (lastResponse.chooseFields) {
+        Object.assign(response, { chooseFields: lastResponse.chooseFields, context: lastResponse.context })
+      }
+
+      if (lastResponse.report) {
+        const report = await query(lastResponse.report.dataSpec, lastResponse.report.imageSpec)
+        // const reportNames = mongoKM.api.getReportNames()
+        // console.log("report sent back", JSON.stringify(report, null, 2))
+        // res.json({ report })
+        console.log('lastResponse.report calling getReportNames') 
+        response.reportNames = mongoKM.api.getReportNames() // selected could change
+        console.log('response.reportNames', JSON.stringify(response.reportNames))
+        response.report = report
+      }
+      res.json(response)
     } else {
       res.json({ noChange: true })
     }

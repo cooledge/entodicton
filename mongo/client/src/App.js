@@ -3,6 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react'
 import Query from './Query'
 import Chooser from './Chooser'
+import NamedReports from './NamedReports'
 import NoSessionError from './NoSessionError'
 import Image from './Image'
 import $ from 'jquery';
@@ -209,6 +210,7 @@ const handleReportResult = (result, rules, setData) => {
   removals.forEach( (i) => sheet.deleteRule(i) )
 }
 
+
 function App() {
   // const [selectingState, setSelectingState] = useState(initSelectingState(initData))
   const [query, doQuery] = useState('')
@@ -222,6 +224,32 @@ function App() {
   const [chosen, setChosen] = useState()
   // const [noSession, setNoSession] = useState({ noSessions: true, max: 25, ttl: 1000 * 5 * 60 })
   const [noSession, setNoSession] = useState()
+  // const [namedReports, setNamedReports] = useState([{ name: 'one', id: '1', selected: false }, { name: 'two', id: '2', selected: true }, { name: 'three', id: '3', selected: false }])
+  const [namedReports, setNamedReports] = useState([])
+
+  const handleResponse = (response) => {
+    setCounter(counter+1)
+    if (response.chooseFields) {
+      setChooserTitle(response.chooseFields.title)
+      setChoices(response.chooseFields.choices)
+    }
+    if (response.noSessions) {
+      setNoSession(response)
+    }
+    if (response.reportNames) {
+      setNamedReports(response.reportNames)
+    }
+    if (response.report) {
+      handleReportResult(response.report, rules, setData)
+    }
+  }
+
+  const selectNamedReport = async (id) => {
+    // call server and select the named report
+    console.log('selectNamedReport', id)
+    const result = await callServer({ selectReport: id })
+    handleResponse(result)
+  }
 
   /*
   console.log('query', JSON.stringify(query))
@@ -253,11 +281,7 @@ function App() {
         setChoices([])
         console.log('call the server with the results', chosen, choices)
         const result = await callServer({ chosen, choices })
-        if (result.noSessions) {
-          setNoSession(result)
-        } else if (!result.noChange) {
-          handleReportResult(result, rules, setData)
-        }
+        handleResponse(result)
       }
     }
     doIt()
@@ -271,20 +295,11 @@ function App() {
     const doIt = async () => {
       setNoSession()
       const result = await callServer(query)
-      setCounter(counter+1)
-      if (result.chooseFields) {
-        console.log('choosefields23', result)
-        setChooserTitle(result.chooseFields.title)
-        setChoices(result.chooseFields.choices)
-      } else if (result.noSessions) {
-        setNoSession(result)
-      } else if (!result.noChange) {
-        handleReportResult(result, rules, setData)
-      }
+      handleResponse(result)
     }
 
     doIt()
-  }, [query, rules, setChoices, setChooserTitle, setNoSession])
+  }, [query, rules, setChoices, setChooserTitle, setNoSession, setNamedReports])
 
   return (
     <div className="App">
@@ -297,7 +312,10 @@ function App() {
       }
       <Query doQuery={doQuery}/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>
-
+      {
+        namedReports.length > 0 &&
+        <NamedReports namedReports={namedReports} selectNamedReport={selectNamedReport} />
+      }
     </div>
   );
 }

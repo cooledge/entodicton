@@ -39,6 +39,7 @@
     {
       "name": "mongo",
       "operators": [
+        "([call] ([nameable]) (name))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -52,6 +53,7 @@
         "([lowercase])",
         "([show] (reportable/*))",
         "([showCollection|show] (collection/*))",
+        "([showReport|show] (report/*))",
         "([capitalize] ([reportElement]))",
         "([sales|])",
         "([year])",
@@ -78,6 +80,28 @@
         ]
       ],
       "bridges": [
+        {
+          "id": "call",
+          "isA": [
+            "verby"
+          ],
+          "bridge": "{ ...next(operator), nameable: after[0], name: after[1] }",
+          "generatorp": "async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`",
+          "semantic": "async ({config, context, api}) => {\n        // TODO find report being referred to\n        const report = api.current()\n        const name = context.name.text\n        config.addWord(name, { id: 'report', initial: `{ value: \"${name}\", namedReport: true }` })\n        api.nameReport(report, name)\n      }"
+        },
+        {
+          "id": "nameable",
+          "words": [
+            {
+              "word": "nameable",
+              "number": "one"
+            },
+            {
+              "word": "nameables",
+              "number": "many"
+            }
+          ]
+        },
         {
           "id": "case",
           "words": [
@@ -245,8 +269,18 @@
         {
           "id": "report",
           "parents": [
-            "theAble"
+            "theAble",
+            "nameable"
           ]
+        },
+        {
+          "id": "showReport",
+          "bridge": "{ ...next(operator), show: after[0] }",
+          "parents": [
+            "verby"
+          ],
+          "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
+          "semantic": "async ({context, api}) => {\n        const name = context.show.value\n        const report = api.getNamedReport(name)\n        api.setCurrent(report)\n        api.show(report)\n      }"
         },
         {
           "id": "showCollection",
@@ -255,7 +289,7 @@
             "verby"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let report = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n\n          report.dataSpec = {\n                dbName: reportable.database,\n                collectionName: reportable.collection,\n                limit: 10,\n                aggregation: [] \n          }\n          const columns = []\n          const properties = []\n          for (const column of chosen.choices) {\n            if (column.selected) {\n              columns.push({ text: column.text })\n              properties.push(`$${column.id}`)\n            }\n          }\n          // columns: properties.map( (c) => { return { text: gp(c) } })\n          report.imageSpec = {\n            headers: {\n              columns,\n            },\n            colgroups: properties.map( (e, i) => `column_${i}` ),\n            table: true,\n            field: [],\n            // rows: ['$name', '$age', '$fav_colors'],\n            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            rows: properties\n          }\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          const fields = await getFields(reportable.database, reportable.collection)\n          console.log('fields', fields)\n          report.chooseFields = {\n            title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,\n            choices: fields.map((field) => { return { text: field, id: field } }),\n          }\n          context.chosens = [] // for callback\n          report.showCollection = context\n        }\n        debugger\n        api.show(report)\n      }"
+          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let report = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n\n          report.dataSpec = {\n                dbName: reportable.database,\n                collectionName: reportable.collection,\n                limit: 10,\n                aggregation: [] \n          }\n          const columns = []\n          const properties = []\n          for (const column of chosen.choices) {\n            if (column.selected) {\n              columns.push({ text: column.text })\n              properties.push(`$${column.id}`)\n            }\n          }\n          // columns: properties.map( (c) => { return { text: gp(c) } })\n          report.imageSpec = {\n            headers: {\n              columns,\n            },\n            colgroups: properties.map( (e, i) => `column_${i}` ),\n            table: true,\n            field: [],\n            // rows: ['$name', '$age', '$fav_colors'],\n            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            rows: properties\n          }\n          api.show(report)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          const fields = await getFields(reportable.database, reportable.collection)\n          console.log('fields', fields)\n          api.addResponse({ chooseFields: {\n            title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,\n            choices: fields.map((field) => { return { text: field, id: field } }),\n          }})\n          context.chosens = [] // for callback\n          report.showCollection = context\n        }\n      }"
         },
         {
           "id": "show",
@@ -264,7 +298,7 @@
             "verby"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const report = api.current()\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            dataSpecs.push({\n                dbName: dbName,\n                collectionName: collectionName,\n                limit: 10,\n                aggregation: [] \n            })\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column) })\n            }\n            // columns: properties.map( (c) => { return { text: gp(c) } })\n            imageSpecs.push({\n              headers: {\n                columns,\n              },\n              colgroups: properties.map( (e, i) => `column_${i}` ),\n              table: true,\n              field: [],\n              // rows: ['$name', '$age', '$fav_colors'],\n              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            })\n          }\n        }\n\n        if (dataSpecs.length == 1) {\n          report.dataSpec = dataSpecs[0]\n          report.imageSpec = imageSpecs[0]\n        } else {\n          report.dataSpec = dataSpecs\n          for (let i = 0; i < imageSpecs.length; ++i) {\n            imageSpecs[i].field = [i]\n          }\n          report.imageSpec = {\n            headers: { columns: [] },\n            table: true,\n            explicit: true,\n            field: [],\n            rows: [imageSpecs]\n          }\n        }\n        /*\n        report.dataSpec = { \n          dbName: properties[0].database, \n          collectionName: properties[0].collection, \n          aggregation: [] \n        }\n\n        report.imageSpec = {\n          headers: properties.map( gp ),\n          table: true,\n          field: [],\n          // rows: ['$name', '$age', '$fav_colors'],\n          rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n        }\n        */\n\n        api.show(report)\n      }"
+          "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const report = api.newReport()\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            dataSpecs.push({\n                dbName: dbName,\n                collectionName: collectionName,\n                limit: 10,\n                aggregation: [] \n            })\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column) })\n            }\n            // columns: properties.map( (c) => { return { text: gp(c) } })\n            imageSpecs.push({\n              headers: {\n                columns,\n              },\n              colgroups: properties.map( (e, i) => `column_${i}` ),\n              table: true,\n              field: [],\n              // rows: ['$name', '$age', '$fav_colors'],\n              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            })\n          }\n        }\n\n        if (dataSpecs.length == 1) {\n          report.dataSpec = dataSpecs[0]\n          report.imageSpec = imageSpecs[0]\n        } else {\n          report.dataSpec = dataSpecs\n          for (let i = 0; i < imageSpecs.length; ++i) {\n            imageSpecs[i].field = [i]\n          }\n          report.imageSpec = {\n            headers: { columns: [] },\n            table: true,\n            explicit: true,\n            field: [],\n            rows: [imageSpecs]\n          }\n        }\n        /*\n        report.dataSpec = { \n          dbName: properties[0].database, \n          collectionName: properties[0].collection, \n          aggregation: [] \n        }\n\n        report.imageSpec = {\n          headers: properties.map( gp ),\n          table: true,\n          field: [],\n          // rows: ['$name', '$age', '$fav_colors'],\n          rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n        }\n        */\n\n        api.show(report)\n      }"
         },
         {
           "id": "sales",
@@ -4848,6 +4882,7 @@
       "extraConfig": true,
       "name": "mongo",
       "operators": [
+        "([call] ([nameable]) (name))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -4861,6 +4896,7 @@
         "([lowercase])",
         "([show] (reportable/*))",
         "([showCollection|show] (collection/*))",
+        "([showReport|show] (report/*))",
         "([capitalize] ([reportElement]))",
         "([sales|])",
         "([year])",
@@ -4887,6 +4923,26 @@
         ]
       ],
       "bridges": [
+        {
+          "id": "call",
+          "isA": [
+            "verby"
+          ],
+          "bridge": "{ ...next(operator), nameable: after[0], name: after[1] }"
+        },
+        {
+          "id": "nameable",
+          "words": [
+            {
+              "word": "nameable",
+              "number": "one"
+            },
+            {
+              "word": "nameables",
+              "number": "many"
+            }
+          ]
+        },
         {
           "id": "case",
           "words": [
@@ -5047,7 +5103,15 @@
         {
           "id": "report",
           "parents": [
-            "theAble"
+            "theAble",
+            "nameable"
+          ]
+        },
+        {
+          "id": "showReport",
+          "bridge": "{ ...next(operator), show: after[0] }",
+          "parents": [
+            "verby"
           ]
         },
         {

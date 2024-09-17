@@ -126,7 +126,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -1271,7 +1274,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -2478,39 +2484,43 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-              "aggregation": [
-              ],
-              "collectionName": "sales",
-              "dbName": "mongo_test_database",
-              "limit": 10
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "colgroups": [
-                "column_0",
-                "column_1"
-              ],
-              "field": [
-              ],
-              "headers": {
-                "columns": [
-                  {
-                    "text": "sales"
-                  },
-                  {
-                    "text": "year"
-                  }
-                ]
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "sales",
+                "dbName": "mongo_test_database",
+                "limit": 10
               },
-              "rows": [
-                "$sales",
-                "$year"
-              ],
-              "table": true
-            },
-            "marker": "report",
-            "pullFromContext": false
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "sales"
+                    },
+                    {
+                      "text": "year"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$sales",
+                  "$year"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -3740,16 +3750,20 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "capitalizeHeader": true,
-              "rules": [
-              ]
-            },
-            "marker": "report",
-            "pullFromContext": false
+            "report": {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "rules": [
+                ]
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -5007,35 +5021,39 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-              "aggregation": [
-              ],
-              "collectionName": "users",
-              "dbName": "sample_mflix",
-              "limit": 10
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "capitalizeHeader": true,
-              "colgroups": [
-                "column_0"
-              ],
-              "field": [
-              ],
-              "headers": {
-                "columns": [
-                  {
-                    "text": "users"
-                  }
-                ]
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
               },
-              "rows": [
-                "$name"
-              ],
-              "table": true
-            },
-            "marker": "report",
-            "pullFromContext": false
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -6460,80 +6478,84 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": [
-              {
-                "aggregation": [
-                ],
-                "collectionName": "users",
-                "dbName": "sample_mflix",
-                "limit": 10
-              },
-              {
-                "aggregation": [
-                ],
-                "collectionName": "movies",
-                "dbName": "sample_mflix",
-                "limit": 10
-              }
-            ],
-            "fromSTM": true,
-            "imageSpec": {
-              "capitalizeHeader": true,
-              "explicit": true,
-              "field": [
+            "report": {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "limit": 10
+                }
               ],
-              "headers": {
-                "columns": [
-                ]
+              "fromSTM": true,
+              "imageSpec": {
+                "capitalizeHeader": true,
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "rows": [
+                  [
+                    {
+                      "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "users"
+                          }
+                        ]
+                      },
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    },
+                    {
+                      "capitalizeHeader": true,
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "text": "movies"
+                          }
+                        ]
+                      },
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
               },
-              "rows": [
-                [
-                  {
-                    "capitalizeHeader": true,
-                    "colgroups": [
-                      "column_0"
-                    ],
-                    "field": [
-                      0
-                    ],
-                    "headers": {
-                      "columns": [
-                        {
-                          "text": "users"
-                        }
-                      ]
-                    },
-                    "rows": [
-                      "$name"
-                    ],
-                    "table": true
-                  },
-                  {
-                    "capitalizeHeader": true,
-                    "colgroups": [
-                      "column_0"
-                    ],
-                    "field": [
-                      1
-                    ],
-                    "headers": {
-                      "columns": [
-                        {
-                          "text": "movies"
-                        }
-                      ]
-                    },
-                    "rows": [
-                      "$title"
-                    ],
-                    "table": true
-                  }
-                ]
-              ],
-              "table": true
-            },
-            "marker": "report",
-            "pullFromContext": false
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -7878,50 +7900,54 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "rules": [
-              ]
-            },
-            "marker": "report",
-            "pullFromContext": false,
-            "select": {
-              "dead": true,
-              "default": true,
-              "element": {
+            "report": {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "rules": [
+                ]
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "select": {
                 "dead": true,
                 "default": true,
+                "element": {
+                  "dead": true,
+                  "default": true,
+                  "level": 1,
+                  "marker": "this",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 14,
+                    "start": 11
+                  },
+                  "text": "this",
+                  "types": [
+                    "this"
+                  ],
+                  "unknown": true,
+                  "value": "this",
+                  "word": "this"
+                },
                 "level": 1,
-                "marker": "this",
-                "pullFromContext": true,
+                "marker": "capitalize",
                 "range": {
                   "end": 14,
-                  "start": 11
+                  "start": 0
                 },
-                "text": "this",
-                "types": [
-                  "this"
+                "text": "capitalize this",
+                "topLevel": true,
+                "touchedBy": [
+                  "mongo#call2"
                 ],
-                "unknown": true,
-                "value": "this",
-                "word": "this"
-              },
-              "level": 1,
-              "marker": "capitalize",
-              "range": {
-                "end": 14,
-                "start": 0
-              },
-              "text": "capitalize this",
-              "topLevel": true,
-              "touchedBy": [
-                "mongo#call2"
-              ],
-              "value": "capitalize",
-              "word": "capitalize"
+                "value": "capitalize",
+                "word": "capitalize"
+              }
             }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -9081,7 +9107,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -10112,7 +10141,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -11256,16 +11288,20 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "rules": [
-                ".header { color: blue; }"
-              ]
-            },
-            "marker": "report",
-            "pullFromContext": false
+            "report": {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "rules": [
+                  ".header { color: blue; }"
+                ]
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -12476,72 +12512,76 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "idCounter": 0,
-              "rules": [
-                ".highlight { background-color: blue; }"
-              ]
-            },
-            "marker": "report",
-            "pullFromContext": false,
-            "select": {
-              "dead": true,
-              "default": true,
-              "level": 1,
-              "marker": "changeState",
-              "newState": {
+            "report": {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "idCounter": 0,
+                "rules": [
+                  ".highlight { background-color: blue; }"
+                ]
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "select": {
                 "dead": true,
+                "default": true,
                 "level": 1,
-                "marker": "blue_colors",
-                "number": "one",
+                "marker": "changeState",
+                "newState": {
+                  "dead": true,
+                  "level": 1,
+                  "marker": "blue_colors",
+                  "number": "one",
+                  "range": {
+                    "end": 23,
+                    "start": 20
+                  },
+                  "text": "blue",
+                  "types": [
+                    "blue_colors"
+                  ],
+                  "value": "blue_colors",
+                  "word": "blue"
+                },
                 "range": {
                   "end": 23,
-                  "start": 20
+                  "start": 0
                 },
-                "text": "blue",
-                "types": [
-                  "blue_colors"
-                ],
-                "value": "blue_colors",
-                "word": "blue"
-              },
-              "range": {
-                "end": 23,
-                "start": 0
-              },
-              "reportElement": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 1,
-                "marker": "background",
-                "modifiers": [
-                  "determiner"
-                ],
-                "number": "one",
-                "pullFromContext": true,
-                "range": {
-                  "end": 18,
-                  "start": 5
+                "reportElement": {
+                  "concept": true,
+                  "dead": true,
+                  "determiner": "the",
+                  "focusableForPhrase": true,
+                  "level": 1,
+                  "marker": "background",
+                  "modifiers": [
+                    "determiner"
+                  ],
+                  "number": "one",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 18,
+                    "start": 5
+                  },
+                  "text": "the background",
+                  "types": [
+                    "background"
+                  ],
+                  "wantsValue": true,
+                  "word": "background"
                 },
-                "text": "the background",
-                "types": [
-                  "background"
+                "text": "make the background blue",
+                "topLevel": true,
+                "touchedBy": [
+                  "mongo#call2"
                 ],
-                "wantsValue": true,
-                "word": "background"
-              },
-              "text": "make the background blue",
-              "topLevel": true,
-              "touchedBy": [
-                "mongo#call2"
-              ],
-              "word": "make"
+                "word": "make"
+              }
             }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -13812,7 +13852,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -15005,7 +15048,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -16353,7 +16399,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -17595,7 +17644,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -18822,7 +18874,10 @@
         "meta2": {
         },
         "mongo1": {
-          "lastResponse": null,
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
           "select": [
           ],
           "show": [
@@ -20050,37 +20105,41 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-              "aggregation": [
-              ],
-              "collectionName": "users",
-              "dbName": "sample_mflix",
-              "limit": 10
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "colgroups": [
-                "column_0"
-              ],
-              "field": [
-              ],
-              "headers": {
-                "columns": [
-                  {
-                    "text": "users"
-                  }
-                ]
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
               },
-              "rows": [
-                "$name"
-              ],
-              "rules": [
-                ".header { color: blue; }"
-              ],
-              "table": true
-            },
-            "marker": "report",
-            "pullFromContext": false
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "rules": [
+                  ".header { color: blue; }"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -21367,72 +21426,76 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "idCounter": 0,
-              "rules": [
-                ".highlight { text-transform: uppercase; }"
-              ]
-            },
-            "marker": "report",
-            "pullFromContext": false,
-            "select": {
-              "dead": true,
-              "default": true,
-              "level": 1,
-              "marker": "changeState",
-              "newState": {
+            "report": {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "idCounter": 0,
+                "rules": [
+                  ".highlight { text-transform: uppercase; }"
+                ]
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "select": {
                 "dead": true,
                 "default": true,
                 "level": 1,
-                "marker": "uppercase",
+                "marker": "changeState",
+                "newState": {
+                  "dead": true,
+                  "default": true,
+                  "level": 1,
+                  "marker": "uppercase",
+                  "range": {
+                    "end": 24,
+                    "start": 16
+                  },
+                  "text": "uppercase",
+                  "types": [
+                    "uppercase"
+                  ],
+                  "value": "uppercase",
+                  "word": "uppercase"
+                },
                 "range": {
                   "end": 24,
-                  "start": 16
+                  "start": 0
                 },
-                "text": "uppercase",
-                "types": [
-                  "uppercase"
-                ],
-                "value": "uppercase",
-                "word": "uppercase"
-              },
-              "range": {
-                "end": 24,
-                "start": 0
-              },
-              "reportElement": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 1,
-                "marker": "header",
-                "modifiers": [
-                  "determiner"
-                ],
-                "number": "one",
-                "pullFromContext": true,
-                "range": {
-                  "end": 14,
-                  "start": 5
+                "reportElement": {
+                  "concept": true,
+                  "dead": true,
+                  "determiner": "the",
+                  "focusableForPhrase": true,
+                  "level": 1,
+                  "marker": "header",
+                  "modifiers": [
+                    "determiner"
+                  ],
+                  "number": "one",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 14,
+                    "start": 5
+                  },
+                  "text": "the header",
+                  "types": [
+                    "header"
+                  ],
+                  "wantsValue": true,
+                  "word": "header"
                 },
-                "text": "the header",
-                "types": [
-                  "header"
+                "text": "make the header uppercase",
+                "topLevel": true,
+                "touchedBy": [
+                  "mongo#call2"
                 ],
-                "wantsValue": true,
-                "word": "header"
-              },
-              "text": "make the header uppercase",
-              "topLevel": true,
-              "touchedBy": [
-                "mongo#call2"
-              ],
-              "word": "make"
+                "word": "make"
+              }
             }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -22875,102 +22938,106 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "idCounter": 0,
-              "rules": [
-                ".highlight { text-transform: uppercase; }"
-              ]
-            },
-            "marker": "report",
-            "pullFromContext": false,
-            "select": {
-              "dead": true,
-              "default": true,
-              "level": 1,
-              "marker": "changeState",
-              "newState": {
+            "report": {
+              "dataSpec": {
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "idCounter": 0,
+                "rules": [
+                  ".highlight { text-transform: uppercase; }"
+                ]
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "select": {
                 "dead": true,
+                "default": true,
                 "level": 1,
-                "marker": "uppercase",
-                "number": "one",
+                "marker": "changeState",
+                "newState": {
+                  "dead": true,
+                  "level": 1,
+                  "marker": "uppercase",
+                  "number": "one",
+                  "range": {
+                    "end": 25,
+                    "start": 21
+                  },
+                  "text": "upper",
+                  "types": [
+                    "uppercase"
+                  ],
+                  "value": "uppercase",
+                  "word": "upper"
+                },
                 "range": {
                   "end": 25,
-                  "start": 21
+                  "start": 0
                 },
-                "text": "upper",
-                "types": [
-                  "uppercase"
-                ],
-                "value": "uppercase",
-                "word": "upper"
-              },
-              "range": {
-                "end": 25,
-                "start": 0
-              },
-              "reportElement": {
-                "concept": true,
-                "dead": true,
-                "determiner": "the",
-                "focusableForPhrase": true,
-                "level": 1,
-                "marker": "compoundReportElement",
-                "modifiers": [
-                  "determiner"
-                ],
-                "pullFromContext": true,
-                "range": {
-                  "end": 19,
-                  "start": 5
-                },
-                "reportElements": [
-                  {
-                    "dead": true,
-                    "level": 1,
-                    "marker": "header",
-                    "number": "one",
-                    "range": {
-                      "end": 14,
-                      "start": 9
-                    },
-                    "text": "header",
-                    "types": [
-                      "header"
-                    ],
-                    "word": "header"
+                "reportElement": {
+                  "concept": true,
+                  "dead": true,
+                  "determiner": "the",
+                  "focusableForPhrase": true,
+                  "level": 1,
+                  "marker": "compoundReportElement",
+                  "modifiers": [
+                    "determiner"
+                  ],
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 19,
+                    "start": 5
                   },
-                  {
-                    "dead": true,
-                    "level": 1,
-                    "marker": "case",
-                    "number": "one",
-                    "range": {
-                      "end": 19,
-                      "start": 16
+                  "reportElements": [
+                    {
+                      "dead": true,
+                      "level": 1,
+                      "marker": "header",
+                      "number": "one",
+                      "range": {
+                        "end": 14,
+                        "start": 9
+                      },
+                      "text": "header",
+                      "types": [
+                        "header"
+                      ],
+                      "word": "header"
                     },
-                    "text": "case",
-                    "types": [
-                      "case"
-                    ],
-                    "word": "case"
-                  }
+                    {
+                      "dead": true,
+                      "level": 1,
+                      "marker": "case",
+                      "number": "one",
+                      "range": {
+                        "end": 19,
+                        "start": 16
+                      },
+                      "text": "case",
+                      "types": [
+                        "case"
+                      ],
+                      "word": "case"
+                    }
+                  ],
+                  "text": "the header case",
+                  "types": [
+                    "compoundReportElement"
+                  ],
+                  "wantsValue": true
+                },
+                "text": "make the header case upper",
+                "topLevel": true,
+                "touchedBy": [
+                  "mongo#call2"
                 ],
-                "text": "the header case",
-                "types": [
-                  "compoundReportElement"
-                ],
-                "wantsValue": true
-              },
-              "text": "make the header case upper",
-              "topLevel": true,
-              "touchedBy": [
-                "mongo#call2"
-              ],
-              "word": "make"
+                "word": "make"
+              }
             }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -24600,37 +24667,41 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-              "aggregation": [
-              ],
-              "collectionName": "users",
-              "dbName": "sample_mflix",
-              "limit": 10
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "colgroups": [
-                "column_0"
-              ],
-              "field": [
-              ],
-              "headers": {
-                "columns": [
-                  {
-                    "text": "the users"
-                  }
-                ]
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
               },
-              "rows": [
-                "$name"
-              ],
-              "rules": [
-                ".header { text-transform: uppercase; }"
-              ],
-              "table": true
-            },
-            "marker": "report",
-            "pullFromContext": false
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "the users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "rules": [
+                  ".header { text-transform: uppercase; }"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -26162,37 +26233,41 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-              "aggregation": [
-              ],
-              "collectionName": "users",
-              "dbName": "sample_mflix",
-              "limit": 10
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "colgroups": [
-                "column_0"
-              ],
-              "field": [
-              ],
-              "headers": {
-                "columns": [
-                  {
-                    "text": "the users"
-                  }
-                ]
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
               },
-              "rows": [
-                "$name"
-              ],
-              "rules": [
-                ".header { text-transform: lowercase; }"
-              ],
-              "table": true
-            },
-            "marker": "report",
-            "pullFromContext": false
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "the users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "rules": [
+                  ".header { text-transform: lowercase; }"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -27614,40 +27689,44 @@
         },
         "mongo1": {
           "lastResponse": {
-            "dataSpec": {
-              "aggregation": [
-              ],
-              "collectionName": "users",
-              "dbName": "sample_mflix",
-              "limit": 10
-            },
-            "fromSTM": true,
-            "imageSpec": {
-              "colgroups": [
-                "column_0"
-              ],
-              "field": [
-              ],
-              "headers": {
-                "columns": [
-                  {
-                    "text": "the users"
-                  }
+            "report": {
+              "dataSpec": {
+                "aggregation": [
                 ],
-                "id": "header2"
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
               },
-              "id": "table1",
-              "idCounter": 2,
-              "rows": [
-                "$name"
-              ],
-              "rules": [
-                ".header { text-transform: uppercase; }"
-              ],
-              "table": true
-            },
-            "marker": "report",
-            "pullFromContext": false
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "the users"
+                    }
+                  ],
+                  "id": "header2"
+                },
+                "id": "table1",
+                "idCounter": 2,
+                "rows": [
+                  "$name"
+                ],
+                "rules": [
+                  ".header { text-transform: uppercase; }"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false
+            }
+          },
+          "namedReports": {
           },
           "select": [
           ],
@@ -28727,6 +28806,2911 @@
     ],
     "query": "show the users\\nmake the header uppercase",
     "responses": [
+      "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "call",
+          0
+        ],
+        [
+          "report",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          0
+        ]
+      ],
+      [
+        [
+          "call",
+          0
+        ],
+        [
+          "report",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ]
+      ],
+      [
+        [
+          "call",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ]
+      ],
+      [
+        [
+          "call",
+          0
+        ],
+        [
+          "unknown",
+          1
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 9,
+          "start": 0
+        },
+        "show": {
+          "collection": "users",
+          "database": "sample_mflix",
+          "dead": true,
+          "level": 1,
+          "marker": "user",
+          "number": "many",
+          "path": [
+            "name"
+          ],
+          "range": {
+            "end": 9,
+            "start": 5
+          },
+          "text": "users",
+          "types": [
+            "user"
+          ],
+          "word": "users"
+        },
+        "text": "show users",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "call",
+        "name": {
+          "dead": true,
+          "level": 1,
+          "marker": "unknown",
+          "range": {
+            "end": 21,
+            "start": 16
+          },
+          "text": "banana",
+          "unknown": true,
+          "value": "banana",
+          "word": "banana"
+        },
+        "nameable": {
+          "concept": true,
+          "dead": true,
+          "default": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "report",
+          "modifiers": [
+            "determiner"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 5
+          },
+          "text": "the report",
+          "types": [
+            "report"
+          ],
+          "value": "report",
+          "wantsValue": true,
+          "word": "report"
+        },
+        "range": {
+          "end": 21,
+          "start": 0
+        },
+        "text": "call the report banana",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "call",
+        "word": "call"
+      }
+    ],
+    "generatedParenthesized": [
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "user",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "user",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 1,
+          "op": [
+            "unknown",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ],
+            [
+              "report",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "report",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ],
+            [
+              "report",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "call",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "colors": "colors2",
+        "concept": "concept2",
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "negation": "negation2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "colors2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "dialogues2": {
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "lastResponse": {
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            },
+            "reportNames": [
+              {
+                "id": "banana",
+                "name": "banana",
+                "selected": true
+              }
+            ]
+          },
+          "namedReports": {
+            "banana": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            }
+          },
+          "select": [
+          ],
+          "show": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            }
+          ]
+        },
+        "negation2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "unknown",
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "xfx",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "thisitthat",
+              "reason"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "noun",
+              "reason"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "unknown": [
+              "property"
+            ],
+            "verby": [
+              "modifies",
+              "is"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "object",
+            "what",
+            "queryable",
+            "readonly",
+            "property",
+            "xfx",
+            "theAble",
+            "whose",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "between",
+            "preposition",
+            "concept",
+            "modifies",
+            "verby",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "noun",
+            "thisitthat",
+            "reason",
+            "that",
+            "orAble",
+            "ifAble",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verby"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "modifies": [
+              "verby"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble",
+              "unknown"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "doubleQuote": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verby": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "call",
+            "name": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 16
+              },
+              "text": "banana",
+              "unknown": true,
+              "value": "banana",
+              "word": "banana"
+            },
+            "nameable": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "report",
+              "modifiers": [
+                "determiner"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 5
+              },
+              "text": "the report",
+              "types": [
+                "report"
+              ],
+              "value": "report",
+              "wantsValue": true,
+              "word": "report"
+            },
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "call the report banana",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "call",
+            "word": "call"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "call the report banana",
+          "paraphrasesParenthesized": "(call (the (report)) (banana))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 9,
+              "start": 0
+            },
+            "show": {
+              "collection": "users",
+              "database": "sample_mflix",
+              "dead": true,
+              "level": 1,
+              "marker": "user",
+              "number": "many",
+              "path": [
+                "name"
+              ],
+              "range": {
+                "end": 9,
+                "start": 5
+              },
+              "text": "users",
+              "types": [
+                "user"
+              ],
+              "word": "users"
+            },
+            "text": "show users",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show users",
+          "paraphrasesParenthesized": "(show (users))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 23,
+                "start": 14
+              },
+              "text": "collection",
+              "unknown": true,
+              "value": "collection",
+              "word": "collection"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "collection": "users",
+                "database": "sample_mflix",
+                "dead": true,
+                "level": 1,
+                "marker": "user",
+                "number": "one",
+                "path": [
+                  "name"
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "user",
+                "word": "user"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 23,
+              "start": 0
+            },
+            "text": "user modifies collection",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "user modifies collection",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2",
+              "instance12#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show users",
+      "call the report banana"
+    ],
+    "paraphrasesParenthesized": [
+      "(show (users))",
+      "(call (the (report)) (banana))"
+    ],
+    "query": "show users\\ncall the report banana",
+    "responses": [
+      "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "report",
+          0
+        ],
+        [
+          "showReport",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 9,
+          "start": 0
+        },
+        "show": {
+          "collection": "users",
+          "database": "sample_mflix",
+          "dead": true,
+          "level": 1,
+          "marker": "user",
+          "number": "many",
+          "path": [
+            "name"
+          ],
+          "range": {
+            "end": 9,
+            "start": 5
+          },
+          "text": "users",
+          "types": [
+            "user"
+          ],
+          "word": "users"
+        },
+        "text": "show users",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "call",
+        "name": {
+          "dead": true,
+          "level": 1,
+          "marker": "unknown",
+          "range": {
+            "end": 21,
+            "start": 16
+          },
+          "text": "banana",
+          "unknown": true,
+          "value": "banana",
+          "word": "banana"
+        },
+        "nameable": {
+          "concept": true,
+          "dead": true,
+          "default": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "report",
+          "modifiers": [
+            "determiner"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 5
+          },
+          "text": "the report",
+          "types": [
+            "report"
+          ],
+          "value": "report",
+          "wantsValue": true,
+          "word": "report"
+        },
+        "range": {
+          "end": 21,
+          "start": 0
+        },
+        "text": "call the report banana",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "call",
+        "word": "call"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "showReport",
+        "range": {
+          "end": 10,
+          "start": 0
+        },
+        "show": {
+          "dead": true,
+          "level": 1,
+          "marker": "report",
+          "namedReport": true,
+          "range": {
+            "end": 10,
+            "start": 5
+          },
+          "text": "banana",
+          "types": [
+            "report"
+          ],
+          "value": "banana",
+          "word": "banana"
+        },
+        "text": "show banana",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "word": "show"
+      }
+    ],
+    "generatedParenthesized": [
+      "",
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "user",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "user",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 1,
+          "op": [
+            "unknown",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ],
+            [
+              "report",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "unknown",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "report",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ],
+            [
+              "report",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "call",
+            0
+          ],
+          "ops": [
+            [
+              "call",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 1,
+          "op": [
+            "report",
+            0
+          ],
+          "ops": [
+            [
+              "report",
+              0
+            ],
+            [
+              "showReport",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "showReport",
+            0
+          ],
+          "ops": [
+            [
+              "showReport",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "colors": "colors2",
+        "concept": "concept2",
+        "dialogues": "dialogues2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "negation": "negation2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2"
+      },
+      "namespaced": {
+        "colors2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "dialogues2": {
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "lastResponse": {
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            },
+            "reportNames": [
+              {
+                "id": "banana",
+                "name": "banana",
+                "selected": true
+              }
+            ]
+          },
+          "namedReports": {
+            "banana": {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            }
+          },
+          "select": [
+          ],
+          "show": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            },
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            }
+          ]
+        },
+        "negation2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "unknown",
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "xfx",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "thisitthat",
+              "reason"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "noun",
+              "reason"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "unknown": [
+              "property"
+            ],
+            "verby": [
+              "modifies",
+              "is"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "object",
+            "what",
+            "queryable",
+            "readonly",
+            "property",
+            "xfx",
+            "theAble",
+            "whose",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "between",
+            "preposition",
+            "concept",
+            "modifies",
+            "verby",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "noun",
+            "thisitthat",
+            "reason",
+            "that",
+            "orAble",
+            "ifAble",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verby"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "modifies": [
+              "verby"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble",
+              "unknown"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "object",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "doubleQuote": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verby": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            },
+            {
+              "dataSpec": {
+                "aggregation": [
+                ],
+                "collectionName": "users",
+                "dbName": "sample_mflix",
+                "limit": 10
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "users"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$name"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "names": [
+                "banana"
+              ],
+              "pullFromContext": false
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "showReport",
+            "range": {
+              "end": 10,
+              "start": 0
+            },
+            "show": {
+              "dead": true,
+              "level": 1,
+              "marker": "report",
+              "namedReport": true,
+              "range": {
+                "end": 10,
+                "start": 5
+              },
+              "text": "banana",
+              "types": [
+                "report"
+              ],
+              "value": "banana",
+              "word": "banana"
+            },
+            "text": "show banana",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show banana",
+          "paraphrasesParenthesized": "(show (banana))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "call",
+            "name": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 21,
+                "start": 16
+              },
+              "text": "banana",
+              "unknown": true,
+              "value": "banana",
+              "word": "banana"
+            },
+            "nameable": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "report",
+              "modifiers": [
+                "determiner"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 5
+              },
+              "text": "the report",
+              "types": [
+                "report"
+              ],
+              "value": "report",
+              "wantsValue": true,
+              "word": "report"
+            },
+            "range": {
+              "end": 21,
+              "start": 0
+            },
+            "text": "call the report banana",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "call",
+            "word": "call"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "call the report banana",
+          "paraphrasesParenthesized": "(call (the (report)) (banana))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 9,
+              "start": 0
+            },
+            "show": {
+              "collection": "users",
+              "database": "sample_mflix",
+              "dead": true,
+              "level": 1,
+              "marker": "user",
+              "number": "many",
+              "path": [
+                "name"
+              ],
+              "range": {
+                "end": 9,
+                "start": 5
+              },
+              "text": "users",
+              "types": [
+                "user"
+              ],
+              "word": "users"
+            },
+            "text": "show users",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show users",
+          "paraphrasesParenthesized": "(show (users))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "range": {
+                "end": 23,
+                "start": 14
+              },
+              "text": "collection",
+              "unknown": true,
+              "value": "collection",
+              "word": "collection"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "collection": "users",
+                "database": "sample_mflix",
+                "dead": true,
+                "level": 1,
+                "marker": "user",
+                "number": "one",
+                "path": [
+                  "name"
+                ],
+                "range": {
+                  "end": 3,
+                  "start": 0
+                },
+                "text": "user",
+                "word": "user"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 23,
+              "start": 0
+            },
+            "text": "user modifies collection",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "user modifies collection",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show users",
+      "call the report banana",
+      "show banana"
+    ],
+    "paraphrasesParenthesized": [
+      "(show (users))",
+      "(call (the (report)) (banana))",
+      "(show (banana))"
+    ],
+    "query": "show users\\ncall the report banana\\nshow banana",
+    "responses": [
+      "",
       "",
       ""
     ]

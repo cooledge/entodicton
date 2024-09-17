@@ -57,36 +57,69 @@ class API {
   initialize(args) {
     this.args = args
     this.objects = this.args.objects
-    this.listeners = []
 
     // these are just for testing
     this.objects.show = []
     this.objects.select = []
-    this.objects.lastResponse = null
+    this.objects.lastResponse = {}
+    this.objects.namedReports = {}
   }
 
   current() {
     return this.args.mentions({ marker: 'report' }) || this.newReport()
   }
 
+  setCurrent(report) {
+    this.args.km('stm').api.mentioned(report)
+  }
+
   show(report) {
     // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
     this.objects.show.push(report)
     console.log('show -----------', report)
-    this.objects.lastResponse = report
-    this.listeners.forEach( (l) => l(report) )
+    this.addResponse({ report })
+  }
+
+  // report is a context
+  nameReport(report, name) {
+    this.objects.namedReports[name] = report
+    if (!report.names) {
+      report.names = []
+    }
+    report.names.push(name)
+    this.addResponse({ reportNames: this.getReportNames() })
+  }
+
+  addResponse(response) {
+    Object.assign(this.objects.lastResponse, response)
+  }
+
+  getNamedReport(name) {
+    return this.objects.namedReports[name]
+  }
+
+  getReportNames() {
+    const current = this.current()
+    console.log('getReportNames current', JSON.stringify(current, null, 2))
+    return Object.keys(this.objects.namedReports).map( (name) => { 
+      const selected = (current.names || []).includes(name)
+      return { name, selected, id: name } 
+    })
+  }
+
+  selectReport(name) {
+    debugger
+    const report = this.objects.namedReports[name]
+    this.setCurrent(report)
+    this.show(report)
   }
 
   clearLastResponse() {
-    this.objects.lastReponse = null
+    this.objects.lastResponse = {}
   }
 
   lastResponse() {
     return this.objects.lastResponse
-  }
-
-  listen(listener) {
-    this.listeners.push(listener)
   }
 
   newReport() {
@@ -123,6 +156,7 @@ class API {
 let configStruct = {
   name: 'mongo',
   operators: [
+    "([call] ([nameable]) (name))",
     "([make] ([report]))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
     // table 1 header background blue
@@ -147,6 +181,7 @@ let configStruct = {
     // "([reportable])",
     "([show] (reportable/*))",
     "([showCollection|show] (collection/*))",
+    "([showReport|show] (report/*))",
     "([capitalize] ([reportElement]))",
     "([sales|])",
     "([year])",
@@ -162,6 +197,21 @@ let configStruct = {
     ['case', 'reportElement'],
   ],
   bridges: [
+    {
+      id: 'call',
+      isA: ['verby'],
+      bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
+      // localHierarchy: [['unknown', 'nameable']],
+      generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
+      semantic: async ({config, context, api}) => {
+        // TODO find report being referred to
+        const report = api.current()
+        const name = context.name.text
+        config.addWord(name, { id: 'report', initial: `{ value: "${name}", namedReport: true }` })
+        api.nameReport(report, name)
+      }
+    },
+    { id: 'nameable', words: helpers.words('nameable')},
     /*
     {
       id: 'collection',
@@ -368,14 +418,21 @@ let configStruct = {
     },
 
     { id: 'report',
-      parents: ['theAble']
+      parents: ['theAble', 'nameable']
     },
 
-/*
-    { 
-      id: 'reportable',
+    { id: 'showReport',
+      bridge: "{ ...next(operator), show: after[0] }",
+      parents: ['verby'],
+      generatorp: async ({context, g}) => `show ${await g(context.show)}`,
+      semantic: async ({context, api}) => {
+        const name = context.show.value
+        const report = api.getNamedReport(name)
+        api.setCurrent(report)
+        api.show(report)
+      },
     },
-*/
+
     { id: 'showCollection',
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verby'],
@@ -425,6 +482,7 @@ let configStruct = {
             // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
             rows: properties
           }
+          api.show(report)
         } else {
           const reportables = []
           for (const modifier of context.show.modifiers) {
@@ -436,15 +494,13 @@ let configStruct = {
           const reportable = reportables[0]
           const fields = await getFields(reportable.database, reportable.collection)
           console.log('fields', fields)
-          report.chooseFields = {
+          api.addResponse({ chooseFields: {
             title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,
             choices: fields.map((field) => { return { text: field, id: field } }),
-          }
+          }})
           context.chosens = [] // for callback
           report.showCollection = context
         }
-        debugger
-        api.show(report)
       }
     },
 
@@ -453,7 +509,7 @@ let configStruct = {
       parents: ['verby'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, km, mentions, api, flatten, gp}) => {
-        const report = api.current()
+        const report = api.newReport()
         const toArray = (context) => {
           if (context.isList) {
             return context.value
@@ -638,7 +694,7 @@ knowledgeModule( {
     contents: mongo_tests,
     checks: {
       context: defaultContextCheck,
-      objects: ['show', 'select', 'lastResponse', { km: 'stm' }],
+      objects: ['show', 'select', 'lastResponse', 'namedReports', { km: 'stm' }],
     },
 
   },
