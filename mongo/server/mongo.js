@@ -39,6 +39,8 @@ const { getReportElements } = require('./mongo_helpers')
   make the header green\n no the background
   pick the header color
   cancel that (selecting)
+
+  show the previous/last report/show the one before/the report before
  */
 
 const stateToCSS = (isA, property, state) => {

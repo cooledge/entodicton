@@ -228,6 +228,9 @@ function App() {
   const [namedReports, setNamedReports] = useState([])
 
   const handleResponse = (response) => {
+    console.log('response', response)
+    setChosen(null)
+    setChoices([])
     setCounter(counter+1)
     if (response.chooseFields) {
       setChooserTitle(response.chooseFields.title)
@@ -276,9 +279,8 @@ function App() {
     const doIt = async () => {
       setNoSession()
       if (choices.length > 0) {
-        debugger
-        setChosen(null)
-        setChoices([])
+        // setChosen(null)
+        // setChoices([])
         console.log('call the server with the results', chosen, choices)
         const result = await callServer({ chosen, choices })
         handleResponse(result)
