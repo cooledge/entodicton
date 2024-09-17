@@ -21,11 +21,11 @@ function Chooser(props) {
       <div className="Content">
         <header>{title}</header>
         <div class="ChooserList">
-          { choices.map( ({text, id, selected}) => <div onClick={onClickItem(id)} className={selected ? "ChooserSelected ChooserItem" : "ChooserItem"} key={id}>{text}</div> ) }
+          { choices.map( ({text, id, selected}) => <div onClick={onClickItem(id)} className={selected ? "ChooserSelected ChooserItem" : "ChooserItem"} id={`ChooserItem_${id}`} key={id}>{text}</div> ) }
         </div>
         <div className="Buttons">
-          <span className="ChooserButton" onClick={onClickButton("cancel")}>Cancel</span>
-          <span className="ChooserButton" onClick={onClickButton("select")}>Select</span>
+          <span className="ChooserButton ChooserButtonCancel" onClick={onClickButton("cancel")}>Cancel</span>
+          <span className="ChooserButton ChooserButtonSelect" onClick={onClickButton("select")}>Select</span>
         </div>
       </div>
     </div>
