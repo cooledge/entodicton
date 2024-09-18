@@ -173,7 +173,7 @@ module.exports =
     [({context}) => context.isProperty, async ({g, gs, context}) => `the ${context.propertyName} of ${await g(context.object)} is ${await g(context.value)}`],
     [({context}) => context.marker == 'number', async ({g, gs, context}) => `${await g(context.value)}`],
     [({context}) => context.marker == 'equal', async ({g, gs, context}) => `${await g(context.objects[1])}`],
-    [({context}) => context.marker == 'conj', async ({g, gs, context}) => `await gs(context.value, ' and ')`],
+    [({context}) => context.marker == 'conj', async ({g, gs, context}) => await gs(context.value, ' and ')],
     [({context}) => context.marker == 'move' && context.language == 'french', async ({g, gs, context}) => `deplacez ${await g(context.thing)} vers ${await g(context.place)}`],
     [({context}) => context.marker == 'move', async ({g, gs, context}) => `move ${await g(context.thing)} to ${await g(context.place)}`],
     [({context}) => context.marker == 'create', async ({g, gs, context}) => `create ${await g(context.klass)}`],
