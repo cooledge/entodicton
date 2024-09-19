@@ -1212,7 +1212,10 @@
       "name": "nameable",
       "description": "namable objects",
       "examples": [
-        "remember m1\\ncall the m1 banana\\ngetnamesbytype m1"
+        "remember m1 call the m1 banana",
+        "remember m1\\ncall the m1 banana\\nevaluate banana",
+        "remember m1\\ncall the m1 banana\\ngetnamesbytype m1",
+        "remember m1\\ncall the m1 banana\\nbanana"
       ],
       "template": [],
       "includes": [
