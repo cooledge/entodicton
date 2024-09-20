@@ -34,6 +34,7 @@
       "name": "Hidden",
       "description": "Don't show in the UI",
       "includes": [
+        "listener",
         "tokenize"
       ]
     },
@@ -1136,6 +1137,19 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/length.js"
+    },
+    {
+      "name": "listener",
+      "description": "test of listeners",
+      "examples": [
+        "call"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/listener.js"
     },
     {
       "name": "math",
