@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, where } = require('theprogrammablemind')
-const { helpers, defaultContextCheck, colors, negation, hierarchy } = require('tpmkms')
+const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const image = require('./image')
@@ -68,11 +68,11 @@ class API {
   }
 
   current() {
-    return this.args.mentions({ marker: 'report' }) || this.newReport()
+    return this.args.mentions({ context: { marker: 'report' } }) || this.newReport()
   }
 
   setCurrent(report) {
-    this.args.km('stm').api.mentioned(report)
+    this.args.km('stm').api.mentioned({ context: report })
   }
 
   show(report) {
@@ -82,6 +82,7 @@ class API {
     this.addResponse({ report })
   }
 
+  /*
   // report is a context
   nameReport(report, name) {
     this.objects.namedReports[name] = report
@@ -91,11 +92,13 @@ class API {
     report.names.push(name)
     this.addResponse({ reportNames: this.getReportNames() })
   }
+  */
 
   addResponse(response) {
     Object.assign(this.objects.lastResponse, response)
   }
 
+  /*
   getNamedReport(name) {
     return this.objects.namedReports[name]
   }
@@ -108,10 +111,26 @@ class API {
       return { name, selected, id: name } 
     })
   }
+  */
+
+  getReportNames() {
+    const stm = this.args.kms.stm.api
+    const nameable = this.args.kms.nameable.api
+    const reports = stm.mentions({ context: { marker: 'report' }, all: true })
+    const names = []
+    const currentNames = nameable.getNames(this.current())
+    for (const report of reports) {
+      for (const name of nameable.getNames(report)) {
+        const selected = currentNames.includes(name)
+        names.push({ name, selected, id: name })
+      }
+    }
+    return names
+  }
 
   selectReport(name) {
     debugger
-    const report = this.objects.namedReports[name]
+    const report = this.args.kms.nameable.api.get({ marker: 'report' }, name)
     this.setCurrent(report)
     this.show(report)
   }
@@ -150,7 +169,7 @@ class API {
         return true
       }
     }
-    this.args.km('stm').api.mentioned(report)
+    this.args.km('stm').api.mentioned({ context: report })
     return report
   }
 }
@@ -158,7 +177,7 @@ class API {
 let configStruct = {
   name: 'mongo',
   operators: [
-    "([call] ([nameable]) (name))",
+    // "([call] ([nameable]) (name))",
     "([make] ([report]))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
     // table 1 header background blue
@@ -199,6 +218,7 @@ let configStruct = {
     ['case', 'reportElement'],
   ],
   bridges: [
+    /*
     {
       id: 'call',
       isA: ['verby'],
@@ -213,7 +233,8 @@ let configStruct = {
         api.nameReport(report, name)
       }
     },
-    { id: 'nameable', words: helpers.words('nameable')},
+    */
+    // { id: 'nameable', words: helpers.words('nameable')},
     /*
     {
       id: 'collection',
@@ -427,9 +448,10 @@ let configStruct = {
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verby'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
-      semantic: async ({context, api}) => {
+      semantic: async ({context, kms, api}) => {
+        debugger
         const name = context.show.value
-        const report = api.getNamedReport(name)
+        const report = kms.nameable.api.get({ marker: 'report' }, name)
         api.setCurrent(report)
         api.show(report)
       },
@@ -678,17 +700,15 @@ const template = {
   ],
 }
 
-const createConfig = async () => {
-  const config = new Config({ name: 'mongo' }, module)
-  await config.add(hierarchy, colors, negation)
-  await config.setApi(new API())
-  config.server('http://localhost:3000')
-  return config
-}
-
 knowledgeModule( { 
+  config: { name: 'mongo' },
+  includes: [hierarchy, colors, negation, nameable],
+  api: () => new API(),
+  initializer: ({config}) => {
+    config.server('http://localhost:3000')
+  },
+
   module,
-  createConfig,
   description: 'language access for mongo databases',
   template: { template, instance },
   test: {

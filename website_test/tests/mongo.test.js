@@ -175,7 +175,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['name'])
     }, timeout);
 
-    test(`NEO23 MONGO show users collection select name + email and show the report by name`, async () => {
+    test(`MONGO show users collection select name + email and show the report by name`, async () => {
       await query('show the users')
       await query('call the report banana')
       await query('show the movies')

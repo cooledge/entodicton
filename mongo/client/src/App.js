@@ -61,6 +61,19 @@ const testQuery = {
   },
 }
 
+const callResetSession = async () => {
+  const url = `${new URL(window.location.href).origin}/mongoapi`
+  await fetch(`${url}/reset`, {
+    method: 'POST',
+    body: '{}',
+    timeout: 1000 * 60 * 5,
+    headers: {
+      mode: 'no-cors',
+      'Content-Type': 'application/json'
+    }
+  })
+}
+
 const callServer = async (query) => {
   const url = `${new URL(window.location.href).origin}/mongoapi`
   // TODO some kind of client id for state
@@ -226,6 +239,22 @@ function App() {
   const [noSession, setNoSession] = useState()
   // const [namedReports, setNamedReports] = useState([{ name: 'one', id: '1', selected: false }, { name: 'two', id: '2', selected: true }, { name: 'three', id: '3', selected: false }])
   const [namedReports, setNamedReports] = useState([])
+  const [resetSession, setResetSession] = useState(false)
+
+  useEffect( () => {
+    if (!resetSession) {
+      return
+    }
+    (async () => {
+      await callResetSession()
+      debugger
+      setNamedReports([])
+      setResetSession(false)
+      setData([])
+      setRules([])
+      setCounter(0)
+    })()
+  }, [resetSession, setNamedReports, setResetSession, setData, setRules, setCounter])
 
   const handleResponse = (response) => {
     console.log('response', response)
@@ -312,7 +341,7 @@ function App() {
       { choices.length > 0 &&
         <Chooser title={chooserTitle} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
       }
-      <Query doQuery={doQuery}/>
+      <Query doQuery={doQuery} resetSession={() => setResetSession(true)}/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>
       {
         namedReports.length > 0 &&

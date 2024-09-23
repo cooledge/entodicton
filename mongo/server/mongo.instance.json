@@ -39,7 +39,6 @@
     {
       "name": "mongo",
       "operators": [
-        "([call] ([nameable]) (name))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -80,28 +79,6 @@
         ]
       ],
       "bridges": [
-        {
-          "id": "call",
-          "isA": [
-            "verby"
-          ],
-          "bridge": "{ ...next(operator), nameable: after[0], name: after[1] }",
-          "generatorp": "async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`",
-          "semantic": "async ({config, context, api}) => {\n        // TODO find report being referred to\n        const report = api.current()\n        const name = context.name.text\n        config.addWord(name, { id: 'report', initial: `{ value: \"${name}\", namedReport: true }` })\n        api.nameReport(report, name)\n      }"
-        },
-        {
-          "id": "nameable",
-          "words": [
-            {
-              "word": "nameable",
-              "number": "one"
-            },
-            {
-              "word": "nameables",
-              "number": "many"
-            }
-          ]
-        },
         {
           "id": "case",
           "words": [
@@ -280,7 +257,7 @@
             "verby"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, api}) => {\n        const name = context.show.value\n        const report = api.getNamedReport(name)\n        api.setCurrent(report)\n        api.show(report)\n      }"
+          "semantic": "async ({context, kms, api}) => {\n        debugger\n        const name = context.show.value\n        const report = kms.nameable.api.get({ marker: 'report' }, name)\n        api.setCurrent(report)\n        api.show(report)\n      }"
         },
         {
           "id": "showCollection",
@@ -4882,7 +4859,6 @@
       "extraConfig": true,
       "name": "mongo",
       "operators": [
-        "([call] ([nameable]) (name))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -4923,26 +4899,6 @@
         ]
       ],
       "bridges": [
-        {
-          "id": "call",
-          "isA": [
-            "verby"
-          ],
-          "bridge": "{ ...next(operator), nameable: after[0], name: after[1] }"
-        },
-        {
-          "id": "nameable",
-          "words": [
-            {
-              "word": "nameable",
-              "number": "one"
-            },
-            {
-              "word": "nameables",
-              "number": "many"
-            }
-          ]
-        },
         {
           "id": "case",
           "words": [

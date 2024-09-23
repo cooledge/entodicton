@@ -18,9 +18,17 @@ class Sessions {
     return this.cache.has(sessionId)
   }
 
+  async reset(sessionId) {
+    const mongoKM = await this.create()
+    this.cache.set(sessionId, mongoKM)
+    return mongoKM
+  }
+
   async get(sessionId) {
+    console.log('session.get(sessionId):', sessionId)
     const value = this.cache.get(sessionId)
     if (value) {
+      console.log('session.get returning:', value.sessionID)
       return value
     }
 
@@ -33,7 +41,9 @@ class Sessions {
       }
     }
 
+    debugger
     const mongoKM = await this.create()
+    console.log('get(sessionId): create', mongoKM.sessionID)
     this.cache.set(sessionId, mongoKM)
     return mongoKM
   }

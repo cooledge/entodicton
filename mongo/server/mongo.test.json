@@ -88,13 +88,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -104,6 +107,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -118,6 +123,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -135,12 +142,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -234,8 +248,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -245,8 +259,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -261,7 +276,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -307,12 +324,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -401,6 +423,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -451,6 +476,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -497,6 +525,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -508,6 +539,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -572,6 +606,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -610,6 +646,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -641,6 +679,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -678,6 +718,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -685,6 +727,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -748,7 +792,10 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -1236,13 +1283,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -1252,6 +1302,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -1266,6 +1318,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -1283,12 +1337,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -1382,8 +1443,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -1393,8 +1454,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -1409,7 +1471,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -1455,12 +1519,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -1549,6 +1618,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -1599,6 +1671,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -1645,6 +1720,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -1656,6 +1734,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -1720,6 +1801,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -1758,6 +1841,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -1789,6 +1874,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -1826,6 +1913,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -1833,6 +1922,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -1896,7 +1987,10 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -2445,13 +2539,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -2461,6 +2558,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -2475,6 +2574,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -2517,7 +2618,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -2558,9 +2662,16 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -2568,6 +2679,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -2661,8 +2775,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -2672,8 +2786,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -2688,7 +2803,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -2734,12 +2851,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -2828,6 +2950,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -2878,6 +3003,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -2924,6 +3052,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -2935,6 +3066,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -2999,6 +3133,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -3037,6 +3173,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -3068,6 +3206,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -3105,6 +3245,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -3112,6 +3254,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -3199,7 +3343,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -3711,13 +3858,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -3727,6 +3877,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -3741,6 +3893,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -3760,7 +3914,10 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -3778,9 +3935,16 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -3788,6 +3952,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -3881,8 +4048,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -3892,8 +4059,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -3908,7 +4076,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -3954,12 +4124,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -4048,6 +4223,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -4098,6 +4276,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -4144,6 +4325,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -4155,6 +4339,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -4219,6 +4406,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -4257,6 +4446,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -4288,6 +4479,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -4325,6 +4518,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -4332,6 +4527,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -4396,7 +4593,10 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -4982,13 +5182,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -4998,6 +5201,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -5012,6 +5217,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -5050,7 +5257,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -5087,7 +5297,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             },
             {
               "dataSpec": {
@@ -5118,9 +5331,16 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -5128,6 +5348,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -5221,8 +5444,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -5232,8 +5455,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -5248,7 +5472,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -5294,12 +5520,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -5388,6 +5619,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -5438,6 +5672,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -5484,6 +5721,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -5495,6 +5735,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -5559,6 +5802,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -5597,6 +5842,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -5628,6 +5875,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -5665,6 +5914,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -5672,6 +5923,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -5755,7 +6008,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -6439,13 +6695,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -6455,6 +6714,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -6469,6 +6730,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -6552,7 +6815,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -6634,7 +6900,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             },
             {
               "dataSpec": [
@@ -6710,9 +6979,16 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -6720,6 +6996,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -6813,8 +7092,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -6824,8 +7103,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -6840,7 +7120,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -6886,12 +7168,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -6980,6 +7267,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -7030,6 +7320,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -7076,6 +7369,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -7087,6 +7383,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -7151,6 +7450,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -7189,6 +7490,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -7220,6 +7523,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -7257,6 +7562,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -7264,6 +7571,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -7392,7 +7701,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -7861,13 +8173,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -7877,6 +8192,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -7891,6 +8208,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -7944,6 +8263,9 @@
                 ],
                 "value": "capitalize",
                 "word": "capitalize"
+              },
+              "stm": {
+                "id": 1
               }
             }
           },
@@ -7996,9 +8318,16 @@
                 ],
                 "value": "capitalize",
                 "word": "capitalize"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -8006,6 +8335,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -8099,8 +8431,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -8110,8 +8442,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -8126,7 +8459,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -8172,12 +8507,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -8266,6 +8606,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -8316,6 +8659,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -8362,6 +8708,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -8373,6 +8722,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -8437,6 +8789,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -8475,6 +8829,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -8506,6 +8862,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -8543,6 +8901,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -8550,6 +8910,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -8648,6 +9010,9 @@
                 ],
                 "value": "capitalize",
                 "word": "capitalize"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ],
@@ -9069,13 +9434,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -9085,6 +9453,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -9099,6 +9469,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -9116,12 +9488,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -9215,8 +9594,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -9226,8 +9605,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -9242,7 +9622,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -9288,12 +9670,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -9382,6 +9769,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -9432,6 +9822,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -9478,6 +9871,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -9489,6 +9885,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -9553,6 +9952,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -9591,6 +9992,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -9622,6 +10025,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -9659,6 +10064,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -9666,6 +10073,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -10103,13 +10512,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -10119,6 +10531,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -10133,6 +10547,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -10150,12 +10566,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -10249,8 +10672,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -10260,8 +10683,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -10276,7 +10700,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -10322,12 +10748,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -10416,6 +10847,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -10466,6 +10900,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -10512,6 +10949,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -10523,6 +10963,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -10587,6 +11030,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -10625,6 +11070,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -10656,6 +11103,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -10693,6 +11142,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -10700,6 +11151,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -11249,13 +11702,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -11265,6 +11721,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -11279,6 +11737,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -11298,7 +11758,10 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -11316,9 +11779,16 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -11326,6 +11796,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -11419,8 +11892,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -11430,8 +11903,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -11446,7 +11920,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -11492,12 +11968,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -11586,6 +12067,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -11636,6 +12120,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -11682,6 +12169,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -11693,6 +12183,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -11757,6 +12250,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -11795,6 +12290,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -11826,6 +12323,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -11863,6 +12362,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -11870,6 +12371,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -11934,7 +12437,10 @@
                 ]
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -12473,13 +12979,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -12489,6 +12998,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -12503,6 +13014,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -12578,6 +13091,9 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           },
@@ -12652,9 +13168,16 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -12662,6 +13185,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -12755,8 +13281,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -12766,8 +13292,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -12782,7 +13309,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -12828,12 +13357,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -12922,6 +13456,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -12972,6 +13509,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -13018,6 +13558,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -13029,6 +13572,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -13093,6 +13639,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -13131,6 +13679,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -13162,6 +13712,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -13199,6 +13751,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -13206,6 +13760,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -13326,6 +13882,9 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ],
@@ -13814,13 +14373,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -13830,6 +14392,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -13844,6 +14408,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -13861,12 +14427,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -13960,8 +14533,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -13971,8 +14544,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -13987,7 +14561,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -14033,12 +14609,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -14127,6 +14708,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -14177,6 +14761,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -14223,6 +14810,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -14234,6 +14824,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -14298,6 +14891,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -14336,6 +14931,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -14367,6 +14964,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -14404,6 +15003,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -14411,6 +15012,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -15010,13 +15613,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -15026,6 +15632,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -15040,6 +15648,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -15057,12 +15667,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -15156,8 +15773,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -15167,8 +15784,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -15183,7 +15801,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -15229,12 +15849,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -15323,6 +15948,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -15373,6 +16001,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -15419,6 +16050,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -15430,6 +16064,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -15494,6 +16131,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -15532,6 +16171,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -15563,6 +16204,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -15600,6 +16243,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -15607,6 +16252,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -16361,13 +17008,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -16377,6 +17027,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -16391,6 +17043,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -16408,12 +17062,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -16507,8 +17168,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -16518,8 +17179,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -16534,7 +17196,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -16580,12 +17244,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -16674,6 +17343,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -16724,6 +17396,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -16770,6 +17445,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -16781,6 +17459,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -16845,6 +17526,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -16883,6 +17566,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -16914,6 +17599,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -16951,6 +17638,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -16958,6 +17647,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -17606,13 +18297,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -17622,6 +18316,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -17636,6 +18332,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -17653,12 +18351,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -17752,8 +18457,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -17763,8 +18468,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -17779,7 +18485,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -17825,12 +18533,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -17919,6 +18632,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -17969,6 +18685,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -18015,6 +18734,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -18026,6 +18748,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -18090,6 +18815,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -18128,6 +18855,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -18159,6 +18888,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -18196,6 +18927,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -18203,6 +18936,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -18836,13 +19571,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -18852,6 +19590,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -18866,6 +19606,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -18883,12 +19625,19 @@
           "show": [
           ]
         },
+        "nameable2": {
+          "named": {
+          }
+        },
         "negation2": {
         },
         "pos2": {
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -18982,8 +19731,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -18993,8 +19742,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -19009,7 +19759,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -19055,12 +19807,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -19149,6 +19906,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -19199,6 +19959,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -19245,6 +20008,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -19256,6 +20022,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -19320,6 +20089,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -19358,6 +20129,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -19389,6 +20162,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -19426,6 +20201,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -19433,6 +20210,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -20066,13 +20845,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -20082,6 +20864,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -20096,6 +20880,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -20136,7 +20922,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -20175,7 +20964,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             },
             {
               "dataSpec": {
@@ -20208,9 +21000,16 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -20218,6 +21017,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -20311,8 +21113,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -20322,8 +21124,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -20338,7 +21141,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -20384,12 +21189,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -20478,6 +21288,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -20528,6 +21341,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -20574,6 +21390,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -20585,6 +21404,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -20649,6 +21471,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -20687,6 +21511,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -20718,6 +21544,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -20755,6 +21583,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -20762,6 +21592,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -20847,7 +21679,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -21387,13 +22222,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -21403,6 +22241,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -21417,6 +22257,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -21492,6 +22334,9 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           },
@@ -21566,9 +22411,16 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -21576,6 +22428,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -21669,8 +22524,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -21680,8 +22535,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -21696,7 +22552,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -21742,12 +22600,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -21836,6 +22699,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -21886,6 +22752,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -21932,6 +22801,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -21943,6 +22815,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -22007,6 +22882,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -22045,6 +22922,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -22076,6 +22955,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -22113,6 +22994,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -22120,6 +23003,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -22240,6 +23125,9 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ],
@@ -22899,13 +23787,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -22915,6 +23806,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -22929,6 +23822,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -23034,6 +23929,9 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           },
@@ -23138,9 +24036,16 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -23148,6 +24053,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -23241,8 +24149,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -23252,8 +24160,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -23268,7 +24177,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -23314,12 +24225,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -23408,6 +24324,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -23458,6 +24377,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -23504,6 +24426,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -23515,6 +24440,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -23579,6 +24507,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -23617,6 +24547,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -23648,6 +24580,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -23685,6 +24619,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -23692,6 +24628,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -23842,6 +24780,9 @@
                   "mongo#call2"
                 ],
                 "word": "make"
+              },
+              "stm": {
+                "id": 1
               }
             }
           ],
@@ -24628,13 +25569,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -24644,6 +25588,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -24658,6 +25604,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -24698,7 +25646,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -24737,7 +25688,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             },
             {
               "dataSpec": {
@@ -24770,9 +25724,16 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -24780,6 +25741,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -24873,8 +25837,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -24884,8 +25848,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -24900,7 +25865,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -24946,12 +25913,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -25040,6 +26012,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -25090,6 +26065,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -25136,6 +26114,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -25147,6 +26128,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -25211,6 +26195,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -25249,6 +26235,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -25280,6 +26268,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -25317,6 +26307,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -25324,6 +26316,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -25409,7 +26403,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -26194,13 +27191,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -26210,6 +27210,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -26224,6 +27226,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -26264,7 +27268,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -26303,7 +27310,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             },
             {
               "dataSpec": {
@@ -26336,9 +27346,16 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -26346,6 +27363,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -26439,8 +27459,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -26450,8 +27470,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -26466,7 +27487,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -26512,12 +27535,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -26606,6 +27634,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -26656,6 +27687,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -26702,6 +27736,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -26713,6 +27750,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -26777,6 +27817,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -26815,6 +27857,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -26846,6 +27890,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -26883,6 +27929,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -26890,6 +27938,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -26975,7 +28025,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -27650,13 +28703,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -27666,6 +28722,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -27680,6 +28738,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -27723,7 +28783,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           },
           "namedReports": {
@@ -27765,7 +28828,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             },
             {
               "dataSpec": {
@@ -27801,9 +28867,16 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -27811,6 +28884,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -27904,8 +28980,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -27915,8 +28991,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -27931,7 +29008,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -27977,12 +29056,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -28071,6 +29155,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -28121,6 +29208,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -28167,6 +29257,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -28178,6 +29271,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -28242,6 +29338,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -28280,6 +29378,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -28311,6 +29411,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -28348,6 +29450,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -28355,6 +29459,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -28443,7 +29549,10 @@
                 "table": true
               },
               "marker": "report",
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
             }
           ],
           "variables": {
@@ -29084,13 +30193,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -29100,6 +30212,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -29114,6 +30228,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -29151,53 +30267,16 @@
                 "table": true
               },
               "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
-            },
-            "reportNames": [
-              {
-                "id": "banana",
-                "name": "banana",
-                "selected": true
+              "pullFromContext": false,
+              "stm": {
+                "id": 1,
+                "names": [
+                  "banana"
+                ]
               }
-            ]
+            }
           },
           "namedReports": {
-            "banana": {
-              "dataSpec": {
-                "aggregation": [
-                ],
-                "collectionName": "users",
-                "dbName": "sample_mflix",
-                "limit": 10
-              },
-              "fromSTM": true,
-              "imageSpec": {
-                "colgroups": [
-                  "column_0"
-                ],
-                "field": [
-                ],
-                "headers": {
-                  "columns": [
-                    {
-                      "text": "users"
-                    }
-                  ]
-                },
-                "rows": [
-                  "$name"
-                ],
-                "table": true
-              },
-              "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
-            }
           },
           "select": [
           ],
@@ -29230,12 +30309,19 @@
                 "table": true
               },
               "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1,
+                "names": [
+                  "banana"
+                ]
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -29243,6 +30329,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -29336,8 +30425,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -29347,8 +30436,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -29363,7 +30453,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -29409,12 +30501,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -29503,6 +30600,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -29553,6 +30653,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -29599,6 +30702,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -29610,6 +30716,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -29674,6 +30783,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -29712,6 +30823,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -29743,6 +30856,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -29780,6 +30895,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -29787,6 +30904,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -29869,10 +30988,13 @@
                 "table": true
               },
               "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1,
+                "names": [
+                  "banana"
+                ]
+              }
             }
           ],
           "variables": {
@@ -30350,7 +31472,8 @@
           "dead": true,
           "level": 1,
           "marker": "report",
-          "namedReport": true,
+          "nameable_named": true,
+          "pullFromContext": true,
           "range": {
             "end": 10,
             "start": 5
@@ -30517,13 +31640,16 @@
     },
     "objects": {
       "nameToUUID": {
+        "articles": "articles2",
         "colors": "colors2",
         "concept": "concept2",
         "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
         "gdefaults": "gdefaults2",
         "hierarchy": "hierarchy2",
         "meta": "meta2",
         "mongo": "mongo1",
+        "nameable": "nameable2",
         "negation": "negation2",
         "pos": "pos2",
         "properties": "properties2",
@@ -30533,6 +31659,8 @@
         "tokenize": "tokenize2"
       },
       "namespaced": {
+        "articles2": {
+        },
         "colors2": {
         },
         "concept2": {
@@ -30547,6 +31675,8 @@
           ],
           "variables": {
           }
+        },
+        "evaluate2": {
         },
         "gdefaults2": {
         },
@@ -30584,53 +31714,16 @@
                 "table": true
               },
               "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
-            },
-            "reportNames": [
-              {
-                "id": "banana",
-                "name": "banana",
-                "selected": true
+              "pullFromContext": false,
+              "stm": {
+                "id": 1,
+                "names": [
+                  "banana"
+                ]
               }
-            ]
+            }
           },
           "namedReports": {
-            "banana": {
-              "dataSpec": {
-                "aggregation": [
-                ],
-                "collectionName": "users",
-                "dbName": "sample_mflix",
-                "limit": 10
-              },
-              "fromSTM": true,
-              "imageSpec": {
-                "colgroups": [
-                  "column_0"
-                ],
-                "field": [
-                ],
-                "headers": {
-                  "columns": [
-                    {
-                      "text": "users"
-                    }
-                  ]
-                },
-                "rows": [
-                  "$name"
-                ],
-                "table": true
-              },
-              "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
-            }
           },
           "select": [
           ],
@@ -30663,10 +31756,13 @@
                 "table": true
               },
               "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1,
+                "names": [
+                  "banana"
+                ]
+              }
             },
             {
               "dataSpec": {
@@ -30696,12 +31792,19 @@
                 "table": true
               },
               "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1,
+                "names": [
+                  "banana"
+                ]
+              }
             }
           ]
+        },
+        "nameable2": {
+          "named": {
+          }
         },
         "negation2": {
         },
@@ -30709,6 +31812,9 @@
         },
         "properties2": {
           "children": {
+            "adjective": [
+              "stm_before"
+            ],
             "articlePOS": [
               "a",
               "the"
@@ -30802,8 +31908,8 @@
               "what",
               "whatAble",
               "this",
-              "thisitthat",
-              "reason"
+              "reason",
+              "thisitthat"
             ],
             "red_colors": [
               "crimson_colors"
@@ -30813,8 +31919,9 @@
               "object",
               "concept",
               "unknown",
-              "noun",
-              "reason"
+              "reason",
+              "memorable",
+              "noun"
             ],
             "thisitthat": [
               "it",
@@ -30829,7 +31936,9 @@
             ],
             "verby": [
               "modifies",
-              "is"
+              "is",
+              "remember",
+              "evaluate"
             ],
             "white_colors": [
               "snow_colors",
@@ -30875,12 +31984,17 @@
             "is",
             "toAble",
             "to",
-            "noun",
-            "thisitthat",
             "reason",
-            "that",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
             "orAble",
             "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
             "dark_colors",
             "brightness_colors",
             "light_colors",
@@ -30969,6 +32083,9 @@
             "doubleQuote": [
               "queryable"
             ],
+            "evaluate": [
+              "verby"
+            ],
             "gold_colors": [
               "yellow_colors"
             ],
@@ -31019,6 +32136,9 @@
             "maroon_colors": [
               "brown_colors"
             ],
+            "memorable": [
+              "theAble"
+            ],
             "modifies": [
               "verby"
             ],
@@ -31065,6 +32185,9 @@
             "red_colors": [
               "color_colors"
             ],
+            "remember": [
+              "verby"
+            ],
             "reportable": [
               "concept"
             ],
@@ -31076,6 +32199,9 @@
             ],
             "snow_colors": [
               "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
             ],
             "tan_colors": [
               "brown_colors"
@@ -31140,6 +32266,8 @@
             "root": {
               "a": {
               },
+              "adjective": {
+              },
               "aqua_colors": {
               },
               "aquamarine_colors": {
@@ -31178,6 +32306,8 @@
               },
               "doubleQuote": {
               },
+              "evaluate": {
+              },
               "gold_colors": {
               },
               "gray_colors": {
@@ -31209,6 +32339,8 @@
               "magenta_colors": {
               },
               "maroon_colors": {
+              },
+              "memorable": {
               },
               "modifies": {
               },
@@ -31246,6 +32378,8 @@
               },
               "red_colors": {
               },
+              "remember": {
+              },
               "reportable": {
               },
               "sienna_colors": {
@@ -31253,6 +32387,8 @@
               "silver_colors": {
               },
               "snow_colors": {
+              },
+              "stm_before": {
               },
               "tan_colors": {
               },
@@ -31335,43 +32471,13 @@
                 "table": true
               },
               "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
-            },
-            {
-              "dataSpec": {
-                "aggregation": [
-                ],
-                "collectionName": "users",
-                "dbName": "sample_mflix",
-                "limit": 10
-              },
-              "fromSTM": true,
-              "imageSpec": {
-                "colgroups": [
-                  "column_0"
-                ],
-                "field": [
-                ],
-                "headers": {
-                  "columns": [
-                    {
-                      "text": "users"
-                    }
-                  ]
-                },
-                "rows": [
-                  "$name"
-                ],
-                "table": true
-              },
-              "marker": "report",
-              "names": [
-                "banana"
-              ],
-              "pullFromContext": false
+              "pullFromContext": false,
+              "stm": {
+                "id": 1,
+                "names": [
+                  "banana"
+                ]
+              }
             }
           ],
           "variables": {
@@ -31395,7 +32501,8 @@
               "dead": true,
               "level": 1,
               "marker": "report",
-              "namedReport": true,
+              "nameable_named": true,
+              "pullFromContext": true,
               "range": {
                 "end": 10,
                 "start": 5

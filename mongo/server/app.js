@@ -104,10 +104,20 @@ app.get('/', async (req, res) => {
 
 const sessions = new Sessions(createMongoKM)
 
+app.post('/reset', async (req, res) => {
+  await sessions.reset(req.sessionID)
+  res.json({})
+})
+
 // the km will be setup on a per user basis since there is state
 app.post('/query', async (req, res) => {
   try {
     const mongoKM = await sessions.get(req.sessionID)
+    if (!mongoKM.sessionID) {
+      mongoKM.sessionID = req.sessionID
+    }
+    console.log('req.sessionID', req.sessionID)
+    console.log('mongoKM.sessionID', mongoKM.sessionID)
     if (!mongoKM) {
       res.json({ noSessions: true, max: sessions.max(), ttl: sessions.ttl() })
       return
@@ -115,6 +125,7 @@ app.post('/query', async (req, res) => {
     console.log('sessionId', req.sessionID)
     // console.log('in query', JSON.stringify(req.body, null, 2))
     if (req.body.query) {
+      console.log('111111111')
       mongoKM.api.clearLastResponse()
       const query = req.body.query
       if (query.selectReport) {
@@ -143,9 +154,12 @@ app.post('/query', async (req, res) => {
       console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
 
       const response = {}
+      /*
       if (lastResponse.reportNames) {
         Object.assign(response, { reportNames: lastResponse.reportNames })
       }
+      */
+      Object.assign(response, { reportNames: mongoKM.api.getReportNames() })
 
       if (lastResponse.chooseFields) {
         Object.assign(response, { chooseFields: lastResponse.chooseFields, context: lastResponse.context })
@@ -153,9 +167,6 @@ app.post('/query', async (req, res) => {
 
       if (lastResponse.report) {
         const report = await query(lastResponse.report.dataSpec, lastResponse.report.imageSpec)
-        // const reportNames = mongoKM.api.getReportNames()
-        // console.log("report sent back", JSON.stringify(report, null, 2))
-        // res.json({ report })
         console.log('lastResponse.report calling getReportNames') 
         response.reportNames = mongoKM.api.getReportNames() // selected could change
         console.log('response.reportNames', JSON.stringify(response.reportNames))
