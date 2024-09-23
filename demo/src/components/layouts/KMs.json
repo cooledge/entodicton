@@ -307,7 +307,9 @@
         "1 countable",
         "10 piece",
         "2 piece hasCountOfPieces",
-        "10 2 piece hasCountOfPieces"
+        "10 2 piece hasCountOfPieces",
+        "more countable",
+        "less countable"
       ],
       "template": [],
       "includes": [
