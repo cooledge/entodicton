@@ -38,7 +38,7 @@ function App() {
     const init = async () => {
       const fastfoodI = await tpmkms.fastfood()
       fastfoodI.stop_auto_rebuild()
-        await fastfoodI.setApi(new FastFoodAPI())
+        await fastfoodI.setApi(() => new FastFoodAPI())
         fastfoodI.config.debug = true
         // fastfoodI.add(ui)
         const url = `${new URL(window.location.href).origin}/entodicton`
