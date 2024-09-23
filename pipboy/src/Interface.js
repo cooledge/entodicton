@@ -179,10 +179,10 @@ class API {
 const create = async () => {
   const pipboy = await tpmkms.pipboy()
   const api = new API()
-  await pipboy.setApi(api)
+  await pipboy.setApi(() => api)
   // await ui.setApi(pipboy.api)
   await pipboy.add(tpmkms.ui)
-  await pipboy.km('ui').setApi(api)
+  await pipboy.km('ui').setApi(() => api)
   const url = `${new URL(window.location.href).origin}/entodicton`
   pipboy.config.url = url
   pipboy.server(url)
