@@ -124,6 +124,7 @@ app.post('/query', async (req, res) => {
     }
     console.log('sessionId', req.sessionID)
     // console.log('in query', JSON.stringify(req.body, null, 2))
+    const queryResponses = []
     if (req.body.query) {
       console.log('111111111')
       mongoKM.api.clearLastResponse()
@@ -146,7 +147,15 @@ app.post('/query', async (req, res) => {
         // console.log('context for selecting', JSON.stringify(context, null, 2))
         await mongoKM.processContext(context)
       } else {
-        await mongoKM.query(req.body.query)
+        const response = await mongoKM.query(req.body.query)
+        /*
+        for (let i = 0; i < response.contexts.length; ++i) {
+          if (response.contexts[0].isResponse) {
+            queryResponses.push(response.responses[i])
+          }
+        }
+        console.log('queryResponses', JSON.stringify(queryResponses, null, 2))
+        */
       }
     }
     const lastResponse = mongoKM.api.lastResponse()
@@ -172,6 +181,7 @@ app.post('/query', async (req, res) => {
         console.log('response.reportNames', JSON.stringify(response.reportNames))
         response.report = report
       }
+      console.log(JSON.stringify(response, null, 2))
       res.json(response)
     } else {
       res.json({ noChange: true })

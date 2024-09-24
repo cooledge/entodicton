@@ -68,7 +68,16 @@ describe('tests for the mongo page', () => {
       for (const tr of trs) {
         const columns = []
         for (const td of tr.cells) {
-          columns.push(td.innerText)
+          const ul = td.querySelector("ul")
+          if (ul) {
+            const values = []
+            for (const li of ul.querySelectorAll("li")) {
+              values.push(li.innerText)
+            }
+            columns.push(values)
+          } else {
+            columns.push(td.innerText)
+          }
         }
         rows.push(columns)
       }
@@ -183,5 +192,16 @@ describe('tests for the mongo page', () => {
       await page.waitForSelector(`#queryCounter4`)
       await checkTable(page, 1, users, ['name'])
     }, timeout);
+
+    test(`NEO23 MONGO show movies + add various fields`, async () => {
+      await query('show the movies')
+      await query('show more columns')
+      await page.waitForSelector(`#ChooserItem_genres`)
+      await page.click('#ChooserItem_genres')
+      await page.click('.ChooserButtonSelect')
+      await page.waitForSelector(`#queryCounter3`)
+      await checkTable(page, 1, movies, ['title', 'genres'])
+    }, timeout);
+
   })
 });

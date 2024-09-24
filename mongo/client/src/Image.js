@@ -19,7 +19,13 @@ const toHTML = (data, options) => {
       return <a>{data}</a>
     } else {
       if (data.data || data.className) {
-        return <span className={data.className}>{toHTML(data.data, options)}</span>
+        if (Array.isArray(data.data)) {
+          return <ul className={data.className}>{
+            data.data.map( (element) => <li>{toHTML(element, options)}</li> )
+          }</ul>
+        } else {
+          return <span className={data.className}>{toHTML(data.data, options)}</span>
+        }
       } else {
         return data
       }

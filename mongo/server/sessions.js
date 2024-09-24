@@ -41,7 +41,6 @@ class Sessions {
       }
     }
 
-    debugger
     const mongoKM = await this.create()
     console.log('get(sessionId): create', mongoKM.sessionID)
     this.cache.set(sessionId, mongoKM)

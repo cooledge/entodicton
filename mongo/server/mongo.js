@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, where } = require('theprogrammablemind')
-const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable } = require('tpmkms')
+const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const image = require('./image')
@@ -8,6 +8,8 @@ const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
 
 /*
+  have UI hooked up so voice can manipuate that
+
   capitalize the header
   make a new report
   always capitalize the header
@@ -41,6 +43,14 @@ const { getReportElements } = require('./mongo_helpers')
   cancel that (selecting)
 
   show the previous/last report/show the one before/the report before
+
+  sales is price times quantity show the sales
+
+  call the title column name
+
+  repeat that
+  do that again
+  again
  */
 
 const stateToCSS = (isA, property, state) => {
@@ -74,6 +84,62 @@ class API {
   setCurrent(report) {
     this.args.km('stm').api.mentioned({ context: report })
   }
+
+  async showFieldsResponse(database, collection, report = null) { 
+    const fields = await getFields(database, collection)
+    console.log('fields', fields)
+    const selected = {}
+    if (report) {
+      let counter = 1
+      for (const column of report.imageSpec.headers.columns) {
+        selected[column.id] = counter
+        counter += 1
+      }
+    }
+    this.addResponse({ chooseFields: {
+      title: `Select the fields from the ${collection} collection in the ${database}`,
+      choices: fields.map((field) => { return { text: field, id: field, selected: selected[field], counter: selected[field] } }),
+      ordered: true,
+    }})
+  }
+
+  updateColumns(report, database, collection, chosen) {
+    report.dataSpec = {
+      dbName: database,
+      collectionName: collection,
+      limit: 10,
+      aggregation: [] 
+    }
+    const columns = []
+    const properties = []
+    const compare = (field) => (a, b) => {
+      a = a[field]
+      b = b[field]
+      if (a == b) {
+        return 0
+      }
+      if (a < b) {
+        return -1
+      }
+      return 1
+    }
+    const selected = chosen.choices.filter(item => item.selected)
+    selected.sort(compare('counter'))
+    for (const column of selected) {
+      columns.push({ text: column.text, id: column.id })
+      properties.push(`$${column.id}`)
+    }
+    report.imageSpec = {
+      headers: {
+        columns,
+      },
+      colgroups: properties.map( (e, i) => `column_${i}` ),
+      table: true,
+      field: [],
+      rows: properties
+    }
+  }
+
 
   show(report) {
     // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
@@ -129,7 +195,6 @@ class API {
   }
 
   selectReport(name) {
-    debugger
     const report = this.args.kms.nameable.api.get({ marker: 'report' }, name)
     this.setCurrent(report)
     this.show(report)
@@ -194,6 +259,8 @@ let configStruct = {
     "([header])",
     "([table])",
 
+    "([column])",
+
     // make the sentence "upper and lower are kinds of cases" work for this
     "([case])",
     "([uppercase])",
@@ -203,11 +270,12 @@ let configStruct = {
     "([show] (reportable/*))",
     "([showCollection|show] (collection/*))",
     "([showReport|show] (report/*))",
+    "([showColumn|show,add,include,change,update,select] (column/*))",
     "([capitalize] ([reportElement]))",
     "([sales|])",
     "([year])",
     "([email])",
-    "([movie])",
+    // "([movie])",
     // "([this])",
     "([thisReportElement|this] (reportElement/*))",
   ],
@@ -241,6 +309,12 @@ let configStruct = {
       words: [ ...helpers.words('collection'), ...helpers.words('table') ],
     },
     */
+
+    { 
+      id: 'column',
+      isA: ['countable'],
+      words: [...helpers.words('column'), ...helpers.words('field'), ...helpers.words('property')],
+    },
 
     {
       id: 'case',
@@ -444,6 +518,28 @@ let configStruct = {
       parents: ['theAble', 'nameable']
     },
 
+    { id: 'showColumn',
+      bridge: "{ ...next(operator), show: after[0] }",
+      parents: ['verby'],
+      generatorp: async ({context, g}) => `show ${await g(context.show)}`,
+      semantic: async ({context, kms, api}) => {
+        let report = api.current()
+        debugger
+        if (context.chosens) {
+          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])
+          api.show(report)
+        } else if (context.show.more) {
+          console.log('report', JSON.stringify(report, null, 2))
+          const { dbName, collectionName } = report.dataSpec
+          await api.showFieldsResponse(dbName, collectionName, report)
+          context.chosens = [] // for callback
+          report.showCollection = context
+        } else if (context.show.less) {
+        } else {
+        }
+      },
+    },
+
     { id: 'showReport',
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verby'],
@@ -478,34 +574,11 @@ let configStruct = {
           */
           const reportable = context.reportables[context.chosens.length-1]
           const chosen = context.chosens[context.chosens.length-1]
+          const database = reportable.database
+          const collection = reportable.collection
 
-          report.dataSpec = {
-                dbName: reportable.database,
-                collectionName: reportable.collection,
-                limit: 10,
-                aggregation: [] 
-          }
-          const columns = []
-          const properties = []
-          for (const column of chosen.choices) {
-            if (column.selected) {
-              columns.push({ text: column.text })
-              properties.push(`$${column.id}`)
-            }
-          }
-          // columns: properties.map( (c) => { return { text: gp(c) } })
-          report.imageSpec = {
-            headers: {
-              columns,
-            },
-            colgroups: properties.map( (e, i) => `column_${i}` ),
-            table: true,
-            field: [],
-            // rows: ['$name', '$age', '$fav_colors'],
-            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
-            // rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
-            rows: properties
-          }
+          api.updateColumns(report, database, collection, chosen)
+
           api.show(report)
         } else {
           const reportables = []
@@ -516,12 +589,7 @@ let configStruct = {
           }
           context.reportables = reportables // save for callback
           const reportable = reportables[0]
-          const fields = await getFields(reportable.database, reportable.collection)
-          console.log('fields', fields)
-          api.addResponse({ chooseFields: {
-            title: `Select the fields from the ${reportable.collection} collection in the ${reportable.database}`,
-            choices: fields.map((field) => { return { text: field, id: field } }),
-          }})
+          await api.showFieldsResponse(reportable.database, reportable.collection)
           context.chosens = [] // for callback
           report.showCollection = context
         }
@@ -571,7 +639,7 @@ let configStruct = {
             const properties = components[dbName][collectionName]
             const columns = []
             for (const column of properties) {
-              columns.push({ text: await gp(column) })
+              columns.push({ text: await gp(column), id: column.path[0] })
             }
             // columns: properties.map( (c) => { return { text: gp(c) } })
             imageSpecs.push({
@@ -646,15 +714,6 @@ let configStruct = {
         { word: 'email', database: 'sample_mflix', collection: 'users', path: ['email'] } 
       ] 
     },
-
-    { 
-      id: 'movie', 
-      parents: ['reportable', 'theAble'], 
-      words: [ 
-        { word: 'movies', database: 'sample_mflix', collection: 'movies', path: ['title'] } 
-      ] 
-    },
-
   ],
   priorities: [
     { context: [['show', 0], ['list', 0]], choose: [1] },
@@ -685,24 +744,34 @@ let configStruct = {
 const template = {
   configs: [
     "reportable is a concept",
+    "be brief",
     { 
-      operators: ['([user|])'],
+      operators: [
+        '([user|])',
+        '([movie|])',
+      ],
       bridges: [
         { 
           id: 'user', 
           parents: ['theAble', 'reportable'], 
           words: helpers.words('user', { database: 'sample_mflix', collection: 'users', path: ['name'] }),
         },
+        { 
+          id: 'movie', 
+          parents: ['theAble', 'reportable'], 
+          words: helpers.words('movie', { database: 'sample_mflix', collection: 'movies', path: ['title'] }),
+        },
       ],
     },
     "user modifies collection",
+    "movie modifies collection",
     configStruct,
   ],
 }
 
 knowledgeModule( { 
   config: { name: 'mongo' },
-  includes: [hierarchy, colors, negation, nameable],
+  includes: [hierarchy, colors, negation, nameable, countable, math],
   api: () => new API(),
   initializer: ({config}) => {
     config.server('http://localhost:3000')
@@ -716,7 +785,13 @@ knowledgeModule( {
     contents: mongo_tests,
     checks: {
       context: defaultContextCheck,
-      objects: ['show', 'select', 'lastResponse', 'namedReports', { km: 'stm' }],
+      objects: [
+        'show', 
+        'select', 
+        'lastResponse', 
+        'namedReports', 
+        { km: 'stm' }
+      ],
     },
 
   },

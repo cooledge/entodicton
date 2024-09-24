@@ -234,6 +234,7 @@ function App() {
   // const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])
   const [choices, setChoices] = useState([])
   const [chooserTitle, setChooserTitle] = useState('')
+  const [chooserOrdered, setChooserOrdered] = useState(false)
   const [chosen, setChosen] = useState()
   // const [noSession, setNoSession] = useState({ noSessions: true, max: 25, ttl: 1000 * 5 * 60 })
   const [noSession, setNoSession] = useState()
@@ -264,6 +265,7 @@ function App() {
     if (response.chooseFields) {
       setChooserTitle(response.chooseFields.title)
       setChoices(response.chooseFields.choices)
+      setChooserOrdered(response.chooseFields.ordered)
     }
     if (response.noSessions) {
       setNoSession(response)
@@ -339,7 +341,7 @@ function App() {
         <NoSessionError max={noSession.max} ttl={noSession.ttl}></NoSessionError>
       }
       { choices.length > 0 &&
-        <Chooser title={chooserTitle} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
+        <Chooser title={chooserTitle} ordered={chooserOrdered} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
       }
       <Query doQuery={doQuery} resetSession={() => setResetSession(true)}/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>
