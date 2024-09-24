@@ -241,6 +241,7 @@ function App() {
   // const [namedReports, setNamedReports] = useState([{ name: 'one', id: '1', selected: false }, { name: 'two', id: '2', selected: true }, { name: 'three', id: '3', selected: false }])
   const [namedReports, setNamedReports] = useState([])
   const [resetSession, setResetSession] = useState(false)
+  const [queryResponses, setQueryResponses] = useState([])
 
   useEffect( () => {
     if (!resetSession) {
@@ -276,6 +277,7 @@ function App() {
     if (response.report) {
       handleReportResult(response.report, rules, setData)
     }
+    setQueryResponses(response.queryResponses)
   }
 
   const selectNamedReport = async (id) => {
@@ -343,7 +345,7 @@ function App() {
       { choices.length > 0 &&
         <Chooser title={chooserTitle} ordered={chooserOrdered} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
       }
-      <Query doQuery={doQuery} resetSession={() => setResetSession(true)}/>
+      <Query doQuery={doQuery} queryResponses={queryResponses} resetSession={() => setResetSession(true)}/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>
       {
         namedReports.length > 0 &&

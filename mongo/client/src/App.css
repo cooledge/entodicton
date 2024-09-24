@@ -201,5 +201,25 @@ table {
   background-color: blue;
 }
 
+.Query {
+}
 
+.Query #query {
+  width: 200px;
+}
 
+.Query .paraphrase {
+  padding-left: 20px;
+}
+
+.Query .label {
+  font-size: 1.25em;
+  font-weight: bold;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.Query .field {
+  border: 1px solid;
+  padding: 2px;
+}

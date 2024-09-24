@@ -148,21 +148,22 @@ app.post('/query', async (req, res) => {
         await mongoKM.processContext(context)
       } else {
         const response = await mongoKM.query(req.body.query)
-        /*
         for (let i = 0; i < response.contexts.length; ++i) {
           if (response.contexts[0].isResponse) {
-            queryResponses.push(response.responses[i])
+            const r = response.responses[i]
+            if (r.length > 0) {
+              queryResponses.push(response.responses[i])
+            }
           }
         }
         console.log('queryResponses', JSON.stringify(queryResponses, null, 2))
-        */
       }
     }
     const lastResponse = mongoKM.api.lastResponse()
     if (lastResponse) {
       console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
 
-      const response = {}
+      const response = { queryResponses }
       /*
       if (lastResponse.reportNames) {
         Object.assign(response, { reportNames: lastResponse.reportNames })

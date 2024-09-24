@@ -320,7 +320,7 @@
             "verby"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, kms, api}) => {\n        let report = api.current()\n        debugger\n        if (context.chosens) {\n          debugger\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else {\n        }\n      }"
+          "semantic": "async ({context, kms, api}) => {\n        let report = api.current()\n        debugger\n        if (context.chosens) {\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else {\n        }\n      }"
         },
         {
           "id": "showReport",

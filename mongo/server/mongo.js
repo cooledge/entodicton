@@ -22,6 +22,8 @@ const { getReportElements } = require('./mongo_helpers')
   for column 1 make the background blue and the text red
   for the header of column 1 make the color green / the color should be green / i want the color green / make it green
 
+  the report called banana / the report with more than three columns...
+
   make the header's background blue
   make the users table background blue
   make the users green

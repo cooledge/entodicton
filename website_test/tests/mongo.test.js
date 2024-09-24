@@ -193,7 +193,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['name'])
     }, timeout);
 
-    test(`NEO23 MONGO show movies + add various fields`, async () => {
+    test(`MONGO show movies + add various fields`, async () => {
       await query('show the movies')
       await query('show more columns')
       await page.waitForSelector(`#ChooserItem_genres`)
@@ -201,6 +201,17 @@ describe('tests for the mongo page', () => {
       await page.click('.ChooserButtonSelect')
       await page.waitForSelector(`#queryCounter3`)
       await checkTable(page, 1, movies, ['title', 'genres'])
+    }, timeout);
+
+    test(`NEO23 MONGO what is 2 + 2`, async () => {
+      await query('what is 2 + 2')
+      await page.waitForSelector(`.response`)
+      const data = await page.evaluate(() => {
+        const response = document.querySelector('.response')
+        const field = response.querySelector(".field")
+        return field.innerText
+      })
+      expect(data).toBe('4')
     }, timeout);
 
   })
