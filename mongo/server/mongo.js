@@ -10,6 +10,12 @@ const { getReportElements } = require('./mongo_helpers')
 /*
   have UI hooked up so voice can manipuate that
 
+  what collections are there / show all the collections
+
+  show the last/previous/other report
+
+  search the descirpton for blach blach blah
+
   capitalize the header
   make a new report
   always capitalize the header
@@ -526,7 +532,6 @@ let configStruct = {
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, kms, api}) => {
         let report = api.current()
-        debugger
         if (context.chosens) {
           api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])
           api.show(report)
@@ -547,7 +552,6 @@ let configStruct = {
       parents: ['verby'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, kms, api}) => {
-        debugger
         const name = context.show.value
         const report = kms.nameable.api.get({ marker: 'report' }, name)
         api.setCurrent(report)
@@ -745,37 +749,92 @@ let configStruct = {
 
 const template = {
   configs: [
+    {
+      query: "column23 is a column",
+      isFragment: true,
+    },
+    {
+      query: "modifier23 modifies collection",
+      isFragment: true,
+    },
     "reportable is a concept",
     "be brief",
-    { 
-      operators: [
-        '([user|])',
-        '([movie|])',
-      ],
-      bridges: [
-        { 
-          id: 'user', 
-          parents: ['theAble', 'reportable'], 
-          words: helpers.words('user', { database: 'sample_mflix', collection: 'users', path: ['name'] }),
-        },
-        { 
-          id: 'movie', 
-          parents: ['theAble', 'reportable'], 
-          words: helpers.words('movie', { database: 'sample_mflix', collection: 'movies', path: ['title'] }),
-        },
-      ],
-    },
-    "user modifies collection",
-    "movie modifies collection",
+
     configStruct,
+
+    async ({config, s, fragments}) => {
+      const fragment = fragments("modifier23 modifies collection")
+      const id = 'airbnb'
+      const word = 'airbnb'
+      const database = 'sample_airbnb'
+      const collection = 'listingsAndReviews'
+      const field = 'name'
+      const collections = [
+        {
+          id: 'airbnb',
+          word: 'airbnb',
+          database: 'sample_airbnb',
+          collection: 'listingsAndReviews',
+          field: 'name',
+        },
+        {
+          id: 'user',
+          word: 'user',
+          database: 'sample_mflix',
+          collection: 'users',
+          field: 'name',
+        },
+        {
+          id: 'movie',
+          word: 'movie',
+          database: 'sample_mflix',
+          collection: 'movies',
+          field: 'title',
+        },
+      ]
+
+      const addCollection = async ({ id, word, database, collection, field }) => {
+        config.addOperator(`([${id}])`)
+        config.addBridge(
+          { 
+            id,
+            parents: ['theAble', 'reportable'], 
+            words: helpers.words(word, { database, collection, path: [field] }),
+          },
+        )
+
+        const wordDef = {
+          collection,
+          database,
+          marker: id,
+          number: "one",
+          path: [ field ],
+          text: word,
+          word,
+        }
+
+        const mappings = [{
+          where: where(),
+          match: ({context}) => context.value == 'modifier23',
+          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),
+        }]
+        const instantiation = await fragment.instantiate(mappings)
+        await s(instantiation)
+      }
+
+      for (const collection of collections) {
+        await addCollection(collection)
+      }
+    }
   ],
 }
+
 
 knowledgeModule( { 
   config: { name: 'mongo' },
   includes: [hierarchy, colors, negation, nameable, countable, math],
   api: () => new API(),
-  initializer: ({config}) => {
+  initializer: ({config, s, fragments}) => {
     config.server('http://localhost:3000')
   },
 
