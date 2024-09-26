@@ -253,7 +253,9 @@
       "description": "Comparable things",
       "examples": [
         "highest comparable",
-        "lowest comparable"
+        "lowest comparable",
+        "comparable descending",
+        "comparable ascending"
       ],
       "template": [],
       "includes": [
