@@ -92,5 +92,120 @@ describe('Reports Tests', () => {
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
+  describe('addColumn', () => {
+
+    it('add columns to multi reports', async () => {
+      const dataSpec = [
+          {
+            "dbName": "sample_mflix",
+            "collectionName": "users",
+            "limit": 10,
+            "aggregation": []
+          },
+          {
+            "dbName": "sample_mflix",
+            "collectionName": "movies",
+            "limit": 10,
+            "aggregation": []
+          }
+        ]
+      const imageSpec = {
+          "headers": { "columns": [] },
+          "table": true,
+          "explicit": true,
+          "field": [],
+          "rows": [
+            [
+              {
+                "headers": {
+                  "columns": [ { "text": "users", "id": "name" } ]
+                },
+                "colgroups": [ "column_0" ],
+                "table": true,
+                "field": [ 0 ],
+                "rows": [ "$name" ]
+              },
+              {
+                "headers": {
+                  "columns": [ { "text": "movies", "id": "title" } ]
+                },
+                "colgroups": [ "column_0" ],
+                "table": true,
+                "field": [ 1 ],
+                "rows": [ "$title" ]
+              }
+            ]
+          ]
+        }
+      query.addColumns(dataSpec, imageSpec, 'sample_mflix', 'movies', ['email', 'age'])
+      console.log('actual--', JSON.stringify(imageSpec, null, 2))
+      const expected = {
+        "headers": {
+          "columns": []
+        },
+        "table": true,
+        "explicit": true,
+        "field": [],
+        "rows": [
+          [
+            {
+              "headers": {
+                "columns": [
+                  {
+                    "text": "users",
+                    "id": "name"
+                  }
+                ]
+              },
+              "colgroups": [
+                "column_0"
+              ],
+              "table": true,
+              "field": [
+                0
+              ],
+              "rows": [
+                "$name"
+              ]
+            },
+            {
+              "headers": {
+                "columns": [
+                  {
+                    "text": "movies",
+                    "id": "title"
+                  },
+                  {
+                    "text": "email",
+                    "id": "email"
+                  },
+                  {
+                    "text": "age",
+                    "id": "age"
+                  }
+                ]
+              },
+              "colgroups": [
+                "column_0",
+                "column_1",
+                "column_2"
+              ],
+              "table": true,
+              "field": [
+                1
+              ],
+              "rows": [
+                "$title",
+                "$email",
+                "$age"
+              ]
+            }
+          ]
+        ]
+      }
+      expect(imageSpec).toStrictEqual(expected)
+    })
+
+  })
 })
 

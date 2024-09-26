@@ -13,6 +13,7 @@
     {
       "name": "mongo",
       "operators": [
+        "([sort|sort,order] ([sortBy|by] ([column])))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -55,9 +56,24 @@
       ],
       "bridges": [
         {
+          "id": "sortBy",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
+        },
+        {
+          "id": "sort",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
+        },
+        {
           "id": "column",
           "isA": [
-            "countable"
+            "countable",
+            "comparable"
           ],
           "words": [
             {
@@ -155,7 +171,7 @@
           "id": "make",
           "bridge": "{ ...next(operator), report: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ],
           "generatorp": "async ({context, g}) => `make ${await g(context.report)}`",
           "semantic": "({context, km, api}) => {\n        api.newReport()\n      }"
@@ -175,7 +191,7 @@
           "id": "changeState",
           "bridge": "{ ...next(operator), reportElement: after[0], newState: after[1] }",
           "parents": [
-            "verby"
+            "verb"
           ],
           "generatorp": "async ({context, g}) => `make ${await g(context.reportElement)} ${await g(context.newState)}`",
           "semantic": "({context, km, api, isA}) => {\n        const getProperty = (reportElements, state) => {\n          let property;\n          for (const re of reportElements) {\n            if (isA(re.marker, 'reportElementProperty')) {\n              if (re.marker == 'background') {\n                property = 'background-color' \n                break;\n              } if (isA(re.marker, 'case')) {\n                property = 'text-transform' \n                break;\n              } if (re.marker == 'color') {\n                property = 'color' \n                break;\n              }\n            }\n          }\n          if (!property) {\n            if (isA(state.marker, 'color_colors')) {\n              return 'color'\n            }\n            if (isA(state.marker, 'case')) {\n              return 'text-transform'\n            }\n          }\n          return property\n        }\n        const report = api.current()\n        const counts = image.count(report.imageSpec)\n        console.log('report -----------------', JSON.stringify(report, null, 2))\n        console.log('counts-----------------', JSON.stringify(counts, null, 2))\n        if (context.selected) {\n          image.selecting(null, report.imageSpec)\n          const reportElements = getReportElements(report.select.reportElement)\n          const property = getProperty(reportElements, context.newState)\n          report.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)\n        } else {\n          const reportElements = getReportElements(context.reportElement)\n          const lastContext = reportElements.slice(-1)[0]\n          const isPlural = lastContext.number == 'many'\n          const state = context.newState\n          const property = getProperty(reportElements, state)\n          const css = stateToCSS(isA, property, state)\n          if (isPlural || image.countSelected(report.imageSpec, reportElements) == 1) {\n            // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n            const selector = image.selector(report.imageSpec, reportElements)\n            if (css) {\n              if (state.negated) {\n                report.removeRule(`${selector} ${css}`)\n              } else {\n                report.addRule(`${selector} ${css}`)\n              }\n            }\n          } else {\n            image.selecting('header', report.imageSpec)\n            if (!report.imageSpec.rules) {\n              report.imageSpec.rules = []\n            }\n            report.imageSpec.rules.push(`.highlight ${css}`)\n            report.select = context\n          }\n        }\n        api.show(report)\n      }"
@@ -183,7 +199,7 @@
         {
           "id": "capitalize",
           "parents": [
-            "verby"
+            "verb"
           ],
           "bridge": "{ ...next(operator), element: after[0] }",
           "generatorp": "async ({context, gp}) => `${context.word} ${await gp(context.element)}`",
@@ -261,7 +277,7 @@
           "id": "showColumn",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
           "semantic": "async ({context, kms, api}) => {\n        let report = api.current()\n        if (context.chosens) {\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else {\n        }\n      }"
@@ -270,7 +286,7 @@
           "id": "showReport",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
           "semantic": "async ({context, kms, api}) => {\n        const name = context.show.value\n        const report = kms.nameable.api.get({ marker: 'report' }, name)\n        api.setCurrent(report)\n        api.show(report)\n      }"
@@ -279,7 +295,7 @@
           "id": "showCollection",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
           "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let report = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n          const database = reportable.database\n          const collection = reportable.collection\n\n          api.updateColumns(report, database, collection, chosen)\n\n          api.show(report)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          await api.showFieldsResponse(reportable.database, reportable.collection)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        }\n      }"
@@ -288,7 +304,7 @@
           "id": "show",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
           "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const report = api.newReport()\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            dataSpecs.push({\n                dbName: dbName,\n                collectionName: collectionName,\n                limit: 10,\n                aggregation: [] \n            })\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column), id: column.path[0] })\n            }\n            // columns: properties.map( (c) => { return { text: gp(c) } })\n            imageSpecs.push({\n              headers: {\n                columns,\n              },\n              colgroups: properties.map( (e, i) => `column_${i}` ),\n              table: true,\n              field: [],\n              // rows: ['$name', '$age', '$fav_colors'],\n              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            })\n          }\n        }\n\n        if (dataSpecs.length == 1) {\n          report.dataSpec = dataSpecs[0]\n          report.imageSpec = imageSpecs[0]\n        } else {\n          report.dataSpec = dataSpecs\n          for (let i = 0; i < imageSpecs.length; ++i) {\n            imageSpecs[i].field = [i]\n          }\n          report.imageSpec = {\n            headers: { columns: [] },\n            table: true,\n            explicit: true,\n            field: [],\n            rows: [imageSpecs]\n          }\n        }\n        /*\n        report.dataSpec = { \n          dbName: properties[0].database, \n          collectionName: properties[0].collection, \n          aggregation: [] \n        }\n\n        report.imageSpec = {\n          headers: properties.map( gp ),\n          table: true,\n          field: [],\n          // rows: ['$name', '$age', '$fav_colors'],\n          rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n        }\n        */\n\n        api.show(report)\n      }"
@@ -314,7 +330,8 @@
           "id": "year",
           "parents": [
             "reportable",
-            "theAble"
+            "theAble",
+            "column"
           ],
           "words": [
             {
@@ -331,7 +348,8 @@
           "id": "email",
           "parents": [
             "reportable",
-            "theAble"
+            "theAble",
+            "column"
           ],
           "words": [
             {
@@ -360,11 +378,31 @@
           "choose": [
             1
           ]
+        },
+        {
+          "context": [
+            [
+              "list",
+              0
+            ],
+            [
+              "year",
+              0
+            ],
+            [
+              "ascending",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            2
+          ]
         }
       ]
     },
     {
-      "apply": "async ({config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        {\n          id: 'airbnb',\n          word: 'airbnb',\n          database: 'sample_airbnb',\n          collection: 'listingsAndReviews',\n          field: 'name',\n        },\n        {\n          id: 'user',\n          word: 'user',\n          database: 'sample_mflix',\n          collection: 'users',\n          field: 'name',\n        },\n        {\n          id: 'movie',\n          word: 'movie',\n          database: 'sample_mflix',\n          collection: 'movies',\n          field: 'title',\n        },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n      }\n\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
+      "apply": "async ({config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n      }\n\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
     }
   ],
   "resultss": [
@@ -468,6 +506,46 @@
         [
           "articlePOS",
           "articlePOS",
+          false
+        ],
+        [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
           false
         ],
         [
@@ -767,7 +845,7 @@
         ],
         [
           "call",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -1006,6 +1084,46 @@
           false
         ],
         [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -1022,7 +1140,7 @@
         ],
         [
           "evaluate",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -1312,7 +1430,7 @@
         ],
         [
           "is",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -1747,7 +1865,7 @@
         ],
         [
           "modifies",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -1946,6 +2064,51 @@
           false
         ],
         [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "ordering_modifier",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -2137,7 +2300,7 @@
         ],
         [
           "remember",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -2258,6 +2421,96 @@
         [
           "snow_colors",
           "white_colors",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
           false
         ],
         [
@@ -2471,8 +2724,8 @@
           false
         ],
         [
-          "verby",
-          "verby",
+          "verb",
+          "verb",
           false
         ],
         [
@@ -2973,6 +3226,46 @@
           false
         ],
         [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -3269,7 +3562,7 @@
         ],
         [
           "call",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -3583,6 +3876,46 @@
           false
         ],
         [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -3599,7 +3932,7 @@
         ],
         [
           "evaluate",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -3889,7 +4222,7 @@
         ],
         [
           "is",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -4324,7 +4657,7 @@
         ],
         [
           "modifies",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -4523,6 +4856,51 @@
           false
         ],
         [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "ordering_modifier",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -4714,7 +5092,7 @@
         ],
         [
           "remember",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -4835,6 +5213,96 @@
         [
           "snow_colors",
           "white_colors",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
           false
         ],
         [
@@ -5048,8 +5516,8 @@
           false
         ],
         [
-          "verby",
-          "verby",
+          "verb",
+          "verb",
           false
         ],
         [
@@ -5468,6 +5936,46 @@
           false
         ],
         [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -5764,7 +6272,7 @@
         ],
         [
           "call",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -6123,6 +6631,46 @@
           false
         ],
         [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -6139,7 +6687,7 @@
         ],
         [
           "evaluate",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -6429,7 +6977,7 @@
         ],
         [
           "is",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -6954,7 +7502,7 @@
         ],
         [
           "modifies",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -7153,6 +7701,51 @@
           false
         ],
         [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "ordering_modifier",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -7344,7 +7937,7 @@
         ],
         [
           "remember",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -7465,6 +8058,96 @@
         [
           "snow_colors",
           "white_colors",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
           false
         ],
         [
@@ -7678,8 +8361,8 @@
           false
         ],
         [
-          "verby",
-          "verby",
+          "verb",
+          "verb",
           false
         ],
         [
@@ -7997,8 +8680,7 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "mongo#call2",
-            "instance0#mongo#call2"
+            "mongo#call2"
           ]
         }
       ],
@@ -8181,6 +8863,46 @@
         [
           "articlePOS",
           "articlePOS",
+          false
+        ],
+        [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
           false
         ],
         [
@@ -8480,7 +9202,7 @@
         ],
         [
           "call",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -8839,6 +9561,46 @@
           false
         ],
         [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -8855,7 +9617,7 @@
         ],
         [
           "evaluate",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -9145,7 +9907,7 @@
         ],
         [
           "is",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -9670,7 +10432,7 @@
         ],
         [
           "modifies",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -9869,6 +10631,51 @@
           false
         ],
         [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "ordering_modifier",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -10060,7 +10867,7 @@
         ],
         [
           "remember",
-          "verby",
+          "verb",
           false
         ],
         [
@@ -10221,6 +11028,96 @@
         [
           "snow_colors",
           "white_colors",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
           false
         ],
         [
@@ -10434,8 +11331,8 @@
           false
         ],
         [
-          "verby",
-          "verby",
+          "verb",
+          "verb",
           false
         ],
         [
@@ -10659,8 +11556,7 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "mongo#call2",
-            "instance0#mongo#call2"
+            "mongo#call2"
           ]
         }
       ],
@@ -10697,6 +11593,7 @@
       "extraConfig": true,
       "name": "mongo",
       "operators": [
+        "([sort|sort,order] ([sortBy|by] ([column])))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -10739,9 +11636,24 @@
       ],
       "bridges": [
         {
+          "id": "sortBy",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
+        },
+        {
+          "id": "sort",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
+        },
+        {
           "id": "column",
           "isA": [
-            "countable"
+            "countable",
+            "comparable"
           ],
           "words": [
             {
@@ -10838,7 +11750,7 @@
           "id": "make",
           "bridge": "{ ...next(operator), report: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ]
         },
         {
@@ -10856,13 +11768,13 @@
           "id": "changeState",
           "bridge": "{ ...next(operator), reportElement: after[0], newState: after[1] }",
           "parents": [
-            "verby"
+            "verb"
           ]
         },
         {
           "id": "capitalize",
           "parents": [
-            "verby"
+            "verb"
           ],
           "bridge": "{ ...next(operator), element: after[0] }"
         },
@@ -10938,28 +11850,28 @@
           "id": "showColumn",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ]
         },
         {
           "id": "showReport",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ]
         },
         {
           "id": "showCollection",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ]
         },
         {
           "id": "show",
           "bridge": "{ ...next(operator), show: after[0] }",
           "parents": [
-            "verby"
+            "verb"
           ]
         },
         {
@@ -10983,7 +11895,8 @@
           "id": "year",
           "parents": [
             "reportable",
-            "theAble"
+            "theAble",
+            "column"
           ],
           "words": [
             {
@@ -11000,7 +11913,8 @@
           "id": "email",
           "parents": [
             "reportable",
-            "theAble"
+            "theAble",
+            "column"
           ],
           "words": [
             {
@@ -11029,11 +11943,31 @@
           "choose": [
             1
           ]
+        },
+        {
+          "context": [
+            [
+              "list",
+              0
+            ],
+            [
+              "year",
+              0
+            ],
+            [
+              "ascending",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            2
+          ]
         }
       ]
     },
     {
-      "apply": "async ({config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        {\n          id: 'airbnb',\n          word: 'airbnb',\n          database: 'sample_airbnb',\n          collection: 'listingsAndReviews',\n          field: 'name',\n        },\n        {\n          id: 'user',\n          word: 'user',\n          database: 'sample_mflix',\n          collection: 'users',\n          field: 'name',\n        },\n        {\n          id: 'movie',\n          word: 'movie',\n          database: 'sample_mflix',\n          collection: 'movies',\n          field: 'title',\n        },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n      }\n\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
+      "apply": "async ({config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n      }\n\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
     }
   ],
   "fragments": [],

@@ -184,6 +184,28 @@ const setId = (imageSpec) => {
   traverseImpl(imageSpec, options)
 }
 
+const addColumns = (imageSpec, field, columns) => {
+  // imageSpec = _.cloneDeep(imageSpec)
+  const options = {
+    seen: (what, value) => {
+      if (['table'].includes(what)) {
+        const table = value
+        if (_.isEqual(field, table.field)) {
+          for (const column of columns) {
+            const fieldName = `$${column}`
+            if (!table.rows.find( (value) => value == fieldName )) {
+              table.rows.push(fieldName)
+              table.colgroups.push(`column_${table.headers.columns.length}`)
+              table.headers.columns.push({ text: column, id: column })
+            }
+          }
+        }
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+}
+
 const selecting = (selectingWhat, imageSpec) => {
   setId(imageSpec)
   const counts = count(imageSpec)
@@ -253,4 +275,5 @@ module.exports = {
   selecting,
   selector,
   countSelected,
+  addColumns,
 }

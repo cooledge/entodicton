@@ -16,6 +16,8 @@ const { getReportElements } = require('./mongo_helpers')
 
   search the descirpton for blach blach blah
 
+  in/for the users collection, show the name and ....
+
   capitalize the header
   make a new report
   always capitalize the header
@@ -152,7 +154,7 @@ class API {
   show(report) {
     // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
     this.objects.show.push(report)
-    console.log('show -----------', report)
+    console.log('show -----------', JSON.stringify(report, null, 2))
     this.addResponse({ report })
   }
 
@@ -251,6 +253,7 @@ let configStruct = {
   name: 'mongo',
   operators: [
     // "([call] ([nameable]) (name))",
+    "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
     "([make] ([report]))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
     // table 1 header background blue
@@ -283,6 +286,7 @@ let configStruct = {
     "([sales|])",
     "([year])",
     "([email])",
+
     // "([movie])",
     // "([this])",
     "([thisReportElement|this] (reportElement/*))",
@@ -294,33 +298,20 @@ let configStruct = {
     ['case', 'reportElement'],
   ],
   bridges: [
-    /*
-    {
-      id: 'call',
-      isA: ['verby'],
-      bridge: "{ ...next(operator), nameable: after[0], name: after[1] }",
-      // localHierarchy: [['unknown', 'nameable']],
-      generatorp: async ({context, g}) => `call ${await g(context.nameable)} ${await g(context.name)}`,
-      semantic: async ({config, context, api}) => {
-        // TODO find report being referred to
-        const report = api.current()
-        const name = context.name.text
-        config.addWord(name, { id: 'report', initial: `{ value: "${name}", namedReport: true }` })
-        api.nameReport(report, name)
-      }
+    { 
+      id: 'sortBy',
+      isA: ['preposition'],
+      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
     },
-    */
-    // { id: 'nameable', words: helpers.words('nameable')},
-    /*
-    {
-      id: 'collection',
-      words: [ ...helpers.words('collection'), ...helpers.words('table') ],
-    },
-    */
 
     { 
+      id: 'sortByColumns',
+      isA: ['verb'],
+      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+    },
+    { 
       id: 'column',
-      isA: ['countable'],
+      isA: ['countable', 'comparable'],
       words: [...helpers.words('column'), ...helpers.words('field'), ...helpers.words('property')],
     },
 
@@ -354,7 +345,7 @@ let configStruct = {
     { 
       id: 'make', 
       bridge: "{ ...next(operator), report: after[0] }",
-      parents: ['verby'],
+      parents: ['verb'],
       generatorp: async ({context, g}) => `make ${await g(context.report)}`,
       semantic: ({context, km, api}) => {
         api.newReport()
@@ -375,7 +366,7 @@ let configStruct = {
     { 
       id: 'changeState', 
       bridge: "{ ...next(operator), reportElement: after[0], newState: after[1] }",
-      parents: ['verby'],
+      parents: ['verb'],
       generatorp: async ({context, g}) => `make ${await g(context.reportElement)} ${await g(context.newState)}`,
       semantic: ({context, km, api, isA}) => {
         const getProperty = (reportElements, state) => {
@@ -445,7 +436,7 @@ let configStruct = {
 
     {
       id: 'capitalize',
-      parents: ['verby'],
+      parents: ['verb'],
       bridge: "{ ...next(operator), element: after[0] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.element)}`,
       semantic: ({context, mentions, api}) => {
@@ -528,7 +519,7 @@ let configStruct = {
 
     { id: 'showColumn',
       bridge: "{ ...next(operator), show: after[0] }",
-      parents: ['verby'],
+      parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, kms, api}) => {
         let report = api.current()
@@ -542,14 +533,16 @@ let configStruct = {
           context.chosens = [] // for callback
           report.showCollection = context
         } else if (context.show.less) {
-        } else {
+        } else if (context.show.path) {
+          // TODO add a the email column called contact
+          
         }
       },
     },
 
     { id: 'showReport',
       bridge: "{ ...next(operator), show: after[0] }",
-      parents: ['verby'],
+      parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, kms, api}) => {
         const name = context.show.value
@@ -561,7 +554,7 @@ let configStruct = {
 
     { id: 'showCollection',
       bridge: "{ ...next(operator), show: after[0] }",
-      parents: ['verby'],
+      parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, isA, km, mentions, api, flatten}) => {
         console.log("in show collection")
@@ -604,7 +597,7 @@ let configStruct = {
 
     { id: 'show',
       bridge: "{ ...next(operator), show: after[0] }",
-      parents: ['verby'],
+      parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, km, mentions, api, flatten, gp}) => {
         const report = api.newReport()
@@ -707,7 +700,7 @@ let configStruct = {
 
     { 
       id: 'year', 
-      parents: ['reportable', 'theAble'], 
+      parents: ['reportable', 'theAble', 'column'], 
       words: [ 
         { word: 'year', database: 'mongo_test_database', collection: 'sales', path: ['year'] } 
       ] 
@@ -715,7 +708,7 @@ let configStruct = {
 
     { 
       id: 'email', 
-      parents: ['reportable', 'theAble'], 
+      parents: ['reportable', 'theAble', 'column'], 
       words: [ 
         { word: 'email', database: 'sample_mflix', collection: 'users', path: ['email'] } 
       ] 
@@ -723,6 +716,9 @@ let configStruct = {
   ],
   priorities: [
     { context: [['show', 0], ['list', 0]], choose: [1] },
+    { context: [['list', 0], ['year',0], ['ascending', 0]], ordered: true, choose: [2] },
+    // { context: [['sortBy', 0], ['column',0], ['list', 0], ['column', 0]], ordered: true, choose: [2] },
+    { context: [['sortBy', 0], ['column',0], ['list', 0], ['column', 0], ['ascending', 0]], ordered: true, choose: [4] },
   ],
 };
 
@@ -770,27 +766,12 @@ const template = {
       const collection = 'listingsAndReviews'
       const field = 'name'
       const collections = [
-        {
-          id: 'airbnb',
-          word: 'airbnb',
-          database: 'sample_airbnb',
-          collection: 'listingsAndReviews',
-          field: 'name',
-        },
-        {
-          id: 'user',
-          word: 'user',
-          database: 'sample_mflix',
-          collection: 'users',
-          field: 'name',
-        },
-        {
-          id: 'movie',
-          word: 'movie',
-          database: 'sample_mflix',
-          collection: 'movies',
-          field: 'title',
-        },
+        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },
+
+        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },
+        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },
+        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },
+        { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },
       ]
 
       const addCollection = async ({ id, word, database, collection, field }) => {

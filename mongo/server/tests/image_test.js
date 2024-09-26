@@ -81,7 +81,7 @@ describe('Reports Tests', () => {
       data: columns.map((name, index) => tc(index, name)),
     }
   }
-  it('NEOS23 simple list', async () => {
+  it('simple list', async () => {
     const imageSpec = {
       headers: {
         columns: [{ text: 'name' }, { text: 'age' }, { text: 'favorite colors' }]
@@ -192,7 +192,7 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
-  it('NEOS23 nested table', async () => {
+  it('nested table', async () => {
     const imageSpec = {
       headers: {
         columns: [{ text: 'name' }, { text: 'age' }, { text: 'favorite colors' }]
@@ -437,7 +437,7 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
-  it('NEOS23 nested graph table', async () => {
+  it('nested graph table', async () => {
     const imageSpec = {
                 type: "bar",
                 options: {
@@ -475,6 +475,107 @@ describe('Reports Tests', () => {
     const actual = image.instantiate(imageSpec, bsonSales)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
+  })
+
+  describe('Add column', () => {
+    it('NEO23 add to table', async () => {
+      const imageSpec = {
+        "headers": { "columns": [] },
+        "table": true,
+        "explicit": true,
+        "field": [],
+        "rows": [
+          [
+            {
+              "headers": {
+                "columns": [ { "text": "users", "id": "name" } ]
+              },
+              "colgroups": [ "column_0" ],
+              "table": true,
+              "field": [ 0 ],
+              "rows": [ "$name" ]
+            },
+            {
+              "headers": {
+                "columns": [ { "text": "movies", "id": "title" } ]
+              },
+              "colgroups": [ "column_0" ],
+              "table": true,
+              "field": [ 1 ],
+              "rows": [ "$title" ]
+            }
+          ]
+        ]
+      }
+      const field = [1]
+      image.addColumns(imageSpec, field, ['email', 'age'])
+      console.log('imageSpec--', JSON.stringify(imageSpec, null, 2))
+      const expected = {
+        "headers": {
+          "columns": []
+        },
+        "table": true,
+        "explicit": true,
+        "field": [],
+        "rows": [
+          [
+            {
+              "headers": {
+                "columns": [
+                  {
+                    "text": "users",
+                    "id": "name"
+                  }
+                ]
+              },
+              "colgroups": [
+                "column_0"
+              ],
+              "table": true,
+              "field": [
+                0
+              ],
+              "rows": [
+                "$name"
+              ]
+            },
+            {
+              "headers": {
+                "columns": [
+                  {
+                    "text": "movies",
+                    "id": "title"
+                  },
+                  {
+                    "text": "email",
+                    "id": "email"
+                  },
+                  {
+                    "text": "age",
+                    "id": "age"
+                  }
+                ]
+              },
+              "colgroups": [
+                "column_0",
+                "column_1",
+                "column_2"
+              ],
+              "table": true,
+              "field": [
+                1
+              ],
+              "rows": [
+                "$title",
+                "$email",
+                "$age"
+              ]
+            }
+          ]
+        ]
+      }
+      expect(imageSpec).toStrictEqual(expected)
+    })
   })
 })
 

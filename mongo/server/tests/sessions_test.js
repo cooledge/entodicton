@@ -7,7 +7,7 @@ function sleep(ms) {
 }
 
 describe('Sessions Tests', () => {
-  it('NEOS23 constructor', async () => {
+  it('constructor', async () => {
     const createKM = () => {
     }
     const sessions = new Sessions(createKM)
@@ -15,7 +15,7 @@ describe('Sessions Tests', () => {
     expect(sessions.count()).toBe(0)
   })
 
-  it('NEOS23 construct km', async () => {
+  it('construct km', async () => {
     let count = 0
     const createKM = () => {
       count += 1
@@ -27,7 +27,7 @@ describe('Sessions Tests', () => {
     expect(count).toBe(1)
   })
 
-  it('NEOS23 no deleting stale session', async () => {
+  it('no deleting stale session', async () => {
     let count = 0
     const createKM = () => {
       count += 1
@@ -43,7 +43,7 @@ describe('Sessions Tests', () => {
     expect(count).toBe(1)
   })
 
-  it('NEOS23 reuse km', async () => {
+  it('reuse km', async () => {
     let count = 0
     const createKM = () => {
       count += 1
@@ -56,7 +56,7 @@ describe('Sessions Tests', () => {
     expect(count).toBe(1)
   })
 
-  it('NEOS23 multiple sessions', async () => {
+  it('multiple sessions', async () => {
     let count = 0
     const createKM = () => {
       count += 1
@@ -69,7 +69,7 @@ describe('Sessions Tests', () => {
     expect(count).toBe(2)
   })
 
-  it('NEO23 at most n sessions no stale so reject new session', async () => {
+  it('at most n sessions no stale so reject new session', async () => {
     let count = 0
     const createKM = () => {
       count += 1
@@ -83,7 +83,7 @@ describe('Sessions Tests', () => {
     expect(count).toBe(2)
   })
 
-  it('NEOS23 at most n sessions has stale so delete stale and make new session', async () => {
+  it('at most n sessions has stale so delete stale and make new session', async () => {
     let count = 0
     const createKM = () => {
       count += 1
