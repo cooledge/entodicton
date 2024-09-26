@@ -14,10 +14,25 @@ const initialize = async () => {
 }
 
 const addColumns = (dataSpec, imageSpec, dbName, collectionName, columns) => {
-  for (let i = 0; i < dataSpec.length; ++i) {
-    if (dataSpec[i].dbName == dbName && dataSpec[i].collectionName == collectionName) {
-      image.addColumns(imageSpec, [i], columns)
+  const options = {
+    seen: (path, dataSpec) => {
+      debugger
+      if (dataSpec.dbName == dbName && dataSpec.collectionName == collectionName) {
+        image.addColumns(imageSpec, path, columns)
+      }
     }
+  }
+  traverseImpl(dataSpec, options)
+}
+
+const traverseImpl = (dataSpec, options = {}) => {
+  if (Array.isArray(dataSpec)) {
+    const dataSpecs = dataSpec
+    for (let i = 0; i < dataSpecs.length; ++i) {
+      options.seen([i], dataSpecs[i])
+    }
+  } else {
+    options.seen([], dataSpec)
   }
 }
 

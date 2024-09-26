@@ -203,7 +203,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, movies, ['title', 'genres'])
     }, timeout);
 
-    test(`NEO23 MONGO what is 2 + 2`, async () => {
+    test(`MONGO what is 2 + 2`, async () => {
       await query('what is 2 + 2')
       await page.waitForSelector(`.response`)
       const data = await page.evaluate(() => {
@@ -212,6 +212,13 @@ describe('tests for the mongo page', () => {
         return field.innerText
       })
       expect(data).toBe('4')
+    }, timeout);
+
+    test(`MONGO show the users + show email`, async () => {
+      await query('show the users')
+      await query('show email')
+      await page.waitForSelector(`#queryCounter2`)
+      await checkTable(page, 1, users, ['name', 'email'])
     }, timeout);
 
   })

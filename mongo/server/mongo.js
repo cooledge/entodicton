@@ -3,6 +3,7 @@ const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable, cou
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const image = require('./image')
+const query = require('./query')
 const { getFields } = require('./data')
 const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
@@ -535,7 +536,9 @@ let configStruct = {
         } else if (context.show.less) {
         } else if (context.show.path) {
           // TODO add a the email column called contact
-          
+          debugger
+          query.addColumns(report.dataSpec, report.imageSpec, context.show.database, context.show.collection, context.show.path) 
+          api.show(report)
         }
       },
     },
@@ -708,7 +711,7 @@ let configStruct = {
 
     { 
       id: 'email', 
-      parents: ['reportable', 'theAble', 'column'], 
+      parents: ['theAble', 'column'], 
       words: [ 
         { word: 'email', database: 'sample_mflix', collection: 'users', path: ['email'] } 
       ] 

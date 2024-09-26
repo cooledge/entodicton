@@ -190,7 +190,7 @@ const addColumns = (imageSpec, field, columns) => {
     seen: (what, value) => {
       if (['table'].includes(what)) {
         const table = value
-        if (_.isEqual(field, table.field)) {
+        if (_.isEqual(field, (table.field || []))) {
           for (const column of columns) {
             const fieldName = `$${column}`
             if (!table.rows.find( (value) => value == fieldName )) {

@@ -478,7 +478,7 @@ describe('Reports Tests', () => {
   })
 
   describe('Add column', () => {
-    it('NEO23 add to table', async () => {
+    it('add to table', async () => {
       const imageSpec = {
         "headers": { "columns": [] },
         "table": true,
