@@ -13,7 +13,7 @@
     {
       "name": "mongo",
       "operators": [
-        "([sort|sort,order] ([sortBy|by] ([column])))",
+        "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -63,7 +63,7 @@
           "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
         },
         {
-          "id": "sort",
+          "id": "sortByColumns",
           "isA": [
             "verb"
           ],
@@ -280,7 +280,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, kms, api}) => {\n        let report = api.current()\n        if (context.chosens) {\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else {\n        }\n      }"
+          "semantic": "async ({context, kms, api}) => {\n        let report = api.current()\n        if (context.chosens) {\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.path) {\n          // TODO add a the email column called contact\n          debugger\n          query.addColumns(report.dataSpec, report.imageSpec, context.show.database, context.show.collection, context.show.path) \n          api.show(report)\n        }\n      }"
         },
         {
           "id": "showReport",
@@ -347,7 +347,6 @@
         {
           "id": "email",
           "parents": [
-            "reportable",
             "theAble",
             "column"
           ],
@@ -398,6 +397,34 @@
           "choose": [
             2
           ]
+        },
+        {
+          "context": [
+            [
+              "sortBy",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "ascending",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            4
+          ]
         }
       ]
     },
@@ -411,6 +438,11 @@
         [
           "a",
           "articlePOS",
+          false
+        ],
+        [
+          "action",
+          "action",
           false
         ],
         [
@@ -859,6 +891,11 @@
           false
         ],
         [
+          "cancel",
+          "verb",
+          false
+        ],
+        [
           "chartruese_colors",
           "green_colors",
           false
@@ -1124,6 +1161,11 @@
           false
         ],
         [
+          "direction",
+          "direction",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -1136,6 +1178,11 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "down",
+          "direction",
           false
         ],
         [
@@ -1584,6 +1631,11 @@
           false
         ],
         [
+          "left",
+          "direction",
+          false
+        ],
+        [
           "light_colors",
           "brightness_colors",
           false
@@ -1661,6 +1713,11 @@
         [
           "lime_colors",
           "theAble",
+          false
+        ],
+        [
+          "listening",
+          "action",
           false
         ],
         [
@@ -1866,6 +1923,16 @@
         [
           "modifies",
           "verb",
+          false
+        ],
+        [
+          "move",
+          "verb",
+          false
+        ],
+        [
+          "moveAmount",
+          "preposition",
           false
         ],
         [
@@ -2304,6 +2371,16 @@
           false
         ],
         [
+          "right",
+          "direction",
+          false
+        ],
+        [
+          "select",
+          "verb",
+          false
+        ],
+        [
           "sienna_colors",
           "brown_colors",
           false
@@ -2464,6 +2541,11 @@
           false
         ],
         [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
           "sort_ordering",
           "adjective",
           true
@@ -2516,6 +2598,11 @@
         [
           "stm_before",
           "adjective",
+          false
+        ],
+        [
+          "stop",
+          "verb",
           false
         ],
         [
@@ -2721,6 +2808,16 @@
         [
           "unknown",
           "theAble",
+          false
+        ],
+        [
+          "unselect",
+          "verb",
+          false
+        ],
+        [
+          "up",
+          "direction",
           false
         ],
         [
@@ -3131,6 +3228,11 @@
           false
         ],
         [
+          "action",
+          "action",
+          false
+        ],
+        [
           "adjective",
           "adjective",
           false
@@ -3576,6 +3678,11 @@
           false
         ],
         [
+          "cancel",
+          "verb",
+          false
+        ],
+        [
           "chartruese_colors",
           "green_colors",
           false
@@ -3916,6 +4023,11 @@
           false
         ],
         [
+          "direction",
+          "direction",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -3928,6 +4040,11 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "down",
+          "direction",
           false
         ],
         [
@@ -4376,6 +4493,11 @@
           false
         ],
         [
+          "left",
+          "direction",
+          false
+        ],
+        [
           "light_colors",
           "brightness_colors",
           false
@@ -4453,6 +4575,11 @@
         [
           "lime_colors",
           "theAble",
+          false
+        ],
+        [
+          "listening",
+          "action",
           false
         ],
         [
@@ -4658,6 +4785,16 @@
         [
           "modifies",
           "verb",
+          false
+        ],
+        [
+          "move",
+          "verb",
+          false
+        ],
+        [
+          "moveAmount",
+          "preposition",
           false
         ],
         [
@@ -5096,6 +5233,16 @@
           false
         ],
         [
+          "right",
+          "direction",
+          false
+        ],
+        [
+          "select",
+          "verb",
+          false
+        ],
+        [
           "sienna_colors",
           "brown_colors",
           false
@@ -5256,6 +5403,11 @@
           false
         ],
         [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
           "sort_ordering",
           "adjective",
           true
@@ -5308,6 +5460,11 @@
         [
           "stm_before",
           "adjective",
+          false
+        ],
+        [
+          "stop",
+          "verb",
           false
         ],
         [
@@ -5513,6 +5670,16 @@
         [
           "unknown",
           "theAble",
+          false
+        ],
+        [
+          "unselect",
+          "verb",
+          false
+        ],
+        [
+          "up",
+          "direction",
           false
         ],
         [
@@ -5841,6 +6008,11 @@
           false
         ],
         [
+          "action",
+          "action",
+          false
+        ],
+        [
           "adjective",
           "adjective",
           false
@@ -6286,6 +6458,11 @@
           false
         ],
         [
+          "cancel",
+          "verb",
+          false
+        ],
+        [
           "chartruese_colors",
           "green_colors",
           false
@@ -6671,6 +6848,11 @@
           false
         ],
         [
+          "direction",
+          "direction",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -6683,6 +6865,11 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "down",
+          "direction",
           false
         ],
         [
@@ -7131,6 +7318,11 @@
           false
         ],
         [
+          "left",
+          "direction",
+          false
+        ],
+        [
           "light_colors",
           "brightness_colors",
           false
@@ -7208,6 +7400,11 @@
         [
           "lime_colors",
           "theAble",
+          false
+        ],
+        [
+          "listening",
+          "action",
           false
         ],
         [
@@ -7503,6 +7700,16 @@
         [
           "modifies",
           "verb",
+          false
+        ],
+        [
+          "move",
+          "verb",
+          false
+        ],
+        [
+          "moveAmount",
+          "preposition",
           false
         ],
         [
@@ -7941,6 +8148,16 @@
           false
         ],
         [
+          "right",
+          "direction",
+          false
+        ],
+        [
+          "select",
+          "verb",
+          false
+        ],
+        [
           "sienna_colors",
           "brown_colors",
           false
@@ -8101,6 +8318,11 @@
           false
         ],
         [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
           "sort_ordering",
           "adjective",
           true
@@ -8153,6 +8375,11 @@
         [
           "stm_before",
           "adjective",
+          false
+        ],
+        [
+          "stop",
+          "verb",
           false
         ],
         [
@@ -8358,6 +8585,16 @@
         [
           "unknown",
           "theAble",
+          false
+        ],
+        [
+          "unselect",
+          "verb",
+          false
+        ],
+        [
+          "up",
+          "direction",
           false
         ],
         [
@@ -8771,6 +9008,11 @@
           false
         ],
         [
+          "action",
+          "action",
+          false
+        ],
+        [
           "adjective",
           "adjective",
           false
@@ -9216,6 +9458,11 @@
           false
         ],
         [
+          "cancel",
+          "verb",
+          false
+        ],
+        [
           "chartruese_colors",
           "green_colors",
           false
@@ -9601,6 +9848,11 @@
           false
         ],
         [
+          "direction",
+          "direction",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -9613,6 +9865,11 @@
         [
           "doubleQuote",
           "queryable",
+          false
+        ],
+        [
+          "down",
+          "direction",
           false
         ],
         [
@@ -10061,6 +10318,11 @@
           false
         ],
         [
+          "left",
+          "direction",
+          false
+        ],
+        [
           "light_colors",
           "brightness_colors",
           false
@@ -10138,6 +10400,11 @@
         [
           "lime_colors",
           "theAble",
+          false
+        ],
+        [
+          "listening",
+          "action",
           false
         ],
         [
@@ -10433,6 +10700,16 @@
         [
           "modifies",
           "verb",
+          false
+        ],
+        [
+          "move",
+          "verb",
+          false
+        ],
+        [
+          "moveAmount",
+          "preposition",
           false
         ],
         [
@@ -10911,6 +11188,16 @@
           false
         ],
         [
+          "right",
+          "direction",
+          false
+        ],
+        [
+          "select",
+          "verb",
+          false
+        ],
+        [
           "sienna_colors",
           "brown_colors",
           false
@@ -11071,6 +11358,11 @@
           false
         ],
         [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
           "sort_ordering",
           "adjective",
           true
@@ -11123,6 +11415,11 @@
         [
           "stm_before",
           "adjective",
+          false
+        ],
+        [
+          "stop",
+          "verb",
           false
         ],
         [
@@ -11328,6 +11625,16 @@
         [
           "unknown",
           "theAble",
+          false
+        ],
+        [
+          "unselect",
+          "verb",
+          false
+        ],
+        [
+          "up",
+          "direction",
           false
         ],
         [
@@ -11593,7 +11900,7 @@
       "extraConfig": true,
       "name": "mongo",
       "operators": [
-        "([sort|sort,order] ([sortBy|by] ([column])))",
+        "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -11643,7 +11950,7 @@
           "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
         },
         {
-          "id": "sort",
+          "id": "sortByColumns",
           "isA": [
             "verb"
           ],
@@ -11912,7 +12219,6 @@
         {
           "id": "email",
           "parents": [
-            "reportable",
             "theAble",
             "column"
           ],
@@ -11962,6 +12268,34 @@
           "ordered": true,
           "choose": [
             2
+          ]
+        },
+        {
+          "context": [
+            [
+              "sortBy",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "ascending",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            4
           ]
         }
       ]

@@ -92,9 +92,10 @@ describe('Reports Tests', () => {
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
+
   describe('addColumn', () => {
 
-    it('NEO23 add columns to single dataSource ', async () => {
+    it('add columns to single dataSource ', async () => {
       const dataSpec = {
         "dbName": "sample_mflix",
         "collectionName": "movies",
@@ -255,6 +256,67 @@ describe('Reports Tests', () => {
       expect(imageSpec).toStrictEqual(expected)
     })
 
+  })
+
+  describe('add sort fields', () => {
+
+    it('add sf ascending', async () => {
+      const dataSpec = {
+        dbName: "sample_mflix",
+        collectionName: "users",
+        limit: 10,
+        aggregation: [],
+      }
+
+      const field = {
+        database: "sample_mflix",
+        collection: "users",
+        path: ["email"],
+        ordering: "ascending",
+      }
+
+      query.addSort(dataSpec, [field])
+      expect(dataSpec.sort).toStrictEqual({ email: 1 })
+    })
+
+    it('add sf descending', async () => {
+      const dataSpec = {
+        dbName: "sample_mflix",
+        collectionName: "users",
+        limit: 10,
+        aggregation: [],
+      }
+
+      const field = {
+        database: "sample_mflix",
+        collection: "users",
+        path: ["email"],
+        ordering: "descending",
+      }
+
+      query.addSort(dataSpec, [field])
+      expect(dataSpec.sort).toStrictEqual({ email: -1 })
+    })
+
+    it('overright', async () => {
+      const dataSpec = {
+        dbName: "sample_mflix",
+        collectionName: "users",
+        sort: { 'email': 1, 'year': 1 },
+        limit: 10,
+        aggregation: [],
+      }
+
+      const field = {
+        database: "sample_mflix",
+        collection: "users",
+        path: ["email"],
+        ordering: "descending",
+      }
+
+      query.addSort(dataSpec, [field])
+      expect(dataSpec.sort).toStrictEqual({ year: 1, email: -1 })
+    })
   })
 })
 

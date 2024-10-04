@@ -32,10 +32,11 @@ const instantiate = async (dataSpec) => {
     const db = client.db(dbName);
     const collection = db.collection(collectionName)
     let data;
+    debugger
     if (_.isEmpty()) {
-      data = await collection.find().limit(limit).toArray();
+      data = await collection.find().sort(dataSpec.sort || []).limit(limit).toArray();
     } else {
-      data = await collection.aggregate(aggregation).limit(limit).toArray();
+      data = await collection.aggregate(aggregation).sort(dataSpec.sort || []).limit(limit).toArray();
     }
     return data
   }

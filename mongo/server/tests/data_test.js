@@ -89,6 +89,43 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
+  it('sort descending', async () => {
+    const expected = [
+        {
+          // "_id": "66c634b98806b1910b62923d",
+          "id": "123",
+          "year": "1993",
+          "sales": "130"
+        },
+        {
+          // "_id": "66c634b98806b1910b62923c",
+          "id": "123",
+          "year": "1992",
+          "sales": "120"
+        },
+        {
+          // "_id": "66c634b98806b1910b62923b",
+          "id": "123",
+          "year": "1991",
+          "sales": "110"
+        },
+        {
+          // "_id": "66c634b98806b1910b62923a",
+          "id": "123",
+          "year": "1990",
+          "sales": "100"
+        },
+      ]
+
+    const dataSpec = { dbName: DB_NAME, sort: {year: -1}, collectionName: COLLECTION_NAME, aggregation: [] }
+    const actual = await data.instantiate(dataSpec)
+    actual.forEach( (doc) => {
+      delete doc._id
+    })
+    console.log(JSON.stringify(actual, null, 2))
+    expect(actual).toStrictEqual(expected)
+  })
+
   it('nested in array once', async () => {
     const expected = [
       [

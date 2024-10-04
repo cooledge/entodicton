@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, where } = require('theprogrammablemind')
-const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math } = require('tpmkms')
+const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math, ui } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const image = require('./image')
@@ -255,6 +255,7 @@ let configStruct = {
   operators: [
     // "([call] ([nameable]) (name))",
     "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
+    // "([moveColumn|move] (column/*) (direction/*))",
     "([make] ([report]))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
     // table 1 header background blue
@@ -306,9 +307,20 @@ let configStruct = {
     },
 
     { 
+      // TODO stop sorting by ... stop sorting
       id: 'sortByColumns',
       isA: ['verb'],
       bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+      semantic: ({context, api}) => {
+        debugger
+        const report = api.current()
+        const fields = helpers.propertyToArray(context.field.field)
+        query.addSort(report.dataSpec, fields)
+        api.show(report)
+        debugger
+        debugger
+        
+      }
     },
     { 
       id: 'column',
@@ -774,7 +786,7 @@ const template = {
         { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },
         { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },
         { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },
-        { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },
+        // { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },
       ]
 
       const addCollection = async ({ id, word, database, collection, field }) => {
@@ -786,6 +798,21 @@ const template = {
             words: helpers.words(word, { database, collection, path: [field] }),
           },
         )
+
+        /*
+        const fields = await getFields(database, collection)
+        for (const field of fields) {
+          const fieldId = `${id}_${field}`
+          const wordDef = { 
+            id: fieldId,
+            parents: ['theAble', 'column'], 
+            words: [ 
+              { word: field, database, collection, path: [field] } 
+            ] 
+          }
+          config.addWord(wordDef)
+        }
+        */
 
         const wordDef = {
           collection,
@@ -816,7 +843,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'mongo' },
-  includes: [hierarchy, colors, negation, nameable, countable, math],
+  includes: [hierarchy, colors, negation, nameable, ui, countable, math],
   api: () => new API(),
   initializer: ({config, s, fragments}) => {
     config.server('http://localhost:3000')
