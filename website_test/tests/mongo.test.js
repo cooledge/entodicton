@@ -85,7 +85,18 @@ describe('tests for the mongo page', () => {
     }, tableNumber, selector);
 
     for (let i = 0; i < LIMIT; ++i) {
-      const expected = properties.map(property => dataDb[i][property])
+      const expected = properties.map(property => {
+        const value = dataDb[i][property]
+        if (Array.isArray(value)) {
+          return value
+        }
+        return value.toString()
+      })
+      /*
+      console.log('dataDb[i] -------------------', JSON.stringify(dataDb[i], null, 2))
+      console.log('expected', JSON.stringify(expected))
+      console.log('data[i]', JSON.stringify(data[i]))
+      */
       expect(data[i]).toStrictEqual(expected)
     }
   }
@@ -219,6 +230,13 @@ describe('tests for the mongo page', () => {
       await query('show email')
       await page.waitForSelector(`#queryCounter2`)
       await checkTable(page, 1, users, ['name', 'email'])
+    }, timeout);
+
+    test(`NEO23 MONGO show the users + show all the fields`, async () => {
+      await query('show the users')
+      await query('show all the fields')
+      await page.waitForSelector(`#queryCounter2`)
+      await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
     }, timeout);
 
   })

@@ -275,7 +275,7 @@ describe('Reports Tests', () => {
         ordering: "ascending",
       }
 
-      query.addSort(dataSpec, [field])
+      await query.addSort(dataSpec, [field])
       expect(dataSpec.sort).toStrictEqual({ email: 1 })
     })
 

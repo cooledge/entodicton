@@ -4,7 +4,7 @@ const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const image = require('./image')
 const query = require('./query')
-const { getFields } = require('./data')
+const { getFields, terminate } = require('./data')
 const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
 
@@ -16,6 +16,8 @@ const { getReportElements } = require('./mongo_helpers')
   show the last/previous/other report
 
   search the descirpton for blach blach blah
+
+  always show all the fields
 
   in/for the users collection, show the name and ....
 
@@ -271,6 +273,7 @@ let configStruct = {
     "([background])",
     "([header])",
     "([table])",
+
 
     "([column])",
 
@@ -548,8 +551,19 @@ let configStruct = {
         } else if (context.show.less) {
         } else if (context.show.path) {
           // TODO add a the email column called contact
-          debugger
           query.addColumns(report.dataSpec, report.imageSpec, context.show.database, context.show.collection, context.show.path) 
+          api.show(report)
+        } else if (context.show.quantity.value == 'all') {
+          const { dbName, collectionName } = report.dataSpec
+          const fields = await getFields(dbName, collectionName)
+          // '{"chosen":"select","choices":[{"text":"_id","id":"_id"},{"text":"name","id":"name","selected":true,"counter":1},{"text":"email","id":"email","selected":true,"counter":2},{"text":"password","id":"password"}]}'
+          const choices = []
+          let counter = 1
+          for (const field of fields) {
+            choices.push({ text: field, id: field, counter, selected: true })
+            counter += 1
+          }
+          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })
           api.show(report)
         }
       },
@@ -847,6 +861,10 @@ knowledgeModule( {
   api: () => new API(),
   initializer: ({config, s, fragments}) => {
     config.server('http://localhost:3000')
+  },
+
+  terminator: () => {
+    terminate()
   },
 
   module,

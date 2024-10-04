@@ -39,14 +39,11 @@ const addSort = (dataSpec, sortFields) => {
   const options = {
     seen: (path, dataSpec) => {
       for (const sortField of sortFields) {
-        debugger
-        if (sortField.database == dataSpec.dbName && sortField.collection == dataSpec.collectionName) {
-          if (!dataSpec.sort) {
-            dataSpec.sort = {}
-          }
-          delete dataSpec.sort[sortField.path[0]]
-          dataSpec.sort[sortField.path[0]] = sortField.ordering == 'ascending' ? 1 : -1
+        if (!dataSpec.sort) {
+          dataSpec.sort = {}
         }
+        delete dataSpec.sort[sortField.path[0]]
+        dataSpec.sort[sortField.path[0]] = sortField.ordering == 'ascending' ? 1 : -1
       }
     }
   }

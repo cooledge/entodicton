@@ -32,7 +32,6 @@ const instantiate = async (dataSpec) => {
     const db = client.db(dbName);
     const collection = db.collection(collectionName)
     let data;
-    debugger
     if (_.isEmpty()) {
       data = await collection.find().sort(dataSpec.sort || []).limit(limit).toArray();
     } else {
@@ -54,14 +53,22 @@ const instantiate = async (dataSpec) => {
 
 const getFields = async (dbName, collectionName) => {
   await initialize()
-  const db = client.db(dbName);
-  const collection = db.collection(collectionName)
+  const db = await client.db(dbName);
+  const collection = await db.collection(collectionName)
   const data = await collection.findOne()
   return Object.keys(data)
 }
 
+const terminate = () => {
+  if (client) {
+    client.close()
+    client = null
+  }
+}
+
 module.exports = {
   initialize,
+  terminate,
   instantiate,
   client,
   getFields,
