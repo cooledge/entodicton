@@ -42,8 +42,8 @@ const addSort = (dataSpec, sortFields) => {
         if (!dataSpec.sort) {
           dataSpec.sort = {}
         }
-        delete dataSpec.sort[sortField.path[0]]
-        dataSpec.sort[sortField.path[0]] = sortField.ordering == 'ascending' ? 1 : -1
+        delete dataSpec.sort[sortField.word]
+        dataSpec.sort[sortField.word] = sortField.ordering == 'ascending' ? 1 : -1
       }
     }
   }

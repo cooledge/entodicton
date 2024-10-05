@@ -23,6 +23,12 @@ const bsonSales = [
   },
 ]
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const DB_NAME = 'mongo_test_database'
 const COLLECTION_NAME = 'sales'
 
@@ -32,7 +38,11 @@ describe('Reports Tests', () => {
   beforeAll( async () => {
     client = await query.initialize()
     const myDB = await client.db(DB_NAME)
-    await myDB.collection(COLLECTION_NAME).drop()
+    try {
+      await myDB.collection(COLLECTION_NAME).drop()
+    } catch( e ) {
+      // errors if collection is not there
+    }
     const myColl = await myDB.collection(COLLECTION_NAME);
     for (const doc of bsonSales) {
       await myColl.insertOne(doc);
@@ -271,7 +281,7 @@ describe('Reports Tests', () => {
       const field = {
         database: "sample_mflix",
         collection: "users",
-        path: ["email"],
+        word: "email",
         ordering: "ascending",
       }
 
@@ -290,7 +300,7 @@ describe('Reports Tests', () => {
       const field = {
         database: "sample_mflix",
         collection: "users",
-        path: ["email"],
+        word: "email",
         ordering: "descending",
       }
 
@@ -310,7 +320,7 @@ describe('Reports Tests', () => {
       const field = {
         database: "sample_mflix",
         collection: "users",
-        path: ["email"],
+        word: "email",
         ordering: "descending",
       }
 

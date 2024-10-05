@@ -20,14 +20,14 @@ function sleep(ms) {
   });
 }
 
-const getData = async (client, dbName, collectionName, aggregation = [], limit=LIMIT) => {
+const getData = async (client, dbName, collectionName, { aggregation = [], limit=LIMIT, sort={} } = {}) => {
   const db = client.db(dbName);
   const collection = db.collection(collectionName)
   let data;
   if (_.isEmpty()) {
-    data = await collection.find().limit(limit).toArray();
+    data = await collection.find().sort(sort).limit(limit).toArray();
   } else {
-    data = await collection.aggregate(aggregation).limit(limit).toArray();
+    data = await collection.aggregate(aggregation).sort(sort).limit(limit).toArray();
   }
   return data
 }
@@ -232,10 +232,28 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['name', 'email'])
     }, timeout);
 
-    test(`NEO23 MONGO show the users + show all the fields`, async () => {
+    test(`MONGO show the users + show all the fields`, async () => {
       await query('show the users')
       await query('show all the fields')
       await page.waitForSelector(`#queryCounter2`)
+      await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
+    }, timeout);
+
+    test(`MONGO show the users + show all the fields + sort by name ascending`, async () => {
+      await query('show the users')
+      await query('show all the fields')
+      await query('sort by name ascending')
+      await page.waitForSelector(`#queryCounter3`)
+      const users = await getData(client, 'sample_mflix', 'users', { sort: { name: 1 } })
+      await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
+    }, timeout);
+
+    test(`MONGO show the users + show all the fields + sort by name ascending`, async () => {
+      await query('show the users')
+      await query('show all the fields')
+      await query('sort by email descending')
+      await page.waitForSelector(`#queryCounter3`)
+      const users = await getData(client, 'sample_mflix', 'users', { sort: { email: -1 } })
       await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
     }, timeout);
 
