@@ -134,10 +134,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -153,6 +153,7 @@
       "template": [],
       "includes": [
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -182,10 +183,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -239,10 +240,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -270,10 +271,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -296,10 +297,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -329,10 +330,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -397,10 +398,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -458,10 +459,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -500,10 +501,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -565,10 +566,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -592,10 +593,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -610,6 +611,7 @@
       "template": [],
       "includes": [
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -630,10 +632,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -906,10 +908,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -946,10 +948,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -979,10 +981,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1029,10 +1031,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1051,10 +1053,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1083,10 +1085,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1138,10 +1140,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1207,10 +1209,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
@@ -1238,7 +1240,8 @@
         "remember m1 call the m1 banana",
         "remember m1\\ncall the m1 banana\\nevaluate banana",
         "remember m1\\ncall the m1 banana\\ngetnamesbytype m1",
-        "remember m1\\ncall the m1 banana\\nbanana"
+        "remember m1\\ncall the m1 banana\\nbanana",
+        "remember m1\\ncall the m1 peter james chunkington\\npeter james chunkington"
       ],
       "template": [],
       "includes": [
@@ -1246,6 +1249,7 @@
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1260,8 +1264,9 @@
       ],
       "template": [],
       "includes": [
-        "gdefaults",
         "pos",
+        "punctuation",
+        "gdefaults",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/negation.js"
@@ -1305,10 +1310,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1351,10 +1356,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1459,10 +1464,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1501,10 +1506,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1515,7 +1520,11 @@
       "description": "parts of speech",
       "examples": [],
       "template": [],
-      "includes": [],
+      "includes": [
+        "punctuation",
+        "gdefaults",
+        "tokenize"
+      ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
     },
     {
@@ -1547,10 +1556,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1596,10 +1605,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1646,7 +1655,6 @@
         "list the models\\ncall this report1\\nshow report1",
         "column 2",
         "move column 2 to column 1",
-        "call this report1 show it",
         "show price and supplier",
         "call this report1",
         "after the report changes show the report\\nmove column 2 to column 1",
@@ -1657,7 +1665,8 @@
         "x is 20 show the report",
         "show the worth list the models",
         "worthtest means price times quantity\\nshow the worthtest list the models",
-        "worthtest is price times quantity\\nshow the worthtest list the models"
+        "worthtest is price times quantity\\nshow the worthtest list the models",
+        "call this report1\\nshow it"
       ],
       "template": [
         "price and quantity are properties",
@@ -1680,10 +1689,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
@@ -1728,10 +1737,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1766,10 +1775,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1798,10 +1807,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1838,6 +1847,7 @@
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1856,10 +1866,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1894,10 +1904,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1940,10 +1950,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -1988,10 +1998,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
@@ -2040,10 +2050,10 @@
         "negation",
         "stm",
         "meta",
-        "punctuation",
         "evaluate",
         "articles",
         "pos",
+        "punctuation",
         "gdefaults",
         "tokenize"
       ],
