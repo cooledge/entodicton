@@ -1238,7 +1238,8 @@
         "remember m1 call the m1 banana",
         "remember m1\\ncall the m1 banana\\nevaluate banana",
         "remember m1\\ncall the m1 banana\\ngetnamesbytype m1",
-        "remember m1\\ncall the m1 banana\\nbanana"
+        "remember m1\\ncall the m1 banana\\nbanana",
+        "remember m1\\ncall the m1 peter james chunkington\\npeter james chunkington"
       ],
       "template": [],
       "includes": [
@@ -1646,7 +1647,6 @@
         "list the models\\ncall this report1\\nshow report1",
         "column 2",
         "move column 2 to column 1",
-        "call this report1 show it",
         "show price and supplier",
         "call this report1",
         "after the report changes show the report\\nmove column 2 to column 1",
@@ -1657,7 +1657,8 @@
         "x is 20 show the report",
         "show the worth list the models",
         "worthtest means price times quantity\\nshow the worthtest list the models",
-        "worthtest is price times quantity\\nshow the worthtest list the models"
+        "worthtest is price times quantity\\nshow the worthtest list the models",
+        "call this report1\\nshow it"
       ],
       "template": [
         "price and quantity are properties",
