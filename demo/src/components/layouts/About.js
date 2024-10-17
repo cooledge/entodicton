@@ -6,7 +6,8 @@ const VERSION = require('./VERSION')
 const _ = require('underscore')
 
 class About extends Component {
-  render(){
+  render() {
+    const url = "https://github.com/cooledge/entodicton/blob/TAG".replace("TAG", VERSION.version)
     return (
       <div className='about'>
         <div className='line'>
@@ -14,6 +15,11 @@ class About extends Component {
         </div>
         <div className='line'>
           <span class='label'>Version:</span> <span class='value'>{VERSION.version}</span>
+        </div>
+        <div className='line'>
+          <span class='label'>Source for this website:</span> <span class='value'>
+            <a href={url.replace("TAG", VERSION.version)} target="_blank">source</a>
+          </span>
         </div>
       </div>
     )
