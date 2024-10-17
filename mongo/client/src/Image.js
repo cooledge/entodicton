@@ -4,6 +4,9 @@ import { table } from 'table'
 import Chart from 'react-apexcharts'
 
 const toHTML = (data, options) => {
+  if (!data) {
+    debugger // look for bug
+  }
   if (data.type) {
     return fromGraph(data, options)
   } else if (data.table) {

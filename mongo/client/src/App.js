@@ -7,6 +7,7 @@ import NamedReports from './NamedReports'
 import NoSessionError from './NoSessionError'
 import Image from './Image'
 import $ from 'jquery';
+import demo from './demo.json'
 const fetch = require('node-fetch')
 
 const testData = () => {
@@ -229,6 +230,7 @@ function App() {
   const [query, doQuery] = useState('')
   const [counter, setCounter] = useState(0)
   // const [data, setData] = useState(initData, doQuery)
+  // const [data, setData] = useState(demo, doQuery)
   const [data, setData] = useState([], doQuery)
   const [rules, setRules] = useState([])  // { rule, index }
   // const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])
@@ -242,7 +244,7 @@ function App() {
   const [namedReports, setNamedReports] = useState([])
   const [resetSession, setResetSession] = useState(false)
   const [queryResponses, setQueryResponses] = useState([])
-
+  // console.log('data', data)
   useEffect( () => {
     if (!resetSession) {
       return

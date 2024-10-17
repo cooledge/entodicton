@@ -98,8 +98,7 @@ class API {
     this.args.km('stm').api.mentioned({ context: report })
   }
 
-  async showFieldsResponse(database, collection, report = null) { 
-    const fields = await getFields(database, collection)
+  async showFieldsResponse(database, collection, fields, report = null) { 
     console.log('fields', fields)
     const selected = {}
     if (report) {
@@ -257,6 +256,7 @@ let configStruct = {
   operators: [
     // "([call] ([nameable]) (name))",
     "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
+    "([groupByColumns|group] ([groupBy|by] ([column])))",
     // "([moveColumn|move] (column/*) (direction/*))",
     "([make] ([report]))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
@@ -310,21 +310,39 @@ let configStruct = {
     },
 
     { 
+      id: 'groupBy',
+      isA: ['preposition'],
+      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+    },
+
+    { 
       // TODO stop sorting by ... stop sorting
       id: 'sortByColumns',
       isA: ['verb'],
       bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
       semantic: ({context, api}) => {
-        debugger
         const report = api.current()
         const fields = helpers.propertyToArray(context.field.field)
         query.addSort(report.dataSpec, fields)
         api.show(report)
-        debugger
-        debugger
-        
       }
     },
+
+    { 
+      // TODO stop sorting by ... stop sorting
+      id: 'groupByColumns',
+      isA: ['verb'],
+      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+      semantic: ({context, api}) => {
+        const report = api.current()
+        const fields = helpers.propertyToArray(context.field.field)
+        // account for name errors like saying genre but the field is genres
+        query.addGroup(report.dataSpec, fields)
+        image.addGroup(report.imageSpec, fields.map((field) => { return { ...field, collection: report.dataSpec.collectionName } }))
+        api.show(report)
+      }
+    },
+
     { 
       id: 'column',
       isA: ['countable', 'comparable'],
@@ -544,8 +562,8 @@ let configStruct = {
           api.show(report)
         } else if (context.show.more) {
           console.log('report', JSON.stringify(report, null, 2))
-          const { dbName, collectionName } = report.dataSpec
-          await api.showFieldsResponse(dbName, collectionName, report)
+          const { dbName, collectionName, fields } = report.dataSpec
+          await api.showFieldsResponse(dbName, collectionName, fields, report)
           context.chosens = [] // for callback
           report.showCollection = context
         } else if (context.show.less) {
@@ -554,8 +572,7 @@ let configStruct = {
           query.addColumns(report.dataSpec, report.imageSpec, context.show.database, context.show.collection, context.show.path) 
           api.show(report)
         } else if (context.show.quantity.value == 'all') {
-          const { dbName, collectionName } = report.dataSpec
-          const fields = await getFields(dbName, collectionName)
+          const { dbName, collectionName, fields } = report.dataSpec
           // '{"chosen":"select","choices":[{"text":"_id","id":"_id"},{"text":"name","id":"name","selected":true,"counter":1},{"text":"email","id":"email","selected":true,"counter":2},{"text":"password","id":"password"}]}'
           const choices = []
           let counter = 1
@@ -617,7 +634,8 @@ let configStruct = {
           }
           context.reportables = reportables // save for callback
           const reportable = reportables[0]
-          await api.showFieldsResponse(reportable.database, reportable.collection)
+          const fields = await getFields(reportable.database, reportable.collection)
+          await api.showFieldsResponse(reportable.database, reportable.collection, fields)
           context.chosens = [] // for callback
           report.showCollection = context
         }
@@ -658,17 +676,20 @@ let configStruct = {
         const imageSpecs = []
         for (const dbName in components) {
           for (const collectionName in components[dbName]) {
-            dataSpecs.push({
-                dbName: dbName,
-                collectionName: collectionName,
-                limit: 10,
-                aggregation: [] 
-            })
             const properties = components[dbName][collectionName]
             const columns = []
             for (const column of properties) {
               columns.push({ text: await gp(column), id: column.path[0] })
             }
+            const fields = await getFields(dbName, collectionName)
+            dataSpecs.push({
+                dbName: dbName,
+                collectionName: collectionName,
+                fields,
+                usedFields: columns.map(({id}) => id),
+                limit: 10,
+                aggregation: [] 
+            })
             // columns: properties.map( (c) => { return { text: gp(c) } })
             imageSpecs.push({
               headers: {
@@ -812,21 +833,6 @@ const template = {
             words: helpers.words(word, { database, collection, path: [field] }),
           },
         )
-
-        /*
-        const fields = await getFields(database, collection)
-        for (const field of fields) {
-          const fieldId = `${id}_${field}`
-          const wordDef = { 
-            id: fieldId,
-            parents: ['theAble', 'column'], 
-            words: [ 
-              { word: field, database, collection, path: [field] } 
-            ] 
-          }
-          config.addWord(wordDef)
-        }
-        */
 
         const wordDef = {
           collection,

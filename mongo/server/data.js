@@ -16,27 +16,47 @@ const instantiate = async (dataSpec) => {
   if (!dataSpec) {
     return dataSpec
   }
-
+  console.log("instantiating dataspec", JSON.stringify(dataSpec, null, 2))
   await initialize()
 
   if (Array.isArray(dataSpec)) {
     const data = []
     for (const element of dataSpec) {
-      data.push( await instantiate(element ) )
+      data.push( await instantiate(element) )
     }
     return data
   } 
 
-  if (dataSpec.dbName && dataSpec.collectionName && dataSpec.aggregation) {
+  if (dataSpec.dbName && dataSpec.collectionName) {
     const { dbName, collectionName, aggregation, limit = 0} = dataSpec
     const db = client.db(dbName);
     const collection = db.collection(collectionName)
     let data;
-    if (_.isEmpty()) {
-      data = await collection.find().sort(dataSpec.sort || []).limit(limit).toArray();
+    if (_.isEmpty(aggregation)) {
+      // data = await (collection.find().sort(dataSpec.sort || []).limit(limit).toArray())
+      data = collection.find()
+      if (dataSpec.sort) {
+        data = data.sort(dataSpec.sort)
+      }
+      if (dataSpec.limit) {
+        data = data.limit(limit)
+      }
+      return await data.toArray()
     } else {
-      data = await collection.aggregate(aggregation).sort(dataSpec.sort || []).limit(limit).toArray();
+      console.log('----------- dataSpec.sort', dataSpec.sort);
+      const data1 = await collection.aggregate(aggregation).limit(10).toArray();
+      data = collection.aggregate(aggregation)
+      if (dataSpec.sort) {
+        data = data.sort(dataSpec.sort)
+      }
+      if (dataSpec.limit) {
+        data = data.limit(limit)
+      }
+      const result = await data.toArray()
+      // console.log("data from db", JSON.stringify(result, null, 2))
+      return result
     }
+    // console.log('returning data', JSON.stringify(data, null, 2))
     return data
   }
 

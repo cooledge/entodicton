@@ -268,6 +268,40 @@ describe('Reports Tests', () => {
 
   })
 
+  describe('add group fields', () => {
+    it('group', async () => {
+      const dataSpec = {
+        dbName: "sample_mflix",
+        collectionName: "movies",
+        fields: ['title', 'director', 'genre'],
+        usedFields: ['title', 'director'],
+        limit: 10,
+        aggregation: [],
+      }
+
+      const field = {
+        database: "sample_mflix",
+        collection: "movies",
+        word: "genre",
+        ordering: "ascending",
+      }
+
+      await query.addGroup(dataSpec, [field])
+      const expected = [
+        { '$unwind': '$genre' },
+        { '$group': { _id: '$genre', genre: { $first: '$genre' }, movies: { $addToSet: { title: '$title', director: '$director', genre: '$genre' } } } },
+        {
+          "$project": {
+            "genre": 1,
+            "movies": { "$slice": [ "$movies", 10, ], },
+          },
+        },
+
+      ]
+      expect(dataSpec.aggregation).toStrictEqual(expected)
+    })
+  })
+
   describe('add sort fields', () => {
 
     it('add sf ascending', async () => {

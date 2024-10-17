@@ -64,6 +64,42 @@ const bsonSales = [
   },
 ]
 
+const bsonGroupedByGenre = [
+  {
+    genre: 'horror',
+    movies: [
+      {
+        title: "Aliens"
+      },
+      {
+        title: "Silence of the Lambs"
+      },
+    ]
+  },
+  {
+    genre: 'science fiction',
+    movies: [
+      {
+        title: "Aliens"
+      },
+      {
+        title: "Star Wars"
+      },
+    ]
+  },
+  {
+    genre: 'crime',
+    movies: [
+      {
+        title: "Silence of the Lambs"
+      },
+      {
+        title: "LA Confidential"
+      },
+    ]
+  },
+]
+
 describe('Reports Tests', () => {
   const ed = (value) => { return { className: "", data: value, selecting: undefined } }
   const tr = (rn, ...columns) => {
@@ -95,33 +131,28 @@ describe('Reports Tests', () => {
     const expected = {
         "headers": {
           "className": "header header2",
-          "selecting": undefined,
           "data": [
             {
               "className": "",
-              "selecting": undefined,
               "data": "name"
             },
             {
               "className": "",
-              "selecting": undefined,
               "data": "age"
             },
             {
               "className": "",
-              "selecting": undefined,
               "data": "favorite colors"
             }
           ]
         },
-        "rules": undefined,
         "colgroups": [
           "c1",
           "c2",
           "c3"
         ],
+        className: "Table table_1",
         "table": true,
-        "selecting": undefined,
         "rows": {
           "className": "rows",
           "data": [
@@ -129,21 +160,21 @@ describe('Reports Tests', () => {
               "className": "row_0",
               "data": [
                 {
-                  "className": "column column_0",
+                  "className": "column column_0 table_1_column_0",
                   "data": {
                     "className": "fieldValue",
                     "data": "john"
                   }
                 },
                 {
-                  "className": "column column_1",
+                  "className": "column column_1 table_1_column_1",
                   "data": {
                     "className": "fieldValue",
                     "data": 25
                   }
                 },
                 {
-                  "className": "column column_2",
+                  "className": "column column_2 table_1_column_2",
                   "data": {
                     "className": "fieldValue",
                     "data": [
@@ -158,21 +189,21 @@ describe('Reports Tests', () => {
               "className": "row_1",
               "data": [
                 {
-                  "className": "column column_0",
+                  "className": "column column_0 table_1_column_0",
                   "data": {
                     "className": "fieldValue",
                     "data": "greg"
                   }
                 },
                 {
-                  "className": "column column_1",
+                  "className": "column column_1 table_1_column_1",
                   "data": {
                     "className": "fieldValue",
                     "data": 55
                   }
                 },
                 {
-                  "className": "column column_2",
+                  "className": "column column_2 table_1_column_2",
                   "data": {
                     "className": "fieldValue",
                     "data": [
@@ -217,33 +248,28 @@ describe('Reports Tests', () => {
     {
         "headers": {
           "className": "header header2",
-          "selecting": undefined,
           "data": [
             {
               "className": "",
-              "selecting": undefined,
               "data": "name"
             },
             {
               "className": "",
-              "selecting": undefined,
               "data": "age"
             },
             {
               "className": "",
-              "selecting": undefined,
               "data": "favorite colors"
             }
           ]
         },
-        "rules": undefined,
         "colgroups": [
           "c1",
           "c2",
           "c3"
         ],
+        "className": "Table table_1",
         "table": true,
-        "selecting": undefined,
         "rows": {
           "className": "rows",
           "data": [
@@ -251,45 +277,41 @@ describe('Reports Tests', () => {
               "className": "row_0",
               "data": [
                 {
-                  "className": "column column_0",
+                  "className": "column column_0 table_1_column_0",
                   "data": {
                     "className": "fieldValue",
                     "data": "john"
                   }
                 },
                 {
-                  "className": "column column_1",
+                  "className": "column column_1 table_1_column_1",
                   "data": {
                     "className": "fieldValue",
                     "data": 25
                   }
                 },
                 {
-                  "className": "column column_2",
+                  "className": "column column_2 table_1_column_2",
                   "data": {
                     "headers": {
                       "className": "header header4",
-                      "selecting": undefined,
                       "data": [
                         {
                           "className": "",
-                          "selecting": undefined,
                           "data": "subject"
                         },
                         {
                           "className": "",
-                          "selecting": undefined,
                           "data": "mark"
                         }
                       ]
                     },
-                    "rules": undefined,
                     "colgroups": [
                       "c1",
                       "c2"
                     ],
+                    "className": "Table table_2",
                     "table": true,
-                    "selecting": undefined,
                     "rows": {
                       "className": "rows",
                       "data": [
@@ -297,14 +319,14 @@ describe('Reports Tests', () => {
                           "className": "row_0",
                           "data": [
                             {
-                              "className": "column column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "abc"
                               }
                             },
                             {
-                              "className": "column column_1",
+                              "className": "column column_1 table_2_column_1",
                               "data": {
                                 "className": "fieldValue",
                                 "data": 90
@@ -316,14 +338,14 @@ describe('Reports Tests', () => {
                           "className": "row_1",
                           "data": [
                             {
-                              "className": "column column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "def"
                               }
                             },
                             {
-                              "className": "column column_1",
+                              "className": "column column_1 table_2_column_1",
                               "data": {
                                 "className": "fieldValue",
                                 "data": 92
@@ -341,45 +363,41 @@ describe('Reports Tests', () => {
               "className": "row_1",
               "data": [
                 {
-                  "className": "column column_0",
+                  "className": "column column_0 table_1_column_0",
                   "data": {
                     "className": "fieldValue",
                     "data": "greg"
                   }
                 },
                 {
-                  "className": "column column_1",
+                  "className": "column column_1 table_1_column_1",
                   "data": {
                     "className": "fieldValue",
                     "data": 55
                   }
                 },
                 {
-                  "className": "column column_2",
+                  "className": "column column_2 table_1_column_2",
                   "data": {
                     "headers": {
                       "className": "header header4",
-                      "selecting": undefined,
                       "data": [
                         {
                           "className": "",
-                          "selecting": undefined,
                           "data": "subject"
                         },
                         {
                           "className": "",
-                          "selecting": undefined,
                           "data": "mark"
                         }
                       ]
                     },
-                    "rules": undefined,
                     "colgroups": [
                       "c1",
                       "c2"
                     ],
+                    "className": "Table table_3",
                     "table": true,
-                    "selecting": undefined,
                     "rows": {
                       "className": "rows",
                       "data": [
@@ -387,14 +405,14 @@ describe('Reports Tests', () => {
                           "className": "row_0",
                           "data": [
                             {
-                              "className": "column column_0",
+                              "className": "column column_0 table_3_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "abc"
                               }
                             },
                             {
-                              "className": "column column_1",
+                              "className": "column column_1 table_3_column_1",
                               "data": {
                                 "className": "fieldValue",
                                 "data": 70
@@ -406,14 +424,14 @@ describe('Reports Tests', () => {
                           "className": "row_1",
                           "data": [
                             {
-                              "className": "column column_0",
+                              "className": "column column_0 table_3_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "def"
                               }
                             },
                             {
-                              "className": "column column_1",
+                              "className": "column column_1 table_3_column_1",
                               "data": {
                                 "className": "fieldValue",
                                 "data": 82
@@ -475,6 +493,76 @@ describe('Reports Tests', () => {
     const actual = image.instantiate(imageSpec, bsonSales)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
+  })
+
+  describe('add group', () => {
+    it('table with no groupings', async () => {
+      const imageSpec = {
+        colgroups: [ "column_0" ],
+        field: [],
+        headers: {
+          columns: [
+            { id: "title", text: "title" }
+          ]
+        },
+        rows: [
+          '$title'
+        ],
+        table: true
+      }
+
+      const field = {
+        database: "sample_mflix",
+        collection: "movies",
+        word: "genre",
+        ordering: "ascending",
+      }
+
+      image.addGroup(imageSpec, [field])
+
+      const expected = {
+        headers: {
+          columns: [{ text: 'genre' }, { text: 'movies' }]
+        },
+        colgroups: ['c1', 'c2'],
+        table: true,
+        field: [],
+        rows: [
+                '$genre',
+                {
+                  // DIFF headers: { columns: [{ text: 'title' }] },
+                  headers: { columns: [{ id: 'title', text: 'title' }] },
+                  field: ['movies'],
+                  colgroups: ['column_0'],
+                  table: true,
+                  rows: ['$title']
+                },
+        ],
+      }
+      console.log('actual', JSON.stringify(imageSpec, null, 2))
+      expect(imageSpec).toStrictEqual(expected)
+    })
+  })
+
+  describe('getProperties', () => {
+    it('one table', async () => {
+      const imageSpec = {
+        colgroups: [ "column_0" ],
+        field: [],
+        headers: {
+          columns: [
+            { id: "title", text: "title" }
+          ]
+        },
+        rows: [
+          '$title'
+        ],
+        table: true
+      }
+
+      const expected = [ 'title' ]
+      expect(image.getProperties(imageSpec)).toStrictEqual(expected)
+    })
   })
 
   describe('Add column', () => {
@@ -577,5 +665,239 @@ describe('Reports Tests', () => {
       expect(imageSpec).toStrictEqual(expected)
     })
   })
+
+  it('grouped by genre', async () => {
+    const imageSpec = {
+      headers: {
+        columns: [{ text: 'genre' }, { text: 'film' }]
+      },
+      colgroups: ['c1', 'c2'],
+      table: true,
+      field: [],
+      rows: [
+              '$genre', 
+              {
+                headers: { columns: [{ text: 'title' }] },
+                field: ['movies'],
+                colgroups: ['c1'],
+                table: true,
+                rows: ['$title']
+              },
+            ],
+    }
+
+    const expected = 
+          {
+        "headers": {
+          "className": "header header2",
+          "data": [
+            {
+              "className": "",
+              "data": "genre"
+            },
+            {
+              "className": "",
+              "data": "film"
+            }
+          ]
+        },
+        "colgroups": [
+          "c1",
+          "c2"
+        ],
+        "className": "Table table_1",
+        "table": true,
+        "rows": {
+          "className": "rows",
+          "data": [
+            {
+              "className": "row_0",
+              "data": [
+                {
+                  "className": "column column_0 table_1_column_0",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": "horror"
+                  }
+                },
+                {
+                  "className": "column column_1 table_1_column_1",
+                  "data": {
+                    "headers": {
+                      "className": "header header4",
+                      "data": [
+                        {
+                          "className": "",
+                          "data": "title"
+                        }
+                      ]
+                    },
+                    "colgroups": [
+                      "c1"
+                    ],
+                    "className": "Table table_2",
+                    "table": true,
+                    "rows": {
+                      "className": "rows",
+                      "data": [
+                        {
+                          "className": "row_0",
+                          "data": [
+                            {
+                              "className": "column column_0 table_2_column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "Aliens"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "className": "row_1",
+                          "data": [
+                            {
+                              "className": "column column_0 table_2_column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "Silence of the Lambs"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "className": "row_1",
+              "data": [
+                {
+                  "className": "column column_0 table_1_column_0",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": "science fiction"
+                  }
+                },
+                {
+                  "className": "column column_1 table_1_column_1",
+                  "data": {
+                    "headers": {
+                      "className": "header header4",
+                      "data": [
+                        {
+                          "className": "",
+                          "data": "title"
+                        }
+                      ]
+                    },
+                    "colgroups": [
+                      "c1"
+                    ],
+                    "className": "Table table_3",
+                    "table": true,
+                    "rows": {
+                      "className": "rows",
+                      "data": [
+                        {
+                          "className": "row_0",
+                          "data": [
+                            {
+                              "className": "column column_0 table_3_column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "Aliens"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "className": "row_1",
+                          "data": [
+                            {
+                              "className": "column column_0 table_3_column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "Star Wars"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "className": "row_2",
+              "data": [
+                {
+                  "className": "column column_0 table_1_column_0",
+                  "data": {
+                    "className": "fieldValue",
+                    "data": "crime"
+                  }
+                },
+                {
+                  "className": "column column_1 table_1_column_1",
+                  "data": {
+                    "headers": {
+                      "className": "header header4",
+                      "data": [
+                        {
+                          "className": "",
+                          "data": "title"
+                        }
+                      ]
+                    },
+                    "colgroups": [
+                      "c1"
+                    ],
+                    "table": true,
+                    className: "Table table_4",
+                    "rows": {
+                      "className": "rows",
+                      "data": [
+                        {
+                          "className": "row_0",
+                          "data": [
+                            {
+                              "className": "column column_0 table_4_column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "Silence of the Lambs"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "className": "row_1",
+                          "data": [
+                            {
+                              "className": "column column_0 table_4_column_0",
+                              "data": {
+                                "className": "fieldValue",
+                                "data": "LA Confidential"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+
+    const actual = image.instantiate(imageSpec, bsonGroupedByGenre)
+    console.log(JSON.stringify(actual, null, 2))
+    expect(actual).toStrictEqual(expected)
+  })
+
 })
 

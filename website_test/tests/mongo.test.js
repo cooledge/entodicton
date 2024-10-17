@@ -13,21 +13,35 @@ const headless = process.env.HEADLESS !== 'false'
 const sloMo = 750
 const timeout = 60000
 
-// i fuckin' never remember how to sleep and alway have to fuckin' google. maybe make this a fucking built-in
 function sleep(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 }
 
-const getData = async (client, dbName, collectionName, { aggregation = [], limit=LIMIT, sort={} } = {}) => {
+const getData = async (client, dbName, collectionName, { aggregation = [], limit=LIMIT, sort } = {}) => {
   const db = client.db(dbName);
   const collection = db.collection(collectionName)
   let data;
-  if (_.isEmpty()) {
-    data = await collection.find().sort(sort).limit(limit).toArray();
+  if (_.isEmpty(aggregation)) {
+    data = collection.find()
+    if (sort) {
+      data = data.sort(sort)
+    }
+    if (limit) {
+      data = data.limit(limit)
+    }
+    return await data.toArray();
   } else {
-    data = await collection.aggregate(aggregation).sort(sort).limit(limit).toArray();
+    data = collection.aggregate(aggregation)
+    if (sort) {
+      data = data.sort(sort)
+    }
+    if (limit) {
+      data = data.limit(limit)
+    }
+
+    return await data.toArray();
   }
   return data
 }
@@ -59,7 +73,7 @@ describe('tests for the mongo page', () => {
   }, timeout);
 
   // TODO check the header once that is fixed up
-  const checkTable = async (page, tableNumber, dataDb, properties) => { 
+  const checkTable = async (page, tableNumber, dataDb, propertiesOrTestFn) => {
     const selector = `.table_${tableNumber} tbody tr`
     await page.waitForSelector(selector)
     const data = await page.evaluate((tableNumber, selector) => {
@@ -76,7 +90,16 @@ describe('tests for the mongo page', () => {
             }
             columns.push(values)
           } else {
-            columns.push(td.innerText)
+            const table = td.querySelector("table")
+            if (table) {
+              const values = []
+              for (const span of table.querySelectorAll(".fieldValue")) {
+                values.push(span.innerText)
+              }
+              columns.push(values)
+            } else {
+              columns.push(td.innerText)
+            }
           }
         }
         rows.push(columns)
@@ -85,19 +108,23 @@ describe('tests for the mongo page', () => {
     }, tableNumber, selector);
 
     for (let i = 0; i < LIMIT; ++i) {
-      const expected = properties.map(property => {
-        const value = dataDb[i][property]
-        if (Array.isArray(value)) {
-          return value
-        }
-        return value.toString()
-      })
-      /*
-      console.log('dataDb[i] -------------------', JSON.stringify(dataDb[i], null, 2))
-      console.log('expected', JSON.stringify(expected))
-      console.log('data[i]', JSON.stringify(data[i]))
-      */
-      expect(data[i]).toStrictEqual(expected)
+      if (typeof propertiesOrTestFn == 'function') {
+        const testFn = propertiesOrTestFn
+        expect(testFn(data[i], dataDb[i])).toBe(true)
+      } else {
+        console.log('data[i]', JSON.stringify(data[i]))
+        console.log('dataDb[i] -------------------', JSON.stringify(dataDb[i], null, 2))
+        const properties = propertiesOrTestFn
+        const expected = properties.map(property => {
+          const value = dataDb[i][property]
+          if (Array.isArray(value)) {
+            return value
+          }
+          return value.toString()
+        })
+        console.log('expected', JSON.stringify(expected))
+        expect(data[i]).toStrictEqual(expected)
+      }
     }
   }
 
@@ -255,6 +282,129 @@ describe('tests for the mongo page', () => {
       await page.waitForSelector(`#queryCounter3`)
       const users = await getData(client, 'sample_mflix', 'users', { sort: { email: -1 } })
       await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
+    }, timeout);
+
+    test(`NEO23 MONGO show the movies + group by genres`, async () => {
+      await query('show the movies')
+      await query('group by genres')
+      await page.waitForSelector(`#queryCounter2`)
+      const aggregation = [
+            // { "$sort": { "_id": 1 } },
+            { "$unwind": "$genres" },
+            {
+              "$group": {
+                "_id": "$genres",
+                "genres": { "$first": "$genres" },
+                "movies": {
+                  "$addToSet": { "genres": "$genres", "title": "$title" }
+                }
+              }
+            },
+            /*
+            {
+              "$project": {
+                "genres": 1,
+                "movies": {
+                  "$slice": [ "$movies", 10 ]
+                }
+              }
+            },
+            */
+            // { "$sort": { "genres": 1 } },
+          ]
+
+      const records = await getData(client, 'sample_mflix', 'movies', { aggregation, limit: 100000 })
+      // console.log('data', JSON.stringify(movies, null, 2))
+
+      const tableNumber = 1;
+
+          /*
+          const columns = []
+          for (const td of tr.cells) {
+            const ul = td.querySelector("ul")
+            if (ul) {
+              const values = []
+              for (const li of ul.querySelectorAll("li")) {
+                values.push(li.innerText)
+              }
+              columns.push(values)
+            } else {
+              const table = td.querySelector("table")
+              if (table) {
+                const values = []
+                for (const span of table.querySelectorAll(".fieldValue")) {
+                  values.push(span.innerText)
+                }
+                columns.push(values)
+              } else {
+                columns.push(td.innerText)
+              }
+            }
+            */
+
+      const selector = `.table_${tableNumber} tbody tr`
+      await page.waitForSelector(selector)
+      // await sleep(10000)
+      const data = await page.evaluate((tableNumber, selector) => {
+        const trs = Array.from(document.querySelectorAll(selector))
+        const rows = []
+        let tableCounter = 2
+        for (const tr of trs) {
+          const genre = tr.querySelector(".table_1_column_0")
+          if (!genre) {
+            continue
+          }
+          const movies = []
+          for (const movie of tr.querySelectorAll(`.table_${tableCounter}_column_0`)) {
+            movies.push(movie.innerText)
+          }
+          columns = { genre: genre.innerText, movies }
+          rows.push(columns)
+          tableCounter += 1
+          // rows.push(tr.innerHTML)
+        }
+        return rows
+      }, tableNumber, selector);
+
+      // console.log('data', JSON.stringify(data, null, 2))
+      for (const { genre, movies } of data) {
+        // console.log('genre', genre)
+        const record = records.find((record) => record.genres == genre)
+        // console.log('record', record)
+        expect(record).not.toBe(undefined)
+        for (const movie of movies) {
+          /*
+          console.log('genre', genre)
+          console.log('movie', movie)
+          console.log('find', record.movies.find((m) => movie == m.title))
+          console.log("record.movies[0]", record.movies[0])
+          */
+          expect(record.movies.find((m) => movie == m.title)).toBeTruthy()
+        }
+      }
+      /*
+      await checkTable(page, 1, movies, (data) => {
+        if (data[0] == 'the movies') {
+          return true // NA
+        }
+        // console.log('data', data)
+        // console.log('dbData', dbData)
+        console.log("movies", JSON.stringify(movies.map(movie => movie.genres), null, 2))
+        console.log("data[0]", data[0])
+        const record = movies.find((movie) => movie.genres == data[0])
+        if (!record) {
+          console.log("return 1111111111111111111111111111")
+          return false
+        }
+        for (const title of data[1]) {
+          if (!record.movies.find((movie) => title == movie.title)) {
+            console.log("return 2222222222222222222222222222222")
+            return false
+          }
+        }
+        return true
+      })
+      */
     }, timeout);
 
   })

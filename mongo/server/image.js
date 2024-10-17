@@ -53,9 +53,17 @@ const instantiateValue = (path, imageSpec, rows, instantiation, options) => {
   }
 }
 
-const instantiate = (imageSpec, ...args) => {
+const instantiate = (imageSpec, bson, options = {}) => {
   setId(imageSpec)
-  return instantiateImpl(imageSpec, ...args)
+  const counters = {
+    tableNumber: 0
+  }
+  options.newTableNumber = () => {
+    counters.tableNumber += 1
+    return counters.tableNumber
+  }
+  options.tableNumber = ''
+  return instantiateImpl(imageSpec, bson, options)
 }
 
 const instantiateImpl = (imageSpec, bson, options = {}) => {
@@ -70,23 +78,34 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     return instantiation
   } else if (imageSpec.table) {
     // rows is the values to be instantiated rather than instantiated over the rows of the data
+    const tableNumber = options.newTableNumber()
     const instantiation = { 
       headers: { 
         className: 'header', 
-        selecting: imageSpec.headers.selecting, 
         data: imageSpec.headers.columns.map((column) => { 
-          return { className: '', selecting: column.selecting, data: column.text } 
+          const value = { className: '', data: column.text } 
+          if (column.selecting) {
+            value.selecting = column.selecting
+          }
+          return value
         })
       }, 
-      rules: imageSpec.rules,
+      className: `Table table_${tableNumber}`,
       colgroups: imageSpec.colgroups, 
       table: true 
+    }
+    if (imageSpec.headers.selecting) {
+      instantiation.headers.selecting = imageSpec.headers.selecting
+    }
+    if (imageSpec.rules) {
+      instantiation.rules = imageSpec.rules
     }
     if (imageSpec.headers.id) {
       instantiation.headers.className += ' ' + imageSpec.headers.id
     }
-    console.log('init instantiation imagespec', JSON.stringify(imageSpec, null, 2))
-    console.log('init instantiation instantation', JSON.stringify(instantiation, null, 2))
+    // console.log('init instantiation imagespec', JSON.stringify(imageSpec, null, 2))
+    // console.log('init instantiation instantation', JSON.stringify(instantiation, null, 2))
+    options = { ...options, tableNumber}
     if (imageSpec.explicit) {
       const rows = []
       let field = bson
@@ -99,11 +118,17 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
       if (imageSpec.capitalizeHeader) {
         instantiation.headers = instantiation.headers.columns.map((column) => column.text.toUpperCase())
       }
-      instantiation.selecting = imageSpec.selecting
+      if (imageSpec.selecting) {
+        instantiation.selecting = imageSpec.selecting
+      }
       const rows = []
       let field = bson
       for (let name of imageSpec.field) {
         field = bson[name]
+      }
+      if (!field) {
+        debugger
+        return
       }
       for (const [index, row] of field.entries()) {
         rows.push({ className: `row_${index}`, data: instantiateImpl(imageSpec.rows, row, options)})
@@ -114,8 +139,9 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      values.push({ className: `column column_${index}`, data: instantiateImpl(field, bson, options) })
+      values.push({ className: `column column_${index} table_${options.tableNumber}_column_${index}`, data: instantiateImpl(field, bson, options) })
     }
+    debugger
     return values
   } else if (typeof imageSpec !== 'object' ){
     if (imageSpec.startsWith("$")) {
@@ -238,15 +264,64 @@ const selecting = (selectingWhat, imageSpec) => {
   traverseImpl(imageSpec, options)
 }
 
+const addGroup = (imageSpec, fields) => {
+  // TODO handle mulitple fields
+  const field = fields[0]
+  const options = {
+    seen: (what, value) => {
+      if (['table'].includes(what)) {
+        const oldImageSpec = {...imageSpec}
+        const newImageSpec = {
+          headers: {
+            columns: [{ text: field.word }, { text: field.collection }]
+          },
+          colgroups: ['c1', 'c2'],
+          table: true,
+          field: [],
+          rows: [
+                  `$${field.word}`,
+                  { ...oldImageSpec, field: [field.collection] },
+          ],
+        }
+        console.log('oldImageSpec', JSON.stringify(oldImageSpec, null, 2))
+        Object.assign(imageSpec, newImageSpec)
+        return true
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+}
+
+const getProperties = (imageSpec) => {
+  const properties = []
+  const options = {
+    seen: (what, value) => {
+      if (['table'].includes(what)) {
+        debugger
+        for (const field of value.rows) {
+          if (typeof field == 'string') {
+            properties.push(field.slice(1))
+          }
+        }
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+  return properties
+}
+
 const traverseImpl = (imageSpec, options = {}) => {
   if (imageSpec.type) {
     // TODO later alligator
     options.seen('graph', imageSpec)
   } else if (imageSpec.table) {
-    options.seen('table', imageSpec)
+    const stop = options.seen('table', imageSpec)
     // rows is the values to be traverseImpld rather than traverseImpld over the rows of the data
     if (imageSpec.headers.columns.length > 0) {
       options.seen('header', imageSpec.headers)
+    }
+    if (stop) {
+      return
     }
     if (imageSpec.explicit) {
       imageSpec.rows.map((is) => traverseImpl(is, options))
@@ -276,4 +351,6 @@ module.exports = {
   selector,
   countSelected,
   addColumns,
+  addGroup,
+  getProperties,
 }

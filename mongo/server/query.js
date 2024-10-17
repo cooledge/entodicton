@@ -5,7 +5,7 @@ const image = require('./image')
 
 const query = async (dataSpec, imageSpec) => {
   const dataV = await data.instantiate(dataSpec)
-  console.log('dataV', JSON.stringify(dataV, null, 2))
+  // console.log('dataV', JSON.stringify(dataV, null, 2))
   return image.instantiate(imageSpec, dataV)
 }
 
@@ -35,6 +35,46 @@ const traverseImpl = (dataSpec, options = {}) => {
   }
 }
 
+const addGroup = (dataSpec, groupFields) => {
+  const options = {
+    seen: (path, dataSpec) => {
+      // TODO handle more that 1 field
+      const groupField = groupFields[0]
+      const addToSet = {}
+      if (!dataSpec.usedFields.includes(groupField.word)) {
+        dataSpec.usedFields.push(groupField.word);
+      }
+      for (const field of dataSpec.usedFields) {
+        addToSet[field] = `$${field}`
+      }
+      dataSpec.aggregation = [
+        // { '$sort': { '_id': 1 } }, // this is so the tests are easier to write and this is just a POC
+        { '$unwind': `$${groupField.word}` },
+        { '$group': 
+          { 
+            _id: `$${groupField.word}`, 
+            [groupField.word]: { 
+              $first: `$${groupField.word}` 
+            }, 
+            [dataSpec.collectionName]: { 
+              $addToSet: addToSet 
+            } 
+          } 
+        },
+        // limit number of records to 10 since this is just a POC
+        { 
+          $project: { 
+            [groupField.word]: 1, 
+            [dataSpec.collectionName]: { $slice: ['$' + dataSpec.collectionName, 10] } 
+          } 
+        },
+        // { '$sort': { [groupField.word]: 1 } }, // this is so the tests are easier to write and this is just a POC
+      ]
+    }
+  }
+  traverseImpl(dataSpec, options)
+}
+
 const addSort = (dataSpec, sortFields) => {
   const options = {
     seen: (path, dataSpec) => {
@@ -56,4 +96,5 @@ module.exports = {
   client: data.client,
   addColumns,
   addSort,
+  addGroup,
 }

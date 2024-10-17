@@ -23,8 +23,29 @@ const bsonSales = [
   },
 ]
 
+const bsonFilms = [
+  {
+    title: 'Aliens',
+    genre: ['horror', 'science fiction'],
+  },
+  {
+    title: "Silence of the Lambs",
+    genre: ['horror', 'crime'],
+  },
+  {
+    title: "Star Wars",
+    genre: ['science fiction'],
+  },
+  {
+    title: "LA Confidential",
+    genre: ['crime'],
+  },
+]
+
+
 const DB_NAME = 'mongo_test_database'
-const COLLECTION_NAME = 'sales'
+const COLLECTION_NAME_SALES = 'sales'
+const COLLECTION_NAME_FILMS = 'movies'
 
 describe('Reports Tests', () => {
   let client
@@ -32,15 +53,19 @@ describe('Reports Tests', () => {
   beforeAll( async () => {
     client = await data.initialize()
     const myDB = await client.db(DB_NAME)
-    await myDB.collection(COLLECTION_NAME).drop()
-    const myColl = await myDB.collection(COLLECTION_NAME);
-    for (const doc of bsonSales) {
-      await myColl.insertOne(doc);
-      /*
-      const result = await myColl.insertOne(doc);
-      console.log(`A document was inserted with the _id: ${result.insertedId}`);
-      */
+    const setup = async (collectionName, bson) => {
+      await myDB.collection(collectionName).drop()
+      const myColl = await myDB.collection(collectionName);
+      for (const doc of bson) {
+        await myColl.insertOne(doc);
+        /*
+        const result = await myColl.insertOne(doc);
+        console.log(`A document was inserted with the _id: ${result.insertedId}`);
+        */
+      }
     }
+    await setup(COLLECTION_NAME_SALES, bsonSales)
+    await setup(COLLECTION_NAME_FILMS, bsonFilms)
     /*
     for await (const doc of myColl.find()) {
       console.log(doc);
@@ -80,7 +105,7 @@ describe('Reports Tests', () => {
         }
       ]
 
-    const dataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
+    const dataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME_SALES, aggregation: [] }
     const actual = await data.instantiate(dataSpec)
     actual.forEach( (doc) => {
       delete doc._id
@@ -117,7 +142,7 @@ describe('Reports Tests', () => {
         },
       ]
 
-    const dataSpec = { dbName: DB_NAME, sort: {year: -1}, collectionName: COLLECTION_NAME, aggregation: [] }
+    const dataSpec = { dbName: DB_NAME, sort: {year: -1}, collectionName: COLLECTION_NAME_SALES, aggregation: [] }
     const actual = await data.instantiate(dataSpec)
     actual.forEach( (doc) => {
       delete doc._id
@@ -156,7 +181,7 @@ describe('Reports Tests', () => {
       ]
     ]
 
-    const dataSpec = [{ dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }]
+    const dataSpec = [{ dbName: DB_NAME, collectionName: COLLECTION_NAME_SALES, aggregation: [] }]
     const actual = await data.instantiate(dataSpec)
     actual[0].forEach( (doc) => {
       delete doc._id
@@ -194,7 +219,7 @@ describe('Reports Tests', () => {
       ]
     const expected = [ element, element ]
 
-    const ds = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
+    const ds = { dbName: DB_NAME, collectionName: COLLECTION_NAME_SALES, aggregation: [] }
     const dataSpec = [ds, ds]
     const actual = await data.instantiate(dataSpec)
     actual[0].forEach( (doc) => { delete doc._id })
@@ -233,7 +258,7 @@ describe('Reports Tests', () => {
       ]
     }
 
-    const dataSpec = { property: { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] } }
+    const dataSpec = { property: { dbName: DB_NAME, collectionName: COLLECTION_NAME_SALES, aggregation: [] } }
     const actual = await data.instantiate(dataSpec)
     actual.property.forEach( (doc) => {
       delete doc._id
@@ -272,7 +297,7 @@ describe('Reports Tests', () => {
       ]
     }]
 
-    const dataSpec = [{ property: { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] } }]
+    const dataSpec = [{ property: { dbName: DB_NAME, collectionName: COLLECTION_NAME_SALES, aggregation: [] } }]
     const actual = await data.instantiate(dataSpec)
     console.log(JSON.stringify(actual, null, 2))
     actual[0].property.forEach( (doc) => {
@@ -313,12 +338,85 @@ describe('Reports Tests', () => {
       ]
     }
 
-    const dataSpec = { property: [{ dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }] }
+    const dataSpec = { property: [{ dbName: DB_NAME, collectionName: COLLECTION_NAME_SALES, aggregation: [] }] }
     const actual = await data.instantiate(dataSpec)
     actual.property[0].forEach( (doc) => {
       delete doc._id
     })
     // console.log(JSON.stringify(actual, null, 2))
+    expect(actual).toStrictEqual(expected)
+  })
+
+  it('group by aggregation', async () => {
+    const expected = {
+        "property": [
+          [
+            {
+              "genre": "crime",
+              "movies": [
+                {
+                  "title": "LA Confidential"
+                },
+                {
+                  "title": "Silence of the Lambs"
+                },
+              ]
+            },
+            {
+              "genre": "horror",
+              "movies": [
+                {
+                  "title": "Aliens"
+                },
+                {
+                  "title": "Silence of the Lambs"
+                }
+              ]
+            },
+            {
+              "genre": "science fiction",
+              "movies": [
+                {
+                  "title": "Aliens"
+                },
+                {
+                  "title": "Star Wars"
+                }
+              ]
+            }
+          ]
+        ]
+      }
+
+
+    const dataSpec = { property: [{ 
+      dbName: DB_NAME, 
+      collectionName: COLLECTION_NAME_FILMS, 
+      aggregation: [
+        { '$unwind': '$genre' },
+        { '$group': { _id: '$genre', genre: { $first: '$genre' }, movies: { $addToSet: { title: '$title' } } } },
+        // { $sortArray: { input: 'films', sortBy: { title: 1 } } },
+        { $sort: { genre: 1 } },
+      ] 
+    }] }
+    const actual = await data.instantiate(dataSpec)
+    actual.property[0].forEach( (doc) => {
+      delete doc._id
+    })
+    for (const genre of actual.property[0]) {
+      genre.movies.sort((a,b) => {
+        a = a.title
+        b = b.title
+        if (a == b) {
+          return 0
+        }
+        if (a < b) {
+          return -1
+        }
+        return 1
+      }) 
+    }
+    console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
 })
