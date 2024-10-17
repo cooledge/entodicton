@@ -7,7 +7,7 @@ import NamedReports from './NamedReports'
 import NoSessionError from './NoSessionError'
 import Image from './Image'
 import $ from 'jquery';
-import demo from './demo.json'
+// import demo from './demo.json'
 const fetch = require('node-fetch')
 
 const testData = () => {
