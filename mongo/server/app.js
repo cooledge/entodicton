@@ -99,7 +99,7 @@ async function mongoQuery() {
 app.get('/', async (req, res) => {
   const result = await mongoQuery()
   console.log('Found documents =>', result);
-  res.send('Hello World!')
+  res.send('mongoapi server')
 })
 
 const sessions = new Sessions(createMongoKM)
