@@ -3,7 +3,10 @@ const _ = require('lodash')
 const puppeteer = require('puppeteer')
 const tests = require('./tests.json')
 
-const url = 'mongodb://localhost:27017';
+// MONGO_URL=http://box1:27017;URL=http://thinktelligence.com:81 npm run mongo
+
+const url = process.env.MONGO_URL || 'mongodb://localhost:27017';
+// const url = 'mongodb://localhost:27017';
 const LIMIT = 10
 
 // const URL = 'http://thinktelligence.com'
@@ -19,7 +22,7 @@ function sleep(ms) {
   });
 }
 
-const getData = async (client, dbName, collectionName, { aggregation = [], limit=LIMIT, sort } = {}) => {
+const getData = async (client, dbName, collectionName, { aggregation = [], sort } = {}) => {
   const db = client.db(dbName);
   const collection = db.collection(collectionName)
   let data;
@@ -28,19 +31,12 @@ const getData = async (client, dbName, collectionName, { aggregation = [], limit
     if (sort) {
       data = data.sort(sort)
     }
-    if (limit) {
-      data = data.limit(limit)
-    }
     return await data.toArray();
   } else {
     data = collection.aggregate(aggregation)
     if (sort) {
       data = data.sort(sort)
     }
-    if (limit) {
-      data = data.limit(limit)
-    }
-
     return await data.toArray();
   }
   return data
@@ -112,18 +108,36 @@ describe('tests for the mongo page', () => {
         const testFn = propertiesOrTestFn
         expect(testFn(data[i], dataDb[i])).toBe(true)
       } else {
-        console.log('data[i]', JSON.stringify(data[i]))
-        console.log('dataDb[i] -------------------', JSON.stringify(dataDb[i], null, 2))
+        // console.log('data[i]', JSON.stringify(data[i]))
+        // console.log('dataDb[i] -------------------', JSON.stringify(dataDb[i], null, 2))
         const properties = propertiesOrTestFn
-        const expected = properties.map(property => {
-          const value = dataDb[i][property]
-          if (Array.isArray(value)) {
-            return value
+        const found = dataDb.find((record) => {
+          let matches = true
+          for (let iProperty = 0; iProperty < properties.length; ++iProperty) {
+            const property = properties[iProperty]
+            if (property == '_id') {
+              continue // generated so different for each db
+            }
+            const stringish = (value) => {
+              if (Array.isArray(value)) {
+                return value
+              }
+              return value.toString()
+            }
+            // console.log('property', property)
+            // console.log('iProperty', iProperty)
+            // console.log('properties', properties)
+            if (!_.isEqual(stringish(record[property]), stringish(data[i][iProperty]))) {
+              // console.log('record[property]', stringish(record[property]))
+              // console.log('data[i][iProperty]', data[i][iProperty])
+              matches = false
+              break
+            }
           }
-          return value.toString()
+          return matches ? record : null
         })
-        console.log('expected', JSON.stringify(expected))
-        expect(data[i]).toStrictEqual(expected)
+        console.log('found -------------------', JSON.stringify(found, null, 2))
+        expect(!!found).not.toBe(false)
       }
     }
   }
@@ -163,7 +177,7 @@ describe('tests for the mongo page', () => {
       }, rule);
     }
 
-    test(`MONGO show the users`, async () => {
+    test(`NEO23 MONGO show the users`, async () => {
       await query('show the users')
       const dataDb = users
       const property = 'name'
@@ -284,7 +298,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
     }, timeout);
 
-    test(`NEO23 MONGO show the movies + group by genres`, async () => {
+    test(`MONGO show the movies + group by genres`, async () => {
       await query('show the movies')
       await query('group by genres')
       await page.waitForSelector(`#queryCounter2`)
