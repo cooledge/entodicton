@@ -865,9 +865,11 @@ knowledgeModule( {
   config: { name: 'mongo' },
   includes: [hierarchy, colors, negation, nameable, ui, countable, math],
   api: () => new API(),
+  /*
   initializer: ({config, s, fragments}) => {
     config.server('http://localhost:5000')
   },
+  */
 
   terminator: () => {
     terminate()
