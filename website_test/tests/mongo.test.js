@@ -289,7 +289,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
     }, timeout);
 
-    test(`MONGO show the users + show all the fields + sort by name ascending`, async () => {
+    test(`MONGO show the users + show all the fields + sort by name descending`, async () => {
       await query('show the users')
       await query('show all the fields')
       await query('sort by email descending')
