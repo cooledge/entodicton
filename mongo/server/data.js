@@ -76,7 +76,9 @@ const getFields = async (dbName, collectionName) => {
   const db = await client.db(dbName);
   const collection = await db.collection(collectionName)
   const data = await collection.findOne()
-  return Object.keys(data)
+  const fields = Object.keys(data)
+  fields.sort()
+  return fields
 }
 
 const terminate = () => {

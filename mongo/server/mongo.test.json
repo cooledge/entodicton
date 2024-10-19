@@ -2642,8 +2642,8 @@
                 "fields": [
                   "_id",
                   "id",
-                  "year",
-                  "sales"
+                  "sales",
+                  "year"
                 ],
                 "limit": 10,
                 "usedFields": [
@@ -2698,8 +2698,8 @@
                 "fields": [
                   "_id",
                   "id",
-                  "year",
-                  "sales"
+                  "sales",
+                  "year"
                 ],
                 "limit": 10,
                 "usedFields": [
@@ -3412,8 +3412,8 @@
                 "fields": [
                   "_id",
                   "id",
-                  "year",
-                  "sales"
+                  "sales",
+                  "year"
                 ],
                 "limit": 10,
                 "usedFields": [
@@ -5354,8 +5354,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -5404,8 +5404,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -5448,8 +5448,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -6156,8 +6156,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -6926,8 +6926,8 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "name",
                     "email",
+                    "name",
                     "password"
                   ],
                   "limit": 10,
@@ -6942,24 +6942,24 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "plot",
-                    "genres",
-                    "runtime",
-                    "cast",
-                    "num_mflix_comments",
-                    "title",
-                    "fullplot",
-                    "languages",
-                    "released",
-                    "directors",
-                    "rated",
                     "awards",
-                    "lastupdated",
-                    "year",
-                    "imdb",
+                    "cast",
                     "countries",
+                    "directors",
+                    "fullplot",
+                    "genres",
+                    "imdb",
+                    "languages",
+                    "lastupdated",
+                    "num_mflix_comments",
+                    "plot",
+                    "rated",
+                    "released",
+                    "runtime",
+                    "title",
+                    "tomatoes",
                     "type",
-                    "tomatoes"
+                    "year"
                   ],
                   "limit": 10,
                   "usedFields": [
@@ -7046,8 +7046,8 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "name",
                     "email",
+                    "name",
                     "password"
                   ],
                   "limit": 10,
@@ -7062,24 +7062,24 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "plot",
-                    "genres",
-                    "runtime",
-                    "cast",
-                    "num_mflix_comments",
-                    "title",
-                    "fullplot",
-                    "languages",
-                    "released",
-                    "directors",
-                    "rated",
                     "awards",
-                    "lastupdated",
-                    "year",
-                    "imdb",
+                    "cast",
                     "countries",
+                    "directors",
+                    "fullplot",
+                    "genres",
+                    "imdb",
+                    "languages",
+                    "lastupdated",
+                    "num_mflix_comments",
+                    "plot",
+                    "rated",
+                    "released",
+                    "runtime",
+                    "title",
+                    "tomatoes",
                     "type",
-                    "tomatoes"
+                    "year"
                   ],
                   "limit": 10,
                   "usedFields": [
@@ -7160,8 +7160,8 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "name",
                     "email",
+                    "name",
                     "password"
                   ],
                   "limit": 10,
@@ -7176,24 +7176,24 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "plot",
-                    "genres",
-                    "runtime",
-                    "cast",
-                    "num_mflix_comments",
-                    "title",
-                    "fullplot",
-                    "languages",
-                    "released",
-                    "directors",
-                    "rated",
                     "awards",
-                    "lastupdated",
-                    "year",
-                    "imdb",
+                    "cast",
                     "countries",
+                    "directors",
+                    "fullplot",
+                    "genres",
+                    "imdb",
+                    "languages",
+                    "lastupdated",
+                    "num_mflix_comments",
+                    "plot",
+                    "rated",
+                    "released",
+                    "runtime",
+                    "title",
+                    "tomatoes",
                     "type",
-                    "tomatoes"
+                    "year"
                   ],
                   "limit": 10,
                   "usedFields": [
@@ -7938,8 +7938,8 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "name",
                     "email",
+                    "name",
                     "password"
                   ],
                   "limit": 10,
@@ -7954,24 +7954,24 @@
                   "dbName": "sample_mflix",
                   "fields": [
                     "_id",
-                    "plot",
-                    "genres",
-                    "runtime",
-                    "cast",
-                    "num_mflix_comments",
-                    "title",
-                    "fullplot",
-                    "languages",
-                    "released",
-                    "directors",
-                    "rated",
                     "awards",
-                    "lastupdated",
-                    "year",
-                    "imdb",
+                    "cast",
                     "countries",
+                    "directors",
+                    "fullplot",
+                    "genres",
+                    "imdb",
+                    "languages",
+                    "lastupdated",
+                    "num_mflix_comments",
+                    "plot",
+                    "rated",
+                    "released",
+                    "runtime",
+                    "title",
+                    "tomatoes",
                     "type",
-                    "tomatoes"
+                    "year"
                   ],
                   "limit": 10,
                   "usedFields": [
@@ -21403,8 +21403,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -21455,8 +21455,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -21501,8 +21501,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -22211,8 +22211,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -26218,8 +26218,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -26270,8 +26270,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -26316,8 +26316,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -27026,8 +27026,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -27897,8 +27897,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -27949,8 +27949,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -27995,8 +27995,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -28705,8 +28705,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -29466,8 +29466,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -29521,8 +29521,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -29570,8 +29570,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -30283,8 +30283,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -31015,8 +31015,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -31067,8 +31067,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -31777,8 +31777,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -32513,8 +32513,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -32565,8 +32565,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -32611,8 +32611,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -33321,8 +33321,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -35187,8 +35187,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -35239,8 +35239,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -35949,8 +35949,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -40885,8 +40885,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -40937,8 +40937,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -40983,8 +40983,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -41693,8 +41693,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -42360,8 +42360,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -42415,8 +42415,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -42464,8 +42464,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -43177,8 +43177,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -45624,12 +45624,12 @@
                       "text": "_id"
                     },
                     {
-                      "id": "name",
-                      "text": "name"
-                    },
-                    {
                       "id": "email",
                       "text": "email"
+                    },
+                    {
+                      "id": "name",
+                      "text": "name"
                     },
                     {
                       "id": "password",
@@ -45639,8 +45639,8 @@
                 },
                 "rows": [
                   "$_id",
-                  "$name",
                   "$email",
+                  "$name",
                   "$password"
                 ],
                 "table": true
@@ -45682,12 +45682,12 @@
                       "text": "_id"
                     },
                     {
-                      "id": "name",
-                      "text": "name"
-                    },
-                    {
                       "id": "email",
                       "text": "email"
+                    },
+                    {
+                      "id": "name",
+                      "text": "name"
                     },
                     {
                       "id": "password",
@@ -45697,8 +45697,8 @@
                 },
                 "rows": [
                   "$_id",
-                  "$name",
                   "$email",
+                  "$name",
                   "$password"
                 ],
                 "table": true
@@ -45734,12 +45734,12 @@
                       "text": "_id"
                     },
                     {
-                      "id": "name",
-                      "text": "name"
-                    },
-                    {
                       "id": "email",
                       "text": "email"
+                    },
+                    {
+                      "id": "name",
+                      "text": "name"
                     },
                     {
                       "id": "password",
@@ -45749,8 +45749,8 @@
                 },
                 "rows": [
                   "$_id",
-                  "$name",
                   "$email",
+                  "$name",
                   "$password"
                 ],
                 "table": true
@@ -46450,12 +46450,12 @@
                       "text": "_id"
                     },
                     {
-                      "id": "name",
-                      "text": "name"
-                    },
-                    {
                       "id": "email",
                       "text": "email"
+                    },
+                    {
+                      "id": "name",
+                      "text": "name"
                     },
                     {
                       "id": "password",
@@ -46465,8 +46465,8 @@
                 },
                 "rows": [
                   "$_id",
-                  "$name",
                   "$email",
+                  "$name",
                   "$password"
                 ],
                 "table": true
@@ -47212,8 +47212,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -47264,8 +47264,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -47310,8 +47310,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -48020,8 +48020,8 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "name",
                   "email",
+                  "name",
                   "password"
                 ],
                 "limit": 10,
@@ -48658,12 +48658,12 @@
                   "text": "_id"
                 },
                 {
-                  "id": "name",
-                  "text": "name"
-                },
-                {
                   "id": "email",
                   "text": "email"
+                },
+                {
+                  "id": "name",
+                  "text": "name"
                 },
                 {
                   "id": "password",
@@ -49956,7 +49956,6 @@
         "word": "group"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       ""
@@ -50163,24 +50162,24 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "plot",
-                  "genres",
-                  "runtime",
-                  "cast",
-                  "num_mflix_comments",
-                  "title",
-                  "fullplot",
-                  "languages",
-                  "released",
-                  "directors",
-                  "rated",
                   "awards",
-                  "lastupdated",
-                  "year",
-                  "imdb",
+                  "cast",
                   "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
                   "type",
-                  "tomatoes"
+                  "year"
                 ],
                 "limit": 10,
                 "usedFields": [
@@ -50279,24 +50278,24 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "plot",
-                  "genres",
-                  "runtime",
-                  "cast",
-                  "num_mflix_comments",
-                  "title",
-                  "fullplot",
-                  "languages",
-                  "released",
-                  "directors",
-                  "rated",
                   "awards",
-                  "lastupdated",
-                  "year",
-                  "imdb",
+                  "cast",
                   "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
                   "type",
-                  "tomatoes"
+                  "year"
                 ],
                 "limit": 10,
                 "usedFields": [
@@ -50389,24 +50388,24 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "plot",
-                  "genres",
-                  "runtime",
-                  "cast",
-                  "num_mflix_comments",
-                  "title",
-                  "fullplot",
-                  "languages",
-                  "released",
-                  "directors",
-                  "rated",
                   "awards",
-                  "lastupdated",
-                  "year",
-                  "imdb",
+                  "cast",
                   "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
                   "type",
-                  "tomatoes"
+                  "year"
                 ],
                 "limit": 10,
                 "usedFields": [
@@ -51163,24 +51162,24 @@
                 "dbName": "sample_mflix",
                 "fields": [
                   "_id",
-                  "plot",
-                  "genres",
-                  "runtime",
-                  "cast",
-                  "num_mflix_comments",
-                  "title",
-                  "fullplot",
-                  "languages",
-                  "released",
-                  "directors",
-                  "rated",
                   "awards",
-                  "lastupdated",
-                  "year",
-                  "imdb",
+                  "cast",
                   "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
                   "type",
-                  "tomatoes"
+                  "year"
                 ],
                 "limit": 10,
                 "usedFields": [
