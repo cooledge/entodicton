@@ -103,6 +103,7 @@ describe('tests for the mongo page', () => {
       return rows
     }, tableNumber, selector);
 
+    console.log('dataDb.length', JSON.stringify(dataDb.length, null, 2))
     for (let i = 0; i < LIMIT; ++i) {
       if (typeof propertiesOrTestFn == 'function') {
         const testFn = propertiesOrTestFn
@@ -113,6 +114,10 @@ describe('tests for the mongo page', () => {
         const properties = propertiesOrTestFn
         const found = dataDb.find((record) => {
           let matches = true
+          let debug = false
+          if (record.name == 'Alliser Thorne') {
+            debug = true
+          }
           for (let iProperty = 0; iProperty < properties.length; ++iProperty) {
             const property = properties[iProperty]
             if (property == '_id') {
@@ -124,12 +129,16 @@ describe('tests for the mongo page', () => {
               }
               return value.toString()
             }
-            // console.log('property', property)
-            // console.log('iProperty', iProperty)
-            // console.log('properties', properties)
+            if (debug) {
+              console.log('property', property)
+              console.log('iProperty', iProperty)
+              console.log('properties', properties)
+            }
             if (!_.isEqual(stringish(record[property]), stringish(data[i][iProperty]))) {
-              // console.log('record[property]', stringish(record[property]))
-              // console.log('data[i][iProperty]', data[i][iProperty])
+              if (debug) {
+                console.log('record[property]', stringish(record[property]))
+                console.log('data[i][iProperty]', data[i][iProperty])
+              }
               matches = false
               break
             }
@@ -156,8 +165,7 @@ describe('tests for the mongo page', () => {
       await page.close()
     })
 
-    const query = async (query) => {
-      await page.type('#query', query)
+    const query = async (query) => { await page.type('#query', query)
       await page.click('#submit')
       await page.waitForSelector(`#queryCounter${counter+1}`)
       counter += 1
@@ -177,7 +185,7 @@ describe('tests for the mongo page', () => {
       }, rule);
     }
 
-    test(`NEO23 MONGO show the users`, async () => {
+    test(`MONGO show the users`, async () => {
       await query('show the users')
       const dataDb = users
       const property = 'name'
@@ -277,7 +285,7 @@ describe('tests for the mongo page', () => {
       await query('show the users')
       await query('show all the fields')
       await page.waitForSelector(`#queryCounter2`)
-      await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields + sort by name ascending`, async () => {
@@ -286,7 +294,7 @@ describe('tests for the mongo page', () => {
       await query('sort by name ascending')
       await page.waitForSelector(`#queryCounter3`)
       const users = await getData(client, 'sample_mflix', 'users', { sort: { name: 1 } })
-      await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields + sort by name descending`, async () => {
@@ -295,7 +303,7 @@ describe('tests for the mongo page', () => {
       await query('sort by email descending')
       await page.waitForSelector(`#queryCounter3`)
       const users = await getData(client, 'sample_mflix', 'users', { sort: { email: -1 } })
-      await checkTable(page, 1, users, ['_id', 'name', 'email', 'password'])
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
     test(`MONGO show the movies + group by genres`, async () => {
