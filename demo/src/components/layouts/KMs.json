@@ -474,11 +474,11 @@
       "examples": [
         "10 degrees",
         "degrees",
-        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees fahrenheit",
-        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 celcius",
-        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees celcius",
-        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\n10 degrees celcius in fahrenheit",
-        "temperature is a dimension\\nfahrenheit celcuis and kelvin are units of temperature\\nfahrenheit = celcius*9/5 + 32\\nwhat is 10 degrees celcius in fahrenheit",
+        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 degrees fahrenheit",
+        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 celcius",
+        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 degrees celcius",
+        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 degrees celcius in fahrenheit",
+        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\nfahrenheit = celcius*9/5 + 32\\nwhat is 10 degrees celcius in fahrenheit",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1 ",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhat is the reason",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhy"
@@ -1447,7 +1447,7 @@
         "vegetables and fruit are food",
         "cola and pop are drinks",
         "medicine and stimpaks are takeable",
-        "item modifies properties",
+        "item modifies property",
         "damage luck hp rads value ap charisma range and accuracy are item properties"
       ],
       "includes": [
