@@ -228,7 +228,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -250,11 +249,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -289,9 +288,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -313,19 +309,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -533,8 +529,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -598,7 +593,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -1441,7 +1435,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -1463,11 +1456,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -1502,9 +1495,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -1526,19 +1516,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -1746,8 +1736,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -1811,7 +1800,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -2815,7 +2803,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -2837,11 +2824,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -2876,9 +2863,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -2900,19 +2884,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -3120,8 +3104,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -3185,7 +3168,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -4117,7 +4099,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -4139,11 +4120,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -4178,9 +4159,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -4202,19 +4180,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -4422,8 +4400,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -4487,7 +4464,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -5560,7 +5536,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -5582,11 +5557,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -5621,9 +5596,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -5645,19 +5617,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -5865,8 +5837,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -5930,7 +5901,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -7341,7 +7311,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -7363,11 +7332,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -7402,9 +7371,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -7426,19 +7392,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -7646,8 +7612,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -7711,7 +7676,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -8733,7 +8697,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -8755,11 +8718,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -8794,9 +8757,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -8818,19 +8778,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -9038,8 +8998,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -9103,7 +9062,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -9913,7 +9871,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -9935,11 +9892,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -9974,9 +9931,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -9998,19 +9952,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -10218,8 +10172,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -10283,7 +10236,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -11008,7 +10960,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -11030,11 +10981,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -11069,9 +11020,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -11093,19 +11041,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -11313,8 +11261,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -11378,7 +11325,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -12245,7 +12191,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -12267,11 +12212,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -12306,9 +12251,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -12330,19 +12272,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -12550,8 +12492,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -12615,7 +12556,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -13651,7 +13591,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -13673,11 +13612,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -13712,9 +13651,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -13736,19 +13672,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -13956,8 +13892,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -14021,7 +13956,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -14920,7 +14854,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -14942,11 +14875,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -14981,9 +14914,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -15005,19 +14935,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -15225,8 +15155,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -15290,7 +15219,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -16177,7 +16105,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -16199,11 +16126,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -16238,9 +16165,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -16262,19 +16186,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -16482,8 +16406,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -16547,7 +16470,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -17589,7 +17511,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -17611,11 +17532,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -17650,9 +17571,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -17674,19 +17592,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -17894,8 +17812,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -17959,7 +17876,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -18895,7 +18811,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -18917,11 +18832,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -18956,9 +18871,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -18980,19 +18892,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -19200,8 +19112,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -19265,7 +19176,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -20186,7 +20096,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -20208,11 +20117,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -20247,9 +20156,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -20271,19 +20177,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -20491,8 +20397,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -20556,7 +20461,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -21258,7 +21162,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 5,
           "op": [
             "header",
             0
@@ -21283,7 +21187,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 6,
           "op": [
             "blue_colors",
             0
@@ -21304,7 +21208,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 7,
           "op": [
             "the",
             0
@@ -21321,7 +21225,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 8,
           "op": [
             "changeState",
             0
@@ -21615,7 +21519,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -21637,11 +21540,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -21676,9 +21579,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -21700,19 +21600,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -21920,8 +21820,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -21985,7 +21884,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -23053,7 +22951,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -23075,11 +22972,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -23114,9 +23011,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -23138,19 +23032,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -23358,8 +23252,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -23423,7 +23316,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -24695,7 +24587,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -24717,11 +24608,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -24756,9 +24647,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -24780,19 +24668,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -25000,8 +24888,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -25065,7 +24952,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -26011,7 +25897,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 6,
           "op": [
             "header",
             0
@@ -26044,7 +25930,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 7,
           "op": [
             "case",
             0
@@ -26073,7 +25959,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 8,
           "op": [
             "compoundReportElement",
             0
@@ -26098,7 +25984,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 9,
           "op": [
             "the",
             0
@@ -26119,7 +26005,7 @@
           ]
         },
         {
-          "counter": 5,
+          "counter": 10,
           "op": [
             "uppercase",
             0
@@ -26136,7 +26022,7 @@
           ]
         },
         {
-          "counter": 6,
+          "counter": 11,
           "op": [
             "changeState",
             0
@@ -26430,7 +26316,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -26452,11 +26337,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -26491,9 +26376,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -26515,19 +26397,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -26735,8 +26617,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -26800,7 +26681,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -27690,7 +27570,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 6,
           "op": [
             "header",
             0
@@ -27723,7 +27603,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 7,
           "op": [
             "case",
             0
@@ -27752,7 +27632,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 8,
           "op": [
             "compoundReportElement",
             0
@@ -27777,7 +27657,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 9,
           "op": [
             "the",
             0
@@ -27798,7 +27678,7 @@
           ]
         },
         {
-          "counter": 5,
+          "counter": 10,
           "op": [
             "lowercase",
             0
@@ -27815,7 +27695,7 @@
           ]
         },
         {
-          "counter": 6,
+          "counter": 11,
           "op": [
             "changeState",
             0
@@ -28109,7 +27989,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -28131,11 +28010,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -28170,9 +28049,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -28194,19 +28070,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -28414,8 +28290,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -28479,7 +28354,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -29321,7 +29195,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 6,
           "op": [
             "header",
             0
@@ -29346,7 +29220,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 7,
           "op": [
             "the",
             0
@@ -29367,7 +29241,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 8,
           "op": [
             "uppercase",
             0
@@ -29384,7 +29258,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 9,
           "op": [
             "changeState",
             0
@@ -29687,7 +29561,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -29709,11 +29582,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -29748,9 +29621,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -29772,19 +29642,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -29992,8 +29862,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -30057,7 +29926,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -30870,7 +30738,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 5,
           "op": [
             "unknown",
             0
@@ -30895,7 +30763,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 6,
           "op": [
             "report",
             0
@@ -30916,7 +30784,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 7,
           "op": [
             "the",
             0
@@ -30933,7 +30801,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 8,
           "op": [
             "call",
             0
@@ -31181,7 +31049,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -31203,11 +31070,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -31242,9 +31109,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -31266,19 +31130,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -31486,8 +31350,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -31551,7 +31414,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -32338,7 +32200,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 5,
           "op": [
             "unknown",
             0
@@ -32363,7 +32225,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 6,
           "op": [
             "report",
             0
@@ -32384,7 +32246,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 7,
           "op": [
             "the",
             0
@@ -32401,7 +32263,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 8,
           "op": [
             "call",
             0
@@ -32414,7 +32276,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 11,
           "op": [
             "report",
             0
@@ -32431,7 +32293,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 12,
           "op": [
             "showReport",
             0
@@ -32725,7 +32587,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -32747,11 +32608,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -32786,9 +32647,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -32810,19 +32668,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -33030,8 +32888,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -33095,7 +32952,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -33902,7 +33758,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -33924,11 +33779,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -33963,9 +33818,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -33987,19 +33839,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -34207,8 +34059,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -34272,7 +34123,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -35042,7 +34892,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 6,
           "op": [
             "unknown",
             0
@@ -35067,7 +34917,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 7,
           "op": [
             "report",
             0
@@ -35088,7 +34938,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 8,
           "op": [
             "the",
             0
@@ -35105,7 +34955,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 9,
           "op": [
             "call",
             0
@@ -35353,7 +35203,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -35375,11 +35224,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -35414,9 +35263,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -35438,19 +35284,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -35658,8 +35504,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -35723,7 +35568,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -36658,7 +36502,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -36680,11 +36523,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -36719,9 +36562,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -36743,19 +36583,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -36963,8 +36803,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -37028,7 +36867,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -38027,7 +37865,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -38049,11 +37886,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -38088,9 +37925,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -38112,19 +37946,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -38332,8 +38166,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -38397,7 +38230,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -39416,7 +39248,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -39438,11 +39269,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -39477,9 +39308,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -39501,19 +39329,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -39721,8 +39549,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -39786,7 +39613,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -40659,7 +40485,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 6,
           "op": [
             "report",
             0
@@ -40684,7 +40510,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 7,
           "op": [
             "number",
             0
@@ -40705,7 +40531,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 8,
           "op": [
             "the",
             0
@@ -40722,7 +40548,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 9,
           "op": [
             "call",
             0
@@ -40735,7 +40561,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 12,
           "op": [
             "report",
             0
@@ -40752,7 +40578,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 13,
           "op": [
             "showReport",
             0
@@ -40765,7 +40591,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 16,
           "op": [
             "number",
             0
@@ -40786,7 +40612,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 17,
           "op": [
             "number",
             0
@@ -40803,7 +40629,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 18,
           "op": [
             "plusOperator",
             0
@@ -41097,7 +40923,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -41119,11 +40944,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -41158,9 +40983,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -41182,19 +41004,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -41402,8 +41224,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -41467,7 +41288,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -42240,7 +42060,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 5,
           "op": [
             "email",
             0
@@ -42261,7 +42081,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 6,
           "op": [
             "the",
             0
@@ -42278,7 +42098,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 7,
           "op": [
             "showColumn",
             0
@@ -42581,7 +42401,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -42603,11 +42422,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -42642,9 +42461,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -42666,19 +42482,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -42886,8 +42702,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -42951,7 +42766,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -44246,7 +44060,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -44268,11 +44081,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -44307,9 +44120,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -44331,19 +44141,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -44551,8 +44361,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -44616,7 +44425,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -45445,7 +45253,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 5,
           "op": [
             "all",
             0
@@ -45470,7 +45278,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 6,
           "op": [
             "column",
             0
@@ -45491,7 +45299,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 7,
           "op": [
             "the",
             0
@@ -45508,7 +45316,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 8,
           "op": [
             "counting",
             0
@@ -45525,7 +45333,7 @@
           ]
         },
         {
-          "counter": 5,
+          "counter": 9,
           "op": [
             "showColumn",
             0
@@ -45837,7 +45645,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -45859,11 +45666,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -45898,9 +45705,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -45922,19 +45726,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -46142,8 +45946,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -46207,7 +46010,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -46934,7 +46736,7 @@
           "field": {
             "dead": true,
             "level": 2,
-            "marker": "unknown",
+            "marker": "column",
             "ordering": "ascending",
             "postModifiers": [
               "sortOrder"
@@ -46962,8 +46764,7 @@
             "text": "name ascending",
             "types": [
               "column",
-              "comparable",
-              "unknown"
+              "comparable"
             ],
             "unknown": true,
             "value": "name",
@@ -47038,7 +46839,7 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 5,
           "op": [
             "unknown",
             0
@@ -47067,7 +46868,7 @@
           ]
         },
         {
-          "counter": 2,
+          "counter": 6,
           "op": [
             "ascending",
             0
@@ -47092,7 +46893,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 7,
           "op": [
             "sortOrdering",
             0
@@ -47113,7 +46914,7 @@
           ]
         },
         {
-          "counter": 4,
+          "counter": 8,
           "op": [
             "sortBy",
             0
@@ -47130,7 +46931,7 @@
           ]
         },
         {
-          "counter": 5,
+          "counter": 9,
           "op": [
             "sortByColumns",
             0
@@ -47424,7 +47225,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -47446,11 +47246,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -47485,9 +47285,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -47509,19 +47306,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -47729,8 +47526,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -47794,7 +47590,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -48078,7 +47873,7 @@
               "field": {
                 "dead": true,
                 "level": 2,
-                "marker": "unknown",
+                "marker": "column",
                 "ordering": "ascending",
                 "postModifiers": [
                   "sortOrder"
@@ -48106,8 +47901,7 @@
                 "text": "name ascending",
                 "types": [
                   "column",
-                  "comparable",
-                  "unknown"
+                  "comparable"
                 ],
                 "unknown": true,
                 "value": "name",
@@ -48755,7 +48549,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -48777,11 +48570,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -48816,9 +48609,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -48840,19 +48630,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -49060,8 +48850,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -49125,7 +48914,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -49826,15 +49614,15 @@
     "associations": [
       [
         [
+          "genre",
+          0
+        ],
+        [
           "groupBy",
           0
         ],
         [
           "groupByColumns",
-          0
-        ],
-        [
-          "unknown",
           0
         ]
       ],
@@ -49846,10 +49634,6 @@
         [
           "groupByColumns",
           0
-        ],
-        [
-          "unknown",
-          1
         ]
       ]
     ],
@@ -49908,27 +49692,26 @@
           "dead": true,
           "default": true,
           "field": {
+            "collection": "movies",
+            "database": "sample_mflix",
             "dead": true,
             "level": 1,
-            "marker": "unknown",
+            "marker": "genre",
+            "path": [
+              "genres"
+            ],
             "range": {
               "end": 14,
               "start": 9
             },
             "text": "genres",
             "types": [
-              "column",
-              "unknown"
+              "genre"
             ],
-            "unknown": true,
-            "value": "genres",
             "word": "genres"
           },
           "level": 1,
           "marker": "groupBy",
-          "postModifiers": [
-            "field"
-          ],
           "range": {
             "end": 14,
             "start": 6
@@ -50014,12 +49797,16 @@
           ]
         },
         {
-          "counter": 1,
+          "counter": 6,
           "op": [
-            "unknown",
+            "genre",
             0
           ],
           "ops": [
+            [
+              "genre",
+              0
+            ],
             [
               "groupBy",
               0
@@ -50027,15 +49814,11 @@
             [
               "groupByColumns",
               0
-            ],
-            [
-              "unknown",
-              0
             ]
           ]
         },
         {
-          "counter": 2,
+          "counter": 7,
           "op": [
             "groupBy",
             0
@@ -50052,7 +49835,7 @@
           ]
         },
         {
-          "counter": 3,
+          "counter": 8,
           "op": [
             "groupByColumns",
             0
@@ -50538,7 +50321,6 @@
               "orAble"
             ],
             "object": [
-              "unknown",
               "what",
               "whose"
             ],
@@ -50560,11 +50342,11 @@
               "indigo_colors"
             ],
             "queryable": [
+              "xfx",
               "hierarchyAble",
               "readonly",
               "property",
               "object",
-              "xfx",
               "concept",
               "doubleQuote",
               "unknown",
@@ -50599,9 +50381,6 @@
             "toAble": [
               "it"
             ],
-            "unknown": [
-              "property"
-            ],
             "verb": [
               "modifies",
               "is",
@@ -50623,19 +50402,19 @@
             "properties",
             "unknown",
             "hierarchyAble",
-            "object",
             "what",
-            "queryable",
-            "readonly",
-            "property",
+            "object",
             "xfx",
-            "theAble",
-            "whose",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
             "have",
             "canBeDoQuestion",
             "canBeQuestion",
-            "between",
-            "preposition",
+            "property",
+            "theAble",
+            "whose",
             "concept",
             "modifies",
             "verb",
@@ -50843,8 +50622,7 @@
             ],
             "property": [
               "queryable",
-              "theAble",
-              "unknown"
+              "theAble"
             ],
             "purple_colors": [
               "color_colors"
@@ -50908,7 +50686,6 @@
             ],
             "unknown": [
               "hierarchyAble",
-              "object",
               "theAble",
               "queryable"
             ],
@@ -51254,27 +51031,26 @@
               "dead": true,
               "default": true,
               "field": {
+                "collection": "movies",
+                "database": "sample_mflix",
                 "dead": true,
                 "level": 1,
-                "marker": "unknown",
+                "marker": "genre",
+                "path": [
+                  "genres"
+                ],
                 "range": {
                   "end": 14,
                   "start": 9
                 },
                 "text": "genres",
                 "types": [
-                  "column",
-                  "unknown"
+                  "genre"
                 ],
-                "unknown": true,
-                "value": "genres",
                 "word": "genres"
               },
               "level": 1,
               "marker": "groupBy",
-              "postModifiers": [
-                "field"
-              ],
               "range": {
                 "end": 14,
                 "start": 6
@@ -51303,7 +51079,7 @@
           },
           "generatedParenthesized": "",
           "paraphrases": "group by genres",
-          "paraphrasesParenthesized": "(((group) ((by) (genres))))",
+          "paraphrasesParenthesized": "(((group) (by (genres))))",
           "responses": [
             ""
           ]
@@ -51576,11 +51352,4322 @@
     ],
     "paraphrasesParenthesized": [
       "((show (the (movies))))",
-      "(((group) ((by) (genres))))"
+      "(((group) (by (genres))))"
     ],
     "query": "show the movies\\ngroup by genres",
     "responses": [
       "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "genre",
+          0
+        ],
+        [
+          "groupBy",
+          0
+        ],
+        [
+          "groupByColumns",
+          0
+        ]
+      ],
+      [
+        [
+          "groupBy",
+          0
+        ],
+        [
+          "groupByColumns",
+          0
+        ]
+      ],
+      [
+        [
+          "movie",
+          0
+        ],
+        [
+          "show",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "show",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 14,
+          "start": 0
+        },
+        "show": {
+          "collection": "movies",
+          "concept": true,
+          "database": "sample_mflix",
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "movie",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "path": [
+            "title"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 5
+          },
+          "text": "the movies",
+          "types": [
+            "movie"
+          ],
+          "wantsValue": true,
+          "word": "movies"
+        },
+        "text": "show the movies",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "field": {
+          "dead": true,
+          "default": true,
+          "field": {
+            "collection": "movies",
+            "database": "sample_mflix",
+            "dead": true,
+            "level": 1,
+            "marker": "genre",
+            "path": [
+              "genres"
+            ],
+            "range": {
+              "end": 32,
+              "start": 27
+            },
+            "text": "genres",
+            "types": [
+              "genre"
+            ],
+            "word": "genres"
+          },
+          "level": 1,
+          "marker": "groupBy",
+          "range": {
+            "end": 32,
+            "start": 24
+          },
+          "text": "by genres",
+          "types": [
+            "groupBy"
+          ],
+          "word": "by"
+        },
+        "level": 1,
+        "marker": "groupByColumns",
+        "postModifiers": [
+          "field"
+        ],
+        "range": {
+          "end": 32,
+          "start": 16
+        },
+        "text": "grouped by genres",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call14"
+        ],
+        "word": "grouped"
+      }
+    ],
+    "generatedParenthesized": [
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "movie",
+            0
+          ],
+          "ops": [
+            [
+              "genre",
+              0
+            ],
+            [
+              "groupBy",
+              0
+            ],
+            [
+              "groupByColumns",
+              0
+            ],
+            [
+              "movie",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "genre",
+            0
+          ],
+          "ops": [
+            [
+              "genre",
+              0
+            ],
+            [
+              "groupBy",
+              0
+            ],
+            [
+              "groupByColumns",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "groupBy",
+              0
+            ],
+            [
+              "groupByColumns",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "groupBy",
+            0
+          ],
+          "ops": [
+            [
+              "groupBy",
+              0
+            ],
+            [
+              "groupByColumns",
+              0
+            ],
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 5,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "groupByColumns",
+              0
+            ],
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "groupByColumns",
+            0
+          ],
+          "ops": [
+            [
+              "groupByColumns",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "lastResponse": {
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$unwind": "$genres"
+                  },
+                  {
+                    "$group": {
+                      "_id": "$genres",
+                      "genres": {
+                        "$first": "$genres"
+                      },
+                      "movies": {
+                        "$addToSet": {
+                          "genres": "$genres",
+                          "title": "$title"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$project": {
+                      "genres": 1,
+                      "movies": {
+                        "$slice": [
+                          "$movies",
+                          10
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title",
+                  "genres"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "c1",
+                  "c2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "genres"
+                    },
+                    {
+                      "text": "movies"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$genres",
+                  {
+                    "colgroups": [
+                      "column_0"
+                    ],
+                    "field": [
+                      "movies"
+                    ],
+                    "headers": {
+                      "columns": [
+                        {
+                          "id": "title",
+                          "text": "the movies"
+                        }
+                      ]
+                    },
+                    "rows": [
+                      "$title"
+                    ],
+                    "table": true
+                  }
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$unwind": "$genres"
+                  },
+                  {
+                    "$group": {
+                      "_id": "$genres",
+                      "genres": {
+                        "$first": "$genres"
+                      },
+                      "movies": {
+                        "$addToSet": {
+                          "genres": "$genres",
+                          "title": "$title"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$project": {
+                      "genres": 1,
+                      "movies": {
+                        "$slice": [
+                          "$movies",
+                          10
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title",
+                  "genres"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "c1",
+                  "c2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "genres"
+                    },
+                    {
+                      "text": "movies"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$genres",
+                  {
+                    "colgroups": [
+                      "column_0"
+                    ],
+                    "field": [
+                      "movies"
+                    ],
+                    "headers": {
+                      "columns": [
+                        {
+                          "id": "title",
+                          "text": "the movies"
+                        }
+                      ]
+                    },
+                    "rows": [
+                      "$title"
+                    ],
+                    "table": true
+                  }
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            },
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$unwind": "$genres"
+                  },
+                  {
+                    "$group": {
+                      "_id": "$genres",
+                      "genres": {
+                        "$first": "$genres"
+                      },
+                      "movies": {
+                        "$addToSet": {
+                          "genres": "$genres",
+                          "title": "$title"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$project": {
+                      "genres": 1,
+                      "movies": {
+                        "$slice": [
+                          "$movies",
+                          10
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title",
+                  "genres"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "c1",
+                  "c2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "genres"
+                    },
+                    {
+                      "text": "movies"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$genres",
+                  {
+                    "colgroups": [
+                      "column_0"
+                    ],
+                    "field": [
+                      "movies"
+                    ],
+                    "headers": {
+                      "columns": [
+                        {
+                          "id": "title",
+                          "text": "the movies"
+                        }
+                      ]
+                    },
+                    "rows": [
+                      "$title"
+                    ],
+                    "table": true
+                  }
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$unwind": "$genres"
+                  },
+                  {
+                    "$group": {
+                      "_id": "$genres",
+                      "genres": {
+                        "$first": "$genres"
+                      },
+                      "movies": {
+                        "$addToSet": {
+                          "genres": "$genres",
+                          "title": "$title"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$project": {
+                      "genres": 1,
+                      "movies": {
+                        "$slice": [
+                          "$movies",
+                          10
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title",
+                  "genres"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "c1",
+                  "c2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "text": "genres"
+                    },
+                    {
+                      "text": "movies"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$genres",
+                  {
+                    "colgroups": [
+                      "column_0"
+                    ],
+                    "field": [
+                      "movies"
+                    ],
+                    "headers": {
+                      "columns": [
+                        {
+                          "id": "title",
+                          "text": "the movies"
+                        }
+                      ]
+                    },
+                    "rows": [
+                      "$title"
+                    ],
+                    "table": true
+                  }
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "field": {
+              "dead": true,
+              "default": true,
+              "field": {
+                "collection": "movies",
+                "database": "sample_mflix",
+                "dead": true,
+                "level": 1,
+                "marker": "genre",
+                "path": [
+                  "genres"
+                ],
+                "range": {
+                  "end": 32,
+                  "start": 27
+                },
+                "text": "genres",
+                "types": [
+                  "genre"
+                ],
+                "word": "genres"
+              },
+              "level": 1,
+              "marker": "groupBy",
+              "range": {
+                "end": 32,
+                "start": 24
+              },
+              "text": "by genres",
+              "types": [
+                "groupBy"
+              ],
+              "word": "by"
+            },
+            "level": 1,
+            "marker": "groupByColumns",
+            "postModifiers": [
+              "field"
+            ],
+            "range": {
+              "end": 32,
+              "start": 16
+            },
+            "text": "grouped by genres",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call14"
+            ],
+            "word": "grouped"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "grouped by genres",
+          "paraphrasesParenthesized": "(((grouped) (by (genres))))",
+          "responses": [
+            "",
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 14,
+              "start": 0
+            },
+            "show": {
+              "collection": "movies",
+              "concept": true,
+              "database": "sample_mflix",
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "movie",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "path": [
+                "title"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 5
+              },
+              "text": "the movies",
+              "types": [
+                "movie"
+              ],
+              "wantsValue": true,
+              "word": "movies"
+            },
+            "text": "show the movies",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the movies",
+          "paraphrasesParenthesized": "((show (the (movies))))",
+          "responses": [
+            "",
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2",
+              "instance12#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show the movies",
+      "grouped by genres"
+    ],
+    "paraphrasesParenthesized": [
+      "((show (the (movies))))",
+      "(((grouped) (by (genres))))"
+    ],
+    "query": "show the movies grouped by genres",
+    "responses": [
+      "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "movie",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ]
+      ],
+      [
+        [
+          "movie",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "recordCount",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "count": true,
+        "dead": true,
+        "default": true,
+        "field": {
+          "collection": "movies",
+          "database": "sample_mflix",
+          "dead": true,
+          "level": 1,
+          "marker": "movie",
+          "number": "many",
+          "path": [
+            "title"
+          ],
+          "range": {
+            "end": 15,
+            "start": 10
+          },
+          "text": "movies",
+          "types": [
+            "movie"
+          ],
+          "word": "movies"
+        },
+        "level": 2,
+        "marker": "recordCount",
+        "number": "many",
+        "of": {
+          "default": true,
+          "level": 0,
+          "marker": "ofDbProperty",
+          "range": {
+            "end": 8,
+            "start": 7
+          },
+          "text": "of",
+          "word": "of"
+        },
+        "postModifiers": [
+          "of",
+          "field"
+        ],
+        "range": {
+          "end": 15,
+          "start": 0
+        },
+        "text": "number of movies",
+        "topLevel": true,
+        "types": [
+          "recordCount"
+        ],
+        "word": "number"
+      }
+    ],
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "recordCount",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "recordCount",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "movie",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "ofDbProperty",
+            0
+          ],
+          "ops": [
+            [
+              "ofDbProperty",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "count": true,
+            "dead": true,
+            "default": true,
+            "field": {
+              "collection": "movies",
+              "database": "sample_mflix",
+              "dead": true,
+              "level": 1,
+              "marker": "movie",
+              "number": "many",
+              "path": [
+                "title"
+              ],
+              "range": {
+                "end": 15,
+                "start": 10
+              },
+              "text": "movies",
+              "types": [
+                "movie"
+              ],
+              "word": "movies"
+            },
+            "level": 2,
+            "marker": "recordCount",
+            "number": "many",
+            "of": {
+              "default": true,
+              "level": 0,
+              "marker": "ofDbProperty",
+              "range": {
+                "end": 8,
+                "start": 7
+              },
+              "text": "of",
+              "word": "of"
+            },
+            "postModifiers": [
+              "of",
+              "field"
+            ],
+            "range": {
+              "end": 15,
+              "start": 0
+            },
+            "text": "number of movies",
+            "topLevel": true,
+            "types": [
+              "recordCount"
+            ],
+            "word": "number"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "number of movies",
+          "paraphrasesParenthesized": "(((number) (of) (movies)))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2",
+              "instance12#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "many",
+              "range": {
+                "end": 25,
+                "start": 20
+              },
+              "text": "colors",
+              "value": "color_colors",
+              "word": "colors"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "brightness_colors",
+                "number": "one",
+                "range": {
+                  "end": 9,
+                  "start": 0
+                },
+                "text": "brightness",
+                "value": "brightness_colors",
+                "word": "brightness"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 25,
+              "start": 0
+            },
+            "text": "brightness modifies colors",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance11#colors#call2",
+              "instance11#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "brightness modifies colors",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "number of movies"
+    ],
+    "paraphrasesParenthesized": [
+      "(((number) (of) (movies)))"
+    ],
+    "query": "number of movies",
+    "responses": [
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "movie",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "recordCount",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "movie",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "concept": true,
+        "count": true,
+        "dead": true,
+        "default": true,
+        "determiner": "the",
+        "field": {
+          "collection": "movies",
+          "database": "sample_mflix",
+          "dead": true,
+          "level": 1,
+          "marker": "movie",
+          "number": "many",
+          "path": [
+            "title"
+          ],
+          "range": {
+            "end": 19,
+            "start": 14
+          },
+          "text": "movies",
+          "types": [
+            "movie"
+          ],
+          "word": "movies"
+        },
+        "focusableForPhrase": true,
+        "level": 2,
+        "marker": "recordCount",
+        "modifiers": [
+          "determiner"
+        ],
+        "number": "many",
+        "of": {
+          "default": true,
+          "level": 0,
+          "marker": "ofDbProperty",
+          "range": {
+            "end": 12,
+            "start": 11
+          },
+          "text": "of",
+          "word": "of"
+        },
+        "postModifiers": [
+          "of",
+          "field"
+        ],
+        "pullFromContext": true,
+        "range": {
+          "end": 19,
+          "start": 0
+        },
+        "text": "the number of movies",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "types": [
+          "recordCount"
+        ],
+        "value": {
+          "marker": "answerNotKnown"
+        },
+        "wantsValue": true,
+        "word": "number"
+      }
+    ],
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "recordCount",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "recordCount",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "movie",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 4,
+          "op": [
+            "ofDbProperty",
+            0
+          ],
+          "ops": [
+            [
+              "ofDbProperty",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "lastResponse": {
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "concept": true,
+            "count": true,
+            "dead": true,
+            "default": true,
+            "determiner": "the",
+            "field": {
+              "collection": "movies",
+              "database": "sample_mflix",
+              "dead": true,
+              "level": 1,
+              "marker": "movie",
+              "number": "many",
+              "path": [
+                "title"
+              ],
+              "range": {
+                "end": 19,
+                "start": 14
+              },
+              "text": "movies",
+              "types": [
+                "movie"
+              ],
+              "word": "movies"
+            },
+            "focusableForPhrase": true,
+            "level": 2,
+            "marker": "recordCount",
+            "modifiers": [
+              "determiner"
+            ],
+            "number": "many",
+            "of": {
+              "default": true,
+              "level": 0,
+              "marker": "ofDbProperty",
+              "range": {
+                "end": 12,
+                "start": 11
+              },
+              "text": "of",
+              "word": "of"
+            },
+            "postModifiers": [
+              "of",
+              "field"
+            ],
+            "pullFromContext": true,
+            "range": {
+              "end": 19,
+              "start": 0
+            },
+            "text": "the number of movies",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "types": [
+              "recordCount"
+            ],
+            "value": {
+              "marker": "answerNotKnown"
+            },
+            "wantsValue": true,
+            "word": "number"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "the number of movies",
+          "paraphrasesParenthesized": "((the (number) (of) (movies)))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2",
+              "instance12#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "many",
+              "range": {
+                "end": 25,
+                "start": 20
+              },
+              "text": "colors",
+              "value": "color_colors",
+              "word": "colors"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "brightness_colors",
+                "number": "one",
+                "range": {
+                  "end": 9,
+                  "start": 0
+                },
+                "text": "brightness",
+                "value": "brightness_colors",
+                "word": "brightness"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 25,
+              "start": 0
+            },
+            "text": "brightness modifies colors",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance11#colors#call2",
+              "instance11#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "brightness modifies colors",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "the number of movies"
+    ],
+    "paraphrasesParenthesized": [
+      "((the (number) (of) (movies)))"
+    ],
+    "query": "the number of movies",
+    "responses": [
       ""
     ]
   }

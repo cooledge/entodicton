@@ -256,7 +256,8 @@ let configStruct = {
   operators: [
     // "([call] ([nameable]) (name))",
     "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
-    "([groupByColumns|group] ([groupBy|by] ([column])))",
+    "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
+    "(([recordCount|number,count]) [ofDbProperty|of] ([reportable]))",
     // "([moveColumn|move] (column/*) (direction/*))",
     "([make] ([report]))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
@@ -291,6 +292,7 @@ let configStruct = {
     "([sales|])",
     "([year])",
     "([email])",
+    "([genre|])",
 
     // "([movie])",
     // "([this])",
@@ -304,15 +306,29 @@ let configStruct = {
   ],
   bridges: [
     { 
+      id: 'recordCount',
+      isA: ['column', 'theAble'],
+      bridge: "{ ...next(operator) }",
+    },
+    { 
+      id: 'ofDbProperty',
+      isA: ['preposition'],
+      generatorp: ({context, g}) => `number of ${g(field)}`,
+      bridge: "{ ...next(before[0]), of: operator, count: true, field: after[0], number: after[0].number, postModifiers: ['of', 'field'] }",
+    },
+    { 
       id: 'sortBy',
+      localHierarchy: [['column', 'unknown']],
       isA: ['preposition'],
       bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
     },
 
     { 
       id: 'groupBy',
+      localHierarchy: [['column', 'unknown']],
       isA: ['preposition'],
-      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+      generatorp: async ({context, g}) => `${context.word} ${await g(context.field)}`,
+      bridge: "{ ...next(operator), field: after[0] }",
     },
 
     { 
@@ -644,6 +660,7 @@ let configStruct = {
 
     { id: 'show',
       bridge: "{ ...next(operator), show: after[0] }",
+      // localHierarchy: [['unknown', 'reportable']],
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, km, mentions, api, flatten, gp}) => {
@@ -763,10 +780,19 @@ let configStruct = {
         { word: 'email', database: 'sample_mflix', collection: 'users', path: ['email'] } 
       ] 
     },
+
+    { 
+      id: 'genre', 
+      parents: ['theAble', 'column'], 
+      words: [ 
+        { word: 'genres', database: 'sample_mflix', collection: 'movies', path: ['genres'] } 
+      ] 
+    },
   ],
   priorities: [
+    { context: [['sortOrdering', 0], ['list', 0]], choose: [0] },
     { context: [['show', 0], ['list', 0]], choose: [1] },
-    { context: [['list', 0], ['year',0], ['ascending', 0]], ordered: true, choose: [2] },
+    // { context: [['list', 0], ['year',0], ['ascending', 0]], ordered: true, choose: [2] },
     // { context: [['sortBy', 0], ['column',0], ['list', 0], ['column', 0]], ordered: true, choose: [2] },
     { context: [['sortBy', 0], ['column',0], ['list', 0], ['column', 0], ['ascending', 0]], ordered: true, choose: [4] },
   ],
@@ -851,6 +877,25 @@ const template = {
         }]
         const instantiation = await fragment.instantiate(mappings)
         await s(instantiation)
+
+        /*
+        const fields = await getFields(database, collection)
+        for (const f of fields) {
+          if (f == '_id') {
+            continue
+          }
+          config.addBridge(
+            { 
+              id: f,
+              parents: ['theAble', 'column'], 
+              words: [ 
+                { word: f, database, collection, path: [f] },
+              ],
+            },
+          )
+        }
+        */
+        // console.log('fields', fields)
       }
 
       for (const collection of collections) {
