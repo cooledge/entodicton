@@ -256,7 +256,8 @@
         "highest comparable",
         "lowest comparable",
         "comparable descending",
-        "comparable ascending"
+        "comparable ascending",
+        "email ascending"
       ],
       "template": [
         "sort modifies ordering",
