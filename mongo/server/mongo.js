@@ -160,6 +160,10 @@ class API {
     this.addResponse({ report })
   }
 
+  clear() {
+    this.addResponse({ clear: true })
+  }
+
   /*
   // report is a context
   nameReport(report, name) {
@@ -220,8 +224,36 @@ class API {
     return this.objects.lastResponse
   }
 
+  async newReportSpec(dbName, collectionName, columns = [], properties = []) {
+    const fields = await getFields(dbName, collectionName)
+    const dataSpec = {
+        dbName: dbName,
+        collectionName: collectionName,
+        fields,
+        usedFields: columns.map(({id}) => id),
+        limit: 10,
+        aggregation: [] 
+    }
+    
+    const imageSpec = {
+      headers: {
+        columns,
+      },
+      colgroups: properties.map( (e, i) => `column_${i}` ),
+      table: true,
+      field: [],
+      // rows: ['$name', '$age', '$fav_colors'],
+      rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
+    }
+
+    return {
+      marker: 'report',
+      dataSpec,
+      imageSpec,
+    }
+  }
+
   newReport() {
-    // km('stm').api.mentioned({ marker: "report", text: reportId, types: [ "report" ], value: reportId, word: reportId })
     const report = { 
       marker: 'report', 
       dataSpec: {}, 
@@ -254,10 +286,13 @@ class API {
 let configStruct = {
   name: 'mongo',
   operators: [
+    "([clear|clear,reset,restart])",
     // "([call] ([nameable]) (name))",
+    "([reportable])",
+
     "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
     "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
-    "(([recordCount|number,count]) [ofDbProperty|of] ([reportable]))",
+    "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
     // "([moveColumn|move] (column/*) (direction/*))",
     "([make] ([report]))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
@@ -283,16 +318,15 @@ let configStruct = {
     "([uppercase])",
     "([lowercase])",
 
-    // "([reportable])",
     "([show] (reportable/*))",
     "([showCollection|show] (collection/*))",
     "([showReport|show] (report/*))",
     "([showColumn|show,add,include,change,update,select] (column/*))",
     "([capitalize] ([reportElement]))",
     "([sales|])",
-    "([year])",
-    "([email])",
-    "([genre|])",
+    // "([year])",
+    // "([email])",
+    // "([genre|])",
 
     // "([movie])",
     // "([this])",
@@ -305,6 +339,14 @@ let configStruct = {
     ['case', 'reportElement'],
   ],
   bridges: [
+    { 
+      id: 'clear',
+      isA: ['verb'],
+      bridge: "{ ...next(operator) }",
+      semantic: ({context, api}) => {
+        api.clear()
+      }
+    },
     { 
       id: 'recordCount',
       isA: ['column', 'theAble'],
@@ -571,7 +613,7 @@ let configStruct = {
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
-      semantic: async ({context, kms, api}) => {
+      semantic: async ({values, context, kms, api, objects}) => {
         let report = api.current()
         if (context.chosens) {
           api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])
@@ -583,11 +625,7 @@ let configStruct = {
           context.chosens = [] // for callback
           report.showCollection = context
         } else if (context.show.less) {
-        } else if (context.show.path) {
-          // TODO add a the email column called contact
-          query.addColumns(report.dataSpec, report.imageSpec, context.show.database, context.show.collection, context.show.path) 
-          api.show(report)
-        } else if (context.show.quantity.value == 'all') {
+        } else if (context.show.quantity?.value == 'all') {
           const { dbName, collectionName, fields } = report.dataSpec
           // '{"chosen":"select","choices":[{"text":"_id","id":"_id"},{"text":"name","id":"name","selected":true,"counter":1},{"text":"email","id":"email","selected":true,"counter":2},{"text":"password","id":"password"}]}'
           const choices = []
@@ -597,6 +635,55 @@ let configStruct = {
             counter += 1
           }
           api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })
+          api.show(report)
+        } else if (context.show.marker == 'recordCount') {
+          // db.movies.aggregate([ { $addFields: { "count": { '$size': "$genres" }  } } ] )
+          const fieldNames = []
+          for (const field of values(context.show.field)) {
+            const fieldName = `the number of ${field.text}`
+            const fieldProp = field.path[0]
+            const aggregation = { $addFields: { [fieldName]: { '$size': '$' + fieldProp }  } }
+            report.dataSpec.aggregation.push(aggregation)
+            fieldNames.push(fieldName)
+          }
+          query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, fieldNames)
+          api.show(report)
+        } else {
+          // TODO add a the email column called contact
+          const columns = values(context.show)
+          // db -> collection -> columns
+          let database = report.dataSpec.dbName
+          let collection = report.dataSpec.collectionName
+          let columnNames = []
+
+          if (database) {
+            columnNames = [context.show.path[0]]
+          } else {
+            const found = []
+            let max = 0
+            for (let column of columns) {
+              const columnName = column.path[0]
+              const dbs = objects.columnToCollection[columnName]
+              for (const { database, collection } of dbs) {
+                let choice = found.find((choice) => choice.database == database && choice.collection == collection)
+                if (!choice) {
+                  choice = { database, collection, columns: [] }
+                  found.push(choice)
+                }
+                choice.columns.push(columnName)
+                max = Math.max(max, choice.columns.length)
+              }
+            }
+            // TODO Handle multiple table/no table case/column not in current table/columns in multiple tables
+            debugger
+            const bestGuess = found.find((choice) => choice.columns.length == max)
+            database = bestGuess.database
+            collection = bestGuess.collection
+            report = await api.newReportSpec(database, collection)
+            columnNames = bestGuess.columns
+          }
+          // query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, [context.show.path[0]]) 
+          query.addColumns(report.dataSpec, report.imageSpec, database, collection, columnNames) 
           api.show(report)
         }
       },
@@ -698,26 +785,10 @@ let configStruct = {
             for (const column of properties) {
               columns.push({ text: await gp(column), id: column.path[0] })
             }
-            const fields = await getFields(dbName, collectionName)
-            dataSpecs.push({
-                dbName: dbName,
-                collectionName: collectionName,
-                fields,
-                usedFields: columns.map(({id}) => id),
-                limit: 10,
-                aggregation: [] 
-            })
-            // columns: properties.map( (c) => { return { text: gp(c) } })
-            imageSpecs.push({
-              headers: {
-                columns,
-              },
-              colgroups: properties.map( (e, i) => `column_${i}` ),
-              table: true,
-              field: [],
-              // rows: ['$name', '$age', '$fav_colors'],
-              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
-            })
+
+            const report = await api.newReportSpec(dbName, collectionName, columns, properties)
+            dataSpecs.push(report.dataSpec)
+            imageSpecs.push(report.imageSpec)
           }
         }
 
@@ -765,19 +836,12 @@ let configStruct = {
       ] 
     },
 
+    /*
     { 
       id: 'year', 
       parents: ['reportable', 'theAble', 'column'], 
       words: [ 
-        { word: 'year', database: 'mongo_test_database', collection: 'sales', path: ['year'] } 
-      ] 
-    },
-
-    { 
-      id: 'email', 
-      parents: ['theAble', 'column'], 
-      words: [ 
-        { word: 'email', database: 'sample_mflix', collection: 'users', path: ['email'] } 
+        { word: 'year', path: ['year'] } 
       ] 
     },
 
@@ -785,9 +849,10 @@ let configStruct = {
       id: 'genre', 
       parents: ['theAble', 'column'], 
       words: [ 
-        { word: 'genres', database: 'sample_mflix', collection: 'movies', path: ['genres'] } 
+        { word: 'genres', path: ['genres'] } 
       ] 
     },
+    */
   ],
   priorities: [
     { context: [['sortOrdering', 0], ['list', 0]], choose: [0] },
@@ -834,7 +899,7 @@ const template = {
 
     configStruct,
 
-    async ({config, s, fragments}) => {
+    async ({objects, addWords, config, s, fragments}) => {
       const fragment = fragments("modifier23 modifies collection")
       const id = 'airbnb'
       const word = 'airbnb'
@@ -877,31 +942,25 @@ const template = {
         }]
         const instantiation = await fragment.instantiate(mappings)
         await s(instantiation)
-
-        /*
-        const fields = await getFields(database, collection)
-        for (const f of fields) {
-          if (f == '_id') {
-            continue
+        for (const f of await getFields(database, collection)) {
+          const word = f.replace(/_/g, " ")
+          if (!objects.columnToCollection[f]) {
+            objects.columnToCollection[f] = []
           }
-          config.addBridge(
-            { 
-              id: f,
-              parents: ['theAble', 'column'], 
-              words: [ 
-                { word: f, database, collection, path: [f] },
-              ],
-            },
-          )
+          objects.columnToCollection[f].push({ database, collection })
+
+          addWords('column', word, { id: 'column', path: [f] })
+          // config.addWord(word, { id: 'column', path: ['${f}'] })
         }
-        */
-        // console.log('fields', fields)
       }
 
+      // config.addWord('email', { id: 'column', initial: "{ path: ['email'] }" })
+
+      objects.columnToCollection = {}
       for (const collection of collections) {
         await addCollection(collection)
       }
-    }
+    },
   ],
 }
 

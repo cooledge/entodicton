@@ -2382,1426 +2382,6 @@
     "associations": [
       [
         [
-          "list",
-          0
-        ],
-        [
-          "sales",
-          0
-        ],
-        [
-          "show",
-          0
-        ],
-        [
-          "year",
-          0
-        ]
-      ],
-      [
-        [
-          "list",
-          0
-        ],
-        [
-          "show",
-          0
-        ],
-        [
-          "year",
-          0
-        ]
-      ],
-      [
-        [
-          "list",
-          1
-        ],
-        [
-          "show",
-          0
-        ]
-      ]
-    ],
-    "config": {
-    },
-    "contexts": [
-      {
-        "dead": true,
-        "default": true,
-        "level": 1,
-        "marker": "show",
-        "range": {
-          "end": 18,
-          "start": 0
-        },
-        "show": {
-          "default": true,
-          "isList": true,
-          "level": 1,
-          "listable": true,
-          "marker": "list",
-          "range": {
-            "end": 18,
-            "start": 5
-          },
-          "text": "sales and year",
-          "types": [
-            "list",
-            "sales",
-            "year"
-          ],
-          "value": [
-            {
-              "collection": "sales",
-              "database": "mongo_test_database",
-              "dead": true,
-              "level": 1,
-              "marker": "sales",
-              "path": [
-                "sales"
-              ],
-              "range": {
-                "end": 9,
-                "start": 5
-              },
-              "text": "sales",
-              "word": "sales"
-            },
-            {
-              "collection": "sales",
-              "database": "mongo_test_database",
-              "level": 0,
-              "marker": "year",
-              "path": [
-                "year"
-              ],
-              "range": {
-                "end": 18,
-                "start": 15
-              },
-              "text": "year",
-              "word": "year"
-            }
-          ],
-          "word": "and"
-        },
-        "text": "show sales and year",
-        "topLevel": true,
-        "touchedBy": [
-          "mongo#call2"
-        ],
-        "value": "show",
-        "word": "show"
-      }
-    ],
-    "generatedParenthesized": [
-      ""
-    ],
-    "metadata": {
-      "opChoices": [
-        {
-          "counter": 1,
-          "op": [
-            "sales",
-            0
-          ],
-          "ops": [
-            [
-              "list",
-              0
-            ],
-            [
-              "sales",
-              0
-            ],
-            [
-              "show",
-              0
-            ],
-            [
-              "year",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 2,
-          "op": [
-            "list",
-            0
-          ],
-          "ops": [
-            [
-              "list",
-              0
-            ],
-            [
-              "show",
-              0
-            ],
-            [
-              "year",
-              0
-            ]
-          ]
-        },
-        {
-          "counter": 3,
-          "op": [
-            "show",
-            0
-          ],
-          "ops": [
-            [
-              "show",
-              0
-            ]
-          ]
-        }
-      ]
-    },
-    "objects": {
-      "nameToUUID": {
-        "articles": "articles2",
-        "colors": "colors2",
-        "comparable": "comparable2",
-        "concept": "concept2",
-        "countable": "countable2",
-        "dialogues": "dialogues2",
-        "evaluate": "evaluate2",
-        "gdefaults": "gdefaults2",
-        "hierarchy": "hierarchy2",
-        "math": "math2",
-        "meta": "meta2",
-        "mongo": "mongo1",
-        "nameable": "nameable2",
-        "negation": "negation2",
-        "numbers": "numbers2",
-        "pos": "pos2",
-        "properties": "properties2",
-        "punctuation": "punctuation2",
-        "sdefaults": "sdefaults2",
-        "stm": "stm2",
-        "tokenize": "tokenize2",
-        "ui": "ui2"
-      },
-      "namespaced": {
-        "articles2": {
-        },
-        "colors2": {
-        },
-        "comparable2": {
-        },
-        "concept2": {
-          "defaultTypesForHierarchy": {
-          },
-          "valueToWords": [
-          ]
-        },
-        "countable2": {
-        },
-        "dialogues2": {
-          "brief": true,
-          "idSuffix": "",
-          "mentioned": [
-          ],
-          "variables": {
-          }
-        },
-        "evaluate2": {
-        },
-        "gdefaults2": {
-        },
-        "hierarchy2": {
-        },
-        "math2": {
-        },
-        "meta2": {
-        },
-        "mongo1": {
-          "lastResponse": {
-            "report": {
-              "dataSpec": {
-                "aggregation": [
-                ],
-                "collectionName": "sales",
-                "dbName": "mongo_test_database",
-                "fields": [
-                  "_id",
-                  "id",
-                  "sales",
-                  "year"
-                ],
-                "limit": 10,
-                "usedFields": [
-                  "sales",
-                  "year"
-                ]
-              },
-              "fromSTM": true,
-              "imageSpec": {
-                "colgroups": [
-                  "column_0",
-                  "column_1"
-                ],
-                "field": [
-                ],
-                "headers": {
-                  "columns": [
-                    {
-                      "id": "sales",
-                      "text": "sales"
-                    },
-                    {
-                      "id": "year",
-                      "text": "year"
-                    }
-                  ]
-                },
-                "rows": [
-                  "$sales",
-                  "$year"
-                ],
-                "table": true
-              },
-              "marker": "report",
-              "pullFromContext": false,
-              "stm": {
-                "id": 1
-              }
-            }
-          },
-          "namedReports": {
-          },
-          "select": [
-          ],
-          "show": [
-            {
-              "dataSpec": {
-                "aggregation": [
-                ],
-                "collectionName": "sales",
-                "dbName": "mongo_test_database",
-                "fields": [
-                  "_id",
-                  "id",
-                  "sales",
-                  "year"
-                ],
-                "limit": 10,
-                "usedFields": [
-                  "sales",
-                  "year"
-                ]
-              },
-              "fromSTM": true,
-              "imageSpec": {
-                "colgroups": [
-                  "column_0",
-                  "column_1"
-                ],
-                "field": [
-                ],
-                "headers": {
-                  "columns": [
-                    {
-                      "id": "sales",
-                      "text": "sales"
-                    },
-                    {
-                      "id": "year",
-                      "text": "year"
-                    }
-                  ]
-                },
-                "rows": [
-                  "$sales",
-                  "$year"
-                ],
-                "table": true
-              },
-              "marker": "report",
-              "pullFromContext": false,
-              "stm": {
-                "id": 1
-              }
-            }
-          ]
-        },
-        "nameable2": {
-          "named": {
-          }
-        },
-        "negation2": {
-        },
-        "numbers2": {
-        },
-        "pos2": {
-        },
-        "properties2": {
-          "children": {
-            "adjective": [
-              "stm_before"
-            ],
-            "articlePOS": [
-              "a",
-              "the"
-            ],
-            "blue_colors": [
-              "aqua_colors",
-              "cyan_colors",
-              "aquamarine_colors",
-              "turquoise_colors",
-              "navy_colors"
-            ],
-            "brightness_colors": [
-              "dark_colors",
-              "light_colors"
-            ],
-            "brown_colors": [
-              "tan_colors",
-              "sienna_colors",
-              "maroon_colors"
-            ],
-            "canBeDoQuestion": [
-              "have"
-            ],
-            "canBeQuestion": [
-              "have",
-              "is"
-            ],
-            "color_colors": [
-              "red_colors",
-              "pink_colors",
-              "orange_colors",
-              "yellow_colors",
-              "purple_colors",
-              "green_colors",
-              "blue_colors",
-              "brown_colors",
-              "white_colors",
-              "gray_colors"
-            ],
-            "concept": [
-              "reportable"
-            ],
-            "gray_colors": [
-              "silver_colors",
-              "black_colors"
-            ],
-            "green_colors": [
-              "lime_colors",
-              "chartruese_colors",
-              "olive_colors",
-              "teal_colors"
-            ],
-            "hierarchyAble": [
-              "unknown"
-            ],
-            "ifAble": [
-              "orAble"
-            ],
-            "object": [
-              "what",
-              "whose"
-            ],
-            "preposition": [
-              "between",
-              "to"
-            ],
-            "pronoun": [
-              "it",
-              "this"
-            ],
-            "punctuation": [
-              "questionMark"
-            ],
-            "purple_colors": [
-              "lavender_colors",
-              "violet_colors",
-              "magenta_colors",
-              "indigo_colors"
-            ],
-            "queryable": [
-              "xfx",
-              "hierarchyAble",
-              "readonly",
-              "property",
-              "object",
-              "concept",
-              "doubleQuote",
-              "unknown",
-              "it",
-              "what",
-              "whatAble",
-              "this",
-              "reason",
-              "thisitthat"
-            ],
-            "red_colors": [
-              "crimson_colors"
-            ],
-            "sort_ordering": [
-              "ascending",
-              "descending"
-            ],
-            "theAble": [
-              "property",
-              "object",
-              "concept",
-              "unknown",
-              "reason",
-              "memorable",
-              "noun"
-            ],
-            "thisitthat": [
-              "it",
-              "this",
-              "that"
-            ],
-            "toAble": [
-              "it"
-            ],
-            "verb": [
-              "modifies",
-              "is",
-              "remember",
-              "evaluate"
-            ],
-            "white_colors": [
-              "snow_colors",
-              "azure_colors",
-              "beige_colors",
-              "ivory_colors"
-            ],
-            "yellow_colors": [
-              "gold_colors",
-              "khaki_colors"
-            ]
-          },
-          "concepts": [
-            "properties",
-            "unknown",
-            "hierarchyAble",
-            "what",
-            "object",
-            "xfx",
-            "queryable",
-            "between",
-            "preposition",
-            "readonly",
-            "have",
-            "canBeDoQuestion",
-            "canBeQuestion",
-            "property",
-            "theAble",
-            "whose",
-            "concept",
-            "modifies",
-            "verb",
-            "doubleQuote",
-            "it",
-            "pronoun",
-            "this",
-            "questionMark",
-            "punctuation",
-            "a",
-            "articlePOS",
-            "the",
-            "whatAble",
-            "is",
-            "toAble",
-            "to",
-            "reason",
-            "memorable",
-            "remember",
-            "stm_before",
-            "adjective",
-            "orAble",
-            "ifAble",
-            "evaluate",
-            "noun",
-            "thisitthat",
-            "that",
-            "ascending",
-            "sort_ordering",
-            "descending",
-            "dark_colors",
-            "brightness_colors",
-            "light_colors",
-            "red_colors",
-            "color_colors",
-            "pink_colors",
-            "orange_colors",
-            "yellow_colors",
-            "purple_colors",
-            "green_colors",
-            "blue_colors",
-            "brown_colors",
-            "white_colors",
-            "gray_colors",
-            "crimson_colors",
-            "gold_colors",
-            "khaki_colors",
-            "lavender_colors",
-            "violet_colors",
-            "magenta_colors",
-            "indigo_colors",
-            "lime_colors",
-            "chartruese_colors",
-            "olive_colors",
-            "teal_colors",
-            "aqua_colors",
-            "cyan_colors",
-            "aquamarine_colors",
-            "turquoise_colors",
-            "navy_colors",
-            "tan_colors",
-            "sienna_colors",
-            "maroon_colors",
-            "snow_colors",
-            "azure_colors",
-            "beige_colors",
-            "ivory_colors",
-            "silver_colors",
-            "black_colors",
-            "reportable"
-          ],
-          "parents": {
-            "a": [
-              "articlePOS"
-            ],
-            "aqua_colors": [
-              "blue_colors"
-            ],
-            "aquamarine_colors": [
-              "blue_colors"
-            ],
-            "ascending": [
-              "sort_ordering"
-            ],
-            "azure_colors": [
-              "white_colors"
-            ],
-            "beige_colors": [
-              "white_colors"
-            ],
-            "between": [
-              "preposition"
-            ],
-            "black_colors": [
-              "gray_colors"
-            ],
-            "blue_colors": [
-              "color_colors"
-            ],
-            "brown_colors": [
-              "color_colors"
-            ],
-            "chartruese_colors": [
-              "green_colors"
-            ],
-            "concept": [
-              "theAble",
-              "queryable"
-            ],
-            "crimson_colors": [
-              "red_colors"
-            ],
-            "cyan_colors": [
-              "blue_colors"
-            ],
-            "dark_colors": [
-              "brightness_colors"
-            ],
-            "descending": [
-              "sort_ordering"
-            ],
-            "doubleQuote": [
-              "queryable"
-            ],
-            "evaluate": [
-              "verb"
-            ],
-            "gold_colors": [
-              "yellow_colors"
-            ],
-            "gray_colors": [
-              "color_colors"
-            ],
-            "green_colors": [
-              "color_colors"
-            ],
-            "have": [
-              "canBeDoQuestion",
-              "canBeQuestion"
-            ],
-            "hierarchyAble": [
-              "queryable"
-            ],
-            "indigo_colors": [
-              "purple_colors"
-            ],
-            "is": [
-              "canBeQuestion",
-              "verb"
-            ],
-            "it": [
-              "pronoun",
-              "queryable",
-              "toAble",
-              "thisitthat"
-            ],
-            "ivory_colors": [
-              "white_colors"
-            ],
-            "khaki_colors": [
-              "yellow_colors"
-            ],
-            "lavender_colors": [
-              "purple_colors"
-            ],
-            "light_colors": [
-              "brightness_colors"
-            ],
-            "lime_colors": [
-              "green_colors"
-            ],
-            "magenta_colors": [
-              "purple_colors"
-            ],
-            "maroon_colors": [
-              "brown_colors"
-            ],
-            "memorable": [
-              "theAble"
-            ],
-            "modifies": [
-              "verb"
-            ],
-            "navy_colors": [
-              "blue_colors"
-            ],
-            "noun": [
-              "theAble"
-            ],
-            "object": [
-              "queryable",
-              "theAble"
-            ],
-            "olive_colors": [
-              "green_colors"
-            ],
-            "orAble": [
-              "ifAble"
-            ],
-            "orange_colors": [
-              "color_colors"
-            ],
-            "pink_colors": [
-              "color_colors"
-            ],
-            "property": [
-              "queryable",
-              "theAble"
-            ],
-            "purple_colors": [
-              "color_colors"
-            ],
-            "questionMark": [
-              "punctuation"
-            ],
-            "readonly": [
-              "queryable"
-            ],
-            "reason": [
-              "theAble",
-              "queryable"
-            ],
-            "red_colors": [
-              "color_colors"
-            ],
-            "remember": [
-              "verb"
-            ],
-            "reportable": [
-              "concept"
-            ],
-            "sienna_colors": [
-              "brown_colors"
-            ],
-            "silver_colors": [
-              "gray_colors"
-            ],
-            "snow_colors": [
-              "white_colors"
-            ],
-            "stm_before": [
-              "adjective"
-            ],
-            "tan_colors": [
-              "brown_colors"
-            ],
-            "teal_colors": [
-              "green_colors"
-            ],
-            "that": [
-              "thisitthat"
-            ],
-            "the": [
-              "articlePOS"
-            ],
-            "this": [
-              "pronoun",
-              "queryable",
-              "thisitthat"
-            ],
-            "thisitthat": [
-              "queryable"
-            ],
-            "to": [
-              "preposition"
-            ],
-            "turquoise_colors": [
-              "blue_colors"
-            ],
-            "unknown": [
-              "hierarchyAble",
-              "theAble",
-              "queryable"
-            ],
-            "violet_colors": [
-              "purple_colors"
-            ],
-            "what": [
-              "object",
-              "queryable"
-            ],
-            "whatAble": [
-              "queryable"
-            ],
-            "white_colors": [
-              "color_colors"
-            ],
-            "whose": [
-              "object"
-            ],
-            "xfx": [
-              "queryable"
-            ],
-            "yellow_colors": [
-              "color_colors"
-            ]
-          },
-          "properties": {
-            "handlers": {
-            },
-            "initHandlers": [
-            ],
-            "root": {
-              "a": {
-              },
-              "adjective": {
-              },
-              "aqua_colors": {
-              },
-              "aquamarine_colors": {
-              },
-              "articlePOS": {
-              },
-              "ascending": {
-              },
-              "azure_colors": {
-              },
-              "beige_colors": {
-              },
-              "between": {
-              },
-              "black_colors": {
-              },
-              "blue_colors": {
-              },
-              "brightness_colors": {
-              },
-              "brown_colors": {
-              },
-              "canBeDoQuestion": {
-              },
-              "canBeQuestion": {
-              },
-              "chartruese_colors": {
-              },
-              "color_colors": {
-              },
-              "concept": {
-              },
-              "crimson_colors": {
-              },
-              "cyan_colors": {
-              },
-              "dark_colors": {
-              },
-              "descending": {
-              },
-              "doubleQuote": {
-              },
-              "evaluate": {
-              },
-              "gold_colors": {
-              },
-              "gray_colors": {
-              },
-              "green_colors": {
-              },
-              "have": {
-              },
-              "hierarchyAble": {
-              },
-              "ifAble": {
-              },
-              "indigo_colors": {
-              },
-              "is": {
-              },
-              "it": {
-              },
-              "ivory_colors": {
-              },
-              "khaki_colors": {
-              },
-              "lavender_colors": {
-              },
-              "light_colors": {
-              },
-              "lime_colors": {
-              },
-              "magenta_colors": {
-              },
-              "maroon_colors": {
-              },
-              "memorable": {
-              },
-              "modifies": {
-              },
-              "navy_colors": {
-              },
-              "noun": {
-              },
-              "object": {
-              },
-              "olive_colors": {
-              },
-              "orAble": {
-              },
-              "orange_colors": {
-              },
-              "pink_colors": {
-              },
-              "preposition": {
-              },
-              "pronoun": {
-              },
-              "property": {
-              },
-              "punctuation": {
-              },
-              "purple_colors": {
-              },
-              "queryable": {
-              },
-              "questionMark": {
-              },
-              "readonly": {
-              },
-              "reason": {
-              },
-              "red_colors": {
-              },
-              "remember": {
-              },
-              "reportable": {
-              },
-              "sienna_colors": {
-              },
-              "silver_colors": {
-              },
-              "snow_colors": {
-              },
-              "sort_ordering": {
-              },
-              "stm_before": {
-              },
-              "tan_colors": {
-              },
-              "teal_colors": {
-              },
-              "that": {
-              },
-              "the": {
-              },
-              "theAble": {
-              },
-              "this": {
-              },
-              "thisitthat": {
-              },
-              "to": {
-              },
-              "toAble": {
-              },
-              "turquoise_colors": {
-              },
-              "unknown": {
-              },
-              "verb": {
-              },
-              "violet_colors": {
-              },
-              "what": {
-              },
-              "whatAble": {
-              },
-              "white_colors": {
-              },
-              "whose": {
-              },
-              "xfx": {
-              },
-              "yellow_colors": {
-              }
-            }
-          },
-          "property": {
-          },
-          "relations": [
-          ],
-          "valueToWords": {
-          }
-        },
-        "punctuation2": {
-        },
-        "sdefaults2": {
-        },
-        "stm2": {
-          "mentioned": [
-            {
-              "dataSpec": {
-                "aggregation": [
-                ],
-                "collectionName": "sales",
-                "dbName": "mongo_test_database",
-                "fields": [
-                  "_id",
-                  "id",
-                  "sales",
-                  "year"
-                ],
-                "limit": 10,
-                "usedFields": [
-                  "sales",
-                  "year"
-                ]
-              },
-              "fromSTM": true,
-              "imageSpec": {
-                "colgroups": [
-                  "column_0",
-                  "column_1"
-                ],
-                "field": [
-                ],
-                "headers": {
-                  "columns": [
-                    {
-                      "id": "sales",
-                      "text": "sales"
-                    },
-                    {
-                      "id": "year",
-                      "text": "year"
-                    }
-                  ]
-                },
-                "rows": [
-                  "$sales",
-                  "$year"
-                ],
-                "table": true
-              },
-              "marker": "report",
-              "pullFromContext": false,
-              "stm": {
-                "id": 1
-              }
-            }
-          ],
-          "variables": {
-          }
-        },
-        "tokenize2": {
-        },
-        "ui2": {
-        }
-      },
-      "processed": [
-        {
-          "context": {
-            "dead": true,
-            "default": true,
-            "level": 1,
-            "marker": "show",
-            "range": {
-              "end": 18,
-              "start": 0
-            },
-            "show": {
-              "default": true,
-              "isList": true,
-              "level": 1,
-              "listable": true,
-              "marker": "list",
-              "range": {
-                "end": 18,
-                "start": 5
-              },
-              "text": "sales and year",
-              "types": [
-                "list",
-                "sales",
-                "year"
-              ],
-              "value": [
-                {
-                  "collection": "sales",
-                  "database": "mongo_test_database",
-                  "dead": true,
-                  "level": 1,
-                  "marker": "sales",
-                  "path": [
-                    "sales"
-                  ],
-                  "range": {
-                    "end": 9,
-                    "start": 5
-                  },
-                  "text": "sales",
-                  "word": "sales"
-                },
-                {
-                  "collection": "sales",
-                  "database": "mongo_test_database",
-                  "level": 0,
-                  "marker": "year",
-                  "path": [
-                    "year"
-                  ],
-                  "range": {
-                    "end": 18,
-                    "start": 15
-                  },
-                  "text": "year",
-                  "word": "year"
-                }
-              ],
-              "word": "and"
-            },
-            "text": "show sales and year",
-            "topLevel": true,
-            "touchedBy": [
-              "mongo#call2"
-            ],
-            "value": "show",
-            "word": "show"
-          },
-          "generatedParenthesized": "",
-          "paraphrases": "show sales and year",
-          "paraphrasesParenthesized": "((show ((sales) and (year))))",
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "default": true,
-            "level": 1,
-            "marker": "be",
-            "range": {
-              "end": 7,
-              "start": 0
-            },
-            "text": "be brief",
-            "topLevel": true,
-            "touchedBy": [
-              "mongo#call2",
-              "instance3#mongo#call2"
-            ],
-            "type": {
-              "dead": true,
-              "level": 1,
-              "marker": "briefOrWordy",
-              "range": {
-                "end": 7,
-                "start": 3
-              },
-              "text": "brief",
-              "types": [
-                "briefOrWordy"
-              ],
-              "value": "brief",
-              "word": "brief"
-            },
-            "value": "be",
-            "word": "be"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "be brief",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "level": 2,
-            "marker": "is",
-            "number": "one",
-            "one": {
-              "dead": true,
-              "level": 1,
-              "marker": "unknown",
-              "number": "one",
-              "range": {
-                "end": 22,
-                "start": 0
-              },
-              "text": "reportable",
-              "types": [
-                "unknown"
-              ],
-              "unknown": true,
-              "value": "reportable",
-              "word": "reportable"
-            },
-            "range": {
-              "end": 22,
-              "start": 0
-            },
-            "text": "reportable is a concept",
-            "topLevel": true,
-            "touchedBy": [
-              "mongo#call2",
-              "instance2#mongo#call2"
-            ],
-            "two": {
-              "concept": true,
-              "dead": true,
-              "default": true,
-              "determiner": {
-                "default": true,
-                "level": 0,
-                "marker": "a",
-                "range": {
-                  "end": 14,
-                  "start": 14
-                },
-                "text": "a",
-                "word": "a"
-              },
-              "level": 1,
-              "marker": "concept",
-              "modifiers": [
-                "determiner"
-              ],
-              "number": "one",
-              "pullFromContext": false,
-              "range": {
-                "end": 22,
-                "start": 14
-              },
-              "text": "a concept",
-              "types": [
-                "concept"
-              ],
-              "value": "concept",
-              "wantsValue": true,
-              "word": "concept"
-            },
-            "word": "is"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "reportable is a concept",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "dead": true,
-            "default": true,
-            "level": 1,
-            "marker": "resetIdSuffix",
-            "range": {
-              "end": 12,
-              "start": 0
-            },
-            "text": "resetidsuffix",
-            "topLevel": true,
-            "touchedBy": [
-              "colors#call2",
-              "instance14#colors#call2",
-              "instance14#mongo#call2"
-            ],
-            "value": "resetIdSuffix",
-            "word": "resetidsuffix"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "resetidsuffix",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "concept": {
-              "dead": true,
-              "level": 1,
-              "marker": "color_colors",
-              "number": "one",
-              "range": {
-                "end": 17,
-                "start": 13
-              },
-              "text": "color",
-              "value": "color_colors",
-              "word": "color"
-            },
-            "dead": true,
-            "flatten": false,
-            "level": 1,
-            "marker": "modifies",
-            "modifiers": [
-              {
-                "dead": true,
-                "level": 1,
-                "marker": "unknown",
-                "range": {
-                  "end": 2,
-                  "start": 0
-                },
-                "text": "hex",
-                "unknown": true,
-                "value": "hex",
-                "word": "hex"
-              }
-            ],
-            "number": "one",
-            "range": {
-              "end": 17,
-              "start": 0
-            },
-            "text": "hex modifies color",
-            "topLevel": true,
-            "touchedBy": [
-              "colors#call2",
-              "instance12#colors#call2",
-              "instance12#mongo#call2"
-            ],
-            "word": "modifies"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "hex modifies color",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "concept": {
-              "dead": true,
-              "level": 1,
-              "marker": "color_colors",
-              "number": "many",
-              "range": {
-                "end": 25,
-                "start": 20
-              },
-              "text": "colors",
-              "value": "color_colors",
-              "word": "colors"
-            },
-            "dead": true,
-            "flatten": false,
-            "level": 1,
-            "marker": "modifies",
-            "modifiers": [
-              {
-                "dead": true,
-                "level": 1,
-                "marker": "brightness_colors",
-                "number": "one",
-                "range": {
-                  "end": 9,
-                  "start": 0
-                },
-                "text": "brightness",
-                "value": "brightness_colors",
-                "word": "brightness"
-              }
-            ],
-            "number": "one",
-            "range": {
-              "end": 25,
-              "start": 0
-            },
-            "text": "brightness modifies colors",
-            "topLevel": true,
-            "touchedBy": [
-              "colors#call2",
-              "instance11#colors#call2",
-              "instance11#mongo#call2"
-            ],
-            "word": "modifies"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "brightness modifies colors",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        }
-      ]
-    },
-    "paraphrases": [
-      "show sales and year"
-    ],
-    "paraphrasesParenthesized": [
-      "((show ((sales) and (year))))"
-    ],
-    "query": "show sales and year",
-    "responses": [
-      ""
-    ]
-  },
-  {
-    "associations": [
-      [
-        [
           "capitalize",
           0
         ],
@@ -55667,6 +54247,5146 @@
       "((the (number) (of) (movies)))"
     ],
     "query": "the number of movies",
+    "responses": [
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "column",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "recordCount",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "column",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "showColumn",
+          0
+        ]
+      ],
+      [
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 14,
+          "start": 0
+        },
+        "show": {
+          "collection": "movies",
+          "concept": true,
+          "database": "sample_mflix",
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "movie",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "path": [
+            "title"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 5
+          },
+          "text": "the movies",
+          "types": [
+            "movie"
+          ],
+          "wantsValue": true,
+          "word": "movies"
+        },
+        "text": "show the movies",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "showColumn",
+        "range": {
+          "end": 24,
+          "start": 0
+        },
+        "show": {
+          "concept": true,
+          "count": true,
+          "dead": true,
+          "default": true,
+          "determiner": "the",
+          "field": {
+            "dead": true,
+            "id": "column",
+            "level": 1,
+            "marker": "column",
+            "number": "many",
+            "path": [
+              "genres"
+            ],
+            "range": {
+              "end": 24,
+              "start": 19
+            },
+            "text": "genres",
+            "types": [
+              "column",
+              "reportable"
+            ],
+            "word": "genres"
+          },
+          "focusableForPhrase": true,
+          "level": 2,
+          "marker": "recordCount",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "of": {
+            "default": true,
+            "level": 0,
+            "marker": "ofDbProperty",
+            "range": {
+              "end": 17,
+              "start": 16
+            },
+            "text": "of",
+            "word": "of"
+          },
+          "postModifiers": [
+            "of",
+            "field"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 24,
+            "start": 5
+          },
+          "text": "the number of genres",
+          "types": [
+            "recordCount"
+          ],
+          "wantsValue": true,
+          "word": "number"
+        },
+        "text": "show the number of genres",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "word": "show"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "movie",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "recordCount",
+            0
+          ],
+          "ops": [
+            [
+              "column",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "recordCount",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
+            "column",
+            0
+          ],
+          "ops": [
+            [
+              "column",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 9,
+          "op": [
+            "ofDbProperty",
+            0
+          ],
+          "ops": [
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "showColumn",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 10,
+          "op": [
+            "showColumn",
+            0
+          ],
+          "ops": [
+            [
+              "showColumn",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "lastResponse": {
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            },
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "showColumn",
+            "range": {
+              "end": 24,
+              "start": 0
+            },
+            "show": {
+              "concept": true,
+              "count": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "field": {
+                "dead": true,
+                "id": "column",
+                "level": 1,
+                "marker": "column",
+                "number": "many",
+                "path": [
+                  "genres"
+                ],
+                "range": {
+                  "end": 24,
+                  "start": 19
+                },
+                "text": "genres",
+                "types": [
+                  "column",
+                  "reportable"
+                ],
+                "word": "genres"
+              },
+              "focusableForPhrase": true,
+              "level": 2,
+              "marker": "recordCount",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "of": {
+                "default": true,
+                "level": 0,
+                "marker": "ofDbProperty",
+                "range": {
+                  "end": 17,
+                  "start": 16
+                },
+                "text": "of",
+                "word": "of"
+              },
+              "postModifiers": [
+                "of",
+                "field"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 24,
+                "start": 5
+              },
+              "text": "the number of genres",
+              "types": [
+                "recordCount"
+              ],
+              "wantsValue": true,
+              "word": "number"
+            },
+            "text": "show the number of genres",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the number of genres",
+          "paraphrasesParenthesized": "((show (the (number) (of) (genres))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 14,
+              "start": 0
+            },
+            "show": {
+              "collection": "movies",
+              "concept": true,
+              "database": "sample_mflix",
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "movie",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "path": [
+                "title"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 5
+              },
+              "text": "the movies",
+              "types": [
+                "movie"
+              ],
+              "wantsValue": true,
+              "word": "movies"
+            },
+            "text": "show the movies",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the movies",
+          "paraphrasesParenthesized": "((show (the (movies))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2",
+              "instance12#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show the movies",
+      "show the number of genres"
+    ],
+    "paraphrasesParenthesized": [
+      "((show (the (movies))))",
+      "((show (the (number) (of) (genres))))"
+    ],
+    "query": "show the movies\\nshow the number of genres",
+    "responses": [
+      "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "column",
+          0
+        ],
+        [
+          "list",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "recordCount",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "column",
+          0
+        ],
+        [
+          "list",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          0
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          1
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "showColumn",
+          0
+        ]
+      ],
+      [
+        [
+          "list",
+          1
+        ],
+        [
+          "ofDbProperty",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 14,
+          "start": 0
+        },
+        "show": {
+          "collection": "movies",
+          "concept": true,
+          "database": "sample_mflix",
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "movie",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "path": [
+            "title"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 5
+          },
+          "text": "the movies",
+          "types": [
+            "movie"
+          ],
+          "wantsValue": true,
+          "word": "movies"
+        },
+        "text": "show the movies",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "showColumn",
+        "range": {
+          "end": 38,
+          "start": 0
+        },
+        "show": {
+          "concept": true,
+          "count": true,
+          "dead": true,
+          "default": true,
+          "determiner": "the",
+          "field": {
+            "default": true,
+            "isList": true,
+            "level": 1,
+            "listable": true,
+            "marker": "list",
+            "range": {
+              "end": 38,
+              "start": 19
+            },
+            "text": "genres and directors",
+            "types": [
+              "list",
+              "reportable"
+            ],
+            "value": [
+              {
+                "dead": true,
+                "id": "column",
+                "level": 1,
+                "marker": "column",
+                "number": "many",
+                "path": [
+                  "genres"
+                ],
+                "range": {
+                  "end": 24,
+                  "start": 19
+                },
+                "text": "genres",
+                "word": "genres"
+              },
+              {
+                "dead": true,
+                "id": "column",
+                "level": 1,
+                "marker": "column",
+                "number": "many",
+                "path": [
+                  "directors"
+                ],
+                "range": {
+                  "end": 38,
+                  "start": 30
+                },
+                "text": "directors",
+                "word": "directors"
+              }
+            ],
+            "word": "and"
+          },
+          "focusableForPhrase": true,
+          "level": 2,
+          "marker": "recordCount",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": null,
+          "of": {
+            "default": true,
+            "level": 0,
+            "marker": "ofDbProperty",
+            "range": {
+              "end": 17,
+              "start": 16
+            },
+            "text": "of",
+            "word": "of"
+          },
+          "postModifiers": [
+            "of",
+            "field"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 38,
+            "start": 5
+          },
+          "text": "the number of genres and directors",
+          "types": [
+            "recordCount"
+          ],
+          "wantsValue": true,
+          "word": "number"
+        },
+        "text": "show the number of genres and directors",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "word": "show"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "movie",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "recordCount",
+            0
+          ],
+          "ops": [
+            [
+              "column",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "recordCount",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
+            "column",
+            0
+          ],
+          "ops": [
+            [
+              "column",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "op": [
+            "column",
+            0
+          ],
+          "ops": [
+            [
+              "column",
+              0
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 9,
+          "op": [
+            "list",
+            0
+          ],
+          "ops": [
+            [
+              "list",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 10,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 11,
+          "op": [
+            "ofDbProperty",
+            0
+          ],
+          "ops": [
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "showColumn",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 12,
+          "op": [
+            "showColumn",
+            0
+          ],
+          "ops": [
+            [
+              "showColumn",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "lastResponse": {
+            "report": {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  },
+                  {
+                    "$addFields": {
+                      "the number of directors": {
+                        "$size": "$directors"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1",
+                  "column_2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    },
+                    {
+                      "id": "the number of directors",
+                      "text": "the number of directors"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres",
+                  "$the number of directors"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  },
+                  {
+                    "$addFields": {
+                      "the number of directors": {
+                        "$size": "$directors"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1",
+                  "column_2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    },
+                    {
+                      "id": "the number of directors",
+                      "text": "the number of directors"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres",
+                  "$the number of directors"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            },
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  },
+                  {
+                    "$addFields": {
+                      "the number of directors": {
+                        "$size": "$directors"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1",
+                  "column_2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    },
+                    {
+                      "id": "the number of directors",
+                      "text": "the number of directors"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres",
+                  "$the number of directors"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": {
+                "aggregation": [
+                  {
+                    "$addFields": {
+                      "the number of genres": {
+                        "$size": "$genres"
+                      }
+                    }
+                  },
+                  {
+                    "$addFields": {
+                      "the number of directors": {
+                        "$size": "$directors"
+                      }
+                    }
+                  }
+                ],
+                "collectionName": "movies",
+                "dbName": "sample_mflix",
+                "fields": [
+                  "_id",
+                  "awards",
+                  "cast",
+                  "countries",
+                  "directors",
+                  "fullplot",
+                  "genres",
+                  "imdb",
+                  "languages",
+                  "lastupdated",
+                  "num_mflix_comments",
+                  "plot",
+                  "rated",
+                  "released",
+                  "runtime",
+                  "title",
+                  "tomatoes",
+                  "type",
+                  "year"
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "title"
+                ]
+              },
+              "fromSTM": true,
+              "imageSpec": {
+                "colgroups": [
+                  "column_0",
+                  "column_1",
+                  "column_2"
+                ],
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                    {
+                      "id": "title",
+                      "text": "the movies"
+                    },
+                    {
+                      "id": "the number of genres",
+                      "text": "the number of genres"
+                    },
+                    {
+                      "id": "the number of directors",
+                      "text": "the number of directors"
+                    }
+                  ]
+                },
+                "rows": [
+                  "$title",
+                  "$the number of genres",
+                  "$the number of directors"
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "showColumn",
+            "range": {
+              "end": 38,
+              "start": 0
+            },
+            "show": {
+              "concept": true,
+              "count": true,
+              "dead": true,
+              "default": true,
+              "determiner": "the",
+              "field": {
+                "default": true,
+                "isList": true,
+                "level": 1,
+                "listable": true,
+                "marker": "list",
+                "range": {
+                  "end": 38,
+                  "start": 19
+                },
+                "text": "genres and directors",
+                "types": [
+                  "list",
+                  "reportable"
+                ],
+                "value": [
+                  {
+                    "dead": true,
+                    "id": "column",
+                    "level": 1,
+                    "marker": "column",
+                    "number": "many",
+                    "path": [
+                      "genres"
+                    ],
+                    "range": {
+                      "end": 24,
+                      "start": 19
+                    },
+                    "text": "genres",
+                    "word": "genres"
+                  },
+                  {
+                    "dead": true,
+                    "id": "column",
+                    "level": 1,
+                    "marker": "column",
+                    "number": "many",
+                    "path": [
+                      "directors"
+                    ],
+                    "range": {
+                      "end": 38,
+                      "start": 30
+                    },
+                    "text": "directors",
+                    "word": "directors"
+                  }
+                ],
+                "word": "and"
+              },
+              "focusableForPhrase": true,
+              "level": 2,
+              "marker": "recordCount",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": null,
+              "of": {
+                "default": true,
+                "level": 0,
+                "marker": "ofDbProperty",
+                "range": {
+                  "end": 17,
+                  "start": 16
+                },
+                "text": "of",
+                "word": "of"
+              },
+              "postModifiers": [
+                "of",
+                "field"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 38,
+                "start": 5
+              },
+              "text": "the number of genres and directors",
+              "types": [
+                "recordCount"
+              ],
+              "wantsValue": true,
+              "word": "number"
+            },
+            "text": "show the number of genres and directors",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the number of genres and directors",
+          "paraphrasesParenthesized": "((show (the (number) (of) ((genres) and (directors)))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 14,
+              "start": 0
+            },
+            "show": {
+              "collection": "movies",
+              "concept": true,
+              "database": "sample_mflix",
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "movie",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "path": [
+                "title"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 5
+              },
+              "text": "the movies",
+              "types": [
+                "movie"
+              ],
+              "wantsValue": true,
+              "word": "movies"
+            },
+            "text": "show the movies",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the movies",
+          "paraphrasesParenthesized": "((show (the (movies))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2",
+              "instance12#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show the movies",
+      "show the number of genres and directors"
+    ],
+    "paraphrasesParenthesized": [
+      "((show (the (movies))))",
+      "((show (the (number) (of) ((genres) and (directors)))))"
+    ],
+    "query": "show the movies\\nshow the number of genres and directors",
+    "responses": [
+      "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "clear",
+        "range": {
+          "end": 4,
+          "start": 0
+        },
+        "text": "clear",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "word": "clear"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "clear",
+            0
+          ],
+          "ops": [
+            [
+              "clear",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "conjunction": "conjunction2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "conjunction2": {
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "columnToCollection": {
+            "_id": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              },
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "access": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "accommodates": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "address": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "amenities": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "availability": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "awards": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "bathrooms": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "bed_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "bedrooms": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "beds": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "calendar_last_scraped": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "cancellation_policy": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "cast": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "cleaning_fee": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "countries": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "date": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "description": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "directors": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "email": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "extra_people": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "fullplot": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "genres": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "guests_included": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "host": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "house_rules": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "images": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "imdb": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "interaction": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "languages": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "last_scraped": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "lastupdated": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "listing_url": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "maximum_nights": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "minimum_nights": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "monthly_price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "movie_id": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "name": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              },
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "neighborhood_overview": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "notes": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "num_mflix_comments": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "number_of_reviews": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "password": [
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "plot": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "property_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "rated": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "released": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "review_scores": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "reviews": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "room_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "runtime": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "space": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "summary": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "text": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "title": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "tomatoes": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "transit": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "type": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "weekly_price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "year": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ]
+          },
+          "lastResponse": {
+            "clear": true
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "clear",
+            "range": {
+              "end": 4,
+              "start": 0
+            },
+            "text": "clear",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "word": "clear"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "clear",
+          "paraphrasesParenthesized": "((clear))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "one",
+              "range": {
+                "end": 17,
+                "start": 13
+              },
+              "text": "color",
+              "value": "color_colors",
+              "word": "color"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 2,
+                  "start": 0
+                },
+                "text": "hex",
+                "unknown": true,
+                "value": "hex",
+                "word": "hex"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 17,
+              "start": 0
+            },
+            "text": "hex modifies color",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance12#colors#call2",
+              "instance12#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "hex modifies color",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "concept": {
+              "dead": true,
+              "level": 1,
+              "marker": "color_colors",
+              "number": "many",
+              "range": {
+                "end": 25,
+                "start": 20
+              },
+              "text": "colors",
+              "value": "color_colors",
+              "word": "colors"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "brightness_colors",
+                "number": "one",
+                "range": {
+                  "end": 9,
+                  "start": 0
+                },
+                "text": "brightness",
+                "value": "brightness_colors",
+                "word": "brightness"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 25,
+              "start": 0
+            },
+            "text": "brightness modifies colors",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance11#colors#call2",
+              "instance11#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "brightness modifies colors",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "clear"
+    ],
+    "paraphrasesParenthesized": [
+      "((clear))"
+    ],
+    "query": "clear",
     "responses": [
       ""
     ]

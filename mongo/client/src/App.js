@@ -9,6 +9,7 @@ import Image from './Image'
 import $ from 'jquery';
 // import demo from './demo.json'
 const fetch = require('node-fetch')
+const _ = require('lodash')
 
 const testData = () => {
   const graph = {
@@ -265,6 +266,7 @@ function App() {
     setChosen(null)
     setChoices([])
     setCounter(counter+1)
+    debugger
     if (response.chooseFields) {
       setChooserTitle(response.chooseFields.title)
       setChoices(response.chooseFields.choices)
@@ -275,6 +277,9 @@ function App() {
     }
     if (response.reportNames) {
       setNamedReports(response.reportNames)
+    }
+    if (response.clear) {
+      setData([])
     }
     if (response.report) {
       handleReportResult(response.report, rules, setData)

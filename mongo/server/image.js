@@ -141,7 +141,6 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     for (const [index, field] of imageSpec.entries()) {
       values.push({ className: `column column_${index} table_${options.tableNumber}_column_${index}`, data: instantiateImpl(field, bson, options) })
     }
-    debugger
     return values
   } else if (typeof imageSpec !== 'object' ){
     if (imageSpec.startsWith("$")) {

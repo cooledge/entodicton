@@ -182,6 +182,12 @@ app.post('/query', async (req, res) => {
         console.log('response.reportNames', JSON.stringify(response.reportNames))
         response.report = report
       }
+
+      debugger
+      if (lastResponse.clear) {
+        response.clear = true
+      }
+
       // console.log(JSON.stringify(response, null, 2))
       res.json(response)
     } else {

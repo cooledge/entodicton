@@ -13,7 +13,10 @@
     {
       "name": "mongo",
       "operators": [
+        "([reportable])",
         "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
+        "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
+        "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -32,8 +35,6 @@
         "([showColumn|show,add,include,change,update,select] (column/*))",
         "([capitalize] ([reportElement]))",
         "([sales|])",
-        "([year])",
-        "([email])",
         "([thisReportElement|this] (reportElement/*))"
       ],
       "hierarchy": [
@@ -56,18 +57,63 @@
       ],
       "bridges": [
         {
+          "id": "recordCount",
+          "isA": [
+            "column",
+            "theAble"
+          ],
+          "bridge": "{ ...next(operator) }"
+        },
+        {
+          "id": "ofDbProperty",
+          "isA": [
+            "preposition"
+          ],
+          "generatorp": "({context, g}) => `number of ${g(field)}`",
+          "bridge": "{ ...next(before[0]), of: operator, count: true, field: after[0], number: after[0].number, postModifiers: ['of', 'field'] }"
+        },
+        {
           "id": "sortBy",
+          "localHierarchy": [
+            [
+              "column",
+              "unknown"
+            ]
+          ],
           "isA": [
             "preposition"
           ],
           "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
         },
         {
+          "id": "groupBy",
+          "localHierarchy": [
+            [
+              "column",
+              "unknown"
+            ]
+          ],
+          "isA": [
+            "preposition"
+          ],
+          "generatorp": "async ({context, g}) => `${context.word} ${await g(context.field)}`",
+          "bridge": "{ ...next(operator), field: after[0] }"
+        },
+        {
           "id": "sortByColumns",
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
+          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+          "semantic": "({context, api}) => {\n        const report = api.current()\n        const fields = helpers.propertyToArray(context.field.field)\n        query.addSort(report.dataSpec, fields)\n        api.show(report)\n      }"
+        },
+        {
+          "id": "groupByColumns",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+          "semantic": "({context, api}) => {\n        const report = api.current()\n        const fields = helpers.propertyToArray(context.field.field)\n        // account for name errors like saying genre but the field is genres\n        query.addGroup(report.dataSpec, fields)\n        image.addGroup(report.imageSpec, fields.map((field) => { return { ...field, collection: report.dataSpec.collectionName } }))\n        api.show(report)\n      }"
         },
         {
           "id": "column",
@@ -280,7 +326,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, kms, api}) => {\n        let report = api.current()\n        if (context.chosens) {\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.path) {\n          // TODO add a the email column called contact\n          debugger\n          query.addColumns(report.dataSpec, report.imageSpec, context.show.database, context.show.collection, context.show.path) \n          api.show(report)\n        }\n      }"
+          "semantic": "async ({values, context, kms, api, objects}) => {\n        let report = api.current()\n        if (context.chosens) {\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName, fields } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, fields, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.quantity?.value == 'all') {\n          const { dbName, collectionName, fields } = report.dataSpec\n          // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n          const choices = []\n          let counter = 1\n          for (const field of fields) {\n            choices.push({ text: field, id: field, counter, selected: true })\n            counter += 1\n          }\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })\n          api.show(report)\n        } else if (context.show.marker == 'recordCount') {\n          // db.movies.aggregate([ { $addFields: { \"count\": { '$size': \"$genres\" }  } } ] )\n          const fieldNames = []\n          for (const field of values(context.show.field)) {\n            const fieldName = `the number of ${field.text}`\n            const fieldProp = field.path[0]\n            const aggregation = { $addFields: { [fieldName]: { '$size': '$' + fieldProp }  } }\n            report.dataSpec.aggregation.push(aggregation)\n            fieldNames.push(fieldName)\n          }\n          query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, fieldNames)\n          api.show(report)\n        } else {\n          // TODO add a the email column called contact\n          debugger\n          const columns = values(context.show)\n          // db -> collection -> columns\n          const found = {}\n          for (let column of columns) {\n            const columnName = column.path[0]\n            const dbs = objects.columnToCollection[columnName]\n            for (const { database, collection } of dbs) {\n              if (!found[database]) {\n                found[database] = {}\n              }\n              if (!found[database][collection]) {\n                found[database][collection] = []\n              }\n              found[database][collection].push(columnName)\n            }\n          }\n          // TODO Handle multiple table/no table case/column not in current table\n          const database = Object.keys(found)[0]\n          const collection = Object.keys(found[database])[0]\n          // query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, [context.show.path[0]]) \n          query.addColumns(report.dataSpec, report.imageSpec, database, collection, [context.show.path[0]]) \n          api.show(report)\n        }\n      }"
         },
         {
           "id": "showReport",
@@ -298,7 +344,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let report = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n          const database = reportable.database\n          const collection = reportable.collection\n\n          api.updateColumns(report, database, collection, chosen)\n\n          api.show(report)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          await api.showFieldsResponse(reportable.database, reportable.collection)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        }\n      }"
+          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let report = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n          const database = reportable.database\n          const collection = reportable.collection\n\n          api.updateColumns(report, database, collection, chosen)\n\n          api.show(report)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          const fields = await getFields(reportable.database, reportable.collection)\n          await api.showFieldsResponse(reportable.database, reportable.collection, fields)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        }\n      }"
         },
         {
           "id": "show",
@@ -307,7 +353,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const report = api.newReport()\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            dataSpecs.push({\n                dbName: dbName,\n                collectionName: collectionName,\n                limit: 10,\n                aggregation: [] \n            })\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column), id: column.path[0] })\n            }\n            // columns: properties.map( (c) => { return { text: gp(c) } })\n            imageSpecs.push({\n              headers: {\n                columns,\n              },\n              colgroups: properties.map( (e, i) => `column_${i}` ),\n              table: true,\n              field: [],\n              // rows: ['$name', '$age', '$fav_colors'],\n              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            })\n          }\n        }\n\n        if (dataSpecs.length == 1) {\n          report.dataSpec = dataSpecs[0]\n          report.imageSpec = imageSpecs[0]\n        } else {\n          report.dataSpec = dataSpecs\n          for (let i = 0; i < imageSpecs.length; ++i) {\n            imageSpecs[i].field = [i]\n          }\n          report.imageSpec = {\n            headers: { columns: [] },\n            table: true,\n            explicit: true,\n            field: [],\n            rows: [imageSpecs]\n          }\n        }\n        /*\n        report.dataSpec = { \n          dbName: properties[0].database, \n          collectionName: properties[0].collection, \n          aggregation: [] \n        }\n\n        report.imageSpec = {\n          headers: properties.map( gp ),\n          table: true,\n          field: [],\n          // rows: ['$name', '$age', '$fav_colors'],\n          rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n        }\n        */\n\n        api.show(report)\n      }"
+          "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const report = api.newReport()\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column), id: column.path[0] })\n            }\n            const fields = await getFields(dbName, collectionName)\n            dataSpecs.push({\n                dbName: dbName,\n                collectionName: collectionName,\n                fields,\n                usedFields: columns.map(({id}) => id),\n                limit: 10,\n                aggregation: [] \n            })\n            // columns: properties.map( (c) => { return { text: gp(c) } })\n            imageSpecs.push({\n              headers: {\n                columns,\n              },\n              colgroups: properties.map( (e, i) => `column_${i}` ),\n              table: true,\n              field: [],\n              // rows: ['$name', '$age', '$fav_colors'],\n              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            })\n          }\n        }\n\n        if (dataSpecs.length == 1) {\n          report.dataSpec = dataSpecs[0]\n          report.imageSpec = imageSpecs[0]\n        } else {\n          report.dataSpec = dataSpecs\n          for (let i = 0; i < imageSpecs.length; ++i) {\n            imageSpecs[i].field = [i]\n          }\n          report.imageSpec = {\n            headers: { columns: [] },\n            table: true,\n            explicit: true,\n            field: [],\n            rows: [imageSpecs]\n          }\n        }\n        /*\n        report.dataSpec = { \n          dbName: properties[0].database, \n          collectionName: properties[0].collection, \n          aggregation: [] \n        }\n\n        report.imageSpec = {\n          headers: properties.map( gp ),\n          table: true,\n          field: [],\n          // rows: ['$name', '$age', '$fav_colors'],\n          rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n        }\n        */\n\n        api.show(report)\n      }"
         },
         {
           "id": "sales",
@@ -325,44 +371,24 @@
               ]
             }
           ]
-        },
-        {
-          "id": "year",
-          "parents": [
-            "reportable",
-            "theAble",
-            "column"
-          ],
-          "words": [
-            {
-              "word": "year",
-              "database": "mongo_test_database",
-              "collection": "sales",
-              "path": [
-                "year"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "email",
-          "parents": [
-            "theAble",
-            "column"
-          ],
-          "words": [
-            {
-              "word": "email",
-              "database": "sample_mflix",
-              "collection": "users",
-              "path": [
-                "email"
-              ]
-            }
-          ]
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "sortOrdering",
+              0
+            ],
+            [
+              "list",
+              0
+            ]
+          ],
+          "choose": [
+            0
+          ]
+        },
         {
           "context": [
             [
@@ -376,26 +402,6 @@
           ],
           "choose": [
             1
-          ]
-        },
-        {
-          "context": [
-            [
-              "list",
-              0
-            ],
-            [
-              "year",
-              0
-            ],
-            [
-              "ascending",
-              0
-            ]
-          ],
-          "ordered": true,
-          "choose": [
-            2
           ]
         },
         {
@@ -429,7 +435,7 @@
       ]
     },
     {
-      "apply": "async ({config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n      }\n\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
+      "apply": "async ({objects, addWords, config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        // { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n        for (const f of await getFields(database, collection)) {\n          const word = f.replace(/_/g, \" \")\n          if (!objects.columnToCollection[f]) {\n            objects.columnToCollection[f] = []\n          }\n          objects.columnToCollection[f].push({ database, collection })\n\n          addWords('column', word, { id: 'column', path: [f] })\n          // config.addWord(word, { id: 'column', path: ['${f}'] })\n        }\n      }\n\n      // config.addWord('email', { id: 'column', initial: \"{ path: ['email'] }\" })\n\n      objects.columnToCollection = {}\n      debugger\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
     }
   ],
   "resultss": [
@@ -8917,7 +8923,8 @@
           "level": 2,
           "topLevel": true,
           "touchedBy": [
-            "mongo#call2"
+            "mongo#call2",
+            "instance0#mongo#call2"
           ]
         }
       ],
@@ -11863,7 +11870,8 @@
           "level": 1,
           "topLevel": true,
           "touchedBy": [
-            "mongo#call2"
+            "mongo#call2",
+            "instance0#mongo#call2"
           ]
         }
       ],
@@ -11900,7 +11908,10 @@
       "extraConfig": true,
       "name": "mongo",
       "operators": [
+        "([reportable])",
         "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
+        "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
+        "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
         "([make] ([report]))",
         "([state])",
         "([changeState|make] ([reportElement]) (state/*))",
@@ -11919,8 +11930,6 @@
         "([showColumn|show,add,include,change,update,select] (column/*))",
         "([capitalize] ([reportElement]))",
         "([sales|])",
-        "([year])",
-        "([email])",
         "([thisReportElement|this] (reportElement/*))"
       ],
       "hierarchy": [
@@ -11943,14 +11952,55 @@
       ],
       "bridges": [
         {
+          "id": "recordCount",
+          "isA": [
+            "column",
+            "theAble"
+          ],
+          "bridge": "{ ...next(operator) }"
+        },
+        {
+          "id": "ofDbProperty",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(before[0]), of: operator, count: true, field: after[0], number: after[0].number, postModifiers: ['of', 'field'] }"
+        },
+        {
           "id": "sortBy",
+          "localHierarchy": [
+            [
+              "column",
+              "unknown"
+            ]
+          ],
           "isA": [
             "preposition"
           ],
           "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
         },
         {
+          "id": "groupBy",
+          "localHierarchy": [
+            [
+              "column",
+              "unknown"
+            ]
+          ],
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), field: after[0] }"
+        },
+        {
           "id": "sortByColumns",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
+        },
+        {
+          "id": "groupByColumns",
           "isA": [
             "verb"
           ],
@@ -12197,44 +12247,24 @@
               ]
             }
           ]
-        },
-        {
-          "id": "year",
-          "parents": [
-            "reportable",
-            "theAble",
-            "column"
-          ],
-          "words": [
-            {
-              "word": "year",
-              "database": "mongo_test_database",
-              "collection": "sales",
-              "path": [
-                "year"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "email",
-          "parents": [
-            "theAble",
-            "column"
-          ],
-          "words": [
-            {
-              "word": "email",
-              "database": "sample_mflix",
-              "collection": "users",
-              "path": [
-                "email"
-              ]
-            }
-          ]
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "sortOrdering",
+              0
+            ],
+            [
+              "list",
+              0
+            ]
+          ],
+          "choose": [
+            0
+          ]
+        },
         {
           "context": [
             [
@@ -12248,26 +12278,6 @@
           ],
           "choose": [
             1
-          ]
-        },
-        {
-          "context": [
-            [
-              "list",
-              0
-            ],
-            [
-              "year",
-              0
-            ],
-            [
-              "ascending",
-              0
-            ]
-          ],
-          "ordered": true,
-          "choose": [
-            2
           ]
         },
         {
@@ -12301,7 +12311,7 @@
       ]
     },
     {
-      "apply": "async ({config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n      }\n\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
+      "apply": "async ({objects, addWords, config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        // { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n        for (const f of await getFields(database, collection)) {\n          const word = f.replace(/_/g, \" \")\n          if (!objects.columnToCollection[f]) {\n            objects.columnToCollection[f] = []\n          }\n          objects.columnToCollection[f].push({ database, collection })\n\n          addWords('column', word, { id: 'column', path: [f] })\n          // config.addWord(word, { id: 'column', path: ['${f}'] })\n        }\n      }\n\n      // config.addWord('email', { id: 'column', initial: \"{ path: ['email'] }\" })\n\n      objects.columnToCollection = {}\n      debugger\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
     }
   ],
   "fragments": [],
