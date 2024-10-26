@@ -263,6 +263,10 @@ const selecting = (selectingWhat, imageSpec) => {
   traverseImpl(imageSpec, options)
 }
 
+const isEmpty = (imageSpec) => {
+  return imageSpec.rows.length == 0
+}
+
 const addGroup = (imageSpec, fields) => {
   // TODO handle mulitple fields
   const field = fields[0]
@@ -272,15 +276,19 @@ const addGroup = (imageSpec, fields) => {
         const oldImageSpec = {...imageSpec}
         const newImageSpec = {
           headers: {
-            columns: [{ text: field.word }, { text: field.collection }]
+            columns: [{ text: field.name }]
           },
-          colgroups: ['c1', 'c2'],
+          colgroups: ['c1'],
           table: true,
           field: [],
           rows: [
-                  `$${field.word}`,
-                  { ...oldImageSpec, field: [field.collection] },
+                  `$${field.name}`,
           ],
+        }
+        if (!isEmpty(oldImageSpec)) {
+          newImageSpec.headers.columns.push({ text: field.collection })
+          newImageSpec.colgroups.push('c2'),
+          newImageSpec.rows.push({ ...oldImageSpec, field: [field.collection] })
         }
         console.log('oldImageSpec', JSON.stringify(oldImageSpec, null, 2))
         Object.assign(imageSpec, newImageSpec)

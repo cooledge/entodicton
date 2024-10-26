@@ -78,7 +78,10 @@ const getFields = async (dbName, collectionName) => {
   const data = await collection.findOne()
   const fields = Object.keys(data)
   fields.sort()
-  return fields
+  const result = fields.map( (field) => { 
+    return { name: field, isArray: Array.isArray(data[field]) } 
+  })
+  return result
 }
 
 const terminate = () => {

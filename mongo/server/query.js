@@ -41,20 +41,20 @@ const addGroup = (dataSpec, groupFields) => {
       // TODO handle more that 1 field
       const groupField = groupFields[0]
       const addToSet = {}
-      if (!dataSpec.usedFields.includes(groupField.word)) {
-        dataSpec.usedFields.push(groupField.word);
+      if (!dataSpec.usedFields.includes(groupField)) {
+        dataSpec.usedFields.push(groupField);
       }
       for (const field of dataSpec.usedFields) {
         addToSet[field] = `$${field}`
       }
       dataSpec.aggregation = [
         // { '$sort': { '_id': 1 } }, // this is so the tests are easier to write and this is just a POC
-        { '$unwind': `$${groupField.word}` },
+        { '$unwind': `$${groupField}` },
         { '$group': 
           { 
-            _id: `$${groupField.word}`, 
-            [groupField.word]: { 
-              $first: `$${groupField.word}` 
+            _id: `$${groupField}`, 
+            [groupField]: { 
+              $first: `$${groupField}` 
             }, 
             [dataSpec.collectionName]: { 
               $addToSet: addToSet 
@@ -64,7 +64,7 @@ const addGroup = (dataSpec, groupFields) => {
         // limit number of records to 10 since this is just a POC
         { 
           $project: { 
-            [groupField.word]: 1, 
+            [groupField]: 1, 
             [dataSpec.collectionName]: { $slice: ['$' + dataSpec.collectionName, 10] } 
           } 
         },

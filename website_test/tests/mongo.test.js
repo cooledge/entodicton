@@ -159,6 +159,7 @@ describe('tests for the mongo page', () => {
       page = await browser.newPage();
       await page.goto(`${URL}/mongo/`)
       await page.waitForSelector('#query')
+      await query('clear')
     })
 
     afterEach( async () => {
@@ -240,7 +241,7 @@ describe('tests for the mongo page', () => {
       await query('show the movies')
       await page.waitForSelector(`#Item_banana`)
       await page.click('#Item_banana')
-      await page.waitForSelector(`#queryCounter4`)
+      await page.waitForSelector(`#queryCounter5`)
       await checkTable(page, 1, users, ['name'])
     }, timeout);
 
@@ -249,17 +250,16 @@ describe('tests for the mongo page', () => {
       await query('call the report banana')
       await query('show the movies')
       await query('show banana')
-      await page.waitForSelector(`#queryCounter4`)
       await checkTable(page, 1, users, ['name'])
     }, timeout);
 
-    test(`MONGO show movies + add various fields`, async () => {
+    test(`NEO23 MONGO show movies + add various fields`, async () => {
       await query('show the movies')
       await query('show more columns')
       await page.waitForSelector(`#ChooserItem_genres`)
       await page.click('#ChooserItem_genres')
       await page.click('.ChooserButtonSelect')
-      await page.waitForSelector(`#queryCounter3`)
+      await page.waitForSelector(`#queryCounter4`)
       await checkTable(page, 1, movies, ['title', 'genres'])
     }, timeout);
 
@@ -277,14 +277,12 @@ describe('tests for the mongo page', () => {
     test(`MONGO show the users + show email`, async () => {
       await query('show the users')
       await query('show email')
-      await page.waitForSelector(`#queryCounter2`)
       await checkTable(page, 1, users, ['name', 'email'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields`, async () => {
       await query('show the users')
       await query('show all the fields')
-      await page.waitForSelector(`#queryCounter2`)
       await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
@@ -292,7 +290,6 @@ describe('tests for the mongo page', () => {
       await query('show the users')
       await query('show all the fields')
       await query('sort by name ascending')
-      await page.waitForSelector(`#queryCounter3`)
       const users = await getData(client, 'sample_mflix', 'users', { sort: { name: 1 } })
       await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
@@ -301,7 +298,6 @@ describe('tests for the mongo page', () => {
       await query('show the users')
       await query('show all the fields')
       await query('sort by email descending')
-      await page.waitForSelector(`#queryCounter3`)
       const users = await getData(client, 'sample_mflix', 'users', { sort: { email: -1 } })
       await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
@@ -309,7 +305,6 @@ describe('tests for the mongo page', () => {
     test(`MONGO show the movies + group by genres`, async () => {
       await query('show the movies')
       await query('group by genres')
-      await page.waitForSelector(`#queryCounter2`)
       const aggregation = [
             // { "$sort": { "_id": 1 } },
             { "$unwind": "$genres" },
@@ -429,5 +424,15 @@ describe('tests for the mongo page', () => {
       */
     }, timeout);
 
+    test(`MONGO show the genres`, async () => {
+      await query('show the genres')
+      const genres = new Set()
+      for (const movie of movies) {
+        for (const genre of movie.genres || []) {
+          genres.add(genre)
+        }
+      }
+      await checkTable(page, 1, Array.from(genres).map( (genre) => { return { genre } } ), ['genre'])
+    }, timeout);
   })
 });
