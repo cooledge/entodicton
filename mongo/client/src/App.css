@@ -223,3 +223,7 @@ table {
   border: 1px solid;
   padding: 2px;
 }
+
+.Graph {
+  display: inline-table;
+}

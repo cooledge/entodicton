@@ -286,7 +286,7 @@ describe('Reports Tests', () => {
         ordering: "ascending",
       }
 
-      await query.addGroup(dataSpec, [field])
+      await query.addGroup(dataSpec, [field.word])
       const expected = [
         { '$unwind': '$genre' },
         { '$group': { _id: '$genre', genre: { $first: '$genre' }, movies: { $addToSet: { title: '$title', director: '$director', genre: '$genre' } } } },

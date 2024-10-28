@@ -81,7 +81,12 @@ const fromTable = (table, options) => {
 }
 
 const fromGraph = (graph, options) => {
-  return <Chart options={graph.options} series={graph.series} type={graph.type} width={500} height={320} />
+  return <div className="Graph">
+    { graph.title && 
+      <span className="Title">{graph.title}</span>
+    }
+    <Chart options={graph.options} series={graph.series} type={graph.type} width={500} height={320} />
+  </div>
 }
 
 const fromRows = ({ className, data }, options) => {

@@ -2,11 +2,47 @@ const { Config, knowledgeModule, where } = require('theprogrammablemind')
 const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math, ui } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
+const data = require('./data')
 const image = require('./image')
 const query = require('./query')
 const { getFields, terminate } = require('./data')
 const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
+
+const dd22 = {
+        "dbName": "sample_mflix",
+        "collectionName": "movies",
+        "aggregation": [
+          {
+            "$unwind": "$genres"
+          },
+          {
+            "$group": {
+              "_id": "$genres",
+              "genres": {
+                "$first": "$genres"
+              },
+              "movies": {
+                "$addToSet": {
+                  "title": "$title"
+                }
+              }
+            }
+          },
+          {
+            "$addFields": {
+              "count": {
+                "$size": "$movies"
+              }
+            }
+          },
+          {
+            "$sort": {
+              "genres": 1
+            }
+          }
+        ]
+      }
 
 /*
   have UI hooked up so voice can manipuate that
@@ -96,6 +132,61 @@ class API {
 
   setCurrent(report) {
     this.args.km('stm').api.mentioned({ context: report })
+  }
+
+  addRecordCountsToDataSpec(dataSpec, context) {
+    // db.movies.aggregate([ { $addFields: { "count": { '$size': "$genres" }  } } ] )
+    if (dataSpec.aggregation[0]?.$unwind) {
+      const fieldName = context.field.path[0]
+      const setName = `${fieldName}Set`
+      dataSpec.aggregation[1].$group[setName] = { "$addToSet": { [setName]: `$${fieldName}` } }
+      dataSpec.aggregation.splice(2, 0, {
+        "$addFields": {
+          [`the size of ${setName}`]: {
+            "$size": `$${setName}`,
+          }
+        }
+      })
+      dataSpec.aggregation[3].$project[`the size of ${setName}`] = 1
+      return [`the size of ${setName}`]
+    } else {
+      const fieldNames = []
+      for (const field of this.args.values(context.field)) {
+        const fieldName = `the number of ${field.text}`
+        const fieldProp = field.path[0]
+        const aggregation = { $addFields: { [fieldName]: { '$size': '$' + fieldProp }  } }
+        dataSpec.aggregation.push(aggregation)
+        fieldNames.push(fieldName)
+      }
+      return fieldNames
+    }
+  }
+
+  async determineCollection(columns) {
+    const found = []
+    let max = 0
+    for (let column of columns) {
+      if (!column.path) {
+        continue
+      }
+      const columnName = column.path[0]
+      const dbs = this.objects.columnToCollection[columnName]
+      for (const { database, collection } of dbs) {
+        let choice = found.find((choice) => choice.database == database && choice.collection == collection)
+        if (!choice) {
+          choice = { database, collection, columns: [] }
+          found.push(choice)
+        }
+        choice.columns.push(columnName)
+        max = Math.max(max, choice.columns.length)
+      }
+    }
+    // TODO Handle multiple table/no table case/column not in current table/columns in multiple tables
+    const bestGuess = found.find((choice) => choice.columns.length == max)
+    const database = bestGuess.database
+    const collection = bestGuess.collection
+    const columnNames = bestGuess.columns
+    return { database, collection, columnNames }
   }
 
   async showFieldsResponse(database, collection, fields, report = null) { 
@@ -292,6 +383,7 @@ class API {
 let configStruct = {
   name: 'mongo',
   operators: [
+    "([graphAction|graph] (column/*))",
     "([clear|clear,reset,restart])",
     // "([call] ([nameable]) (name))",
     "([reportable])",
@@ -346,6 +438,50 @@ let configStruct = {
   ],
   bridges: [
     { 
+      id: 'graphAction',
+      isA: ['verb'],
+      bridge: "{ ...next(operator), columns: after[0] }",
+      generatorp: async ({context, word, g}) => `${context.word} ${await g(context.columns)}`,
+      semantic: async ({context, api, values}) => {
+        const columns = values(context.columns)
+        console.log(JSON.stringify(columns, null, 2))
+        const isNumber = (column) => {
+          if (column.marker == 'recordCount') {
+            return true
+          }
+        }
+        const categories = columns.filter( (column) => !isNumber(column) )
+        const numbers = columns.filter( (column) => isNumber(column) )
+
+        const { database, collection, columnNames } = await api.determineCollection(columns)
+        const report = await api.newReportSpec(database, collection)
+        query.addGroup(report.dataSpec, categories.map((field) => field.path[0]))
+        console.log("report.dataSpec", JSON.stringify(report.dataSpec, null, 2))
+        const countFields = api.addRecordCountsToDataSpec(report.dataSpec, numbers[0])
+        console.log("report.dataSpec", JSON.stringify(report.dataSpec, null, 2))
+        const output = await data.instantiate(report.dataSpec)
+        console.log("data", JSON.stringify(output, null, 2))
+        report.imageSpec = {
+          type: "bar",
+          title: context.columns.text,
+          options: {
+            chart: {
+              id: 'apexchart-example'
+            },
+            xaxis: {
+              categories: { "$push": `$${categories[0].path[0]}` },
+            }
+          },
+          series: countFields.map((countField) => { return {
+                      name: 'series-1',
+                      data: { "$push": `$${countField}` },
+                    }
+                  })
+        }
+        api.show(report)
+      }
+    },
+    {
       id: 'clear',
       isA: ['verb'],
       bridge: "{ ...next(operator) }",
@@ -353,6 +489,7 @@ let configStruct = {
         api.clear()
       }
     },
+
     { 
       id: 'recordCount',
       isA: ['column', 'theAble'],
@@ -643,15 +780,7 @@ let configStruct = {
           report.showCollection = context
         } else if (context.show.less) {
         } else if (context.show.marker == 'recordCount') {
-          // db.movies.aggregate([ { $addFields: { "count": { '$size': "$genres" }  } } ] )
-          const fieldNames = []
-          for (const field of values(context.show.field)) {
-            const fieldName = `the number of ${field.text}`
-            const fieldProp = field.path[0]
-            const aggregation = { $addFields: { [fieldName]: { '$size': '$' + fieldProp }  } }
-            report.dataSpec.aggregation.push(aggregation)
-            fieldNames.push(fieldName)
-          }
+          const fieldNames = api.addRecordCountsToDataSpec(report.dataSpec, context.show)
           query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, fieldNames)
           api.show(report)
         } else {
@@ -662,54 +791,34 @@ let configStruct = {
           let collection = report.dataSpec.collectionName
           let columnNames = []
 
+          let hasArray = false
           if (database) {
             columnNames = [context.show.path[0]]
           } else {
-            const found = []
-            let max = 0
-            for (let column of columns) {
-              const columnName = column.path[0]
-              const dbs = objects.columnToCollection[columnName]
-              for (const { database, collection } of dbs) {
-                let choice = found.find((choice) => choice.database == database && choice.collection == collection)
-                if (!choice) {
-                  choice = { database, collection, columns: [] }
-                  found.push(choice)
-                }
-                choice.columns.push(columnName)
-                max = Math.max(max, choice.columns.length)
-              }
-            }
-            // TODO Handle multiple table/no table case/column not in current table/columns in multiple tables
-            const bestGuess = found.find((choice) => choice.columns.length == max)
-            database = bestGuess.database
-            collection = bestGuess.collection
+            ({ database, collection, columnNames } = await api.determineCollection(columns))
             report = await api.newReportSpec(database, collection)
-            columnNames = bestGuess.columns
-            let hasArray = false
+
+            hasArray = false
             for (const columnName of columnNames) {
               hasArray = report.dataSpec.fields.find( (field) => field.name == columnName ).isArray
               if (hasArray) {
                 break
               }
             }
-            if (hasArray) {
-              // query.addGroup(report.dataSpec, fields)
-              debugger
-              await api.setDataSpec(report.dataSpec, database, collection, columnNames)
-              console.log(JSON.stringify(report.dataSpec, null, 2))
-              query.addGroup(report.dataSpec, columnNames)
-              console.log(JSON.stringify(report.dataSpec, null, 2))
-              image.addGroup(report.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
-              api.show(report)
-              return
-            }
-            debugger // greg55
-            debugger
           }
           // query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, [context.show.path[0]]) 
-          query.addColumns(report.dataSpec, report.imageSpec, database, collection, columnNames) 
-          api.show(report)
+          if (hasArray) {
+            // query.addGroup(report.dataSpec, fields)
+            await api.setDataSpec(report.dataSpec, database, collection, columnNames)
+            console.log(JSON.stringify(report.dataSpec, null, 2))
+            query.addGroup(report.dataSpec, columnNames)
+            console.log(JSON.stringify(report.dataSpec, null, 2))
+            image.addGroup(report.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
+            api.show(report)
+          } else {
+            query.addColumns(report.dataSpec, report.imageSpec, database, collection, columnNames) 
+            api.show(report)
+          }
         }
       },
     },
@@ -880,6 +989,9 @@ let configStruct = {
     */
   ],
   priorities: [
+    { context: [['column', 1], ['list', 0], ['recordCount', 0]], choose: [2] },
+    { context: [['column', 1], ['list', 0], ['recordCount', 1], ['ofDbProperty', 0]], ordered: true, choose: [3] },
+    // { context: [['ofDbProperty', 0], ['column', 1], ['list', 0], ['column', 1]], choose: [2] },
     { context: [['sortOrdering', 0], ['list', 0]], choose: [0] },
     { context: [['show', 0], ['list', 0]], choose: [1] },
     // { context: [['list', 0], ['year',0], ['ascending', 0]], ordered: true, choose: [2] },

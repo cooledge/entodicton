@@ -273,6 +273,7 @@ const addGroup = (imageSpec, fields) => {
   const options = {
     seen: (what, value) => {
       if (['table'].includes(what)) {
+        debugger
         const oldImageSpec = {...imageSpec}
         const newImageSpec = {
           headers: {

@@ -496,7 +496,7 @@ describe('Reports Tests', () => {
   })
 
   describe('add group', () => {
-    it('table with no groupings', async () => {
+    it('NEO23 table with no groupings', async () => {
       const imageSpec = {
         colgroups: [ "column_0" ],
         field: [],
@@ -515,6 +515,7 @@ describe('Reports Tests', () => {
         database: "sample_mflix",
         collection: "movies",
         word: "genre",
+        name: "genre",
         ordering: "ascending",
       }
 
