@@ -183,7 +183,6 @@ app.post('/query', async (req, res) => {
         response.report = report
       }
 
-      debugger
       if (lastResponse.clear) {
         response.clear = true
       }

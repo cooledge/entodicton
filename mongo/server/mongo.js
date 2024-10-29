@@ -45,6 +45,9 @@ const dd22 = {
       }
 
 /*
+
+  default sort is ascending => default class is instance value
+
   have UI hooked up so voice can manipuate that
 
   what collections are there / show all the collections
@@ -217,10 +220,11 @@ class API {
 
   updateColumns(report, database, collection, chosen) {
     report.dataSpec = {
+      ...report.dataSpec,
       dbName: database,
       collectionName: collection,
       limit: 10,
-      aggregation: [] 
+      aggregation: [],
     }
     const columns = []
     const properties = []
@@ -474,7 +478,6 @@ let configStruct = {
           }
         }
         const countFields = []
-        debugger
         for (const field of numberFields) {
           const cf = api.addRecordCountsToDataSpec(report.dataSpec, field)
           countFields.push(...cf)
@@ -794,6 +797,7 @@ let configStruct = {
           api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })
           api.show(report)
         } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {
+          debugger
           console.log('report', JSON.stringify(report, null, 2))
           const { dbName, collectionName, fields } = report.dataSpec
           await api.showFieldsResponse(dbName, collectionName, fields, report)

@@ -4,17 +4,20 @@ import $ from 'jquery'
 function Query(props) {
   const { resetSession, doQuery, queryResponses } = props
   const [ query, setQuery ] = useState('')
+  const [ counter, setCounter] = useState(0)
 
+  console.log('counter --------------', counter)
   useEffect( () => {
-    if (query === '') {
+    if (query.text === '') {
       return
     }
-    doQuery(query)
-  }, [query, doQuery])
+    doQuery({ text: query, counter })
+  }, [query, doQuery, counter])
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
     document.getElementById('query').value = ''
+    setCounter(counter+1)
     setQuery(query)
   }
 

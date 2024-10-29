@@ -57543,7 +57543,28 @@
                 ],
                 "collectionName": "users",
                 "dbName": "sample_mflix",
-                "limit": 10
+                "fields": [
+                  {
+                    "isArray": false,
+                    "name": "_id"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "email"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "name"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "password"
+                  }
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "name"
+                ]
               },
               "fromSTM": true,
               "imageSpec": {
@@ -57601,7 +57622,28 @@
                 ],
                 "collectionName": "users",
                 "dbName": "sample_mflix",
-                "limit": 10
+                "fields": [
+                  {
+                    "isArray": false,
+                    "name": "_id"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "email"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "name"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "password"
+                  }
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "name"
+                ]
               },
               "fromSTM": true,
               "imageSpec": {
@@ -57653,7 +57695,28 @@
                 ],
                 "collectionName": "users",
                 "dbName": "sample_mflix",
-                "limit": 10
+                "fields": [
+                  {
+                    "isArray": false,
+                    "name": "_id"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "email"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "name"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "password"
+                  }
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "name"
+                ]
               },
               "fromSTM": true,
               "imageSpec": {
@@ -58363,7 +58426,28 @@
                 ],
                 "collectionName": "users",
                 "dbName": "sample_mflix",
-                "limit": 10
+                "fields": [
+                  {
+                    "isArray": false,
+                    "name": "_id"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "email"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "name"
+                  },
+                  {
+                    "isArray": false,
+                    "name": "password"
+                  }
+                ],
+                "limit": 10,
+                "usedFields": [
+                  "name"
+                ]
               },
               "fromSTM": true,
               "imageSpec": {

@@ -228,7 +228,7 @@ const handleReportResult = (result, rules, setData) => {
 
 function App() {
   // const [selectingState, setSelectingState] = useState(initSelectingState(initData))
-  const [query, doQuery] = useState('')
+  const [query, doQuery] = useState({ text: '', counter: 0 })
   const [counter, setCounter] = useState(0)
   // const [data, setData] = useState(initData, doQuery)
   // const [data, setData] = useState(demo, doQuery)
@@ -330,13 +330,13 @@ function App() {
   }, [chosen, choices, setChosen, setData, rules, setChoices, setNoSession])
 
   useEffect( () => {
-    if (query === '') {
+    if (query.text === '') {
       return
     }
 
     const doIt = async () => {
       setNoSession()
-      const result = await callServer(query)
+      const result = await callServer(query.text)
       handleResponse(result)
     }
 
