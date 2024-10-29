@@ -135,28 +135,37 @@ class API {
   }
 
   addRecordCountsToDataSpec(dataSpec, context) {
-    // db.movies.aggregate([ { $addFields: { "count": { '$size': "$genres" }  } } ] )
-    if (dataSpec.aggregation[0]?.$unwind) {
-      const fieldName = context.field.path[0]
+    if (!dataSpec.countFields) {
+      dataSpec.countFields = []
+    }
+    if (dataSpec.groupFields?.length > 0) {
+      const fieldName = context.path[0]
+      console.log("dataSpec", JSON.stringify(dataSpec, null, 2))
+      dataSpec.countFields.push(fieldName)
       const setName = `${fieldName}Set`
       dataSpec.aggregation[1].$group[setName] = { "$addToSet": { [setName]: `$${fieldName}` } }
-      dataSpec.aggregation.splice(2, 0, {
-        "$addFields": {
-          [`the size of ${setName}`]: {
-            "$size": `$${setName}`,
+      if (dataSpec.countFields.length == 1) {
+        dataSpec.aggregation.splice(2, 0, {
+          "$addFields": {
+            [`the size of ${setName}`]: {
+              "$size": `$${setName}`,
+            }
           }
-        }
-      })
+        })
+      } else {
+        dataSpec.aggregation[2].$addFields[`the size of ${setName}`] = { "$size": `$${setName}`, }
+      }
       dataSpec.aggregation[3].$project[`the size of ${setName}`] = 1
-      return [`the size of ${setName}`]
+      return [{ field: `the size of ${setName}`, context }]
     } else {
       const fieldNames = []
-      for (const field of this.args.values(context.field)) {
+      for (const field of this.args.values(context)) {
         const fieldName = `the number of ${field.text}`
+        dataSpec.countFields.push(fieldName)
         const fieldProp = field.path[0]
         const aggregation = { $addFields: { [fieldName]: { '$size': '$' + fieldProp }  } }
         dataSpec.aggregation.push(aggregation)
-        fieldNames.push(fieldName)
+        fieldNames.push({ field: fieldName, context })
       }
       return fieldNames
     }
@@ -457,7 +466,19 @@ let configStruct = {
         const report = await api.newReportSpec(database, collection)
         query.addGroup(report.dataSpec, categories.map((field) => field.path[0]))
         console.log("report.dataSpec", JSON.stringify(report.dataSpec, null, 2))
-        const countFields = api.addRecordCountsToDataSpec(report.dataSpec, numbers[0])
+
+        const numberFields = []
+        for (const number of numbers) {
+          for (const field of values(number.field)) {
+            numberFields.push(field)
+          }
+        }
+        const countFields = []
+        debugger
+        for (const field of numberFields) {
+          const cf = api.addRecordCountsToDataSpec(report.dataSpec, field)
+          countFields.push(...cf)
+        }
         console.log("report.dataSpec", JSON.stringify(report.dataSpec, null, 2))
         const output = await data.instantiate(report.dataSpec)
         console.log("data", JSON.stringify(output, null, 2))
@@ -473,8 +494,8 @@ let configStruct = {
             }
           },
           series: countFields.map((countField) => { return {
-                      name: 'series-1',
-                      data: { "$push": `$${countField}` },
+                      name: countField.context.text,
+                      data: { "$push": `$${countField.field}` },
                     }
                   })
         }
@@ -780,7 +801,7 @@ let configStruct = {
           report.showCollection = context
         } else if (context.show.less) {
         } else if (context.show.marker == 'recordCount') {
-          const fieldNames = api.addRecordCountsToDataSpec(report.dataSpec, context.show)
+          const fieldNames = api.addRecordCountsToDataSpec(report.dataSpec, context.show.field).map( (f) => f.field )
           query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, fieldNames)
           api.show(report)
         } else {

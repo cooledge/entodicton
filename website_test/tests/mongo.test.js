@@ -435,7 +435,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, Array.from(genres).map( (genre) => { return { genre } } ), ['genre'])
     }, timeout);
 
-    test(`NEO23 MONGO show the genres`, async () => {
+    test(`MONGO graph the genre and the number of directors and movies`, async () => {
       await query('graph the genre and number of movies')
       await page.waitForSelector(`#queryCounter2`)
       const title = await page.evaluate(() => {
@@ -443,6 +443,16 @@ describe('tests for the mongo page', () => {
         return title.innerText
       })
       expect(title).toBe("the genre and number of movies")
+    }, timeout);
+
+    test(`MONGO graph the genre and the number of directors and movies`, async () => {
+      await query('graph the genre and the number of directors and movies')
+      await page.waitForSelector(`#queryCounter2`)
+      const title = await page.evaluate(() => {
+        const title = document.querySelector('.Graph .Title')
+        return title.innerText
+      })
+      expect(title).toBe("the genre and the number of directors and movies")
     }, timeout);
   })
 });

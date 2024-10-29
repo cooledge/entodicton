@@ -40,6 +40,12 @@ const addGroup = (dataSpec, groupFields) => {
     seen: (path, dataSpec) => {
       // TODO handle more that 1 field
       const groupField = groupFields[0]
+
+      if (!dataSpec.groupFields) {
+        dataSpec.groupFields = []
+      }
+      dataSpec.groupFields.push(groupField)
+
       const addToSet = {}
       if (!dataSpec.usedFields.includes(groupField)) {
         dataSpec.usedFields.push(groupField);
