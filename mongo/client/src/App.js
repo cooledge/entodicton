@@ -7,7 +7,7 @@ import NamedReports from './NamedReports'
 import NoSessionError from './NoSessionError'
 import Image from './Image'
 import $ from 'jquery';
-// import demo from './demo.json'
+import demo from './demo.json'
 const fetch = require('node-fetch')
 const _ = require('lodash')
 
@@ -231,7 +231,7 @@ function App() {
   const [query, doQuery] = useState({ text: '', counter: 0 })
   const [counter, setCounter] = useState(0)
   // const [data, setData] = useState(initData, doQuery)
-  // const [data, setData] = useState(demo, doQuery)
+  // const [data, setData] = useState(demo.report, doQuery)
   const [data, setData] = useState([], doQuery)
   const [rules, setRules] = useState([])  // { rule, index }
   // const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])

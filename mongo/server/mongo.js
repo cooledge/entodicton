@@ -256,7 +256,6 @@ class API {
     }
   }
 
-
   show(report) {
     // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
     this.objects.show.push(report)
@@ -502,7 +501,14 @@ let configStruct = {
                     }
                   })
         }
-        api.show(report)
+       
+        if (false) {
+          api.show(report)
+        } else {
+          const currentReport = api.current()
+          query.addReport(currentReport, report)
+          api.show(currentReport)
+        }
       }
     },
     {

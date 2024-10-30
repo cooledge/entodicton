@@ -62,7 +62,7 @@ describe('Reports Tests', () => {
     await client.close()
   })
 
-  it('nested graph table', async () => {
+  it('graph', async () => {
     const imageSpec = {
                 type: "bar",
                 options: {
@@ -99,6 +99,141 @@ describe('Reports Tests', () => {
 
     const dataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
     const actual = await query.query(dataSpec, imageSpec)
+    console.log(JSON.stringify(actual, null, 2))
+    expect(actual).toStrictEqual(expected)
+  })
+
+  it('NEOS23 first addReport with graph', async () => {
+    const report = { dataSpec: {}, imageSpec: {} }
+
+    const gImageSpec = {
+                type: "bar",
+                options: {
+                  chart: {
+                    id: 'apexchart-example'
+                  },
+                  xaxis: {
+                    categories: { "$push": "$year" },
+                  }
+                },
+                series: [{
+                  name: 'series-1',
+                  data: { "$push": "$sales" },
+                }]
+              }
+    const gDataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
+    const gReport = { imageSpec: gImageSpec, dataSpec: gDataSpec }
+
+    const expectedGraph = {
+      "className": "column column_0 table_1_column_0",
+      data: {
+        "type": "bar",
+        field: [0],
+        id: 'graph2',
+        "options": {
+          "chart": {
+            "id": "apexchart-example"
+          },
+          "xaxis": { "categories": [ "1990", "1991", "1992", "1993" ] }
+        },
+        "series": [
+          {
+            "name": "series-1",
+            "data": [ "100", "110", "120", "130" ]
+          }
+        ]
+      }
+    }
+    const expected = {
+      "headers": {
+        "className": "header",
+        "data": []
+      },
+      "className": "Table table_1",
+      colgroups: undefined,
+      "table": true,
+      "rows": {
+        "className": "rows",
+        "data": [ 
+          [ 
+            expectedGraph
+          ]
+        ]
+      }
+    }
+
+
+    query.addReport(report, gReport)
+    debugger
+    const actual = await query.query(report.dataSpec, report.imageSpec)
+    console.log(JSON.stringify(actual, null, 2))
+    expect(actual).toStrictEqual(expected)
+  })
+
+  it('NEO23 second addReport with graph', async () => {
+    const report = { dataSpec: {}, imageSpec: {} }
+
+    const gImageSpec = {
+                type: "bar",
+                options: {
+                  chart: {
+                    id: 'apexchart-example'
+                  },
+                  xaxis: {
+                    categories: { "$push": "$year" },
+                  }
+                },
+                series: [{
+                  name: 'series-1',
+                  data: { "$push": "$sales" },
+                }]
+              }
+    const gDataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
+    const gReport = { imageSpec: gImageSpec, dataSpec: gDataSpec }
+
+    const expectedGraph = {
+      "className": "column column_0 table_1_column_0",
+      data: {
+        "type": "bar",
+        field: [0],
+        id: 'graph2',
+        "options": {
+          "chart": {
+            "id": "apexchart-example"
+          },
+          "xaxis": { "categories": [ "1990", "1991", "1992", "1993" ] }
+        },
+        "series": [
+          {
+            "name": "series-1",
+            "data": [ "100", "110", "120", "130" ]
+          }
+        ]
+      }
+    }
+    const expected = {
+      "headers": {
+        "className": "header",
+        "data": []
+      },
+      "className": "Table table_1",
+      colgroups: undefined,
+      "table": true,
+      "rows": {
+        "className": "rows",
+        "data": [ 
+          [ 
+            expectedGraph
+          ]
+        ]
+      }
+    }
+
+
+    query.addReport(report, gReport)
+    query.addReport(report, gReport)
+    debugger
+    const actual = await query.query(report.dataSpec, report.imageSpec)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
@@ -360,6 +495,132 @@ describe('Reports Tests', () => {
 
       query.addSort(dataSpec, [field])
       expect(dataSpec.sort).toStrictEqual({ year: 1, email: -1 })
+    })
+  })
+
+  describe('addReport', () => {
+    it('NxEO23 add graph to a report that is just a graph', async () => {
+      const targetReport = {
+        "marker": "report",
+        "dataSpec": {
+          "dbName": "sample_mflix",
+          "collectionName": "movies",
+          "fields": [
+            { "name": "_id", "isArray": false }, { "name": "awards", "isArray": false }, { "name": "cast", "isArray": true },
+            { "name": "countries", "isArray": true }, { "name": "directors", "isArray": true }, { "name": "fullplot", "isArray": false },
+            { "name": "genres", "isArray": true }, { "name": "imdb", "isArray": false }, { "name": "languages", "isArray": true },
+            { "name": "lastupdated", "isArray": false }, { "name": "num_mflix_comments", "isArray": false }, { "name": "plot", "isArray": false },
+            { "name": "rated", "isArray": false }, { "name": "released", "isArray": false }, { "name": "runtime", "isArray": false },
+            { "name": "title", "isArray": false }, { "name": "tomatoes", "isArray": false }, { "name": "type", "isArray": false },
+            { "name": "year", "isArray": false }
+          ],
+          "usedFields": [ "genres" ],
+          "limit": 10,
+          "aggregation": [ 
+            { "$unwind": "$genres" },
+            {
+              "$group": {
+                "_id": "$genres",
+                "genres": { "$first": "$genres" },
+                "movies": { "$addToSet": { "genres": "$genres" } },
+                "titleSet": { "$addToSet": { "titleSet": "$title" } }
+              }
+            },
+            {
+              "$addFields": { "the size of titleSet": { "$size": "$titleSet" } }
+            },
+            {
+              "$project": {
+                "genres": 1,
+                "movies": { "$slice": [ "$movies", 10 ] },
+                "the size of titleSet": 1
+              }
+            },
+            { "$limit": 10 },
+            { "$limit": 10 }
+          ],
+          "groupFields": [ "genres" ],
+          "countFields": [ "title" ]
+        },
+        "imageSpec": {
+          "type": "bar",
+          "title": "genre and number of movies",
+          "options": {
+            "chart": { "id": "apexchart-example" },
+            "xaxis": {
+              "categories": { "$push": "$genres" }
+            }
+          },
+          "series": [ { "name": "movies", "data": { "$push": "$the size of titleSet" } } ]
+        }
+      }
+
+      const addedReport = {
+        "marker": "report",
+        "dataSpec": {
+          "dbName": "sample_mflix",
+          "collectionName": "movies",
+          "fields": [
+            { "name": "_id", "isArray": false }, { "name": "awards", "isArray": false }, { "name": "cast", "isArray": true },
+            { "name": "countries", "isArray": true }, { "name": "directors", "isArray": true }, { "name": "fullplot", "isArray": false },
+            { "name": "genres", "isArray": true }, { "name": "imdb", "isArray": false }, { "name": "languages", "isArray": true },
+            { "name": "lastupdated", "isArray": false }, { "name": "num_mflix_comments", "isArray": false }, { "name": "plot", "isArray": false },
+            { "name": "rated", "isArray": false }, { "name": "released", "isArray": false }, { "name": "runtime", "isArray": false },
+            { "name": "title", "isArray": false }, { "name": "tomatoes", "isArray": false }, { "name": "type", "isArray": false },
+            { "name": "year", "isArray": false }
+          ],
+          "usedFields": [ "year" ],
+          "limit": 10,
+          "aggregation": [
+            { "$unwind": "$year" },
+            {
+              "$group": {
+                "_id": "$year",
+                "year": { "$first": "$year" },
+                "movies": { "$addToSet": { "year": "$year" } },
+                "titleSet": { "$addToSet": { "titleSet": "$title" } }
+              }
+            },
+            {
+              "$addFields": { "the size of titleSet": { "$size": "$titleSet" } }
+            },
+            {
+              "$project": {
+                "year": 1,
+                "movies": { "$slice": [ "$movies", 10 ] },
+                "the size of titleSet": 1
+              }
+            },
+            { "$limit": 10 },
+            { "$limit": 10 }
+          ],
+          "groupFields": [ "year" ],
+          "countFields": [ "title" ]
+        },
+        "imageSpec": {
+          "type": "bar",
+          "title": "the year and number of movies",
+          "options": {
+            "chart": { "id": "apexchart-example" },
+            "xaxis": {
+              "categories": { "$push": "$year" }
+            }
+          },
+          "series": [
+            {
+              "name": "movies",
+              "data": { "$push": "$the size of titleSet" }
+            }
+          ]
+        }
+      }
+
+      const originalTargetReport = {...targetReport}
+      query.addReport(targetReport, addedReport)
+
+      console.log("targetReport.dataSpec", JSON.stringify(targetReport.dataSpec, null, 2))
+      expect(targetReport.dataSpec[0]).toStrictEqual(originalTargetReport.dataSpec)
+      expect(targetReport.dataSpec[1]).toStrictEqual(addedReport.dataSpec)
     })
   })
 })

@@ -13,6 +13,34 @@ const initialize = async () => {
   return await data.initialize()
 }
 
+const addReport = (toThis, addThis) => {
+  // convert addThis to compound report is necessary
+  debugger
+  if (!Array.isArray(toThis.dataSpec)) {
+    let wasEmpty = true
+    if (!toThis.dataSpec.dbName) {
+      toThis.dataSpec = []
+    } else {
+      toThis.dataSpec = [toThis.dataSpec]
+      wasEmpty = false
+    }
+    toThis.imageSpec = {
+      "headers": { "columns": [] },
+      "table": true,
+      "explicit": true,
+      "field": [],
+    }
+    debugger
+    if (wasEmpty) {
+      toThis.imageSpec.rows = []
+    } else {
+      // toThis.imageSpec.rows = toThis.imageSpec.rows.map((row) => row.map((is) => is.field = [0]))
+    }
+  }
+  toThis.dataSpec.push(addThis.dataSpec)
+  toThis.imageSpec.rows.push([{ ...addThis.imageSpec, field: [toThis.dataSpec.length-1] }])
+}
+
 const addColumns = (dataSpec, imageSpec, dbName, collectionName, columns) => {
   const options = {
     seen: (path, dataSpec) => {
@@ -103,4 +131,5 @@ module.exports = {
   addColumns,
   addSort,
   addGroup,
+  addReport,
 }

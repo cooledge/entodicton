@@ -496,7 +496,7 @@ describe('Reports Tests', () => {
   })
 
   describe('add group', () => {
-    it('NEO23 table with no groupings', async () => {
+    it('table with no groupings', async () => {
       const imageSpec = {
         colgroups: [ "column_0" ],
         field: [],

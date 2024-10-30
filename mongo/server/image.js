@@ -66,11 +66,23 @@ const instantiate = (imageSpec, bson, options = {}) => {
   return instantiateImpl(imageSpec, bson, options)
 }
 
+const fieldToData = (bson, fieldPath) => {
+  fieldPath = fieldPath || []
+  let field = bson
+  for (let name of fieldPath) {
+    field = bson[name]
+  }
+  return field
+}
+
 const instantiateImpl = (imageSpec, bson, options = {}) => {
   if (imageSpec.type) {
     const instantiation = _.cloneDeep(imageSpec)
-    const rows = bson
-
+    debugger
+    if (!bson) {
+      return
+    }
+    const rows = fieldToData(bson, imageSpec.field)
     instantiateValue(['options', 'xaxis', 'categories'], imageSpec, rows, instantiation, { ...options, isGraph: true })
     for (let i = 0; i < imageSpec.series.length; ++i) {
       instantiateValue(['data'], imageSpec.series[i], rows, instantiation.series[i], { ...options, isGraph: true })
@@ -108,10 +120,8 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     options = { ...options, tableNumber}
     if (imageSpec.explicit) {
       const rows = []
-      let field = bson
-      for (let name of imageSpec.field) {
-        field = bson[name]
-      }
+      debugger // here
+      const field = fieldToData(bson, imageSpec.field)
       instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiateImpl(is, field, options)) }
       return instantiation
     } else {
@@ -122,14 +132,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
         instantiation.selecting = imageSpec.selecting
       }
       const rows = []
-      let field = bson
-      for (let name of imageSpec.field) {
-        field = bson[name]
-      }
-      if (!field) {
-        debugger
-        return
-      }
+      const field = fieldToData(bson, imageSpec.field)
       for (const [index, row] of field.entries()) {
         rows.push({ className: `row_${index}`, data: instantiateImpl(imageSpec.rows, row, options)})
       }

@@ -187,7 +187,7 @@ app.post('/query', async (req, res) => {
         response.clear = true
       }
 
-      // console.log(JSON.stringify(response, null, 2))
+      console.log(JSON.stringify(response, null, 2))
       res.json(response)
     } else {
       res.json({ noChange: true })

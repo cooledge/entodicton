@@ -454,5 +454,23 @@ describe('tests for the mongo page', () => {
       })
       expect(title).toBe("the genre and the number of directors and movies")
     }, timeout);
+
+    test(`MONGO graph the genre and the number of directors + graph the year and number of movies`, async () => {
+      await query('graph the genre and the number of directors')
+      await query('graph the year and the number of movies')
+      await page.waitForSelector(`#queryCounter3`)
+      const titles = await page.evaluate(() => {
+        // const title = document.querySelector('.Graph .Title')
+        // return title.innerText
+        const elements = Array.from(document.querySelectorAll('.Graph .Title'))
+        const titles = []
+        for (const title of elements) {
+          titles.push(title.innerText)
+        }
+        return titles
+      })
+      const expected = ["the genre and the number of directors", "the year and the number of movies"]
+      expect(titles).toStrictEqual(expected)
+    }, timeout);
   })
 });
