@@ -4,7 +4,7 @@ const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const data = require('./data')
 const image = require('./image')
-const query = require('./query')
+const report = require('./report')
 const { getFields, terminate } = require('./data')
 const { getReportElements } = require('./mongo_helpers')
 // const { countSelected, selecting, selector, count } = require('./image')
@@ -428,9 +428,9 @@ let configStruct = {
         const numbers = columns.filter( (column) => isNumber(column) )
 
         const { database, collection, columnNames } = await api.determineCollection(columns)
-        const report = await api.newReportSpec(database, collection)
-        query.addGroup(report.dataSpec, categories.map((field) => field.path[0]))
-        console.log("report.dataSpec", JSON.stringify(report.dataSpec, null, 2))
+        const subReport = await api.newReportSpec(database, collection)
+        report.addGroup(subReport.dataSpec, categories.map((field) => field.path[0]))
+        console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
 
         const numberFields = []
         for (const number of numbers) {
@@ -440,13 +440,13 @@ let configStruct = {
         }
         const countFields = []
         for (const field of numberFields) {
-          const cf = api.addRecordCountsToDataSpec(report.dataSpec, field)
+          const cf = api.addRecordCountsToDataSpec(subReport.dataSpec, field)
           countFields.push(...cf)
         }
-        console.log("report.dataSpec", JSON.stringify(report.dataSpec, null, 2))
-        const output = await data.instantiate(report.dataSpec)
+        console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
+        const output = await data.instantiate(subReport.dataSpec)
         console.log("data", JSON.stringify(output, null, 2))
-        report.imageSpec = {
+        subReport.imageSpec = {
           type: "bar",
           title: context.columns.text,
           options: {
@@ -465,10 +465,10 @@ let configStruct = {
         }
        
         if (false) {
-          api.show(report)
+          api.show(subReport)
         } else {
           const currentReport = api.current()
-          query.addReport(currentReport, report)
+          report.addReport(currentReport, subReport)
           api.show(currentReport)
         }
       }
@@ -514,10 +514,10 @@ let configStruct = {
       isA: ['verb'],
       bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
       semantic: ({context, api}) => {
-        const report = api.current()
+        const currentReport= api.current()
         const fields = helpers.propertyToArray(context.field.field)
-        query.addSort(report.dataSpec, fields)
-        api.show(report)
+        report.addSort(currentReport.dataSpec, fields)
+        api.show(currentReport)
       }
     },
 
@@ -527,12 +527,12 @@ let configStruct = {
       isA: ['verb'],
       bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
       semantic: ({context, api}) => {
-        const report = api.current()
+        const currentReport= api.current()
         const fields = helpers.propertyToArray(context.field.field)
         // account for name errors like saying genre but the field is genres
-        query.addGroup(report.dataSpec, fields.map((field) => field.word))
-        image.addGroup(report.imageSpec, fields.map((field) => { return { name: field.word, collection: report.dataSpec.collectionName } }))
-        api.show(report)
+        report.addGroup(currentReport.dataSpec, fields.map((field) => field.word))
+        image.addGroup(currentReport.imageSpec, fields.map((field) => { return { name: field.word, collection: currentReport.dataSpec.collectionName } }))
+        api.show(currentReport)
       }
     },
 
@@ -749,12 +749,12 @@ let configStruct = {
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({values, context, kms, api, objects}) => {
-        let report = api.current()
+        let currentReport = api.current()
         if (context.chosens) {
-          query.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])
-          api.show(report)
+          report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])
+          api.show(currentReport)
         } else if (context.show.quantity?.value == 'all') {
-          const { dbName, collectionName, fields } = report.dataSpec
+          const { dbName, collectionName, fields } = currentReport.dataSpec
           // '{"chosen":"select","choices":[{"text":"_id","id":"_id"},{"text":"name","id":"name","selected":true,"counter":1},{"text":"email","id":"email","selected":true,"counter":2},{"text":"password","id":"password"}]}'
           const choices = []
           let counter = 1
@@ -762,26 +762,26 @@ let configStruct = {
             choices.push({ text: field.name, id: field.name, counter, selected: true })
             counter += 1
           }
-          query.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })
-          api.show(report)
+          report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, { 'chosen': 'select', choices })
+          api.show(currentReport)
         } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {
           debugger
-          console.log('report', JSON.stringify(report, null, 2))
-          const { dbName, collectionName, fields } = report.dataSpec
-          await api.showFieldsResponse(dbName, collectionName, fields, report)
+          console.log('currentReport', JSON.stringify(currentReport, null, 2))
+          const { dbName, collectionName, fields } = currentReport.dataSpec
+          await api.showFieldsResponse(dbName, collectionName, fields, currentReport)
           context.chosens = [] // for callback
-          report.showCollection = context
+          currentReport.showCollection = context
         } else if (context.show.less) {
         } else if (context.show.marker == 'recordCount') {
-          const fieldNames = api.addRecordCountsToDataSpec(report.dataSpec, context.show.field).map( (f) => f.field )
-          query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, fieldNames)
-          api.show(report)
+          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec, context.show.field).map( (f) => f.field )
+          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)
+          api.show(currentReport)
         } else {
           // TODO add a the email column called contact
           const columns = values(context.show)
           // db -> collection -> columns
-          let database = report.dataSpec.dbName
-          let collection = report.dataSpec.collectionName
+          let database = currentReport.dataSpec.dbName
+          let collection = currentReport.dataSpec.collectionName
           let columnNames = []
 
           let hasArray = false
@@ -789,28 +789,28 @@ let configStruct = {
             columnNames = [context.show.path[0]]
           } else {
             ({ database, collection, columnNames } = await api.determineCollection(columns))
-            report = await api.newReportSpec(database, collection)
+            currentReport= await api.newReportSpec(database, collection)
 
             hasArray = false
             for (const columnName of columnNames) {
-              hasArray = report.dataSpec.fields.find( (field) => field.name == columnName ).isArray
+              hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray
               if (hasArray) {
                 break
               }
             }
           }
-          // query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, [context.show.path[0]]) 
+          // report.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, [context.show.path[0]]) 
           if (hasArray) {
-            // query.addGroup(report.dataSpec, fields)
-            await api.setDataSpec(report.dataSpec, database, collection, columnNames)
-            console.log(JSON.stringify(report.dataSpec, null, 2))
-            query.addGroup(report.dataSpec, columnNames)
-            console.log(JSON.stringify(report.dataSpec, null, 2))
-            image.addGroup(report.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
-            api.show(report)
+            // report.addGroup(report.dataSpec, fields)
+            await api.setDataSpec(currentReport.dataSpec, database, collection, columnNames)
+            console.log(JSON.stringify(currentReport.dataSpec, null, 2))
+            report.addGroup(currentReport.dataSpec, columnNames)
+            console.log(JSON.stringify(currentReport.dataSpec, null, 2))
+            image.addGroup(currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
+            api.show(currentReport)
           } else {
-            query.addColumns(report.dataSpec, report.imageSpec, database, collection, columnNames) 
-            api.show(report)
+            report.addColumns(currentReport.dataSpec, currentReport.imageSpec, database, collection, columnNames) 
+            api.show(currentReport)
           }
         }
       },
@@ -834,7 +834,7 @@ let configStruct = {
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, isA, km, mentions, api, flatten}) => {
         console.log("in show collection")
-        let report = api.newReport()
+        let currentReport = api.newReport()
         if (context.chosens) {
           console.log('in chosen', JSON.stringify(context.chosens))
           /*
@@ -852,9 +852,9 @@ let configStruct = {
           const database = reportable.database
           const collection = reportable.collection
 
-          query.updateColumns(report, database, collection, chosen)
+          report.updateColumns(currentReport, database, collection, chosen)
 
-          api.show(report)
+          api.show(currentReport)
         } else {
           const reportables = []
           for (const modifier of context.show.modifiers) {
@@ -867,7 +867,7 @@ let configStruct = {
           const fields = await getFields(reportable.database, reportable.collection)
           await api.showFieldsResponse(reportable.database, reportable.collection, fields)
           context.chosens = [] // for callback
-          report.showCollection = context
+          currentReport.showCollection = context
         }
       }
     },

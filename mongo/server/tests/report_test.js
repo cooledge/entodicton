@@ -1,4 +1,4 @@
-const query = require('../query')
+const report = require('../report')
 
 const bsonSales = [
   {
@@ -36,7 +36,7 @@ describe('Reports Tests', () => {
   let client
 
   beforeAll( async () => {
-    client = await query.initialize()
+    client = await report.initialize()
     const myDB = await client.db(DB_NAME)
     try {
       await myDB.collection(COLLECTION_NAME).drop()
@@ -98,7 +98,7 @@ describe('Reports Tests', () => {
     }
 
     const dataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
-    const actual = await query.query(dataSpec, imageSpec)
+    const actual = await report.query(dataSpec, imageSpec)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
@@ -163,9 +163,9 @@ describe('Reports Tests', () => {
     }
 
 
-    query.addReport(report, gReport)
+    report.addReport(report, gReport)
     debugger
-    const actual = await query.query(report.dataSpec, report.imageSpec)
+    const actual = await report.query(report.dataSpec, report.imageSpec)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
@@ -230,10 +230,10 @@ describe('Reports Tests', () => {
     }
 
 
-    query.addReport(report, gReport)
-    query.addReport(report, gReport)
+    report.addReport(report, gReport)
+    report.addReport(report, gReport)
     debugger
-    const actual = await query.query(report.dataSpec, report.imageSpec)
+    const actual = await report.query(report.dataSpec, report.imageSpec)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
@@ -255,7 +255,7 @@ describe('Reports Tests', () => {
         "table": true,
         "rows": [ "$title" ]
       }
-      query.addColumns(dataSpec, imageSpec, 'sample_mflix', 'movies', ['email', 'age'])
+      report.addColumns(dataSpec, imageSpec, 'sample_mflix', 'movies', ['email', 'age'])
       console.log('actual--', JSON.stringify(imageSpec, null, 2))
       const expected = {
               "headers": {
@@ -332,7 +332,7 @@ describe('Reports Tests', () => {
             ]
           ]
         }
-      query.addColumns(dataSpec, imageSpec, 'sample_mflix', 'movies', ['email', 'age'])
+      report.addColumns(dataSpec, imageSpec, 'sample_mflix', 'movies', ['email', 'age'])
       console.log('actual--', JSON.stringify(imageSpec, null, 2))
       const expected = {
         "headers": {
@@ -421,7 +421,7 @@ describe('Reports Tests', () => {
         ordering: "ascending",
       }
 
-      await query.addGroup(dataSpec, [field.word])
+      await report.addGroup(dataSpec, [field.word])
       const expected = [
         { '$unwind': '$genre' },
         { '$group': { _id: '$genre', genre: { $first: '$genre' }, movies: { $addToSet: { title: '$title', director: '$director', genre: '$genre' } } } },
@@ -454,7 +454,7 @@ describe('Reports Tests', () => {
         ordering: "ascending",
       }
 
-      await query.addSort(dataSpec, [field])
+      await report.addSort(dataSpec, [field])
       expect(dataSpec.sort).toStrictEqual({ email: 1 })
     })
 
@@ -473,7 +473,7 @@ describe('Reports Tests', () => {
         ordering: "descending",
       }
 
-      query.addSort(dataSpec, [field])
+      report.addSort(dataSpec, [field])
       expect(dataSpec.sort).toStrictEqual({ email: -1 })
     })
 
@@ -493,7 +493,7 @@ describe('Reports Tests', () => {
         ordering: "descending",
       }
 
-      query.addSort(dataSpec, [field])
+      report.addSort(dataSpec, [field])
       expect(dataSpec.sort).toStrictEqual({ year: 1, email: -1 })
     })
   })
@@ -616,7 +616,7 @@ describe('Reports Tests', () => {
       }
 
       const originalTargetReport = {...targetReport}
-      query.addReport(targetReport, addedReport)
+      report.addReport(targetReport, addedReport)
 
       console.log("targetReport.dataSpec", JSON.stringify(targetReport.dataSpec, null, 2))
       expect(targetReport.dataSpec[0]).toStrictEqual(originalTargetReport.dataSpec)

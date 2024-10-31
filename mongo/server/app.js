@@ -1,7 +1,7 @@
 const express = require('express')
 const createMongoKM = require('./mongo')
 const { MongoClient } = require('mongodb');
-const { query, initialize } = require('./query')
+const { query, initialize } = require('./report')
 const session = require('express-session')
 const { v4: uuidv4 } = require('uuid');
 const { Sessions } = require('./sessions')
@@ -136,10 +136,10 @@ app.post('/query', async (req, res) => {
       }
       else if (req.body.query.chosen) {
         // console.log('results chosen', JSON.stringify(req.body.query, null, 2))
-        const report = mongoKM.api.current()
-        // console.log('report', JSON.stringify(report, null, 2))
-        report.showCollection.chosens.push(req.body.query)
-        await mongoKM.processContext(report.showCollection)
+        const currentReport = mongoKM.api.current()
+        // console.log('currentReport', JSON.stringify(currentReport, null, 2))
+        currentReport.showCollection.chosens.push(req.body.query)
+        await mongoKM.processContext(currentReport.showCollection)
       } else if (req.body.query.selected) {
         // console.log('selected', req.body.query)
         const context = mongoKM.api.current().select
