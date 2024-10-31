@@ -126,7 +126,6 @@ app.post('/query', async (req, res) => {
     // console.log('in query', JSON.stringify(req.body, null, 2))
     const queryResponses = []
     if (req.body.query) {
-      console.log('111111111')
       mongoKM.api.clearLastResponse()
       const query = req.body.query
       if (query.selectReport) {
