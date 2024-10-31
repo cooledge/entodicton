@@ -218,44 +218,6 @@ class API {
     }})
   }
 
-  updateColumns(report, database, collection, chosen) {
-    report.dataSpec = {
-      ...report.dataSpec,
-      dbName: database,
-      collectionName: collection,
-      limit: 10,
-      aggregation: [],
-    }
-    const columns = []
-    const properties = []
-    const compare = (field) => (a, b) => {
-      a = a[field]
-      b = b[field]
-      if (a == b) {
-        return 0
-      }
-      if (a < b) {
-        return -1
-      }
-      return 1
-    }
-    const selected = chosen.choices.filter(item => item.selected)
-    selected.sort(compare('counter'))
-    for (const column of selected) {
-      columns.push({ text: column.text, id: column.id })
-      properties.push(`$${column.id}`)
-    }
-    report.imageSpec = {
-      headers: {
-        columns,
-      },
-      colgroups: properties.map( (e, i) => `column_${i}` ),
-      table: true,
-      field: [],
-      rows: properties
-    }
-  }
-
   show(report) {
     // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
     this.objects.show.push(report)
@@ -789,7 +751,7 @@ let configStruct = {
       semantic: async ({values, context, kms, api, objects}) => {
         let report = api.current()
         if (context.chosens) {
-          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])
+          query.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])
           api.show(report)
         } else if (context.show.quantity?.value == 'all') {
           const { dbName, collectionName, fields } = report.dataSpec
@@ -800,7 +762,7 @@ let configStruct = {
             choices.push({ text: field.name, id: field.name, counter, selected: true })
             counter += 1
           }
-          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })
+          query.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })
           api.show(report)
         } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {
           debugger
@@ -890,7 +852,7 @@ let configStruct = {
           const database = reportable.database
           const collection = reportable.collection
 
-          api.updateColumns(report, database, collection, chosen)
+          query.updateColumns(report, database, collection, chosen)
 
           api.show(report)
         } else {

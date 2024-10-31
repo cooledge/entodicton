@@ -13,6 +13,44 @@ const initialize = async () => {
   return await data.initialize()
 }
 
+const updateColumns = (report, database, collection, chosen) => {
+  report.dataSpec = {
+    ...report.dataSpec,
+    dbName: database,
+    collectionName: collection,
+    limit: 10,
+    aggregation: [],
+  }
+  const columns = []
+  const properties = []
+  const compare = (field) => (a, b) => {
+    a = a[field]
+    b = b[field]
+    if (a == b) {
+      return 0
+    }
+    if (a < b) {
+      return -1
+    }
+    return 1
+  }
+  const selected = chosen.choices.filter(item => item.selected)
+  selected.sort(compare('counter'))
+  for (const column of selected) {
+    columns.push({ text: column.text, id: column.id })
+    properties.push(`$${column.id}`)
+  }
+  report.imageSpec = {
+    headers: {
+      columns,
+    },
+    colgroups: properties.map( (e, i) => `column_${i}` ),
+    table: true,
+    field: [],
+    rows: properties
+  }
+}
+
 const addReport = (toThis, addThis) => {
   // convert addThis to compound report is necessary
   debugger
@@ -132,4 +170,5 @@ module.exports = {
   addSort,
   addGroup,
   addReport,
+  updateColumns,
 }
