@@ -13,6 +13,69 @@ const initialize = async () => {
   return await data.initialize()
 }
 
+const getValue = (object, path) => {
+  let value = object
+  for (const prop of path) {
+    value = object[prop]
+    if (!value) {
+      return value
+    }
+  }
+  return value
+}
+
+const updateColumnsNew = (report, chosen) => {
+
+  const columns = []
+  const properties = []
+  const fields = []
+  const compare = (field) => (a, b) => {
+    a = a[field]
+    b = b[field]
+    if (a == b) {
+      return 0
+    }
+    if (a < b) {
+      return -1
+    }
+    return 1
+  }
+  const selected = chosen.choices.filter(item => item.selected)
+  selected.sort(compare('counter'))
+  for (const column of selected) {
+    columns.push({ text: column.text, id: column.id })
+    properties.push(`$${column.id}`)
+    fields.push(column.id)
+  }
+  debugger
+  const dataSpecPath = chosen.serverResponse.chooseFields.dataSpecPath
+  const dataSpec = data.getValue(report.dataSpec, dataSpecPath)
+  dataSpec.usedFields = fields
+
+  const options = {
+    seen: (path, imageSpec) => {
+      if (_.isEqual(imageSpec.field, dataSpecPath)) {
+        imageSpec.headers.columns = columns
+        imageSpec.colgroups = properties.map( (e, i) => `column_${i}` ),
+        imageSpec.rows = properties
+      }
+    }
+  }
+  image.traverseImpl(report.imageSpec, options)
+
+  /*
+  report.imageSpec = {
+    headers: {
+      columns,
+    },
+    colgroups: properties.map( (e, i) => `column_${i}` ),
+    table: true,
+    field: [],
+    rows: properties
+  }
+  */
+}
+
 const updateColumns = (report, database, collection, chosen) => {
   report.dataSpec = {
     ...report.dataSpec,
@@ -53,7 +116,6 @@ const updateColumns = (report, database, collection, chosen) => {
 
 const addReport = (toThis, addThis) => {
   // convert addThis to compound report is necessary
-  debugger
   if (!Array.isArray(toThis.dataSpec)) {
     let wasEmpty = true
     if (!toThis.dataSpec.dbName) {
@@ -68,7 +130,6 @@ const addReport = (toThis, addThis) => {
       "explicit": true,
       "field": [],
     }
-    debugger
     if (wasEmpty) {
       toThis.imageSpec.rows = []
     } else {
@@ -171,4 +232,5 @@ module.exports = {
   addGroup,
   addReport,
   updateColumns,
+  updateColumnsNew,
 }

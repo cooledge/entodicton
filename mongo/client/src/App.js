@@ -236,6 +236,7 @@ function App() {
   const [rules, setRules] = useState([])  // { rule, index }
   // const [choices, setChoices] = useState([ { text: 'c1', id: '1' }, { text: 'c2', id: '2' } ])
   const [choices, setChoices] = useState([])
+  const [serverResponse, setServerResponse] = useState({})
   const [chooserTitle, setChooserTitle] = useState('')
   const [chooserOrdered, setChooserOrdered] = useState(false)
   const [chosen, setChosen] = useState()
@@ -266,7 +267,7 @@ function App() {
     setChosen(null)
     setChoices([])
     setCounter(counter+1)
-    debugger
+    setServerResponse(response)
     if (response.chooseFields) {
       setChooserTitle(response.chooseFields.title)
       setChoices(response.chooseFields.choices)
@@ -322,12 +323,12 @@ function App() {
         // setChosen(null)
         // setChoices([])
         console.log('call the server with the results', chosen, choices)
-        const result = await callServer({ chosen, choices })
+        const result = await callServer({ chosen, choices, serverResponse })
         handleResponse(result)
       }
     }
     doIt()
-  }, [chosen, choices, setChosen, setData, rules, setChoices, setNoSession])
+  }, [chosen, choices, setChosen, setData, rules, setChoices, setNoSession, serverResponse])
 
   useEffect( () => {
     if (query.text === '') {

@@ -190,14 +190,14 @@ describe('tests for the mongo page', () => {
       await query('show the users')
       const dataDb = users
       const property = 'name'
-      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 2, users, ['name'])
     }, timeout);
 
     test(`MONGO show the movies`, async () => {
       await query('show the movies')
       const dataDb = movies
       const property = 'title'
-      await checkTable(page, 1, movies, ['title'])
+      await checkTable(page, 2, movies, ['title'])
     }, timeout);
 
     test(`MONGO show the users and movies`, async () => {
@@ -242,7 +242,7 @@ describe('tests for the mongo page', () => {
       await page.waitForSelector(`#Item_banana`)
       await page.click('#Item_banana')
       await page.waitForSelector(`#queryCounter5`)
-      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 2, users, ['name'])
     }, timeout);
 
     test(`MONGO show users collection select name + email and show the report by name`, async () => {
@@ -250,7 +250,7 @@ describe('tests for the mongo page', () => {
       await query('call the report banana')
       await query('show the movies')
       await query('show banana')
-      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 2, users, ['name'])
     }, timeout);
 
     test(`MONGO show movies + add various fields`, async () => {
@@ -260,7 +260,7 @@ describe('tests for the mongo page', () => {
       await page.click('#ChooserItem_genres')
       await page.click('.ChooserButtonSelect')
       await page.waitForSelector(`#queryCounter4`)
-      await checkTable(page, 1, movies, ['title', 'genres'])
+      await checkTable(page, 2, movies, ['title', 'genres'])
     }, timeout);
 
     test(`MONGO what is 2 + 2`, async () => {
@@ -277,13 +277,13 @@ describe('tests for the mongo page', () => {
     test(`MONGO show the users + show email`, async () => {
       await query('show the users')
       await query('show email')
-      await checkTable(page, 1, users, ['name', 'email'])
+      await checkTable(page, 2, users, ['name', 'email'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields`, async () => {
       await query('show the users')
       await query('show all the fields')
-      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
+      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields + sort by name ascending`, async () => {
@@ -291,7 +291,7 @@ describe('tests for the mongo page', () => {
       await query('show all the fields')
       await query('sort by name ascending')
       const users = await getData(client, 'sample_mflix', 'users', { sort: { name: 1 } })
-      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
+      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields + sort by name descending`, async () => {
@@ -299,10 +299,10 @@ describe('tests for the mongo page', () => {
       await query('show all the fields')
       await query('sort by email descending')
       const users = await getData(client, 'sample_mflix', 'users', { sort: { email: -1 } })
-      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
+      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
-    test(`MONGO show the movies + group by genres`, async () => {
+    test(`NEO23 MONGO show the movies + group by genres`, async () => {
       await query('show the movies')
       await query('group by genres')
       const aggregation = [
@@ -333,7 +333,7 @@ describe('tests for the mongo page', () => {
       const records = await getData(client, 'sample_mflix', 'movies', { aggregation, limit: 100000 })
       // console.log('data', JSON.stringify(movies, null, 2))
 
-      const tableNumber = 1;
+      const tableNumber = 2;
 
           /*
           const columns = []

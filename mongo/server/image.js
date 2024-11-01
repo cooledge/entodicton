@@ -142,6 +142,9 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
+      if (index == 1) {
+        debugger // here
+      }
       values.push({ className: `column column_${index} table_${options.tableNumber}_column_${index}`, data: instantiateImpl(field, bson, options) })
     }
     return values
@@ -270,13 +273,12 @@ const isEmpty = (imageSpec) => {
   return imageSpec.rows.length == 0
 }
 
-const addGroup = (imageSpec, fields) => {
+const addGroup = (dataSpecPath, imageSpec, fields) => {
   // TODO handle mulitple fields
   const field = fields[0]
   const options = {
     seen: (what, value) => {
       if (['table'].includes(what)) {
-        debugger
         const oldImageSpec = {...imageSpec}
         const newImageSpec = {
           headers: {
@@ -284,10 +286,8 @@ const addGroup = (imageSpec, fields) => {
           },
           colgroups: ['c1'],
           table: true,
-          field: [],
-          rows: [
-                  `$${field.name}`,
-          ],
+          field: dataSpecPath,
+          rows: [ `$${field.name}`, ],
         }
         if (!isEmpty(oldImageSpec)) {
           newImageSpec.headers.columns.push({ text: field.collection })
@@ -354,6 +354,19 @@ const traverseImpl = (imageSpec, options = {}) => {
   }
 }
 
+const getImageSpecs = (imageSpec, dataSpecPath) => {
+  const imageSpecs = []
+  const options = {
+    seen: (path, imageSpec) => {
+      if (_.isEqual(imageSpec.field, dataSpecPath)) {
+        imageSpecs.push(imageSpec)
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+  return imageSpecs
+}
+
 module.exports = {
   instantiate,
   count,
@@ -364,4 +377,6 @@ module.exports = {
   addColumns,
   addGroup,
   getProperties,
+  traverseImpl,
+  getImageSpecs,
 }

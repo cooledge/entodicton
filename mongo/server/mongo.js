@@ -2,6 +2,7 @@ const { Config, knowledgeModule, where } = require('theprogrammablemind')
 const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math, ui } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
+const _ = require('lodash')
 const data = require('./data')
 const image = require('./image')
 const report = require('./report')
@@ -110,9 +111,6 @@ const stateToCSS = (isA, property, state) => {
     return `{ ${property}: ${ state.value.slice(0, -"_colors".length) }; }`
   }
   if (isA(state.marker, 'case')) {
-    if (!state.value) {
-      debugger
-    }
     return `{ ${property}: ${state.value}; }`
   }
 }
@@ -201,19 +199,30 @@ class API {
     return { database, collection, columnNames }
   }
 
-  async showFieldsResponse(database, collection, fields, report = null) { 
-    console.log('fields', fields)
+  async showFieldsResponse(dataSpecPath, database, collection, fields, report = null) { 
+
     const selected = {}
+
     if (report) {
       let counter = 1
-      for (const column of report.imageSpec.headers.columns) {
-        selected[column.id] = counter
-        counter += 1
+      const options = {
+        seen: (what, value) => {
+          if (['table'].includes(what) && _.isEqual(dataSpecPath, value.field)) {
+            for (const column of value.headers.columns) {
+              selected[column.id] = counter
+              counter += 1
+            }
+          }
+        }
       }
+
+      image.traverseImpl(report.imageSpec, options)
     }
+
     this.addResponse({ chooseFields: {
       title: `Select the fields from the ${collection} collection in the ${database}`,
       choices: fields.map((field) => { return { text: field.name, id: field.name, selected: selected[field.name], counter: selected[field.name] } }),
+      dataSpecPath,
       ordered: true,
     }})
   }
@@ -530,8 +539,13 @@ let configStruct = {
         const currentReport= api.current()
         const fields = helpers.propertyToArray(context.field.field)
         // account for name errors like saying genre but the field is genres
-        report.addGroup(currentReport.dataSpec, fields.map((field) => field.word))
-        image.addGroup(currentReport.imageSpec, fields.map((field) => { return { name: field.word, collection: currentReport.dataSpec.collectionName } }))
+        const dataSpecPath = [0]
+        debugger
+        const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
+        report.addGroup(dataSpec, fields.map((field) => field.word))
+        for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
+          image.addGroup(dataSpecPath, imageSpec, fields.map((field) => { return { name: field.word, collection: dataSpec.collectionName } }))
+        }
         api.show(currentReport)
       }
     },
@@ -751,10 +765,16 @@ let configStruct = {
       semantic: async ({values, context, kms, api, objects}) => {
         let currentReport = api.current()
         if (context.chosens) {
-          report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])
+          const chosens = context.chosens[0]
+          // chosens.serverResponse.chooseFields.dataSpecPath
+          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])
+          report.updateColumnsNew(currentReport, chosens)
           api.show(currentReport)
         } else if (context.show.quantity?.value == 'all') {
-          const { dbName, collectionName, fields } = currentReport.dataSpec
+          // dataSpec[0] -> select report to update greg98
+          const dataSpecPath = [0]
+          const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
+          const { dbName, collectionName, fields } = dataSpec
           // '{"chosen":"select","choices":[{"text":"_id","id":"_id"},{"text":"name","id":"name","selected":true,"counter":1},{"text":"email","id":"email","selected":true,"counter":2},{"text":"password","id":"password"}]}'
           const choices = []
           let counter = 1
@@ -762,26 +782,32 @@ let configStruct = {
             choices.push({ text: field.name, id: field.name, counter, selected: true })
             counter += 1
           }
-          report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, { 'chosen': 'select', choices })
+          // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })
+          debugger
+          report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })
           api.show(currentReport)
         } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {
-          debugger
           console.log('currentReport', JSON.stringify(currentReport, null, 2))
-          const { dbName, collectionName, fields } = currentReport.dataSpec
-          await api.showFieldsResponse(dbName, collectionName, fields, currentReport)
+          // dataSpec[0] -> select report to update greg98
+          const { dbName, collectionName, fields } = currentReport.dataSpec[0]
+          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)
           context.chosens = [] // for callback
           currentReport.showCollection = context
         } else if (context.show.less) {
         } else if (context.show.marker == 'recordCount') {
-          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec, context.show.field).map( (f) => f.field )
+          // dataSpec[0] -> select report to update greg98
+          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )
           report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)
           api.show(currentReport)
         } else {
           // TODO add a the email column called contact
           const columns = values(context.show)
+          // dataSpec[0] -> select report to update greg98
           // db -> collection -> columns
-          let database = currentReport.dataSpec.dbName
-          let collection = currentReport.dataSpec.collectionName
+          let dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []
+          let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
+          let database = dataSpec.dbName
+          let collection = dataSpec.collectionName
           let columnNames = []
 
           let hasArray = false
@@ -789,7 +815,9 @@ let configStruct = {
             columnNames = [context.show.path[0]]
           } else {
             ({ database, collection, columnNames } = await api.determineCollection(columns))
-            currentReport= await api.newReportSpec(database, collection)
+            currentReport = await api.newReportSpec(database, collection)
+            dataSpecPath = []
+            dataSpec = currentReport.dataSpec
 
             hasArray = false
             for (const columnName of columnNames) {
@@ -799,19 +827,20 @@ let configStruct = {
               }
             }
           }
-          // report.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, [context.show.path[0]]) 
           if (hasArray) {
-            // report.addGroup(report.dataSpec, fields)
-            await api.setDataSpec(currentReport.dataSpec, database, collection, columnNames)
-            console.log(JSON.stringify(currentReport.dataSpec, null, 2))
-            report.addGroup(currentReport.dataSpec, columnNames)
-            console.log(JSON.stringify(currentReport.dataSpec, null, 2))
-            image.addGroup(currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
-            api.show(currentReport)
+            await api.setDataSpec(dataSpec, database, collection, columnNames)
+            console.log(JSON.stringify(dataSpec, null, 2))
+            report.addGroup(dataSpec, columnNames)
+            console.log(JSON.stringify(dataSpec, null, 2))
+            image.addGroup(dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
           } else {
-            report.addColumns(currentReport.dataSpec, currentReport.imageSpec, database, collection, columnNames) 
-            api.show(currentReport)
+            dataSpec.usedFields.push(...columnNames)
+            for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
+              // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) 
+              image.addColumns(imageSpec, dataSpecPath, columnNames)
+            }
           }
+          api.show(currentReport)
         }
       },
     },
@@ -865,7 +894,7 @@ let configStruct = {
           context.reportables = reportables // save for callback
           const reportable = reportables[0]
           const fields = await getFields(reportable.database, reportable.collection)
-          await api.showFieldsResponse(reportable.database, reportable.collection, fields)
+          await api.showFieldsResponse([0], reportable.database, reportable.collection, fields)
           context.chosens = [] // for callback
           currentReport.showCollection = context
         }
@@ -878,7 +907,6 @@ let configStruct = {
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, km, mentions, api, flatten, gp}) => {
-        const report = api.newReport()
         const toArray = (context) => {
           if (context.isList) {
             return context.value
@@ -905,6 +933,8 @@ let configStruct = {
 
         const dataSpecs = []
         const imageSpecs = []
+        const currentReport = api.newReport()
+        let oldWay = false
         for (const dbName in components) {
           for (const collectionName in components[dbName]) {
             const properties = components[dbName][collectionName]
@@ -913,45 +943,37 @@ let configStruct = {
               columns.push({ text: await gp(column), id: column.path[0] })
             }
 
-            const report = await api.newReportSpec(dbName, collectionName, columns, properties)
-            dataSpecs.push(report.dataSpec)
-            imageSpecs.push(report.imageSpec)
+            if (oldWay) {
+              const report = await api.newReportSpec(dbName, collectionName, columns, properties)
+              dataSpecs.push(report.dataSpec)
+              imageSpecs.push(report.imageSpec)
+            } else {
+              const subReport = await api.newReportSpec(dbName, collectionName, columns, properties)
+              // query.addReport(currentReport, { dataSpec: subReport.dataSpec, imageSpec: subReport.imageSpec })
+              report.addReport(currentReport, subReport)
+            }
           }
         }
 
-        if (dataSpecs.length == 1) {
-          report.dataSpec = dataSpecs[0]
-          report.imageSpec = imageSpecs[0]
-        } else {
-          report.dataSpec = dataSpecs
-          for (let i = 0; i < imageSpecs.length; ++i) {
-            imageSpecs[i].field = [i]
+        if (oldWay) {
+          if (dataSpecs.length == 1) {
+            currentReport.dataSpec = dataSpecs[0]
+            currentReport.imageSpec = imageSpecs[0]
+          } else {
+            currentReport.dataSpec = dataSpecs
+            for (let i = 0; i < imageSpecs.length; ++i) {
+              imageSpecs[i].field = [i]
+            }
+            currentReport.imageSpec = {
+              headers: { columns: [] },
+              table: true,
+              explicit: true,
+              field: [],
+              rows: [imageSpecs]
+            }
           }
-          report.imageSpec = {
-            headers: { columns: [] },
-            table: true,
-            explicit: true,
-            field: [],
-            rows: [imageSpecs]
-          }
         }
-        /*
-        report.dataSpec = { 
-          dbName: properties[0].database, 
-          collectionName: properties[0].collection, 
-          aggregation: [] 
-        }
-
-        report.imageSpec = {
-          headers: properties.map( gp ),
-          table: true,
-          field: [],
-          // rows: ['$name', '$age', '$fav_colors'],
-          rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
-        }
-        */
-
-        api.show(report)
+        api.show(currentReport)
       }
     },
 

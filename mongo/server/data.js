@@ -91,11 +91,24 @@ const terminate = () => {
   }
 }
 
+// TODO call this getDataSpec
+const getValue = (dataSpec, path) => {
+  let value = dataSpec
+  for (const prop of path) {
+    value = dataSpec[prop]
+    if (!value) {
+      return
+    }
+  }
+  return value
+}
+
 module.exports = {
   initialize,
   terminate,
   instantiate,
   client,
   getFields,
+  getValue,
 }
 

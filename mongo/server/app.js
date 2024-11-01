@@ -171,10 +171,13 @@ app.post('/query', async (req, res) => {
       Object.assign(response, { reportNames: mongoKM.api.getReportNames() })
 
       if (lastResponse.chooseFields) {
-        Object.assign(response, { chooseFields: lastResponse.chooseFields, context: lastResponse.context })
+        // Object.assign(response, { chooseFields: lastResponse.chooseFields, context: lastResponse.context })
+        debugger
+        Object.assign(response, lastResponse)
       }
 
       if (lastResponse.report) {
+        debugger
         const report = await query(lastResponse.report.dataSpec, lastResponse.report.imageSpec)
         console.log('lastResponse.report calling getReportNames') 
         response.reportNames = mongoKM.api.getReportNames() // selected could change
