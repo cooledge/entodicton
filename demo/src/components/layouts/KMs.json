@@ -27,6 +27,7 @@
         "help",
         "hierarchy",
         "ordering",
+        "ordinals",
         "properties",
         "sizeable"
       ]
@@ -1394,6 +1395,24 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
+    },
+    {
+      "name": "ordinals",
+      "description": "talking about ordinals",
+      "examples": [
+        "1st orderable",
+        "4th"
+      ],
+      "template": [],
+      "includes": [
+        "pos",
+        "numbers",
+        "punctuation",
+        "gdefaults",
+        "sdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordinals.js"
     },
     {
       "name": "people",
