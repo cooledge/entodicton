@@ -933,7 +933,8 @@ let configStruct = {
 
         const dataSpecs = []
         const imageSpecs = []
-        const currentReport = api.newReport()
+        // const currentReport = api.newReport()
+        const currentReport = api.current()
         let oldWay = false
         for (const dbName in components) {
           for (const collectionName in components[dbName]) {

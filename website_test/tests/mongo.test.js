@@ -59,6 +59,10 @@ describe('tests for the mongo page', () => {
     await client.close()
   });
 
+  test(`STARTPUPPETEER`, async () => {
+    // for automated tests to get puppeteer going before running the tests for real
+  }, timeout);
+
   test(`MONGO test page loads`, async () => {
     const page = await browser.newPage();
 
