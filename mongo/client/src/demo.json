@@ -1,0 +1,99 @@
+{
+  "queryResponses": [],
+  "reportNames": [],
+  "report": {
+    "headers": {
+      "className": "header",
+      "data": []
+    },
+    "className": "Table table_1",
+    "table": true,
+    "rows": {
+      "className": "rows",
+      "data": [
+        [
+          {
+            "type": "bar",
+            "title": "the genre and number of movies",
+            "options": {
+              "chart": {
+                "id": "apexchart-example"
+              },
+              "xaxis": {
+                "categories": [
+                  "Mystery",
+                  "Comedy",
+                  "Fantasy",
+                  "Western",
+                  "Action",
+                  "Crime",
+                  "History",
+                  "Biography",
+                  "Family",
+                  "Documentary"
+                ]
+              }
+            },
+            "series": [
+              {
+                "name": "movies",
+                "data": [
+                  1195,
+                  6712,
+                  1066,
+                  259,
+                  2396,
+                  2541,
+                  941,
+                  1319,
+                  1225,
+                  2065
+                ]
+              }
+            ],
+            "idCounter": 1,
+            "id": "graph1"
+          },
+
+          {
+            "className": "column column_1 table_1_column_1",
+            "data": {
+              "headers": {
+                "className": "header header5",
+                "data": [
+                  {
+                    "className": "",
+                    "data": "movies"
+                  }
+                ]
+              },
+              "className": "Table table_3",
+              "colgroups": [
+                "column_0"
+              ],
+              "table": true,
+              "rows": {
+                "className": "rows",
+                "data": [
+                  {
+                    "className": "row_0",
+                    "data": [
+                      {
+                        "className": "column column_0 table_3_column_0",
+                        "data": {
+                          "className": "fieldValue",
+                          "data": "A Corner in Wheat"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      ]
+    }
+  }
+}
+
