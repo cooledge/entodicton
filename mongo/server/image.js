@@ -321,6 +321,19 @@ const getProperties = (imageSpec) => {
   return properties
 }
 
+const getTables = (imageSpec) => {
+  const tables = []
+  const options = {
+    seen: (what, value) => {
+      if (['table'].includes(what) && !value.explicit) {
+        tables.push(value)
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+  return tables
+}
+
 const traverseImpl = (imageSpec, options = {}) => {
   if (imageSpec.type) {
     // TODO later alligator
@@ -379,4 +392,5 @@ module.exports = {
   getProperties,
   traverseImpl,
   getImageSpecs,
+  getTables,
 }

@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, where } = require('theprogrammablemind')
-const { helpers, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math, ui } = require('tpmkms')
+const { helpers, ordinals, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math, ui } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const _ = require('lodash')
@@ -46,6 +46,8 @@ const dd22 = {
       }
 
 /*
+
+  for the first table ... (set default table)
 
   default sort is ascending => default class is instance value
 
@@ -402,7 +404,7 @@ let configStruct = {
     "([show] (reportable/*))",
     "([showCollection|show] (collection/*))",
     "([showReport|show] (report/*))",
-    "([showColumn|show,add,include,change,update,select] (column/*))",
+    "([showColumn|show,add,include,change,update,select] (column/*) ([columnAddedTo|to,on] (collection/* || table/*))?)",
     "([capitalize] ([reportElement]))",
     "([sales|])",
     // "([year])",
@@ -751,18 +753,47 @@ let configStruct = {
     { 
       id: 'table', 
       words: helpers.words('table'),
+      isA: ['orderable'],
       parents: ['theAble', 'reportElement'],
+      evaluator: async ({context, api, gp, verbatim}) => {
+        const currentReport = api.current()
+        if (context.ordinal) {
+          const tables = image.getTables(currentReport.imageSpec)
+          const table = tables[context.ordinal.value-1]
+          if (table) {
+            context.evalue = { 
+              marker: 'table', 
+              report: currentReport,
+              value: tables[context.ordinal.value-1]
+            }
+          } else {
+            verbatim(`${await gp(context)} does not exist`)
+          }
+        }
+      }
     },
 
     { id: 'report',
       parents: ['theAble', 'nameable']
     },
 
+    { id: 'columnAddedTo',
+      isA: ['preposition'],
+      bridge: "{ ...next(operator), postModifiers: ['destination'], destination: after[0] }",
+    },
+
     { id: 'showColumn',
-      bridge: "{ ...next(operator), show: after[0] }",
+      optional: { columnAddedTo: "{ marker: 'undefined' }" },
+      bridge: "{ ...next(operator), show: after[0], to: after[1] }",
       parents: ['verb'],
-      generatorp: async ({context, g}) => `show ${await g(context.show)}`,
-      semantic: async ({values, context, kms, api, objects}) => {
+      generatorp: async ({context, g}) => {
+        if (context.to && context.to.marker !== 'undefined') {
+          return `${context.word} ${await g(context.show)} ${await g(context.to)}`
+        } else {
+          return `${context.word} ${await g(context.show)}`
+        }
+      },
+      semantic: async ({e, values, context, kms, api, objects}) => {
         let currentReport = api.current()
         if (context.chosens) {
           const chosens = context.chosens[0]
@@ -783,7 +814,6 @@ let configStruct = {
             counter += 1
           }
           // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })
-          debugger
           report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })
           api.show(currentReport)
         } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {
@@ -800,14 +830,28 @@ let configStruct = {
           report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)
           api.show(currentReport)
         } else {
+          let dataSpecPath
+
           // TODO add a the email column called contact
-          const columns = values(context.show)
-          // dataSpec[0] -> select report to update greg98
-          // db -> collection -> columns
-          let dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []
+          if (context.to && context.to.marker == 'columnAddedTo') {
+            console.log("context.to.destination", JSON.stringify(context.to.destination, null, 2))
+            const destination = (await e(context.to.destination)).evalue
+            debugger
+            console.log("destination", JSON.stringify(destination, null, 2))
+            // TODO handle not found
+            currentReport = destination.report
+            dataSpecPath = destination.value.field
+          } else {
+            dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []
+          }
+
           let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
           let database = dataSpec.dbName
           let collection = dataSpec.collectionName
+
+          const columns = values(context.show)
+          // dataSpec[0] -> select report to update greg98
+          // db -> collection -> columns
           let columnNames = []
 
           let hasArray = false
@@ -1120,7 +1164,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'mongo' },
-  includes: [hierarchy, colors, negation, nameable, ui, countable, math],
+  includes: [hierarchy, ordinals, colors, negation, nameable, ui, countable, math],
   api: () => new API(),
   /*
   initializer: ({config, s, fragments}) => {

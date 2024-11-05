@@ -306,7 +306,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
-    test(`NEO23 MONGO show the movies + group by genres`, async () => {
+    test(`MONGO show the movies + group by genres`, async () => {
       await query('show the movies')
       await query('group by genres')
       const aggregation = [
@@ -475,6 +475,15 @@ describe('tests for the mongo page', () => {
       })
       const expected = ["the genre and the number of directors", "the year and the number of movies"]
       expect(titles).toStrictEqual(expected)
+    }, timeout);
+
+    test(`NEO23 MONGO show the movies + show the movies + add genre to the second table + add director to the first table`, async () => {
+      await query('show the movies')
+      await query('show the movies')
+      await query('add genre to the second table')
+      await query('add director to the first table')
+      await checkTable(page, 2, movies, ['title', 'directors'])
+      await checkTable(page, 3, movies, ['title', 'genres'])
     }, timeout);
   })
 });
