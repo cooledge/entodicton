@@ -373,6 +373,8 @@ let configStruct = {
     // "([call] ([nameable]) (name))",
     "([reportable])",
 
+    "([forTable|for] (table/*))",
+
     "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
     "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
     "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
@@ -422,6 +424,21 @@ let configStruct = {
     ['case', 'reportElement'],
   ],
   bridges: [
+    {
+      id: 'forTable',
+      isA: ['preposition'],
+      bridge: "{ ...next(operator), table: after[0], postModifiers: ['table'] }",
+      semantic: async ({context, e}) => {
+        const destination = (await e(context.table)).evalue
+        if (destination) {
+          if (!destination.report.mentioned) {
+            destination.report.mentioned = []
+          }
+          destination.value.marker = 'table'
+          destination.report.mentioned.push(destination.value)
+        }
+      },
+    },
     { 
       id: 'graphAction',
       isA: ['verb'],
@@ -793,7 +810,7 @@ let configStruct = {
           return `${context.word} ${await g(context.show)}`
         }
       },
-      semantic: async ({e, values, context, kms, api, objects}) => {
+      semantic: async ({e, mentions, values, context, kms, api, objects}) => {
         let currentReport = api.current()
         if (context.chosens) {
           const chosens = context.chosens[0]
@@ -833,16 +850,24 @@ let configStruct = {
           let dataSpecPath
 
           // TODO add a the email column called contact
+          let defaultTable
           if (context.to && context.to.marker == 'columnAddedTo') {
             console.log("context.to.destination", JSON.stringify(context.to.destination, null, 2))
             const destination = (await e(context.to.destination)).evalue
-            debugger
             console.log("destination", JSON.stringify(destination, null, 2))
             // TODO handle not found
             currentReport = destination.report
             dataSpecPath = destination.value.field
           } else {
-            dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []
+            debugger
+            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })
+            const args = { context: { marker: 'table' }, banana: 23, frameOfReference: currentReport }
+            defaultTable = mentions(args)
+            if (defaultTable) {
+              dataSpecPath = defaultTable.field
+            } else {
+              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []
+            }
           }
 
           let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
@@ -879,9 +904,13 @@ let configStruct = {
             image.addGroup(dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
           } else {
             dataSpec.usedFields.push(...columnNames)
-            for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
-              // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) 
-              image.addColumns(imageSpec, dataSpecPath, columnNames)
+            if (defaultTable) {
+              image.addColumns(defaultTable, dataSpecPath, columnNames)
+            } else {
+              for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
+                // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) 
+                image.addColumns(imageSpec, dataSpecPath, columnNames)
+              }
             }
           }
           api.show(currentReport)

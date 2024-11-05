@@ -60,6 +60,10 @@ class Sessions {
   count() {
     return this.cache.size
   }
+
+  statistics() {
+    return { max: this.max(), ttl: this.ttl(), count: this.count() }
+  }
 }
 
 module.exports = { 

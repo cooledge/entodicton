@@ -353,7 +353,7 @@ function App() {
       { choices.length > 0 &&
         <Chooser title={chooserTitle} ordered={chooserOrdered} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
       }
-      <Query doQuery={doQuery} queryResponses={queryResponses} resetSession={() => setResetSession(true)}/>
+      <Query doQuery={doQuery} queryResponses={queryResponses} sessions={serverResponse?.sessions} resetSession={() => setResetSession(true) }/>
       <Image data={data} setupHover={setupHover2(doQuery)}/>
       {
         namedReports.length > 0 &&

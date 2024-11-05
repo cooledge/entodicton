@@ -190,6 +190,7 @@ app.post('/query', async (req, res) => {
       }
 
       console.log(JSON.stringify(response, null, 2))
+      response.sessions = sessions.statistics()
       res.json(response)
     } else {
       res.json({ noChange: true })

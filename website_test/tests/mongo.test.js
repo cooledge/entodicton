@@ -477,12 +477,20 @@ describe('tests for the mongo page', () => {
       expect(titles).toStrictEqual(expected)
     }, timeout);
 
-    test(`NEO23 MONGO show the movies + show the movies + add genre to the second table + add director to the first table`, async () => {
+    test(`MONGO show the movies + show the movies + add genre to the second table + add director to the first table`, async () => {
       await query('show the movies')
       await query('show the movies')
       await query('add genre to the second table')
       await query('add director to the first table')
       await checkTable(page, 2, movies, ['title', 'directors'])
+      await checkTable(page, 3, movies, ['title', 'genres'])
+    }, timeout);
+
+    test(`NEO23 MONGO show the users + show the movies + for the second table show the id`, async () => {
+      await query('show the movies')
+      await query('show the movies')
+      await query('for the second table show the genre')
+      await checkTable(page, 2, movies, ['title'])
       await checkTable(page, 3, movies, ['title', 'genres'])
     }, timeout);
   })

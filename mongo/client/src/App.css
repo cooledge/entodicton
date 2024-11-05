@@ -101,12 +101,20 @@ table {
 
 .Query {
   margin-top: 2px;
-  padding-left: 10px;
+  padding: 5px;
   height: 2em;
   border: solid 1px;
   flex-grow: 1;
   display: flex;
   align-items: center;
+}
+
+.Sessions {
+  margin-left: 50px;
+}
+
+.Bold {
+  font-weight: bold;
 }
 
 .NamedReports {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import $ from 'jquery'
 
 function Query(props) {
-  const { resetSession, doQuery, queryResponses } = props
+  const { resetSession, doQuery, queryResponses, sessions } = props
   const [ query, setQuery ] = useState('')
   const [ counter, setCounter] = useState(0)
 
@@ -42,6 +42,11 @@ function Query(props) {
         <div>
           <span className='paraphrase'><span className='label'>Paraphrase: </span><span className='field'>{ query }</span></span>
         </div>
+      }
+      { sessions && 
+        <span className="Sessions">
+          <span className="Bold">Session:</span>{sessions.count}/{sessions.max} <span className="Bold">TTL:</span>{sessions.ttl/1000} seconds
+        </span>
       }
       {
         queryResponses && queryResponses.length > 0 &&
