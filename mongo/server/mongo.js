@@ -772,21 +772,25 @@ let configStruct = {
       words: helpers.words('table'),
       isA: ['orderable'],
       parents: ['theAble', 'reportElement'],
-      evaluator: async ({context, api, gp, verbatim}) => {
+      evaluator: async ({context, toContext, values, api, gp, verbatim}) => {
         const currentReport = api.current()
         if (context.ordinal) {
           const tables = image.getTables(currentReport.imageSpec)
+          const ordinals = values(context.ordinal)
           const table = tables[context.ordinal.value-1]
-          if (table) {
-            context.evalue = { 
-              marker: 'table', 
+          const selectedTables = ordinals.map( (ordinal) => tables[ordinal.value-1] ).filter( (table) => table )
+          console.log('selectedTable', JSON.stringify(selectedTables, null, 2))
+          if (!_.isEmpty(selectedTables)) {
+            context.evalue = {
+              marker: 'table',
               report: currentReport,
-              value: tables[context.ordinal.value-1]
+              value: toContext(selectedTables)
             }
           } else {
             verbatim(`${await gp(context)} does not exist`)
           }
         }
+
       }
     },
 
@@ -854,64 +858,83 @@ let configStruct = {
           if (context.to && context.to.marker == 'columnAddedTo') {
             console.log("context.to.destination", JSON.stringify(context.to.destination, null, 2))
             const destination = (await e(context.to.destination)).evalue
+            debugger
             console.log("destination", JSON.stringify(destination, null, 2))
             // TODO handle not found
-            currentReport = destination.report
-            dataSpecPath = destination.value.field
+            defaultTable = destination
+            // currentReport = destination.report
+            // dataSpecPath = destination.value.field
           } else {
             debugger
             // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })
-            const args = { context: { marker: 'table' }, banana: 23, frameOfReference: currentReport }
+            const args = { context: { marker: 'table' }, frameOfReference: currentReport }
             defaultTable = mentions(args)
+            debugger
             if (defaultTable) {
-              dataSpecPath = defaultTable.field
+              // dataSpecPath = defaultTable.field
             } else {
               dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []
             }
           }
 
-          let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
-          let database = dataSpec.dbName
-          let collection = dataSpec.collectionName
+          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {
+            debugger
+            let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
+            let database = dataSpec.dbName
+            let collection = dataSpec.collectionName
 
-          const columns = values(context.show)
-          // dataSpec[0] -> select report to update greg98
-          // db -> collection -> columns
-          let columnNames = []
+            const columns = values(context.show)
+            // dataSpec[0] -> select report to update greg98
+            // db -> collection -> columns
+            let columnNames = []
 
-          let hasArray = false
-          if (database) {
-            columnNames = [context.show.path[0]]
-          } else {
-            ({ database, collection, columnNames } = await api.determineCollection(columns))
-            currentReport = await api.newReportSpec(database, collection)
-            dataSpecPath = []
-            dataSpec = currentReport.dataSpec
-
-            hasArray = false
-            for (const columnName of columnNames) {
-              hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray
-              if (hasArray) {
-                break
-              }
-            }
-          }
-          if (hasArray) {
-            await api.setDataSpec(dataSpec, database, collection, columnNames)
-            console.log(JSON.stringify(dataSpec, null, 2))
-            report.addGroup(dataSpec, columnNames)
-            console.log(JSON.stringify(dataSpec, null, 2))
-            image.addGroup(dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
-          } else {
-            dataSpec.usedFields.push(...columnNames)
-            if (defaultTable) {
-              image.addColumns(defaultTable, dataSpecPath, columnNames)
+            let hasArray = false
+            if (database) {
+              columnNames = [context.show.path[0]]
             } else {
-              for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
-                // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) 
-                image.addColumns(imageSpec, dataSpecPath, columnNames)
+              ({ database, collection, columnNames } = await api.determineCollection(columns))
+              currentReport = await api.newReportSpec(database, collection)
+              dataSpecPath = []
+              dataSpec = currentReport.dataSpec
+
+              hasArray = false
+              for (const columnName of columnNames) {
+                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray
+                if (hasArray) {
+                  break
+                }
               }
             }
+            if (hasArray) {
+              await api.setDataSpec(dataSpec, database, collection, columnNames)
+              console.log(JSON.stringify(dataSpec, null, 2))
+              report.addGroup(dataSpec, columnNames)
+              console.log(JSON.stringify(dataSpec, null, 2))
+              image.addGroup(dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
+            } else {
+              dataSpec.usedFields.push(...columnNames)
+              if (defaultTable) {
+                image.addColumns(defaultTable, dataSpecPath, columnNames)
+              } else {
+                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
+                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) 
+                  image.addColumns(imageSpec, dataSpecPath, columnNames)
+                }
+              }
+            }
+            return currentReport
+          }
+
+          if (defaultTable) {
+            debugger
+            for (const value of values(defaultTable.value)) {
+              console.log("value", JSON.stringify(value, null, 2))
+              debugger
+              debugger
+              currentReport = await someFunction(context, value, currentReport, value.field)
+            }
+          } else {
+            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)
           }
           api.show(currentReport)
         }

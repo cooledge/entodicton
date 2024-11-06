@@ -486,12 +486,32 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 3, movies, ['title', 'genres'])
     }, timeout);
 
-    test(`NEO23 MONGO show the users + show the movies + for the second table show the id`, async () => {
+    test(`MONGO show the users + show the movies + for the second table show the id`, async () => {
       await query('show the movies')
       await query('show the movies')
       await query('for the second table show the genre')
       await checkTable(page, 2, movies, ['title'])
       await checkTable(page, 3, movies, ['title', 'genres'])
+    }, timeout);
+
+    test(`MONGO show the users + show the movies + show the users for the first and third table show the email`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('show the users')
+      await query('for the first and third table show the email')
+      await checkTable(page, 2, users, ['name', 'email'])
+      await checkTable(page, 3, movies, ['title'])
+      await checkTable(page, 4, users, ['name', 'email'])
+    }, timeout);
+
+    test(`NEO23 MONGO show the users + show the movies + show the users show the email to the first and third table`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('show the users')
+      await query('add the email to the first and third table')
+      await checkTable(page, 2, users, ['name', 'email'])
+      await checkTable(page, 3, movies, ['title'])
+      await checkTable(page, 4, users, ['name', 'email'])
     }, timeout);
   })
 });
