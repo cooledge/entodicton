@@ -375,7 +375,7 @@ let configStruct = {
 
     "([forTable|for] (table/*))",
 
-    "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
+    "([sortByColumns|sort,order] (table/*)? ([sortBy|by] ([column])))",
     "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
     "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
     // "([moveColumn|move] (column/*) (direction/*))",
@@ -539,12 +539,29 @@ let configStruct = {
     { 
       // TODO stop sorting by ... stop sorting
       id: 'sortByColumns',
+      // optional: { table: "{ marker: 'table', pullFromContext: true }" },
+      optional: { 1: "{ marker: 'table', pullFromContext: true }" },
       isA: ['verb'],
-      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
-      semantic: ({context, api}) => {
+      bridge: "{ ...next(operator), table: after[0], field: after[1], postModifiers: ['field'] }",
+      semantic: async ({context, e, api, values}) => {
         const currentReport= api.current()
+        const defaultTable = (await e(context.table)).evalue
         const fields = helpers.propertyToArray(context.field.field)
-        report.addSort(currentReport.dataSpec, fields)
+        if (defaultTable) {
+          const paths = []
+          for (const table of values(defaultTable.value)) {
+            debugger
+            if (!paths.find( (path) => _.isEqual(path, table.field))) {
+              paths.push(table.field)
+            }
+          }
+          for (const path of paths) {
+            const dataSpec = data.getValue(currentReport.dataSpec, path)
+            report.addSort(dataSpec, fields)
+          }
+        } else {
+          report.addSort(currentReport.dataSpec, fields)
+        }
         api.show(currentReport)
       }
     },
@@ -804,7 +821,7 @@ let configStruct = {
     },
 
     { id: 'showColumn',
-      optional: { columnAddedTo: "{ marker: 'undefined' }" },
+      optional: { 2: "{ marker: 'undefined' }" },
       bridge: "{ ...next(operator), show: after[0], to: after[1] }",
       parents: ['verb'],
       generatorp: async ({context, g}) => {

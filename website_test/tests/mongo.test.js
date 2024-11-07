@@ -73,7 +73,7 @@ describe('tests for the mongo page', () => {
   }, timeout);
 
   // TODO check the header once that is fixed up
-  const checkTable = async (page, tableNumber, dataDb, propertiesOrTestFn) => {
+  const checkTable = async (page, tableNumber, dataDb, propertiesOrTestFn, { sort={} } = {}) => {
     const selector = `.table_${tableNumber} tbody tr`
     await page.waitForSelector(selector)
     const data = await page.evaluate((tableNumber, selector) => {
@@ -108,6 +108,35 @@ describe('tests for the mongo page', () => {
     }, tableNumber, selector);
 
     console.log('dataDb.length', JSON.stringify(dataDb.length, null, 2))
+    const getKeyValue = (data) => {
+      const keyValue = []
+      for (const key of Object.keys(sort)) {
+        keyValue[key] = data[key]
+      }
+      return keyValue
+    }
+
+    const compareOkKey = (key1, key2) => {
+      if (!key1 || !key2) {
+        return true
+      }
+      for (const key of Object.keys(sort)) {
+        if (sort[key] == 1) {
+          console.log(`greg23 > ${key1[key]} ${key2[key]}`)
+          if (key1[key] > key2[key]) {
+            return false
+          }
+        } else {
+          console.log(`greg23 < ${key1[key]} ${key2[key]}`)
+          if (key1[key] < key2[key]) {
+            return false
+          }
+        }
+      }
+      return true
+    }
+
+    let lastKeyValue = undefined
     for (let i = 0; i < LIMIT; ++i) {
       if (typeof propertiesOrTestFn == 'function') {
         const testFn = propertiesOrTestFn
@@ -151,6 +180,10 @@ describe('tests for the mongo page', () => {
         })
         console.log('found -------------------', JSON.stringify(found, null, 2))
         expect(!!found).not.toBe(false)
+        const newKeyValue = getKeyValue(found)
+        console.log(`greg23 newKeyValue: ${JSON.stringify(newKeyValue)} lastKeyValue: ${JSON.stringify(lastKeyValue)}`)
+        expect(compareOkKey(lastKeyValue, newKeyValue)).toBe(true)
+        lastKeyValue = newKeyValue
       }
     }
   }
@@ -295,7 +328,7 @@ describe('tests for the mongo page', () => {
       await query('show all the fields')
       await query('sort by name ascending')
       const users = await getData(client, 'sample_mflix', 'users', { sort: { name: 1 } })
-      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'])
+      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'], { sort: { name: 1 } })
     }, timeout);
 
     test(`MONGO show the users + show all the fields + sort by name descending`, async () => {
@@ -303,7 +336,7 @@ describe('tests for the mongo page', () => {
       await query('show all the fields')
       await query('sort by email descending')
       const users = await getData(client, 'sample_mflix', 'users', { sort: { email: -1 } })
-      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'])
+      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'], { sort: { email: -1 } })
     }, timeout);
 
     test(`MONGO show the movies + group by genres`, async () => {
@@ -504,7 +537,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 4, users, ['name', 'email'])
     }, timeout);
 
-    test(`NEO23 MONGO show the users + show the movies + show the users show the email to the first and third table`, async () => {
+    test(`MONGO show the users + show the movies + show the users show the email to the first and third table`, async () => {
       await query('show the users')
       await query('show the movies')
       await query('show the users')
@@ -512,6 +545,14 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 2, users, ['name', 'email'])
       await checkTable(page, 3, movies, ['title'])
       await checkTable(page, 4, users, ['name', 'email'])
+    }, timeout);
+    
+    test(`MONGO show the movies + show the movies + sort the second table by title`, async () => {
+      await query('show the movies')
+      await query('show the movies')
+      await query('sort the second table by title')
+      await checkTable(page, 2, movies, ['title'])
+      await checkTable(page, 3, movies, ['title'], { sort: { name: 1 } })
     }, timeout);
   })
 });
