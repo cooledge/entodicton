@@ -2105,14 +2105,8 @@
       ],
       "template": [],
       "includes": [
-        "math",
-        "countable",
-        "comparable",
-        "hierarchy",
-        "numbers",
-        "properties",
-        "concept",
         "dialogues",
+        "ordinals",
         "asking",
         "negation",
         "stm",
@@ -2124,6 +2118,7 @@
         "pos",
         "punctuation",
         "gdefaults",
+        "numbers",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
