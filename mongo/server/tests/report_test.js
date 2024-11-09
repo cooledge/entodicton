@@ -1,4 +1,5 @@
 const report = require('../report')
+const { getAPI } = require('./test_helpers')
 
 const bsonSales = [
   {
@@ -65,6 +66,7 @@ describe('Reports Tests', () => {
   it('graph', async () => {
     const imageSpec = {
                 type: "bar",
+                id: 'graph1',
                 options: {
                   chart: {
                     id: 'apexchart-example'
@@ -81,7 +83,6 @@ describe('Reports Tests', () => {
 
     const expected = {
       id: 'graph1',
-      idCounter: 1,
       "type": "bar",
       "options": {
         "chart": {
@@ -103,8 +104,8 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
-  it('NEOS23 first addReport with graph', async () => {
-    const report = { dataSpec: {}, imageSpec: {} }
+  it('first addReport with graph', async () => {
+    const testReport = { dataSpec: {}, imageSpec: {} }
 
     const gImageSpec = {
                 type: "bar",
@@ -129,7 +130,6 @@ describe('Reports Tests', () => {
       data: {
         "type": "bar",
         field: [0],
-        id: 'graph2',
         "options": {
           "chart": {
             "id": "apexchart-example"
@@ -162,16 +162,16 @@ describe('Reports Tests', () => {
       }
     }
 
-
-    report.addReport(report, gReport)
+    const api = getAPI()
+    report.addReport(api, testReport, gReport)
     debugger
-    const actual = await report.query(report.dataSpec, report.imageSpec)
+    const actual = await report.query(testReport.dataSpec, testReport.imageSpec)
     console.log(JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
 
-  it('NEO23 second addReport with graph', async () => {
-    const report = { dataSpec: {}, imageSpec: {} }
+  it('second addReport with graph', async () => {
+    const testReport = { dataSpec: {}, imageSpec: {} }
 
     const gImageSpec = {
                 type: "bar",
@@ -191,26 +191,27 @@ describe('Reports Tests', () => {
     const gDataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
     const gReport = { imageSpec: gImageSpec, dataSpec: gDataSpec }
 
-    const expectedGraph = {
-      "className": "column column_0 table_1_column_0",
-      data: {
-        "type": "bar",
-        field: [0],
-        id: 'graph2',
-        "options": {
-          "chart": {
-            "id": "apexchart-example"
+    const expectedGraph = (fieldId) => { return {
+        "className": "column column_0 table_1_column_0",
+        data: {
+          "type": "bar",
+          field: [fieldId],
+          "options": {
+            "chart": {
+              "id": "apexchart-example"
+            },
+            "xaxis": { "categories": [ "1990", "1991", "1992", "1993" ] }
           },
-          "xaxis": { "categories": [ "1990", "1991", "1992", "1993" ] }
-        },
-        "series": [
-          {
-            "name": "series-1",
-            "data": [ "100", "110", "120", "130" ]
-          }
-        ]
+          "series": [
+            {
+              "name": "series-1",
+              "data": [ "100", "110", "120", "130" ]
+            }
+          ]
+        }
       }
     }
+
     const expected = {
       "headers": {
         "className": "header",
@@ -222,19 +223,20 @@ describe('Reports Tests', () => {
       "rows": {
         "className": "rows",
         "data": [ 
-          [ 
-            expectedGraph
-          ]
+            [ expectedGraph(0) ],
+            [ expectedGraph(1) ],
         ]
       }
     }
 
 
-    report.addReport(report, gReport)
-    report.addReport(report, gReport)
+    const api = getAPI()
+    report.addReport(api, testReport, gReport)
+    report.addReport(api, testReport, gReport)
     debugger
-    const actual = await report.query(report.dataSpec, report.imageSpec)
-    console.log(JSON.stringify(actual, null, 2))
+    const actual = await report.query(testReport.dataSpec, testReport.imageSpec)
+    console.log('expected', JSON.stringify(expected, null, 2))
+    console.log('actual', JSON.stringify(actual, null, 2))
     expect(actual).toStrictEqual(expected)
   })
 
@@ -499,7 +501,7 @@ describe('Reports Tests', () => {
   })
 
   describe('addReport', () => {
-    it('NxEO23 add graph to a report that is just a graph', async () => {
+    it('add graph to a report that is just a graph', async () => {
       const targetReport = {
         "marker": "report",
         "dataSpec": {
@@ -616,7 +618,8 @@ describe('Reports Tests', () => {
       }
 
       const originalTargetReport = {...targetReport}
-      report.addReport(targetReport, addedReport)
+      const api = getAPI()
+      report.addReport(api, targetReport, addedReport)
 
       console.log("targetReport.dataSpec", JSON.stringify(targetReport.dataSpec, null, 2))
       expect(targetReport.dataSpec[0]).toStrictEqual(originalTargetReport.dataSpec)

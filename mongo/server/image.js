@@ -54,7 +54,7 @@ const instantiateValue = (path, imageSpec, rows, instantiation, options) => {
 }
 
 const instantiate = (imageSpec, bson, options = {}) => {
-  setId(imageSpec)
+  // setId(imageSpec)
   const counters = {
     tableNumber: 0
   }
@@ -78,7 +78,6 @@ const fieldToData = (bson, fieldPath) => {
 const instantiateImpl = (imageSpec, bson, options = {}) => {
   if (imageSpec.type) {
     const instantiation = _.cloneDeep(imageSpec)
-    debugger
     if (!bson) {
       return
     }
@@ -102,7 +101,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
           return value
         })
       }, 
-      className: `Table table_${tableNumber}`,
+      className: `Table ${imageSpec.id}`,
       colgroups: imageSpec.colgroups, 
       table: true 
     }
@@ -112,6 +111,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     if (imageSpec.rules) {
       instantiation.rules = imageSpec.rules
     }
+    debugger
     if (imageSpec.headers.id) {
       instantiation.headers.className += ' ' + imageSpec.headers.id
     }
@@ -120,7 +120,6 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     options = { ...options, tableNumber}
     if (imageSpec.explicit) {
       const rows = []
-      debugger // here
       const field = fieldToData(bson, imageSpec.field)
       instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiateImpl(is, field, options)) }
       return instantiation
@@ -142,10 +141,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      if (index == 1) {
-        debugger // here
-      }
-      values.push({ className: `column column_${index} table_${options.tableNumber}_column_${index}`, data: instantiateImpl(field, bson, options) })
+      values.push({ className: `column column_${index} ${imageSpec.id}_column_${index}`, data: instantiateImpl(field, bson, options) })
     }
     return values
   } else if (typeof imageSpec !== 'object' ){
@@ -180,11 +176,15 @@ const count = (imageSpec) => {
 }
 
 const selector = (imageSpec, reportElements) => {
-  return '.header'
+  if (imageSpec.id) {
+    return `.${imageSpec.id} .header`
+  } else {
+    return '.header'
+  }
 }
 
 const countSelected = (imageSpec, reportElements) => {
-  setId(imageSpec)
+  // setId(imageSpec)
   const ids = new Set(reportElements.map((re) => re.marker))
   let count = 0
   const options = {
@@ -196,23 +196,6 @@ const countSelected = (imageSpec, reportElements) => {
   }
   traverseImpl(imageSpec, options)
   return count
-}
-
-// ids are stable once set
-const setId = (imageSpec) => {
-  if (!imageSpec.idCounter) {
-    imageSpec.idCounter = 0
-  }
-  const options = {
-    seen: (what, value) => {
-      if (['header', 'table', 'graph'].includes(what)) {
-        if (!value.id) {
-          value.id = `${what}${imageSpec.idCounter += 1}`
-        }
-      }
-    }
-  }
-  traverseImpl(imageSpec, options)
 }
 
 const addColumns = (imageSpec, field, columns) => {
@@ -238,7 +221,7 @@ const addColumns = (imageSpec, field, columns) => {
 }
 
 const selecting = (selectingWhat, imageSpec) => {
-  setId(imageSpec)
+  // setId(imageSpec)
   const counts = count(imageSpec)
   console.log('counts', JSON.stringify(counts))
   const options = {
@@ -308,7 +291,6 @@ const getProperties = (imageSpec) => {
   const options = {
     seen: (what, value) => {
       if (['table'].includes(what)) {
-        debugger
         for (const field of value.rows) {
           if (typeof field == 'string') {
             properties.push(field.slice(1))
@@ -383,7 +365,7 @@ const getImageSpecs = (imageSpec, dataSpecPath) => {
 module.exports = {
   instantiate,
   count,
-  setId,
+  // setId,
   selecting,
   selector,
   countSelected,

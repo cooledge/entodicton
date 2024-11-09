@@ -544,6 +544,8 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
           },
           "namedReports": {
@@ -2160,6 +2162,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
           },
@@ -3784,6 +3788,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "report": {
@@ -5530,6 +5536,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -5572,6 +5581,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -5590,6 +5600,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -5652,6 +5663,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -5670,6 +5682,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -5726,6 +5739,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -5744,6 +5758,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -6467,6 +6482,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -6485,6 +6501,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -7625,6 +7642,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 3
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -7755,6 +7775,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -7773,6 +7794,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -7796,6 +7818,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -7946,6 +7969,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -7964,6 +7988,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -7987,6 +8012,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -8131,6 +8157,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -8149,6 +8176,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -8172,6 +8200,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -8983,6 +9012,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -9001,6 +9031,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -9024,6 +9055,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -9948,6 +9980,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "report": {
@@ -11631,6 +11665,8 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
           },
           "namedReports": {
@@ -13130,6 +13166,8 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
           },
           "namedReports": {
@@ -14192,6 +14230,15 @@
           "wantsValue": true,
           "word": "headers"
         },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
+        },
         "text": "make the headers blue",
         "topLevel": true,
         "touchedBy": [
@@ -14740,6 +14787,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "report": {
@@ -15519,6 +15568,15 @@
               "wantsValue": true,
               "word": "headers"
             },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
+            },
             "text": "make the headers blue",
             "topLevel": true,
             "touchedBy": [
@@ -15889,6 +15947,15 @@
           ],
           "wantsValue": true,
           "word": "background"
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
         },
         "text": "make the background blue",
         "topLevel": true,
@@ -16439,13 +16506,14 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
             "report": {
               "dataSpec": {
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { background-color: blue; }"
                 ]
@@ -16499,6 +16567,15 @@
                   ],
                   "wantsValue": true,
                   "word": "background"
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the background blue",
                 "topLevel": true,
@@ -16522,7 +16599,6 @@
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { background-color: blue; }"
                 ]
@@ -16576,6 +16652,15 @@
                   ],
                   "wantsValue": true,
                   "word": "background"
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the background blue",
                 "topLevel": true,
@@ -17260,7 +17345,6 @@
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { background-color: blue; }"
                 ]
@@ -17314,6 +17398,15 @@
                   ],
                   "wantsValue": true,
                   "word": "background"
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the background blue",
                 "topLevel": true,
@@ -17384,6 +17477,15 @@
               ],
               "wantsValue": true,
               "word": "background"
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
             },
             "text": "make the background blue",
             "topLevel": true,
@@ -18253,6 +18355,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
           },
@@ -19914,6 +20018,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
           },
@@ -21731,6 +21837,8 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
           },
           "namedReports": {
@@ -23441,6 +23549,8 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
           },
           "namedReports": {
@@ -25136,6 +25246,8 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
           },
           "namedReports": {
@@ -26251,6 +26363,15 @@
           "wantsValue": true,
           "word": "headers"
         },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
+        },
         "text": "make the headers blue",
         "topLevel": true,
         "touchedBy": [
@@ -26831,6 +26952,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -26872,6 +26996,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -26889,6 +27014,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -26897,7 +27023,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { color: blue; }"
+                  ".table_2 .header { color: blue; }"
                 ],
                 "table": true
               },
@@ -26953,6 +27079,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -26970,6 +27097,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -26978,7 +27106,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { color: blue; }"
+                  ".table_2 .header { color: blue; }"
                 ],
                 "table": true
               },
@@ -27028,6 +27156,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -27045,6 +27174,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -27053,7 +27183,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { color: blue; }"
+                  ".table_2 .header { color: blue; }"
                 ],
                 "table": true
               },
@@ -27770,6 +27900,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -27787,6 +27918,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -27795,7 +27927,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { color: blue; }"
+                  ".table_2 .header { color: blue; }"
                 ],
                 "table": true
               },
@@ -27863,6 +27995,15 @@
               ],
               "wantsValue": true,
               "word": "headers"
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
             },
             "text": "make the headers blue",
             "topLevel": true,
@@ -28235,6 +28376,15 @@
           ],
           "wantsValue": true,
           "word": "header"
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
         },
         "text": "make the header uppercase",
         "topLevel": true,
@@ -28785,13 +28935,14 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
             "report": {
               "dataSpec": {
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { text-transform: uppercase; }"
                 ]
@@ -28845,6 +28996,15 @@
                   ],
                   "wantsValue": true,
                   "word": "header"
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the header uppercase",
                 "topLevel": true,
@@ -28868,7 +29028,6 @@
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { text-transform: uppercase; }"
                 ]
@@ -28922,6 +29081,15 @@
                   ],
                   "wantsValue": true,
                   "word": "header"
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the header uppercase",
                 "topLevel": true,
@@ -29606,7 +29774,6 @@
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { text-transform: uppercase; }"
                 ]
@@ -29660,6 +29827,15 @@
                   ],
                   "wantsValue": true,
                   "word": "header"
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the header uppercase",
                 "topLevel": true,
@@ -29730,6 +29906,15 @@
               ],
               "wantsValue": true,
               "word": "header"
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
             },
             "text": "make the header uppercase",
             "topLevel": true,
@@ -30159,6 +30344,15 @@
             "compoundReportElement"
           ],
           "wantsValue": true
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
         },
         "text": "make the header case upper",
         "topLevel": true,
@@ -30771,13 +30965,14 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
             "report": {
               "dataSpec": {
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { text-transform: uppercase; }"
                 ]
@@ -30861,6 +31056,15 @@
                     "compoundReportElement"
                   ],
                   "wantsValue": true
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the header case upper",
                 "topLevel": true,
@@ -30884,7 +31088,6 @@
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { text-transform: uppercase; }"
                 ]
@@ -30968,6 +31171,15 @@
                     "compoundReportElement"
                   ],
                   "wantsValue": true
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the header case upper",
                 "topLevel": true,
@@ -31652,7 +31864,6 @@
               },
               "fromSTM": true,
               "imageSpec": {
-                "idCounter": 0,
                 "rules": [
                   ".highlight { text-transform: uppercase; }"
                 ]
@@ -31736,6 +31947,15 @@
                     "compoundReportElement"
                   ],
                   "wantsValue": true
+                },
+                "table": {
+                  "marker": "table",
+                  "pullFromContext": true,
+                  "range": {
+                    "end": 3,
+                    "start": 0
+                  },
+                  "text": "make"
                 },
                 "text": "make the header case upper",
                 "topLevel": true,
@@ -31836,6 +32056,15 @@
                 "compoundReportElement"
               ],
               "wantsValue": true
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
             },
             "text": "make the header case upper",
             "topLevel": true,
@@ -32310,6 +32539,15 @@
             "compoundReportElement"
           ],
           "wantsValue": true
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
         },
         "text": "make the header cases upper",
         "topLevel": true,
@@ -32974,6 +33212,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -33015,6 +33256,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -33032,6 +33274,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -33040,7 +33283,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -33096,6 +33339,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -33113,6 +33357,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -33121,7 +33366,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -33171,6 +33416,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -33188,6 +33434,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -33196,7 +33443,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -33913,6 +34160,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -33930,6 +34178,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -33938,7 +34187,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -34036,6 +34285,15 @@
                 "compoundReportElement"
               ],
               "wantsValue": true
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
             },
             "text": "make the header cases upper",
             "topLevel": true,
@@ -34509,6 +34767,15 @@
             "compoundReportElement"
           ],
           "wantsValue": true
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
         },
         "text": "make the header cases lower",
         "topLevel": true,
@@ -35173,6 +35440,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -35214,6 +35484,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -35231,6 +35502,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -35239,7 +35511,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: lowercase; }"
+                  ".table_2 .header { text-transform: lowercase; }"
                 ],
                 "table": true
               },
@@ -35295,6 +35567,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -35312,6 +35585,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -35320,7 +35594,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: lowercase; }"
+                  ".table_2 .header { text-transform: lowercase; }"
                 ],
                 "table": true
               },
@@ -35370,6 +35644,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -35387,6 +35662,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -35395,7 +35671,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: lowercase; }"
+                  ".table_2 .header { text-transform: lowercase; }"
                 ],
                 "table": true
               },
@@ -36112,6 +36388,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -36129,6 +36406,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -36137,7 +36415,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: lowercase; }"
+                  ".table_2 .header { text-transform: lowercase; }"
                 ],
                 "table": true
               },
@@ -36235,6 +36513,15 @@
                 "compoundReportElement"
               ],
               "wantsValue": true
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
             },
             "text": "make the header cases lower",
             "topLevel": true,
@@ -36660,6 +36947,15 @@
           ],
           "wantsValue": true,
           "word": "header"
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "make"
         },
         "text": "make the header uppercase",
         "topLevel": true,
@@ -37262,6 +37558,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -37303,8 +37602,7 @@
                   "columns": [
                   ]
                 },
-                "id": "table1",
-                "idCounter": 3,
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -37320,10 +37618,9 @@
                             "id": "name",
                             "text": "the users"
                           }
-                        ],
-                        "id": "header3"
+                        ]
                       },
-                      "id": "table2",
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -37332,7 +37629,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -37388,8 +37685,7 @@
                   "columns": [
                   ]
                 },
-                "id": "table1",
-                "idCounter": 3,
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -37405,10 +37701,9 @@
                             "id": "name",
                             "text": "the users"
                           }
-                        ],
-                        "id": "header3"
+                        ]
                       },
-                      "id": "table2",
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -37417,7 +37712,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -37467,8 +37762,7 @@
                   "columns": [
                   ]
                 },
-                "id": "table1",
-                "idCounter": 3,
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -37484,10 +37778,9 @@
                             "id": "name",
                             "text": "the users"
                           }
-                        ],
-                        "id": "header3"
+                        ]
                       },
-                      "id": "table2",
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -37496,7 +37789,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -38213,8 +38506,7 @@
                   "columns": [
                   ]
                 },
-                "id": "table1",
-                "idCounter": 3,
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -38230,10 +38522,9 @@
                             "id": "name",
                             "text": "the users"
                           }
-                        ],
-                        "id": "header3"
+                        ]
                       },
-                      "id": "table2",
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -38242,7 +38533,7 @@
                   ]
                 ],
                 "rules": [
-                  ".header { text-transform: uppercase; }"
+                  ".table_2 .header { text-transform: uppercase; }"
                 ],
                 "table": true
               },
@@ -38310,6 +38601,15 @@
               ],
               "wantsValue": true,
               "word": "header"
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "make"
             },
             "text": "make the header uppercase",
             "topLevel": true,
@@ -39335,6 +39635,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -39376,6 +39679,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -39393,6 +39697,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -39457,6 +39762,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -39474,6 +39780,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -40199,6 +40506,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -40216,6 +40524,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -41324,6 +41633,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -41365,6 +41677,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -41382,6 +41695,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -41446,6 +41760,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -41463,6 +41778,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -41521,6 +41837,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -41538,6 +41855,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -42263,6 +42581,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -42280,6 +42599,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -43158,6 +43478,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
           },
@@ -44922,6 +45244,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -44963,6 +45288,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -44980,6 +45306,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -45044,6 +45371,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -45061,6 +45389,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -45786,6 +46115,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -45803,6 +46133,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -46251,6 +46582,15 @@
         "range": {
           "end": 12,
           "start": 0
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "sort"
         },
         "text": "sort by email",
         "topLevel": true,
@@ -46775,6 +47115,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "report": {
@@ -47561,6 +47903,15 @@
               "end": 12,
               "start": 0
             },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "sort"
+            },
             "text": "sort by email",
             "topLevel": true,
             "touchedBy": [
@@ -47970,6 +48321,15 @@
         "range": {
           "end": 23,
           "start": 0
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "sort"
         },
         "text": "sort by email descending",
         "topLevel": true,
@@ -48548,6 +48908,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "report": {
@@ -49354,6 +49716,15 @@
               "end": 23,
               "start": 0
             },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "sort"
+            },
             "text": "sort by email descending",
             "topLevel": true,
             "touchedBy": [
@@ -49763,6 +50134,15 @@
         "range": {
           "end": 22,
           "start": 0
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "sort"
         },
         "text": "sort by email ascending",
         "topLevel": true,
@@ -50341,6 +50721,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "report": {
@@ -51146,6 +51528,15 @@
             "range": {
               "end": 22,
               "start": 0
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "sort"
             },
             "text": "sort by email ascending",
             "topLevel": true,
@@ -52323,6 +52714,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -52364,6 +52758,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -52381,6 +52776,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -52445,6 +52841,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -52462,6 +52859,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -52520,6 +52918,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -52537,6 +52936,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -53262,6 +53662,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -53279,6 +53680,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -54327,6 +54729,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -54369,6 +54774,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -54391,6 +54797,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name",
                         "$email"
@@ -54454,6 +54861,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -54476,6 +54884,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name",
                         "$email"
@@ -54533,6 +54942,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -54555,6 +54965,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name",
                         "$email"
@@ -55279,6 +55690,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -55301,6 +55713,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name",
                         "$email"
@@ -55883,6 +56296,15 @@
         "range": {
           "end": 42,
           "start": 0
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "sort"
         },
         "text": "sort by email ascending and year descending",
         "topLevel": true,
@@ -56605,6 +57027,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "report": {
@@ -57471,6 +57895,15 @@
             "range": {
               "end": 42,
               "start": 0
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "sort"
             },
             "text": "sort by email ascending and year descending",
             "topLevel": true,
@@ -58489,6 +58922,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -58533,6 +58969,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -58565,6 +59002,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$_id",
                         "$email",
@@ -58632,6 +59070,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -58664,6 +59103,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$_id",
                         "$email",
@@ -58725,6 +59165,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -58757,6 +59198,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$_id",
                         "$email",
@@ -59485,6 +59927,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -59517,6 +59960,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$_id",
                         "$email",
@@ -60043,6 +60487,15 @@
         "range": {
           "end": 21,
           "start": 0
+        },
+        "table": {
+          "marker": "table",
+          "pullFromContext": true,
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "sort"
         },
         "text": "sort by name ascending",
         "topLevel": true,
@@ -60653,6 +61106,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -60697,6 +61153,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -60714,6 +61171,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -60778,6 +61236,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -60795,6 +61254,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -60853,6 +61313,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -60870,6 +61331,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -61595,6 +62057,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -61612,6 +62075,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -61706,6 +62170,15 @@
             "range": {
               "end": 21,
               "start": 0
+            },
+            "table": {
+              "marker": "table",
+              "pullFromContext": true,
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "sort"
             },
             "text": "sort by name ascending",
             "topLevel": true,
@@ -62620,6 +63093,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "chooseFields": {
@@ -64498,6 +64973,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -64631,6 +65109,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -64651,6 +65130,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -64668,6 +65148,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -64824,6 +65305,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -64844,6 +65326,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -64861,6 +65344,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -65011,6 +65495,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -65031,6 +65516,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -65048,6 +65534,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -65865,6 +66352,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -65885,6 +66373,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -65902,6 +66391,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -67026,6 +67516,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -67159,6 +67652,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -67179,6 +67673,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -67196,6 +67691,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -67352,6 +67848,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -67372,6 +67869,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -67389,6 +67887,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -67539,6 +68038,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -67559,6 +68059,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -67576,6 +68077,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -68393,6 +68895,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -68413,6 +68916,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$genres",
                         {
@@ -68430,6 +68934,7 @@
                               }
                             ]
                           },
+                          "id": "table_1",
                           "rows": [
                             "$title"
                           ],
@@ -69398,6 +69903,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
           },
@@ -71079,6 +71586,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
           },
@@ -72927,6 +73436,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -73038,6 +73550,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -73055,6 +73568,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -73186,6 +73700,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -73203,6 +73718,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -73328,6 +73844,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -73345,6 +73862,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -74137,6 +74655,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -74154,6 +74673,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -75488,6 +76008,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -75607,6 +76130,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -75624,6 +76148,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -75763,6 +76288,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -75780,6 +76306,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -75913,6 +76440,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -75930,6 +76458,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -76730,6 +77259,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -76747,6 +77277,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -77672,6 +78203,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
             "clear": true
@@ -79325,6 +79858,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "chooseFields": {
               "choices": [
@@ -79513,6 +80049,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -79530,6 +80067,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -79692,6 +80230,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -79709,6 +80248,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -80532,6 +81072,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -80549,6 +81090,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -81527,6 +82069,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 1
+          },
           "lastResponse": {
             "report": {
               "dataSpec": {
@@ -81660,6 +82205,7 @@
                     }
                   ]
                 },
+                "id": "table_1",
                 "rows": [
                   "$genres"
                 ],
@@ -81805,6 +82351,7 @@
                     }
                   ]
                 },
+                "id": "table_1",
                 "rows": [
                   "$genres"
                 ],
@@ -83589,6 +84136,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -83742,6 +84292,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -83937,6 +84488,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -84793,6 +85345,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -86244,6 +86797,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -86407,6 +86963,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -86618,6 +87175,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -87490,6 +88048,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -89010,6 +89569,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": {
@@ -89114,6 +89676,7 @@
                     }
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   "$year"
                 ],
@@ -89259,6 +89822,7 @@
                     }
                   ]
                 },
+                "id": "table_1",
                 "rows": [
                   "$genres"
                 ],
@@ -89369,6 +89933,7 @@
                     }
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   "$year"
                 ],
@@ -91124,6 +91689,8 @@
               }
             ]
           },
+          "idToCounter": {
+          },
           "lastResponse": {
           },
           "namedReports": {
@@ -92271,6 +92838,7 @@
                 "columns": [
                 ]
               },
+              "id": "table_2",
               "rows": [
                 [
                   {
@@ -92288,6 +92856,7 @@
                         }
                       ]
                     },
+                    "id": "table_1",
                     "rows": [
                       "$name"
                     ],
@@ -92322,6 +92891,7 @@
                     }
                   ]
                 },
+                "id": "table_1",
                 "rows": [
                   "$name"
                 ],
@@ -92381,7 +92951,7 @@
     ],
     "generatedParenthesized": [
       "",
-      "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
+      "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
     ],
     "metadata": {
       "opChoices": [
@@ -92980,6 +93550,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -93021,6 +93594,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -93038,6 +93612,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -93099,6 +93674,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -93116,6 +93692,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -93838,6 +94415,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -93855,6 +94433,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -93936,6 +94515,7 @@
                     "columns": [
                     ]
                   },
+                  "id": "table_2",
                   "rows": [
                     [
                       {
@@ -93953,6 +94533,7 @@
                             }
                           ]
                         },
+                        "id": "table_1",
                         "rows": [
                           "$name"
                         ],
@@ -93987,6 +94568,7 @@
                         }
                       ]
                     },
+                    "id": "table_1",
                     "rows": [
                       "$name"
                     ],
@@ -94043,11 +94625,11 @@
             },
             "word": "evaluate"
           },
-          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
+          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
           "paraphrases": "evaluate the first table",
           "paraphrasesParenthesized": "(((evaluate) (the (first) (table))))",
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
           ]
         },
         {
@@ -94317,7 +94899,7 @@
     "query": "show users\\n evaluate the first table",
     "responses": [
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
     ]
   },
   {
@@ -94585,6 +95167,7 @@
                 "columns": [
                 ]
               },
+              "id": "table_2",
               "rows": [
                 [
                   {
@@ -94602,6 +95185,7 @@
                         }
                       ]
                     },
+                    "id": "table_1",
                     "rows": [
                       "$name"
                     ],
@@ -94624,6 +95208,7 @@
                         }
                       ]
                     },
+                    "id": "table_3",
                     "rows": [
                       "$title"
                     ],
@@ -94658,6 +95243,7 @@
                     }
                   ]
                 },
+                "id": "table_3",
                 "rows": [
                   "$title"
                 ],
@@ -94718,7 +95304,7 @@
     "generatedParenthesized": [
       "",
       "",
-      "((((({\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
+      "((((({\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
     ],
     "metadata": {
       "opChoices": [
@@ -95347,6 +95933,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 3
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -95476,6 +96065,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -95493,6 +96083,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -95515,6 +96106,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -95664,6 +96256,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -95681,6 +96274,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -95703,6 +96297,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -95846,6 +96441,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -95863,6 +96459,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -95885,6 +96482,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -96695,6 +97293,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -96712,6 +97311,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -96734,6 +97334,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -96903,6 +97504,7 @@
                     "columns": [
                     ]
                   },
+                  "id": "table_2",
                   "rows": [
                     [
                       {
@@ -96920,6 +97522,7 @@
                             }
                           ]
                         },
+                        "id": "table_1",
                         "rows": [
                           "$name"
                         ],
@@ -96942,6 +97545,7 @@
                             }
                           ]
                         },
+                        "id": "table_3",
                         "rows": [
                           "$title"
                         ],
@@ -96976,6 +97580,7 @@
                         }
                       ]
                     },
+                    "id": "table_3",
                     "rows": [
                       "$title"
                     ],
@@ -97032,11 +97637,11 @@
             },
             "word": "evaluate"
           },
-          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
+          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
           "paraphrases": "evaluate the second table",
           "paraphrasesParenthesized": "(((evaluate) (the (second) (table))))",
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+            "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
           ]
         },
         {
@@ -97297,7 +97902,7 @@
     "responses": [
       "",
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+      "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"field\":[1],\"rows\":[\"$title\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
     ]
   },
   {
@@ -97565,6 +98170,7 @@
                 "columns": [
                 ]
               },
+              "id": "table_2",
               "rows": [
                 [
                   {
@@ -97582,6 +98188,7 @@
                         }
                       ]
                     },
+                    "id": "table_1",
                     "rows": [
                       "$name"
                     ],
@@ -97604,6 +98211,7 @@
                         }
                       ]
                     },
+                    "id": "table_3",
                     "rows": [
                       "$title"
                     ],
@@ -97638,6 +98246,7 @@
                     }
                   ]
                 },
+                "id": "table_1",
                 "rows": [
                   "$name"
                 ],
@@ -97698,7 +98307,7 @@
     "generatedParenthesized": [
       "",
       "",
-      "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
+      "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
     ],
     "metadata": {
       "opChoices": [
@@ -98327,6 +98936,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 3
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -98456,6 +99068,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -98473,6 +99086,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -98495,6 +99109,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -98644,6 +99259,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -98661,6 +99277,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -98683,6 +99300,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -98826,6 +99444,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -98843,6 +99462,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -98865,6 +99485,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -99675,6 +100296,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -99692,6 +100314,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -99714,6 +100337,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -99883,6 +100507,7 @@
                     "columns": [
                     ]
                   },
+                  "id": "table_2",
                   "rows": [
                     [
                       {
@@ -99900,6 +100525,7 @@
                             }
                           ]
                         },
+                        "id": "table_1",
                         "rows": [
                           "$name"
                         ],
@@ -99922,6 +100548,7 @@
                             }
                           ]
                         },
+                        "id": "table_3",
                         "rows": [
                           "$title"
                         ],
@@ -99956,6 +100583,7 @@
                         }
                       ]
                     },
+                    "id": "table_1",
                     "rows": [
                       "$name"
                     ],
@@ -100012,11 +100640,11 @@
             },
             "word": "evaluate"
           },
-          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
+          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
           "paraphrases": "evaluate the first table",
           "paraphrasesParenthesized": "(((evaluate) (the (first) (table))))",
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
           ]
         },
         {
@@ -100277,7 +100905,7 @@
     "responses": [
       "",
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
     ]
   },
   {
@@ -101034,6 +101662,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -101075,6 +101706,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -101092,6 +101724,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -101153,6 +101786,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -101170,6 +101804,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -101892,6 +102527,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -101909,6 +102545,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -103259,6 +103896,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 3
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -103389,6 +104029,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -103406,6 +104047,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -103433,6 +104075,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title",
                         "$genres"
@@ -103584,6 +104227,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -103601,6 +104245,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -103628,6 +104273,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title",
                         "$genres"
@@ -103773,6 +104419,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -103790,6 +104437,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -103817,6 +104465,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title",
                         "$genres"
@@ -103962,6 +104611,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -103979,6 +104629,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -104006,6 +104657,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title",
                         "$genres"
@@ -104818,6 +105470,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -104835,6 +105488,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -104862,6 +105516,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title",
                         "$genres"
@@ -105952,6 +106607,8 @@
                 "database": "sample_mflix"
               }
             ]
+          },
+          "idToCounter": {
           },
           "lastResponse": {
           },
@@ -107736,6 +108393,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 2
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -107777,6 +108437,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -107794,6 +108455,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -107824,6 +108486,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -107883,6 +108546,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -107900,6 +108564,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -107930,6 +108595,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -108650,6 +109316,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -108667,6 +109334,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -108697,6 +109365,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -109460,6 +110129,7 @@
                 "columns": [
                 ]
               },
+              "id": "table_2",
               "rows": [
                 [
                   {
@@ -109477,6 +110147,7 @@
                         }
                       ]
                     },
+                    "id": "table_1",
                     "rows": [
                       "$name"
                     ],
@@ -109499,6 +110170,7 @@
                         }
                       ]
                     },
+                    "id": "table_3",
                     "rows": [
                       "$title"
                     ],
@@ -109521,6 +110193,7 @@
                         }
                       ]
                     },
+                    "id": "table_4",
                     "rows": [
                       "$name"
                     ],
@@ -109555,6 +110228,7 @@
                     }
                   ]
                 },
+                "id": "table_1",
                 "rows": [
                   "$name"
                 ],
@@ -109575,6 +110249,7 @@
                     }
                   ]
                 },
+                "id": "table_4",
                 "rows": [
                   "$name"
                 ],
@@ -109666,7 +110341,7 @@
       "",
       "",
       "",
-      "((((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}) and ({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
+      "((((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}) and ({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))"
     ],
     "metadata": {
       "opChoices": [
@@ -110458,6 +111133,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 4
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -110615,6 +111293,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -110632,6 +111311,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -110654,6 +111334,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -110676,6 +111357,7 @@
                           }
                         ]
                       },
+                      "id": "table_4",
                       "rows": [
                         "$name"
                       ],
@@ -110853,6 +111535,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -110870,6 +111553,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -110892,6 +111576,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -110914,6 +111599,7 @@
                           }
                         ]
                       },
+                      "id": "table_4",
                       "rows": [
                         "$name"
                       ],
@@ -111085,6 +111771,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -111102,6 +111789,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -111124,6 +111812,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -111146,6 +111835,7 @@
                           }
                         ]
                       },
+                      "id": "table_4",
                       "rows": [
                         "$name"
                       ],
@@ -111317,6 +112007,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -111334,6 +112025,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -111356,6 +112048,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -111378,6 +112071,7 @@
                           }
                         ]
                       },
+                      "id": "table_4",
                       "rows": [
                         "$name"
                       ],
@@ -112216,6 +112910,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -112233,6 +112928,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$name"
                       ],
@@ -112255,6 +112951,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -112277,6 +112974,7 @@
                           }
                         ]
                       },
+                      "id": "table_4",
                       "rows": [
                         "$name"
                       ],
@@ -112474,6 +113172,7 @@
                     "columns": [
                     ]
                   },
+                  "id": "table_2",
                   "rows": [
                     [
                       {
@@ -112491,6 +113190,7 @@
                             }
                           ]
                         },
+                        "id": "table_1",
                         "rows": [
                           "$name"
                         ],
@@ -112513,6 +113213,7 @@
                             }
                           ]
                         },
+                        "id": "table_3",
                         "rows": [
                           "$title"
                         ],
@@ -112535,6 +113236,7 @@
                             }
                           ]
                         },
+                        "id": "table_4",
                         "rows": [
                           "$name"
                         ],
@@ -112569,6 +113271,7 @@
                         }
                       ]
                     },
+                    "id": "table_1",
                     "rows": [
                       "$name"
                     ],
@@ -112589,6 +113292,7 @@
                         }
                       ]
                     },
+                    "id": "table_4",
                     "rows": [
                       "$name"
                     ],
@@ -112675,11 +113379,11 @@
             },
             "word": "evaluate"
           },
-          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}) and ({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
+          "generatedParenthesized": "((((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}) and ({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false})))))",
           "paraphrases": "evaluate the first and third table",
           "paraphrasesParenthesized": "(((evaluate) (the ((first) and (third)) (table))))",
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
           ]
         },
         {
@@ -112983,7 +113687,7 @@
       "",
       "",
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"field\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"field\":[2],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
     ]
   },
   {
@@ -113029,6 +113733,24 @@
         ],
         [
           "table",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "column",
+          0
+        ],
+        [
+          "sortBy",
+          0
+        ],
+        [
+          "sortByColumns",
           0
         ],
         [
@@ -113270,7 +113992,6 @@
         "word": "sort"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       "",
@@ -114015,6 +114736,9 @@
               }
             ]
           },
+          "idToCounter": {
+            "table": 3
+          },
           "lastResponse": {
             "report": {
               "dataSpec": [
@@ -114207,6 +114931,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -114224,6 +114949,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -114246,6 +114972,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -114458,6 +115185,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -114475,6 +115203,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -114497,6 +115226,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -114703,6 +115433,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -114720,6 +115451,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -114742,6 +115474,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -114948,6 +115681,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -114965,6 +115699,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -114987,6 +115722,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],
@@ -115860,6 +116596,7 @@
                   "columns": [
                   ]
                 },
+                "id": "table_2",
                 "rows": [
                   [
                     {
@@ -115877,6 +116614,7 @@
                           }
                         ]
                       },
+                      "id": "table_1",
                       "rows": [
                         "$title"
                       ],
@@ -115899,6 +116637,7 @@
                           }
                         ]
                       },
+                      "id": "table_3",
                       "rows": [
                         "$title"
                       ],

@@ -47,7 +47,6 @@ const updateColumnsNew = (report, chosen) => {
     properties.push(`$${column.id}`)
     fields.push(column.id)
   }
-  debugger
   const dataSpecPath = chosen.serverResponse.chooseFields.dataSpecPath
   const dataSpec = data.getValue(report.dataSpec, dataSpecPath)
   dataSpec.usedFields = fields
@@ -76,7 +75,7 @@ const updateColumnsNew = (report, chosen) => {
   */
 }
 
-const updateColumns = (report, database, collection, chosen) => {
+const updateColumns = (api, report, database, collection, chosen) => {
   report.dataSpec = {
     ...report.dataSpec,
     dbName: database,
@@ -109,30 +108,35 @@ const updateColumns = (report, database, collection, chosen) => {
     },
     colgroups: properties.map( (e, i) => `column_${i}` ),
     table: true,
+    id: api.getId('table'),
     field: [],
     rows: properties
   }
 }
 
-const addReport = (toThis, addThis) => {
-  // convert addThis to compound report is necessary
+const addReport = (api, toThis, addThis) => {
+  // convert addThis to compound report if necessary
   if (!Array.isArray(toThis.dataSpec)) {
     let wasEmpty = true
+    let imageSpec
     if (!toThis.dataSpec.dbName) {
       toThis.dataSpec = []
     } else {
       toThis.dataSpec = [toThis.dataSpec]
       wasEmpty = false
+      imageSpec = toThis.imageSpec
     }
     toThis.imageSpec = {
-      "headers": { "columns": [] },
-      "table": true,
-      "explicit": true,
-      "field": [],
+      headers: { "columns": [] },
+      table: true,
+      id: api.getId('table'),
+      explicit: true,
+      field: [],
     }
     if (wasEmpty) {
       toThis.imageSpec.rows = []
     } else {
+      toThis.imageSpec.rows = [imageSpec]
       // toThis.imageSpec.rows = toThis.imageSpec.rows.map((row) => row.map((is) => is.field = [0]))
     }
   }

@@ -1,4 +1,5 @@
 const image = require('../image')
+const { getAPI } = require('./test_helpers')
 
 const bson = [
   {
@@ -122,6 +123,7 @@ describe('Reports Tests', () => {
       headers: {
         columns: [{ text: 'name' }, { text: 'age' }, { text: 'favorite colors' }]
       },
+      id: 'header2',
       colgroups: ['c1', 'c2', 'c3'],
       table: true,
       field: [],
@@ -130,7 +132,7 @@ describe('Reports Tests', () => {
 
     const expected = {
         "headers": {
-          "className": "header header2",
+          "className": "header",
           "data": [
             {
               "className": "",
@@ -458,6 +460,7 @@ describe('Reports Tests', () => {
   it('nested graph table', async () => {
     const imageSpec = {
                 type: "bar",
+                id: 'graph1', 
                 options: {
                   chart: {
                     id: 'apexchart-example'
@@ -473,7 +476,6 @@ describe('Reports Tests', () => {
               }
 
     const expected = {
-      idCounter: 1,
       id: 'graph1',
       "type": "bar",
       "options": {
@@ -519,7 +521,7 @@ describe('Reports Tests', () => {
         ordering: "ascending",
       }
 
-      image.addGroup(imageSpec, [field])
+      image.addGroup([], imageSpec, [field])
 
       const expected = {
         headers: {
@@ -667,13 +669,14 @@ describe('Reports Tests', () => {
     })
   })
 
-  it('grouped by genre', async () => {
+  it('NEO23 grouped by genre', async () => {
     const imageSpec = {
       headers: {
         columns: [{ text: 'genre' }, { text: 'film' }]
       },
       colgroups: ['c1', 'c2'],
       table: true,
+      id: 'header4',
       field: [],
       rows: [
               '$genre', 
@@ -687,8 +690,7 @@ describe('Reports Tests', () => {
             ],
     }
 
-    const expected = 
-          {
+    const expected = {
         "headers": {
           "className": "header header2",
           "data": [

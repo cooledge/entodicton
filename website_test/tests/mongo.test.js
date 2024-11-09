@@ -211,6 +211,7 @@ describe('tests for the mongo page', () => {
 
     const hasRule = async (rule) => {
       return await page.evaluate((rule) => {
+        debugger
         const sheet = document.styleSheets[0];
         for (const cssRule of sheet.cssRules) {
           const cssText = cssRule.cssText.replace(/(\r\n|\n|\r)/gm, "");
@@ -248,19 +249,19 @@ describe('tests for the mongo page', () => {
     test(`MONGO show users\nmake the header blue`, async () => {
       await query('show users')
       await query('make the header blue')
-      expect(await hasRule(".header { color: blue; }")).toBe(true)
+      expect(await hasRule(".table_2 .header { color: blue; }")).toBe(true)
     }, timeout);
 
     test(`MONGO show users\nmake the header uppercase`, async () => {
       await query('show users')
       await query('make the header uppercase')
-      expect(await hasRule(".header { text-transform: uppercase; }")).toBe(true)
+      expect(await hasRule(".table_2 .header { text-transform: uppercase; }")).toBe(true)
     }, timeout);
 
     test(`MONGO show users\nmake the header background blue`, async () => {
       await query('show users')
       await query('make the header background blue')
-      expect(await hasRule(".header { background-color: blue; }")).toBe(true)
+      expect(await hasRule(".table_2 .header { background-color: blue; }")).toBe(true)
     }, timeout);
 
     test(`MONGO show users collection select name + email and press select`, async () => {
@@ -553,6 +554,17 @@ describe('tests for the mongo page', () => {
       await query('sort the second table by title')
       await checkTable(page, 2, movies, ['title'])
       await checkTable(page, 3, movies, ['title'], { sort: { name: 1 } })
+    }, timeout);
+
+    test(`NEO23 MONGO show the movies + show the movies + sort the second table by title`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('make the header of the second table blue')
+      await checkTable(page, 2, users, ['name'])
+      await checkTable(page, 3, movies, ['title'])
+      expect(await hasRule(".header { color: blue; }")).toBeFalsy()
+      expect(await hasRule(".table_2 .header { color: blue; }")).toBeFalsy()
+      expect(await hasRule(".table_3 .header { color: blue; }")).toBeTruthy()
     }, timeout);
   })
 });

@@ -127,6 +127,14 @@ class API {
     this.objects.select = []
     this.objects.lastResponse = {}
     this.objects.namedReports = {}
+    this.objects.idToCounter = {}
+  }
+        
+  getId(tag) {
+    if (!this.objects.idToCounter[tag]) {
+      this.objects.idToCounter[tag] = 0
+    }
+    return `${tag}_${this.objects.idToCounter[tag] += 1}`
   }
 
   current() {
@@ -239,6 +247,7 @@ class API {
   clear() {
     this.newReport()
     this.addResponse({ clear: true })
+    this.objects.idToCounter = {}
   }
 
   /*
@@ -323,6 +332,7 @@ class API {
       },
       colgroups: properties.map( (e, i) => `column_${i}` ),
       table: true,
+      id: this.getId('table'),
       field: [],
       // rows: ['$name', '$age', '$fav_colors'],
       rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
@@ -383,11 +393,14 @@ let configStruct = {
     // "([changeState|make] ([reportElement]) (color_colors/*))",
     // table 1 header background blue
     "([state])",
-    "([changeState|make] ([reportElement]) (state/*))",
+    "([changeState|make] ([reportElement]) (table/*)? (state/*))",
 
     // "([collection])",
 
     "([reportElementProperty])",
+    "([reportElementContext])",
+
+    "((reportElement/*) [contextOfReportElement|of] (reportElementContext/*))",
 
     // report elements
     "((reportElement/* && !@<color_colors && !@<case) [compoundReportElement] (reportElement/* && !@<color_colors && !@<case))",
@@ -423,7 +436,28 @@ let configStruct = {
     ['color_colors', 'reportElement'],
     ['case', 'reportElement'],
   ],
+  semantics: [
+    {
+      match: ({context}) => context.frameOfReference && context.evaluate,
+      apply: ({context}) => {
+        const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })
+        context.evalue = value
+      },
+    },
+  ],
+
   bridges: [
+    // "((reportElement/*) [contextOfReportElement|of] ([reportElementContext]))",
+    {
+      id: 'reportElementContext'
+    },
+
+    {
+      id: 'contextOfReportElement',
+      isA: ['preposition'],
+      bridge: "{ ...before[0], root: before[0], of: operator, frameOfReference: after[0], generate: ['root', 'of', 'frameOfReference'] }",
+    },
+
     {
       id: 'forTable',
       isA: ['preposition'],
@@ -496,7 +530,7 @@ let configStruct = {
           api.show(subReport)
         } else {
           const currentReport = api.current()
-          report.addReport(currentReport, subReport)
+          report.addReport(api, currentReport, subReport)
           api.show(currentReport)
         }
       }
@@ -642,10 +676,11 @@ let configStruct = {
 
     { 
       id: 'changeState', 
-      bridge: "{ ...next(operator), reportElement: after[0], newState: after[1] }",
+      bridge: "{ ...next(operator), reportElement: after[0], table: after[1], newState: after[2] }",
+      optional: { 2: "{ marker: 'table', pullFromContext: true }" },
       parents: ['verb'],
       generatorp: async ({context, g}) => `make ${await g(context.reportElement)} ${await g(context.newState)}`,
-      semantic: ({context, km, api, isA}) => {
+      semantic: async ({e, values, context, km, api, isA}) => {
         const getProperty = (reportElements, state) => {
           let property;
           for (const re of reportElements) {
@@ -672,15 +707,15 @@ let configStruct = {
           }
           return property
         }
-        const report = api.current()
-        const counts = image.count(report.imageSpec)
-        console.log('report -----------------', JSON.stringify(report, null, 2))
+        const currentReport = api.current()
+        const counts = image.count(currentReport.imageSpec)
+        console.log('currentReport-----------------', JSON.stringify(currentReport, null, 2))
         console.log('counts-----------------', JSON.stringify(counts, null, 2))
         if (context.selected) {
-          image.selecting(null, report.imageSpec)
-          const reportElements = getReportElements(report.select.reportElement)
+          image.selecting(null, currentReport.imageSpec)
+          const reportElements = getReportElements(currentReport.select.reportElement)
           const property = getProperty(reportElements, context.newState)
-          report.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)
+          currentReport.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)
         } else {
           const reportElements = getReportElements(context.reportElement)
           const lastContext = reportElements.slice(-1)[0]
@@ -688,26 +723,50 @@ let configStruct = {
           const state = context.newState
           const property = getProperty(reportElements, state)
           const css = stateToCSS(isA, property, state)
-          if (isPlural || image.countSelected(report.imageSpec, reportElements) == 1) {
+
+          let tables = []
+          if (context.reportElement.frameOfReference) {
+            console.log("for", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))
+            debugger
+            const mentioned = await e(context.reportElement.frameOfReference)
+            tables = values(await mentioned.evalue.value || [])
+            console.log('tables', JSON.stringify(tables, null, 2))
+            debugger
+          }
+
+          if (tables.length > 0) {
+            for (const table of tables) {
+              const selector = image.selector(table, reportElements)
+              if (css) {
+                if (state.negated) {
+                  currentReport.removeRule(`${selector} ${css}`)
+                } else {
+                  currentReport.addRule(`${selector} ${css}`)
+                }
+              }
+            }
+          } else if (isPlural || image.countSelected(currentReport.imageSpec, reportElements) == 1) {
             // make sure the state exactely matches correct CSS because the delete "make the header not blue' needs that
-            const selector = image.selector(report.imageSpec, reportElements)
+            // const table = (await e(context.table)).evalue
+            // debugger
+            const selector = image.selector(currentReport.imageSpec, reportElements)
             if (css) {
               if (state.negated) {
-                report.removeRule(`${selector} ${css}`)
+                currentReport.removeRule(`${selector} ${css}`)
               } else {
-                report.addRule(`${selector} ${css}`)
+                currentReport.addRule(`${selector} ${css}`)
               }
             }
           } else {
-            image.selecting('header', report.imageSpec)
-            if (!report.imageSpec.rules) {
-              report.imageSpec.rules = []
+            image.selecting('header', currentReport.imageSpec)
+            if (!currentReport.imageSpec.rules) {
+              currentReport.imageSpec.rules = []
             }
-            report.imageSpec.rules.push(`.highlight ${css}`)
-            report.select = context
+            currentReport.imageSpec.rules.push(`.highlight ${css}`)
+            currentReport.select = context
           }
         }
-        api.show(report)
+        api.show(currentReport)
       },
     },
 
@@ -787,7 +846,7 @@ let configStruct = {
     { 
       id: 'table', 
       words: helpers.words('table'),
-      isA: ['orderable'],
+      isA: ['orderable', 'reportElementContext'],
       parents: ['theAble', 'reportElement'],
       evaluator: async ({context, toContext, values, api, gp, verbatim}) => {
         const currentReport = api.current()
@@ -994,7 +1053,7 @@ let configStruct = {
           const database = reportable.database
           const collection = reportable.collection
 
-          report.updateColumns(currentReport, database, collection, chosen)
+          report.updateColumns(api, currentReport, database, collection, chosen)
 
           api.show(currentReport)
         } else {
@@ -1064,7 +1123,7 @@ let configStruct = {
             } else {
               const subReport = await api.newReportSpec(dbName, collectionName, columns, properties)
               // query.addReport(currentReport, { dataSpec: subReport.dataSpec, imageSpec: subReport.imageSpec })
-              report.addReport(currentReport, subReport)
+              report.addReport(api, currentReport, subReport)
             }
           }
         }
@@ -1082,6 +1141,7 @@ let configStruct = {
               headers: { columns: [] },
               table: true,
               explicit: true,
+              id: api.getId('table'),
               field: [],
               rows: [imageSpecs]
             }
