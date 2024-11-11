@@ -203,6 +203,15 @@ describe('tests for the mongo page', () => {
       await page.close()
     })
 
+    const checkOrder = async (expectedOrder) => {
+      const data = await page.evaluate(() => {
+        const tables = Array.from(document.querySelectorAll(".Table"))
+        return tables.map( (table) => table.className)
+      })
+      const actualOrder = data.map( (cn) => cn.split(' ')[1]).filter( (cn) => expectedOrder.includes(cn))
+      expect(actualOrder).toStrictEqual(expectedOrder)
+    }
+
     const query = async (query) => { await page.type('#query', query)
       await page.click('#submit')
       await page.waitForSelector(`#queryCounter${counter+1}`)
@@ -211,7 +220,6 @@ describe('tests for the mongo page', () => {
 
     const hasRule = async (rule) => {
       return await page.evaluate((rule) => {
-        debugger
         const sheet = document.styleSheets[0];
         for (const cssRule of sheet.cssRules) {
           const cssText = cssRule.cssText.replace(/(\r\n|\n|\r)/gm, "");
@@ -228,21 +236,21 @@ describe('tests for the mongo page', () => {
       await query('show the users')
       const dataDb = users
       const property = 'name'
-      await checkTable(page, 2, users, ['name'])
+      await checkTable(page, 1, users, ['name'])
     }, timeout);
 
     test(`MONGO show the movies`, async () => {
       await query('show the movies')
       const dataDb = movies
       const property = 'title'
-      await checkTable(page, 2, movies, ['title'])
+      await checkTable(page, 1, movies, ['title'])
     }, timeout);
 
     test(`MONGO show the users and movies`, async () => {
       await query('show the users and movies')
       const dataDb = movies
       const property = 'title'
-      await checkTable(page, 2, users, ['name'])
+      await checkTable(page, 1, users, ['name'])
       await checkTable(page, 3, movies, ['title'])
     }, timeout);
     
@@ -280,15 +288,16 @@ describe('tests for the mongo page', () => {
       await page.waitForSelector(`#Item_banana`)
       await page.click('#Item_banana')
       await page.waitForSelector(`#queryCounter5`)
-      await checkTable(page, 2, users, ['name'])
+      await checkTable(page, 1, users, ['name'])
     }, timeout);
 
     test(`MONGO show users collection select name + email and show the report by name`, async () => {
       await query('show the users')
       await query('call the report banana')
+      await query('clear')
       await query('show the movies')
       await query('show banana')
-      await checkTable(page, 2, users, ['name'])
+      await checkTable(page, 1, users, ['name'])
     }, timeout);
 
     test(`MONGO show movies + add various fields`, async () => {
@@ -298,7 +307,7 @@ describe('tests for the mongo page', () => {
       await page.click('#ChooserItem_genres')
       await page.click('.ChooserButtonSelect')
       await page.waitForSelector(`#queryCounter4`)
-      await checkTable(page, 2, movies, ['title', 'genres'])
+      await checkTable(page, 1, movies, ['title', 'genres'])
     }, timeout);
 
     test(`MONGO what is 2 + 2`, async () => {
@@ -315,13 +324,13 @@ describe('tests for the mongo page', () => {
     test(`MONGO show the users + show email`, async () => {
       await query('show the users')
       await query('show email')
-      await checkTable(page, 2, users, ['name', 'email'])
+      await checkTable(page, 1, users, ['name', 'email'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields`, async () => {
       await query('show the users')
       await query('show all the fields')
-      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'])
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
     }, timeout);
 
     test(`MONGO show the users + show all the fields + sort by name ascending`, async () => {
@@ -329,7 +338,7 @@ describe('tests for the mongo page', () => {
       await query('show all the fields')
       await query('sort by name ascending')
       const users = await getData(client, 'sample_mflix', 'users', { sort: { name: 1 } })
-      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'], { sort: { name: 1 } })
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'], { sort: { name: 1 } })
     }, timeout);
 
     test(`MONGO show the users + show all the fields + sort by name descending`, async () => {
@@ -337,10 +346,10 @@ describe('tests for the mongo page', () => {
       await query('show all the fields')
       await query('sort by email descending')
       const users = await getData(client, 'sample_mflix', 'users', { sort: { email: -1 } })
-      await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'], { sort: { email: -1 } })
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'], { sort: { email: -1 } })
     }, timeout);
 
-    test(`NEO23 MONGO show the movies + group by genres`, async () => {
+    test(`MONGO show the movies + group by genres`, async () => {
       await query('show the movies')
       await query('group by genres')
       const aggregation = [
@@ -371,10 +380,9 @@ describe('tests for the mongo page', () => {
       const records = await getData(client, 'sample_mflix', 'movies', { aggregation, limit: 100000 })
       // console.log('data', JSON.stringify(movies, null, 2))
 
-      const tableNumber = 2;
+      const tableNumber = 1;
       const selector = `.table_${tableNumber} tbody tr`
       await page.waitForSelector(selector)
-      // await sleep(10000)
       const data = await page.evaluate((tableNumber, selector) => {
         const trs = Array.from(document.querySelectorAll(selector))
         const rows = []
@@ -445,7 +453,7 @@ describe('tests for the mongo page', () => {
           genres.add(genre)
         }
       }
-      await checkTable(page, 1, Array.from(genres).map( (genre) => { return { genre } } ), ['genre'])
+      await checkTable(page, 2, Array.from(genres).map( (genre) => { return { genre } } ), ['genre'])
     }, timeout);
 
     test(`MONGO graph the genre and the number of directors and movies`, async () => {
@@ -491,16 +499,18 @@ describe('tests for the mongo page', () => {
       await query('show the movies')
       await query('add genre to the second table')
       await query('add director to the first table')
-      await checkTable(page, 2, movies, ['title', 'directors'])
+      await checkTable(page, 1, movies, ['title', 'directors'])
       await checkTable(page, 3, movies, ['title', 'genres'])
+      await checkOrder(['table_1', 'table_3'])
     }, timeout);
 
     test(`MONGO show the users + show the movies + for the second table show the id`, async () => {
       await query('show the movies')
       await query('show the movies')
       await query('for the second table show the genre')
-      await checkTable(page, 2, movies, ['title'])
+      await checkTable(page, 1, movies, ['title'])
       await checkTable(page, 3, movies, ['title', 'genres'])
+      await checkOrder(['table_1', 'table_3'])
     }, timeout);
 
     test(`MONGO show the users + show the movies + show the users for the first and third table show the email`, async () => {
@@ -508,9 +518,10 @@ describe('tests for the mongo page', () => {
       await query('show the movies')
       await query('show the users')
       await query('for the first and third table show the email')
-      await checkTable(page, 2, users, ['name', 'email'])
+      await checkTable(page, 1, users, ['name', 'email'])
       await checkTable(page, 3, movies, ['title'])
       await checkTable(page, 4, users, ['name', 'email'])
+      await checkOrder(['table_1', 'table_3', 'table_4'])
     }, timeout);
 
     test(`MONGO show the users + show the movies + show the users show the email to the first and third table`, async () => {
@@ -518,28 +529,49 @@ describe('tests for the mongo page', () => {
       await query('show the movies')
       await query('show the users')
       await query('add the email to the first and third table')
-      await checkTable(page, 2, users, ['name', 'email'])
+      await checkTable(page, 1, users, ['name', 'email'])
       await checkTable(page, 3, movies, ['title'])
       await checkTable(page, 4, users, ['name', 'email'])
+      await checkOrder(['table_1', 'table_3', 'table_4'])
     }, timeout);
     
     test(`MONGO show the movies + show the movies + sort the second table by title`, async () => {
       await query('show the movies')
       await query('show the movies')
       await query('sort the second table by title')
-      await checkTable(page, 2, movies, ['title'])
+      await checkTable(page, 1, movies, ['title'])
       await checkTable(page, 3, movies, ['title'], { sort: { name: 1 } })
+      await checkOrder(['table_1', 'table_3'])
     }, timeout);
 
-    test(`MONGO show the movies + show the movies + sort the second table by title`, async () => {
+    test(`MONGO show the users + show the movies + make the header of the second table blue`, async () => {
       await query('show the users')
       await query('show the movies')
       await query('make the header of the second table blue')
-      await checkTable(page, 2, users, ['name'])
+      await checkTable(page, 1, users, ['name'])
       await checkTable(page, 3, movies, ['title'])
+      await checkOrder(['table_1', 'table_3'])
       expect(await hasRule(".header { color: blue; }")).toBeFalsy()
-      expect(await hasRule(".table_2 .header { color: blue; }")).toBeFalsy()
+      expect(await hasRule(".table_1 .header { color: blue; }")).toBeFalsy()
       expect(await hasRule(".table_3 .header { color: blue; }")).toBeTruthy()
+    }, timeout);
+
+    test(`MONGO show the users + show the movies + move the second table up`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('move the second table up')
+      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 3, movies, ['title'])
+      await checkOrder(['table_3', 'table_1'])
+    }, timeout);
+
+    test(`MONGO show the users + show the movies + move the second table down`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('move the first table down')
+      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 3, movies, ['title'])
+      await checkOrder(['table_3', 'table_1'])
     }, timeout);
   })
 });

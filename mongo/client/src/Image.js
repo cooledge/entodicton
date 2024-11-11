@@ -71,7 +71,8 @@ const fromTable = (table, options) => {
     colgroup = <colgroup>{table.colgroups.map((className) => <col key={className} className={className}></col>)}</colgroup>
   }
   console.log('headers', ReactDOMServer.renderToString(header(table.headers)))
-  return <table className={`Table table_${options.newTableNumber()}`}>
+  // return <table className={`Table table_${options.newTableNumber()}`}>
+  return <table className={table.className}>
            {colgroup}
              {header(table.headers)}
            <tbody>

@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const { getProperty } = require('./helpers')
 
 const graph = {
   type: "bar",
@@ -310,27 +311,41 @@ const getTables = (imageSpec) => {
 }
 
 const traverseImpl = (imageSpec, options = {}) => {
+  if (!options.path) {
+    options.path = []
+  }
+  traverseImplHelper(imageSpec, options)
+}
+
+const addPath = (options, morePath) => {
+  return {
+    ...options,
+    path: options.path.concat(morePath),
+  }
+}
+
+const traverseImplHelper = (imageSpec, options) => {
   if (imageSpec.type) {
     // TODO later alligator
-    options.seen('graph', imageSpec)
+    options.seen('graph', imageSpec, options)
   } else if (imageSpec.table) {
-    const stop = options.seen('table', imageSpec)
-    // rows is the values to be traverseImpld rather than traverseImpld over the rows of the data
+    const stop = options.seen('table', imageSpec, options)
+    // rows is the values to be traverseImplHelperd rather than traverseImplHelperd over the rows of the data
     if (imageSpec.headers.columns.length > 0) {
-      options.seen('header', imageSpec.headers)
+      options.seen('header', imageSpec.headers, options)
     }
     if (stop) {
       return
     }
     if (imageSpec.explicit) {
-      imageSpec.rows.map((is) => traverseImpl(is, options))
+      imageSpec.rows.map((is, index) => traverseImplHelper(is, addPath(options, ['rows', index])))
     } else {
-      traverseImpl(imageSpec.rows, options)
+      traverseImplHelper(imageSpec.rows, addPath(options, ['rows']))
     }
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      values.push({ className: `column column_${index}`, data: traverseImpl(field, options) })
+      values.push({ className: `column column_${index}`, data: traverseImplHelper(field, addPath(options, [index])) })
     }
     return values
   } else {
@@ -342,10 +357,45 @@ const traverseImpl = (imageSpec, options = {}) => {
   }
 }
 
+const find = (imageSpec, imageSpecToBeFound) => {
+  const paths = []
+  const options = {
+    seen: (what, imageSpec, options) => {
+      if (imageSpec.id == imageSpecToBeFound.id) {
+        paths.push(options.path)
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+  return paths
+}
+
+const moveElement = (array, fromIndex, toIndex) => {
+  const element = array[fromIndex];
+  array.splice(fromIndex, 1);
+  array.splice(toIndex, 0, element);
+}
+
+const moveUpOrDown = (imageSpec, imageSpecToBeMoved, distance) => {
+  const paths = find(imageSpec, imageSpecToBeMoved)
+  for (const path of paths) {
+    const where = path.lastIndexOf('rows')
+    if (where >= 0) {
+      const arrayPath = path.slice(0, where+1)
+      const arrayIndex = path[where+1]
+      const array = getProperty(imageSpec, arrayPath)
+      const newArrayIndex = Math.min(Math.max(arrayIndex + distance, 0), array.length-1)
+      moveElement(array, arrayIndex, newArrayIndex)
+      debugger
+      debugger
+    }
+  }
+}
+
 const getImageSpecs = (imageSpec, dataSpecPath) => {
   const imageSpecs = []
   const options = {
-    seen: (path, imageSpec) => {
+    seen: (what, imageSpec) => {
       if (_.isEqual(imageSpec.field, dataSpecPath)) {
         imageSpecs.push(imageSpec)
       }
@@ -368,4 +418,6 @@ module.exports = {
   traverseImpl,
   getImageSpecs,
   getTables,
+  moveUpOrDown,
+  find,
 }

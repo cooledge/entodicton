@@ -117940,5 +117940,5933 @@
       "",
       ""
     ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "move",
+          0
+        ],
+        [
+          "ordinal",
+          0
+        ],
+        [
+          "table",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "up",
+          0
+        ]
+      ],
+      [
+        [
+          "move",
+          0
+        ],
+        [
+          "table",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "up",
+          0
+        ]
+      ],
+      [
+        [
+          "move",
+          0
+        ],
+        [
+          "the",
+          0
+        ],
+        [
+          "up",
+          0
+        ]
+      ],
+      [
+        [
+          "move",
+          0
+        ],
+        [
+          "up",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 13,
+          "start": 0
+        },
+        "show": {
+          "collection": "users",
+          "concept": true,
+          "database": "sample_mflix",
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "user",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "path": [
+            "name"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 13,
+            "start": 5
+          },
+          "text": "the users",
+          "types": [
+            "user"
+          ],
+          "wantsValue": true,
+          "word": "users"
+        },
+        "text": "show the users",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 14,
+          "start": 0
+        },
+        "show": {
+          "collection": "movies",
+          "concept": true,
+          "database": "sample_mflix",
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "movie",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "path": [
+            "title"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 5
+          },
+          "text": "the movies",
+          "types": [
+            "movie"
+          ],
+          "wantsValue": true,
+          "word": "movies"
+        },
+        "text": "show the movies",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "direction": {
+          "dead": true,
+          "default": true,
+          "level": 1,
+          "marker": "up",
+          "range": {
+            "end": 23,
+            "start": 22
+          },
+          "text": "up",
+          "types": [
+            "up"
+          ],
+          "value": "up",
+          "word": "up"
+        },
+        "generate": [
+          "operator",
+          "moveable",
+          "direction"
+        ],
+        "level": 1,
+        "marker": "move",
+        "moveable": {
+          "concept": true,
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "table",
+          "modifiers": [
+            "determiner",
+            "ordinal"
+          ],
+          "number": "one",
+          "ordinal": {
+            "dead": true,
+            "instance": true,
+            "level": 1,
+            "marker": "ordinal",
+            "ordinal": true,
+            "range": {
+              "end": 14,
+              "start": 9
+            },
+            "text": "second",
+            "types": [
+              "ordinal"
+            ],
+            "value": 2,
+            "word": "second"
+          },
+          "pullFromContext": true,
+          "range": {
+            "end": 20,
+            "start": 5
+          },
+          "text": "the second table",
+          "types": [
+            "table"
+          ],
+          "wantsValue": true,
+          "word": "table"
+        },
+        "operator": {
+          "default": true,
+          "level": 0,
+          "marker": "move",
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "move",
+          "value": "move",
+          "word": "move"
+        },
+        "range": {
+          "end": 23,
+          "start": 0
+        },
+        "text": "move the second table up",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "move",
+        "word": "move"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      "",
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "user",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "user",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "movie",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 11,
+          "op": [
+            "ordinal",
+            0
+          ],
+          "ops": [
+            [
+              "move",
+              0
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "table",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "up",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 12,
+          "op": [
+            "table",
+            0
+          ],
+          "ops": [
+            [
+              "move",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "table",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "up",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 13,
+          "op": [
+            "ordinalOnOrdered",
+            0
+          ],
+          "ops": [
+            [
+              "move",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "up",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 14,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "move",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "up",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 15,
+          "op": [
+            "up",
+            0
+          ],
+          "ops": [
+            [
+              "move",
+              0
+            ],
+            [
+              "up",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 16,
+          "op": [
+            "move",
+            0
+          ],
+          "ops": [
+            [
+              "move",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "conjunction": "conjunction2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "ordinals": "ordinals2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "conjunction2": {
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "columnToCollection": {
+            "_id": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              },
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "access": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "accommodates": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "address": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "amenities": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "availability": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "awards": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "bathrooms": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "bed_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "bedrooms": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "beds": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "calendar_last_scraped": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "cancellation_policy": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "cast": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "cleaning_fee": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "countries": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "date": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "description": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "directors": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "email": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "extra_people": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "fullplot": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "genres": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "guests_included": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "host": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "house_rules": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "images": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "imdb": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "interaction": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "languages": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "last_scraped": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "lastupdated": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "listing_url": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "maximum_nights": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "minimum_nights": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "monthly_price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "movie_id": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "name": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              },
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "neighborhood_overview": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "notes": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "num_mflix_comments": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "number_of_reviews": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "password": [
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "plot": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "property_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "rated": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "released": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "review_scores": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "reviews": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "room_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "runtime": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "space": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "summary": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "text": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "title": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "tomatoes": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "transit": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "type": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "weekly_price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "year": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ]
+          },
+          "idToCounter": {
+            "table": 3
+          },
+          "lastResponse": {
+            "report": {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            },
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            },
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "ordinals2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before",
+              "ordinalOnOrdered"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "number": [
+              "ordinal"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat",
+              "number"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ordinal",
+            "number",
+            "ordinalOnOrdered",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "number": [
+              "queryable"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "ordinal": [
+              "number"
+            ],
+            "ordinalOnOrdered": [
+              "adjective"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "number": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "ordinal": {
+              },
+              "ordinalOnOrdered": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "direction": {
+              "dead": true,
+              "default": true,
+              "level": 1,
+              "marker": "up",
+              "range": {
+                "end": 23,
+                "start": 22
+              },
+              "text": "up",
+              "types": [
+                "up"
+              ],
+              "value": "up",
+              "word": "up"
+            },
+            "generate": [
+              "operator",
+              "moveable",
+              "direction"
+            ],
+            "level": 1,
+            "marker": "move",
+            "moveable": {
+              "concept": true,
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "table",
+              "modifiers": [
+                "determiner",
+                "ordinal"
+              ],
+              "number": "one",
+              "ordinal": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "ordinal",
+                "ordinal": true,
+                "range": {
+                  "end": 14,
+                  "start": 9
+                },
+                "text": "second",
+                "types": [
+                  "ordinal"
+                ],
+                "value": 2,
+                "word": "second"
+              },
+              "pullFromContext": true,
+              "range": {
+                "end": 20,
+                "start": 5
+              },
+              "text": "the second table",
+              "types": [
+                "table"
+              ],
+              "wantsValue": true,
+              "word": "table"
+            },
+            "operator": {
+              "default": true,
+              "level": 0,
+              "marker": "move",
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "move",
+              "value": "move",
+              "word": "move"
+            },
+            "range": {
+              "end": 23,
+              "start": 0
+            },
+            "text": "move the second table up",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "move",
+            "word": "move"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "move the second table up",
+          "paraphrasesParenthesized": "(((move) (the (second) (table)) (up)))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 14,
+              "start": 0
+            },
+            "show": {
+              "collection": "movies",
+              "concept": true,
+              "database": "sample_mflix",
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "movie",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "path": [
+                "title"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 5
+              },
+              "text": "the movies",
+              "types": [
+                "movie"
+              ],
+              "wantsValue": true,
+              "word": "movies"
+            },
+            "text": "show the movies",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the movies",
+          "paraphrasesParenthesized": "((show (the (movies))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 13,
+              "start": 0
+            },
+            "show": {
+              "collection": "users",
+              "concept": true,
+              "database": "sample_mflix",
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "user",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "path": [
+                "name"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 13,
+                "start": 5
+              },
+              "text": "the users",
+              "types": [
+                "user"
+              ],
+              "wantsValue": true,
+              "word": "users"
+            },
+            "text": "show the users",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the users",
+          "paraphrasesParenthesized": "((show (the (users))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show the users",
+      "show the movies",
+      "move the second table up"
+    ],
+    "paraphrasesParenthesized": [
+      "((show (the (users))))",
+      "((show (the (movies))))",
+      "(((move) (the (second) (table)) (up)))"
+    ],
+    "query": "show the users\\nshow the movies\\nmove the second table up",
+    "responses": [
+      "",
+      "",
+      ""
+    ]
+  },
+  {
+    "associations": [
+      [
+        [
+          "down",
+          0
+        ],
+        [
+          "move",
+          0
+        ]
+      ],
+      [
+        [
+          "down",
+          0
+        ],
+        [
+          "move",
+          0
+        ],
+        [
+          "ordinal",
+          0
+        ],
+        [
+          "table",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "down",
+          0
+        ],
+        [
+          "move",
+          0
+        ],
+        [
+          "table",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ],
+      [
+        [
+          "down",
+          0
+        ],
+        [
+          "move",
+          0
+        ],
+        [
+          "the",
+          0
+        ]
+      ]
+    ],
+    "config": {
+    },
+    "contexts": [
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 13,
+          "start": 0
+        },
+        "show": {
+          "collection": "users",
+          "concept": true,
+          "database": "sample_mflix",
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "user",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "path": [
+            "name"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 13,
+            "start": 5
+          },
+          "text": "the users",
+          "types": [
+            "user"
+          ],
+          "wantsValue": true,
+          "word": "users"
+        },
+        "text": "show the users",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "level": 1,
+        "marker": "show",
+        "range": {
+          "end": 14,
+          "start": 0
+        },
+        "show": {
+          "collection": "movies",
+          "concept": true,
+          "database": "sample_mflix",
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "movie",
+          "modifiers": [
+            "determiner"
+          ],
+          "number": "many",
+          "path": [
+            "title"
+          ],
+          "pullFromContext": true,
+          "range": {
+            "end": 14,
+            "start": 5
+          },
+          "text": "the movies",
+          "types": [
+            "movie"
+          ],
+          "wantsValue": true,
+          "word": "movies"
+        },
+        "text": "show the movies",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "show",
+        "word": "show"
+      },
+      {
+        "dead": true,
+        "default": true,
+        "direction": {
+          "dead": true,
+          "default": true,
+          "level": 1,
+          "marker": "down",
+          "range": {
+            "end": 24,
+            "start": 21
+          },
+          "text": "down",
+          "types": [
+            "down"
+          ],
+          "value": "down",
+          "word": "down"
+        },
+        "generate": [
+          "operator",
+          "moveable",
+          "direction"
+        ],
+        "level": 1,
+        "marker": "move",
+        "moveable": {
+          "concept": true,
+          "dead": true,
+          "determiner": "the",
+          "focusableForPhrase": true,
+          "level": 1,
+          "marker": "table",
+          "modifiers": [
+            "determiner",
+            "ordinal"
+          ],
+          "number": "one",
+          "ordinal": {
+            "dead": true,
+            "instance": true,
+            "level": 1,
+            "marker": "ordinal",
+            "ordinal": true,
+            "range": {
+              "end": 13,
+              "start": 9
+            },
+            "text": "first",
+            "types": [
+              "ordinal"
+            ],
+            "value": 1,
+            "word": "first"
+          },
+          "pullFromContext": true,
+          "range": {
+            "end": 19,
+            "start": 5
+          },
+          "text": "the first table",
+          "types": [
+            "table"
+          ],
+          "wantsValue": true,
+          "word": "table"
+        },
+        "operator": {
+          "default": true,
+          "level": 0,
+          "marker": "move",
+          "range": {
+            "end": 3,
+            "start": 0
+          },
+          "text": "move",
+          "value": "move",
+          "word": "move"
+        },
+        "range": {
+          "end": 24,
+          "start": 0
+        },
+        "text": "move the first table down",
+        "topLevel": true,
+        "touchedBy": [
+          "mongo#call2"
+        ],
+        "value": "move",
+        "word": "move"
+      }
+    ],
+    "developerTest": false,
+    "generatedParenthesized": [
+      "",
+      "",
+      ""
+    ],
+    "metadata": {
+      "opChoices": [
+        {
+          "counter": 1,
+          "op": [
+            "user",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "user",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 2,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 3,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 6,
+          "op": [
+            "movie",
+            0
+          ],
+          "ops": [
+            [
+              "movie",
+              0
+            ],
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 7,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 8,
+          "op": [
+            "show",
+            0
+          ],
+          "ops": [
+            [
+              "show",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 11,
+          "op": [
+            "ordinal",
+            0
+          ],
+          "ops": [
+            [
+              "down",
+              0
+            ],
+            [
+              "move",
+              0
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "table",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 12,
+          "op": [
+            "table",
+            0
+          ],
+          "ops": [
+            [
+              "down",
+              0
+            ],
+            [
+              "move",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "table",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 13,
+          "op": [
+            "ordinalOnOrdered",
+            0
+          ],
+          "ops": [
+            [
+              "down",
+              0
+            ],
+            [
+              "move",
+              0
+            ],
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 14,
+          "op": [
+            "the",
+            0
+          ],
+          "ops": [
+            [
+              "down",
+              0
+            ],
+            [
+              "move",
+              0
+            ],
+            [
+              "the",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 15,
+          "op": [
+            "down",
+            0
+          ],
+          "ops": [
+            [
+              "down",
+              0
+            ],
+            [
+              "move",
+              0
+            ]
+          ]
+        },
+        {
+          "counter": 16,
+          "op": [
+            "move",
+            0
+          ],
+          "ops": [
+            [
+              "move",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "objects": {
+      "nameToUUID": {
+        "articles": "articles2",
+        "asking": "asking2",
+        "colors": "colors2",
+        "comparable": "comparable2",
+        "concept": "concept2",
+        "conjunction": "conjunction2",
+        "countable": "countable2",
+        "dialogues": "dialogues2",
+        "evaluate": "evaluate2",
+        "gdefaults": "gdefaults2",
+        "hierarchy": "hierarchy2",
+        "math": "math2",
+        "meta": "meta2",
+        "mongo": "mongo1",
+        "nameable": "nameable2",
+        "negation": "negation2",
+        "numbers": "numbers2",
+        "ordinals": "ordinals2",
+        "pos": "pos2",
+        "properties": "properties2",
+        "punctuation": "punctuation2",
+        "sdefaults": "sdefaults2",
+        "stm": "stm2",
+        "tokenize": "tokenize2",
+        "ui": "ui2"
+      },
+      "namespaced": {
+        "articles2": {
+        },
+        "asking2": {
+        },
+        "colors2": {
+        },
+        "comparable2": {
+        },
+        "concept2": {
+          "defaultTypesForHierarchy": {
+          },
+          "valueToWords": [
+          ]
+        },
+        "conjunction2": {
+        },
+        "countable2": {
+        },
+        "dialogues2": {
+          "brief": true,
+          "idSuffix": "",
+          "mentioned": [
+          ],
+          "variables": {
+          }
+        },
+        "evaluate2": {
+        },
+        "gdefaults2": {
+        },
+        "hierarchy2": {
+        },
+        "math2": {
+        },
+        "meta2": {
+        },
+        "mongo1": {
+          "columnToCollection": {
+            "_id": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              },
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "access": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "accommodates": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "address": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "amenities": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "availability": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "awards": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "bathrooms": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "bed_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "bedrooms": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "beds": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "calendar_last_scraped": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "cancellation_policy": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "cast": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "cleaning_fee": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "countries": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "date": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "description": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "directors": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "email": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "extra_people": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "fullplot": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "genres": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "guests_included": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "host": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "house_rules": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "images": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "imdb": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "interaction": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "languages": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "last_scraped": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "lastupdated": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "listing_url": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "maximum_nights": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "minimum_nights": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "monthly_price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "movie_id": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "name": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              },
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              },
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "neighborhood_overview": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "notes": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "num_mflix_comments": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "number_of_reviews": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "password": [
+              {
+                "collection": "users",
+                "database": "sample_mflix"
+              }
+            ],
+            "plot": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "property_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "rated": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "released": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "review_scores": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "reviews": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "room_type": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "runtime": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "space": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "summary": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "text": [
+              {
+                "collection": "comments",
+                "database": "sample_mflix"
+              }
+            ],
+            "title": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "tomatoes": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "transit": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "type": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ],
+            "weekly_price": [
+              {
+                "collection": "listingsAndReviews",
+                "database": "sample_airbnb"
+              }
+            ],
+            "year": [
+              {
+                "collection": "movies",
+                "database": "sample_mflix"
+              }
+            ]
+          },
+          "idToCounter": {
+            "table": 3
+          },
+          "lastResponse": {
+            "report": {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          },
+          "namedReports": {
+          },
+          "select": [
+          ],
+          "show": [
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            },
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            },
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ]
+        },
+        "nameable2": {
+          "named": {
+          }
+        },
+        "negation2": {
+        },
+        "numbers2": {
+        },
+        "ordinals2": {
+        },
+        "pos2": {
+        },
+        "properties2": {
+          "children": {
+            "adjective": [
+              "stm_before",
+              "ordinalOnOrdered"
+            ],
+            "articlePOS": [
+              "a",
+              "the"
+            ],
+            "blue_colors": [
+              "aqua_colors",
+              "cyan_colors",
+              "aquamarine_colors",
+              "turquoise_colors",
+              "navy_colors"
+            ],
+            "brightness_colors": [
+              "dark_colors",
+              "light_colors"
+            ],
+            "brown_colors": [
+              "tan_colors",
+              "sienna_colors",
+              "maroon_colors"
+            ],
+            "canBeDoQuestion": [
+              "have"
+            ],
+            "canBeQuestion": [
+              "have",
+              "is"
+            ],
+            "color_colors": [
+              "red_colors",
+              "pink_colors",
+              "orange_colors",
+              "yellow_colors",
+              "purple_colors",
+              "green_colors",
+              "blue_colors",
+              "brown_colors",
+              "white_colors",
+              "gray_colors"
+            ],
+            "concept": [
+              "reportable"
+            ],
+            "gray_colors": [
+              "silver_colors",
+              "black_colors"
+            ],
+            "green_colors": [
+              "lime_colors",
+              "chartruese_colors",
+              "olive_colors",
+              "teal_colors"
+            ],
+            "hierarchyAble": [
+              "unknown"
+            ],
+            "ifAble": [
+              "orAble"
+            ],
+            "number": [
+              "ordinal"
+            ],
+            "object": [
+              "what",
+              "whose"
+            ],
+            "preposition": [
+              "between",
+              "to"
+            ],
+            "pronoun": [
+              "it",
+              "this"
+            ],
+            "punctuation": [
+              "questionMark"
+            ],
+            "purple_colors": [
+              "lavender_colors",
+              "violet_colors",
+              "magenta_colors",
+              "indigo_colors"
+            ],
+            "queryable": [
+              "xfx",
+              "hierarchyAble",
+              "readonly",
+              "property",
+              "object",
+              "concept",
+              "doubleQuote",
+              "unknown",
+              "it",
+              "what",
+              "whatAble",
+              "this",
+              "reason",
+              "thisitthat",
+              "number"
+            ],
+            "red_colors": [
+              "crimson_colors"
+            ],
+            "sort_ordering": [
+              "ascending",
+              "descending"
+            ],
+            "theAble": [
+              "property",
+              "object",
+              "concept",
+              "unknown",
+              "reason",
+              "memorable",
+              "noun"
+            ],
+            "thisitthat": [
+              "it",
+              "this",
+              "that"
+            ],
+            "toAble": [
+              "it"
+            ],
+            "verb": [
+              "modifies",
+              "is",
+              "remember",
+              "evaluate"
+            ],
+            "white_colors": [
+              "snow_colors",
+              "azure_colors",
+              "beige_colors",
+              "ivory_colors"
+            ],
+            "yellow_colors": [
+              "gold_colors",
+              "khaki_colors"
+            ]
+          },
+          "concepts": [
+            "properties",
+            "unknown",
+            "hierarchyAble",
+            "what",
+            "object",
+            "xfx",
+            "queryable",
+            "between",
+            "preposition",
+            "readonly",
+            "have",
+            "canBeDoQuestion",
+            "canBeQuestion",
+            "property",
+            "theAble",
+            "whose",
+            "concept",
+            "modifies",
+            "verb",
+            "doubleQuote",
+            "it",
+            "pronoun",
+            "this",
+            "questionMark",
+            "punctuation",
+            "a",
+            "articlePOS",
+            "the",
+            "whatAble",
+            "is",
+            "toAble",
+            "to",
+            "reason",
+            "memorable",
+            "remember",
+            "stm_before",
+            "adjective",
+            "orAble",
+            "ifAble",
+            "evaluate",
+            "noun",
+            "thisitthat",
+            "that",
+            "ordinal",
+            "number",
+            "ordinalOnOrdered",
+            "ascending",
+            "sort_ordering",
+            "descending",
+            "dark_colors",
+            "brightness_colors",
+            "light_colors",
+            "red_colors",
+            "color_colors",
+            "pink_colors",
+            "orange_colors",
+            "yellow_colors",
+            "purple_colors",
+            "green_colors",
+            "blue_colors",
+            "brown_colors",
+            "white_colors",
+            "gray_colors",
+            "crimson_colors",
+            "gold_colors",
+            "khaki_colors",
+            "lavender_colors",
+            "violet_colors",
+            "magenta_colors",
+            "indigo_colors",
+            "lime_colors",
+            "chartruese_colors",
+            "olive_colors",
+            "teal_colors",
+            "aqua_colors",
+            "cyan_colors",
+            "aquamarine_colors",
+            "turquoise_colors",
+            "navy_colors",
+            "tan_colors",
+            "sienna_colors",
+            "maroon_colors",
+            "snow_colors",
+            "azure_colors",
+            "beige_colors",
+            "ivory_colors",
+            "silver_colors",
+            "black_colors",
+            "reportable"
+          ],
+          "parents": {
+            "a": [
+              "articlePOS"
+            ],
+            "aqua_colors": [
+              "blue_colors"
+            ],
+            "aquamarine_colors": [
+              "blue_colors"
+            ],
+            "ascending": [
+              "sort_ordering"
+            ],
+            "azure_colors": [
+              "white_colors"
+            ],
+            "beige_colors": [
+              "white_colors"
+            ],
+            "between": [
+              "preposition"
+            ],
+            "black_colors": [
+              "gray_colors"
+            ],
+            "blue_colors": [
+              "color_colors"
+            ],
+            "brown_colors": [
+              "color_colors"
+            ],
+            "chartruese_colors": [
+              "green_colors"
+            ],
+            "concept": [
+              "theAble",
+              "queryable"
+            ],
+            "crimson_colors": [
+              "red_colors"
+            ],
+            "cyan_colors": [
+              "blue_colors"
+            ],
+            "dark_colors": [
+              "brightness_colors"
+            ],
+            "descending": [
+              "sort_ordering"
+            ],
+            "doubleQuote": [
+              "queryable"
+            ],
+            "evaluate": [
+              "verb"
+            ],
+            "gold_colors": [
+              "yellow_colors"
+            ],
+            "gray_colors": [
+              "color_colors"
+            ],
+            "green_colors": [
+              "color_colors"
+            ],
+            "have": [
+              "canBeDoQuestion",
+              "canBeQuestion"
+            ],
+            "hierarchyAble": [
+              "queryable"
+            ],
+            "indigo_colors": [
+              "purple_colors"
+            ],
+            "is": [
+              "canBeQuestion",
+              "verb"
+            ],
+            "it": [
+              "pronoun",
+              "queryable",
+              "toAble",
+              "thisitthat"
+            ],
+            "ivory_colors": [
+              "white_colors"
+            ],
+            "khaki_colors": [
+              "yellow_colors"
+            ],
+            "lavender_colors": [
+              "purple_colors"
+            ],
+            "light_colors": [
+              "brightness_colors"
+            ],
+            "lime_colors": [
+              "green_colors"
+            ],
+            "magenta_colors": [
+              "purple_colors"
+            ],
+            "maroon_colors": [
+              "brown_colors"
+            ],
+            "memorable": [
+              "theAble"
+            ],
+            "modifies": [
+              "verb"
+            ],
+            "navy_colors": [
+              "blue_colors"
+            ],
+            "noun": [
+              "theAble"
+            ],
+            "number": [
+              "queryable"
+            ],
+            "object": [
+              "queryable",
+              "theAble"
+            ],
+            "olive_colors": [
+              "green_colors"
+            ],
+            "orAble": [
+              "ifAble"
+            ],
+            "orange_colors": [
+              "color_colors"
+            ],
+            "ordinal": [
+              "number"
+            ],
+            "ordinalOnOrdered": [
+              "adjective"
+            ],
+            "pink_colors": [
+              "color_colors"
+            ],
+            "property": [
+              "queryable",
+              "theAble"
+            ],
+            "purple_colors": [
+              "color_colors"
+            ],
+            "questionMark": [
+              "punctuation"
+            ],
+            "readonly": [
+              "queryable"
+            ],
+            "reason": [
+              "theAble",
+              "queryable"
+            ],
+            "red_colors": [
+              "color_colors"
+            ],
+            "remember": [
+              "verb"
+            ],
+            "reportable": [
+              "concept"
+            ],
+            "sienna_colors": [
+              "brown_colors"
+            ],
+            "silver_colors": [
+              "gray_colors"
+            ],
+            "snow_colors": [
+              "white_colors"
+            ],
+            "stm_before": [
+              "adjective"
+            ],
+            "tan_colors": [
+              "brown_colors"
+            ],
+            "teal_colors": [
+              "green_colors"
+            ],
+            "that": [
+              "thisitthat"
+            ],
+            "the": [
+              "articlePOS"
+            ],
+            "this": [
+              "pronoun",
+              "queryable",
+              "thisitthat"
+            ],
+            "thisitthat": [
+              "queryable"
+            ],
+            "to": [
+              "preposition"
+            ],
+            "turquoise_colors": [
+              "blue_colors"
+            ],
+            "unknown": [
+              "hierarchyAble",
+              "theAble",
+              "queryable"
+            ],
+            "violet_colors": [
+              "purple_colors"
+            ],
+            "what": [
+              "object",
+              "queryable"
+            ],
+            "whatAble": [
+              "queryable"
+            ],
+            "white_colors": [
+              "color_colors"
+            ],
+            "whose": [
+              "object"
+            ],
+            "xfx": [
+              "queryable"
+            ],
+            "yellow_colors": [
+              "color_colors"
+            ]
+          },
+          "properties": {
+            "handlers": {
+            },
+            "initHandlers": [
+            ],
+            "root": {
+              "a": {
+              },
+              "adjective": {
+              },
+              "aqua_colors": {
+              },
+              "aquamarine_colors": {
+              },
+              "articlePOS": {
+              },
+              "ascending": {
+              },
+              "azure_colors": {
+              },
+              "beige_colors": {
+              },
+              "between": {
+              },
+              "black_colors": {
+              },
+              "blue_colors": {
+              },
+              "brightness_colors": {
+              },
+              "brown_colors": {
+              },
+              "canBeDoQuestion": {
+              },
+              "canBeQuestion": {
+              },
+              "chartruese_colors": {
+              },
+              "color_colors": {
+              },
+              "concept": {
+              },
+              "crimson_colors": {
+              },
+              "cyan_colors": {
+              },
+              "dark_colors": {
+              },
+              "descending": {
+              },
+              "doubleQuote": {
+              },
+              "evaluate": {
+              },
+              "gold_colors": {
+              },
+              "gray_colors": {
+              },
+              "green_colors": {
+              },
+              "have": {
+              },
+              "hierarchyAble": {
+              },
+              "ifAble": {
+              },
+              "indigo_colors": {
+              },
+              "is": {
+              },
+              "it": {
+              },
+              "ivory_colors": {
+              },
+              "khaki_colors": {
+              },
+              "lavender_colors": {
+              },
+              "light_colors": {
+              },
+              "lime_colors": {
+              },
+              "magenta_colors": {
+              },
+              "maroon_colors": {
+              },
+              "memorable": {
+              },
+              "modifies": {
+              },
+              "navy_colors": {
+              },
+              "noun": {
+              },
+              "number": {
+              },
+              "object": {
+              },
+              "olive_colors": {
+              },
+              "orAble": {
+              },
+              "orange_colors": {
+              },
+              "ordinal": {
+              },
+              "ordinalOnOrdered": {
+              },
+              "pink_colors": {
+              },
+              "preposition": {
+              },
+              "pronoun": {
+              },
+              "property": {
+              },
+              "punctuation": {
+              },
+              "purple_colors": {
+              },
+              "queryable": {
+              },
+              "questionMark": {
+              },
+              "readonly": {
+              },
+              "reason": {
+              },
+              "red_colors": {
+              },
+              "remember": {
+              },
+              "reportable": {
+              },
+              "sienna_colors": {
+              },
+              "silver_colors": {
+              },
+              "snow_colors": {
+              },
+              "sort_ordering": {
+              },
+              "stm_before": {
+              },
+              "tan_colors": {
+              },
+              "teal_colors": {
+              },
+              "that": {
+              },
+              "the": {
+              },
+              "theAble": {
+              },
+              "this": {
+              },
+              "thisitthat": {
+              },
+              "to": {
+              },
+              "toAble": {
+              },
+              "turquoise_colors": {
+              },
+              "unknown": {
+              },
+              "verb": {
+              },
+              "violet_colors": {
+              },
+              "what": {
+              },
+              "whatAble": {
+              },
+              "white_colors": {
+              },
+              "whose": {
+              },
+              "xfx": {
+              },
+              "yellow_colors": {
+              }
+            }
+          },
+          "property": {
+          },
+          "relations": [
+          ],
+          "valueToWords": {
+          }
+        },
+        "punctuation2": {
+        },
+        "sdefaults2": {
+        },
+        "stm2": {
+          "mentioned": [
+            {
+              "dataSpec": [
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "users",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "email"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "name"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "password"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "name"
+                  ]
+                },
+                {
+                  "aggregation": [
+                  ],
+                  "collectionName": "movies",
+                  "dbName": "sample_mflix",
+                  "fields": [
+                    {
+                      "isArray": false,
+                      "name": "_id"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "awards"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "cast"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "countries"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "directors"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "fullplot"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "genres"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "imdb"
+                    },
+                    {
+                      "isArray": true,
+                      "name": "languages"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "lastupdated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "num_mflix_comments"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "plot"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "rated"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "released"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "runtime"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "title"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "tomatoes"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "type"
+                    },
+                    {
+                      "isArray": false,
+                      "name": "year"
+                    }
+                  ],
+                  "limit": 10,
+                  "usedFields": [
+                    "title"
+                  ]
+                }
+              ],
+              "fromSTM": true,
+              "imageSpec": {
+                "explicit": true,
+                "field": [
+                ],
+                "headers": {
+                  "columns": [
+                  ]
+                },
+                "id": "table_2",
+                "rows": [
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        1
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "title",
+                            "text": "the movies"
+                          }
+                        ]
+                      },
+                      "id": "table_3",
+                      "rows": [
+                        "$title"
+                      ],
+                      "table": true
+                    }
+                  ],
+                  [
+                    {
+                      "colgroups": [
+                        "column_0"
+                      ],
+                      "field": [
+                        0
+                      ],
+                      "headers": {
+                        "columns": [
+                          {
+                            "id": "name",
+                            "text": "the users"
+                          }
+                        ]
+                      },
+                      "id": "table_1",
+                      "rows": [
+                        "$name"
+                      ],
+                      "table": true
+                    }
+                  ]
+                ],
+                "table": true
+              },
+              "marker": "report",
+              "pullFromContext": false,
+              "stm": {
+                "id": 1
+              }
+            }
+          ],
+          "variables": {
+          }
+        },
+        "tokenize2": {
+        },
+        "ui2": {
+        }
+      },
+      "processed": [
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "direction": {
+              "dead": true,
+              "default": true,
+              "level": 1,
+              "marker": "down",
+              "range": {
+                "end": 24,
+                "start": 21
+              },
+              "text": "down",
+              "types": [
+                "down"
+              ],
+              "value": "down",
+              "word": "down"
+            },
+            "generate": [
+              "operator",
+              "moveable",
+              "direction"
+            ],
+            "level": 1,
+            "marker": "move",
+            "moveable": {
+              "concept": true,
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "table",
+              "modifiers": [
+                "determiner",
+                "ordinal"
+              ],
+              "number": "one",
+              "ordinal": {
+                "dead": true,
+                "instance": true,
+                "level": 1,
+                "marker": "ordinal",
+                "ordinal": true,
+                "range": {
+                  "end": 13,
+                  "start": 9
+                },
+                "text": "first",
+                "types": [
+                  "ordinal"
+                ],
+                "value": 1,
+                "word": "first"
+              },
+              "pullFromContext": true,
+              "range": {
+                "end": 19,
+                "start": 5
+              },
+              "text": "the first table",
+              "types": [
+                "table"
+              ],
+              "wantsValue": true,
+              "word": "table"
+            },
+            "operator": {
+              "default": true,
+              "level": 0,
+              "marker": "move",
+              "range": {
+                "end": 3,
+                "start": 0
+              },
+              "text": "move",
+              "value": "move",
+              "word": "move"
+            },
+            "range": {
+              "end": 24,
+              "start": 0
+            },
+            "text": "move the first table down",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "move",
+            "word": "move"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "move the first table down",
+          "paraphrasesParenthesized": "(((move) (the (first) (table)) (down)))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 14,
+              "start": 0
+            },
+            "show": {
+              "collection": "movies",
+              "concept": true,
+              "database": "sample_mflix",
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "movie",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "path": [
+                "title"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 14,
+                "start": 5
+              },
+              "text": "the movies",
+              "types": [
+                "movie"
+              ],
+              "wantsValue": true,
+              "word": "movies"
+            },
+            "text": "show the movies",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the movies",
+          "paraphrasesParenthesized": "((show (the (movies))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "show",
+            "range": {
+              "end": 13,
+              "start": 0
+            },
+            "show": {
+              "collection": "users",
+              "concept": true,
+              "database": "sample_mflix",
+              "dead": true,
+              "determiner": "the",
+              "focusableForPhrase": true,
+              "level": 1,
+              "marker": "user",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "many",
+              "path": [
+                "name"
+              ],
+              "pullFromContext": true,
+              "range": {
+                "end": 13,
+                "start": 5
+              },
+              "text": "the users",
+              "types": [
+                "user"
+              ],
+              "wantsValue": true,
+              "word": "users"
+            },
+            "text": "show the users",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2"
+            ],
+            "value": "show",
+            "word": "show"
+          },
+          "generatedParenthesized": "",
+          "paraphrases": "show the users",
+          "paraphrasesParenthesized": "((show (the (users))))",
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "be",
+            "range": {
+              "end": 7,
+              "start": 0
+            },
+            "text": "be brief",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance3#mongo#call2"
+            ],
+            "type": {
+              "dead": true,
+              "level": 1,
+              "marker": "briefOrWordy",
+              "range": {
+                "end": 7,
+                "start": 3
+              },
+              "text": "brief",
+              "types": [
+                "briefOrWordy"
+              ],
+              "value": "brief",
+              "word": "brief"
+            },
+            "value": "be",
+            "word": "be"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "be brief",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "level": 2,
+            "marker": "is",
+            "number": "one",
+            "one": {
+              "dead": true,
+              "level": 1,
+              "marker": "unknown",
+              "number": "one",
+              "range": {
+                "end": 22,
+                "start": 0
+              },
+              "text": "reportable",
+              "types": [
+                "unknown"
+              ],
+              "unknown": true,
+              "value": "reportable",
+              "word": "reportable"
+            },
+            "range": {
+              "end": 22,
+              "start": 0
+            },
+            "text": "reportable is a concept",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance0#mongo#call2",
+              "instance2#mongo#call2"
+            ],
+            "two": {
+              "concept": true,
+              "dead": true,
+              "default": true,
+              "determiner": {
+                "default": true,
+                "level": 0,
+                "marker": "a",
+                "range": {
+                  "end": 14,
+                  "start": 14
+                },
+                "text": "a",
+                "word": "a"
+              },
+              "level": 1,
+              "marker": "concept",
+              "modifiers": [
+                "determiner"
+              ],
+              "number": "one",
+              "pullFromContext": false,
+              "range": {
+                "end": 22,
+                "start": 14
+              },
+              "text": "a concept",
+              "types": [
+                "concept"
+              ],
+              "value": "concept",
+              "wantsValue": true,
+              "word": "concept"
+            },
+            "word": "is"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "reportable is a concept",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
+            "dead": true,
+            "default": true,
+            "level": 1,
+            "marker": "resetIdSuffix",
+            "range": {
+              "end": 12,
+              "start": 0
+            },
+            "text": "resetidsuffix",
+            "topLevel": true,
+            "touchedBy": [
+              "colors#call2",
+              "instance14#colors#call2",
+              "instance14#mongo#call2"
+            ],
+            "value": "resetIdSuffix",
+            "word": "resetidsuffix"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "resetidsuffix",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        }
+      ]
+    },
+    "paraphrases": [
+      "show the users",
+      "show the movies",
+      "move the first table down"
+    ],
+    "paraphrasesParenthesized": [
+      "((show (the (users))))",
+      "((show (the (movies))))",
+      "(((move) (the (first) (table)) (down)))"
+    ],
+    "query": "show the users\\nshow the movies\\nmove the first table down",
+    "responses": [
+      "",
+      "",
+      ""
+    ]
   }
 ]

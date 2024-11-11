@@ -910,5 +910,101 @@ describe('Reports Tests', () => {
     expect(actual).toStrictEqual(expected)
   })
 
+  describe('Find table', () => {
+    it('find table in explicit', async () => {
+      const table_1 = {
+                "colgroups": [ "column_0" ],
+                "field": [ 0 ],
+                "headers": {
+                  "columns": [ { "id": "name", "text": "the users" } ]
+                },
+                "id": "table_1",
+                "rows": [ "$name" ],
+                "table": true
+              }
+       const table_3 = {
+                "colgroups": [ "column_0" ],
+                "field": [ 1 ],
+                "headers": {
+                  "columns": [ { "id": "title", "text": "the movies" } ]
+                },
+                "id": "table_3",
+                "rows": [ "$title" ],
+                "table": true
+              }
+      const imageSpec = {
+        "explicit": true,
+        "field": [],
+        "headers": { "columns": [] },
+        "id": "table_2",
+        "rows": [ [ table_1 ], [ table_3 ], ],
+        "table": true,
+      }
+      const field = [1]
+      const paths = image.find(imageSpec, table_3)
+      const expected = [ ['rows', 1, 0 ] ] 
+      expect(paths).toStrictEqual(expected)
+    })
+  })
+
+  describe('Move table', () => {
+    const table_1 = {
+              "colgroups": [ "column_0" ],
+              "field": [ 0 ],
+              "headers": {
+                "columns": [ { "id": "name", "text": "the users" } ]
+              },
+              "id": "table_1",
+              "rows": [ "$name" ],
+              "table": true
+            }
+     const table_3 = {
+              "colgroups": [ "column_0" ],
+              "field": [ 1 ],
+              "headers": {
+                "columns": [ { "id": "title", "text": "the movies" } ]
+              },
+              "id": "table_3",
+              "rows": [ "$title" ],
+              "table": true
+            }
+    const imageSpec = {
+      "explicit": true,
+      "field": [],
+      "headers": { "columns": [] },
+      "id": "table_2",
+      "rows": [ [ table_1 ], [ table_3 ], ],
+      "table": true,
+    }
+
+    it('move table up one', async () => {
+      const field = [1]
+      image.moveUpOrDown(imageSpec, table_3, -1)
+      const expected = {
+        "explicit": true,
+        "field": [],
+        "headers": { "columns": [] },
+        "id": "table_2",
+        "rows": [ [ table_3 ], [ table_1 ], ],
+        "table": true,
+      }
+      expect(imageSpec).toStrictEqual(expected)
+    })
+
+    it('move table down one', async () => {
+      const field = [1]
+      image.moveUpOrDown(imageSpec, table_1, 1)
+      const expected = {
+        "explicit": true,
+        "field": [],
+        "headers": { "columns": [] },
+        "id": "table_2",
+        "rows": [ [ table_3 ], [ table_1 ], ],
+        "table": true,
+      }
+      expect(imageSpec).toStrictEqual(expected)
+    })
+  })
+
 })
 

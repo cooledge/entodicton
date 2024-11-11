@@ -443,6 +443,25 @@ let configStruct = {
         const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })
         context.evalue = value
       },
+    }
+    ,
+    {
+      match: ({context}) => context.marker == 'move' && !context.evaluate,
+      apply: async ({context, api, values, e}) => {
+        const table = (await e(context.moveable)).evalue
+        if (table) {
+          console.log('table', JSON.stringify(table, null, 2))
+          const direction = context.direction.value
+          let distance = context.direction.steps?.value || 1
+          if (direction == 'up') {
+            distance *= -1
+          }
+          for (const moved of values(table.value)) {
+            image.moveUpOrDown(table.report.imageSpec, moved, distance)
+          }
+        }
+        api.show(table.report)
+      },
     },
   ],
 
@@ -846,7 +865,7 @@ let configStruct = {
     { 
       id: 'table', 
       words: helpers.words('table'),
-      isA: ['orderable', 'reportElementContext'],
+      isA: ['orderable', 'reportElementContext', 'moveable'],
       parents: ['theAble', 'reportElement'],
       evaluator: async ({context, toContext, values, api, gp, verbatim}) => {
         const currentReport = api.current()
@@ -1279,9 +1298,6 @@ const template = {
           // config.addWord(word, { id: 'column', path: ['${f}'] })
         }
       }
-
-      // config.addWord('email', { id: 'column', initial: "{ path: ['email'] }" })
-
       objects.columnToCollection = {}
       for (const collection of collections) {
         await addCollection(collection)
@@ -1295,12 +1311,6 @@ knowledgeModule( {
   config: { name: 'mongo' },
   includes: [hierarchy, ordinals, colors, negation, nameable, ui, countable, math],
   api: () => new API(),
-  /*
-  initializer: ({config, s, fragments}) => {
-    config.server('http://localhost:5000')
-  },
-  */
-
   terminator: () => {
     terminate()
   },
