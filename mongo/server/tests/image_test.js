@@ -123,7 +123,7 @@ describe('Reports Tests', () => {
       headers: {
         columns: [{ text: 'name' }, { text: 'age' }, { text: 'favorite colors' }]
       },
-      id: 'header2',
+      id: 'table_1',
       colgroups: ['c1', 'c2', 'c3'],
       table: true,
       field: [],
@@ -232,6 +232,7 @@ describe('Reports Tests', () => {
       },
       colgroups: ['c1', 'c2', 'c3'],
       table: true,
+      id: 'table_1',
       field: [],
       rows: [
               '$name', 
@@ -240,6 +241,7 @@ describe('Reports Tests', () => {
                 headers: { columns: [{ text: 'subject' }, { text: 'mark' } ] },
                 field: ['marks_in_subjects'],
                 colgroups: ['c1', 'c2'],
+                id: 'table_2',
                 table: true,
                 rows: ['$subject_id', '$marks']
               },
@@ -249,7 +251,7 @@ describe('Reports Tests', () => {
     const expected = 
     {
         "headers": {
-          "className": "header header2",
+          "className": "header",
           "data": [
             {
               "className": "",
@@ -296,7 +298,7 @@ describe('Reports Tests', () => {
                   "className": "column column_2 table_1_column_2",
                   "data": {
                     "headers": {
-                      "className": "header header4",
+                      "className": "header",
                       "data": [
                         {
                           "className": "",
@@ -382,7 +384,7 @@ describe('Reports Tests', () => {
                   "className": "column column_2 table_1_column_2",
                   "data": {
                     "headers": {
-                      "className": "header header4",
+                      "className": "header",
                       "data": [
                         {
                           "className": "",
@@ -398,7 +400,7 @@ describe('Reports Tests', () => {
                       "c1",
                       "c2"
                     ],
-                    "className": "Table table_3",
+                    "className": "Table table_2",
                     "table": true,
                     "rows": {
                       "className": "rows",
@@ -407,14 +409,14 @@ describe('Reports Tests', () => {
                           "className": "row_0",
                           "data": [
                             {
-                              "className": "column column_0 table_3_column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "abc"
                               }
                             },
                             {
-                              "className": "column column_1 table_3_column_1",
+                              "className": "column column_1 table_2_column_1",
                               "data": {
                                 "className": "fieldValue",
                                 "data": 70
@@ -426,14 +428,14 @@ describe('Reports Tests', () => {
                           "className": "row_1",
                           "data": [
                             {
-                              "className": "column column_0 table_3_column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "def"
                               }
                             },
                             {
-                              "className": "column column_1 table_3_column_1",
+                              "className": "column column_1 table_2_column_1",
                               "data": {
                                 "className": "fieldValue",
                                 "data": 82
@@ -499,9 +501,12 @@ describe('Reports Tests', () => {
 
   describe('add group', () => {
     it('table with no groupings', async () => {
+      const api = getAPI()
+
       const imageSpec = {
         colgroups: [ "column_0" ],
         field: [],
+        id: api.getId('table'),
         headers: {
           columns: [
             { id: "title", text: "title" }
@@ -521,13 +526,14 @@ describe('Reports Tests', () => {
         ordering: "ascending",
       }
 
-      image.addGroup([], imageSpec, [field])
+      image.addGroup(api, [], imageSpec, [field])
 
       const expected = {
         headers: {
           columns: [{ text: 'genre' }, { text: 'movies' }]
         },
         colgroups: ['c1', 'c2'],
+        id: 'table_2',
         table: true,
         field: [],
         rows: [
@@ -536,6 +542,7 @@ describe('Reports Tests', () => {
                   // DIFF headers: { columns: [{ text: 'title' }] },
                   headers: { columns: [{ id: 'title', text: 'title' }] },
                   field: ['movies'],
+                  id: 'table_1',
                   colgroups: ['column_0'],
                   table: true,
                   rows: ['$title']
@@ -669,14 +676,14 @@ describe('Reports Tests', () => {
     })
   })
 
-  it('NEO23 grouped by genre', async () => {
+  it('grouped by genre', async () => {
     const imageSpec = {
       headers: {
         columns: [{ text: 'genre' }, { text: 'film' }]
       },
       colgroups: ['c1', 'c2'],
       table: true,
-      id: 'header4',
+      id: 'table_1',
       field: [],
       rows: [
               '$genre', 
@@ -684,6 +691,7 @@ describe('Reports Tests', () => {
                 headers: { columns: [{ text: 'title' }] },
                 field: ['movies'],
                 colgroups: ['c1'],
+                id: 'table_2',
                 table: true,
                 rows: ['$title']
               },
@@ -692,7 +700,7 @@ describe('Reports Tests', () => {
 
     const expected = {
         "headers": {
-          "className": "header header2",
+          "className": "header",
           "data": [
             {
               "className": "",
@@ -727,7 +735,7 @@ describe('Reports Tests', () => {
                   "className": "column column_1 table_1_column_1",
                   "data": {
                     "headers": {
-                      "className": "header header4",
+                      "className": "header",
                       "data": [
                         {
                           "className": "",
@@ -787,7 +795,7 @@ describe('Reports Tests', () => {
                   "className": "column column_1 table_1_column_1",
                   "data": {
                     "headers": {
-                      "className": "header header4",
+                      "className": "header",
                       "data": [
                         {
                           "className": "",
@@ -798,7 +806,7 @@ describe('Reports Tests', () => {
                     "colgroups": [
                       "c1"
                     ],
-                    "className": "Table table_3",
+                    "className": "Table table_2",
                     "table": true,
                     "rows": {
                       "className": "rows",
@@ -807,7 +815,7 @@ describe('Reports Tests', () => {
                           "className": "row_0",
                           "data": [
                             {
-                              "className": "column column_0 table_3_column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "Aliens"
@@ -819,7 +827,7 @@ describe('Reports Tests', () => {
                           "className": "row_1",
                           "data": [
                             {
-                              "className": "column column_0 table_3_column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "Star Wars"
@@ -847,7 +855,7 @@ describe('Reports Tests', () => {
                   "className": "column column_1 table_1_column_1",
                   "data": {
                     "headers": {
-                      "className": "header header4",
+                      "className": "header",
                       "data": [
                         {
                           "className": "",
@@ -859,7 +867,7 @@ describe('Reports Tests', () => {
                       "c1"
                     ],
                     "table": true,
-                    className: "Table table_4",
+                    className: "Table table_2",
                     "rows": {
                       "className": "rows",
                       "data": [
@@ -867,7 +875,7 @@ describe('Reports Tests', () => {
                           "className": "row_0",
                           "data": [
                             {
-                              "className": "column column_0 table_4_column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "Silence of the Lambs"
@@ -879,7 +887,7 @@ describe('Reports Tests', () => {
                           "className": "row_1",
                           "data": [
                             {
-                              "className": "column column_0 table_4_column_0",
+                              "className": "column column_0 table_2_column_0",
                               "data": {
                                 "className": "fieldValue",
                                 "data": "LA Confidential"

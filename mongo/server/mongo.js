@@ -614,7 +614,7 @@ let configStruct = {
         const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
         report.addGroup(dataSpec, fields.map((field) => field.word))
         for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
-          image.addGroup(dataSpecPath, imageSpec, fields.map((field) => { return { name: field.word, collection: dataSpec.collectionName } }))
+          image.addGroup(api, dataSpecPath, imageSpec, fields.map((field) => { return { name: field.word, collection: dataSpec.collectionName } }))
         }
         api.show(currentReport)
       }
@@ -986,7 +986,7 @@ let configStruct = {
               console.log(JSON.stringify(dataSpec, null, 2))
               report.addGroup(dataSpec, columnNames)
               console.log(JSON.stringify(dataSpec, null, 2))
-              image.addGroup(dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
+              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
             } else {
               dataSpec.usedFields.push(...columnNames)
               if (defaultTable) {

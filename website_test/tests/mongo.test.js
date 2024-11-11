@@ -340,7 +340,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 2, users, ['_id', 'email', 'name', 'password'], { sort: { email: -1 } })
     }, timeout);
 
-    test(`MONGO show the movies + group by genres`, async () => {
+    test(`NEO23 MONGO show the movies + group by genres`, async () => {
       await query('show the movies')
       await query('group by genres')
       const aggregation = [
@@ -372,45 +372,20 @@ describe('tests for the mongo page', () => {
       // console.log('data', JSON.stringify(movies, null, 2))
 
       const tableNumber = 2;
-
-          /*
-          const columns = []
-          for (const td of tr.cells) {
-            const ul = td.querySelector("ul")
-            if (ul) {
-              const values = []
-              for (const li of ul.querySelectorAll("li")) {
-                values.push(li.innerText)
-              }
-              columns.push(values)
-            } else {
-              const table = td.querySelector("table")
-              if (table) {
-                const values = []
-                for (const span of table.querySelectorAll(".fieldValue")) {
-                  values.push(span.innerText)
-                }
-                columns.push(values)
-              } else {
-                columns.push(td.innerText)
-              }
-            }
-            */
-
       const selector = `.table_${tableNumber} tbody tr`
       await page.waitForSelector(selector)
       // await sleep(10000)
       const data = await page.evaluate((tableNumber, selector) => {
         const trs = Array.from(document.querySelectorAll(selector))
         const rows = []
-        let tableCounter = 2
+        let tableCounter = 3
         for (const tr of trs) {
-          const genre = tr.querySelector(".table_1_column_0")
+          const genre = tr.querySelector(".table_3_column_0")
           if (!genre) {
             continue
           }
           const movies = []
-          for (const movie of tr.querySelectorAll(`.table_${tableCounter}_column_0`)) {
+          for (const movie of tr.querySelectorAll(`.table_${tableCounter} .table_1_column_0`)) {
             movies.push(movie.innerText)
           }
           columns = { genre: genre.innerText, movies }
@@ -421,7 +396,7 @@ describe('tests for the mongo page', () => {
         return rows
       }, tableNumber, selector);
 
-      // console.log('data', JSON.stringify(data, null, 2))
+      console.log('data', JSON.stringify(data, null, 2))
       for (const { genre, movies } of data) {
         // console.log('genre', genre)
         const record = records.find((record) => record.genres == genre)
@@ -556,7 +531,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 3, movies, ['title'], { sort: { name: 1 } })
     }, timeout);
 
-    test(`NEO23 MONGO show the movies + show the movies + sort the second table by title`, async () => {
+    test(`MONGO show the movies + show the movies + sort the second table by title`, async () => {
       await query('show the users')
       await query('show the movies')
       await query('make the header of the second table blue')

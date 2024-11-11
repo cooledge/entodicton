@@ -55,14 +55,6 @@ const instantiateValue = (path, imageSpec, rows, instantiation, options) => {
 
 const instantiate = (imageSpec, bson, options = {}) => {
   // setId(imageSpec)
-  const counters = {
-    tableNumber: 0
-  }
-  options.newTableNumber = () => {
-    counters.tableNumber += 1
-    return counters.tableNumber
-  }
-  options.tableNumber = ''
   return instantiateImpl(imageSpec, bson, options)
 }
 
@@ -89,7 +81,6 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     return instantiation
   } else if (imageSpec.table) {
     // rows is the values to be instantiated rather than instantiated over the rows of the data
-    const tableNumber = options.newTableNumber()
     const instantiation = { 
       headers: { 
         className: 'header', 
@@ -111,17 +102,15 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     if (imageSpec.rules) {
       instantiation.rules = imageSpec.rules
     }
-    debugger
     if (imageSpec.headers.id) {
       instantiation.headers.className += ' ' + imageSpec.headers.id
     }
     // console.log('init instantiation imagespec', JSON.stringify(imageSpec, null, 2))
     // console.log('init instantiation instantation', JSON.stringify(instantiation, null, 2))
-    options = { ...options, tableNumber}
     if (imageSpec.explicit) {
       const rows = []
       const field = fieldToData(bson, imageSpec.field)
-      instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiateImpl(is, field, options)) }
+      instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiateImpl(is, field, { options, id: imageSpec.id })) }
       return instantiation
     } else {
       if (imageSpec.capitalizeHeader) {
@@ -132,8 +121,9 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
       }
       const rows = []
       const field = fieldToData(bson, imageSpec.field)
+      // greg23
       for (const [index, row] of field.entries()) {
-        rows.push({ className: `row_${index}`, data: instantiateImpl(imageSpec.rows, row, options)})
+        rows.push({ className: `row_${index}`, data: instantiateImpl(imageSpec.rows, row, { ...options, id: imageSpec.id })})
       }
       instantiation.rows = { className: "rows", data: rows }
       return instantiation
@@ -141,7 +131,9 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      values.push({ className: `column column_${index} ${imageSpec.id}_column_${index}`, data: instantiateImpl(field, bson, options) })
+      console.log('field', field)
+      debugger // here
+      values.push({ className: `column column_${index} ${options.id}_column_${index}`, data: instantiateImpl(field, bson, options) })
     }
     return values
   } else if (typeof imageSpec !== 'object' ){
@@ -256,7 +248,7 @@ const isEmpty = (imageSpec) => {
   return imageSpec.rows.length == 0
 }
 
-const addGroup = (dataSpecPath, imageSpec, fields) => {
+const addGroup = (api, dataSpecPath, imageSpec, fields) => {
   // TODO handle mulitple fields
   const field = fields[0]
   const options = {
@@ -269,6 +261,7 @@ const addGroup = (dataSpecPath, imageSpec, fields) => {
           },
           colgroups: ['c1'],
           table: true,
+          id: api.getId('table'),
           field: dataSpecPath,
           rows: [ `$${field.name}`, ],
         }

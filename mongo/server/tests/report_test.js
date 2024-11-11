@@ -105,10 +105,11 @@ describe('Reports Tests', () => {
   })
 
   it('first addReport with graph', async () => {
-    const testReport = { dataSpec: {}, imageSpec: {} }
+    const testReport = { dataSpec: {}, imageSpec: { id: 'table1' } }
 
     const gImageSpec = {
                 type: "bar",
+                id: 'graph1',
                 options: {
                   chart: {
                     id: 'apexchart-example'
@@ -129,6 +130,7 @@ describe('Reports Tests', () => {
       "className": "column column_0 table_1_column_0",
       data: {
         "type": "bar",
+        id: 'graph1',
         field: [0],
         "options": {
           "chart": {
@@ -171,31 +173,34 @@ describe('Reports Tests', () => {
   })
 
   it('second addReport with graph', async () => {
-    const testReport = { dataSpec: {}, imageSpec: {} }
+    const testReport = { dataSpec: {}, imageSpec: {id: 'table_1'} }
 
-    const gImageSpec = {
-                type: "bar",
-                options: {
-                  chart: {
-                    id: 'apexchart-example'
-                  },
-                  xaxis: {
-                    categories: { "$push": "$year" },
-                  }
-                },
-                series: [{
-                  name: 'series-1',
-                  data: { "$push": "$sales" },
-                }]
-              }
+    const gImageSpec = (id) => { return {
+        type: "bar",
+        options: {
+          chart: {
+            id: 'apexchart-example'
+          },
+          xaxis: {
+            categories: { "$push": "$year" },
+          }
+        },
+        id,
+        series: [{
+          name: 'series-1',
+          data: { "$push": "$sales" },
+        }]
+      }
+    }
     const gDataSpec = { dbName: DB_NAME, collectionName: COLLECTION_NAME, aggregation: [] }
-    const gReport = { imageSpec: gImageSpec, dataSpec: gDataSpec }
+    const gReport = (id) => { return { imageSpec: gImageSpec(id), dataSpec: gDataSpec } }
 
-    const expectedGraph = (fieldId) => { return {
+    const expectedGraph = (fieldId, graph_id) => { return {
         "className": "column column_0 table_1_column_0",
         data: {
           "type": "bar",
           field: [fieldId],
+          id: `graph_${graph_id}`,
           "options": {
             "chart": {
               "id": "apexchart-example"
@@ -223,16 +228,17 @@ describe('Reports Tests', () => {
       "rows": {
         "className": "rows",
         "data": [ 
-            [ expectedGraph(0) ],
-            [ expectedGraph(1) ],
+            [ expectedGraph(0, 1) ],
+            [ expectedGraph(1, 2) ],
         ]
       }
     }
 
 
     const api = getAPI()
-    report.addReport(api, testReport, gReport)
-    report.addReport(api, testReport, gReport)
+    report.addReport(api, testReport, gReport("graph_1"))
+    report.addReport(api, testReport, gReport("graph_2"))
+    console.log('testReport', JSON.stringify(testReport, null, 2))
     debugger
     const actual = await report.query(testReport.dataSpec, testReport.imageSpec)
     console.log('expected', JSON.stringify(expected, null, 2))

@@ -5,7 +5,7 @@ const getAPI = () => {
       if (!idToCounter[tag]) {
         idToCounter[tag] = 0
       }
-      return `${tag}${idToCounter[tag] += 1}`
+      return `${tag}_${idToCounter[tag] += 1}`
     }
   }
 }
