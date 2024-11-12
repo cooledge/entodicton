@@ -395,7 +395,7 @@ let configStruct = {
     "([state])",
     "([changeState|make] ([reportElement]) (table/*)? (state/*))",
 
-    // "([collection])",
+    "([collection])",
 
     "([reportElementProperty])",
     "([reportElementContext])",
@@ -467,6 +467,10 @@ let configStruct = {
 
   bridges: [
     // "((reportElement/*) [contextOfReportElement|of] ([reportElementContext]))",
+    {
+      id: 'collection'
+    },
+
     {
       id: 'reportElementContext'
     },
@@ -603,7 +607,6 @@ let configStruct = {
         if (defaultTable) {
           const paths = []
           for (const table of values(defaultTable.value)) {
-            debugger
             if (!paths.find( (path) => _.isEqual(path, table.field))) {
               paths.push(table.field)
             }
@@ -629,7 +632,6 @@ let configStruct = {
         const fields = helpers.propertyToArray(context.field.field)
         // account for name errors like saying genre but the field is genres
         const dataSpecPath = [0]
-        debugger
         const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
         report.addGroup(dataSpec, fields.map((field) => field.word))
         for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
@@ -734,7 +736,7 @@ let configStruct = {
           image.selecting(null, currentReport.imageSpec)
           const reportElements = getReportElements(currentReport.select.reportElement)
           const property = getProperty(reportElements, context.newState)
-          currentReport.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)
+          currentReport.addRule(`${context.selected.selected.className} ${stateToCSS(isA, property, context.newState)}`)
         } else {
           const reportElements = getReportElements(context.reportElement)
           const lastContext = reportElements.slice(-1)[0]
@@ -746,11 +748,9 @@ let configStruct = {
           let tables = []
           if (context.reportElement.frameOfReference) {
             console.log("for", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))
-            debugger
             const mentioned = await e(context.reportElement.frameOfReference)
             tables = values(await mentioned.evalue.value || [])
             console.log('tables', JSON.stringify(tables, null, 2))
-            debugger
           }
 
           if (tables.length > 0) {
@@ -765,9 +765,9 @@ let configStruct = {
               }
             }
           } else if (isPlural || image.countSelected(currentReport.imageSpec, reportElements) == 1) {
+          // } else if (context.reportElement.modifier_selected) {
             // make sure the state exactely matches correct CSS because the delete "make the header not blue' needs that
             // const table = (await e(context.table)).evalue
-            // debugger
             const selector = image.selector(currentReport.imageSpec, reportElements)
             if (css) {
               if (state.negated) {
@@ -953,18 +953,15 @@ let configStruct = {
           if (context.to && context.to.marker == 'columnAddedTo') {
             console.log("context.to.destination", JSON.stringify(context.to.destination, null, 2))
             const destination = (await e(context.to.destination)).evalue
-            debugger
             console.log("destination", JSON.stringify(destination, null, 2))
             // TODO handle not found
             defaultTable = destination
             // currentReport = destination.report
             // dataSpecPath = destination.value.field
           } else {
-            debugger
             // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })
             const args = { context: { marker: 'table' }, frameOfReference: currentReport }
             defaultTable = mentions(args)
-            debugger
             if (defaultTable) {
               // dataSpecPath = defaultTable.field
             } else {
@@ -973,7 +970,6 @@ let configStruct = {
           }
 
           const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {
-            debugger
             let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
             let database = dataSpec.dbName
             let collection = dataSpec.collectionName
@@ -1021,11 +1017,8 @@ let configStruct = {
           }
 
           if (defaultTable) {
-            debugger
             for (const value of values(defaultTable.value)) {
               console.log("value", JSON.stringify(value, null, 2))
-              debugger
-              debugger
               currentReport = await someFunction(context, value, currentReport, value.field)
             }
           } else {
@@ -1243,6 +1236,8 @@ const template = {
     "be brief",
 
     configStruct,
+
+    "selected modifies reportElement",
 
     async ({objects, addWords, config, s, fragments}) => {
       const fragment = fragments("modifier23 modifies collection")

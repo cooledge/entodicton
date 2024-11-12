@@ -77,6 +77,10 @@ const callResetSession = async () => {
 }
 
 const callServer = async (query) => {
+  console.log('---------- callServer with -----------', JSON.stringify(query, null, 2))
+  if (!query) {
+    debugger
+  }
   const url = `${new URL(window.location.href).origin}/mongoapi`
   // TODO some kind of client id for state
   const data = { query }
@@ -163,22 +167,36 @@ const initData = {
 
 const setupHover = (label, identifier, doQuery) => {
   const className = identifier.join('_')
-  const selector = `.${className}`
+  const selector = `${className}`
+  debugger
   console.log('selector', selector)
   // $(selector).mouseover(function(){ console.log("OVER"); $(selector).addClass('highlight');});
   // $(selector).mouseout(function(){$(selector).removeClass('highlight');});
-  return <button onClick={ () => doQuery({ selected: identifier }) } onMouseEnter={ () => $(selector).addClass('highlight') } onMouseLeave={ () => $(selector).removeClass('highlight') }  >
+  const onMouseEnter = () => {
+    debugger
+    console.log('------------------------------ onMouseEnter --------------------')
+    $(selector).addClass('highlight')
+  }
+  return <button onClick={ () => doQuery({ selected: identifier }) } onMouseEnter={ onMouseEnter } onMouseLeave={ () => $(selector).removeClass('highlight') }  >
             {label}
          </button>
 }
 
-const setupHover2 = (doQuery) => (label, identifier, className) => {
-  const selector = `.${className}`
+const setupHover2 = (setSelected) => (label, identifier, className) => {
+  const selector = `${className}`
   const onClick = () => {
     $('.highlight').removeClass('highlight')
-    doQuery({ selected: identifier }) 
+    console.log("calling doQuery({ selected: identifier })", JSON.stringify({ identifier, className }, null, 2))
+    setSelected({ identifier, className }) 
   }
-  return <button onClick={ onClick } onMouseEnter={ () => $(selector).addClass('highlight') } onMouseLeave={ () => $(selector).removeClass('highlight') }  >
+  const onMouseEnter = () => {
+    $(selector).addClass('highlight') 
+  }
+  const onMouseLeave = () => {
+    $(selector).removeClass('highlight') 
+  }
+
+  return <button id={`button${identifier}`} onClick={ onClick } onMouseEnter={ onMouseEnter } onMouseLeave={ onMouseLeave }  >
             {label}
          </button>
 }
@@ -240,6 +258,7 @@ function App() {
   const [chooserTitle, setChooserTitle] = useState('')
   const [chooserOrdered, setChooserOrdered] = useState(false)
   const [chosen, setChosen] = useState()
+  const [selected, setSelected] = useState()
   // const [noSession, setNoSession] = useState({ noSessions: true, max: 25, ttl: 1000 * 5 * 60 })
   const [noSession, setNoSession] = useState()
   // const [namedReports, setNamedReports] = useState([{ name: 'one', id: '1', selected: false }, { name: 'two', id: '2', selected: true }, { name: 'three', id: '3', selected: false }])
@@ -265,6 +284,7 @@ function App() {
   const handleResponse = (response) => {
     console.log('response', response)
     setChosen(null)
+    setSelected(null)
     setChoices([])
     setCounter(counter+1)
     setServerResponse(response)
@@ -304,14 +324,6 @@ function App() {
   }
   */
 
-  /*
-  const [selecting, setSelecting] = useState(true)
-  const [hoverH1C1, setHoverH1C1] = useState(false)
-  const [hoverH1C2, setHoverH1C2] = useState(false)
-  const [hoverH1C3, setHoverH1C3] = useState(false)
-  const [thisRow, setThisRow] = useState(false)
-  */
-
   useEffect( () => {
     if (!chosen) {
       return
@@ -329,6 +341,20 @@ function App() {
     }
     doIt()
   }, [chosen, choices, setChosen, setData, rules, setChoices, setNoSession, serverResponse])
+
+  useEffect( () => {
+    if (!selected) {
+      return
+    }
+
+    const doIt = async () => {
+      setNoSession()
+      console.log('call the server with the selected', selected)
+      const result = await callServer({ selected })
+      handleResponse(result)
+    }
+    doIt()
+  }, [selected, setSelected, setNoSession])
 
   useEffect( () => {
     if (query.text === '') {
@@ -354,7 +380,7 @@ function App() {
         <Chooser title={chooserTitle} ordered={chooserOrdered} choices={choices} setChoices={setChoices} setChosen={setChosen}></Chooser>
       }
       <Query doQuery={doQuery} queryResponses={queryResponses} sessions={serverResponse?.sessions} resetSession={() => setResetSession(true) }/>
-      <Image data={data} setupHover={setupHover2(doQuery)}/>
+      <Image data={data} setupHover={setupHover2(setSelected)}/>
       {
         namedReports.length > 0 &&
         <NamedReports namedReports={namedReports} selectNamedReport={selectNamedReport} />
@@ -362,25 +388,5 @@ function App() {
     </div>
   );
 }
-
-/*
-      <table>
-        <tr>
-          <th className={hoverH1C1 || thisRow ? "highlight":""}>Company { setupHover("THIS", setHoverH1C1) } { setupHover("THIS", setThisRow) }</th>
-          <th className={hoverH1C2 || thisRow ? "highlight":""}>Company { setupHover("THIS", setHoverH1C2) } { setupHover("THIS", setThisRow) }</th>
-          <th className={hoverH1C3 || thisRow ? "highlight":""}>Company { setupHover("THIS", setHoverH1C3) } { setupHover("THIS", setThisRow) }</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
-        </tr>
-        <tr>
-          <td>Centro comercial Moctezuma</td>
-          <td>Francisco Chang</td>
-          <td>Mexico</td>
-        </tr>
-      </table>
-*/
 
 export default App;

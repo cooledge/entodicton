@@ -573,5 +573,17 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 3, movies, ['title'])
       await checkOrder(['table_3', 'table_1'])
     }, timeout);
+
+    test(`NEO23 MONGO show the users + show the movies + make the header blue + <select the movie header>`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('make the header blue')
+      await page.click('#button_table_3_header')
+      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 3, movies, ['title'])
+      await checkOrder(['table_1', 'table_3'])
+      await page.waitForSelector(`#queryCounter5`)
+      expect(await hasRule(".table_3 .header { color: blue; }")).toBeTruthy()
+    }, timeout);
   })
 });

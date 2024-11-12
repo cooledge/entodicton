@@ -133,7 +133,6 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
       console.log('field', field)
-      debugger // here
       values.push({ className: `column column_${index} ${options.id}_column_${index}`, data: instantiateImpl(field, bson, options) })
     }
     return values
@@ -218,21 +217,26 @@ const selecting = (selectingWhat, imageSpec) => {
   const counts = count(imageSpec)
   console.log('counts', JSON.stringify(counts))
   const options = {
-    seen: (what, value) => {
+    seen: (what, value, options) => {
       if (what == selectingWhat) {
         if (!value.selecting) {
           value.selecting = [
             {
               "id": "header",
               "name": "X",
-              "className": "header"
+              "className": ".header"
             }
           ]
           if (counts.header > 1) {
+            // const id = [...options.idPath.map( (id) => `_${id}` ), '_header'].join('')
+            // const className = [...options.idPath.map( (id) => `.${id}` ), '.header'].join(' ')
+            const last = options.idPath[options.idPath.length-1]
+            const id = `_${last}_header`
+            const className = `.${last} .header`
             value.selecting.push({
-              "id": value.id,
+              "id": id,
               "name": "X",
-              "className": value.id
+              "className": className
             })
 
           }
@@ -314,13 +318,17 @@ const traverseImpl = (imageSpec, options = {}) => {
   if (!options.path) {
     options.path = []
   }
+  if (!options.idPath) {
+    options.idPath = []
+  }
   traverseImplHelper(imageSpec, options)
 }
 
-const addPath = (options, morePath) => {
+const addContext = (imageSpec, options, morePath = []) => {
   return {
     ...options,
     path: options.path.concat(morePath),
+    idPath: options.idPath.concat(imageSpec.id || []),
   }
 }
 
@@ -332,20 +340,20 @@ const traverseImplHelper = (imageSpec, options) => {
     const stop = options.seen('table', imageSpec, options)
     // rows is the values to be traverseImplHelperd rather than traverseImplHelperd over the rows of the data
     if (imageSpec.headers.columns.length > 0) {
-      options.seen('header', imageSpec.headers, options)
+      options.seen('header', imageSpec.headers, addContext(imageSpec, options))
     }
     if (stop) {
       return
     }
     if (imageSpec.explicit) {
-      imageSpec.rows.map((is, index) => traverseImplHelper(is, addPath(options, ['rows', index])))
+      imageSpec.rows.map((is, index) => traverseImplHelper(is, addContext(imageSpec, options, ['rows', index])))
     } else {
-      traverseImplHelper(imageSpec.rows, addPath(options, ['rows']))
+      traverseImplHelper(imageSpec.rows, addContext(imageSpec, options, ['rows']))
     }
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      values.push({ className: `column column_${index}`, data: traverseImplHelper(field, addPath(options, [index])) })
+      values.push({ className: `column column_${index}`, data: traverseImplHelper(field, addContext(imageSpec, options, [index])) })
     }
     return values
   } else {
@@ -386,8 +394,6 @@ const moveUpOrDown = (imageSpec, imageSpecToBeMoved, distance) => {
       const array = getProperty(imageSpec, arrayPath)
       const newArrayIndex = Math.min(Math.max(arrayIndex + distance, 0), array.length-1)
       moveElement(array, arrayIndex, newArrayIndex)
-      debugger
-      debugger
     }
   }
 }

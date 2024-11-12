@@ -177,7 +177,6 @@ app.post('/query', async (req, res) => {
       }
 
       if (lastResponse.report) {
-        debugger
         const report = await query(lastResponse.report.dataSpec, lastResponse.report.imageSpec)
         console.log('lastResponse.report calling getReportNames') 
         response.reportNames = mongoKM.api.getReportNames() // selected could change

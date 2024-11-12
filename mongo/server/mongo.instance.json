@@ -13,14 +13,20 @@
     {
       "name": "mongo",
       "operators": [
+        "([graphAction|graph] (column/*))",
+        "([clear|clear,reset,restart])",
         "([reportable])",
-        "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
+        "([forTable|for] (table/*))",
+        "([sortByColumns|sort,order] (table/*)? ([sortBy|by] ([column])))",
         "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
         "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
         "([make] ([report]))",
         "([state])",
-        "([changeState|make] ([reportElement]) (state/*))",
+        "([changeState|make] ([reportElement]) (table/*)? (state/*))",
+        "([collection])",
         "([reportElementProperty])",
+        "([reportElementContext])",
+        "((reportElement/*) [contextOfReportElement|of] (reportElementContext/*))",
         "((reportElement/* && !@<color_colors && !@<case) [compoundReportElement] (reportElement/* && !@<color_colors && !@<case))",
         "([background])",
         "([header])",
@@ -32,7 +38,7 @@
         "([show] (reportable/*))",
         "([showCollection|show] (collection/*))",
         "([showReport|show] (report/*))",
-        "([showColumn|show,add,include,change,update,select] (column/*))",
+        "([showColumn|show,add,include,change,update,select] (column/*) ([columnAddedTo|to,on] (collection/* || table/*))?)",
         "([capitalize] ([reportElement]))",
         "([sales|])",
         "([thisReportElement|this] (reportElement/*))"
@@ -55,7 +61,55 @@
           "reportElement"
         ]
       ],
+      "semantics": [
+        {
+          "match": "({context}) => context.frameOfReference && context.evaluate",
+          "apply": "({context}) => {\n        const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })\n        context.evalue = value\n      }"
+        },
+        {
+          "match": "({context}) => context.marker == 'move' && !context.evaluate",
+          "apply": "async ({context, api, values, e}) => {\n        const table = (await e(context.moveable)).evalue\n        if (table) {\n          console.log('table', JSON.stringify(table, null, 2))\n          const direction = context.direction.value\n          let distance = context.direction.steps?.value || 1\n          if (direction == 'up') {\n            distance *= -1\n          }\n          for (const moved of values(table.value)) {\n            image.moveUpOrDown(table.report.imageSpec, moved, distance)\n          }\n        }\n        api.show(table.report)\n      }"
+        }
+      ],
       "bridges": [
+        {
+          "id": "collection"
+        },
+        {
+          "id": "reportElementContext"
+        },
+        {
+          "id": "contextOfReportElement",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...before[0], root: before[0], of: operator, frameOfReference: after[0], generate: ['root', 'of', 'frameOfReference'] }"
+        },
+        {
+          "id": "forTable",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), table: after[0], postModifiers: ['table'] }",
+          "semantic": "async ({context, e}) => {\n        const destination = (await e(context.table)).evalue\n        if (destination) {\n          if (!destination.report.mentioned) {\n            destination.report.mentioned = []\n          }\n          destination.value.marker = 'table'\n          destination.report.mentioned.push(destination.value)\n        }\n      }"
+        },
+        {
+          "id": "graphAction",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), columns: after[0] }",
+          "generatorp": "async ({context, word, g}) => `${context.word} ${await g(context.columns)}`",
+          "semantic": "async ({context, api, values}) => {\n        const columns = values(context.columns)\n        console.log(JSON.stringify(columns, null, 2))\n        const isNumber = (column) => {\n          if (column.marker == 'recordCount') {\n            return true\n          }\n        }\n        const categories = columns.filter( (column) => !isNumber(column) )\n        const numbers = columns.filter( (column) => isNumber(column) )\n\n        const { database, collection, columnNames } = await api.determineCollection(columns)\n        const subReport = await api.newReportSpec(database, collection)\n        report.addGroup(subReport.dataSpec, categories.map((field) => field.path[0]))\n        console.log(\"subReport.dataSpec\", JSON.stringify(subReport.dataSpec, null, 2))\n\n        const numberFields = []\n        for (const number of numbers) {\n          for (const field of values(number.field)) {\n            numberFields.push(field)\n          }\n        }\n        const countFields = []\n        for (const field of numberFields) {\n          const cf = api.addRecordCountsToDataSpec(subReport.dataSpec, field)\n          countFields.push(...cf)\n        }\n        console.log(\"subReport.dataSpec\", JSON.stringify(subReport.dataSpec, null, 2))\n        const output = await data.instantiate(subReport.dataSpec)\n        console.log(\"data\", JSON.stringify(output, null, 2))\n        subReport.imageSpec = {\n          type: \"bar\",\n          title: context.columns.text,\n          options: {\n            chart: {\n              id: 'apexchart-example'\n            },\n            xaxis: {\n              categories: { \"$push\": `$${categories[0].path[0]}` },\n            }\n          },\n          series: countFields.map((countField) => { return {\n                      name: countField.context.text,\n                      data: { \"$push\": `$${countField.field}` },\n                    }\n                  })\n        }\n       \n        if (false) {\n          api.show(subReport)\n        } else {\n          const currentReport = api.current()\n          report.addReport(api, currentReport, subReport)\n          api.show(currentReport)\n        }\n      }"
+        },
+        {
+          "id": "clear",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator) }",
+          "semantic": "({context, api}) => {\n        api.clear()\n      }"
+        },
         {
           "id": "recordCount",
           "isA": [
@@ -101,11 +155,14 @@
         },
         {
           "id": "sortByColumns",
+          "optional": {
+            "1": "{ marker: 'table', pullFromContext: true }"
+          },
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
-          "semantic": "({context, api}) => {\n        const report = api.current()\n        const fields = helpers.propertyToArray(context.field.field)\n        query.addSort(report.dataSpec, fields)\n        api.show(report)\n      }"
+          "bridge": "{ ...next(operator), table: after[0], field: after[1], postModifiers: ['field'] }",
+          "semantic": "async ({context, e, api, values}) => {\n        const currentReport= api.current()\n        const defaultTable = (await e(context.table)).evalue\n        const fields = helpers.propertyToArray(context.field.field)\n        if (defaultTable) {\n          const paths = []\n          for (const table of values(defaultTable.value)) {\n            if (!paths.find( (path) => _.isEqual(path, table.field))) {\n              paths.push(table.field)\n            }\n          }\n          for (const path of paths) {\n            const dataSpec = data.getValue(currentReport.dataSpec, path)\n            report.addSort(dataSpec, fields)\n          }\n        } else {\n          report.addSort(currentReport.dataSpec, fields)\n        }\n        api.show(currentReport)\n      }"
         },
         {
           "id": "groupByColumns",
@@ -113,7 +170,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
-          "semantic": "({context, api}) => {\n        const report = api.current()\n        const fields = helpers.propertyToArray(context.field.field)\n        // account for name errors like saying genre but the field is genres\n        query.addGroup(report.dataSpec, fields)\n        image.addGroup(report.imageSpec, fields.map((field) => { return { ...field, collection: report.dataSpec.collectionName } }))\n        api.show(report)\n      }"
+          "semantic": "({context, api}) => {\n        const currentReport= api.current()\n        const fields = helpers.propertyToArray(context.field.field)\n        // account for name errors like saying genre but the field is genres\n        const dataSpecPath = [0]\n        const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n        report.addGroup(dataSpec, fields.map((field) => field.word))\n        for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n          image.addGroup(api, dataSpecPath, imageSpec, fields.map((field) => { return { name: field.word, collection: dataSpec.collectionName } }))\n        }\n        api.show(currentReport)\n      }"
         },
         {
           "id": "column",
@@ -235,12 +292,15 @@
         },
         {
           "id": "changeState",
-          "bridge": "{ ...next(operator), reportElement: after[0], newState: after[1] }",
+          "bridge": "{ ...next(operator), reportElement: after[0], table: after[1], newState: after[2] }",
+          "optional": {
+            "2": "{ marker: 'table', pullFromContext: true }"
+          },
           "parents": [
             "verb"
           ],
           "generatorp": "async ({context, g}) => `make ${await g(context.reportElement)} ${await g(context.newState)}`",
-          "semantic": "({context, km, api, isA}) => {\n        const getProperty = (reportElements, state) => {\n          let property;\n          for (const re of reportElements) {\n            if (isA(re.marker, 'reportElementProperty')) {\n              if (re.marker == 'background') {\n                property = 'background-color' \n                break;\n              } if (isA(re.marker, 'case')) {\n                property = 'text-transform' \n                break;\n              } if (re.marker == 'color') {\n                property = 'color' \n                break;\n              }\n            }\n          }\n          if (!property) {\n            if (isA(state.marker, 'color_colors')) {\n              return 'color'\n            }\n            if (isA(state.marker, 'case')) {\n              return 'text-transform'\n            }\n          }\n          return property\n        }\n        const report = api.current()\n        const counts = image.count(report.imageSpec)\n        console.log('report -----------------', JSON.stringify(report, null, 2))\n        console.log('counts-----------------', JSON.stringify(counts, null, 2))\n        if (context.selected) {\n          image.selecting(null, report.imageSpec)\n          const reportElements = getReportElements(report.select.reportElement)\n          const property = getProperty(reportElements, context.newState)\n          report.addRule(`.${context.selected.selected} ${stateToCSS(isA, property, context.newState)}`)\n        } else {\n          const reportElements = getReportElements(context.reportElement)\n          const lastContext = reportElements.slice(-1)[0]\n          const isPlural = lastContext.number == 'many'\n          const state = context.newState\n          const property = getProperty(reportElements, state)\n          const css = stateToCSS(isA, property, state)\n          if (isPlural || image.countSelected(report.imageSpec, reportElements) == 1) {\n            // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n            const selector = image.selector(report.imageSpec, reportElements)\n            if (css) {\n              if (state.negated) {\n                report.removeRule(`${selector} ${css}`)\n              } else {\n                report.addRule(`${selector} ${css}`)\n              }\n            }\n          } else {\n            image.selecting('header', report.imageSpec)\n            if (!report.imageSpec.rules) {\n              report.imageSpec.rules = []\n            }\n            report.imageSpec.rules.push(`.highlight ${css}`)\n            report.select = context\n          }\n        }\n        api.show(report)\n      }"
+          "semantic": "async ({e, values, context, km, api, isA}) => {\n        const getProperty = (reportElements, state) => {\n          let property;\n          for (const re of reportElements) {\n            if (isA(re.marker, 'reportElementProperty')) {\n              if (re.marker == 'background') {\n                property = 'background-color' \n                break;\n              } if (isA(re.marker, 'case')) {\n                property = 'text-transform' \n                break;\n              } if (re.marker == 'color') {\n                property = 'color' \n                break;\n              }\n            }\n          }\n          if (!property) {\n            if (isA(state.marker, 'color_colors')) {\n              return 'color'\n            }\n            if (isA(state.marker, 'case')) {\n              return 'text-transform'\n            }\n          }\n          return property\n        }\n        const currentReport = api.current()\n        const counts = image.count(currentReport.imageSpec)\n        console.log('currentReport-----------------', JSON.stringify(currentReport, null, 2))\n        console.log('counts-----------------', JSON.stringify(counts, null, 2))\n        if (context.selected) {\n          image.selecting(null, currentReport.imageSpec)\n          const reportElements = getReportElements(currentReport.select.reportElement)\n          const property = getProperty(reportElements, context.newState)\n          currentReport.addRule(`${context.selected.selected.className} ${stateToCSS(isA, property, context.newState)}`)\n        } else {\n          const reportElements = getReportElements(context.reportElement)\n          const lastContext = reportElements.slice(-1)[0]\n          const isPlural = lastContext.number == 'many'\n          const state = context.newState\n          const property = getProperty(reportElements, state)\n          const css = stateToCSS(isA, property, state)\n\n          let tables = []\n          if (context.reportElement.frameOfReference) {\n            console.log(\"for\", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))\n            const mentioned = await e(context.reportElement.frameOfReference)\n            tables = values(await mentioned.evalue.value || [])\n            console.log('tables', JSON.stringify(tables, null, 2))\n          }\n\n          if (tables.length > 0) {\n            for (const table of tables) {\n              const selector = image.selector(table, reportElements)\n              if (css) {\n                if (state.negated) {\n                  currentReport.removeRule(`${selector} ${css}`)\n                } else {\n                  currentReport.addRule(`${selector} ${css}`)\n                }\n              }\n            }\n          } else if (isPlural || image.countSelected(currentReport.imageSpec, reportElements) == 1) {\n          // } else if (context.reportElement.modifier_selected) {\n            // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n            // const table = (await e(context.table)).evalue\n            const selector = image.selector(currentReport.imageSpec, reportElements)\n            if (css) {\n              if (state.negated) {\n                currentReport.removeRule(`${selector} ${css}`)\n              } else {\n                currentReport.addRule(`${selector} ${css}`)\n              }\n            }\n          } else {\n            image.selecting('header', currentReport.imageSpec)\n            if (!currentReport.imageSpec.rules) {\n              currentReport.imageSpec.rules = []\n            }\n            currentReport.imageSpec.rules.push(`.highlight ${css}`)\n            currentReport.select = context\n          }\n        }\n        api.show(currentReport)\n      }"
         },
         {
           "id": "capitalize",
@@ -307,10 +367,16 @@
               "number": "many"
             }
           ],
+          "isA": [
+            "orderable",
+            "reportElementContext",
+            "moveable"
+          ],
           "parents": [
             "theAble",
             "reportElement"
-          ]
+          ],
+          "evaluator": "async ({context, toContext, values, api, gp, verbatim}) => {\n        const currentReport = api.current()\n        if (context.ordinal) {\n          const tables = image.getTables(currentReport.imageSpec)\n          const ordinals = values(context.ordinal)\n          const table = tables[context.ordinal.value-1]\n          const selectedTables = ordinals.map( (ordinal) => tables[ordinal.value-1] ).filter( (table) => table )\n          console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n          if (!_.isEmpty(selectedTables)) {\n            context.evalue = {\n              marker: 'table',\n              report: currentReport,\n              value: toContext(selectedTables)\n            }\n          } else {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n\n      }"
         },
         {
           "id": "report",
@@ -320,13 +386,23 @@
           ]
         },
         {
+          "id": "columnAddedTo",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), postModifiers: ['destination'], destination: after[0] }"
+        },
+        {
           "id": "showColumn",
-          "bridge": "{ ...next(operator), show: after[0] }",
+          "optional": {
+            "2": "{ marker: 'undefined' }"
+          },
+          "bridge": "{ ...next(operator), show: after[0], to: after[1] }",
           "parents": [
             "verb"
           ],
-          "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({values, context, kms, api, objects}) => {\n        let report = api.current()\n        if (context.chosens) {\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, context.chosens[0])\n          api.show(report)\n        } else if (context.show.more) {\n          console.log('report', JSON.stringify(report, null, 2))\n          const { dbName, collectionName, fields } = report.dataSpec\n          await api.showFieldsResponse(dbName, collectionName, fields, report)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.quantity?.value == 'all') {\n          const { dbName, collectionName, fields } = report.dataSpec\n          // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n          const choices = []\n          let counter = 1\n          for (const field of fields) {\n            choices.push({ text: field, id: field, counter, selected: true })\n            counter += 1\n          }\n          api.updateColumns(report, report.dataSpec.dbName, report.dataSpec.collectionName, { 'chosen': 'select', choices })\n          api.show(report)\n        } else if (context.show.marker == 'recordCount') {\n          // db.movies.aggregate([ { $addFields: { \"count\": { '$size': \"$genres\" }  } } ] )\n          const fieldNames = []\n          for (const field of values(context.show.field)) {\n            const fieldName = `the number of ${field.text}`\n            const fieldProp = field.path[0]\n            const aggregation = { $addFields: { [fieldName]: { '$size': '$' + fieldProp }  } }\n            report.dataSpec.aggregation.push(aggregation)\n            fieldNames.push(fieldName)\n          }\n          query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, fieldNames)\n          api.show(report)\n        } else {\n          // TODO add a the email column called contact\n          debugger\n          const columns = values(context.show)\n          // db -> collection -> columns\n          const found = {}\n          for (let column of columns) {\n            const columnName = column.path[0]\n            const dbs = objects.columnToCollection[columnName]\n            for (const { database, collection } of dbs) {\n              if (!found[database]) {\n                found[database] = {}\n              }\n              if (!found[database][collection]) {\n                found[database][collection] = []\n              }\n              found[database][collection].push(columnName)\n            }\n          }\n          // TODO Handle multiple table/no table case/column not in current table\n          const database = Object.keys(found)[0]\n          const collection = Object.keys(found[database])[0]\n          // query.addColumns(report.dataSpec, report.imageSpec, report.dataSpec.dbName, report.dataSpec.collectionName, [context.show.path[0]]) \n          query.addColumns(report.dataSpec, report.imageSpec, database, collection, [context.show.path[0]]) \n          api.show(report)\n        }\n      }"
+          "generatorp": "async ({context, g}) => {\n        if (context.to && context.to.marker !== 'undefined') {\n          return `${context.word} ${await g(context.show)} ${await g(context.to)}`\n        } else {\n          return `${context.word} ${await g(context.show)}`\n        }\n      }",
+          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const dataSpecPath = [0]\n          const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n          const { dbName, collectionName, fields } = dataSpec\n          // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n          const choices = []\n          let counter = 1\n          for (const field of fields) {\n            choices.push({ text: field.name, id: field.name, counter, selected: true })\n            counter += 1\n          }\n          // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n          report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              // dataSpecPath = defaultTable.field\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            // dataSpec[0] -> select report to update greg98\n            // db -> collection -> columns\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                image.addColumns(defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            for (const value of values(defaultTable.value)) {\n              console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.field)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
         },
         {
           "id": "showReport",
@@ -344,7 +420,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let report = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n          const database = reportable.database\n          const collection = reportable.collection\n\n          api.updateColumns(report, database, collection, chosen)\n\n          api.show(report)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          const fields = await getFields(reportable.database, reportable.collection)\n          await api.showFieldsResponse(reportable.database, reportable.collection, fields)\n          context.chosens = [] // for callback\n          report.showCollection = context\n        }\n      }"
+          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let currentReport = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n          const database = reportable.database\n          const collection = reportable.collection\n\n          report.updateColumns(api, currentReport, database, collection, chosen)\n\n          api.show(currentReport)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          const fields = await getFields(reportable.database, reportable.collection)\n          await api.showFieldsResponse([0], reportable.database, reportable.collection, fields)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        }\n      }"
         },
         {
           "id": "show",
@@ -353,7 +429,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const report = api.newReport()\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column), id: column.path[0] })\n            }\n            const fields = await getFields(dbName, collectionName)\n            dataSpecs.push({\n                dbName: dbName,\n                collectionName: collectionName,\n                fields,\n                usedFields: columns.map(({id}) => id),\n                limit: 10,\n                aggregation: [] \n            })\n            // columns: properties.map( (c) => { return { text: gp(c) } })\n            imageSpecs.push({\n              headers: {\n                columns,\n              },\n              colgroups: properties.map( (e, i) => `column_${i}` ),\n              table: true,\n              field: [],\n              // rows: ['$name', '$age', '$fav_colors'],\n              rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n            })\n          }\n        }\n\n        if (dataSpecs.length == 1) {\n          report.dataSpec = dataSpecs[0]\n          report.imageSpec = imageSpecs[0]\n        } else {\n          report.dataSpec = dataSpecs\n          for (let i = 0; i < imageSpecs.length; ++i) {\n            imageSpecs[i].field = [i]\n          }\n          report.imageSpec = {\n            headers: { columns: [] },\n            table: true,\n            explicit: true,\n            field: [],\n            rows: [imageSpecs]\n          }\n        }\n        /*\n        report.dataSpec = { \n          dbName: properties[0].database, \n          collectionName: properties[0].collection, \n          aggregation: [] \n        }\n\n        report.imageSpec = {\n          headers: properties.map( gp ),\n          table: true,\n          field: [],\n          // rows: ['$name', '$age', '$fav_colors'],\n          rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )\n        }\n        */\n\n        api.show(report)\n      }"
+          "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        // const currentReport = api.newReport()\n        const currentReport = api.current()\n        let oldWay = false\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column), id: column.path[0] })\n            }\n\n            if (oldWay) {\n              const report = await api.newReportSpec(dbName, collectionName, columns, properties)\n              dataSpecs.push(report.dataSpec)\n              imageSpecs.push(report.imageSpec)\n            } else {\n              const subReport = await api.newReportSpec(dbName, collectionName, columns, properties)\n              // query.addReport(currentReport, { dataSpec: subReport.dataSpec, imageSpec: subReport.imageSpec })\n              report.addReport(api, currentReport, subReport)\n            }\n          }\n        }\n\n        if (oldWay) {\n          if (dataSpecs.length == 1) {\n            currentReport.dataSpec = dataSpecs[0]\n            currentReport.imageSpec = imageSpecs[0]\n          } else {\n            currentReport.dataSpec = dataSpecs\n            for (let i = 0; i < imageSpecs.length; ++i) {\n              imageSpecs[i].field = [i]\n            }\n            currentReport.imageSpec = {\n              headers: { columns: [] },\n              table: true,\n              explicit: true,\n              id: api.getId('table'),\n              field: [],\n              rows: [imageSpecs]\n            }\n          }\n        }\n        api.show(currentReport)\n      }"
         },
         {
           "id": "sales",
@@ -374,6 +450,49 @@
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "column",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "recordCount",
+              0
+            ]
+          ],
+          "choose": [
+            2
+          ]
+        },
+        {
+          "context": [
+            [
+              "column",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "recordCount",
+              1
+            ],
+            [
+              "ofDbProperty",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            3
+          ]
+        },
         {
           "context": [
             [
@@ -434,8 +553,9 @@
         }
       ]
     },
+    "selected modifies reportElement",
     {
-      "apply": "async ({objects, addWords, config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        // { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n        for (const f of await getFields(database, collection)) {\n          const word = f.replace(/_/g, \" \")\n          if (!objects.columnToCollection[f]) {\n            objects.columnToCollection[f] = []\n          }\n          objects.columnToCollection[f].push({ database, collection })\n\n          addWords('column', word, { id: 'column', path: [f] })\n          // config.addWord(word, { id: 'column', path: ['${f}'] })\n        }\n      }\n\n      // config.addWord('email', { id: 'column', initial: \"{ path: ['email'] }\" })\n\n      objects.columnToCollection = {}\n      debugger\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
+      "apply": "async ({objects, addWords, config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        // { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n        for (const { name } of await getFields(database, collection)) {\n          const word = name.replace(/_/g, \" \")\n          if (!objects.columnToCollection[name]) {\n            objects.columnToCollection[name] = []\n          }\n          objects.columnToCollection[name].push({ database, collection })\n\n          addWords('column', word, { id: 'column', path: [name] })\n          // config.addWord(word, { id: 'column', path: ['${f}'] })\n        }\n      }\n      objects.columnToCollection = {}\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
     }
   ],
   "resultss": [
@@ -2182,6 +2302,16 @@
           false
         ],
         [
+          "ordinal",
+          "number",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
+          "adjective",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -2249,11 +2379,6 @@
         [
           "property",
           "theAble",
-          false
-        ],
-        [
-          "property",
-          "unknown",
           false
         ],
         [
@@ -2803,11 +2928,6 @@
         ],
         [
           "unknown",
-          "object",
-          false
-        ],
-        [
-          "unknown",
           "queryable",
           false
         ],
@@ -2996,7 +3116,7 @@
             ],
             "ops": [
               [
-                "unknown",
+                "a",
                 0
               ],
               [
@@ -3004,7 +3124,7 @@
                 0
               ],
               [
-                "a",
+                "unknown",
                 0
               ],
               [
@@ -3021,11 +3141,11 @@
             ],
             "ops": [
               [
-                "is",
+                "a",
                 0
               ],
               [
-                "a",
+                "is",
                 0
               ],
               [
@@ -3042,11 +3162,11 @@
             ],
             "ops": [
               [
-                "is",
+                "a",
                 0
               ],
               [
-                "a",
+                "is",
                 0
               ]
             ],
@@ -3080,7 +3200,7 @@
           }
         ]
       },
-      "trace": "undefined",
+      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. unknown/0  (1, 0) - \"column23\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"column23\"\n                                     unknown: true\n                                     value: \"column23\"\n                                     word: \"column23\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 10}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n    2. a/0  (1, 6) - \"a\"\n                                   {\n                                     default: true\n                                     marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                     range: {'start': 12, 'end': 12}\n                                     text: \"a\"\n                                     word: \"a\"\n                                   }\n    3. unknown/0  (1, 9) - \"column\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 14, 'end': 19}\n                                     text: \"column\"\n                                     unknown: true\n                                     value: \"column\"\n                                     word: \"column\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 7}, text: column23, unknown: True, value: column23, word: column23})\n\n>>>>>>>>>>>>> Counter 2\n   *0. unknown/1 (dead) (2, 0) - \"column23\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"column23\"\n                                     unknown: true\n                                     value: \"column23\"\n                                     word: \"column23\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 10}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n    2. a/0  (1, 6) - \"a\"\n                                   {\n                                     default: true\n                                     marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                     range: {'start': 12, 'end': 12}\n                                     text: \"a\"\n                                     word: \"a\"\n                                   }\n    3. unknown/0  (1, 9) - \"column\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 14, 'end': 19}\n                                     text: \"column\"\n                                     unknown: true\n                                     value: \"column\"\n                                     word: \"column\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=3) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 14, 'end': 19}, text: column, unknown: True, value: column, word: column})\n\n>>>>>>>>>>>>> Counter 3\n    0. unknown/1 (dead) (2, 0) - \"column23\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"column23\"\n                                     unknown: true\n                                     value: \"column23\"\n                                     word: \"column23\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 10}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n    2. a/0  (1, 6) - \"a\"\n                                   {\n                                     default: true\n                                     marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                     range: {'start': 12, 'end': 12}\n                                     text: \"a\"\n                                     word: \"a\"\n                                   }\n   *3. unknown/1 (dead) (2, 1) - \"column\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 14, 'end': 19}\n                                     text: \"column\"\n                                     unknown: true\n                                     value: \"column\"\n                                     word: \"column\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=2) is Context({default: True, marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge)), range: {'start': 12, 'end': 12}, text: a, word: a})\n\n>>>>>>>>>>>>> Counter 4\n    0. unknown/1 (dead) (2, 0) - \"column23\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"column23\"\n                                     unknown: true\n                                     value: \"column23\"\n                                     word: \"column23\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 10}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n   *2. unknown/1 (dead) (3, 0) - \"a column\"\n                                   {\n                                     prioritized_by: [('a', 0)]\n                                     concept: true\n                                     dead: true\n                                     determiner:                                          {\n                                           default: true\n                                           marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                           range: {'start': 12, 'end': 12}\n                                           text: \"a\"\n                                           word: \"a\"\n                                         }\n\n                                     instance: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     modifiers: [\n                                     'determiner'\n                                     ]\n                                     number: \"one\"\n                                     pullFromContext: false\n                                     range: {'start': 12, 'end': 19}\n                                     text: \"a column\"\n                                     types: [\n                                     'unknown'\n                                     ]\n                                     unknown: true\n                                     value: \"column\"\n                                     wantsValue: true\n                                     word: \"column\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge)), number: one, range: {'start': 9, 'end': 10}, text: is, word: is})\n\n>>>>>>>>>>>>> Counter 5\n   *0. is/1  (4, 0) - \"column23 is a column\"\n                                   {\n                                     prioritized_by: [('is', 0)]\n                                     marker: Operator(is/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     one:                                          {\n                                           dead: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           number: \"one\"\n                                           range: {'start': 0, 'end': 19}\n                                           text: \"column23\"\n                                           types: [\n                                           'unknown'\n                                           ]\n                                           unknown: true\n                                           value: \"column23\"\n                                           word: \"column23\"\n                                         }\n\n                                     range: {'start': 0, 'end': 19}\n                                     text: \"column23 is a column\"\n                                     two:                                          {\n                                           prioritized_by: [('a', 0)]\n                                           concept: true\n                                           dead: true\n                                           determiner:                                                {\n                                                 default: true\n                                                 marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                                 range: {'start': 12, 'end': 12}\n                                                 text: \"a\"\n                                                 word: \"a\"\n                                               }\n\n                                           instance: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           modifiers: [\n                                           'determiner'\n                                           ]\n                                           number: \"one\"\n                                           pullFromContext: false\n                                           range: {'start': 12, 'end': 19}\n                                           text: \"a column\"\n                                           types: [\n                                           'unknown'\n                                           ]\n                                           unknown: true\n                                           value: \"column\"\n                                           wantsValue: true\n                                           word: \"column\"\n                                         }\n\n                                     word: \"is\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(is/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), number: one, one: Context({dead: True, marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), number: one, range: {'start': 0, 'end': 19}, text: column23, types: ['unknown'], unknown: True, value: column23, word: column23}), range: {'start': 0, 'end': 19}, text: column23 is a column, two: Context({concept: True, dead: True, determiner: Context({default: True, marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge)), range: {'start': 12, 'end': 12}, text: a, word: a}), instance: True, marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), modifiers: ['determiner'], number: one, pullFromContext: False, range: {'start': 12, 'end': 19}, text: a column, types: ['unknown'], unknown: True, value: column, wantsValue: True, word: column}), word: is})\n\n>>>>>>>>>>>>> Counter 6\n   *0. is/2 (dead) (5, 0) - \"column23 is a column\"\n                                   {\n                                     prioritized_by: [('is', 1)]\n                                     dead: true\n                                     marker: Operator(is/2, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     one:                                          {\n                                           dead: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           number: \"one\"\n                                           range: {'start': 0, 'end': 19}\n                                           text: \"column23\"\n                                           types: [\n                                           'unknown'\n                                           ]\n                                           unknown: true\n                                           value: \"column23\"\n                                           word: \"column23\"\n                                         }\n\n                                     range: {'start': 0, 'end': 19}\n                                     text: \"column23 is a column\"\n                                     two:                                          {\n                                           prioritized_by: [('a', 0)]\n                                           concept: true\n                                           dead: true\n                                           determiner:                                                {\n                                                 default: true\n                                                 marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                                 range: {'start': 12, 'end': 12}\n                                                 text: \"a\"\n                                                 word: \"a\"\n                                               }\n\n                                           instance: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           modifiers: [\n                                           'determiner'\n                                           ]\n                                           number: \"one\"\n                                           pullFromContext: false\n                                           range: {'start': 12, 'end': 19}\n                                           text: \"a column\"\n                                           types: [\n                                           'unknown'\n                                           ]\n                                           unknown: true\n                                           value: \"column\"\n                                           wantsValue: true\n                                           word: \"column\"\n                                         }\n\n                                     word: \"is\"\n                                   }\n<<<<<<<<<<<<<\n",
       "contexts": [
         {
           "number": "one",
@@ -3123,6 +3243,7 @@
               "unknown"
             ],
             "pullFromContext": false,
+            "instance": true,
             "concept": true,
             "number": "one",
             "wantsValue": true,
@@ -5044,6 +5165,16 @@
           false
         ],
         [
+          "ordinal",
+          "number",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
+          "adjective",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -5111,11 +5242,6 @@
         [
           "property",
           "theAble",
-          false
-        ],
-        [
-          "property",
-          "unknown",
           false
         ],
         [
@@ -5665,11 +5791,6 @@
         ],
         [
           "unknown",
-          "object",
-          false
-        ],
-        [
-          "unknown",
           "queryable",
           false
         ],
@@ -5858,11 +5979,11 @@
             ],
             "ops": [
               [
-                "unknown",
+                "modifies",
                 0
               ],
               [
-                "modifies",
+                "unknown",
                 0
               ],
               [
@@ -5904,7 +6025,7 @@
           }
         ]
       },
-      "trace": "undefined",
+      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. unknown/0  (1, 0) - \"modifier23\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 9}\n                                     text: \"modifier23\"\n                                     unknown: true\n                                     value: \"modifier23\"\n                                     word: \"modifier23\"\n                                   }\n    1. modifies/0  (1, 3) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 11, 'end': 18}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. unknown/0  (1, 5) - \"collection\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 20, 'end': 29}\n                                     text: \"collection\"\n                                     unknown: true\n                                     value: \"collection\"\n                                     word: \"collection\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 9}, text: modifier23, unknown: True, value: modifier23, word: modifier23})\n\n>>>>>>>>>>>>> Counter 2\n   *0. unknown/1 (dead) (2, 0) - \"modifier23\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 9}\n                                     text: \"modifier23\"\n                                     unknown: true\n                                     value: \"modifier23\"\n                                     word: \"modifier23\"\n                                   }\n    1. modifies/0  (1, 3) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 11, 'end': 18}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. unknown/0  (1, 5) - \"collection\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 20, 'end': 29}\n                                     text: \"collection\"\n                                     unknown: true\n                                     value: \"collection\"\n                                     word: \"collection\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=2) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 20, 'end': 29}, text: collection, unknown: True, value: collection, word: collection})\n\n>>>>>>>>>>>>> Counter 3\n    0. unknown/1 (dead) (2, 0) - \"modifier23\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 9}\n                                     text: \"modifier23\"\n                                     unknown: true\n                                     value: \"modifier23\"\n                                     word: \"modifier23\"\n                                   }\n    1. modifies/0  (1, 3) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 11, 'end': 18}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n   *2. unknown/1 (dead) (2, 1) - \"collection\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 20, 'end': 29}\n                                     text: \"collection\"\n                                     unknown: true\n                                     value: \"collection\"\n                                     word: \"collection\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({flatten: False, marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge)), number: one, range: {'start': 11, 'end': 18}, text: modifies, word: modifies})\n\n>>>>>>>>>>>>> Counter 4\n   *0. modifies/1 (dead) (3, 0) - \"modifier23 modifies collection\"\n                                   {\n                                     prioritized_by: [('modifies', 0)]\n                                     concept:                                          {\n                                           prioritized_by: [('unknown', 0)]\n                                           dead: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           range: {'start': 20, 'end': 29}\n                                           text: \"collection\"\n                                           unknown: true\n                                           value: \"collection\"\n                                           word: \"collection\"\n                                         }\n\n                                     dead: true\n                                     flatten: false\n                                     marker: Operator(modifies/1, ['Selector(None, , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     modifiers: [\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 0, 'end': 9}\n                                         text: \"modifier23\"\n                                         unknown: true\n                                         value: \"modifier23\"\n                                         word: \"modifier23\"\n                                       }\n                                     ]\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 29}\n                                     text: \"modifier23 modifies collection\"\n                                     word: \"modifies\"\n                                   }\n<<<<<<<<<<<<<\n",
       "contexts": [
         {
           "word": "modifies",
@@ -7959,6 +8080,16 @@
           false
         ],
         [
+          "ordinal",
+          "number",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
+          "adjective",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -8026,11 +8157,6 @@
         [
           "property",
           "theAble",
-          false
-        ],
-        [
-          "property",
-          "unknown",
           false
         ],
         [
@@ -8580,11 +8706,6 @@
         ],
         [
           "unknown",
-          "object",
-          false
-        ],
-        [
-          "unknown",
           "queryable",
           false
         ],
@@ -8773,7 +8894,11 @@
             ],
             "ops": [
               [
-                "unknown",
+                "a",
+                0
+              ],
+              [
+                "concept",
                 0
               ],
               [
@@ -8781,11 +8906,7 @@
                 0
               ],
               [
-                "a",
-                0
-              ],
-              [
-                "concept",
+                "unknown",
                 0
               ]
             ],
@@ -8798,15 +8919,15 @@
             ],
             "ops": [
               [
-                "is",
-                0
-              ],
-              [
                 "a",
                 0
               ],
               [
                 "concept",
+                0
+              ],
+              [
+                "is",
                 0
               ]
             ],
@@ -8819,11 +8940,11 @@
             ],
             "ops": [
               [
-                "is",
+                "a",
                 0
               ],
               [
-                "a",
+                "is",
                 0
               ]
             ],
@@ -8857,7 +8978,7 @@
           }
         ]
       },
-      "trace": "undefined",
+      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. unknown/0  (1, 0) - \"reportable\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 9}\n                                     text: \"reportable\"\n                                     unknown: true\n                                     value: \"reportable\"\n                                     word: \"reportable\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 11, 'end': 12}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n    2. a/0  (1, 6) - \"a\"\n                                   {\n                                     default: true\n                                     marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                     range: {'start': 14, 'end': 14}\n                                     text: \"a\"\n                                     word: \"a\"\n                                   }\n    3. concept/0  (1, 10) - \"concept\"\n                                   {\n                                     default: true\n                                     marker: Operator(concept/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 16, 'end': 22}\n                                     text: \"concept\"\n                                     value: \"concept\"\n                                     word: \"concept\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 9}, text: reportable, unknown: True, value: reportable, word: reportable})\n\n>>>>>>>>>>>>> Counter 2\n   *0. unknown/1 (dead) (2, 0) - \"reportable\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 9}\n                                     text: \"reportable\"\n                                     unknown: true\n                                     value: \"reportable\"\n                                     word: \"reportable\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 11, 'end': 12}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n    2. a/0  (1, 6) - \"a\"\n                                   {\n                                     default: true\n                                     marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                     range: {'start': 14, 'end': 14}\n                                     text: \"a\"\n                                     word: \"a\"\n                                   }\n    3. concept/0  (1, 10) - \"concept\"\n                                   {\n                                     default: true\n                                     marker: Operator(concept/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 16, 'end': 22}\n                                     text: \"concept\"\n                                     value: \"concept\"\n                                     word: \"concept\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=3) is Context({default: True, marker: Operator(concept/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), range: {'start': 16, 'end': 22}, text: concept, value: concept, word: concept})\n\n>>>>>>>>>>>>> Counter 3\n    0. unknown/1 (dead) (2, 0) - \"reportable\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 9}\n                                     text: \"reportable\"\n                                     unknown: true\n                                     value: \"reportable\"\n                                     word: \"reportable\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 11, 'end': 12}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n    2. a/0  (1, 6) - \"a\"\n                                   {\n                                     default: true\n                                     marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                     range: {'start': 14, 'end': 14}\n                                     text: \"a\"\n                                     word: \"a\"\n                                   }\n   *3. concept/1 (dead) (2, 1) - \"concept\"\n                                   {\n                                     prioritized_by: [('concept', 0)]\n                                     dead: true\n                                     default: true\n                                     marker: Operator(concept/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     range: {'start': 16, 'end': 22}\n                                     text: \"concept\"\n                                     value: \"concept\"\n                                     word: \"concept\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=2) is Context({default: True, marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge)), range: {'start': 14, 'end': 14}, text: a, word: a})\n\n>>>>>>>>>>>>> Counter 4\n    0. unknown/1 (dead) (2, 0) - \"reportable\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 9}\n                                     text: \"reportable\"\n                                     unknown: true\n                                     value: \"reportable\"\n                                     word: \"reportable\"\n                                   }\n    1. is/0  (1, 3) - \"is\"\n                                   {\n                                     marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 11, 'end': 12}\n                                     text: \"is\"\n                                     word: \"is\"\n                                   }\n   *2. concept/1 (dead) (3, 0) - \"a concept\"\n                                   {\n                                     prioritized_by: [('a', 0)]\n                                     concept: true\n                                     dead: true\n                                     default: true\n                                     determiner:                                          {\n                                           default: true\n                                           marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                           range: {'start': 14, 'end': 14}\n                                           text: \"a\"\n                                           word: \"a\"\n                                         }\n\n                                     instance: true\n                                     marker: Operator(concept/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     modifiers: [\n                                     'determiner'\n                                     ]\n                                     number: \"one\"\n                                     pullFromContext: false\n                                     range: {'start': 14, 'end': 22}\n                                     text: \"a concept\"\n                                     types: [\n                                     'concept'\n                                     ]\n                                     value: \"concept\"\n                                     wantsValue: true\n                                     word: \"concept\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({marker: Operator(is/0, [\"Selector(Bridge('{ ...next(operator), one: after[0], two: after[1], query: true }'), , []<==>[Type('queryable'), Type('queryable')], bridge(queryBridge))\", \"Selector(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }'), , [Type('queryable')]<==>[Type('queryable')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), one: { number: operator.number, ...before[0] }, two: after[0] }')), variables({}) bridge(bridge)), number: one, range: {'start': 11, 'end': 12}, text: is, word: is})\n\n>>>>>>>>>>>>> Counter 5\n   *0. is/1  (4, 0) - \"reportable is a concept\"\n                                   {\n                                     prioritized_by: [('is', 0)]\n                                     marker: Operator(is/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     one:                                          {\n                                           dead: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           number: \"one\"\n                                           range: {'start': 0, 'end': 22}\n                                           text: \"reportable\"\n                                           types: [\n                                           'unknown'\n                                           ]\n                                           unknown: true\n                                           value: \"reportable\"\n                                           word: \"reportable\"\n                                         }\n\n                                     range: {'start': 0, 'end': 22}\n                                     text: \"reportable is a concept\"\n                                     two:                                          {\n                                           prioritized_by: [('a', 0)]\n                                           concept: true\n                                           dead: true\n                                           default: true\n                                           determiner:                                                {\n                                                 default: true\n                                                 marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                                 range: {'start': 14, 'end': 14}\n                                                 text: \"a\"\n                                                 word: \"a\"\n                                               }\n\n                                           instance: true\n                                           marker: Operator(concept/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                           modifiers: [\n                                           'determiner'\n                                           ]\n                                           number: \"one\"\n                                           pullFromContext: false\n                                           range: {'start': 14, 'end': 22}\n                                           text: \"a concept\"\n                                           types: [\n                                           'concept'\n                                           ]\n                                           value: \"concept\"\n                                           wantsValue: true\n                                           word: \"concept\"\n                                         }\n\n                                     word: \"is\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(is/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), number: one, one: Context({dead: True, marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), number: one, range: {'start': 0, 'end': 22}, text: reportable, types: ['unknown'], unknown: True, value: reportable, word: reportable}), range: {'start': 0, 'end': 22}, text: reportable is a concept, two: Context({concept: True, dead: True, default: True, determiner: Context({default: True, marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge)), range: {'start': 14, 'end': 14}, text: a, word: a}), instance: True, marker: Operator(concept/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge)), modifiers: ['determiner'], number: one, pullFromContext: False, range: {'start': 14, 'end': 22}, text: a concept, types: ['concept'], value: concept, wantsValue: True, word: concept}), word: is})\n\n>>>>>>>>>>>>> Counter 6\n   *0. is/2 (dead) (5, 0) - \"reportable is a concept\"\n                                   {\n                                     prioritized_by: [('is', 1)]\n                                     dead: true\n                                     marker: Operator(is/2, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     one:                                          {\n                                           dead: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           number: \"one\"\n                                           range: {'start': 0, 'end': 22}\n                                           text: \"reportable\"\n                                           types: [\n                                           'unknown'\n                                           ]\n                                           unknown: true\n                                           value: \"reportable\"\n                                           word: \"reportable\"\n                                         }\n\n                                     range: {'start': 0, 'end': 22}\n                                     text: \"reportable is a concept\"\n                                     two:                                          {\n                                           prioritized_by: [('a', 0)]\n                                           concept: true\n                                           dead: true\n                                           default: true\n                                           determiner:                                                {\n                                                 default: true\n                                                 marker: Operator(a/0, PASS, [\"Selector(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }'), , []<==>[Type('theAble')], bridge(bridge), passthrough)\"], evaluator(Bridge('{ ...after[0], pullFromContext: false, instance: true, concept: true, number: 'one', wantsValue: true, determiner: operator, modifiers: append(['determiner'], after[0].modifiers) }')), variables({}) bridge(bridge))\n                                                 range: {'start': 14, 'end': 14}\n                                                 text: \"a\"\n                                                 word: \"a\"\n                                               }\n\n                                           instance: true\n                                           marker: Operator(concept/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                           modifiers: [\n                                           'determiner'\n                                           ]\n                                           number: \"one\"\n                                           pullFromContext: false\n                                           range: {'start': 14, 'end': 22}\n                                           text: \"a concept\"\n                                           types: [\n                                           'concept'\n                                           ]\n                                           value: \"concept\"\n                                           wantsValue: true\n                                           word: \"concept\"\n                                         }\n\n                                     word: \"is\"\n                                   }\n<<<<<<<<<<<<<\n",
       "contexts": [
         {
           "number": "one",
@@ -8900,6 +9021,7 @@
               "concept"
             ],
             "pullFromContext": false,
+            "instance": true,
             "concept": true,
             "number": "one",
             "wantsValue": true,
@@ -10960,6 +11082,16 @@
           false
         ],
         [
+          "ordinal",
+          "number",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
+          "adjective",
+          false
+        ],
+        [
           "pink_colors",
           "color_colors",
           false
@@ -11027,11 +11159,6 @@
         [
           "property",
           "theAble",
-          false
-        ],
-        [
-          "property",
-          "unknown",
           false
         ],
         [
@@ -11621,11 +11748,6 @@
         ],
         [
           "unknown",
-          "object",
-          false
-        ],
-        [
-          "unknown",
           "queryable",
           false
         ],
@@ -11839,7 +11961,7 @@
           }
         ]
       },
-      "trace": "undefined",
+      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. be/0  (1, 1) - \"be\"\n                                   {\n                                     default: true\n                                     marker: Operator(be/0, [\"Selector(Bridge('{ ...next(operator), type: after[0] }'), , []<==>[Type('briefOrWordy')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), type: after[0] }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 1}\n                                     text: \"be\"\n                                     value: \"be\"\n                                     word: \"be\"\n                                   }\n    1. briefOrWordy/0  (1, 4) - \"brief\"\n                                   {\n                                     marker: Operator(briefOrWordy/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 7}\n                                     text: \"brief\"\n                                     value: \"brief\"\n                                     word: \"brief\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({marker: Operator(briefOrWordy/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), range: {'start': 3, 'end': 7}, text: brief, value: brief, word: brief})\n\n>>>>>>>>>>>>> Counter 2\n    0. be/0  (1, 1) - \"be\"\n                                   {\n                                     default: true\n                                     marker: Operator(be/0, [\"Selector(Bridge('{ ...next(operator), type: after[0] }'), , []<==>[Type('briefOrWordy')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), type: after[0] }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 1}\n                                     text: \"be\"\n                                     value: \"be\"\n                                     word: \"be\"\n                                   }\n   *1. briefOrWordy/1 (dead) (2, 0) - \"brief\"\n                                   {\n                                     prioritized_by: [('briefOrWordy', 0)]\n                                     dead: true\n                                     marker: Operator(briefOrWordy/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 7}\n                                     text: \"brief\"\n                                     value: \"brief\"\n                                     word: \"brief\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({default: True, marker: Operator(be/0, [\"Selector(Bridge('{ ...next(operator), type: after[0] }'), , []<==>[Type('briefOrWordy')], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), type: after[0] }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 1}, text: be, value: be, word: be})\n\n>>>>>>>>>>>>> Counter 3\n   *0. be/1 (dead) (3, 0) - \"be brief\"\n                                   {\n                                     prioritized_by: [('be', 0)]\n                                     dead: true\n                                     default: true\n                                     marker: Operator(be/1, [\"Selector(None, , []<==>[Type('briefOrWordy')], bridge(bridge))\"], evaluator(None), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"be brief\"\n                                     type:                                          {\n                                           prioritized_by: [('briefOrWordy', 0)]\n                                           dead: true\n                                           marker: Operator(briefOrWordy/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                           range: {'start': 3, 'end': 7}\n                                           text: \"brief\"\n                                           types: [\n                                           'briefOrWordy'\n                                           ]\n                                           value: \"brief\"\n                                           word: \"brief\"\n                                         }\n\n                                     value: \"be\"\n                                     word: \"be\"\n                                   }\n<<<<<<<<<<<<<\n",
       "contexts": [
         {
           "marker": "be",
@@ -11908,14 +12030,20 @@
       "extraConfig": true,
       "name": "mongo",
       "operators": [
+        "([graphAction|graph] (column/*))",
+        "([clear|clear,reset,restart])",
         "([reportable])",
-        "([sortByColumns|sort,order] ([sortBy|by] ([column])))",
+        "([forTable|for] (table/*))",
+        "([sortByColumns|sort,order] (table/*)? ([sortBy|by] ([column])))",
         "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
         "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
         "([make] ([report]))",
         "([state])",
-        "([changeState|make] ([reportElement]) (state/*))",
+        "([changeState|make] ([reportElement]) (table/*)? (state/*))",
+        "([collection])",
         "([reportElementProperty])",
+        "([reportElementContext])",
+        "((reportElement/*) [contextOfReportElement|of] (reportElementContext/*))",
         "((reportElement/* && !@<color_colors && !@<case) [compoundReportElement] (reportElement/* && !@<color_colors && !@<case))",
         "([background])",
         "([header])",
@@ -11927,7 +12055,7 @@
         "([show] (reportable/*))",
         "([showCollection|show] (collection/*))",
         "([showReport|show] (report/*))",
-        "([showColumn|show,add,include,change,update,select] (column/*))",
+        "([showColumn|show,add,include,change,update,select] (column/*) ([columnAddedTo|to,on] (collection/* || table/*))?)",
         "([capitalize] ([reportElement]))",
         "([sales|])",
         "([thisReportElement|this] (reportElement/*))"
@@ -11950,7 +12078,45 @@
           "reportElement"
         ]
       ],
+      "semantics": [
+        {},
+        {}
+      ],
       "bridges": [
+        {
+          "id": "collection"
+        },
+        {
+          "id": "reportElementContext"
+        },
+        {
+          "id": "contextOfReportElement",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...before[0], root: before[0], of: operator, frameOfReference: after[0], generate: ['root', 'of', 'frameOfReference'] }"
+        },
+        {
+          "id": "forTable",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), table: after[0], postModifiers: ['table'] }"
+        },
+        {
+          "id": "graphAction",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), columns: after[0] }"
+        },
+        {
+          "id": "clear",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator) }"
+        },
         {
           "id": "recordCount",
           "isA": [
@@ -11994,10 +12160,13 @@
         },
         {
           "id": "sortByColumns",
+          "optional": {
+            "1": "{ marker: 'table', pullFromContext: true }"
+          },
           "isA": [
             "verb"
           ],
-          "bridge": "{ ...next(operator), field: after[0], postModifiers: ['field'] }"
+          "bridge": "{ ...next(operator), table: after[0], field: after[1], postModifiers: ['field'] }"
         },
         {
           "id": "groupByColumns",
@@ -12123,7 +12292,10 @@
         },
         {
           "id": "changeState",
-          "bridge": "{ ...next(operator), reportElement: after[0], newState: after[1] }",
+          "bridge": "{ ...next(operator), reportElement: after[0], table: after[1], newState: after[2] }",
+          "optional": {
+            "2": "{ marker: 'table', pullFromContext: true }"
+          },
           "parents": [
             "verb"
           ]
@@ -12191,6 +12363,11 @@
               "number": "many"
             }
           ],
+          "isA": [
+            "orderable",
+            "reportElementContext",
+            "moveable"
+          ],
           "parents": [
             "theAble",
             "reportElement"
@@ -12204,8 +12381,18 @@
           ]
         },
         {
+          "id": "columnAddedTo",
+          "isA": [
+            "preposition"
+          ],
+          "bridge": "{ ...next(operator), postModifiers: ['destination'], destination: after[0] }"
+        },
+        {
           "id": "showColumn",
-          "bridge": "{ ...next(operator), show: after[0] }",
+          "optional": {
+            "2": "{ marker: 'undefined' }"
+          },
+          "bridge": "{ ...next(operator), show: after[0], to: after[1] }",
           "parents": [
             "verb"
           ]
@@ -12250,6 +12437,49 @@
         }
       ],
       "priorities": [
+        {
+          "context": [
+            [
+              "column",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "recordCount",
+              0
+            ]
+          ],
+          "choose": [
+            2
+          ]
+        },
+        {
+          "context": [
+            [
+              "column",
+              1
+            ],
+            [
+              "list",
+              0
+            ],
+            [
+              "recordCount",
+              1
+            ],
+            [
+              "ofDbProperty",
+              0
+            ]
+          ],
+          "ordered": true,
+          "choose": [
+            3
+          ]
+        },
         {
           "context": [
             [
@@ -12311,7 +12541,3001 @@
       ]
     },
     {
-      "apply": "async ({objects, addWords, config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        // { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n        for (const f of await getFields(database, collection)) {\n          const word = f.replace(/_/g, \" \")\n          if (!objects.columnToCollection[f]) {\n            objects.columnToCollection[f] = []\n          }\n          objects.columnToCollection[f].push({ database, collection })\n\n          addWords('column', word, { id: 'column', path: [f] })\n          // config.addWord(word, { id: 'column', path: ['${f}'] })\n        }\n      }\n\n      // config.addWord('email', { id: 'column', initial: \"{ path: ['email'] }\" })\n\n      objects.columnToCollection = {}\n      debugger\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
+      "hierarchy": [
+        [
+          "a",
+          "articlePOS",
+          false
+        ],
+        [
+          "action",
+          "action",
+          false
+        ],
+        [
+          "adjective",
+          "adjective",
+          false
+        ],
+        [
+          "all",
+          "quantifier",
+          false
+        ],
+        [
+          "aqua_colors",
+          "blue_colors",
+          false
+        ],
+        [
+          "aqua_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "aqua_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "aqua_colors",
+          "isEder",
+          false
+        ],
+        [
+          "aqua_colors",
+          "object",
+          false
+        ],
+        [
+          "aqua_colors",
+          "property",
+          false
+        ],
+        [
+          "aqua_colors",
+          "queryable",
+          false
+        ],
+        [
+          "aqua_colors",
+          "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "blue_colors",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "isEder",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "object",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "property",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "queryable",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "theAble",
+          false
+        ],
+        [
+          "articlePOS",
+          "articlePOS",
+          false
+        ],
+        [
+          "ascending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ascending",
+          "isEdee",
+          false
+        ],
+        [
+          "ascending",
+          "isEder",
+          false
+        ],
+        [
+          "ascending",
+          "object",
+          false
+        ],
+        [
+          "ascending",
+          "property",
+          false
+        ],
+        [
+          "ascending",
+          "queryable",
+          false
+        ],
+        [
+          "ascending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "ascending",
+          "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "azure_colors",
+          "isEder",
+          false
+        ],
+        [
+          "azure_colors",
+          "object",
+          false
+        ],
+        [
+          "azure_colors",
+          "property",
+          false
+        ],
+        [
+          "azure_colors",
+          "queryable",
+          false
+        ],
+        [
+          "azure_colors",
+          "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "white_colors",
+          false
+        ],
+        [
+          "background",
+          "reportElement",
+          false
+        ],
+        [
+          "background",
+          "reportElementProperty",
+          false
+        ],
+        [
+          "background",
+          "theAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "beige_colors",
+          "isEder",
+          false
+        ],
+        [
+          "beige_colors",
+          "object",
+          false
+        ],
+        [
+          "beige_colors",
+          "property",
+          false
+        ],
+        [
+          "beige_colors",
+          "queryable",
+          false
+        ],
+        [
+          "beige_colors",
+          "theAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "white_colors",
+          false
+        ],
+        [
+          "between",
+          "preposition",
+          false
+        ],
+        [
+          "black_colors",
+          "gray_colors",
+          false
+        ],
+        [
+          "black_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "black_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "black_colors",
+          "isEder",
+          false
+        ],
+        [
+          "black_colors",
+          "object",
+          false
+        ],
+        [
+          "black_colors",
+          "property",
+          false
+        ],
+        [
+          "black_colors",
+          "queryable",
+          false
+        ],
+        [
+          "black_colors",
+          "theAble",
+          false
+        ],
+        [
+          "blue_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "blue_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "blue_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "blue_colors",
+          "isEder",
+          false
+        ],
+        [
+          "blue_colors",
+          "object",
+          false
+        ],
+        [
+          "blue_colors",
+          "property",
+          false
+        ],
+        [
+          "blue_colors",
+          "queryable",
+          false
+        ],
+        [
+          "blue_colors",
+          "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "color_colors_modifier",
+          false
+        ],
+        [
+          "brightness_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "brightness_colors",
+          "isEder",
+          false
+        ],
+        [
+          "brightness_colors",
+          "object",
+          false
+        ],
+        [
+          "brightness_colors",
+          "property",
+          false
+        ],
+        [
+          "brightness_colors",
+          "queryable",
+          false
+        ],
+        [
+          "brightness_colors",
+          "theAble",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "adjective",
+          true
+        ],
+        [
+          "brightness_colors_color_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "concept",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "isEder",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "object",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "property",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "queryable",
+          false
+        ],
+        [
+          "brightness_colors_color_colors",
+          "theAble",
+          false
+        ],
+        [
+          "brown_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "brown_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "brown_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "brown_colors",
+          "isEder",
+          false
+        ],
+        [
+          "brown_colors",
+          "object",
+          false
+        ],
+        [
+          "brown_colors",
+          "property",
+          false
+        ],
+        [
+          "brown_colors",
+          "queryable",
+          false
+        ],
+        [
+          "brown_colors",
+          "theAble",
+          false
+        ],
+        [
+          "call",
+          "verb",
+          false
+        ],
+        [
+          "canBeDoQuestion",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "canBeQuestion",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "cancel",
+          "verb",
+          false
+        ],
+        [
+          "capitalize",
+          "verb",
+          false
+        ],
+        [
+          "case",
+          "reportElement",
+          false
+        ],
+        [
+          "case",
+          "reportElementProperty",
+          false
+        ],
+        [
+          "case",
+          "state",
+          false
+        ],
+        [
+          "changeState",
+          "verb",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "green_colors",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "isEder",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "object",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "property",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "queryable",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "theAble",
+          false
+        ],
+        [
+          "clear",
+          "verb",
+          false
+        ],
+        [
+          "color_colors",
+          "concept",
+          false
+        ],
+        [
+          "color_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "color_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "color_colors",
+          "isEder",
+          false
+        ],
+        [
+          "color_colors",
+          "object",
+          false
+        ],
+        [
+          "color_colors",
+          "property",
+          false
+        ],
+        [
+          "color_colors",
+          "queryable",
+          false
+        ],
+        [
+          "color_colors",
+          "reportElement",
+          false
+        ],
+        [
+          "color_colors",
+          "state",
+          false
+        ],
+        [
+          "color_colors",
+          "theAble",
+          false
+        ],
+        [
+          "color_colors_modifier",
+          "color_colors_modifier",
+          false
+        ],
+        [
+          "column",
+          "comparable",
+          false
+        ],
+        [
+          "column",
+          "countable",
+          false
+        ],
+        [
+          "columnAddedTo",
+          "preposition",
+          false
+        ],
+        [
+          "comparable",
+          "comparable",
+          false
+        ],
+        [
+          "compoundReportElement",
+          "reportElement",
+          false
+        ],
+        [
+          "compoundReportElement",
+          "theAble",
+          false
+        ],
+        [
+          "concept",
+          "queryable",
+          false
+        ],
+        [
+          "concept",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "condition",
+          false
+        ],
+        [
+          "contextOfReportElement",
+          "preposition",
+          false
+        ],
+        [
+          "countable",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "crimson_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "crimson_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "crimson_colors",
+          "isEder",
+          false
+        ],
+        [
+          "crimson_colors",
+          "object",
+          false
+        ],
+        [
+          "crimson_colors",
+          "property",
+          false
+        ],
+        [
+          "crimson_colors",
+          "queryable",
+          false
+        ],
+        [
+          "crimson_colors",
+          "red_colors",
+          false
+        ],
+        [
+          "crimson_colors",
+          "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "blue_colors",
+          false
+        ],
+        [
+          "cyan_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "cyan_colors",
+          "isEder",
+          false
+        ],
+        [
+          "cyan_colors",
+          "object",
+          false
+        ],
+        [
+          "cyan_colors",
+          "property",
+          false
+        ],
+        [
+          "cyan_colors",
+          "queryable",
+          false
+        ],
+        [
+          "cyan_colors",
+          "theAble",
+          false
+        ],
+        [
+          "dark_colors",
+          "brightness_colors",
+          false
+        ],
+        [
+          "dark_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "dark_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "dark_colors",
+          "isEder",
+          false
+        ],
+        [
+          "dark_colors",
+          "object",
+          false
+        ],
+        [
+          "dark_colors",
+          "property",
+          false
+        ],
+        [
+          "dark_colors",
+          "queryable",
+          false
+        ],
+        [
+          "dark_colors",
+          "theAble",
+          false
+        ],
+        [
+          "descending",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "descending",
+          "isEdee",
+          false
+        ],
+        [
+          "descending",
+          "isEder",
+          false
+        ],
+        [
+          "descending",
+          "object",
+          false
+        ],
+        [
+          "descending",
+          "property",
+          false
+        ],
+        [
+          "descending",
+          "queryable",
+          false
+        ],
+        [
+          "descending",
+          "sort_ordering",
+          false
+        ],
+        [
+          "descending",
+          "theAble",
+          false
+        ],
+        [
+          "direction",
+          "direction",
+          false
+        ],
+        [
+          "divideByExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "divideByOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "doubleQuote",
+          "queryable",
+          false
+        ],
+        [
+          "down",
+          "direction",
+          false
+        ],
+        [
+          "evaluate",
+          "verb",
+          false
+        ],
+        [
+          "forTable",
+          "preposition",
+          false
+        ],
+        [
+          "gold_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "gold_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "gold_colors",
+          "isEder",
+          false
+        ],
+        [
+          "gold_colors",
+          "object",
+          false
+        ],
+        [
+          "gold_colors",
+          "property",
+          false
+        ],
+        [
+          "gold_colors",
+          "queryable",
+          false
+        ],
+        [
+          "gold_colors",
+          "theAble",
+          false
+        ],
+        [
+          "gold_colors",
+          "yellow_colors",
+          false
+        ],
+        [
+          "graphAction",
+          "verb",
+          false
+        ],
+        [
+          "gray_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "gray_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "gray_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "gray_colors",
+          "isEder",
+          false
+        ],
+        [
+          "gray_colors",
+          "object",
+          false
+        ],
+        [
+          "gray_colors",
+          "property",
+          false
+        ],
+        [
+          "gray_colors",
+          "queryable",
+          false
+        ],
+        [
+          "gray_colors",
+          "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "green_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "green_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "green_colors",
+          "isEder",
+          false
+        ],
+        [
+          "green_colors",
+          "object",
+          false
+        ],
+        [
+          "green_colors",
+          "property",
+          false
+        ],
+        [
+          "green_colors",
+          "queryable",
+          false
+        ],
+        [
+          "green_colors",
+          "theAble",
+          false
+        ],
+        [
+          "groupBy",
+          "preposition",
+          false
+        ],
+        [
+          "groupByColumns",
+          "verb",
+          false
+        ],
+        [
+          "hasCountOfPieces",
+          "countable",
+          false
+        ],
+        [
+          "have",
+          "canBeDoQuestion",
+          false
+        ],
+        [
+          "have",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "header",
+          "reportElement",
+          false
+        ],
+        [
+          "header",
+          "theAble",
+          false
+        ],
+        [
+          "hex_colors",
+          "color_colors_modifier",
+          false
+        ],
+        [
+          "hex_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "hex_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "hex_colors",
+          "isEder",
+          false
+        ],
+        [
+          "hex_colors",
+          "object",
+          false
+        ],
+        [
+          "hex_colors",
+          "property",
+          false
+        ],
+        [
+          "hex_colors",
+          "queryable",
+          false
+        ],
+        [
+          "hex_colors",
+          "theAble",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "adjective",
+          true
+        ],
+        [
+          "hex_colors_color_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "concept",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "isEder",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "object",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "property",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "queryable",
+          false
+        ],
+        [
+          "hex_colors_color_colors",
+          "theAble",
+          false
+        ],
+        [
+          "hierarchyAble",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "condition",
+          false
+        ],
+        [
+          "ifAble",
+          "ifAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "indigo_colors",
+          "isEder",
+          false
+        ],
+        [
+          "indigo_colors",
+          "object",
+          false
+        ],
+        [
+          "indigo_colors",
+          "property",
+          false
+        ],
+        [
+          "indigo_colors",
+          "purple_colors",
+          false
+        ],
+        [
+          "indigo_colors",
+          "queryable",
+          false
+        ],
+        [
+          "indigo_colors",
+          "theAble",
+          false
+        ],
+        [
+          "is",
+          "canBeQuestion",
+          false
+        ],
+        [
+          "is",
+          "verb",
+          false
+        ],
+        [
+          "isEdee",
+          "isEdee",
+          false
+        ],
+        [
+          "isEder",
+          "isEder",
+          false
+        ],
+        [
+          "it",
+          "pronoun",
+          false
+        ],
+        [
+          "it",
+          "queryable",
+          false
+        ],
+        [
+          "it",
+          "thisitthat",
+          false
+        ],
+        [
+          "it",
+          "toAble",
+          false
+        ],
+        [
+          "ivory_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ivory_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "ivory_colors",
+          "isEder",
+          false
+        ],
+        [
+          "ivory_colors",
+          "object",
+          false
+        ],
+        [
+          "ivory_colors",
+          "property",
+          false
+        ],
+        [
+          "ivory_colors",
+          "queryable",
+          false
+        ],
+        [
+          "ivory_colors",
+          "theAble",
+          false
+        ],
+        [
+          "ivory_colors",
+          "white_colors",
+          false
+        ],
+        [
+          "khaki_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "khaki_colors",
+          "isEder",
+          false
+        ],
+        [
+          "khaki_colors",
+          "object",
+          false
+        ],
+        [
+          "khaki_colors",
+          "property",
+          false
+        ],
+        [
+          "khaki_colors",
+          "queryable",
+          false
+        ],
+        [
+          "khaki_colors",
+          "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "yellow_colors",
+          false
+        ],
+        [
+          "lavender_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lavender_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "lavender_colors",
+          "isEder",
+          false
+        ],
+        [
+          "lavender_colors",
+          "object",
+          false
+        ],
+        [
+          "lavender_colors",
+          "property",
+          false
+        ],
+        [
+          "lavender_colors",
+          "purple_colors",
+          false
+        ],
+        [
+          "lavender_colors",
+          "queryable",
+          false
+        ],
+        [
+          "lavender_colors",
+          "theAble",
+          false
+        ],
+        [
+          "left",
+          "direction",
+          false
+        ],
+        [
+          "light_colors",
+          "brightness_colors",
+          false
+        ],
+        [
+          "light_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "light_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "light_colors",
+          "isEder",
+          false
+        ],
+        [
+          "light_colors",
+          "object",
+          false
+        ],
+        [
+          "light_colors",
+          "property",
+          false
+        ],
+        [
+          "light_colors",
+          "queryable",
+          false
+        ],
+        [
+          "light_colors",
+          "theAble",
+          false
+        ],
+        [
+          "lime_colors",
+          "green_colors",
+          false
+        ],
+        [
+          "lime_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lime_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "lime_colors",
+          "isEder",
+          false
+        ],
+        [
+          "lime_colors",
+          "object",
+          false
+        ],
+        [
+          "lime_colors",
+          "property",
+          false
+        ],
+        [
+          "lime_colors",
+          "queryable",
+          false
+        ],
+        [
+          "lime_colors",
+          "theAble",
+          false
+        ],
+        [
+          "listening",
+          "action",
+          false
+        ],
+        [
+          "lowercase",
+          "case",
+          false
+        ],
+        [
+          "lowest",
+          "condition",
+          false
+        ],
+        [
+          "magenta_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "magenta_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "magenta_colors",
+          "isEder",
+          false
+        ],
+        [
+          "magenta_colors",
+          "object",
+          false
+        ],
+        [
+          "magenta_colors",
+          "property",
+          false
+        ],
+        [
+          "magenta_colors",
+          "purple_colors",
+          false
+        ],
+        [
+          "magenta_colors",
+          "queryable",
+          false
+        ],
+        [
+          "magenta_colors",
+          "theAble",
+          false
+        ],
+        [
+          "make",
+          "verb",
+          false
+        ],
+        [
+          "maroon_colors",
+          "brown_colors",
+          false
+        ],
+        [
+          "maroon_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "maroon_colors",
+          "isEder",
+          false
+        ],
+        [
+          "maroon_colors",
+          "object",
+          false
+        ],
+        [
+          "maroon_colors",
+          "property",
+          false
+        ],
+        [
+          "maroon_colors",
+          "queryable",
+          false
+        ],
+        [
+          "maroon_colors",
+          "theAble",
+          false
+        ],
+        [
+          "mathematical",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical",
+          "object",
+          false
+        ],
+        [
+          "mathematical",
+          "operator_modifier",
+          false
+        ],
+        [
+          "mathematical",
+          "property",
+          false
+        ],
+        [
+          "mathematical",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical",
+          "theAble",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "concept",
+          false
+        ],
+        [
+          "mathematicalExpression",
+          "number",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "adjective",
+          true
+        ],
+        [
+          "mathematical_operator",
+          "concept",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEdee",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "isEder",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "object",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "operator",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "property",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "queryable",
+          false
+        ],
+        [
+          "mathematical_operator",
+          "theAble",
+          false
+        ],
+        [
+          "memorable",
+          "theAble",
+          false
+        ],
+        [
+          "minusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "minusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "modifies",
+          "verb",
+          false
+        ],
+        [
+          "move",
+          "verb",
+          false
+        ],
+        [
+          "moveAmount",
+          "preposition",
+          false
+        ],
+        [
+          "moveable",
+          "moveable",
+          false
+        ],
+        [
+          "nameable",
+          "nameable",
+          false
+        ],
+        [
+          "navy_colors",
+          "blue_colors",
+          false
+        ],
+        [
+          "navy_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "navy_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "navy_colors",
+          "isEder",
+          false
+        ],
+        [
+          "navy_colors",
+          "object",
+          false
+        ],
+        [
+          "navy_colors",
+          "property",
+          false
+        ],
+        [
+          "navy_colors",
+          "queryable",
+          false
+        ],
+        [
+          "navy_colors",
+          "theAble",
+          false
+        ],
+        [
+          "noun",
+          "theAble",
+          false
+        ],
+        [
+          "number",
+          "quantifier",
+          false
+        ],
+        [
+          "number",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "queryable",
+          false
+        ],
+        [
+          "object",
+          "theAble",
+          false
+        ],
+        [
+          "ofDbProperty",
+          "preposition",
+          false
+        ],
+        [
+          "olive_colors",
+          "green_colors",
+          false
+        ],
+        [
+          "olive_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "olive_colors",
+          "isEder",
+          false
+        ],
+        [
+          "olive_colors",
+          "object",
+          false
+        ],
+        [
+          "olive_colors",
+          "property",
+          false
+        ],
+        [
+          "olive_colors",
+          "queryable",
+          false
+        ],
+        [
+          "olive_colors",
+          "theAble",
+          false
+        ],
+        [
+          "operator",
+          "concept",
+          false
+        ],
+        [
+          "operator",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "operator",
+          "isEdee",
+          false
+        ],
+        [
+          "operator",
+          "isEder",
+          false
+        ],
+        [
+          "operator",
+          "object",
+          false
+        ],
+        [
+          "operator",
+          "property",
+          false
+        ],
+        [
+          "operator",
+          "queryable",
+          false
+        ],
+        [
+          "operator",
+          "theAble",
+          false
+        ],
+        [
+          "operator_modifier",
+          "operator_modifier",
+          false
+        ],
+        [
+          "orAble",
+          "ifAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "orange_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "orange_colors",
+          "isEder",
+          false
+        ],
+        [
+          "orange_colors",
+          "object",
+          false
+        ],
+        [
+          "orange_colors",
+          "property",
+          false
+        ],
+        [
+          "orange_colors",
+          "queryable",
+          false
+        ],
+        [
+          "orange_colors",
+          "theAble",
+          false
+        ],
+        [
+          "orderable",
+          "orderable",
+          false
+        ],
+        [
+          "ordering",
+          "concept",
+          false
+        ],
+        [
+          "ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "ordering",
+          "isEder",
+          false
+        ],
+        [
+          "ordering",
+          "object",
+          false
+        ],
+        [
+          "ordering",
+          "property",
+          false
+        ],
+        [
+          "ordering",
+          "queryable",
+          false
+        ],
+        [
+          "ordering",
+          "theAble",
+          false
+        ],
+        [
+          "ordering_modifier",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "ordinal",
+          "number",
+          false
+        ],
+        [
+          "ordinalOnOrdered",
+          "adjective",
+          false
+        ],
+        [
+          "pink_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "pink_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "pink_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "pink_colors",
+          "isEder",
+          false
+        ],
+        [
+          "pink_colors",
+          "object",
+          false
+        ],
+        [
+          "pink_colors",
+          "property",
+          false
+        ],
+        [
+          "pink_colors",
+          "queryable",
+          false
+        ],
+        [
+          "pink_colors",
+          "theAble",
+          false
+        ],
+        [
+          "plusExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "plusOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "preposition",
+          "preposition",
+          false
+        ],
+        [
+          "pronoun",
+          "pronoun",
+          false
+        ],
+        [
+          "property",
+          "queryable",
+          false
+        ],
+        [
+          "property",
+          "theAble",
+          false
+        ],
+        [
+          "punctuation",
+          "punctuation",
+          false
+        ],
+        [
+          "purple_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "purple_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "purple_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "purple_colors",
+          "isEder",
+          false
+        ],
+        [
+          "purple_colors",
+          "object",
+          false
+        ],
+        [
+          "purple_colors",
+          "property",
+          false
+        ],
+        [
+          "purple_colors",
+          "queryable",
+          false
+        ],
+        [
+          "purple_colors",
+          "theAble",
+          false
+        ],
+        [
+          "quantifier",
+          "quantifier",
+          false
+        ],
+        [
+          "queryable",
+          "queryable",
+          false
+        ],
+        [
+          "questionMark",
+          "punctuation",
+          false
+        ],
+        [
+          "readonly",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "queryable",
+          false
+        ],
+        [
+          "reason",
+          "theAble",
+          false
+        ],
+        [
+          "recordCount",
+          "column",
+          false
+        ],
+        [
+          "recordCount",
+          "theAble",
+          false
+        ],
+        [
+          "red_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "red_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "red_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "red_colors",
+          "isEder",
+          false
+        ],
+        [
+          "red_colors",
+          "object",
+          false
+        ],
+        [
+          "red_colors",
+          "property",
+          false
+        ],
+        [
+          "red_colors",
+          "queryable",
+          false
+        ],
+        [
+          "red_colors",
+          "theAble",
+          false
+        ],
+        [
+          "remember",
+          "verb",
+          false
+        ],
+        [
+          "report",
+          "nameable",
+          false
+        ],
+        [
+          "report",
+          "theAble",
+          false
+        ],
+        [
+          "reportElement",
+          "reportElement",
+          false
+        ],
+        [
+          "reportElementContext",
+          "reportElementContext",
+          false
+        ],
+        [
+          "reportElementProperty",
+          "reportElementProperty",
+          false
+        ],
+        [
+          "reportable",
+          "concept",
+          false
+        ],
+        [
+          "reportable",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "reportable",
+          "isEdee",
+          false
+        ],
+        [
+          "reportable",
+          "isEder",
+          false
+        ],
+        [
+          "reportable",
+          "object",
+          false
+        ],
+        [
+          "reportable",
+          "property",
+          false
+        ],
+        [
+          "reportable",
+          "queryable",
+          false
+        ],
+        [
+          "reportable",
+          "theAble",
+          false
+        ],
+        [
+          "right",
+          "direction",
+          false
+        ],
+        [
+          "sales",
+          "reportable",
+          false
+        ],
+        [
+          "sales",
+          "theAble",
+          false
+        ],
+        [
+          "select",
+          "verb",
+          false
+        ],
+        [
+          "show",
+          "verb",
+          false
+        ],
+        [
+          "showCollection",
+          "verb",
+          false
+        ],
+        [
+          "showColumn",
+          "verb",
+          false
+        ],
+        [
+          "showReport",
+          "verb",
+          false
+        ],
+        [
+          "sienna_colors",
+          "brown_colors",
+          false
+        ],
+        [
+          "sienna_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sienna_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "sienna_colors",
+          "isEder",
+          false
+        ],
+        [
+          "sienna_colors",
+          "object",
+          false
+        ],
+        [
+          "sienna_colors",
+          "property",
+          false
+        ],
+        [
+          "sienna_colors",
+          "queryable",
+          false
+        ],
+        [
+          "sienna_colors",
+          "theAble",
+          false
+        ],
+        [
+          "silver_colors",
+          "gray_colors",
+          false
+        ],
+        [
+          "silver_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "silver_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "silver_colors",
+          "isEder",
+          false
+        ],
+        [
+          "silver_colors",
+          "object",
+          false
+        ],
+        [
+          "silver_colors",
+          "property",
+          false
+        ],
+        [
+          "silver_colors",
+          "queryable",
+          false
+        ],
+        [
+          "silver_colors",
+          "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "snow_colors",
+          "isEder",
+          false
+        ],
+        [
+          "snow_colors",
+          "object",
+          false
+        ],
+        [
+          "snow_colors",
+          "property",
+          false
+        ],
+        [
+          "snow_colors",
+          "queryable",
+          false
+        ],
+        [
+          "snow_colors",
+          "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "white_colors",
+          false
+        ],
+        [
+          "sort",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort",
+          "isEdee",
+          false
+        ],
+        [
+          "sort",
+          "isEder",
+          false
+        ],
+        [
+          "sort",
+          "object",
+          false
+        ],
+        [
+          "sort",
+          "ordering_modifier",
+          false
+        ],
+        [
+          "sort",
+          "property",
+          false
+        ],
+        [
+          "sort",
+          "queryable",
+          false
+        ],
+        [
+          "sort",
+          "theAble",
+          false
+        ],
+        [
+          "sortBy",
+          "preposition",
+          false
+        ],
+        [
+          "sortByColumns",
+          "verb",
+          false
+        ],
+        [
+          "sortOrdering",
+          "adjective",
+          false
+        ],
+        [
+          "sort_ordering",
+          "adjective",
+          true
+        ],
+        [
+          "sort_ordering",
+          "concept",
+          false
+        ],
+        [
+          "sort_ordering",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEdee",
+          false
+        ],
+        [
+          "sort_ordering",
+          "isEder",
+          false
+        ],
+        [
+          "sort_ordering",
+          "object",
+          false
+        ],
+        [
+          "sort_ordering",
+          "ordering",
+          false
+        ],
+        [
+          "sort_ordering",
+          "property",
+          false
+        ],
+        [
+          "sort_ordering",
+          "queryable",
+          false
+        ],
+        [
+          "sort_ordering",
+          "theAble",
+          false
+        ],
+        [
+          "state",
+          "state",
+          false
+        ],
+        [
+          "stm_before",
+          "adjective",
+          false
+        ],
+        [
+          "stop",
+          "verb",
+          false
+        ],
+        [
+          "table",
+          "moveable",
+          false
+        ],
+        [
+          "table",
+          "orderable",
+          false
+        ],
+        [
+          "table",
+          "reportElement",
+          false
+        ],
+        [
+          "table",
+          "reportElementContext",
+          false
+        ],
+        [
+          "table",
+          "theAble",
+          false
+        ],
+        [
+          "tan_colors",
+          "brown_colors",
+          false
+        ],
+        [
+          "tan_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "tan_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "tan_colors",
+          "isEder",
+          false
+        ],
+        [
+          "tan_colors",
+          "object",
+          false
+        ],
+        [
+          "tan_colors",
+          "property",
+          false
+        ],
+        [
+          "tan_colors",
+          "queryable",
+          false
+        ],
+        [
+          "tan_colors",
+          "theAble",
+          false
+        ],
+        [
+          "teal_colors",
+          "green_colors",
+          false
+        ],
+        [
+          "teal_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "teal_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "teal_colors",
+          "isEder",
+          false
+        ],
+        [
+          "teal_colors",
+          "object",
+          false
+        ],
+        [
+          "teal_colors",
+          "property",
+          false
+        ],
+        [
+          "teal_colors",
+          "queryable",
+          false
+        ],
+        [
+          "teal_colors",
+          "theAble",
+          false
+        ],
+        [
+          "that",
+          "thisitthat",
+          false
+        ],
+        [
+          "the",
+          "articlePOS",
+          false
+        ],
+        [
+          "theAble",
+          "theAble",
+          false
+        ],
+        [
+          "this",
+          "pronoun",
+          false
+        ],
+        [
+          "this",
+          "queryable",
+          false
+        ],
+        [
+          "this",
+          "reportElement",
+          false
+        ],
+        [
+          "this",
+          "thisitthat",
+          false
+        ],
+        [
+          "thisReportElement",
+          "articlePOS",
+          false
+        ],
+        [
+          "thisitthat",
+          "queryable",
+          false
+        ],
+        [
+          "timesExpression",
+          "mathematicalExpression",
+          false
+        ],
+        [
+          "timesOperator",
+          "mathematical_operator",
+          false
+        ],
+        [
+          "to",
+          "preposition",
+          false
+        ],
+        [
+          "toAble",
+          "toAble",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "blue_colors",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "isEder",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "object",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "property",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "queryable",
+          false
+        ],
+        [
+          "turquoise_colors",
+          "theAble",
+          false
+        ],
+        [
+          "type",
+          "property",
+          false
+        ],
+        [
+          "type",
+          "whatAble",
+          false
+        ],
+        [
+          "unknown",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "unknown",
+          "queryable",
+          false
+        ],
+        [
+          "unknown",
+          "theAble",
+          false
+        ],
+        [
+          "unselect",
+          "verb",
+          false
+        ],
+        [
+          "up",
+          "direction",
+          false
+        ],
+        [
+          "uppercase",
+          "case",
+          false
+        ],
+        [
+          "verb",
+          "verb",
+          false
+        ],
+        [
+          "violet_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "violet_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "violet_colors",
+          "isEder",
+          false
+        ],
+        [
+          "violet_colors",
+          "object",
+          false
+        ],
+        [
+          "violet_colors",
+          "property",
+          false
+        ],
+        [
+          "violet_colors",
+          "purple_colors",
+          false
+        ],
+        [
+          "violet_colors",
+          "queryable",
+          false
+        ],
+        [
+          "violet_colors",
+          "theAble",
+          false
+        ],
+        [
+          "what",
+          "object",
+          false
+        ],
+        [
+          "what",
+          "queryable",
+          false
+        ],
+        [
+          "whatAble",
+          "queryable",
+          false
+        ],
+        [
+          "white_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "white_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "white_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "white_colors",
+          "isEder",
+          false
+        ],
+        [
+          "white_colors",
+          "object",
+          false
+        ],
+        [
+          "white_colors",
+          "property",
+          false
+        ],
+        [
+          "white_colors",
+          "queryable",
+          false
+        ],
+        [
+          "white_colors",
+          "theAble",
+          false
+        ],
+        [
+          "whose",
+          "object",
+          false
+        ],
+        [
+          "x",
+          "number",
+          false
+        ],
+        [
+          "xfx",
+          "queryable",
+          false
+        ],
+        [
+          "y",
+          "number",
+          false
+        ],
+        [
+          "yellow_colors",
+          "color_colors",
+          false
+        ],
+        [
+          "yellow_colors",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "isEdee",
+          false
+        ],
+        [
+          "yellow_colors",
+          "isEder",
+          false
+        ],
+        [
+          "yellow_colors",
+          "object",
+          false
+        ],
+        [
+          "yellow_colors",
+          "property",
+          false
+        ],
+        [
+          "yellow_colors",
+          "queryable",
+          false
+        ],
+        [
+          "yellow_colors",
+          "theAble",
+          false
+        ]
+      ],
+      "metadata": {
+        "opChoices": [
+          {
+            "op": [
+              "unknown",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "reportElement",
+                0
+              ],
+              [
+                "unknown",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "op": [
+              "modifies",
+              0
+            ],
+            "ops": [
+              [
+                "modifies",
+                0
+              ],
+              [
+                "reportElement",
+                0
+              ]
+            ],
+            "counter": 2
+          }
+        ]
+      },
+      "trace": "undefined",
+      "contexts": [
+        {
+          "word": "modifies",
+          "number": "one",
+          "flatten": false,
+          "text": "selected modifies reportelement",
+          "marker": "modifies",
+          "range": {
+            "start": 0,
+            "end": 30
+          },
+          "dead": true,
+          "modifiers": [
+            {
+              "value": "selected",
+              "unknown": true,
+              "text": "selected",
+              "marker": "unknown",
+              "word": "selected",
+              "range": {
+                "start": 0,
+                "end": 7
+              },
+              "dead": true,
+              "level": 1
+            }
+          ],
+          "concept": {
+            "marker": "reportElement",
+            "value": "reportElement",
+            "default": true,
+            "text": "reportelement",
+            "word": "reportelement",
+            "range": {
+              "start": 18,
+              "end": 30
+            },
+            "level": 0
+          },
+          "level": 1,
+          "topLevel": true,
+          "touchedBy": [
+            "mongo#call2"
+          ]
+        }
+      ],
+      "generated": [
+        ""
+      ],
+      "paraphrases": [
+        "selected modifies reportelement"
+      ],
+      "paraphrasesParenthesized": [],
+      "generatedParenthesized": [],
+      "responses": [
+        ""
+      ],
+      "associations": [
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "reportElement",
+            0
+          ],
+          [
+            "unknown",
+            0
+          ]
+        ],
+        [
+          [
+            "modifies",
+            0
+          ],
+          [
+            "reportElement",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ]
+      ],
+      "learned_contextual_priorities": [],
+      "query": "selected modifies reportElement",
+      "key": {
+        "query": "selected modifies reportElement"
+      }
+    },
+    {
+      "apply": "async ({objects, addWords, config, s, fragments}) => {\n      const fragment = fragments(\"modifier23 modifies collection\")\n      const id = 'airbnb'\n      const word = 'airbnb'\n      const database = 'sample_airbnb'\n      const collection = 'listingsAndReviews'\n      const field = 'name'\n      const collections = [\n        { id: 'airbnb', word: 'airbnb', database: 'sample_airbnb', collection: 'listingsAndReviews', field: 'name', },\n\n        { id: 'comment', word: 'comment', database: 'sample_mflix', collection: 'comments', field: 'name', },\n        { id: 'user', word: 'user', database: 'sample_mflix', collection: 'users', field: 'name', },\n        { id: 'movie', word: 'movie', database: 'sample_mflix', collection: 'movies', field: 'title', },\n        // { id: 'customers', word: 'customers', database: 'sample_customers', collection: 'listingsAndReviews', field: 'name', },\n      ]\n\n      const addCollection = async ({ id, word, database, collection, field }) => {\n        config.addOperator(`([${id}])`)\n        config.addBridge(\n          { \n            id,\n            parents: ['theAble', 'reportable'], \n            words: helpers.words(word, { database, collection, path: [field] }),\n          },\n        )\n\n        const wordDef = {\n          collection,\n          database,\n          marker: id,\n          number: \"one\",\n          path: [ field ],\n          text: word,\n          word,\n        }\n\n        const mappings = [{\n          where: where(),\n          match: ({context}) => context.value == 'modifier23',\n          apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),\n        }]\n        const instantiation = await fragment.instantiate(mappings)\n        await s(instantiation)\n        for (const { name } of await getFields(database, collection)) {\n          const word = name.replace(/_/g, \" \")\n          if (!objects.columnToCollection[name]) {\n            objects.columnToCollection[name] = []\n          }\n          objects.columnToCollection[name].push({ database, collection })\n\n          addWords('column', word, { id: 'column', path: [name] })\n          // config.addWord(word, { id: 'column', path: ['${f}'] })\n        }\n      }\n      objects.columnToCollection = {}\n      for (const collection of collections) {\n        await addCollection(collection)\n      }\n    }"
     }
   ],
   "fragments": [],
@@ -12436,6 +15660,34 @@
     [
       [
         "is",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "reportElement",
+        0
+      ],
+      [
+        "unknown",
+        0
+      ]
+    ],
+    [
+      [
+        "modifies",
+        0
+      ],
+      [
+        "reportElement",
         0
       ],
       [
