@@ -108619,6 +108619,7 @@
         "word": "for"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
       ""
@@ -109316,8 +109317,13 @@
               "marker": "report",
               "mentioned": [
                 {
+                  "fromSTM": true,
                   "level": 1,
                   "marker": "table",
+                  "pullFromContext": false,
+                  "stm": {
+                    "id": 2
+                  },
                   "value": [
                     {
                       "colgroups": [
@@ -109425,8 +109431,13 @@
               "marker": "report",
               "mentioned": [
                 {
+                  "fromSTM": true,
                   "level": 1,
                   "marker": "table",
+                  "pullFromContext": false,
+                  "stm": {
+                    "id": 2
+                  },
                   "value": [
                     {
                       "colgroups": [
@@ -110211,8 +110222,13 @@
               "marker": "report",
               "mentioned": [
                 {
+                  "fromSTM": true,
                   "level": 1,
                   "marker": "table",
+                  "pullFromContext": false,
+                  "stm": {
+                    "id": 2
+                  },
                   "value": [
                     {
                       "colgroups": [
@@ -110376,6 +110392,61 @@
         },
         {
           "context": {
+            "concept": {
+              "default": true,
+              "level": 0,
+              "marker": "reportElement",
+              "range": {
+                "end": 30,
+                "start": 18
+              },
+              "text": "reportelement",
+              "value": "reportElement",
+              "word": "reportelement"
+            },
+            "dead": true,
+            "flatten": false,
+            "level": 1,
+            "marker": "modifies",
+            "modifiers": [
+              {
+                "dead": true,
+                "level": 1,
+                "marker": "unknown",
+                "range": {
+                  "end": 7,
+                  "start": 0
+                },
+                "text": "selected",
+                "unknown": true,
+                "value": "selected",
+                "word": "selected"
+              }
+            ],
+            "number": "one",
+            "range": {
+              "end": 30,
+              "start": 0
+            },
+            "text": "selected modifies reportelement",
+            "topLevel": true,
+            "touchedBy": [
+              "mongo#call2",
+              "instance5#mongo#call2"
+            ],
+            "word": "modifies"
+          },
+          "generatedParenthesized": [
+          ],
+          "paraphrases": "selected modifies reportelement",
+          "paraphrasesParenthesized": [
+          ],
+          "responses": [
+            ""
+          ]
+        },
+        {
+          "context": {
             "dead": true,
             "default": true,
             "level": 1,
@@ -110467,6 +110538,7 @@
                 "text": "a",
                 "word": "a"
               },
+              "instance": true,
               "level": 1,
               "marker": "concept",
               "modifiers": [
@@ -110520,63 +110592,6 @@
           "generatedParenthesized": [
           ],
           "paraphrases": "resetidsuffix",
-          "paraphrasesParenthesized": [
-          ],
-          "responses": [
-            ""
-          ]
-        },
-        {
-          "context": {
-            "concept": {
-              "dead": true,
-              "level": 1,
-              "marker": "color_colors",
-              "number": "one",
-              "range": {
-                "end": 17,
-                "start": 13
-              },
-              "text": "color",
-              "value": "color_colors",
-              "word": "color"
-            },
-            "dead": true,
-            "flatten": false,
-            "level": 1,
-            "marker": "modifies",
-            "modifiers": [
-              {
-                "dead": true,
-                "level": 1,
-                "marker": "unknown",
-                "range": {
-                  "end": 2,
-                  "start": 0
-                },
-                "text": "hex",
-                "unknown": true,
-                "value": "hex",
-                "word": "hex"
-              }
-            ],
-            "number": "one",
-            "range": {
-              "end": 17,
-              "start": 0
-            },
-            "text": "hex modifies color",
-            "topLevel": true,
-            "touchedBy": [
-              "colors#call2",
-              "instance12#colors#call2",
-              "instance12#mongo#call2"
-            ],
-            "word": "modifies"
-          },
-          "generatedParenthesized": [
-          ],
-          "paraphrases": "hex modifies color",
           "paraphrasesParenthesized": [
           ],
           "responses": [
@@ -124888,8 +124903,13 @@
               "marker": "report",
               "mentioned": [
                 {
+                  "fromSTM": true,
                   "level": 1,
                   "marker": "table",
+                  "pullFromContext": false,
+                  "stm": {
+                    "id": 2
+                  },
                   "value": [
                     {
                       "colgroups": [
@@ -124999,8 +125019,13 @@
               "marker": "report",
               "mentioned": [
                 {
+                  "fromSTM": true,
                   "level": 1,
                   "marker": "table",
+                  "pullFromContext": false,
+                  "stm": {
+                    "id": 2
+                  },
                   "value": [
                     {
                       "colgroups": [
@@ -125104,8 +125129,13 @@
               "marker": "report",
               "mentioned": [
                 {
+                  "fromSTM": true,
                   "level": 1,
                   "marker": "table",
+                  "pullFromContext": false,
+                  "stm": {
+                    "id": 2
+                  },
                   "value": [
                     {
                       "colgroups": [
@@ -125892,8 +125922,13 @@
               "marker": "report",
               "mentioned": [
                 {
+                  "fromSTM": true,
                   "level": 1,
                   "marker": "table",
+                  "pullFromContext": false,
+                  "stm": {
+                    "id": 2
+                  },
                   "value": [
                     {
                       "colgroups": [

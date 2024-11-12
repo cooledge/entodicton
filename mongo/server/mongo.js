@@ -465,14 +465,11 @@ let configStruct = {
     },
     {
       match: ({context}) => context.marker == 'call' && context.nameable.marker == 'table',
-      apply: async ({context, api, values, e}) => {
+      apply: async ({context, mentioned, api, values, e}) => {
         const table = (await e(context.nameable)).evalue
         if (table) {
-          if (!table.report.mentioned) {
-            table.report.mentioned = []
-          }
           table.value.marker = 'table'
-          table.report.mentioned.push(table.value)
+          mentioned({ context: table.value, frameOfReference: table.report })
           const name = context.name.map((n) => n.text).join(' ')
           table.value.value[0].title = name
         }
@@ -501,14 +498,11 @@ let configStruct = {
       id: 'forTable',
       isA: ['preposition'],
       bridge: "{ ...next(operator), table: after[0], postModifiers: ['table'] }",
-      semantic: async ({context, e}) => {
+      semantic: async ({context, e, mentioned}) => {
         const destination = (await e(context.table)).evalue
         if (destination) {
-          if (!destination.report.mentioned) {
-            destination.report.mentioned = []
-          }
           destination.value.marker = 'table'
-          destination.report.mentioned.push(destination.value)
+          mentioned({ context: destination.value, frameOfReference: destination.report })
         }
       },
     },
