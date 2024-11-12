@@ -463,6 +463,22 @@ let configStruct = {
         api.show(table.report)
       },
     },
+    {
+      match: ({context}) => context.marker == 'call' && context.nameable.marker == 'table',
+      apply: async ({context, api, values, e}) => {
+        const table = (await e(context.nameable)).evalue
+        if (table) {
+          if (!table.report.mentioned) {
+            table.report.mentioned = []
+          }
+          table.value.marker = 'table'
+          table.report.mentioned.push(table.value)
+          const name = context.name.map((n) => n.text).join(' ')
+          table.value.value[0].title = name
+        }
+        api.show(table.report)
+      }
+    },
   ],
 
   bridges: [
@@ -866,7 +882,7 @@ let configStruct = {
       id: 'table', 
       words: helpers.words('table'),
       isA: ['orderable', 'reportElementContext', 'moveable'],
-      parents: ['theAble', 'reportElement'],
+      parents: ['theAble', 'reportElement', 'nameable'],
       evaluator: async ({context, toContext, values, api, gp, verbatim}) => {
         const currentReport = api.current()
         if (context.ordinal) {
@@ -885,7 +901,6 @@ let configStruct = {
             verbatim(`${await gp(context)} does not exist`)
           }
         }
-
       }
     },
 

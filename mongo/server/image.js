@@ -97,6 +97,9 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
       colgroups: imageSpec.colgroups, 
       table: true 
     }
+    if (imageSpec.title) {
+      instantiation.title = imageSpec.title
+    }
     if (imageSpec.headers.selecting) {
       instantiation.headers.selecting = imageSpec.headers.selecting
     }

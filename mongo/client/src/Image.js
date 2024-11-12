@@ -73,6 +73,9 @@ const fromTable = (table, options) => {
   // console.log('headers', ReactDOMServer.renderToString(header(table.headers)))
   // return <table className={`Table table_${options.newTableNumber()}`}>
   return <table className={table.className}>
+           { table.title &&
+             <caption className={`caption_${table.className}`}>{table.title}</caption>
+           }
            {colgroup}
              {header(table.headers)}
            <tbody>

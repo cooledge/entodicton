@@ -73,7 +73,7 @@ describe('tests for the mongo page', () => {
   }, timeout);
 
   // TODO check the header once that is fixed up
-  const checkTable = async (page, tableNumber, dataDb, propertiesOrTestFn, { sort={} } = {}) => {
+  const checkTable = async (page, tableNumber, dataDb, propertiesOrTestFn, { sort={}, title } = {}) => {
     const selector = `.table_${tableNumber} tbody tr`
     await page.waitForSelector(selector)
     const data = await page.evaluate((tableNumber, selector) => {
@@ -134,6 +134,17 @@ describe('tests for the mongo page', () => {
         }
       }
       return true
+    }
+
+    if (title) {
+      const selector = `.table_${tableNumber} caption`
+      await page.waitForSelector(selector)
+      const data = await page.evaluate((selector) => {
+        const caption = document.querySelector(selector)
+        return caption.innerText
+      }, selector)
+      console.log('------ title found ------------', data)
+      expect(data).toBe(title)
     }
 
     let lastKeyValue = undefined
@@ -574,7 +585,7 @@ describe('tests for the mongo page', () => {
       await checkOrder(['table_3', 'table_1'])
     }, timeout);
 
-    test(`NEO23 MONGO show the users + show the movies + make the header blue + <select the movie header>`, async () => {
+    test(`MONGO show the users + show the movies + make the header blue + <select the movie header>`, async () => {
       await query('show the users')
       await query('show the movies')
       await query('make the header blue')
@@ -584,6 +595,15 @@ describe('tests for the mongo page', () => {
       await checkOrder(['table_1', 'table_3'])
       await page.waitForSelector(`#queryCounter5`)
       expect(await hasRule(".table_3 .header { color: blue; }")).toBeTruthy()
+    }, timeout);
+
+    test(`NEO23 MONGO show the users + show the movies + call the second table fred the wonder dog`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('call the second table fred the wonder dog')
+      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 3, movies, ['title'], { title: 'fred the wonder dog' })
+      await checkOrder(['table_1', 'table_3'])
     }, timeout);
   })
 });
