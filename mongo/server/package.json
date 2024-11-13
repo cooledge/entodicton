@@ -19,7 +19,7 @@
     "lodash": "^4.17.21",
     "lru-cache": "^11.0.1",
     "mongodb": "^6.8.0",
-    "tpmkms": "8.0.0-beta.86",
+    "tpmkms": "8.0.0-beta.87",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
