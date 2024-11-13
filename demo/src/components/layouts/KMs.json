@@ -1526,7 +1526,9 @@
         "show the workshops",
         "wear armor",
         "eat meat",
-        "eat fruit"
+        "eat fruit",
+        "eat glop",
+        "wear a glop"
       ],
       "template": [
         "pistols rifles grenades mines and shotguns are weapons",
