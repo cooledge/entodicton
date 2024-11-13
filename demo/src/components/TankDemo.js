@@ -125,7 +125,6 @@ class Completed extends Component {
     })
     return ( 
       <div className='completed'>
-        <p>Note: this demo is using an older version of the client side so its missing newer features.</p>
         <h2>Responses</h2>
         <ul>
           {items}
