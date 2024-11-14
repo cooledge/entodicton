@@ -405,7 +405,7 @@ describe('tests for pipboy page', () => {
           const selector = `.item-list > li:nth-child(${counter})`
           if (getsUsedUp) {
             const element = await page.evaluate((selector) => { return document.querySelector(selector) }, selector);
-            expect(element).toBe(null)
+            expect(element).toBeFalsy()
             item = items[0] // used up so current moves up
           } else {
             const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, selector);
