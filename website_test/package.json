@@ -20,7 +20,7 @@
     "mongoh": "HEADLESS=true jest --runInBand -t MONGO",
     "td": "HEADLESS=false node inspect node_modules/.bin/jest --runInBand -t PIPBOY",
     "test": "HEADLESS=false jest --runInBand",
-    "testh": "jest",
+    "testh": "jest --runInBand",
     "test:dev": "URL=http://localhost:10000 HEADLESS=test jest",
     "test:box1": "URL=http://10.192.168.41:10000 HEADLESS=true jest",
     "test:box2": "URL=http://10.192.168.11:10000 HEADLESS=true jest"
