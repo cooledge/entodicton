@@ -19,11 +19,11 @@ describe('tests for fastfood page', () => {
 
   beforeAll( async () => {
     browser = await puppeteer.launch({ headless, sloMo });
-  })
+  }, timeout)
 
   afterAll( async () => {
     await browser.close()
-  })
+  }, timeout)
 
   test(`FASTFOOD test page loads`, async () => {
     const page = await browser.newPage();

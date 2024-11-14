@@ -14,10 +14,10 @@ describe('tests for pipboy page', () => {
   let browser;
   beforeAll( async () => {
     browser = await puppeteer.launch({ headless, sloMo });
-  });
+  }, timeout);
   afterAll( async () => {
     await browser.close()
-  });
+  }, timeout);
 
   test(`PIPBOY test page loads`, async () => {
     const page = await browser.newPage();

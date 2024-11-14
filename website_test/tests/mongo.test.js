@@ -60,12 +60,12 @@ describe('tests for the mongo page', () => {
     browser = await puppeteer.launch({ headless, sloMo });
     users = await getData(client, 'sample_mflix', 'users')
     movies = await getData(client, 'sample_mflix', 'movies')
-  });
+  }, timeout);
 
   afterAll( async () => {
     await browser.close()
     await client.close()
-  });
+  }, timeout);
 
   test(`STARTPUPPETEER`, async () => {
     // for automated tests to get puppeteer going before running the tests for real
@@ -216,11 +216,11 @@ describe('tests for the mongo page', () => {
       await page.goto(`${URL}/mongo/`)
       await page.waitForSelector('#query')
       await query('clear')
-    })
+    }, timeout)
 
     afterEach( async () => {
       await page.close()
-    })
+    }, timeout)
 
     const checkOrder = async (expectedOrder) => {
       const data = await page.evaluate(() => {

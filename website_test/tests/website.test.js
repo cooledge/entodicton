@@ -11,10 +11,10 @@ describe('tests for website', () => {
   let browser;
   beforeAll( async () => {
     browser = await puppeteer.launch({ headless, sloMo });
-  });
+  }, timeout);
   afterAll( async () => {
     await browser.close()
-  });
+  }, timeout);
 
   for (let t of tests) {
     test(`DEMO test ${t.query}`, async () => {
