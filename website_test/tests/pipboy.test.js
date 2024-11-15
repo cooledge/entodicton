@@ -9,6 +9,12 @@ const headless = process.env.HEADLESS !== 'false'
 const sloMo = 750
 const timeout = 60000
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 describe('tests for pipboy page', () => {
 
   let browser;
@@ -171,6 +177,7 @@ describe('tests for pipboy page', () => {
       await page.waitForSelector('.current')
       if (selected) {
         await page.waitForSelector('.selected')
+        await sleep(1000) // wait not working so try this because I am bored now
       }
       // await new Promise(resolve => setTimeout(resolve, 300))
       const a = await page.$(`#${item.id}`)
@@ -416,6 +423,7 @@ describe('tests for pipboy page', () => {
           await page.waitForSelector('.current')
           if (!getsUsedUp) {
             await page.waitForSelector('.selected')
+            await sleep(1000)
           }
           const classNames = await (await a.getProperty('className')).jsonValue()
           if (!getsUsedUp) {
