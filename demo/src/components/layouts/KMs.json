@@ -320,7 +320,8 @@
         "ice and hand modify cream\\n ice cream hand cream",
         "raw chicken modifies strips\\n raw chicken strips",
         "mango modifies passion\\nmango passion modifies smoothie\\nmango passion smoothie",
-        "apple and cheddar literally modifies pie\\napple and cheddar pie"
+        "apple and cheddar literally modifies pie\\napple and cheddar pie",
+        "aa, bb and cc modify dude"
       ],
       "template": [],
       "includes": [
