@@ -605,7 +605,7 @@ describe('tests for the mongo page', () => {
       expect(await hasRule(".table_3 .header { color: blue; }")).toBeTruthy()
     }, timeout);
 
-    test(`NEO23 MONGO show the users + show the movies + call the second table fred the wonder dog`, async () => {
+    test(`MONGO show the users + show the movies + call the second table fred the wonder dog`, async () => {
       await query('show the users')
       await query('show the movies')
       await query('call the second table fred the wonder dog')
