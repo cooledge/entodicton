@@ -613,5 +613,16 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 3, movies, ['title'], { title: 'fred the wonder dog' })
       await checkOrder(['table_1', 'table_3'])
     }, timeout);
+
+    test(`NEO23 MONGO make a pie chart of the genre and number of movies`, async () => {
+      await query('make a pie chart of the genre and number of movies')
+      await page.waitForSelector(`#queryCounter2`)
+      const title = await page.evaluate(() => {
+        const title = document.querySelector('.Graph .Title')
+        return title.innerText
+      })
+      expect(title).toBe("the genre and number of movies")
+    }, timeout);
+
   })
 });

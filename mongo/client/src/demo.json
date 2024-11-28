@@ -56,6 +56,49 @@
           },
 
           {
+            "type": "pie",
+            "title": "the genre and number of movies",
+            "options": {
+              "chart": {
+                "id": "apexchart-example"
+              },
+              "xaxis": {
+                "categories": [
+                  "Mystery",
+                  "Comedy",
+                  "Fantasy",
+                  "Western",
+                  "Action",
+                  "Crime",
+                  "History",
+                  "Biography",
+                  "Family",
+                  "Documentary"
+                ]
+              }
+            },
+            "series": [
+              {
+                "name": "movies",
+                "data": [
+                  1195,
+                  6712,
+                  1066,
+                  259,
+                  2396,
+                  2541,
+                  941,
+                  1319,
+                  1225,
+                  2065
+                ]
+              }
+            ],
+            "idCounter": 1,
+            "id": "graph1"
+          },
+
+          {
             "className": "column column_1 table_1_column_1",
             "data": {
               "headers": {

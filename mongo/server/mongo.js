@@ -209,6 +209,65 @@ class API {
     return { database, collection, columnNames }
   }
 
+  async graph(title, columns, type='bar') {
+    const api = this
+    const values = this.args.values
+    columns = values(columns)
+    console.log(JSON.stringify(columns, null, 2))
+    const isNumber = (column) => {
+      if (column.marker == 'recordCount') {
+        return true
+      }
+    }
+    const categories = columns.filter( (column) => !isNumber(column) )
+    const numbers = columns.filter( (column) => isNumber(column) )
+
+    const { database, collection, columnNames } = await api.determineCollection(columns)
+    const subReport = await api.newReportSpec(database, collection)
+    report.addGroup(subReport.dataSpec, categories.map((field) => field.path[0]))
+    console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
+
+    const numberFields = []
+    for (const number of numbers) {
+      for (const field of values(number.field)) {
+        numberFields.push(field)
+      }
+    }
+    const countFields = []
+    for (const field of numberFields) {
+      const cf = api.addRecordCountsToDataSpec(subReport.dataSpec, field)
+      countFields.push(...cf)
+    }
+    console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
+    const output = await data.instantiate(subReport.dataSpec)
+    console.log("data", JSON.stringify(output, null, 2))
+    subReport.imageSpec = {
+      type,
+      title,
+      options: {
+        chart: {
+          id: 'apexchart-example'
+        },
+        xaxis: {
+          categories: { "$push": `$${categories[0].path[0]}` },
+        }
+      },
+      series: countFields.map((countField) => { return {
+                  name: countField.context.text,
+                  data: { "$push": `$${countField.field}` },
+                }
+              })
+    }
+   
+    if (false) {
+      api.show(subReport)
+    } else {
+      const currentReport = api.current()
+      report.addReport(api, currentReport, subReport)
+      api.show(currentReport)
+    }
+  }
+
   async showFieldsResponse(dataSpecPath, database, collection, fields, report = null) { 
 
     const selected = {}
@@ -390,6 +449,7 @@ let configStruct = {
     "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
     // "([moveColumn|move] (column/*) (direction/*))",
     "([make] ([report]))",
+    "([makeGraph|make] (graph/* || chart/*) ([makeGraphOf|of]) (column/*))",
     // "([changeState|make] ([reportElement]) (color_colors/*))",
     // table 1 header background blue
     "([state])",
@@ -494,6 +554,22 @@ let configStruct = {
       bridge: "{ ...before[0], root: before[0], of: operator, frameOfReference: after[0], generate: ['root', 'of', 'frameOfReference'] }",
     },
 
+    // "([makeGraph|make] (graph/* || chart/*) ([makeGraphOf|of]) (reportable/*))",
+    {
+      id: 'makeGraphOf',
+      isA: ['preposition'],
+      bridge: "{ ...next(operator) }",
+    },
+
+    {
+      id: 'makeGraph',
+      isA: ['verb'],
+      bridge: "{ ...next(operator), type: after[0], of: after[1], columns: after[2], operator: operator, generate: ['operator', 'type', 'of', 'columns'] }",
+      semantic: async ({context, api}) => {
+        await api.graph(context.columns.text, context.columns, context.type.marker.split('_')[0])
+      }
+    }
+    ,
     {
       id: 'forTable',
       isA: ['preposition'],
@@ -512,60 +588,7 @@ let configStruct = {
       bridge: "{ ...next(operator), columns: after[0] }",
       generatorp: async ({context, word, g}) => `${context.word} ${await g(context.columns)}`,
       semantic: async ({context, api, values}) => {
-        const columns = values(context.columns)
-        console.log(JSON.stringify(columns, null, 2))
-        const isNumber = (column) => {
-          if (column.marker == 'recordCount') {
-            return true
-          }
-        }
-        const categories = columns.filter( (column) => !isNumber(column) )
-        const numbers = columns.filter( (column) => isNumber(column) )
-
-        const { database, collection, columnNames } = await api.determineCollection(columns)
-        const subReport = await api.newReportSpec(database, collection)
-        report.addGroup(subReport.dataSpec, categories.map((field) => field.path[0]))
-        console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
-
-        const numberFields = []
-        for (const number of numbers) {
-          for (const field of values(number.field)) {
-            numberFields.push(field)
-          }
-        }
-        const countFields = []
-        for (const field of numberFields) {
-          const cf = api.addRecordCountsToDataSpec(subReport.dataSpec, field)
-          countFields.push(...cf)
-        }
-        console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
-        const output = await data.instantiate(subReport.dataSpec)
-        console.log("data", JSON.stringify(output, null, 2))
-        subReport.imageSpec = {
-          type: "bar",
-          title: context.columns.text,
-          options: {
-            chart: {
-              id: 'apexchart-example'
-            },
-            xaxis: {
-              categories: { "$push": `$${categories[0].path[0]}` },
-            }
-          },
-          series: countFields.map((countField) => { return {
-                      name: countField.context.text,
-                      data: { "$push": `$${countField.field}` },
-                    }
-                  })
-        }
-       
-        if (false) {
-          api.show(subReport)
-        } else {
-          const currentReport = api.current()
-          report.addReport(api, currentReport, subReport)
-          api.show(currentReport)
-        }
+        await api.graph(context.columns.text, context.columns)
       }
     },
     {
@@ -1241,8 +1264,11 @@ const template = {
       query: "modifier23 modifies collection",
       isFragment: true,
     },
+
     "reportable is a concept",
     "be brief",
+    "pie, bar and line modify graph",
+    "pie, bar and line modify chart",
 
     configStruct,
 

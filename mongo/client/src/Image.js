@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from 'react'
+import { useMemo, useEffect, useState, createElement } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { table } from 'table'
 import Chart from 'react-apexcharts'
@@ -84,13 +84,60 @@ const fromTable = (table, options) => {
          </table>
 }
 
-const fromGraph = (graph, options) => {
-  return <div className="Graph">
-    { graph.title && 
-      <span className="Title">{graph.title}</span>
+const pdata = {
+  options: {
+    "names": [
+      "Mystery",
+      "Comedy",
+      "Fantasy",
+      "Western",
+      "Action",
+      "Crime",
+      "History",
+      "Biography",
+      "Family",
+      "Documentary"
+    ],
+    "legend": {
+      "show": true,
+      "position": "bottom"
     }
-    <Chart options={graph.options} series={graph.series} type={graph.type} width={500} height={320} />
-  </div>
+  },
+}
+
+const fromGraph = (graph, options) => {
+  if (graph.type == 'pie') {
+    const data = graph.series[0].data
+    const total = data.reduce((partialSum, a) => partialSum + a, 0)
+    const percentages = data.map((value) => value/total)
+    const series = percentages
+    const labels = {
+      show: false,
+      name: {
+        show: true
+      }
+    }
+    const options = {
+      labels: graph.options.xaxis.categories,
+      legend: {
+        show: true,
+        position: 'bottom'
+      }
+    }
+    return <div className="Graph">
+      { graph.title && 
+        <span className="Title">{graph.title}</span>
+      }
+      <Chart options={options} labels={labels} series={percentages} type={graph.type} width={500} height={320} />
+    </div>
+  } else {
+    return <div className="Graph">
+      { graph.title && 
+        <span className="Title">{graph.title}</span>
+      }
+      <Chart options={graph.options} series={graph.series} type={graph.type} width={500} height={320} />
+    </div>
+  }
 }
 
 const fromRows = ({ className, data }, options) => {
