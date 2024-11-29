@@ -74,7 +74,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     if (!bson) {
       return
     }
-    const rows = fieldToData(bson, imageSpec.field)
+    const rows = fieldToData(bson, imageSpec.dataSpecPath)
     instantiateValue(['options', 'xaxis', 'categories'], imageSpec, rows, instantiation, { ...options, isGraph: true })
     for (let i = 0; i < imageSpec.series.length; ++i) {
       instantiateValue(['data'], imageSpec.series[i], rows, instantiation.series[i], { ...options, isGraph: true })
@@ -113,7 +113,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     // console.log('init instantiation instantation', JSON.stringify(instantiation, null, 2))
     if (imageSpec.explicit) {
       const rows = []
-      const field = fieldToData(bson, imageSpec.field)
+      const field = fieldToData(bson, imageSpec.dataSpecPath)
       instantiation.rows = { className: 'rows', data: imageSpec.rows.map((is) => instantiateImpl(is, field, { options, id: imageSpec.id })) }
       return instantiation
     } else {
@@ -124,7 +124,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
         instantiation.selecting = imageSpec.selecting
       }
       const rows = []
-      const field = fieldToData(bson, imageSpec.field)
+      const field = fieldToData(bson, imageSpec.dataSpecPath)
       // greg23
       for (const [index, row] of field.entries()) {
         rows.push({ className: `row_${index}`, data: instantiateImpl(imageSpec.rows, row, { ...options, id: imageSpec.id })})
@@ -199,7 +199,8 @@ const addColumns = (imageSpec, field, columns) => {
     seen: (what, value) => {
       if (['table'].includes(what)) {
         const table = value
-        if (_.isEqual(field, (table.field || []))) {
+        // greg66
+        if (_.isEqual(field, (table.dataSpecPath|| []))) {
           for (const column of columns) {
             const fieldName = `$${column}`
             if (!table.rows.find( (value) => value == fieldName )) {
@@ -270,13 +271,13 @@ const addGroup = (api, dataSpecPath, imageSpec, fields) => {
           colgroups: ['c1'],
           table: true,
           id: api.getId('table'),
-          field: dataSpecPath,
+          dataSpecPath,
           rows: [ `$${field.name}`, ],
         }
         if (!isEmpty(oldImageSpec)) {
           newImageSpec.headers.columns.push({ text: field.collection })
           newImageSpec.colgroups.push('c2'),
-          newImageSpec.rows.push({ ...oldImageSpec, field: [field.collection] })
+          newImageSpec.rows.push({ ...oldImageSpec, dataSpecPath: [field.collection] })
         }
         console.log('oldImageSpec', JSON.stringify(oldImageSpec, null, 2))
         Object.assign(imageSpec, newImageSpec)
@@ -316,6 +317,20 @@ const getTables = (imageSpec) => {
   traverseImpl(imageSpec, options)
   return tables
 }
+
+const getGraphs = (imageSpec) => {
+  const graphs = []
+  const options = {
+    seen: (what, value) => {
+      if (['graph'].includes(what) && !value.explicit) {
+        graphs.push(value)
+      }
+    }
+  }
+  traverseImpl(imageSpec, options)
+  return graphs
+}
+
 
 const traverseImpl = (imageSpec, options = {}) => {
   if (!options.path) {
@@ -405,7 +420,7 @@ const getImageSpecs = (imageSpec, dataSpecPath) => {
   const imageSpecs = []
   const options = {
     seen: (what, imageSpec) => {
-      if (_.isEqual(imageSpec.field, dataSpecPath)) {
+      if (_.isEqual(imageSpec.dataSpecPath, dataSpecPath)) {
         imageSpecs.push(imageSpec)
       }
     }
@@ -427,6 +442,7 @@ module.exports = {
   traverseImpl,
   getImageSpecs,
   getTables,
+  getGraphs,
   moveUpOrDown,
   find,
 }

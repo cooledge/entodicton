@@ -126,7 +126,7 @@ describe('Reports Tests', () => {
       id: 'table_1',
       colgroups: ['c1', 'c2', 'c3'],
       table: true,
-      field: [],
+      dataSpecPath: [],
       rows: ['$name', '$age', '$fav_colors'],
     }
 
@@ -233,13 +233,13 @@ describe('Reports Tests', () => {
       colgroups: ['c1', 'c2', 'c3'],
       table: true,
       id: 'table_1',
-      field: [],
+      dataSpecPath: [],
       rows: [
               '$name', 
               '$age', 
               {
                 headers: { columns: [{ text: 'subject' }, { text: 'mark' } ] },
-                field: ['marks_in_subjects'],
+                dataSpecPath: ['marks_in_subjects'],
                 colgroups: ['c1', 'c2'],
                 id: 'table_2',
                 table: true,
@@ -505,7 +505,7 @@ describe('Reports Tests', () => {
 
       const imageSpec = {
         colgroups: [ "column_0" ],
-        field: [],
+        dataSpecPath: [],
         id: api.getId('table'),
         headers: {
           columns: [
@@ -535,13 +535,13 @@ describe('Reports Tests', () => {
         colgroups: ['c1', 'c2'],
         id: 'table_2',
         table: true,
-        field: [],
+        dataSpecPath: [],
         rows: [
                 '$genre',
                 {
                   // DIFF headers: { columns: [{ text: 'title' }] },
                   headers: { columns: [{ id: 'title', text: 'title' }] },
-                  field: ['movies'],
+                  dataSpecPath: ['movies'],
                   id: 'table_1',
                   colgroups: ['column_0'],
                   table: true,
@@ -558,7 +558,7 @@ describe('Reports Tests', () => {
     it('one table', async () => {
       const imageSpec = {
         colgroups: [ "column_0" ],
-        field: [],
+        dataSpecPath: [],
         headers: {
           columns: [
             { id: "title", text: "title" }
@@ -576,12 +576,46 @@ describe('Reports Tests', () => {
   })
 
   describe('Add column', () => {
-    it('add to table', async () => {
+    it('add to table single-imageSpec', async () => {
+      const imageSpec = {
+         "headers": {
+           "columns": [
+             { "text": "the users", "id": "name" }
+           ]
+         },
+         "colgroups": [ "column_0" ],
+         "table": true,
+         "id": "table_1",
+         "dataSpecPath": [],
+         "rows": [ "$name" ]
+       }
+
+      const field = []
+      image.addColumns(imageSpec, field, ['email', 'age'])
+      console.log('imageSpec--', JSON.stringify(imageSpec, null, 2))
+      const expected = {
+         "headers": {
+           "columns": [
+             { "text": "the users", "id": "name" },
+             { "text": "email", "id": "email" },
+             { "text": "age", "id": "age" },
+           ]
+         },
+         "colgroups": [ "column_0", "column_1", "column_2" ],
+         "table": true,
+         "id": "table_1",
+         "dataSpecPath": [],
+         "rows": [ "$name", "$email", "$age" ]
+       }
+      expect(imageSpec).toStrictEqual(expected)
+    })
+
+    it('add to table multi-imageSpecs', async () => {
       const imageSpec = {
         "headers": { "columns": [] },
         "table": true,
         "explicit": true,
-        "field": [],
+        "dataSpecPath": [],
         "rows": [
           [
             {
@@ -590,7 +624,7 @@ describe('Reports Tests', () => {
               },
               "colgroups": [ "column_0" ],
               "table": true,
-              "field": [ 0 ],
+              "dataSpecPath": [ 0 ],
               "rows": [ "$name" ]
             },
             {
@@ -599,7 +633,7 @@ describe('Reports Tests', () => {
               },
               "colgroups": [ "column_0" ],
               "table": true,
-              "field": [ 1 ],
+              "dataSpecPath": [ 1 ],
               "rows": [ "$title" ]
             }
           ]
@@ -614,7 +648,7 @@ describe('Reports Tests', () => {
         },
         "table": true,
         "explicit": true,
-        "field": [],
+        "dataSpecPath": [],
         "rows": [
           [
             {
@@ -630,7 +664,7 @@ describe('Reports Tests', () => {
                 "column_0"
               ],
               "table": true,
-              "field": [
+              "dataSpecPath": [
                 0
               ],
               "rows": [
@@ -660,7 +694,7 @@ describe('Reports Tests', () => {
                 "column_2"
               ],
               "table": true,
-              "field": [
+              "dataSpecPath": [
                 1
               ],
               "rows": [
@@ -684,12 +718,12 @@ describe('Reports Tests', () => {
       colgroups: ['c1', 'c2'],
       table: true,
       id: 'table_1',
-      field: [],
+      dataSpecPath: [],
       rows: [
               '$genre', 
               {
                 headers: { columns: [{ text: 'title' }] },
-                field: ['movies'],
+                dataSpecPath: ['movies'],
                 colgroups: ['c1'],
                 id: 'table_2',
                 table: true,
@@ -914,7 +948,7 @@ describe('Reports Tests', () => {
     it('find table in explicit', async () => {
       const table_1 = {
                 "colgroups": [ "column_0" ],
-                "field": [ 0 ],
+                "dataSpecPath": [ 0 ],
                 "headers": {
                   "columns": [ { "id": "name", "text": "the users" } ]
                 },
@@ -924,7 +958,7 @@ describe('Reports Tests', () => {
               }
        const table_3 = {
                 "colgroups": [ "column_0" ],
-                "field": [ 1 ],
+                "dataSpecPath": [ 1 ],
                 "headers": {
                   "columns": [ { "id": "title", "text": "the movies" } ]
                 },
@@ -934,7 +968,7 @@ describe('Reports Tests', () => {
               }
       const imageSpec = {
         "explicit": true,
-        "field": [],
+        "dataSpecPath": [],
         "headers": { "columns": [] },
         "id": "table_2",
         "rows": [ [ table_1 ], [ table_3 ], ],
@@ -950,7 +984,7 @@ describe('Reports Tests', () => {
   describe('Move table', () => {
     const table_1 = {
               "colgroups": [ "column_0" ],
-              "field": [ 0 ],
+              "dataSpecPath": [ 0 ],
               "headers": {
                 "columns": [ { "id": "name", "text": "the users" } ]
               },
@@ -960,7 +994,7 @@ describe('Reports Tests', () => {
             }
      const table_3 = {
               "colgroups": [ "column_0" ],
-              "field": [ 1 ],
+              "dataSpecPath": [ 1 ],
               "headers": {
                 "columns": [ { "id": "title", "text": "the movies" } ]
               },
@@ -970,7 +1004,7 @@ describe('Reports Tests', () => {
             }
     const imageSpec = {
       "explicit": true,
-      "field": [],
+      "dataSpecPath": [],
       "headers": { "columns": [] },
       "id": "table_2",
       "rows": [ [ table_1 ], [ table_3 ], ],
@@ -982,7 +1016,7 @@ describe('Reports Tests', () => {
       image.moveUpOrDown(imageSpec, table_3, -1)
       const expected = {
         "explicit": true,
-        "field": [],
+        "dataSpecPath": [],
         "headers": { "columns": [] },
         "id": "table_2",
         "rows": [ [ table_3 ], [ table_1 ], ],
@@ -996,7 +1030,7 @@ describe('Reports Tests', () => {
       image.moveUpOrDown(imageSpec, table_1, 1)
       const expected = {
         "explicit": true,
-        "field": [],
+        "dataSpecPath": [],
         "headers": { "columns": [] },
         "id": "table_2",
         "rows": [ [ table_3 ], [ table_1 ], ],

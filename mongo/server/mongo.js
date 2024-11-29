@@ -276,7 +276,7 @@ class API {
       let counter = 1
       const options = {
         seen: (what, value) => {
-          if (['table'].includes(what) && _.isEqual(dataSpecPath, value.field)) {
+          if (['table'].includes(what) && _.isEqual(dataSpecPath, value.dataSpecPath)) {
             for (const column of value.headers.columns) {
               selected[column.id] = counter
               counter += 1
@@ -392,7 +392,7 @@ class API {
       colgroups: properties.map( (e, i) => `column_${i}` ),
       table: true,
       id: this.getId('table'),
-      field: [],
+      dataSpecPath: [],
       // rows: ['$name', '$age', '$fav_colors'],
       rows: properties.map( (property) => property.path.map((p) => '$'+p).join('.') )
     }
@@ -495,6 +495,11 @@ let configStruct = {
     ['case', 'state'],
     ['color_colors', 'reportElement'],
     ['case', 'reportElement'],
+
+    ['graph', 'moveable'],
+    ['graph', 'orderable'],
+    ['chart', 'moveable'],
+    ['chart', 'orderable'],
   ],
   semantics: [
     {
@@ -503,10 +508,55 @@ let configStruct = {
         const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })
         context.evalue = value
       },
-    }
-    ,
+    },
+
     {
+      match: ({context}) => ['table', 'graph', 'chart'].includes(context.marker) && context.evaluate,
+      apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
+        const currentReport = api.current()
+        let selectedTables
+        console.log(JSON.stringify(context, null, 2))
+        let items
+        if (context.marker == 'table') {
+          items = image.getTables(currentReport.imageSpec)
+        } else {
+          items = image.getGraphs(currentReport.imageSpec)
+        }
+        if (context.ordinal) {
+          const ordinals = values(context.ordinal)
+          const getTable = (ordinal) => {
+            let item
+            if (ordinal < 0) {
+              item = items[items.length + ordinal]
+            } else {
+              item = items[ordinal-1]
+            }
+            return item
+          }
+          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )
+        } else if (context.pullFromContext) {
+          selectedTables = items[items.length-1]
+        }
+
+        console.log('selectedTable', JSON.stringify(selectedTables, null, 2))
+        if (!_.isEmpty(selectedTables)) {
+          context.evalue = {
+            marker: context.marker, 
+            report: currentReport,
+            value: toContext(selectedTables)
+          }
+        } else {
+          if (!context.silent) {
+            verbatim(`${await gp(context)} does not exist`)
+          }
+        }
+      }
+    },
+
+    {
+      // overides move semantics from ui
       match: ({context}) => context.marker == 'move' && !context.evaluate,
+      where: where(),
       apply: async ({context, api, values, e}) => {
         const table = (await e(context.moveable)).evalue
         if (table) {
@@ -523,6 +573,7 @@ let configStruct = {
         api.show(table.report)
       },
     },
+
     {
       match: ({context}) => context.marker == 'call' && context.nameable.marker == 'table',
       apply: async ({context, mentioned, api, values, e}) => {
@@ -635,13 +686,13 @@ let configStruct = {
       bridge: "{ ...next(operator), table: after[0], field: after[1], postModifiers: ['field'] }",
       semantic: async ({context, e, api, values}) => {
         const currentReport= api.current()
-        const defaultTable = (await e(context.table)).evalue
+        const defaultTable = (await e({...context.table, silent: true})).evalue
         const fields = helpers.propertyToArray(context.field.field)
         if (defaultTable) {
           const paths = []
           for (const table of values(defaultTable.value)) {
-            if (!paths.find( (path) => _.isEqual(path, table.field))) {
-              paths.push(table.field)
+            if (!paths.find( (path) => _.isEqual(path, table.dataSpecPath))) {
+              paths.push(table.dataSpecPath)
             }
           }
           for (const path of paths) {
@@ -900,13 +951,22 @@ let configStruct = {
       words: helpers.words('table'),
       isA: ['orderable', 'reportElementContext', 'moveable'],
       parents: ['theAble', 'reportElement', 'nameable'],
+      /*
       evaluator: async ({context, toContext, values, api, gp, verbatim}) => {
         const currentReport = api.current()
         if (context.ordinal) {
           const tables = image.getTables(currentReport.imageSpec)
           const ordinals = values(context.ordinal)
-          const table = tables[context.ordinal.value-1]
-          const selectedTables = ordinals.map( (ordinal) => tables[ordinal.value-1] ).filter( (table) => table )
+          const getTable = (ordinal) => {
+            let table
+            if (ordinal < 0) {
+              table = tables[tables.length + ordinal]
+            } else {
+              table = tables[ordinal-1]
+            }
+            return table
+          }
+          const selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (table) => table )
           console.log('selectedTable', JSON.stringify(selectedTables, null, 2))
           if (!_.isEmpty(selectedTables)) {
             context.evalue = {
@@ -919,6 +979,7 @@ let configStruct = {
           }
         }
       }
+      */
     },
 
     { id: 'report',
@@ -995,20 +1056,29 @@ let configStruct = {
             const args = { context: { marker: 'table' }, frameOfReference: currentReport }
             defaultTable = mentions(args)
             if (defaultTable) {
-              // dataSpecPath = defaultTable.field
+              console.log(JSON.stringify(defaultTable, null, 2))
+              // currentReport = defaultTable.frameOfReference
+              // greg55
+              // defaultTable = defaultTable.table.imageSpec
             } else {
               dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []
             }
           }
 
+          // TODO pick a better name for this
           const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {
-            let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
+            let dataSpec
+            if (!dataSpecPath) {
+              dataSpecPath = defaultTable.imageSpec.dataSpecPath
+              dataSpec = defaultTable.dataSpec
+              debugger
+            } else {
+              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
+            }
             let database = dataSpec.dbName
             let collection = dataSpec.collectionName
 
             const columns = values(context.show)
-            // dataSpec[0] -> select report to update greg98
-            // db -> collection -> columns
             let columnNames = []
 
             let hasArray = false
@@ -1016,6 +1086,7 @@ let configStruct = {
               columnNames = [context.show.path[0]]
             } else {
               ({ database, collection, columnNames } = await api.determineCollection(columns))
+              debugger // no chagne current
               currentReport = await api.newReportSpec(database, collection)
               dataSpecPath = []
               dataSpec = currentReport.dataSpec
@@ -1037,7 +1108,9 @@ let configStruct = {
             } else {
               dataSpec.usedFields.push(...columnNames)
               if (defaultTable) {
-                image.addColumns(defaultTable, dataSpecPath, columnNames)
+                debugger
+                console.log(JSON.stringify(defaultTable, null, 2))
+                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)
               } else {
                 for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
                   // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) 
@@ -1049,9 +1122,10 @@ let configStruct = {
           }
 
           if (defaultTable) {
+            // greg55
             for (const value of values(defaultTable.value)) {
               console.log("value", JSON.stringify(value, null, 2))
-              currentReport = await someFunction(context, value, currentReport, value.field)
+              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)
             }
           } else {
             currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)
@@ -1122,7 +1196,7 @@ let configStruct = {
       // localHierarchy: [['unknown', 'reportable']],
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
-      semantic: async ({context, km, mentions, api, flatten, gp}) => {
+      semantic: async ({context, km, mentions, mentioned, api, flatten, gp}) => {
         const toArray = (context) => {
           if (context.isList) {
             return context.value
@@ -1151,7 +1225,6 @@ let configStruct = {
         const imageSpecs = []
         // const currentReport = api.newReport()
         const currentReport = api.current()
-        let oldWay = false
         for (const dbName in components) {
           for (const collectionName in components[dbName]) {
             const properties = components[dbName][collectionName]
@@ -1160,37 +1233,19 @@ let configStruct = {
               columns.push({ text: await gp(column), id: column.path[0] })
             }
 
-            if (oldWay) {
-              const report = await api.newReportSpec(dbName, collectionName, columns, properties)
-              dataSpecs.push(report.dataSpec)
-              imageSpecs.push(report.imageSpec)
-            } else {
-              const subReport = await api.newReportSpec(dbName, collectionName, columns, properties)
-              // query.addReport(currentReport, { dataSpec: subReport.dataSpec, imageSpec: subReport.imageSpec })
-              report.addReport(api, currentReport, subReport)
+            const subReport = await api.newReportSpec(dbName, collectionName, columns, properties)
+            report.addReport(api, currentReport, subReport)
+            // greg55
+            if (true) {
+              mentioned({ 
+                context: { marker: 'table', value: subReport },
+                frameOfReference: currentReport 
+              })
             }
           }
         }
 
-        if (oldWay) {
-          if (dataSpecs.length == 1) {
-            currentReport.dataSpec = dataSpecs[0]
-            currentReport.imageSpec = imageSpecs[0]
-          } else {
-            currentReport.dataSpec = dataSpecs
-            for (let i = 0; i < imageSpecs.length; ++i) {
-              imageSpecs[i].field = [i]
-            }
-            currentReport.imageSpec = {
-              headers: { columns: [] },
-              table: true,
-              explicit: true,
-              id: api.getId('table'),
-              field: [],
-              rows: [imageSpecs]
-            }
-          }
-        }
+        api.setCurrent(currentReport)
         api.show(currentReport)
       }
     },

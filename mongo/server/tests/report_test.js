@@ -131,7 +131,7 @@ describe('Reports Tests', () => {
       data: {
         "type": "bar",
         id: 'graph1',
-        field: [0],
+        dataSpecPath: [0],
         "options": {
           "chart": {
             "id": "apexchart-example"
@@ -199,7 +199,7 @@ describe('Reports Tests', () => {
         "className": "column column_0 table_1_column_0",
         data: {
           "type": "bar",
-          field: [fieldId],
+          dataSpecPath: [fieldId],
           id: `graph_${graph_id}`,
           "options": {
             "chart": {
@@ -316,7 +316,7 @@ describe('Reports Tests', () => {
           "headers": { "columns": [] },
           "table": true,
           "explicit": true,
-          "field": [],
+          "dataSpecPath": [],
           "rows": [
             [
               {
@@ -325,7 +325,7 @@ describe('Reports Tests', () => {
                 },
                 "colgroups": [ "column_0" ],
                 "table": true,
-                "field": [ 0 ],
+                "dataSpecPath": [ 0 ],
                 "rows": [ "$name" ]
               },
               {
@@ -334,7 +334,7 @@ describe('Reports Tests', () => {
                 },
                 "colgroups": [ "column_0" ],
                 "table": true,
-                "field": [ 1 ],
+                "dataSpecPath": [ 1 ],
                 "rows": [ "$title" ]
               }
             ]
@@ -348,7 +348,7 @@ describe('Reports Tests', () => {
         },
         "table": true,
         "explicit": true,
-        "field": [],
+        "dataSpecPath": [],
         "rows": [
           [
             {
@@ -364,7 +364,7 @@ describe('Reports Tests', () => {
                 "column_0"
               ],
               "table": true,
-              "field": [
+              "dataSpecPath": [
                 0
               ],
               "rows": [
@@ -394,7 +394,7 @@ describe('Reports Tests', () => {
                 "column_2"
               ],
               "table": true,
-              "field": [
+              "dataSpecPath": [
                 1
               ],
               "rows": [

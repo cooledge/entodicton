@@ -53,7 +53,7 @@ const updateColumnsNew = (report, chosen) => {
 
   const options = {
     seen: (path, imageSpec) => {
-      if (_.isEqual(imageSpec.field, dataSpecPath)) {
+      if (_.isEqual(imageSpec.dataSpecPath, dataSpecPath)) {
         imageSpec.headers.columns = columns
         imageSpec.colgroups = properties.map( (e, i) => `column_${i}` ),
         imageSpec.rows = properties
@@ -109,7 +109,7 @@ const updateColumns = (api, report, database, collection, chosen) => {
     colgroups: properties.map( (e, i) => `column_${i}` ),
     table: true,
     id: api.getId('table'),
-    field: [],
+    dataSpecPath: [],
     rows: properties
   }
 }
@@ -131,7 +131,7 @@ const addReport = (api, toThis, addThis) => {
       table: true,
       id: api.getId('table'),
       explicit: true,
-      field: [],
+      dataSpecPath: [],
     }
     if (wasEmpty) {
       toThis.imageSpec.rows = []
@@ -141,7 +141,7 @@ const addReport = (api, toThis, addThis) => {
     }
   }
   toThis.dataSpec.push(addThis.dataSpec)
-  toThis.imageSpec.rows.push([{ ...addThis.imageSpec, field: [toThis.dataSpec.length-1] }])
+  toThis.imageSpec.rows.push([{ ...addThis.imageSpec, dataSpecPath: [toThis.dataSpec.length-1] }])
 }
 
 const addColumns = (dataSpec, imageSpec, dbName, collectionName, columns) => {

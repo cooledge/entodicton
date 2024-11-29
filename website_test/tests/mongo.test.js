@@ -614,7 +614,7 @@ describe('tests for the mongo page', () => {
       await checkOrder(['table_1', 'table_3'])
     }, timeout);
 
-    test(`NEO23 MONGO make a pie chart of the genre and number of movies`, async () => {
+    test(`MONGO make a pie chart of the genre and number of movies`, async () => {
       await query('make a pie chart of the genre and number of movies')
       await page.waitForSelector(`#queryCounter2`)
       const title = await page.evaluate(() => {
@@ -622,6 +622,15 @@ describe('tests for the mongo page', () => {
         return title.innerText
       })
       expect(title).toBe("the genre and number of movies")
+    }, timeout);
+
+    test(`NEO23 MONGO show the users + show the movies + move the table up`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await query('move the table up')
+      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 3, movies, ['title'])
+      await checkOrder(['table_3', 'table_1'])
     }, timeout);
 
   })

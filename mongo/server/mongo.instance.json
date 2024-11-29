@@ -62,6 +62,22 @@
         [
           "case",
           "reportElement"
+        ],
+        [
+          "graph",
+          "moveable"
+        ],
+        [
+          "graph",
+          "orderable"
+        ],
+        [
+          "chart",
+          "moveable"
+        ],
+        [
+          "chart",
+          "orderable"
         ]
       ],
       "semantics": [
@@ -70,7 +86,12 @@
           "apply": "({context}) => {\n        const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })\n        context.evalue = value\n      }"
         },
         {
+          "match": "({context}) => ['table', 'graph', 'chart'].includes(context.marker) && context.evaluate",
+          "apply": "async ({context, toContext, values, api, gp, mentions, verbatim}) => {\n        const currentReport = api.current()\n        let selectedTables\n        console.log(JSON.stringify(context, null, 2))\n        let items\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          selectedTables = items[items.length-1]\n        }\n\n        console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
+        },
+        {
           "match": "({context}) => context.marker == 'move' && !context.evaluate",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:559",
           "apply": "async ({context, api, values, e}) => {\n        const table = (await e(context.moveable)).evalue\n        if (table) {\n          console.log('table', JSON.stringify(table, null, 2))\n          const direction = context.direction.value\n          let distance = context.direction.steps?.value || 1\n          if (direction == 'up') {\n            distance *= -1\n          }\n          for (const moved of values(table.value)) {\n            image.moveUpOrDown(table.report.imageSpec, moved, distance)\n          }\n        }\n        api.show(table.report)\n      }"
         },
         {
@@ -184,7 +205,7 @@
             "verb"
           ],
           "bridge": "{ ...next(operator), table: after[0], field: after[1], postModifiers: ['field'] }",
-          "semantic": "async ({context, e, api, values}) => {\n        const currentReport= api.current()\n        const defaultTable = (await e(context.table)).evalue\n        const fields = helpers.propertyToArray(context.field.field)\n        if (defaultTable) {\n          const paths = []\n          for (const table of values(defaultTable.value)) {\n            if (!paths.find( (path) => _.isEqual(path, table.field))) {\n              paths.push(table.field)\n            }\n          }\n          for (const path of paths) {\n            const dataSpec = data.getValue(currentReport.dataSpec, path)\n            report.addSort(dataSpec, fields)\n          }\n        } else {\n          report.addSort(currentReport.dataSpec, fields)\n        }\n        api.show(currentReport)\n      }"
+          "semantic": "async ({context, e, api, values}) => {\n        const currentReport= api.current()\n        const defaultTable = (await e({...context.table, silent: true})).evalue\n        const fields = helpers.propertyToArray(context.field.field)\n        if (defaultTable) {\n          const paths = []\n          for (const table of values(defaultTable.value)) {\n            if (!paths.find( (path) => _.isEqual(path, table.dataSpecPath))) {\n              paths.push(table.dataSpecPath)\n            }\n          }\n          for (const path of paths) {\n            const dataSpec = data.getValue(currentReport.dataSpec, path)\n            report.addSort(dataSpec, fields)\n          }\n        } else {\n          report.addSort(currentReport.dataSpec, fields)\n        }\n        api.show(currentReport)\n      }"
         },
         {
           "id": "groupByColumns",
@@ -398,8 +419,7 @@
             "theAble",
             "reportElement",
             "nameable"
-          ],
-          "evaluator": "async ({context, toContext, values, api, gp, verbatim}) => {\n        const currentReport = api.current()\n        if (context.ordinal) {\n          const tables = image.getTables(currentReport.imageSpec)\n          const ordinals = values(context.ordinal)\n          const table = tables[context.ordinal.value-1]\n          const selectedTables = ordinals.map( (ordinal) => tables[ordinal.value-1] ).filter( (table) => table )\n          console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n          if (!_.isEmpty(selectedTables)) {\n            context.evalue = {\n              marker: 'table',\n              report: currentReport,\n              value: toContext(selectedTables)\n            }\n          } else {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
+          ]
         },
         {
           "id": "report",
@@ -425,7 +445,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => {\n        if (context.to && context.to.marker !== 'undefined') {\n          return `${context.word} ${await g(context.show)} ${await g(context.to)}`\n        } else {\n          return `${context.word} ${await g(context.show)}`\n        }\n      }",
-          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const dataSpecPath = [0]\n          const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n          const { dbName, collectionName, fields } = dataSpec\n          // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n          const choices = []\n          let counter = 1\n          for (const field of fields) {\n            choices.push({ text: field.name, id: field.name, counter, selected: true })\n            counter += 1\n          }\n          // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n          report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              // dataSpecPath = defaultTable.field\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            // dataSpec[0] -> select report to update greg98\n            // db -> collection -> columns\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                image.addColumns(defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            for (const value of values(defaultTable.value)) {\n              console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.field)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
+          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const dataSpecPath = [0]\n          const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n          const { dbName, collectionName, fields } = dataSpec\n          // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n          const choices = []\n          let counter = 1\n          for (const field of fields) {\n            choices.push({ text: field.name, id: field.name, counter, selected: true })\n            counter += 1\n          }\n          // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n          report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              console.log(JSON.stringify(defaultTable, null, 2))\n              // currentReport = defaultTable.frameOfReference\n              // greg55\n              // defaultTable = defaultTable.table.imageSpec\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          // TODO pick a better name for this\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec\n            if (!dataSpecPath) {\n              dataSpecPath = defaultTable.imageSpec.dataSpecPath\n              dataSpec = defaultTable.dataSpec\n              debugger\n            } else {\n              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            }\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              debugger // no chagne current\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                debugger\n                console.log(JSON.stringify(defaultTable, null, 2))\n                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            // greg55\n            for (const value of values(defaultTable.value)) {\n              console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
         },
         {
           "id": "showReport",
@@ -452,7 +472,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, km, mentions, api, flatten, gp}) => {\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        // const currentReport = api.newReport()\n        const currentReport = api.current()\n        let oldWay = false\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column), id: column.path[0] })\n            }\n\n            if (oldWay) {\n              const report = await api.newReportSpec(dbName, collectionName, columns, properties)\n              dataSpecs.push(report.dataSpec)\n              imageSpecs.push(report.imageSpec)\n            } else {\n              const subReport = await api.newReportSpec(dbName, collectionName, columns, properties)\n              // query.addReport(currentReport, { dataSpec: subReport.dataSpec, imageSpec: subReport.imageSpec })\n              report.addReport(api, currentReport, subReport)\n            }\n          }\n        }\n\n        if (oldWay) {\n          if (dataSpecs.length == 1) {\n            currentReport.dataSpec = dataSpecs[0]\n            currentReport.imageSpec = imageSpecs[0]\n          } else {\n            currentReport.dataSpec = dataSpecs\n            for (let i = 0; i < imageSpecs.length; ++i) {\n              imageSpecs[i].field = [i]\n            }\n            currentReport.imageSpec = {\n              headers: { columns: [] },\n              table: true,\n              explicit: true,\n              id: api.getId('table'),\n              field: [],\n              rows: [imageSpecs]\n            }\n          }\n        }\n        api.show(currentReport)\n      }"
+          "semantic": "async ({context, km, mentions, mentioned, api, flatten, gp}) => {\n        const toArray = (context) => {\n          if (context.isList) {\n            return context.value\n          } else {\n            return [context]\n          }\n        }\n\n        const properties = toArray(context.show)\n\n        // split by table\n        const components = {}\n        for (const property of properties) {\n          if (!components[property.database]) {\n            components[property.database] = {}\n          }\n          const dbs = components[property.database]\n          if (!dbs[property.collection]) {\n            dbs[property.collection] = []\n          }\n          const collection = dbs[property.collection]\n          collection.push(property)\n        }\n\n        const dataSpecs = []\n        const imageSpecs = []\n        // const currentReport = api.newReport()\n        const currentReport = api.current()\n        for (const dbName in components) {\n          for (const collectionName in components[dbName]) {\n            const properties = components[dbName][collectionName]\n            const columns = []\n            for (const column of properties) {\n              columns.push({ text: await gp(column), id: column.path[0] })\n            }\n\n            const subReport = await api.newReportSpec(dbName, collectionName, columns, properties)\n            report.addReport(api, currentReport, subReport)\n            // greg55\n            if (true) {\n              mentioned({ \n                context: { marker: 'table', value: subReport },\n                frameOfReference: currentReport \n              })\n            }\n          }\n        }\n\n        api.setCurrent(currentReport)\n        api.show(currentReport)\n      }"
         },
         {
           "id": "sales",
@@ -18449,11 +18469,30 @@
         [
           "case",
           "reportElement"
+        ],
+        [
+          "graph",
+          "moveable"
+        ],
+        [
+          "graph",
+          "orderable"
+        ],
+        [
+          "chart",
+          "moveable"
+        ],
+        [
+          "chart",
+          "orderable"
         ]
       ],
       "semantics": [
         {},
         {},
+        {
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:559"
+        },
         {}
       ],
       "bridges": [
@@ -19598,7 +19637,17 @@
         ],
         [
           "chart",
+          "moveable",
+          false
+        ],
+        [
+          "chart",
           "object",
+          false
+        ],
+        [
+          "chart",
+          "orderable",
           false
         ],
         [
@@ -20033,7 +20082,17 @@
         ],
         [
           "graph",
+          "moveable",
+          false
+        ],
+        [
+          "graph",
           "object",
+          false
+        ],
+        [
+          "graph",
+          "orderable",
           false
         ],
         [
