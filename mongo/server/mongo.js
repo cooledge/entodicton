@@ -501,8 +501,10 @@ let configStruct = {
 
     ['graph', 'moveable'],
     ['graph', 'orderable'],
-    ['chart', 'moveable'],
-    ['chart', 'orderable'],
+    ['thisitthat', 'graph'],
+    ['thisitthat', 'table'],
+    // ['chart', 'moveable'],
+    // ['chart', 'orderable'],
   ],
   semantics: [
     {
@@ -568,7 +570,10 @@ let configStruct = {
       // overides move semantics from ui
       match: ({context}) => context.marker == 'move' && !context.evaluate,
       where: where(),
-      apply: async ({context, api, values, e}) => {
+      apply: async ({context, api, values, e, isA}) => {
+        if (isA(context.moveable.marker, 'thisitthat')) {
+          context.moveable.marker = 'moveable'
+        }
         const table = (await e(context.moveable)).evalue
         if (table) {
           console.log('table', JSON.stringify(table, null, 2))
@@ -615,8 +620,10 @@ let configStruct = {
       id: 'changeGraph',
       isA: ['verb'],
       bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
-      semantic: async ({context, api, e}) => {
-        debugger
+      semantic: async ({context, api, e, isA}) => {
+        if (isA(context.change.marker, 'thisitthat')) {
+          context.change.marker = 'graph'
+        }
         const graphContext = (await e(context.change)).evalue
         const graphImageSpec = graphContext.value
         const newType = context.newType.marker.split('_')[0]

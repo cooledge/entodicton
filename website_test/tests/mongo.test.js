@@ -662,5 +662,18 @@ describe('tests for the mongo page', () => {
       expect(title).toBe("the genre and number of movies")
     }, timeout);
 
+    test(`NEO23 MONGO graph the genre and number of movies + change it to a pie chart`, async () => {
+      await query('graph the genre and number of movies')
+      await page.waitForSelector(`.test_graph_bar`)
+      await query('change it to a pie chart')
+      await page.waitForSelector(`.test_graph_pie`)
+
+      const title = await page.evaluate(() => {
+        const title = document.querySelector('.Graph .Title')
+        return title.innerText
+      })
+      expect(title).toBe("the genre and number of movies")
+    }, timeout);
+
   })
 });
