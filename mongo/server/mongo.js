@@ -455,6 +455,9 @@ let configStruct = {
     "([state])",
     "([changeState|make] ([reportElement]) (table/*)? (state/*))",
 
+    // change the graph into a pie chart
+    "([changeGraph|change] (graph/*) (to/*) (@<graph))",
+
     "([collection])",
 
     "([reportElementProperty])",
@@ -510,6 +513,7 @@ let configStruct = {
       },
     },
 
+    // evaluator to pull table/graph/charts from the context
     {
       match: ({context}) => ['table', 'graph', 'chart'].includes(context.marker) && context.evaluate,
       apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
@@ -604,6 +608,21 @@ let configStruct = {
 
     {
       id: 'reportElementContext'
+    },
+
+    // "([changeGraph|change] (graph/*) (to/*) (<graph))",
+    {
+      id: 'changeGraph',
+      isA: ['verb'],
+      bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
+      semantic: async ({context, api, e}) => {
+        debugger
+        const graphContext = (await e(context.change)).evalue
+        const graphImageSpec = graphContext.value
+        const newType = context.newType.marker.split('_')[0]
+        graphImageSpec.type = newType
+        api.show(graphContext.report)
+      },
     },
 
     {
@@ -1331,6 +1350,7 @@ const template = {
     "be brief",
     "pie, bar and line modify graph",
     "pie, bar and line modify chart",
+    "a chart is a graph",
 
     configStruct,
 

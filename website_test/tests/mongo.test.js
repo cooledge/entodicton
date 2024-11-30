@@ -478,6 +478,7 @@ describe('tests for the mongo page', () => {
     test(`MONGO graph the genre and the number of directors and movies`, async () => {
       await query('graph the genre and number of movies')
       await page.waitForSelector(`#queryCounter2`)
+      await page.waitForSelector(`.test_graph_bar`)
       const title = await page.evaluate(() => {
         const title = document.querySelector('.Graph .Title')
         return title.innerText
@@ -488,6 +489,7 @@ describe('tests for the mongo page', () => {
     test(`MONGO graph the genre and the number of directors and movies`, async () => {
       await query('graph the genre and the number of directors and movies')
       await page.waitForSelector(`#queryCounter2`)
+      await page.waitForSelector(`.test_graph_bar`)
       const title = await page.evaluate(() => {
         const title = document.querySelector('.Graph .Title')
         return title.innerText
@@ -497,7 +499,9 @@ describe('tests for the mongo page', () => {
 
     test(`MONGO graph the genre and the number of directors + graph the year and number of movies`, async () => {
       await query('graph the genre and the number of directors')
+      await page.waitForSelector(`.test_graph_bar`)
       await query('graph the year and the number of movies')
+      await page.waitForSelector(`.test_graph_bar`)
       await page.waitForSelector(`#queryCounter3`)
       const titles = await page.evaluate(() => {
         // const title = document.querySelector('.Graph .Title')
@@ -633,7 +637,7 @@ describe('tests for the mongo page', () => {
       await checkOrder(['table_3', 'table_1'])
     }, timeout);
 
-    test(`NEO23 MONGO show the users + show the movies + move the table up + move the table down`, async () => {
+    test(`MONGO show the users + show the movies + move the table up + move the table down`, async () => {
       await query('show the users')
       await query('show the movies')
       await checkOrder(['table_1', 'table_3'])
@@ -643,6 +647,19 @@ describe('tests for the mongo page', () => {
       await checkOrder(['table_1', 'table_3'])
       await checkTable(page, 1, users, ['name'])
       await checkTable(page, 3, movies, ['title'])
+    }, timeout);
+
+    test(`MONGO graph the genre and number of movies + change the graph to a pie chart`, async () => {
+      await query('graph the genre and number of movies')
+      await page.waitForSelector(`.test_graph_bar`)
+      await query('change the graph to a pie chart')
+      await page.waitForSelector(`.test_graph_pie`)
+
+      const title = await page.evaluate(() => {
+        const title = document.querySelector('.Graph .Title')
+        return title.innerText
+      })
+      expect(title).toBe("the genre and number of movies")
     }, timeout);
 
   })

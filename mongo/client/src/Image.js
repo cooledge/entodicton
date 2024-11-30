@@ -106,6 +106,8 @@ const pdata = {
 }
 
 const fromGraph = (graph, options) => {
+  // used for integration testing
+  const testingClass = `test_graph_${graph.type}`
   if (graph.type == 'pie') {
     const data = graph.series[0].data
     const total = data.reduce((partialSum, a) => partialSum + a, 0)
@@ -124,14 +126,14 @@ const fromGraph = (graph, options) => {
         position: 'bottom'
       }
     }
-    return <div className="Graph">
+    return <div className={`Graph ${testingClass}`}>
       { graph.title && 
         <span className="Title">{graph.title}</span>
       }
       <Chart options={options} labels={labels} series={percentages} type={graph.type} width={500} height={320} />
     </div>
   } else {
-    return <div className="Graph">
+    return <div className={`Graph ${testingClass}`}>
       { graph.title && 
         <span className="Title">{graph.title}</span>
       }
