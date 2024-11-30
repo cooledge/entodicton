@@ -535,7 +535,14 @@ let configStruct = {
           }
           selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )
         } else if (context.pullFromContext) {
-          selectedTables = items[items.length-1]
+          // handle graph/chart being the same thing
+          const args = { context: { marker: context.marker }, frameOfReference: currentReport }
+          defaultTable = mentions(args)
+          if (defaultTable) {
+            selectedTables = defaultTable.value.imageSpec
+          } else {
+            selectedTables = items[items.length-1]
+          }
         }
 
         console.log('selectedTable', JSON.stringify(selectedTables, null, 2))

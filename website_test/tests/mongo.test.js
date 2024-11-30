@@ -624,13 +624,25 @@ describe('tests for the mongo page', () => {
       expect(title).toBe("the genre and number of movies")
     }, timeout);
 
-    test(`NEO23 MONGO show the users + show the movies + move the table up`, async () => {
+    test(`MONGO show the users + show the movies + move the table up`, async () => {
       await query('show the users')
       await query('show the movies')
       await query('move the table up')
       await checkTable(page, 1, users, ['name'])
       await checkTable(page, 3, movies, ['title'])
       await checkOrder(['table_3', 'table_1'])
+    }, timeout);
+
+    test(`NEO23 MONGO show the users + show the movies + move the table up + move the table down`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await checkOrder(['table_1', 'table_3'])
+      await query('move the table up')
+      await checkOrder(['table_3', 'table_1'])
+      await query('move the table down')
+      await checkOrder(['table_1', 'table_3'])
+      await checkTable(page, 1, users, ['name'])
+      await checkTable(page, 3, movies, ['title'])
     }, timeout);
 
   })

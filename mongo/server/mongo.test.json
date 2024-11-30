@@ -61219,7 +61219,6 @@
         "word": "show"
       }
     ],
-    "developerTest": false,
     "generatedParenthesized": [
       "",
       ""
@@ -155865,7 +155864,6 @@
               "column_0"
             ],
             "dataSpecPath": [
-              0
             ],
             "headers": {
               "columns": [
@@ -155915,7 +155913,7 @@
     ],
     "generatedParenthesized": [
       "",
-      "(((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}))))"
+      "(((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}))))"
     ],
     "metadata": {
       "opChoices": [
@@ -157745,7 +157743,6 @@
                   "column_0"
                 ],
                 "dataSpecPath": [
-                  0
                 ],
                 "headers": {
                   "columns": [
@@ -157792,11 +157789,11 @@
             },
             "word": "evaluate"
           },
-          "generatedParenthesized": "(((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}))))",
+          "generatedParenthesized": "(((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}))))",
           "paraphrases": "evaluate the table",
           "paraphrasesParenthesized": "(((evaluate) (the (table))))",
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
           ]
         },
         {
@@ -158195,7 +158192,7 @@
     "query": "show the users\\n evaluate the table",
     "responses": [
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
+      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[],\"rows\":[\"$name\"],\"paraphrase\":true,\"isResponse\":false,\"response\":false}"
     ]
   }
 ]
