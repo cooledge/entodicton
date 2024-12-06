@@ -501,10 +501,6 @@ let configStruct = {
 
     ['graph', 'moveable'],
     ['graph', 'orderable'],
-    ['thisitthat', 'graph'],
-    ['thisitthat', 'table'],
-    // ['chart', 'moveable'],
-    // ['chart', 'orderable'],
   ],
   semantics: [
     {
@@ -619,6 +615,7 @@ let configStruct = {
     {
       id: 'changeGraph',
       isA: ['verb'],
+      localHierarchy: [['it', 'graph']],
       bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
       semantic: async ({context, api, e, isA}) => {
         if (isA(context.change.marker, 'thisitthat')) {

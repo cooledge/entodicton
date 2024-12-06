@@ -72,14 +72,6 @@
         [
           "graph",
           "orderable"
-        ],
-        [
-          "thisitthat",
-          "graph"
-        ],
-        [
-          "thisitthat",
-          "table"
         ]
       ],
       "semantics": [
@@ -112,6 +104,12 @@
           "id": "changeGraph",
           "isA": [
             "verb"
+          ],
+          "localHierarchy": [
+            [
+              "it",
+              "graph"
+            ]
           ],
           "bridge": "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
           "semantic": "async ({context, api, e, isA}) => {\n        if (isA(context.change.marker, 'thisitthat')) {\n          context.change.marker = 'graph'\n        }\n        const graphContext = (await e(context.change)).evalue\n        const graphImageSpec = graphContext.value\n        const newType = context.newType.marker.split('_')[0]\n        graphImageSpec.type = newType\n        api.show(graphContext.report)\n      }"
@@ -21872,14 +21870,6 @@
         [
           "graph",
           "orderable"
-        ],
-        [
-          "thisitthat",
-          "graph"
-        ],
-        [
-          "thisitthat",
-          "table"
         ]
       ],
       "semantics": [
@@ -21901,6 +21891,12 @@
           "id": "changeGraph",
           "isA": [
             "verb"
+          ],
+          "localHierarchy": [
+            [
+              "it",
+              "graph"
+            ]
           ],
           "bridge": "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }"
         },
@@ -25524,17 +25520,7 @@
         ],
         [
           "thisitthat",
-          "graph",
-          false
-        ],
-        [
-          "thisitthat",
           "queryable",
-          false
-        ],
-        [
-          "thisitthat",
-          "table",
           false
         ],
         [
