@@ -1402,7 +1402,8 @@
       "description": "talking about ordinals",
       "examples": [
         "1st orderable",
-        "4th"
+        "4th",
+        "last"
       ],
       "template": [],
       "includes": [
