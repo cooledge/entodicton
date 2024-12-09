@@ -244,6 +244,7 @@ class API {
     subReport.imageSpec = {
       type,
       title,
+      // ADD THIS BACK marker: 'graph',
       options: {
         chart: {
           id: 'apexchart-example'
@@ -264,6 +265,7 @@ class API {
     } else {
       const currentReport = api.current()
       report.addReport(api, currentReport, subReport)
+      // ADD THIS BACK this.args.mentioned({ context: subReport.imageSpec, frameOfReference: currentReport })
       api.show(currentReport)
     }
   }
@@ -513,7 +515,7 @@ let configStruct = {
 
     // evaluator to pull table/graph/charts from the context
     {
-      match: ({context}) => ['table', 'graph', 'chart'].includes(context.marker) && context.evaluate,
+      match: ({context}) => ['table', 'graph', 'chart', 'moveable'].includes(context.marker) && context.evaluate,
       apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
@@ -539,6 +541,7 @@ let configStruct = {
         } else if (context.pullFromContext) {
           // handle graph/chart being the same thing
           const args = { context: { marker: context.marker }, frameOfReference: currentReport }
+          debugger
           defaultTable = mentions(args)
           if (defaultTable) {
             selectedTables = defaultTable.value.imageSpec
@@ -615,7 +618,7 @@ let configStruct = {
     {
       id: 'changeGraph',
       isA: ['verb'],
-      localHierarchy: [['it', 'graph']],
+      localHierarchy: [['thisitthat', 'graph']],
       bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
       semantic: async ({context, api, e, isA}) => {
         if (isA(context.change.marker, 'thisitthat')) {
