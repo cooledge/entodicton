@@ -126,14 +126,14 @@ const fromGraph = (graph, options) => {
         position: 'bottom'
       }
     }
-    return <div className={`Graph ${testingClass}`}>
+    return <div className={`${graph.className} ${testingClass}`}>
       { graph.title && 
         <span className="Title">{graph.title}</span>
       }
       <Chart options={options} labels={labels} series={percentages} type={graph.type} width={500} height={320} />
     </div>
   } else {
-    return <div className={`Graph ${testingClass}`}>
+    return <div className={`${graph.className} ${testingClass}`}>
       { graph.title && 
         <span className="Title">{graph.title}</span>
       }

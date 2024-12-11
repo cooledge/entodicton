@@ -244,7 +244,8 @@ class API {
     subReport.imageSpec = {
       type,
       title,
-      // ADD THIS BACK marker: 'graph',
+      marker: 'graph',
+      id: this.getId('graph'),
       options: {
         chart: {
           id: 'apexchart-example'
@@ -264,8 +265,9 @@ class API {
       api.show(subReport)
     } else {
       const currentReport = api.current()
+      debugger
       report.addReport(api, currentReport, subReport)
-      // ADD THIS BACK this.args.mentioned({ context: subReport.imageSpec, frameOfReference: currentReport })
+      this.args.mentioned({ context: subReport.imageSpec, frameOfReference: currentReport })
       api.show(currentReport)
     }
   }
@@ -542,9 +544,13 @@ let configStruct = {
           // handle graph/chart being the same thing
           const args = { context: { marker: context.marker }, frameOfReference: currentReport }
           debugger
-          defaultTable = mentions(args)
-          if (defaultTable) {
-            selectedTables = defaultTable.value.imageSpec
+          const mentioned = mentions(args)
+          if (mentioned) {
+            if (mentioned.marker == 'graph') {
+              selectedTables = mentioned
+            } else {
+              selectedTables = mentioned.value.imageSpec
+            }
           } else {
             selectedTables = items[items.length-1]
           }
@@ -574,6 +580,7 @@ let configStruct = {
           context.moveable.marker = 'moveable'
         }
         const table = (await e(context.moveable)).evalue
+        debugger // move
         if (table) {
           console.log('table', JSON.stringify(table, null, 2))
           const direction = context.direction.value
@@ -625,6 +632,7 @@ let configStruct = {
           context.change.marker = 'graph'
         }
         const graphContext = (await e(context.change)).evalue
+        debugger
         const graphImageSpec = graphContext.value
         const newType = context.newType.marker.split('_')[0]
         graphImageSpec.type = newType
