@@ -141,7 +141,9 @@ const addReport = (api, toThis, addThis) => {
     }
   }
   toThis.dataSpec.push(addThis.dataSpec)
-  toThis.imageSpec.rows.push([{ ...addThis.imageSpec, dataSpecPath: [toThis.dataSpec.length-1] }])
+  // toThis.imageSpec.rows.push([{ ...addThis.imageSpec, dataSpecPath: [toThis.dataSpec.length-1] }])
+  addThis.imageSpec.dataSpecPath = [toThis.dataSpec.length-1]
+  toThis.imageSpec.rows.push([addThis.imageSpec])
 }
 
 const addColumns = (dataSpec, imageSpec, dbName, collectionName, columns) => {

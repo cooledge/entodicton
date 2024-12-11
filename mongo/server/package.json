@@ -9,7 +9,7 @@
     "tod": "node inspect node_modules/.bin/jest --runInBand -t NEO23",
     "to": "node node_modules/.bin/jest --runInBand -t NEO23",
     "tos": "node node_modules/.bin/jest --runInBand -t NEOS23",
-    "test": "jest --config ./jest.config.json"
+    "test": "jest --runInBand --config ./jest.config.json"
   },
   "author": "",
   "license": "ISC",

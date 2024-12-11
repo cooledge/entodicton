@@ -79,6 +79,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
     for (let i = 0; i < imageSpec.series.length; ++i) {
       instantiateValue(['data'], imageSpec.series[i], rows, instantiation.series[i], { ...options, isGraph: true })
     }
+    instantiation.className = `Graph ${imageSpec.id}`
     return instantiation
   } else if (imageSpec.table) {
     // rows is the values to be instantiated rather than instantiated over the rows of the data

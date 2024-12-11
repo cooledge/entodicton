@@ -224,7 +224,7 @@ describe('tests for the mongo page', () => {
 
     const checkOrder = async (expectedOrder) => {
       const data = await page.evaluate(() => {
-        const tables = Array.from(document.querySelectorAll(".Table"))
+        const tables = Array.from(document.querySelectorAll(".Table, .Graph"))
         return tables.map( (table) => table.className)
       })
       const actualOrder = data.map( (cn) => cn.split(' ')[1]).filter( (cn) => expectedOrder.includes(cn))
@@ -662,7 +662,7 @@ describe('tests for the mongo page', () => {
       expect(title).toBe("the genre and number of movies")
     }, timeout);
 
-    test(`NEO23 MONGO graph the genre and number of movies + change it to a pie chart`, async () => {
+    test(`MONGO graph the genre and number of movies + change it to a pie chart`, async () => {
       await query('graph the genre and number of movies')
       await page.waitForSelector(`.test_graph_bar`)
       await query('change it to a pie chart')
@@ -673,6 +673,15 @@ describe('tests for the mongo page', () => {
         return title.innerText
       })
       expect(title).toBe("the genre and number of movies")
+    }, timeout);
+
+    test(`MONGO show the users + graph the genre and number of movies + change it up`, async () => {
+      await query('show the users')
+      await query('graph the genre and number of movies')
+      await page.waitForSelector(`.test_graph_bar`)
+      await checkOrder(['table_1', 'graph_1'])
+      await query('move it up')
+      await checkOrder(['graph_1', 'table_1'])
     }, timeout);
 
   })

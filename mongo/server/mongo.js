@@ -244,6 +244,8 @@ class API {
     subReport.imageSpec = {
       type,
       title,
+      marker: 'graph',
+      id: this.getId('graph'),
       options: {
         chart: {
           id: 'apexchart-example'
@@ -263,7 +265,9 @@ class API {
       api.show(subReport)
     } else {
       const currentReport = api.current()
+      debugger
       report.addReport(api, currentReport, subReport)
+      this.args.mentioned({ context: subReport.imageSpec, frameOfReference: currentReport })
       api.show(currentReport)
     }
   }
@@ -513,7 +517,7 @@ let configStruct = {
 
     // evaluator to pull table/graph/charts from the context
     {
-      match: ({context}) => ['table', 'graph', 'chart'].includes(context.marker) && context.evaluate,
+      match: ({context}) => ['table', 'graph', 'chart', 'moveable'].includes(context.marker) && context.evaluate,
       apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
@@ -539,9 +543,14 @@ let configStruct = {
         } else if (context.pullFromContext) {
           // handle graph/chart being the same thing
           const args = { context: { marker: context.marker }, frameOfReference: currentReport }
-          defaultTable = mentions(args)
-          if (defaultTable) {
-            selectedTables = defaultTable.value.imageSpec
+          debugger
+          const mentioned = mentions(args)
+          if (mentioned) {
+            if (mentioned.marker == 'graph') {
+              selectedTables = mentioned
+            } else {
+              selectedTables = mentioned.value.imageSpec
+            }
           } else {
             selectedTables = items[items.length-1]
           }
@@ -571,6 +580,7 @@ let configStruct = {
           context.moveable.marker = 'moveable'
         }
         const table = (await e(context.moveable)).evalue
+        debugger // move
         if (table) {
           console.log('table', JSON.stringify(table, null, 2))
           const direction = context.direction.value
@@ -615,13 +625,14 @@ let configStruct = {
     {
       id: 'changeGraph',
       isA: ['verb'],
-      localHierarchy: [['it', 'graph']],
+      localHierarchy: [['thisitthat', 'graph']],
       bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
       semantic: async ({context, api, e, isA}) => {
         if (isA(context.change.marker, 'thisitthat')) {
           context.change.marker = 'graph'
         }
         const graphContext = (await e(context.change)).evalue
+        debugger
         const graphImageSpec = graphContext.value
         const newType = context.newType.marker.split('_')[0]
         graphImageSpec.type = newType
