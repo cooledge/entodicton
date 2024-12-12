@@ -417,6 +417,19 @@ const moveUpOrDown = (imageSpec, imageSpecToBeMoved, distance) => {
   }
 }
 
+const remove = (imageSpec, imageSpecToBeRemoved) => {
+  const paths = find(imageSpec, imageSpecToBeRemoved)
+  for (const path of paths) {
+    const where = path.lastIndexOf('rows')
+    if (where >= 0) {
+      const arrayPath = path.slice(0, where+1)
+      const arrayIndex = path[where+1]
+      const array = getProperty(imageSpec, arrayPath)
+      array.splice(arrayIndex, 1)
+    }
+  }
+}
+
 const getImageSpecs = (imageSpec, dataSpecPath) => {
   const imageSpecs = []
   const options = {
@@ -445,5 +458,6 @@ module.exports = {
   getTables,
   getGraphs,
   moveUpOrDown,
+  remove,
   find,
 }

@@ -84,6 +84,7 @@ describe('Reports Tests', () => {
     const expected = {
       id: 'graph1',
       "type": "bar",
+      "className": "Graph graph1",
       "options": {
         "chart": {
           "id": "apexchart-example"
@@ -131,6 +132,7 @@ describe('Reports Tests', () => {
       data: {
         "type": "bar",
         id: 'graph1',
+        "className": "Graph graph1",
         dataSpecPath: [0],
         "options": {
           "chart": {
@@ -199,6 +201,7 @@ describe('Reports Tests', () => {
         "className": "column column_0 table_1_column_0",
         data: {
           "type": "bar",
+          "className": `Graph graph_${graph_id}`,
           dataSpecPath: [fieldId],
           id: `graph_${graph_id}`,
           "options": {

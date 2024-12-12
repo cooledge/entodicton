@@ -1,4 +1,5 @@
 const image = require('../image')
+const _ = require('lodash')
 const { getAPI } = require('./test_helpers')
 
 const bson = [
@@ -480,6 +481,7 @@ describe('Reports Tests', () => {
     const expected = {
       id: 'graph1',
       "type": "bar",
+      "className": "Graph graph1",
       "options": {
         "chart": {
           "id": "apexchart-example"
@@ -981,35 +983,100 @@ describe('Reports Tests', () => {
     })
   })
 
+  describe('Delete table', () => {
+    let table_1, table_3, imageSpec
+
+    beforeEach(() => {
+      table_1 = _.cloneDeep({
+                "colgroups": [ "column_0" ],
+                "dataSpecPath": [ 0 ],
+                "headers": {
+                  "columns": [ { "id": "name", "text": "the users" } ]
+                },
+                "id": "table_1",
+                "rows": [ "$name" ],
+                "table": true
+              })
+      table_3 = _.cloneDeep({
+                "colgroups": [ "column_0" ],
+                "dataSpecPath": [ 1 ],
+                "headers": {
+                  "columns": [ { "id": "title", "text": "the movies" } ]
+                },
+                "id": "table_3",
+                "rows": [ "$title" ],
+                "table": true
+              })
+      imageSpec = _.cloneDeep({
+        "explicit": true,
+        "dataSpecPath": [],
+        "headers": { "columns": [] },
+        "id": "table_2",
+        "rows": [ [ table_1 ], [ table_3 ], ],
+        "table": true,
+      })
+    })
+    it('delete the first table', async () => {
+      const field = [1]
+      image.remove(imageSpec, table_1)
+      const expected = {
+        "explicit": true,
+        "dataSpecPath": [],
+        "headers": { "columns": [] },
+        "id": "table_2",
+        "rows": [ [ table_3 ], ],
+        "table": true,
+      }
+      expect(imageSpec).toStrictEqual(expected)
+    })
+
+    it('delete the second table', async () => {
+      const field = [1]
+      image.remove(imageSpec, table_3)
+      const expected = {
+        "explicit": true,
+        "dataSpecPath": [],
+        "headers": { "columns": [] },
+        "id": "table_2",
+        "rows": [ [ table_1 ], ],
+        "table": true,
+      }
+      expect(imageSpec).toStrictEqual(expected)
+    })
+  })
   describe('Move table', () => {
-    const table_1 = {
-              "colgroups": [ "column_0" ],
-              "dataSpecPath": [ 0 ],
-              "headers": {
-                "columns": [ { "id": "name", "text": "the users" } ]
-              },
-              "id": "table_1",
-              "rows": [ "$name" ],
-              "table": true
-            }
-     const table_3 = {
-              "colgroups": [ "column_0" ],
-              "dataSpecPath": [ 1 ],
-              "headers": {
-                "columns": [ { "id": "title", "text": "the movies" } ]
-              },
-              "id": "table_3",
-              "rows": [ "$title" ],
-              "table": true
-            }
-    const imageSpec = {
-      "explicit": true,
-      "dataSpecPath": [],
-      "headers": { "columns": [] },
-      "id": "table_2",
-      "rows": [ [ table_1 ], [ table_3 ], ],
-      "table": true,
-    }
+    let table_1, table_3, imageSpec
+
+    beforeEach(() => {
+      table_1 = _.cloneDeep({
+                "colgroups": [ "column_0" ],
+                "dataSpecPath": [ 0 ],
+                "headers": {
+                  "columns": [ { "id": "name", "text": "the users" } ]
+                },
+                "id": "table_1",
+                "rows": [ "$name" ],
+                "table": true
+              })
+      table_3 = _.cloneDeep({
+                "colgroups": [ "column_0" ],
+                "dataSpecPath": [ 1 ],
+                "headers": {
+                  "columns": [ { "id": "title", "text": "the movies" } ]
+                },
+                "id": "table_3",
+                "rows": [ "$title" ],
+                "table": true
+              })
+      imageSpec = _.cloneDeep({
+        "explicit": true,
+        "dataSpecPath": [],
+        "headers": { "columns": [] },
+        "id": "table_2",
+        "rows": [ [ table_1 ], [ table_3 ], ],
+        "table": true,
+      })
+    })
 
     it('move table up one', async () => {
       const field = [1]

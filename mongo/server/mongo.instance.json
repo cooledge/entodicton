@@ -16,6 +16,7 @@
     {
       "name": "mongo",
       "operators": [
+        "([delete|delete,remove] ([deletable]))",
         "([graphAction|graph] (column/*))",
         "([clear|clear,reset,restart])",
         "([reportable])",
@@ -72,6 +73,14 @@
         [
           "graph",
           "orderable"
+        ],
+        [
+          "graph",
+          "deletable"
+        ],
+        [
+          "table",
+          "deletable"
         ]
       ],
       "semantics": [
@@ -80,12 +89,12 @@
           "apply": "({context}) => {\n        const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })\n        context.evalue = value\n      }"
         },
         {
-          "match": "({context}) => ['table', 'graph', 'chart', 'moveable'].includes(context.marker) && context.evaluate",
+          "match": "({context}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].includes(context.marker) && context.evaluate",
           "apply": "async ({context, toContext, values, api, gp, mentions, verbatim}) => {\n        const currentReport = api.current()\n        let selectedTables\n        console.log(JSON.stringify(context, null, 2))\n        let items\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker }, frameOfReference: currentReport }\n          debugger\n          const mentioned = mentions(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'move' && !context.evaluate",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:575",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:580",
           "apply": "async ({context, api, values, e, isA}) => {\n        if (isA(context.moveable.marker, 'thisitthat')) {\n          context.moveable.marker = 'moveable'\n        }\n        const table = (await e(context.moveable)).evalue\n        debugger // move\n        if (table) {\n          console.log('table', JSON.stringify(table, null, 2))\n          const direction = context.direction.value\n          let distance = context.direction.steps?.value || 1\n          if (direction == 'up') {\n            distance *= -1\n          }\n          for (const moved of values(table.value)) {\n            image.moveUpOrDown(table.report.imageSpec, moved, distance)\n          }\n        }\n        api.show(table.report)\n      }"
         },
         {
@@ -94,6 +103,23 @@
         }
       ],
       "bridges": [
+        {
+          "id": "deletable"
+        },
+        {
+          "id": "delete",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "deletable"
+            ]
+          ],
+          "semantic": "async ({context, api, values, e, isA}) => {\n        // TODO this BS needs a cool idea\n        if (isA(context.element.marker, 'thisitthat')) {\n          context.element.marker = 'deletable'\n        }\n        const element = (await e(context.element)).evalue\n        debugger\n        if (element) {\n          console.log('element', JSON.stringify(element, null, 2))\n          for (const remove of values(element.value)) {\n            image.remove(element.report.imageSpec, remove)\n          }\n        }\n        api.show(element.report)\n      }"
+        },
         {
           "id": "collection"
         },
@@ -2879,7 +2905,7 @@
         ],
         [
           "theAble",
-          "theAble",
+          "queryable",
           false
         ],
         [
@@ -5742,7 +5768,7 @@
         ],
         [
           "theAble",
-          "theAble",
+          "queryable",
           false
         ],
         [
@@ -8657,7 +8683,7 @@
         ],
         [
           "theAble",
-          "theAble",
+          "queryable",
           false
         ],
         [
@@ -11699,7 +11725,7 @@
         ],
         [
           "theAble",
-          "theAble",
+          "queryable",
           false
         ],
         [
@@ -12580,6 +12606,51 @@
           false
         ],
         [
+          "collection",
+          "concept",
+          false
+        ],
+        [
+          "collection",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "collection",
+          "isEdee",
+          false
+        ],
+        [
+          "collection",
+          "isEder",
+          false
+        ],
+        [
+          "collection",
+          "object",
+          false
+        ],
+        [
+          "collection",
+          "property",
+          false
+        ],
+        [
+          "collection",
+          "queryable",
+          false
+        ],
+        [
+          "collection",
+          "theAble",
+          false
+        ],
+        [
+          "collection_modifier",
+          "collection_modifier",
+          false
+        ],
+        [
           "color_colors",
           "concept",
           false
@@ -12622,6 +12693,81 @@
         [
           "color_colors_modifier",
           "color_colors_modifier",
+          false
+        ],
+        [
+          "column",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "column",
+          "isEdee",
+          false
+        ],
+        [
+          "column",
+          "isEder",
+          false
+        ],
+        [
+          "column",
+          "object",
+          false
+        ],
+        [
+          "column",
+          "property",
+          false
+        ],
+        [
+          "column",
+          "queryable",
+          false
+        ],
+        [
+          "column",
+          "theAble",
+          false
+        ],
+        [
+          "column23",
+          "column",
+          false
+        ],
+        [
+          "column23",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "column23",
+          "isEdee",
+          false
+        ],
+        [
+          "column23",
+          "isEder",
+          false
+        ],
+        [
+          "column23",
+          "object",
+          false
+        ],
+        [
+          "column23",
+          "property",
+          false
+        ],
+        [
+          "column23",
+          "queryable",
+          false
+        ],
+        [
+          "column23",
+          "theAble",
           false
         ],
         [
@@ -13565,6 +13711,96 @@
           false
         ],
         [
+          "modifier23",
+          "collection_modifier",
+          false
+        ],
+        [
+          "modifier23",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "modifier23",
+          "isEdee",
+          false
+        ],
+        [
+          "modifier23",
+          "isEder",
+          false
+        ],
+        [
+          "modifier23",
+          "object",
+          false
+        ],
+        [
+          "modifier23",
+          "property",
+          false
+        ],
+        [
+          "modifier23",
+          "queryable",
+          false
+        ],
+        [
+          "modifier23",
+          "theAble",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "adjective",
+          true
+        ],
+        [
+          "modifier23_collection",
+          "collection",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "concept",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "isEdee",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "isEder",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "object",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "property",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "queryable",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "theAble",
+          false
+        ],
+        [
           "modifies",
           "verb",
           false
@@ -14386,7 +14622,7 @@
         ],
         [
           "theAble",
-          "theAble",
+          "queryable",
           false
         ],
         [
@@ -14861,7 +15097,7 @@
           }
         ]
       },
-      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. unknown/0  (1, 0) - \"pie\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     unknown: true\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 1) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n    2. unknown/0  (1, 3) - \"bar\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     unknown: true\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 5) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     word: \"and\"\n                                   }\n    4. unknown/0  (1, 8) - \"line\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     unknown: true\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    6. unknown/0  (1, 13) - \"graph\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 2}, text: pie, unknown: True, value: pie, word: pie})\n\n>>>>>>>>>>>>> Counter 2\n   *0. unknown/1 (dead) (2, 0) - \"pie\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     unknown: true\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 1) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n    2. unknown/0  (1, 3) - \"bar\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     unknown: true\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 5) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n    4. unknown/0  (1, 8) - \"line\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     unknown: true\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    6. unknown/0  (1, 13) - \"graph\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=2) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 5, 'end': 7}, text: bar, unknown: True, value: bar, word: bar})\n\n>>>>>>>>>>>>> Counter 3\n    0. unknown/1 (dead) (2, 0) - \"pie\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     unknown: true\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 1) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n   *2. unknown/1 (dead) (2, 1) - \"bar\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     unknown: true\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 5) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n    4. unknown/0  (1, 8) - \"line\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     unknown: true\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    6. unknown/0  (1, 13) - \"graph\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=4) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 13, 'end': 16}, text: line, unknown: True, value: line, word: line})\n\n>>>>>>>>>>>>> Counter 4\n    0. unknown/1 (dead) (2, 0) - \"pie\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     unknown: true\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 1) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n    2. unknown/1 (dead) (2, 1) - \"bar\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     unknown: true\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 5) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n   *4. unknown/1 (dead) (2, 2) - \"line\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     unknown: true\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    6. unknown/0  (1, 13) - \"graph\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=6) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 25, 'end': 29}, text: graph, unknown: True, value: graph, word: graph})\n\n>>>>>>>>>>>>> Counter 5\n    0. unknown/1 (dead) (2, 0) - \"pie\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     unknown: true\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 1) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n    2. unknown/1 (dead) (2, 1) - \"bar\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     unknown: true\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 5) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n    4. unknown/1 (dead) (2, 2) - \"line\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     unknown: true\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n   *6. unknown/1 (dead) (2, 3) - \"graph\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=3) is Context({default: True, marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge)), range: {'start': 9, 'end': 11}, text: and, types: [], word: and})\n\n>>>>>>>>>>>>> Counter 6\n    0. unknown/1 (dead) (2, 0) - \"pie\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     unknown: true\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 1) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n   *2. list/1  (3, 0) - \"bar and line\"\n                                   {\n                                     prioritized_by: [('list', 0)]\n                                     default: true\n                                     isList: true\n                                     listable: true\n                                     marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 5, 'end': 16}\n                                     text: \"bar and line\"\n                                     types: [\n                                     ]\n                                     value: [\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 5, 'end': 7}\n                                         text: \"bar\"\n                                         unknown: true\n                                         value: \"bar\"\n                                         word: \"bar\"\n                                       }\n\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 13, 'end': 16}\n                                         text: \"line\"\n                                         unknown: true\n                                         value: \"line\"\n                                         word: \"line\"\n                                       }\n                                     ]\n                                     word: \"and\"\n                                   }\n    3. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    4. unknown/1 (dead) (2, 3) - \"graph\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({depth: +, marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge)), range: {'start': 3, 'end': 3}, text: ,, value: ,, word: ,})\n\n>>>>>>>>>>>>> Counter 7\n   *0. unknown/1 (dead) (3, 1) - \"pie,\"\n                                   {\n                                     prioritized_by: [('comma', 0)]\n                                     dead: true\n                                     decorators:                                          {\n                                           after:                                                {\n                                                 depth: \"+\"\n                                                 marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                 range: {'start': 3, 'end': 3}\n                                                 text: \",\"\n                                                 value: \",\"\n                                                 word: \",\"\n                                               }\n\n                                         }\n\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     no_convolutions: true\n                                     range: {'start': 0, 'end': 3}\n                                     text: \"pie,\"\n                                     unknown: true\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. list/1  (3, 0) - \"bar and line\"\n                                   {\n                                     prioritized_by: [('list', 0)]\n                                     default: true\n                                     isList: true\n                                     listable: true\n                                     marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 5, 'end': 16}\n                                     text: \"bar and line\"\n                                     types: [\n                                     ]\n                                     value: [\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 5, 'end': 7}\n                                         text: \"bar\"\n                                         unknown: true\n                                         value: \"bar\"\n                                         word: \"bar\"\n                                       }\n\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 13, 'end': 16}\n                                         text: \"line\"\n                                         unknown: true\n                                         value: \"line\"\n                                         word: \"line\"\n                                       }\n                                     ]\n                                     word: \"and\"\n                                   }\n    2. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    3. unknown/1 (dead) (2, 3) - \"graph\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({default: True, isList: True, listable: True, marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge)), range: {'start': 5, 'end': 16}, text: bar and line, types: [], value: [Context({dead: True, marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), range: {'start': 5, 'end': 7}, text: bar, unknown: True, value: bar, word: bar}), Context({dead: True, marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)), range: {'start': 13, 'end': 16}, text: line, unknown: True, value: line, word: line})], word: and})\n\n>>>>>>>>>>>>> Counter 8\n   *0. list/1  (4, 0) - \"pie, bar and line\"\n                                   {\n                                     prioritized_by: [('list', 1)]\n                                     default: true\n                                     isList: true\n                                     listable: true\n                                     marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 0, 'end': 16}\n                                     text: \"pie, bar and line\"\n                                     types: [\n                                     ]\n                                     value: [\n                                       {\n                                         prioritized_by: [('comma', 0)]\n                                         dead: true\n                                         decorators:                                              {\n                                               after:                                                    {\n                                                     depth: \"+\"\n                                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                     range: {'start': 3, 'end': 3}\n                                                     text: \",\"\n                                                     value: \",\"\n                                                     word: \",\"\n                                                   }\n\n                                             }\n\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         no_convolutions: true\n                                         range: {'start': 0, 'end': 3}\n                                         text: \"pie,\"\n                                         unknown: true\n                                         value: \"pie\"\n                                         word: \"pie\"\n                                       }\n\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 5, 'end': 7}\n                                         text: \"bar\"\n                                         unknown: true\n                                         value: \"bar\"\n                                         word: \"bar\"\n                                       }\n\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 13, 'end': 16}\n                                         text: \"line\"\n                                         unknown: true\n                                         value: \"line\"\n                                         word: \"line\"\n                                       }\n                                     ]\n                                     word: \"and\"\n                                   }\n    1. modifies/0  (1, 11) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    2. unknown/1 (dead) (2, 3) - \"graph\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"graph\"\n                                     unknown: true\n                                     value: \"graph\"\n                                     word: \"graph\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({flatten: True, marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge)), number: many, range: {'start': 18, 'end': 23}, text: modify, word: modify})\n\n>>>>>>>>>>>>> Counter 9\n   *0. modifies/1 (dead) (5, 0) - \"pie, bar and line modify graph\"\n                                   {\n                                     prioritized_by: [('modifies', 0)]\n                                     concept:                                          {\n                                           prioritized_by: [('unknown', 0)]\n                                           dead: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           range: {'start': 25, 'end': 29}\n                                           text: \"graph\"\n                                           unknown: true\n                                           value: \"graph\"\n                                           word: \"graph\"\n                                         }\n\n                                     dead: true\n                                     flatten: true\n                                     marker: Operator(modifies/1, ['Selector(None, , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     modifiers: [\n                                       {\n                                         prioritized_by: [('list', 1)]\n                                         default: true\n                                         isList: true\n                                         listable: true\n                                         marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['hierarchyAble', 'unknown', 'queryable', 'theAble']}) bridge(bridge))\n                                         range: {'start': 0, 'end': 16}\n                                         text: \"pie, bar and line\"\n                                         types: [\n                                         ]\n                                         value: [\n                                           {\n                                             prioritized_by: [('comma', 0)]\n                                             dead: true\n                                             decorators:                                                  {\n                                                   after:                                                        {\n                                                         depth: \"+\"\n                                                         marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                         range: {'start': 3, 'end': 3}\n                                                         text: \",\"\n                                                         value: \",\"\n                                                         word: \",\"\n                                                       }\n\n                                                 }\n\n                                             marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                             no_convolutions: true\n                                             range: {'start': 0, 'end': 3}\n                                             text: \"pie,\"\n                                             unknown: true\n                                             value: \"pie\"\n                                             word: \"pie\"\n                                           }\n\n                                           {\n                                             prioritized_by: [('unknown', 0)]\n                                             dead: true\n                                             marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                             range: {'start': 5, 'end': 7}\n                                             text: \"bar\"\n                                             unknown: true\n                                             value: \"bar\"\n                                             word: \"bar\"\n                                           }\n\n                                           {\n                                             prioritized_by: [('unknown', 0)]\n                                             dead: true\n                                             marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                             range: {'start': 13, 'end': 16}\n                                             text: \"line\"\n                                             unknown: true\n                                             value: \"line\"\n                                             word: \"line\"\n                                           }\n                                         ]\n                                         word: \"and\"\n                                       }\n                                     ]\n                                     number: \"many\"\n                                     range: {'start': 0, 'end': 29}\n                                     text: \"pie, bar and line modify graph\"\n                                     word: \"modify\"\n                                   }\n<<<<<<<<<<<<<\n",
+      "trace": "undefined",
       "contexts": [
         {
           "word": "modify",
@@ -14885,7 +15121,8 @@
                 "end": 16
               },
               "types": [
-                "list"
+                "list",
+                "queryable"
               ],
               "listable": true,
               "isList": true,
@@ -14916,6 +15153,10 @@
                     }
                   },
                   "no_convolutions": true,
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "level": 1
                 },
                 {
@@ -14928,6 +15169,10 @@
                     "start": 5,
                     "end": 7
                   },
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "dead": true,
                   "level": 1
                 },
@@ -14941,6 +15186,10 @@
                     "start": 13,
                     "end": 16
                   },
+                  "types": [
+                    "queryable",
+                    "unknown"
+                  ],
                   "dead": true,
                   "level": 1
                 }
@@ -15044,6 +15293,20 @@
             "comma",
             0
           ],
+          [
+            "list",
+            1
+          ],
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
           [
             "list",
             1
@@ -15671,6 +15934,51 @@
           false
         ],
         [
+          "collection",
+          "concept",
+          false
+        ],
+        [
+          "collection",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "collection",
+          "isEdee",
+          false
+        ],
+        [
+          "collection",
+          "isEder",
+          false
+        ],
+        [
+          "collection",
+          "object",
+          false
+        ],
+        [
+          "collection",
+          "property",
+          false
+        ],
+        [
+          "collection",
+          "queryable",
+          false
+        ],
+        [
+          "collection",
+          "theAble",
+          false
+        ],
+        [
+          "collection_modifier",
+          "collection_modifier",
+          false
+        ],
+        [
           "color_colors",
           "concept",
           false
@@ -15713,6 +16021,81 @@
         [
           "color_colors_modifier",
           "color_colors_modifier",
+          false
+        ],
+        [
+          "column",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "column",
+          "isEdee",
+          false
+        ],
+        [
+          "column",
+          "isEder",
+          false
+        ],
+        [
+          "column",
+          "object",
+          false
+        ],
+        [
+          "column",
+          "property",
+          false
+        ],
+        [
+          "column",
+          "queryable",
+          false
+        ],
+        [
+          "column",
+          "theAble",
+          false
+        ],
+        [
+          "column23",
+          "column",
+          false
+        ],
+        [
+          "column23",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "column23",
+          "isEdee",
+          false
+        ],
+        [
+          "column23",
+          "isEder",
+          false
+        ],
+        [
+          "column23",
+          "object",
+          false
+        ],
+        [
+          "column23",
+          "property",
+          false
+        ],
+        [
+          "column23",
+          "queryable",
+          false
+        ],
+        [
+          "column23",
+          "theAble",
           false
         ],
         [
@@ -16791,6 +17174,96 @@
           false
         ],
         [
+          "modifier23",
+          "collection_modifier",
+          false
+        ],
+        [
+          "modifier23",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "modifier23",
+          "isEdee",
+          false
+        ],
+        [
+          "modifier23",
+          "isEder",
+          false
+        ],
+        [
+          "modifier23",
+          "object",
+          false
+        ],
+        [
+          "modifier23",
+          "property",
+          false
+        ],
+        [
+          "modifier23",
+          "queryable",
+          false
+        ],
+        [
+          "modifier23",
+          "theAble",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "adjective",
+          true
+        ],
+        [
+          "modifier23_collection",
+          "collection",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "concept",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "isEdee",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "isEder",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "object",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "property",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "queryable",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "theAble",
+          false
+        ],
+        [
           "modifies",
           "verb",
           false
@@ -17702,7 +18175,7 @@
         ],
         [
           "theAble",
-          "theAble",
+          "queryable",
           false
         ],
         [
@@ -18160,7 +18633,7 @@
           }
         ]
       },
-      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. pie/0  (1, 1) - \"pie\"\n                                   {\n                                     marker: Operator(pie/0, [\"Selector(Bridge('{ ...next(operator), value: 'pie' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'pie' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 2) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n    2. bar/0  (1, 5) - \"bar\"\n                                   {\n                                     marker: Operator(bar/0, [\"Selector(Bridge('{ ...next(operator), value: 'bar' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'bar' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 7) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     word: \"and\"\n                                   }\n    4. line/0  (1, 11) - \"line\"\n                                   {\n                                     marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 14) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    6. unknown/0  (1, 16) - \"chart\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"chart\"\n                                     unknown: true\n                                     value: \"chart\"\n                                     word: \"chart\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=6) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 25, 'end': 29}, text: chart, unknown: True, value: chart, word: chart})\n\n>>>>>>>>>>>>> Counter 2\n    0. pie/0  (1, 1) - \"pie\"\n                                   {\n                                     marker: Operator(pie/0, [\"Selector(Bridge('{ ...next(operator), value: 'pie' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'pie' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 2) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n    2. bar/0  (1, 5) - \"bar\"\n                                   {\n                                     marker: Operator(bar/0, [\"Selector(Bridge('{ ...next(operator), value: 'bar' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'bar' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 7) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n    4. line/0  (1, 11) - \"line\"\n                                   {\n                                     marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 14) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n   *6. unknown/1 (dead) (2, 0) - \"chart\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"chart\"\n                                     unknown: true\n                                     value: \"chart\"\n                                     word: \"chart\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(pie/0, [\"Selector(Bridge('{ ...next(operator), value: 'pie' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'pie' }')), variables({}) bridge(bridge)), number: one, range: {'start': 0, 'end': 2}, text: pie, value: pie, word: pie})\n\n>>>>>>>>>>>>> Counter 3\n   *0. pie/1 (dead) (2, 1) - \"pie\"\n                                   {\n                                     prioritized_by: [('pie', 0)]\n                                     dead: true\n                                     marker: Operator(pie/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 2}\n                                     text: \"pie\"\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. comma/0  (1, 2) - \",\"\n                                   {\n                                     depth: \"+\"\n                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 3, 'end': 3}\n                                     text: \",\"\n                                     value: \",\"\n                                     word: \",\"\n                                   }\n    2. bar/0  (1, 5) - \"bar\"\n                                   {\n                                     marker: Operator(bar/0, [\"Selector(Bridge('{ ...next(operator), value: 'bar' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'bar' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    3. list/0  (1, 7) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n    4. line/0  (1, 11) - \"line\"\n                                   {\n                                     marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    5. modifies/0  (1, 14) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    6. unknown/1 (dead) (2, 0) - \"chart\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"chart\"\n                                     unknown: true\n                                     value: \"chart\"\n                                     word: \"chart\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({depth: +, marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge)), range: {'start': 3, 'end': 3}, text: ,, value: ,, word: ,})\n\n>>>>>>>>>>>>> Counter 4\n   *0. pie/1 (dead) (3, 0) - \"pie,\"\n                                   {\n                                     prioritized_by: [('comma', 0)]\n                                     dead: true\n                                     decorators:                                          {\n                                           after:                                                {\n                                                 depth: \"+\"\n                                                 marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                 range: {'start': 3, 'end': 3}\n                                                 text: \",\"\n                                                 value: \",\"\n                                                 word: \",\"\n                                               }\n\n                                         }\n\n                                     marker: Operator(pie/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     no_convolutions: true\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 3}\n                                     text: \"pie,\"\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n    1. bar/0  (1, 5) - \"bar\"\n                                   {\n                                     marker: Operator(bar/0, [\"Selector(Bridge('{ ...next(operator), value: 'bar' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'bar' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    2. list/0  (1, 7) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n    3. line/0  (1, 11) - \"line\"\n                                   {\n                                     marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    4. modifies/0  (1, 14) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    5. unknown/1 (dead) (2, 0) - \"chart\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"chart\"\n                                     unknown: true\n                                     value: \"chart\"\n                                     word: \"chart\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({marker: Operator(bar/0, [\"Selector(Bridge('{ ...next(operator), value: 'bar' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'bar' }')), variables({}) bridge(bridge)), number: one, range: {'start': 5, 'end': 7}, text: bar, value: bar, word: bar})\n\n>>>>>>>>>>>>> Counter 5\n    0. pie/1 (dead) (3, 0) - \"pie,\"\n                                   {\n                                     prioritized_by: [('comma', 0)]\n                                     dead: true\n                                     decorators:                                          {\n                                           after:                                                {\n                                                 depth: \"+\"\n                                                 marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                 range: {'start': 3, 'end': 3}\n                                                 text: \",\"\n                                                 value: \",\"\n                                                 word: \",\"\n                                               }\n\n                                         }\n\n                                     marker: Operator(pie/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     no_convolutions: true\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 3}\n                                     text: \"pie,\"\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n   *1. bar/1 (dead) (2, 2) - \"bar\"\n                                   {\n                                     prioritized_by: [('bar', 0)]\n                                     dead: true\n                                     marker: Operator(bar/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 5, 'end': 7}\n                                     text: \"bar\"\n                                     value: \"bar\"\n                                     word: \"bar\"\n                                   }\n    2. list/0  (1, 7) - \"and\"\n                                   {\n                                     default: true\n                                     marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 9, 'end': 11}\n                                     text: \"and\"\n                                     types: [\n                                     ]\n                                     word: \"and\"\n                                   }\n    3. line/0  (1, 11) - \"line\"\n                                   {\n                                     marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 13, 'end': 16}\n                                     text: \"line\"\n                                     value: \"line\"\n                                     word: \"line\"\n                                   }\n    4. modifies/0  (1, 14) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    5. unknown/1 (dead) (2, 0) - \"chart\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"chart\"\n                                     unknown: true\n                                     value: \"chart\"\n                                     word: \"chart\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=2) is Context({default: True, marker: Operator(list/0, PASS, ['Selector(Bridge(\\'{ ...next(operator), listable: true, isList: true, value: append(before, after) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), listable: true, isList: true, value: append(before, after) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge)), range: {'start': 9, 'end': 11}, text: and, types: [], word: and})\n\n>>>>>>>>>>>>> Counter 6\n    0. pie/1 (dead) (3, 0) - \"pie,\"\n                                   {\n                                     prioritized_by: [('comma', 0)]\n                                     dead: true\n                                     decorators:                                          {\n                                           after:                                                {\n                                                 depth: \"+\"\n                                                 marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                 range: {'start': 3, 'end': 3}\n                                                 text: \",\"\n                                                 value: \",\"\n                                                 word: \",\"\n                                               }\n\n                                         }\n\n                                     marker: Operator(pie/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     no_convolutions: true\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 3}\n                                     text: \"pie,\"\n                                     value: \"pie\"\n                                     word: \"pie\"\n                                   }\n   *1. list/1  (3, 1) - \"bar and line\"\n                                   {\n                                     prioritized_by: [('list', 0)]\n                                     default: true\n                                     isList: true\n                                     listable: true\n                                     marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 5, 'end': 16}\n                                     text: \"bar and line\"\n                                     types: [\n                                     ]\n                                     value: [\n                                       {\n                                         prioritized_by: [('bar', 0)]\n                                         dead: true\n                                         marker: Operator(bar/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                         number: \"one\"\n                                         range: {'start': 5, 'end': 7}\n                                         text: \"bar\"\n                                         value: \"bar\"\n                                         word: \"bar\"\n                                       }\n\n                                       {\n                                         marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                         number: \"one\"\n                                         range: {'start': 13, 'end': 16}\n                                         text: \"line\"\n                                         value: \"line\"\n                                         word: \"line\"\n                                       }\n                                     ]\n                                     word: \"and\"\n                                   }\n    2. modifies/0  (1, 14) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    3. unknown/1 (dead) (2, 0) - \"chart\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"chart\"\n                                     unknown: true\n                                     value: \"chart\"\n                                     word: \"chart\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({default: True, isList: True, listable: True, marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge)), range: {'start': 5, 'end': 16}, text: bar and line, types: [], value: [Context({dead: True, marker: Operator(bar/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge)), number: one, range: {'start': 5, 'end': 7}, text: bar, value: bar, word: bar}), Context({marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge)), number: one, range: {'start': 13, 'end': 16}, text: line, value: line, word: line})], word: and})\n\n>>>>>>>>>>>>> Counter 7\n   *0. list/1  (4, 0) - \"pie, bar and line\"\n                                   {\n                                     prioritized_by: [('list', 1)]\n                                     default: true\n                                     isList: true\n                                     listable: true\n                                     marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge))\n                                     range: {'start': 0, 'end': 16}\n                                     text: \"pie, bar and line\"\n                                     types: [\n                                     ]\n                                     value: [\n                                       {\n                                         prioritized_by: [('comma', 0)]\n                                         dead: true\n                                         decorators:                                              {\n                                               after:                                                    {\n                                                     depth: \"+\"\n                                                     marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                     range: {'start': 3, 'end': 3}\n                                                     text: \",\"\n                                                     value: \",\"\n                                                     word: \",\"\n                                                   }\n\n                                             }\n\n                                         marker: Operator(pie/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                         no_convolutions: true\n                                         number: \"one\"\n                                         range: {'start': 0, 'end': 3}\n                                         text: \"pie,\"\n                                         value: \"pie\"\n                                         word: \"pie\"\n                                       }\n\n                                       {\n                                         prioritized_by: [('bar', 0)]\n                                         dead: true\n                                         marker: Operator(bar/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                         number: \"one\"\n                                         range: {'start': 5, 'end': 7}\n                                         text: \"bar\"\n                                         value: \"bar\"\n                                         word: \"bar\"\n                                       }\n\n                                       {\n                                         marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                         number: \"one\"\n                                         range: {'start': 13, 'end': 16}\n                                         text: \"line\"\n                                         value: \"line\"\n                                         word: \"line\"\n                                       }\n                                     ]\n                                     word: \"and\"\n                                   }\n    1. modifies/0  (1, 14) - \"modify\"\n                                   {\n                                     flatten: true\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"many\"\n                                     range: {'start': 18, 'end': 23}\n                                     text: \"modify\"\n                                     word: \"modify\"\n                                   }\n    2. unknown/1 (dead) (2, 0) - \"chart\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 25, 'end': 29}\n                                     text: \"chart\"\n                                     unknown: true\n                                     value: \"chart\"\n                                     word: \"chart\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({flatten: True, marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge)), number: many, range: {'start': 18, 'end': 23}, text: modify, word: modify})\n\n>>>>>>>>>>>>> Counter 8\n   *0. modifies/1 (dead) (5, 0) - \"pie, bar and line modify chart\"\n                                   {\n                                     prioritized_by: [('modifies', 0)]\n                                     concept:                                          {\n                                           prioritized_by: [('unknown', 0)]\n                                           dead: true\n                                           marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           range: {'start': 25, 'end': 29}\n                                           text: \"chart\"\n                                           unknown: true\n                                           value: \"chart\"\n                                           word: \"chart\"\n                                         }\n\n                                     dead: true\n                                     flatten: true\n                                     marker: Operator(modifies/1, ['Selector(None, , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     modifiers: [\n                                       {\n                                         prioritized_by: [('list', 1)]\n                                         default: true\n                                         isList: true\n                                         listable: true\n                                         marker: Operator(list/1, PASS, ['Selector(Bridge(\\'{ ...operator, value: append(before, operator.value) }\\'), , same/(), [And([\"Type(variable: \\'type\\')\", \"Listable(Unify(Property((\\'context\\', \\'instance\\')), Property((\\'variables\\', \\'instance\\'))))\"])]<==>[], bridge(bridge), passthrough)'], evaluator(Bridge('{ ...operator, value: append(before, operator.value) }')), variables({'type': ['isEder', 'hierarchyAble', 'line', 'property', 'graph_modifier', 'object', 'isEdee', 'queryable', 'theAble']}) bridge(bridge))\n                                         range: {'start': 0, 'end': 16}\n                                         text: \"pie, bar and line\"\n                                         types: [\n                                         ]\n                                         value: [\n                                           {\n                                             prioritized_by: [('comma', 0)]\n                                             dead: true\n                                             decorators:                                                  {\n                                                   after:                                                        {\n                                                         depth: \"+\"\n                                                         marker: Operator(comma/0, [\"Selector(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }'), , [Any]<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...before[0], decorators.after: operator, no_convolutions: true }')), variables({}) bridge(bridge))\n                                                         range: {'start': 3, 'end': 3}\n                                                         text: \",\"\n                                                         value: \",\"\n                                                         word: \",\"\n                                                       }\n\n                                                 }\n\n                                             marker: Operator(pie/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                             no_convolutions: true\n                                             number: \"one\"\n                                             range: {'start': 0, 'end': 3}\n                                             text: \"pie,\"\n                                             value: \"pie\"\n                                             word: \"pie\"\n                                           }\n\n                                           {\n                                             prioritized_by: [('bar', 0)]\n                                             dead: true\n                                             marker: Operator(bar/1, ['Selector(None, , []<==>[], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                             number: \"one\"\n                                             range: {'start': 5, 'end': 7}\n                                             text: \"bar\"\n                                             value: \"bar\"\n                                             word: \"bar\"\n                                           }\n\n                                           {\n                                             marker: Operator(line/0, [\"Selector(Bridge('{ ...next(operator), value: 'line' }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), value: 'line' }')), variables({}) bridge(bridge))\n                                             number: \"one\"\n                                             range: {'start': 13, 'end': 16}\n                                             text: \"line\"\n                                             value: \"line\"\n                                             word: \"line\"\n                                           }\n                                         ]\n                                         word: \"and\"\n                                       }\n                                     ]\n                                     number: \"many\"\n                                     range: {'start': 0, 'end': 29}\n                                     text: \"pie, bar and line modify chart\"\n                                     word: \"modify\"\n                                   }\n<<<<<<<<<<<<<\n",
+      "trace": "undefined",
       "contexts": [
         {
           "word": "modify",
@@ -18395,6 +18868,20 @@
           [
             "list",
             0
+          ],
+          [
+            "modifies",
+            0
+          ],
+          [
+            "unknown",
+            1
+          ]
+        ],
+        [
+          [
+            "list",
+            1
           ],
           [
             "modifies",
@@ -19119,6 +19606,51 @@
           false
         ],
         [
+          "collection",
+          "concept",
+          false
+        ],
+        [
+          "collection",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "collection",
+          "isEdee",
+          false
+        ],
+        [
+          "collection",
+          "isEder",
+          false
+        ],
+        [
+          "collection",
+          "object",
+          false
+        ],
+        [
+          "collection",
+          "property",
+          false
+        ],
+        [
+          "collection",
+          "queryable",
+          false
+        ],
+        [
+          "collection",
+          "theAble",
+          false
+        ],
+        [
+          "collection_modifier",
+          "collection_modifier",
+          false
+        ],
+        [
           "color_colors",
           "concept",
           false
@@ -19161,6 +19693,81 @@
         [
           "color_colors_modifier",
           "color_colors_modifier",
+          false
+        ],
+        [
+          "column",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "column",
+          "isEdee",
+          false
+        ],
+        [
+          "column",
+          "isEder",
+          false
+        ],
+        [
+          "column",
+          "object",
+          false
+        ],
+        [
+          "column",
+          "property",
+          false
+        ],
+        [
+          "column",
+          "queryable",
+          false
+        ],
+        [
+          "column",
+          "theAble",
+          false
+        ],
+        [
+          "column23",
+          "column",
+          false
+        ],
+        [
+          "column23",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "column23",
+          "isEdee",
+          false
+        ],
+        [
+          "column23",
+          "isEder",
+          false
+        ],
+        [
+          "column23",
+          "object",
+          false
+        ],
+        [
+          "column23",
+          "property",
+          false
+        ],
+        [
+          "column23",
+          "queryable",
+          false
+        ],
+        [
+          "column23",
+          "theAble",
           false
         ],
         [
@@ -20294,6 +20901,96 @@
           false
         ],
         [
+          "modifier23",
+          "collection_modifier",
+          false
+        ],
+        [
+          "modifier23",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "modifier23",
+          "isEdee",
+          false
+        ],
+        [
+          "modifier23",
+          "isEder",
+          false
+        ],
+        [
+          "modifier23",
+          "object",
+          false
+        ],
+        [
+          "modifier23",
+          "property",
+          false
+        ],
+        [
+          "modifier23",
+          "queryable",
+          false
+        ],
+        [
+          "modifier23",
+          "theAble",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "adjective",
+          true
+        ],
+        [
+          "modifier23_collection",
+          "collection",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "concept",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "isEdee",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "isEder",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "object",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "property",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "queryable",
+          false
+        ],
+        [
+          "modifier23_collection",
+          "theAble",
+          false
+        ],
+        [
           "modifies",
           "verb",
           false
@@ -21260,7 +21957,7 @@
         ],
         [
           "theAble",
-          "theAble",
+          "queryable",
           false
         ],
         [
@@ -21814,6 +22511,7 @@
       "extraConfig": true,
       "name": "mongo",
       "operators": [
+        "([delete|delete,remove] ([deletable]))",
         "([graphAction|graph] (column/*))",
         "([clear|clear,reset,restart])",
         "([reportable])",
@@ -21870,17 +22568,41 @@
         [
           "graph",
           "orderable"
+        ],
+        [
+          "graph",
+          "deletable"
+        ],
+        [
+          "table",
+          "deletable"
         ]
       ],
       "semantics": [
         {},
         {},
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:575"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:580"
         },
         {}
       ],
       "bridges": [
+        {
+          "id": "deletable"
+        },
+        {
+          "id": "delete",
+          "isA": [
+            "verb"
+          ],
+          "bridge": "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
+          "localHierarchy": [
+            [
+              "thisitthat",
+              "deletable"
+            ]
+          ]
+        },
         {
           "id": "collection"
         },
@@ -23344,6 +24066,16 @@
           false
         ],
         [
+          "deletable",
+          "deletable",
+          false
+        ],
+        [
+          "delete",
+          "verb",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -23461,6 +24193,11 @@
         [
           "graph",
           "concept",
+          false
+        ],
+        [
+          "graph",
+          "deletable",
           false
         ],
         [
@@ -25370,6 +26107,11 @@
         ],
         [
           "table",
+          "deletable",
+          false
+        ],
+        [
+          "table",
           "moveable",
           false
         ],
@@ -26287,6 +27029,34 @@
       [
         "list",
         0
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "list",
+        1
+      ],
+      [
+        "modifies",
+        0
+      ],
+      [
+        "unknown",
+        1
+      ]
+    ],
+    [
+      [
+        "list",
+        1
       ],
       [
         "modifies",

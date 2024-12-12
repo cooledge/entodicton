@@ -441,6 +441,7 @@ class API {
 let configStruct = {
   name: 'mongo',
   operators: [
+    "([delete|delete,remove] ([deletable]))",
     "([graphAction|graph] (column/*))",
     "([clear|clear,reset,restart])",
     // "([call] ([nameable]) (name))",
@@ -505,6 +506,8 @@ let configStruct = {
 
     ['graph', 'moveable'],
     ['graph', 'orderable'],
+    ['graph', 'deletable'],
+    ['table', 'deletable'],
   ],
   semantics: [
     {
@@ -517,7 +520,7 @@ let configStruct = {
 
     // evaluator to pull table/graph/charts from the context
     {
-      match: ({context}) => ['table', 'graph', 'chart', 'moveable'].includes(context.marker) && context.evaluate,
+      match: ({context}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].includes(context.marker) && context.evaluate,
       apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
@@ -612,6 +615,31 @@ let configStruct = {
   ],
 
   bridges: [
+    {
+      id: 'deletable'
+    },
+    {
+      id: 'delete',
+      isA: ['verb'],
+      bridge: "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
+      localHierarchy: [['thisitthat', 'deletable']],
+      semantic: async ({context, api, values, e, isA}) => {
+        // TODO this BS needs a cool idea
+        if (isA(context.element.marker, 'thisitthat')) {
+          context.element.marker = 'deletable'
+        }
+        const element = (await e(context.element)).evalue
+        debugger
+        if (element) {
+          console.log('element', JSON.stringify(element, null, 2))
+          for (const remove of values(element.value)) {
+            image.remove(element.report.imageSpec, remove)
+          }
+        }
+        api.show(element.report)
+      },
+    },
+
     // "((reportElement/*) [contextOfReportElement|of] ([reportElementContext]))",
     {
       id: 'collection'

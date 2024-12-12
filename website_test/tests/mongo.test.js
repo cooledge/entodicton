@@ -231,6 +231,17 @@ describe('tests for the mongo page', () => {
       expect(actualOrder).toStrictEqual(expectedOrder)
     }
 
+    const notPresent = async (notPresent) => {
+      const data = await page.evaluate(() => {
+        const tables = Array.from(document.querySelectorAll(".Table, .Graph"))
+        return tables.map( (table) => table.className)
+      })
+      console.log('data', data)
+      for (const d of data) {
+        expect(d.includes(notPresent)).toBeFalsy()
+      }
+    }
+
     const query = async (query) => { await page.type('#query', query)
       await page.click('#submit')
       await page.waitForSelector(`#queryCounter${counter+1}`)
@@ -682,6 +693,26 @@ describe('tests for the mongo page', () => {
       await checkOrder(['table_1', 'graph_1'])
       await query('move it up')
       await checkOrder(['graph_1', 'table_1'])
+    }, timeout);
+
+    test(`MONGO show the users + graph the genre and number of movies + remove the table`, async () => {
+      await query('show the users')
+      await query('graph the genre and number of movies')
+      await page.waitForSelector(`.test_graph_bar`)
+      await checkOrder(['table_1', 'graph_1'])
+      await query('remove the table')
+      await checkOrder(['graph_1'])
+      await notPresent(['table_1'])
+    }, timeout);
+
+    test(`NEO23 MONGO show the users + graph the genre and number of movies + remove it`, async () => {
+      await query('show the users')
+      await query('graph the genre and number of movies')
+      await page.waitForSelector(`.test_graph_bar`)
+      await checkOrder(['table_1', 'graph_1'])
+      await query('remove it')
+      await checkOrder(['table_1'])
+      await notPresent(['graph_1'])
     }, timeout);
 
   })
