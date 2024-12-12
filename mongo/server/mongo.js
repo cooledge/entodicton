@@ -265,7 +265,6 @@ class API {
       api.show(subReport)
     } else {
       const currentReport = api.current()
-      debugger
       report.addReport(api, currentReport, subReport)
       this.args.mentioned({ context: subReport.imageSpec, frameOfReference: currentReport })
       api.show(currentReport)
@@ -479,6 +478,8 @@ let configStruct = {
 
     "([column])",
 
+    // "((column/*) [columnNumber] (integer/*))",
+
     // make the sentence "upper and lower are kinds of cases" work for this
     "([case])",
     "([uppercase])",
@@ -520,7 +521,7 @@ let configStruct = {
 
     // evaluator to pull table/graph/charts from the context
     {
-      match: ({context}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].includes(context.marker) && context.evaluate,
+      match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
       apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
@@ -579,11 +580,7 @@ let configStruct = {
       match: ({context}) => context.marker == 'move' && !context.evaluate,
       where: where(),
       apply: async ({context, api, values, e, isA}) => {
-        if (isA(context.moveable.marker, 'thisitthat')) {
-          context.moveable.marker = 'moveable'
-        }
         const table = (await e(context.moveable)).evalue
-        debugger // move
         if (table) {
           console.log('table', JSON.stringify(table, null, 2))
           const direction = context.direction.value
@@ -624,10 +621,6 @@ let configStruct = {
       bridge: "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
       localHierarchy: [['thisitthat', 'deletable']],
       semantic: async ({context, api, values, e, isA}) => {
-        // TODO this BS needs a cool idea
-        if (isA(context.element.marker, 'thisitthat')) {
-          context.element.marker = 'deletable'
-        }
         const element = (await e(context.element)).evalue
         debugger
         if (element) {
@@ -656,9 +649,6 @@ let configStruct = {
       localHierarchy: [['thisitthat', 'graph']],
       bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
       semantic: async ({context, api, e, isA}) => {
-        if (isA(context.change.marker, 'thisitthat')) {
-          context.change.marker = 'graph'
-        }
         const graphContext = (await e(context.change)).evalue
         debugger
         const graphImageSpec = graphContext.value
