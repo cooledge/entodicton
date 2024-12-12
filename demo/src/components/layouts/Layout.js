@@ -57,10 +57,10 @@ function Layout({ children }) {
                 <div className='menuBar'>
                   <li className="barItem"><Link to='/product'>PRODUCT</Link></li>
                   { /* <li className="barItem"><Link to='/demo'>DEMO</Link></li> */ }
-                  <li className="barItem" {...handleDemoButton} {...menuButtonStyle}>DEMOES</li>
+                  <li className="barItem" style={{color: 'blue', 'text-decoration': 'underline'}}{...handleDemoButton} {...menuButtonStyle}>POC's</li>
                   <div style={style} {...handleSubMenu}>
                     <div className="subMenuItem">
-                      <Link to='/tankdemo'>OLD DEMO</Link>
+                      <Link to='/tankdemo'>TANK POC</Link>
                     </div>
                     <div className="subMenuItem">
                       <Link to='/pipboy/' target="_blank">PIPBOY POC</Link>
