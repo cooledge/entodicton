@@ -49,6 +49,7 @@
         "conjunction",
         "dialogues",
         "gdefaults",
+        "errors",
         "meta",
         "pos",
         "punctuation",
@@ -659,6 +660,19 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/emotions.js"
+    },
+    {
+      "name": "errors",
+      "description": "handling of surfaceable errors",
+      "examples": [
+        "drop y"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/errors.js"
     },
     {
       "name": "evaluate",
