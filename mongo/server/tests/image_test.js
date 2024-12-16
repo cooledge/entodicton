@@ -577,6 +577,42 @@ describe('Reports Tests', () => {
     })
   })
 
+  describe('Remove columns by ordinal', () => {
+    it('add to table single-imageSpec', async () => {
+      const imageSpec = {
+         "headers": {
+           "columns": [
+             { "text": "column1", "id": "one" },
+             { "text": "column2", "id": "two" },
+             { "text": "column3", "id": "three" },
+           ]
+         },
+         "colgroups": [ "column_0", "column_1", "column_2" ],
+         "table": true,
+         "id": "table_1",
+         "dataSpecPath": [],
+         "rows": [ "$one", "$two", "$three" ]
+       }
+
+      const field = []
+      image.removeColumnsByOrdinal(imageSpec, [1, 3])
+      console.log('imageSpec--', JSON.stringify(imageSpec, null, 2))
+      const expected = {
+         "headers": {
+           "columns": [
+             { "text": "column2", "id": "two" },
+           ]
+         },
+         "colgroups": [ "column_1", ],
+         "table": true,
+         "id": "table_1",
+         "dataSpecPath": [],
+         "rows": [ "$two" ]
+       }
+      expect(imageSpec).toStrictEqual(expected)
+    })
+  })
+
   describe('Add column', () => {
     it('add to table single-imageSpec', async () => {
       const imageSpec = {

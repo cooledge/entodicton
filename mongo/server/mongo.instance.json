@@ -90,7 +90,7 @@
         },
         {
           "match": "({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate",
-          "apply": "async ({context, toContext, values, api, gp, mentions, verbatim}) => {\n        const currentReport = api.current()\n        let selectedTables\n        console.log(JSON.stringify(context, null, 2))\n        let items\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker }, frameOfReference: currentReport }\n          debugger\n          const mentioned = mentions(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
+          "apply": "async ({context, toContext, values, api, gp, mentions, verbatim}) => {\n        const currentReport = api.current()\n        let selectedTables\n        console.log(JSON.stringify(context, null, 2))\n        let items\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker }, frameOfReference: currentReport }\n          const mentioned = mentions(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'move' && !context.evaluate",
@@ -118,7 +118,7 @@
               "deletable"
             ]
           ],
-          "semantic": "async ({context, api, values, e, isA}) => {\n        const element = (await e(context.element)).evalue\n        debugger\n        if (element) {\n          console.log('element', JSON.stringify(element, null, 2))\n          for (const remove of values(element.value)) {\n            image.remove(element.report.imageSpec, remove)\n          }\n        }\n        api.show(element.report)\n      }"
+          "semantics": "[object Object],async ({context, api, values, e, isA}) => {\n          const element = (await e(context.element)).evalue\n          if (element) {\n            console.log('element', JSON.stringify(element, null, 2))\n            for (const remove of values(element.value)) {\n              image.remove(element.report.imageSpec, remove)\n            }\n          }\n          api.show(element.report)\n        }"
         },
         {
           "id": "collection"
@@ -138,7 +138,7 @@
             ]
           ],
           "bridge": "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
-          "semantic": "async ({context, api, e, isA}) => {\n        const graphContext = (await e(context.change)).evalue\n        debugger\n        const graphImageSpec = graphContext.value\n        const newType = context.newType.marker.split('_')[0]\n        graphImageSpec.type = newType\n        api.show(graphContext.report)\n      }"
+          "semantic": "async ({context, api, e, isA}) => {\n        const graphContext = (await e(context.change)).evalue\n        const graphImageSpec = graphContext.value\n        const newType = context.newType.marker.split('_')[0]\n        graphImageSpec.type = newType\n        api.show(graphContext.report)\n      }"
         },
         {
           "id": "contextOfReportElement",
@@ -253,7 +253,10 @@
           "id": "column",
           "isA": [
             "countable",
-            "comparable"
+            "comparable",
+            "orderable",
+            "reportElement",
+            "deletable"
           ],
           "words": [
             {
@@ -479,7 +482,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => {\n        if (context.to && context.to.marker !== 'undefined') {\n          return `${context.word} ${await g(context.show)} ${await g(context.to)}`\n        } else {\n          return `${context.word} ${await g(context.show)}`\n        }\n      }",
-          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const dataSpecPath = [0]\n          const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n          const { dbName, collectionName, fields } = dataSpec\n          // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n          const choices = []\n          let counter = 1\n          for (const field of fields) {\n            choices.push({ text: field.name, id: field.name, counter, selected: true })\n            counter += 1\n          }\n          // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n          report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              console.log(JSON.stringify(defaultTable, null, 2))\n              // currentReport = defaultTable.frameOfReference\n              // greg55\n              // defaultTable = defaultTable.table.imageSpec\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          // TODO pick a better name for this\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec\n            if (!dataSpecPath) {\n              dataSpecPath = defaultTable.imageSpec.dataSpecPath\n              dataSpec = defaultTable.dataSpec\n              debugger\n            } else {\n              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            }\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              debugger // no chagne current\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                debugger\n                console.log(JSON.stringify(defaultTable, null, 2))\n                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            // greg55\n            for (const value of values(defaultTable.value)) {\n              console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
+          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const oldway = false\n          const addAllFields = (dataSpecPath) => {\n            const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            const { dbName, collectionName, fields } = dataSpec\n            // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n            const choices = []\n            let counter = 1\n            for (const field of fields) {\n              choices.push({ text: field.name, id: field.name, counter, selected: true })\n              counter += 1\n            }\n            // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n            report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          }\n          if (oldway) {\n            const dataSpecPath = [0]\n            addAllFields(dataSpecPath)\n          } else {\n            const tables = (await e(context.frameOfReference || { marker: 'table', pullFromContext: true })).evalue\n            for (const table of values(tables.value)) {\n              addAllFields(table.dataSpecPath)\n            }\n          }\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              console.log(JSON.stringify(defaultTable, null, 2))\n              // currentReport = defaultTable.frameOfReference\n              // greg55\n              // defaultTable = defaultTable.table.imageSpec\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          // TODO pick a better name for this\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec\n            if (!dataSpecPath) {\n              dataSpecPath = defaultTable.imageSpec.dataSpecPath\n              dataSpec = defaultTable.dataSpec\n              debugger\n            } else {\n              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            }\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              debugger // no chagne current\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                debugger\n                console.log(JSON.stringify(defaultTable, null, 2))\n                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            // greg55\n            for (const value of values(defaultTable.value)) {\n              console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
         },
         {
           "id": "showReport",
@@ -568,6 +571,21 @@
           "ordered": true,
           "choose": [
             3
+          ]
+        },
+        {
+          "context": [
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "list",
+              0
+            ]
+          ],
+          "choose": [
+            1
           ]
         },
         {
@@ -22601,6 +22619,10 @@
               "thisitthat",
               "deletable"
             ]
+          ],
+          "semantics": [
+            {},
+            null
           ]
         },
         {
@@ -22726,7 +22748,10 @@
           "id": "column",
           "isA": [
             "countable",
-            "comparable"
+            "comparable",
+            "orderable",
+            "reportElement",
+            "deletable"
           ],
           "words": [
             {
@@ -23026,6 +23051,21 @@
           "ordered": true,
           "choose": [
             3
+          ]
+        },
+        {
+          "context": [
+            [
+              "ordinalOnOrdered",
+              0
+            ],
+            [
+              "list",
+              0
+            ]
+          ],
+          "choose": [
+            1
           ]
         },
         {
@@ -23901,6 +23941,21 @@
           false
         ],
         [
+          "column",
+          "deletable",
+          false
+        ],
+        [
+          "column",
+          "orderable",
+          false
+        ],
+        [
+          "column",
+          "reportElement",
+          false
+        ],
+        [
           "columnAddedTo",
           "preposition",
           false
@@ -24513,6 +24568,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "integer",
+          "number",
           false
         ],
         [
@@ -25403,11 +25463,6 @@
         [
           "ordering_modifier",
           "ordering_modifier",
-          false
-        ],
-        [
-          "ordinal",
-          "number",
           false
         ],
         [
@@ -26568,7 +26623,7 @@
           }
         ]
       },
-      "trace": "undefined",
+      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. unknown/0  (1, 0) - \"selected\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"selected\"\n                                     unknown: true\n                                     value: \"selected\"\n                                     word: \"selected\"\n                                   }\n    1. modifies/0  (1, 6) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 16}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. reportElement/0  (1, 9) - \"reportelement\"\n                                   {\n                                     default: true\n                                     marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 18, 'end': 30}\n                                     text: \"reportelement\"\n                                     value: \"reportElement\"\n                                     word: \"reportelement\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 7}, text: selected, unknown: True, value: selected, word: selected})\n\n>>>>>>>>>>>>> Counter 2\n   *0. unknown/1 (dead) (2, 0) - \"selected\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"selected\"\n                                     unknown: true\n                                     value: \"selected\"\n                                     word: \"selected\"\n                                   }\n    1. modifies/0  (1, 6) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 16}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. reportElement/0  (1, 9) - \"reportelement\"\n                                   {\n                                     default: true\n                                     marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 18, 'end': 30}\n                                     text: \"reportelement\"\n                                     value: \"reportElement\"\n                                     word: \"reportelement\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({flatten: False, marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge)), number: one, range: {'start': 9, 'end': 16}, text: modifies, word: modifies})\n\n>>>>>>>>>>>>> Counter 3\n   *0. modifies/1 (dead) (3, 0) - \"selected modifies reportelement\"\n                                   {\n                                     prioritized_by: [('modifies', 0)]\n                                     concept:                                          {\n                                           default: true\n                                           marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           range: {'start': 18, 'end': 30}\n                                           text: \"reportelement\"\n                                           value: \"reportElement\"\n                                           word: \"reportelement\"\n                                         }\n\n                                     dead: true\n                                     flatten: false\n                                     marker: Operator(modifies/1, ['Selector(None, , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     modifiers: [\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 0, 'end': 7}\n                                         text: \"selected\"\n                                         unknown: true\n                                         value: \"selected\"\n                                         word: \"selected\"\n                                       }\n                                     ]\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 30}\n                                     text: \"selected modifies reportelement\"\n                                     word: \"modifies\"\n                                   }\n<<<<<<<<<<<<<\n",
       "contexts": [
         {
           "word": "modifies",

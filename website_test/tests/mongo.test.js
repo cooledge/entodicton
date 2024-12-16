@@ -705,7 +705,7 @@ describe('tests for the mongo page', () => {
       await notPresent(['table_1'])
     }, timeout);
 
-    test(`NEO23 MONGO show the users + graph the genre and number of movies + remove it`, async () => {
+    test(`MONGO show the users + graph the genre and number of movies + remove it`, async () => {
       await query('show the users')
       await query('graph the genre and number of movies')
       await page.waitForSelector(`.test_graph_bar`)
@@ -715,5 +715,33 @@ describe('tests for the mongo page', () => {
       await notPresent(['graph_1'])
     }, timeout);
 
+    test(`MONGO show the users + show all the fields + remove the first and third column`, async () => {
+      await query('show the users')
+      await checkTable(page, 1, users, ['name'])
+      await query('show all the fields')
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
+      await query('remove the first and third column')
+      await checkTable(page, 1, users, ['email', 'password'])
+    }, timeout);
+
+    test(`MONGO show the users + show all the fields + show the movies + remove the second column of the first table`, async () => {
+      await query('show the users')
+      await checkTable(page, 1, users, ['name'])
+      await query('show all the fields')
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
+      await query('show the movies')
+      await query('remove the second column of the first table')
+      await checkTable(page, 1, users, ['_id', 'name', 'password'])
+    }, timeout);
+
+    test(`MONGO show the users + show all the fields + show the movies + remove the second and third column of the first table`, async () => {
+      await query('show the users')
+      await checkTable(page, 1, users, ['name'])
+      await query('show all the fields')
+      await checkTable(page, 1, users, ['_id', 'email', 'name', 'password'])
+      await query('show the movies')
+      await query('remove the second and third column of the first table')
+      await checkTable(page, 1, users, ['_id', 'password'])
+    }, timeout);
   })
 });

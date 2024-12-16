@@ -1,5 +1,5 @@
 const { Config, knowledgeModule, where } = require('theprogrammablemind')
-const { helpers, ordinals, defaultContextCheck, colors, negation, hierarchy, nameable, countable, math, ui } = require('tpmkms')
+const { helpers, ordinals, defaultContextCheck, colors, errors, negation, hierarchy, nameable, countable, math, ui } = require('tpmkms')
 const mongo_tests = require('./mongo.test.json')
 const instance = require('./mongo.instance.json')
 const _ = require('lodash')
@@ -46,6 +46,8 @@ const dd22 = {
       }
 
 /*
+
+  move the second table up shold change the current table <--------
 
   for the first table ... (set default table)
 
@@ -518,7 +520,6 @@ let configStruct = {
         context.evalue = value
       },
     },
-
     // evaluator to pull table/graph/charts from the context
     {
       match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
@@ -547,7 +548,6 @@ let configStruct = {
         } else if (context.pullFromContext) {
           // handle graph/chart being the same thing
           const args = { context: { marker: context.marker }, frameOfReference: currentReport }
-          debugger
           const mentioned = mentions(args)
           if (mentioned) {
             if (mentioned.marker == 'graph') {
@@ -620,17 +620,39 @@ let configStruct = {
       isA: ['verb'],
       bridge: "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
       localHierarchy: [['thisitthat', 'deletable']],
-      semantic: async ({context, api, values, e, isA}) => {
-        const element = (await e(context.element)).evalue
-        debugger
-        if (element) {
-          console.log('element', JSON.stringify(element, null, 2))
-          for (const remove of values(element.value)) {
-            image.remove(element.report.imageSpec, remove)
+      semantics: [
+        {
+          match: ({context}) => context.element?.marker == 'column',
+          apply: async ({context, api, values, e, isA, verbatim, gp}) => {
+            if (context.element.ordinal) {
+              const ordinals = []
+              for (const ordinal of values(context.element.ordinal)) {
+                ordinals.push(ordinal.value)
+              }
+              const tables = (await e(context.element.frameOfReference || { marker: 'table', pullFromContext: true })).evalue
+              if (!tables) {
+                // verbatim(`${await gp(context.element.frameOfReference)} does not exist.`)
+                return
+              }
+              for (const table of values(tables.value)) {
+                image.removeColumnsByOrdinal(table, ordinals)
+              }
+              api.show(tables.report)
+            }
           }
-        }
-        api.show(element.report)
-      },
+        },
+
+        async ({context, api, values, e, isA}) => {
+          const element = (await e(context.element)).evalue
+          if (element) {
+            console.log('element', JSON.stringify(element, null, 2))
+            for (const remove of values(element.value)) {
+              image.remove(element.report.imageSpec, remove)
+            }
+          }
+          api.show(element.report)
+        },
+      ]
     },
 
     // "((reportElement/*) [contextOfReportElement|of] ([reportElementContext]))",
@@ -650,7 +672,6 @@ let configStruct = {
       bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
       semantic: async ({context, api, e, isA}) => {
         const graphContext = (await e(context.change)).evalue
-        debugger
         const graphImageSpec = graphContext.value
         const newType = context.newType.marker.split('_')[0]
         graphImageSpec.type = newType
@@ -786,7 +807,7 @@ let configStruct = {
 
     { 
       id: 'column',
-      isA: ['countable', 'comparable'],
+      isA: ['countable', 'comparable', 'orderable', 'reportElement', 'deletable'],
       words: [...helpers.words('column'), ...helpers.words('field'), ...helpers.words('property')],
     },
 
@@ -1071,18 +1092,29 @@ let configStruct = {
           api.show(currentReport)
         } else if (context.show.quantity?.value == 'all') {
           // dataSpec[0] -> select report to update greg98
-          const dataSpecPath = [0]
-          const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
-          const { dbName, collectionName, fields } = dataSpec
-          // '{"chosen":"select","choices":[{"text":"_id","id":"_id"},{"text":"name","id":"name","selected":true,"counter":1},{"text":"email","id":"email","selected":true,"counter":2},{"text":"password","id":"password"}]}'
-          const choices = []
-          let counter = 1
-          for (const field of fields) {
-            choices.push({ text: field.name, id: field.name, counter, selected: true })
-            counter += 1
+          const oldway = false
+          const addAllFields = (dataSpecPath) => {
+            const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
+            const { dbName, collectionName, fields } = dataSpec
+            // '{"chosen":"select","choices":[{"text":"_id","id":"_id"},{"text":"name","id":"name","selected":true,"counter":1},{"text":"email","id":"email","selected":true,"counter":2},{"text":"password","id":"password"}]}'
+            const choices = []
+            let counter = 1
+            for (const field of fields) {
+              choices.push({ text: field.name, id: field.name, counter, selected: true })
+              counter += 1
+            }
+            // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })
+            report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })
           }
-          // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })
-          report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })
+          if (oldway) {
+            const dataSpecPath = [0]
+            addAllFields(dataSpecPath)
+          } else {
+            const tables = (await e(context.frameOfReference || { marker: 'table', pullFromContext: true })).evalue
+            for (const table of values(tables.value)) {
+              addAllFields(table.dataSpecPath)
+            }
+          }
           api.show(currentReport)
         } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {
           console.log('currentReport', JSON.stringify(currentReport, null, 2))
@@ -1339,6 +1371,7 @@ let configStruct = {
     { context: [['column', 1], ['list', 0], ['recordCount', 0]], choose: [2] },
     { context: [['column', 1], ['list', 0], ['recordCount', 1], ['ofDbProperty', 0]], ordered: true, choose: [3] },
     // { context: [['ofDbProperty', 0], ['column', 1], ['list', 0], ['column', 1]], choose: [2] },
+    { context: [['ordinalOnOrdered', 0], ['list', 0]], choose: [1] },
     { context: [['sortOrdering', 0], ['list', 0]], choose: [0] },
     { context: [['show', 0], ['list', 0]], choose: [1] },
     // { context: [['list', 0], ['year',0], ['ascending', 0]], ordered: true, choose: [2] },
@@ -1454,7 +1487,7 @@ const template = {
 
 knowledgeModule( { 
   config: { name: 'mongo' },
-  includes: [hierarchy, ordinals, colors, negation, nameable, ui, countable, math],
+  includes: [hierarchy, errors, ordinals, colors, negation, nameable, ui, countable, math],
   api: () => new API(),
   terminator: () => {
     terminate()

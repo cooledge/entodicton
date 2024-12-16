@@ -217,6 +217,12 @@ const addColumns = (imageSpec, field, columns) => {
   traverseImpl(imageSpec, options)
 }
 
+const removeColumnsByOrdinal = (imageSpec, ordinals) => {
+  imageSpec.headers.columns = imageSpec.headers.columns.filter((v, i) => !ordinals.includes(i+1))
+  imageSpec.colgroups = imageSpec.colgroups.filter((v, i) => !ordinals.includes(i+1))
+  imageSpec.rows = imageSpec.rows.filter((v, i) => !ordinals.includes(i+1))
+}
+
 const selecting = (selectingWhat, imageSpec) => {
   // setId(imageSpec)
   const counts = count(imageSpec)
@@ -451,6 +457,7 @@ module.exports = {
   selector,
   countSelected,
   addColumns,
+  removeColumnsByOrdinal,
   addGroup,
   getProperties,
   traverseImpl,
