@@ -68,6 +68,9 @@ function Layout({ children }) {
                     <div className="subMenuItem">
                       <Link to='/fastfood/' target="_blank">FAST FOOD POC</Link>
                     </div>
+                    <div className="subMenuItem">
+                      <Link to='/mongo/' target="_blank">REPORT WRITER POC</Link>
+                    </div>
                   </div>
                   { /* <li className="barItem"><Link to='/tankdemo'>DEMO</Link></li> */ }
                   { /* <li className="barItem"><Link to='/pipboy/'>PIPBOY DEMO</Link></li> */ }
