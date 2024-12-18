@@ -686,13 +686,21 @@ describe('tests for the mongo page', () => {
       expect(title).toBe("the genre and number of movies")
     }, timeout);
 
-    test(`MONGO show the users + graph the genre and number of movies + change it up`, async () => {
+    test(`MONGO show the users + graph the genre and number of movies + move it up`, async () => {
       await query('show the users')
       await query('graph the genre and number of movies')
       await page.waitForSelector(`.test_graph_bar`)
       await checkOrder(['table_1', 'graph_1'])
       await query('move it up')
       await checkOrder(['graph_1', 'table_1'])
+    }, timeout);
+
+    test(`MONGO show the users + show the movies + move it up`, async () => {
+      await query('show the users')
+      await query('show the movies')
+      await checkOrder(['table_1', 'table_3'])
+      await query('move it up')
+      await checkOrder(['table_3', 'table_1'])
     }, timeout);
 
     test(`MONGO show the users + graph the genre and number of movies + remove the table`, async () => {

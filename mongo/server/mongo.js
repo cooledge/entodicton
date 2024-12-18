@@ -528,6 +528,7 @@ let configStruct = {
         let selectedTables
         console.log(JSON.stringify(context, null, 2))
         let items
+        // TODO fix this for marker == table / graph or other
         if (context.marker == 'table') {
           items = image.getTables(currentReport.imageSpec)
         } else {
@@ -547,7 +548,7 @@ let configStruct = {
           selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )
         } else if (context.pullFromContext) {
           // handle graph/chart being the same thing
-          const args = { context: { marker: context.marker }, frameOfReference: currentReport }
+          const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }
           const mentioned = mentions(args)
           if (mentioned) {
             if (mentioned.marker == 'graph') {
