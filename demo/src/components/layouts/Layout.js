@@ -60,9 +60,6 @@ function Layout({ children }) {
                   <li className="barItem" style={{color: 'blue', 'text-decoration': 'underline'}}{...handleDemoButton} {...menuButtonStyle}>POC's</li>
                   <div style={style} {...handleSubMenu}>
                     <div className="subMenuItem">
-                      <Link to='/tankdemo'>TANK POC</Link>
-                    </div>
-                    <div className="subMenuItem">
                       <Link to='/pipboy/' target="_blank">PIPBOY POC</Link>
                     </div>
                     <div className="subMenuItem">
@@ -70,6 +67,9 @@ function Layout({ children }) {
                     </div>
                     <div className="subMenuItem">
                       <Link to='/mongo/' target="_blank">REPORT WRITER POC</Link>
+                    </div>
+                    <div className="subMenuItem">
+                      <Link to='/tankdemo'>TANK POC</Link>
                     </div>
                   </div>
                   { /* <li className="barItem"><Link to='/tankdemo'>DEMO</Link></li> */ }
