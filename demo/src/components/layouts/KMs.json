@@ -391,76 +391,6 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
     },
     {
-      "name": "crew",
-      "description": "Knowledge about the enterprise and crew using a KM template",
-      "examples": [
-        "arm the phasers",
-        "disarm the phasers what is the status of the phasers",
-        "is a bat a mammal",
-        "the status of the photon torpedoes is armed",
-        "the status of the photon torpedoes is armed\\nwhat is the status of the photon torpedoes",
-        "what are the types of rank",
-        "what is spock's name",
-        "what is spock's rank",
-        "what is spock's rank?",
-        "what is the name of kirk",
-        "what is the rank of spock",
-        "what is the status of the phasers",
-        "what is the status of the photon torpedoes",
-        "who are the crew members"
-      ],
-      "template": [
-        "crew modifies member",
-        "kirk's name is jim",
-        "kirk's rank is captain",
-        "kirk's eyes are blue",
-        "kirk is a captain",
-        "kirk is a crew member",
-        "spock's rank is second",
-        "spock's name is spock",
-        "spock's eyes are brown",
-        "spock is a doctor",
-        "spock is a crew member",
-        "mccoy's rank is doctor",
-        "mccoy's name is mccoy",
-        "mccoy's eyes are brown",
-        "mccoy is a crew member",
-        "mccoy is a doctor",
-        "the status of the phasers is armed",
-        "photon modifies torpedoes",
-        "the status of the photon torpedoes is armed",
-        "phasers are weapons",
-        "torpedoes are weapons",
-        "kirk is readonly",
-        "spock is readonly",
-        "mccoy is readonly",
-        "arm the weapon means the status of the weapon is armed",
-        "disarm the weapon means the status of the weapon is not armed"
-      ],
-      "includes": [
-        "avatar",
-        "animals",
-        "emotions",
-        "hierarchy",
-        "properties",
-        "concept",
-        "dialogues",
-        "asking",
-        "negation",
-        "stm",
-        "meta",
-        "conjunction",
-        "evaluate",
-        "articles",
-        "sdefaults",
-        "pos",
-        "punctuation",
-        "gdefaults",
-        "tokenize"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/crew.js"
-    },
-    {
       "name": "currency",
       "description": "Ways of specifying currency amount",
       "examples": [
@@ -631,35 +561,6 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/edible.js"
-    },
-    {
-      "name": "emotions",
-      "description": "emotions related concepts",
-      "examples": [
-        "greg feels angry what is the emotion of greg"
-      ],
-      "template": [
-        "sentientBeing1 feels emotion1 means the emotion of sentientBeing1 is emotion1"
-      ],
-      "includes": [
-        "hierarchy",
-        "properties",
-        "concept",
-        "dialogues",
-        "asking",
-        "negation",
-        "stm",
-        "meta",
-        "conjunction",
-        "evaluate",
-        "articles",
-        "sdefaults",
-        "pos",
-        "punctuation",
-        "gdefaults",
-        "tokenize"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/emotions.js"
     },
     {
       "name": "errors",
@@ -1645,46 +1546,6 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
-    },
-    {
-      "name": "pressure",
-      "description": "Pressure dimension",
-      "examples": [
-        "what are 2 atmospheres in pascals",
-        "what are 200000 pascals in atmospheres"
-      ],
-      "template": [
-        "pressure is a dimension",
-        "pascals and atmospheres are units of pressure",
-        "pascals = atmospheres * 101325",
-        "atmospheres = pascals / 101325"
-      ],
-      "includes": [
-        "dimension",
-        "formulas",
-        "testing",
-        "math",
-        "countable",
-        "comparable",
-        "hierarchy",
-        "numbers",
-        "properties",
-        "concept",
-        "dialogues",
-        "asking",
-        "negation",
-        "stm",
-        "meta",
-        "conjunction",
-        "evaluate",
-        "articles",
-        "sdefaults",
-        "pos",
-        "punctuation",
-        "gdefaults",
-        "tokenize"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
     },
     {
       "name": "properties",
