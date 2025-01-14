@@ -512,6 +512,14 @@ let configStruct = {
     ['graph', 'deletable'],
     ['table', 'deletable'],
   ],
+    associations: {
+    negative: [
+    ],
+    positive: [
+      [['graphAction', 0], ['column', 0], ['ofDbProperty', 0], ['reportable', 0]],
+    ]
+  },
+
   semantics: [
     {
       match: ({context}) => context.frameOfReference && context.evaluate,
@@ -1369,6 +1377,7 @@ let configStruct = {
     */
   ],
   priorities: [
+    { context: [['propertyOf', 1], ['showColumn', 0]], choose: [0] },
     { context: [['column', 1], ['list', 0], ['recordCount', 0]], choose: [2] },
     { context: [['column', 1], ['list', 0], ['recordCount', 1], ['ofDbProperty', 0]], ordered: true, choose: [3] },
     // { context: [['ofDbProperty', 0], ['column', 1], ['list', 0], ['column', 1]], choose: [2] },
@@ -1501,7 +1510,7 @@ knowledgeModule( {
     name: './mongo.test.json',
     contents: mongo_tests,
     checks: {
-      context: defaultContextCheck,
+      context: defaultContextCheck(),
       objects: [
         'show', 
         'select', 
