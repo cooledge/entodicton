@@ -1510,7 +1510,7 @@ knowledgeModule( {
     name: './mongo.test.json',
     contents: mongo_tests,
     checks: {
-      context: defaultContextCheck(),
+      context: defaultContextCheck(['object', 'objects']),
       objects: [
         'show', 
         'select', 
