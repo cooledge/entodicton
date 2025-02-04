@@ -373,6 +373,8 @@ function App() {
   return (
     <div className="App">
       <a style={ {'color': 'blue' } } href={'https://www.youtube.com/watch?v=3QILVALBx9M'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
+      <a style={ {'color': 'blue' } } href={'https://github.com/cooledge/entodicton/blob/master/mongo/server/mongo.js'} target="_blank" rel="noreferrer">Source Code of the Language Config</a>
+      <a style={ {'color': 'blue' } } href={'https://github.com/cooledge/entodicton/blob/master/website_test/tests/pipboy.test.js'} target="_blank" rel="noreferrer">Integration Tests</a>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       { noSession &&
         <NoSessionError max={noSession.max} ttl={noSession.ttl}></NoSessionError>

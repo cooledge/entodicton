@@ -122,6 +122,8 @@ function App() {
       { fastfood && 
         <div class="Header">
           <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://www.youtube.com/watch?v=kPqxB3Y2F-k'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
+          <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/thinktelligence/theprogrammablemind/blob/8.9.0/kms/common/fastfood.js'} target="_blank" rel="noreferrer">Source Code of Language Config</a>
+          <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/website_test/tests/fastfood.test.js'} target="_blank" rel="noreferrer">Integration Tests</a>
           <Text {...props} />
         </div>
       }
