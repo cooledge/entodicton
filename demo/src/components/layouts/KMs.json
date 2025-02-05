@@ -367,7 +367,8 @@
         "2 piece hasCountOfPieces",
         "10 2 piece hasCountOfPieces",
         "more countable",
-        "less countable"
+        "less countable",
+        "every countable"
       ],
       "template": [],
       "includes": [
@@ -1101,7 +1102,8 @@
         "mccoy is a man\\nmccoy is a doctor",
         "mccoy is a man\\nmccoy is a doctor\\nis mccoy a doctor",
         "mccoy is a man\\nmccoy is a doctor\\nis mccoy a man",
-        "mccoy's rank is doctor is mccoy a doctor"
+        "mccoy's rank is doctor is mccoy a doctor",
+        "bananas are fruits and desserts"
       ],
       "template": [],
       "includes": [
@@ -2209,15 +2211,18 @@
         "10 characters",
         "move left 10 words",
         "move left 10 characters",
-        "move down 2 paragraphs"
+        "move down 2 paragraphs",
+        "make every word blue"
       ],
       "template": [
-        "words are countable",
+        "words are countable and statefulElements",
         "characters are countable",
         "paragraphs are countable"
       ],
       "includes": [
         "ui",
+        "colors",
+        "errors",
         "ordinals",
         "countable",
         "hierarchy",
