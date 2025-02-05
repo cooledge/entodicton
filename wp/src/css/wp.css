@@ -1,6 +1,16 @@
 .App {
 }
 
+.Query {
+  margin-top: 2px;
+  padding: 5px;
+  height: 2em;
+  border: solid 1px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
 .request {
   margin-left: 10px;
   width: 500px;
