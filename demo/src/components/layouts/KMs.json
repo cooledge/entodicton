@@ -94,6 +94,7 @@
         "reports",
         "tell",
         "pipboy",
+        "wp",
         "fastfood"
       ]
     },
@@ -2123,8 +2124,10 @@
       ],
       "template": [],
       "includes": [
-        "dialogues",
         "ordinals",
+        "countable",
+        "hierarchy",
+        "dialogues",
         "asking",
         "negation",
         "stm",
@@ -2137,6 +2140,8 @@
         "punctuation",
         "gdefaults",
         "numbers",
+        "properties",
+        "concept",
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
@@ -2194,6 +2199,46 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
+    },
+    {
+      "name": "wp",
+      "description": "Word processor",
+      "examples": [
+        "10 words",
+        "10 paragraphs",
+        "10 characters",
+        "move left 10 words",
+        "move left 10 characters",
+        "move down 2 paragraphs"
+      ],
+      "template": [
+        "words are countable",
+        "characters are countable",
+        "paragraphs are countable"
+      ],
+      "includes": [
+        "ui",
+        "ordinals",
+        "countable",
+        "hierarchy",
+        "dialogues",
+        "asking",
+        "negation",
+        "stm",
+        "meta",
+        "conjunction",
+        "evaluate",
+        "articles",
+        "sdefaults",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "numbers",
+        "properties",
+        "concept",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/wp.js"
     },
     {
       "name": "yesno",
