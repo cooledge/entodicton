@@ -20,7 +20,7 @@
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint src/**/*.js --fix"
   },
-  "name": "speech-recogition-demoes",
+  "name": "pipboy demo",
   "homepage": "http://localhost:10000/pipboy",
   "eslintConfig": {
     "extends": [

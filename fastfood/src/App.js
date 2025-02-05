@@ -127,6 +127,11 @@ function App() {
           <Text {...props} />
         </div>
       }
+      { !fastfood &&
+        <span>
+          Loading is slow because I am loading the middleware part in the browser so I dont have to run a server for it. A real system would not load this way.
+        </span>
+      }
       { message &&
         <Popup {...props }>
           {message}
