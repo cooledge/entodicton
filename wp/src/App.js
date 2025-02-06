@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './css/wp.css'
 import Text from './Text'
 import API from './API'
-import { Editor, EditorState, ContentState } from 'draft-js'
+import RichTextEditor from './richtext'
 const tpmkms = require('tpmkms_4wp')
 
 const initialValue = [
@@ -13,20 +13,6 @@ const initialValue = [
 ]
 
 const App = () => {
-  const initialContentState = ContentState.createFromText('Damn the torpedos. full speep dahead.');
-  const [editorState, setEditorState] = React.useState(
-    // EditorState.createEmpty()
-    EditorState.createWithContent(initialContentState)
-  );
-  const editor = React.useRef(null);
-  function focusEditor() {
-    editor.current.focus();
-  }
- 
-  React.useEffect(() => {
-    focusEditor()
-  }, []);
-
   const [query, doQuery] = useState({ text: '', counter: 0 })
   const [queryResponses, setQueryResponses] = useState([])
   const [message, setMessage] = useState()
@@ -55,10 +41,10 @@ const App = () => {
     lastQuery, setLastQuery,
     message, setMessage,
     km,
-    editor,
   }
 
   const doit = () => {
+    console.log("hello world!!!!!!!!!!!!!!!!!!!!!!!!")
   }
 
   return (
@@ -66,13 +52,7 @@ const App = () => {
     <>
       <Text {...props}/>
       <a onClick={doit}>CLICK ME</a>
-      <div onClick={focusEditor}>
-        <Editor
-          ref={editor}
-          editorState={editorState}
-          onChange={editorState => setEditorState(editorState)}
-        />
-      </div>
+      <RichTextEditor/>
     </>
   )
 }

@@ -367,10 +367,10 @@ function Speech(props) {
         <a className="Button" id='submit' onClick={onClick}>Submit</a>
         <span>{query}</span>
         { !listening && !processing && browserSupportsSpeechRecognition &&
-          <Button style={{"margin-left": "10px"}} id='restart' className='button' variant='contained' onClick={onRestart}>Restart</Button>
+          <Button style={{"marginLeft": "10px"}} id='restart' className='button' variant='contained' onClick={onRestart}>Restart</Button>
         }
         { !browserSupportsSpeechRecognition &&
-          <span style={{"margin-left": "10px"}} >(Chrome supports speech recognition)</span>
+          <span style={{"marginLeft": "10px"}} >(Chrome supports speech recognition)</span>
         }
       </div>
     </div>
