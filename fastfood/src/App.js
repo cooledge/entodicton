@@ -18,7 +18,7 @@ function App() {
   const [order, setOrderInternal] = useState([])
   const [total, setTotal] = useState(0)
   const [message, setMessage] = useState()
-  const [ fastfood, setFastFood ] = useState()
+  const [fastfood, setFastFood] = useState()
   const findProduct = (item) => {
     const product = products.items.find( (product) => {
       let id = item.id

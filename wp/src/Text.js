@@ -1,31 +1,24 @@
 import { useMemo, useEffect, useState } from 'react'
 import { Button } from 'react-native'
-/*
-import FastFoodAPI from './FastFoodAPI'
-console.time('load')
-const tpmkms = require('tpmkms_4wp')
-console.timeEnd('load')
-*/
 
 function Text(props) {
-  const { fastfood, setMessage } = props
+  const { km, setMessage } = props
   const [ query, setQuery ] = useState('')
   const [ selectedOption, setSelectedOption ] = useState()
 
   const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
 
-  if (fastfood) {
-    fastfood.api.setProps(props)
+  if (km) {
+    km.api.setProps(props)
   }
 
-  // fastfood.getConfigs().ui.api.setProps(props)
   useEffect( () => {
     if (query === '') {
       return
     }
-    fastfood.api.say('')
+    km.api.say('')
     const doQuery = async () => {
-      return fastfood.process(query.toLowerCase()).then( async (result) => {
+      return km.process(query.toLowerCase()).then( async (result) => {
         let message = ''
         let hasError = false
         setQuery('')
@@ -45,8 +38,9 @@ function Text(props) {
           if (hasError) {
             message += '. There are errors shown in the console'
           }
+          console.log(result)
           if (message) {
-            fastfood.api.say(message)
+            km.api.say(message)
             msg.text = message
             window.speechSynthesis.speak(msg)
           }
@@ -70,7 +64,7 @@ function Text(props) {
     }
   }
 
-  const info = fastfood ? fastfood.getInfo() : { examples: [] }
+  const info = km ? km.getInfo() : { examples: [] }
   const options = []
   for (let example of info.examples) {
     options.push({ value: example, label: example })
@@ -82,7 +76,7 @@ function Text(props) {
 
   return (
     <div className="Speech">
-      { fastfood && 
+      { km && 
         <>
           <div>
             Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
