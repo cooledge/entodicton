@@ -17,6 +17,8 @@
     "pipboyh": "HEADLESS=true jest --runInBand -t PIPBOY",
     "fastfood": "HEADLESS=false jest --runInBand -t FASTFOOD",
     "fastfoodh": "HEADLESS=true jest --runInBand -t FASTFOOD",
+    "wp": "HEADLESS=false jest --runInBand -t WP",
+    "wph": "HEADLESS=true jest --runInBand -t WP",
     "mongo": "HEADLESS=false jest --runInBand -t MONGO",
     "mongoh": "HEADLESS=true jest --runInBand -t MONGO",
     "td": "HEADLESS=false node inspect node_modules/.bin/jest --runInBand -t PIPBOY",
