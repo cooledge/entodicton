@@ -49,11 +49,9 @@ const App = () => {
 
   return (
     // Add the editable component inside the context.
-    <>
-      <Text {...props}/>
-      <a onClick={doit}>CLICK ME</a>
-      <RichTextEditor/>
-    </>
+    <div className='App'>
+      <RichTextEditor textProps={props}/>
+    </div>
   )
 }
 

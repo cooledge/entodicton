@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import isHotkey from 'is-hotkey'
 import { Editable, withReact, useSlate, Slate } from 'slate-react'
+import Text from './Text'
 import {
   Editor,
   Transforms,
@@ -18,7 +19,7 @@ const HOTKEYS = {
 }
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify']
-const RichTextExample = () => {
+const RichTextExample = (props) => {
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
@@ -38,6 +39,7 @@ const RichTextExample = () => {
         <BlockButton format="center" icon="format_align_center" />
         <BlockButton format="right" icon="format_align_right" />
         <BlockButton format="justify" icon="format_align_justify" />
+        <Text {...props.textProps}/>
       </Toolbar>
       <Editable
         renderElement={renderElement}
