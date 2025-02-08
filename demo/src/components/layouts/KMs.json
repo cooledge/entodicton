@@ -2212,12 +2212,19 @@
         "move left 10 words",
         "move left 10 characters",
         "move down 2 paragraphs",
-        "make every word blue"
+        "make every word blue",
+        "make every word bold",
+        "make every word bold and underlined",
+        "make every word bold and blue",
+        "make every word bold underlined and blue"
       ],
       "template": [
+        "setidsuffix _wp",
         "words are countable and statefulElements",
         "characters are countable",
-        "paragraphs are countable"
+        "paragraphs are countable",
+        "bold, italic and underlined are styles",
+        "resetIdSuffix"
       ],
       "includes": [
         "ui",
