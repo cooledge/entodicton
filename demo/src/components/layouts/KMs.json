@@ -2216,14 +2216,17 @@
         "make every word bold",
         "make every word bold and underlined",
         "make every word bold and blue",
-        "make every word bold underlined and blue"
+        "make every word bold underlined and blue",
+        "bold",
+        "bold and underlined",
+        "bold underlined"
       ],
       "template": [
         "setidsuffix _wp",
         "words are countable and statefulElements",
         "characters are countable",
         "paragraphs are countable",
-        "bold, italic and underlined are styles",
+        "bold, italic, code and underlined are styles",
         "resetIdSuffix"
       ],
       "includes": [
