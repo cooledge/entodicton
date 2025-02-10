@@ -2220,14 +2220,17 @@
         "bold",
         "bold and underlined",
         "bold underlined",
-        "make everything bold"
+        "make everything bold",
+        "bold and underline everything",
+        "bold everything"
       ],
       "template": [
         "setidsuffix _wp",
         "words are countable and statefulElements",
         "characters are countable",
         "paragraphs are countable",
-        "bold, italic, code and underlined are styles",
+        "bold, italic, code and underline are styles",
+        "underlined means underline",
         "resetIdSuffix"
       ],
       "includes": [
