@@ -2231,16 +2231,19 @@
         "make everything italics",
         "capitalize",
         "capitalized",
-        "make everything capitalized"
+        "make everything capitalized",
+        "lowercase",
+        "lowercase everything"
       ],
       "template": [
         "setidsuffix _wp",
         "words are countable and statefulElements",
         "characters are countable",
         "paragraphs are countable",
-        "bold, italic, code, capitalize and underline are styles",
+        "bold, italic, code, capitalize, lowercase and underline are styles",
         "underlined means underline",
         "capitalized means capitalize",
+        "uppercase means capitalize",
         "italicize means italic",
         "italicized means italic",
         "resetIdSuffix"
