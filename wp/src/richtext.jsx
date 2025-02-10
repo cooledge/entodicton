@@ -39,11 +39,12 @@ const RichTextExample = (props) => {
         <BlockButton format="center" icon="format_align_center" />
         <BlockButton format="right" icon="format_align_right" />
         <BlockButton format="justify" icon="format_align_justify" />
-        <Text {...props.textProps}/>
+        <Text {...props.textProps} editor={editor}/>
       </Toolbar>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
+        className='slate-editor'
         placeholder="Enter some rich text…"
         spellCheck
         autoFocus

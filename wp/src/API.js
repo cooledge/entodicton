@@ -27,6 +27,18 @@ function makeAllTextColor(editor, color) {
   })
 }
 
+const selectAllText = (editor) => {
+  // Get the range that spans the entire document
+  const range = Editor.range(
+    editor,
+    Editor.start(editor, []),
+    Editor.end(editor, [])
+  );
+
+  // Apply the selection to the entire document
+  Transforms.select(editor, range);
+};
+
 // Usage
 // Assuming you have an editor state
 
@@ -35,10 +47,16 @@ class API {
     this._objects = objects
   }
 
-  changeColor({ unit, scope, color }) {
-    debugger
-    console.log('changeColor', { unit, scope, color })
-    makeAllTextColor(this.props.editor, color)
+  changeState(value) {
+    const { unit, scope, color, styles } = value
+    if (unit == 'everything') {
+      selectAllText(this.props.editor)
+    }
+    console.log('changeState', value)
+    // makeAllTextColor(this.props.editor, color)
+    for (const style of styles || []) {
+      Editor.addMark(this.props.editor, style, true)
+    }
   }
 
   setProps(props) {
