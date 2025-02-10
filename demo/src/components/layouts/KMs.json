@@ -2222,7 +2222,8 @@
         "bold underlined",
         "make everything bold",
         "bold and underline everything",
-        "bold everything"
+        "bold everything",
+        "italicize everything"
       ],
       "template": [
         "setidsuffix _wp",
@@ -2231,6 +2232,7 @@
         "paragraphs are countable",
         "bold, italic, code and underline are styles",
         "underlined means underline",
+        "italicize means italic",
         "resetIdSuffix"
       ],
       "includes": [
