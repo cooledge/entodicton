@@ -107,10 +107,29 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'u')).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP make everything italics underlined and bold`, async () => {
+  test(`WP make everything italics underlined and bold`, async () => {
     await query('make everything italics underlined and bold')
     expect(await isAllTextTagged(page, 'em')).toBeTruthy()
     expect(await isAllTextTagged(page, 'u')).toBeTruthy()
     expect(await isAllTextTagged(page, 'strong')).toBeTruthy()
   }, timeout);
+
+  test(`WP bold everything`, async () => {
+    await query('bold everything')
+    expect(await isAllTextTagged(page, 'strong')).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold and underline everything`, async () => {
+    await query('bold and underline everything')
+    expect(await isAllTextTagged(page, 'strong')).toBeTruthy()
+    expect(await isAllTextTagged(page, 'u')).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold italicize and underline everything`, async () => {
+    await query('bold italicize and underline everything')
+    expect(await isAllTextTagged(page, 'strong')).toBeTruthy()
+    expect(await isAllTextTagged(page, 'u')).toBeTruthy()
+    expect(await isAllTextTagged(page, 'em')).toBeTruthy()
+  }, timeout);
+
 });
