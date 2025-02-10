@@ -2219,7 +2219,8 @@
         "make every word bold underlined and blue",
         "bold",
         "bold and underlined",
-        "bold underlined"
+        "bold underlined",
+        "make everything bold"
       ],
       "template": [
         "setidsuffix _wp",
