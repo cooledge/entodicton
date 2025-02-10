@@ -132,4 +132,14 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'em')).toBeTruthy()
   }, timeout);
 
+  test(`WP capitalize everything`, async () => {
+    await query('capitalize everything')
+    expect(await isAllTextTagged(page, 'uppercase')).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP lowercase everything`, async () => {
+    await query('lowercase everything')
+    expect(await isAllTextTagged(page, 'lowercase')).toBeTruthy()
+  }, timeout);
+
 });

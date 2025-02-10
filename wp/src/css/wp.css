@@ -3,6 +3,14 @@
   margin-right: 20px;
 }
 
+uppercase {
+  text-transform: uppercase
+}
+
+lowercase {
+  text-transform: lowercase
+}
+
 .Query {
   margin-top: 2px;
   padding: 5px;

@@ -178,6 +178,12 @@ const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.underline) {
     children = <u>{children}</u>
   }
+  if (leaf.capitalize) {
+    children = <uppercase>{children}</uppercase>
+  }
+  if (leaf.lowercase) {
+    children = <lowercase>{children}</lowercase>
+  }
   return <span {...attributes}>{children}</span>
 }
 const BlockButton = ({ format, icon }) => {
@@ -220,6 +226,7 @@ const initialValue = [
       { text: 'rich', bold: true },
       { text: ' text, ' },
       { text: 'much', italic: true },
+      { text: ' uppercase ', uppercase: true },
       { text: ' better than a ' },
       { text: '<textarea>', code: true },
       { text: '!' },
