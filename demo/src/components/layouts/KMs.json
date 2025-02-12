@@ -2233,7 +2233,8 @@
         "capitalized",
         "make everything capitalized",
         "lowercase",
-        "lowercase everything"
+        "lowercase everything",
+        "bold the words that start with abc"
       ],
       "template": [
         "setidsuffix _wp",
