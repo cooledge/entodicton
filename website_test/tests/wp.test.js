@@ -15,13 +15,16 @@ function sleep(ms) {
   });
 }
 
-const isAllTextTagged = async (page, tagName) => {
-  return await page.evaluate((tagName) => {
+const isAllTextTagged = async (page, tagName, condition = {comparison: 'all'}) => {
+  // this was not working so I passed in data as the condition
+  // await page.exposeFunction("condition", condition);
+  const result = await page.evaluate(async (tagName, condition) => {
     const editor = document.querySelector('.slate-editor');
     if (!editor) return false;
 
     const textNodes = editor.querySelectorAll('span[data-slate-string="true"]');
 
+    let counter = 0
     for (let node of textNodes) {
       // Check if the node is empty or only contains whitespace
       const textContent = node.textContent.trim();
@@ -29,11 +32,31 @@ const isAllTextTagged = async (page, tagName) => {
         continue; // Skip empty or whitespace-only nodes
       }
 
+      const { comparison, letters } = condition
+      let test = () => true
+      if (comparison == 'prefix') {
+        test = (word) => word.toLowerCase().startsWith(letters)
+      }
+      else if (comparison == 'suffix') {
+        test = (word) => word.toLowerCase().endsWith(letters)
+      }
+      else if (comparison == 'includes') {
+        test = (word) => word.toLowerCase().includes(letters)
+      }
+
+      if (!test(textContent)) {
+        console.log('rejecting', textContent)
+        continue
+      }
+
+      console.log('checking ', textContent)
+      console.log(node)
       // Check if the node is inside a <tag>
       if (node.tagName.toLowerCase() !== tagName) {
         let isTagged = false;
         let current = node;
         while (current && current !== editor) {
+          console.log('current.tagName', current.tagName)
           if (current.tagName.toLowerCase() === tagName) {
             isTagged = true;
             break;
@@ -41,12 +64,17 @@ const isAllTextTagged = async (page, tagName) => {
           current = current.parentNode;
         }
         if (!isTagged) {
+          debugger
+          console.log('checking ', textContent)
+          console.log('checking node', node)
           return false;
         }
       }
     }
     return true;
-  }, tagName);
+  }, tagName, condition);
+  // await page.removeExposedFunction('condition');
+  return result
 }
 
 describe('tests for wp page', () => {
@@ -137,9 +165,16 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'uppercase')).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP lowercase everything`, async () => {
+  test(`WP lowercase everything`, async () => {
     await query('lowercase everything')
     expect(await isAllTextTagged(page, 'lowercase')).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP bold the words startign with t`, async () => {
+    await query('bold the words that start with t')
+    const condition = { comparison: 'prefix', letters: 't' }
+    await isAllTextTagged(page, 'strong', condition)
+    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
   }, timeout);
 
 });
