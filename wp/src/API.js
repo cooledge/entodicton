@@ -43,30 +43,84 @@ function tagWords(editor, condition, styles) {
   const { selection } = editor
   Transforms.deselect(editor) // Clear selection to apply changes to all text
 
+  console.log('---------------- before')
   Editor.nodes(editor, {
     at: [],
     match: n => n.text && n.text.length > 0,
     mode: 'lowest',
     voids: false,
   }).forEach(([node, path]) => {
-    const words = node.text.split(/\s+/)
-    let offset = 0
+    console.log('chunk', node.text)
+  })
 
+  console.log(JSON.stringify(editor.children, null, 2))
+  console.log('---------------- during')
+  Editor.nodes(editor, {
+    at: [],
+    match: n => n.text && n.text.length > 0,
+    mode: 'lowest',
+    voids: false,
+  }).forEach(([node, path]) => {
+    console.log('chunk', node.text)
+    const words = node.text.split(/\s+/)
+    console.log('node', node)
+    console.log('path', path)
+    let offset = 0
+    console.log('words', words)
     words.forEach((word) => {
+      console.log(`    checking word: "${word}", path: ${JSON.stringify(path)}`)
       if (condition(word)) {
         const start = offset
         const end = start + word.length
+        console.log(`    okay(${start}, ${end}): `, word)
         const range = {
           anchor: { path, offset: start },
           focus: { path, offset: end }
         }
+        console.log('        selecting', JSON.stringify(range))
         Transforms.select(editor, range);
         for (const style of styles) {
           Editor.addMark(editor, style, true)
         }
+        // Since it's rich text, you can do things like turn a selection of text
+        // Since it's rich text, you can do things of text
+        // Since it's rich text, you can do things text
+        // it's rich text, you can do things text
+        // it's text, you can do things text
+        // it's text, you can things text
+        // it's text, you things text
+        // it's text you things text
+        // it text you things text
+        // +1 since text
+        // nonConstPath[nonConstPath.length-1] = nonConstPath[nonConstPath.length-1] + 1
+        const setLastElement = (path, last) => {
+          let updatedPath = [];
+          for (let element of path.slice(0, -1)) {
+            updatedPath.push(element)
+          }
+          updatedPath.push(last)
+          return updatedPath
+        }
+        const increment = offset ? 2 : 1
+        path = setLastElement(path, path[path.length-1]+increment)
+        offset = 1
+      } else {
+        offset += word.length + 1 // +1 for the space or any delimiter
       }
-      offset += word.length + 1 // +1 for the space or any delimiter
+      console.log('after update')
+      console.log(JSON.stringify(editor.children, null, 2))
     })
+  })
+
+  console.log('---------------- after')
+  console.log(JSON.stringify(editor.children, null, 2))
+  Editor.nodes(editor, {
+    at: [],
+    match: n => n.text && n.text.length > 0,
+    mode: 'lowest',
+    voids: false,
+  }).forEach(([node, path]) => {
+    console.log(`${path} - ${node.text}`)
   })
 
   // Restore previous selection if it existed
@@ -94,7 +148,7 @@ class API {
         if (comparison == 'suffix') {
           return (word) => word.toLowerCase().endsWith(letters)
         }
-        if (comparison == 'includes') {
+        if (comparison == 'include') {
           return (word) => word.toLowerCase().includes(letters)
         }
         return () => true

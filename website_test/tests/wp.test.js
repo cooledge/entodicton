@@ -40,7 +40,7 @@ const isAllTextTagged = async (page, tagName, condition = {comparison: 'all'}) =
       else if (comparison == 'suffix') {
         test = (word) => word.toLowerCase().endsWith(letters)
       }
-      else if (comparison == 'includes') {
+      else if (comparison == 'include') {
         test = (word) => word.toLowerCase().includes(letters)
       }
 
@@ -170,11 +170,41 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'lowercase')).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP bold the words startign with t`, async () => {
+  test(`WP bold the words that start with t`, async () => {
     await query('bold the words that start with t')
     const condition = { comparison: 'prefix', letters: 't' }
-    await isAllTextTagged(page, 'strong', condition)
     expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
   }, timeout);
+
+  test(`WP bold the words that end with e`, async () => {
+    await query('bold the words that end with e')
+    const condition = { comparison: 'suffix', letters: 'e' }
+    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+  }, timeout);
+
+  test(`WP make the words that start with t bold`, async () => {
+    await query('make the words that start with t bold')
+    const condition = { comparison: 'prefix', letters: 't' }
+    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+  }, timeout);
+
+  test(`WP make the words that end with e bold`, async () => {
+    await query('make the words that end with e bold')
+    const condition = { comparison: 'suffix', letters: 'e' }
+    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+  }, timeout);
+
+  test(`WP make the words that contain e bold`, async () => {
+    await query('make the words that contain e bold')
+    const condition = { comparison: 'include', letters: 'e' }
+    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP underlin the words that contain e`, async () => {
+    await query('underline the words that contain e')
+    const condition = { comparison: 'include', letters: 'e' }
+    expect(await isAllTextTagged(page, 'u', condition)).toBeTruthy()
+  }, timeout);
+
 
 });
