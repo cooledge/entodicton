@@ -2246,13 +2246,15 @@
         "setidsuffix _wp",
         "words are countable and statefulElements",
         "characters are countable",
-        "paragraphs are countable",
+        "paragraphs are countable and statefulElement",
+        "text is a statefulElement",
         "bold, italic, code, capitalize, lowercase and underline are styles",
         "underlined means underline",
         "capitalized means capitalize",
         "uppercase means capitalize",
         "italicize means italic",
         "italicized means italic",
+        "capitalized, bolded, italicized and underlined are styleModifiers",
         "resetIdSuffix"
       ],
       "includes": [
