@@ -2239,8 +2239,8 @@
         "make the words that start with t bold",
         "make words that start with t bold and underlined",
         "bold words that end with t",
-        "bold words that contain with t",
-        "bold words that include with t"
+        "bold the words that contain t",
+        "bold the words that include t"
       ],
       "template": [
         "setidsuffix _wp",
