@@ -2234,7 +2234,13 @@
         "make everything capitalized",
         "lowercase",
         "lowercase everything",
-        "bold the words that start with abc"
+        "bold the words that start with abc",
+        "bold and underline the words that start with t",
+        "make the words that start with t bold",
+        "make words that start with t bold and underlined",
+        "bold words that end with t",
+        "bold words that contain with t",
+        "bold words that include with t"
       ],
       "template": [
         "setidsuffix _wp",
