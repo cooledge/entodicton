@@ -2240,7 +2240,15 @@
         "make words that start with t bold and underlined",
         "bold words that end with t",
         "bold the words that contain t",
-        "bold the words that include t"
+        "bold the words that include t",
+        "make the bolded words that start with t underlined",
+        "make the bolded and underlined words that start with t capitalized",
+        "bold the underlined words that contain t",
+        "underline the words that contain t",
+        "capitalize the words that contain t",
+        "italicize the words that contain t",
+        "italicize the bolded words that contain t",
+        "capitalize the bolded words that contain t"
       ],
       "template": [
         "setidsuffix _wp",
