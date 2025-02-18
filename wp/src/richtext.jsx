@@ -224,10 +224,10 @@ const initialValue = [
     children: [
       { text: 'This is editable ' },
       { text: 'rich', bold: true },
-      { text: ' text, ' },
+      { text: ' text, ', capitalize: true },
       { text: 'much', italic: true },
       { text: ' uppercase ', uppercase: true },
-      { text: ' better than a ' },
+      { text: ' better than a ', italic: true  },
       { text: '<textarea>', code: true },
       { text: '!' },
     ],

@@ -15,10 +15,10 @@ function sleep(ms) {
   });
 }
 
-const isAllTextTagged = async (page, tagName, condition = {comparison: 'all'}) => {
+const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]) => {
   // this was not working so I passed in data as the condition
   // await page.exposeFunction("condition", condition);
-  const result = await page.evaluate(async (tagName, condition) => {
+  const result = await page.evaluate(async (tagName, conditions) => {
     const editor = document.querySelector('.slate-editor');
     if (!editor) return false;
 
@@ -32,47 +32,62 @@ const isAllTextTagged = async (page, tagName, condition = {comparison: 'all'}) =
         continue; // Skip empty or whitespace-only nodes
       }
 
-      const { comparison, letters } = condition
-      let test = () => true
-      if (comparison == 'prefix') {
-        test = (word) => word.toLowerCase().startsWith(letters)
-      }
-      else if (comparison == 'suffix') {
-        test = (word) => word.toLowerCase().endsWith(letters)
-      }
-      else if (comparison == 'include') {
-        test = (word) => word.toLowerCase().includes(letters)
+      const hasTag = (node, tagName) => {
+        // Check if the node is inside a <tag>
+        if (node.tagName.toLowerCase() !== tagName) {
+          let isTagged = false;
+          let current = node;
+          while (current && current !== editor) {
+            console.log('current.tagName', current.tagName)
+            if (current.tagName.toLowerCase() === tagName) {
+              isTagged = true;
+              break;
+            }
+            current = current.parentNode;
+          }
+          return isTagged
+          /*
+          if (!isTagged) {
+            console.log('checking ', textContent)
+            console.log('checking node', node)
+            return false;
+          }
+          */
+        }
       }
 
-      if (!test(textContent)) {
-        console.log('rejecting', textContent)
+      let pass = true
+      for (const condition of conditions) {
+        const { comparison, letters, hasStyle } = condition
+        let test = () => true
+        if (comparison == 'prefix') {
+          test = (word) => word.toLowerCase().startsWith(letters)
+        } else if (comparison == 'suffix') {
+          test = (word) => word.toLowerCase().endsWith(letters)
+        } else if (comparison == 'include') {
+          test = (word) => word.toLowerCase().includes(letters)
+        } else if (hasStyle) {
+          test = (word) => hasTag(node, hasStyle)
+        }
+
+        if (!test(textContent)) {
+          console.log('rejecting', textContent)
+          pass = false
+          break
+        }
+      }
+
+      if (!pass) {
         continue
       }
 
       console.log('checking ', textContent)
       console.log(node)
-      // Check if the node is inside a <tag>
-      if (node.tagName.toLowerCase() !== tagName) {
-        let isTagged = false;
-        let current = node;
-        while (current && current !== editor) {
-          console.log('current.tagName', current.tagName)
-          if (current.tagName.toLowerCase() === tagName) {
-            isTagged = true;
-            break;
-          }
-          current = current.parentNode;
-        }
-        if (!isTagged) {
-          debugger
-          console.log('checking ', textContent)
-          console.log('checking node', node)
-          return false;
-        }
-      }
+
+      return hasTag(node, tagName)
     }
     return true;
-  }, tagName, condition);
+  }, tagName, conditions);
   // await page.removeExposedFunction('condition');
   return result
 }
@@ -173,38 +188,68 @@ describe('tests for wp page', () => {
   test(`WP bold the words that start with t`, async () => {
     await query('bold the words that start with t')
     const condition = { comparison: 'prefix', letters: 't' }
-    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
   }, timeout);
 
   test(`WP bold the words that end with e`, async () => {
     await query('bold the words that end with e')
     const condition = { comparison: 'suffix', letters: 'e' }
-    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
   }, timeout);
 
   test(`WP make the words that start with t bold`, async () => {
     await query('make the words that start with t bold')
     const condition = { comparison: 'prefix', letters: 't' }
-    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
   }, timeout);
 
   test(`WP make the words that end with e bold`, async () => {
     await query('make the words that end with e bold')
     const condition = { comparison: 'suffix', letters: 'e' }
-    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
   }, timeout);
 
   test(`WP make the words that contain e bold`, async () => {
     await query('make the words that contain e bold')
     const condition = { comparison: 'include', letters: 'e' }
-    expect(await isAllTextTagged(page, 'strong', condition)).toBeTruthy()
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP underlin the words that contain e`, async () => {
+  test(`WP underline the words that contain e`, async () => {
     await query('underline the words that contain e')
     const condition = { comparison: 'include', letters: 'e' }
-    expect(await isAllTextTagged(page, 'u', condition)).toBeTruthy()
+    expect(await isAllTextTagged(page, 'u', [condition])).toBeTruthy()
   }, timeout);
 
+  const xxx_the_yyy_words = [
+    {action: 'underline', selector: 'bolded', hasStyle: 'strong', tagName: 'u'},
+    {action: 'capitalize', selector: 'bolded', hasStyle: 'strong', tagName: 'uppercase'},
+    {action: 'italicize', selector: 'bolded', hasStyle: 'strong', tagName: 'em'},
 
+    {action: 'bolded', selector: 'underlined', hasStyle: 'u', tagName: 'strong'},
+    {action: 'capitalize', selector: 'underlined', hasStyle: 'u', tagName: 'uppercase'},
+    {action: 'italicize', selector: 'underlined', hasStyle: 'u', tagName: 'em'},
+
+    {action: 'underline', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'u'},
+    {action: 'bold', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'strong'},
+    {action: 'italicize', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'em'},
+
+    {action: 'underline', selector: 'italicized', hasStyle: 'em', tagName: 'u'},
+    {action: 'capitalize', selector: 'italicized', hasStyle: 'em', tagName: 'uppercase'},
+    {action: 'bold', selector: 'italicized', hasStyle: 'em', tagName: 'strong'},
+  ]
+
+  xxx_the_yyy_words.forEach(({action, selector, hasStyle, tagName}) => {
+    test(`NEO23 WP ${action} the ${selector} words`, async () => {
+      await query(`${action} the ${selector} words`)
+      const condition = { hasStyle }
+      expect(await isAllTextTagged(page, tagName, [condition])).toBeTruthy()
+    }, timeout);
+  })
+
+  test(`WP underlined the bolded words that start with r`, async () => {
+    await query('italicize the bolded words that start with r')
+    const conditions = [{ hasStyle: 'strong' }, { comparison: 'prefix', letters: 'r' }]
+    expect(await isAllTextTagged(page, 'em', conditions)).toBeTruthy()
+  }, timeout);
 });

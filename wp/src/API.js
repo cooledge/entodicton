@@ -11,7 +11,6 @@ function makeAllTextColor(editor, color) {
     }
   );
   */
-  debugger
   Transforms.setNodes(
     editor,
     { italic: true },
@@ -38,6 +37,15 @@ const selectAllText = (editor) => {
   // Apply the selection to the entire document
   Transforms.select(editor, range);
 };
+
+function hasTag(editor, path, tagName) {
+  let [node] = editor.node(path)
+  debugger
+  if (Text.isText(node)) {
+    // return node.bold === true;
+    return node[tagName] === true;
+  }
+}
 
 function tagWords(editor, condition, styles) {
   const { selection } = editor
@@ -69,7 +77,7 @@ function tagWords(editor, condition, styles) {
     console.log('words', words)
     words.forEach((word) => {
       console.log(`    checking word: "${word}", path: ${JSON.stringify(path)}`)
-      if (condition(word)) {
+      if (condition(editor, path, word)) {
         const start = offset
         const end = start + word.length
         console.log(`    okay(${start}, ${end}): `, word)
@@ -129,6 +137,23 @@ function tagWords(editor, condition, styles) {
   }
 }
 
+const styleToTagName = (style) => {
+  switch (style) {
+    case "bolded_wp":
+      return 'bold';
+    case "underlined_wp":
+      return 'underline';
+    case "italicized_wp":
+      return 'italic';
+    case "uppercased_wp":
+      return 'capitalized';
+    case "capitalized_wp":
+      return 'capitalized';
+    case "lowercased_wp":
+      return 'lowercase';
+  }
+}
+
 // Usage
 // Assuming you have an editor state
 
@@ -141,21 +166,24 @@ class API {
     const { unit, scope, color, styles, conditions } = value
 
     if (unit == 'word' && conditions.length > 0) {
-      const tests = conditions.map(({ comparison, letters }) => {
+      const tests = conditions.map(({ comparison, letters, hasStyle }) => {
         if (comparison == 'prefix') {
-          return (word) => word.toLowerCase().startsWith(letters)
+          return (editor, path, word) => word.toLowerCase().startsWith(letters)
         }
         if (comparison == 'suffix') {
-          return (word) => word.toLowerCase().endsWith(letters)
+          return (editor, path, word) => word.toLowerCase().endsWith(letters)
         }
         if (comparison == 'include') {
-          return (word) => word.toLowerCase().includes(letters)
+          return (editor, path, word) => word.toLowerCase().includes(letters)
+        }
+        if (hasStyle) {
+          return (editor, path, word) => hasTag(editor, path, styleToTagName(hasStyle))
         }
         return () => true
       })
-      const condition = (word) => {
+      const condition = (editor, path, word) => {
         for (const test of tests) {
-          if (!test(word)) {
+          if (!test(editor, path, word)) {
             return false
           }
         }
