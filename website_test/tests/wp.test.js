@@ -26,6 +26,7 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
     const textNodes = editor.querySelectorAll('span[data-slate-string="true"]');
 
     let counter = 0
+    let wordOrdinal = 0
     for (let node of textNodes) {
       // Check if the node is empty or only contains whitespace
       const textContent = node.textContent.trim();
@@ -33,7 +34,16 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
         continue; // Skip empty or whitespace-only nodes
       }
 
-      debugger
+      // ordinal range for current chunk
+      const words = textContent.match(/\S+|\s+/g)
+      const chunkOrdinals = []
+      for (const word of words) {
+        if (word.trim().length == 0) {
+          continue
+        }
+        wordOrdinal += 1
+        chunkOrdinals.push(wordOrdinal)
+      }
       const hasTag = (node, tagName) => {
         // Check if the node is inside a <tag>
         if (node.tagName.toLowerCase() !== tagName) {
@@ -51,9 +61,12 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
         }
       }
 
+      console.log(`text: ${textContent} chunkOrdinals: ${chunkOrdinals}`)
+
       let pass = true
       for (const condition of conditions) {
-        const { comparison, letters, hasStyle } = condition
+        const { comparison, letters, hasStyle, wordOrdinals } = condition
+        debugger
         let test = () => true
         if (comparison == 'prefix') {
           test = (word) => word.toLowerCase().startsWith(letters)
@@ -63,14 +76,24 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
           test = (word) => word.toLowerCase().includes(letters)
         } else if (hasStyle) {
           test = (word) => hasTag(node, hasStyle)
+        } else if (wordOrdinals) {
+          test = (word, chunkOrdinals) => {
+            let overlap = false
+            for (const wordOrdinal of wordOrdinals) {
+              if (chunkOrdinals.includes(wordOrdinal)) {
+                overlap = true
+                break
+              }
+            }
+            return overlap
+          }
         }
 
-        if (!test(textContent)) {
+        if (!test(textContent, chunkOrdinals)) {
           console.log('rejecting', textContent)
           pass = false
           break
         }
-        debugger
       }
 
       if (!pass) {
@@ -291,35 +314,6 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'uppercase', [condition])).toBeTruthy()
   }, timeout);
 
-  /*
-  const xxx_the_yyy_words = [
-    {action: 'underline', selector: 'bolded', hasStyle: 'strong', tagName: 'u'},
-    {action: 'capitalize', selector: 'bolded', hasStyle: 'strong', tagName: 'uppercase'},
-    {action: 'italicize', selector: 'bolded', hasStyle: 'strong', tagName: 'em'},
-
-    {action: 'bolded', selector: 'underlined', hasStyle: 'u', tagName: 'strong'},
-    {action: 'capitalize', selector: 'underlined', hasStyle: 'u', tagName: 'uppercase'},
-    {action: 'italicize', selector: 'underlined', hasStyle: 'u', tagName: 'em'},
-
-    {action: 'underline', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'u', neo23: 'NEO23'},
-    {action: 'bold', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'strong'},
-    {action: 'italicize', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'em'},
-
-    {action: 'underline', selector: 'italicized', hasStyle: 'em', tagName: 'u'},
-    {action: 'capitalize', selector: 'italicized', hasStyle: 'em', tagName: 'uppercase'},
-    {action: 'bold', selector: 'italicized', hasStyle: 'em', tagName: 'strong'},
-  ]
-
-  xxx_the_yyy_words.forEach(({action, selector, hasStyle, tagName, neo23}) => {
-    test(`WP ${neo23} ${action} the ${selector} words`, async () => {
-      console.log(`${action} the ${selector} words`)
-      await query(`${action} the ${selector} words`)
-      const condition = { hasStyle }
-      expect(await isAllTextTagged(page, tagName, [condition])).toBeTruthy()
-    }, timeout);
-  })
-  */
-
   test(`WP underlined the bolded words that start with r`, async () => {
     await query('italicize the bolded words that start with r')
     const conditions = [{ hasStyle: 'strong' }, { comparison: 'prefix', letters: 'r' }]
@@ -330,5 +324,17 @@ describe('tests for wp page', () => {
     await query('bold the first word')
     const conditions = [{ wordOrdinals: [1] }]
     expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP underline the 4th word`, async () => {
+    await query('underline the 4th word')
+    const conditions = [{ wordOrdinals: [4] }]
+    expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP underline the 4th and 7th word`, async () => {
+    await query('underline the 4th and 7th word')
+    const conditions = [{ wordOrdinals: [4, 7] }]
+    expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
   }, timeout);
 });

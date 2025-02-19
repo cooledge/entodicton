@@ -83,12 +83,12 @@ function tagWords(editor, condition, styles) {
     let offset = 0
     console.log('words', words)
     words.forEach((word) => {
-      if (word.length > 0) {
-        wordOrdinal += 1
-      }
       if (word.trim() == '') {
         offset += word.length
         return
+      }
+      if (word.length > 0) {
+        wordOrdinal += 1
       }
       console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${wordOrdinal} paragraphOrdinal: ${paragraphOrdinal}`)
       // if (path[0] == 1 && path[1] == 22) {
