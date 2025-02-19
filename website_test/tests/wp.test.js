@@ -18,6 +18,7 @@ function sleep(ms) {
 const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]) => {
   // this was not working so I passed in data as the condition
   // await page.exposeFunction("condition", condition);
+  // await sleep(10000)
   const result = await page.evaluate(async (tagName, conditions) => {
     const editor = document.querySelector('.slate-editor');
     if (!editor) return false;
@@ -32,6 +33,7 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
         continue; // Skip empty or whitespace-only nodes
       }
 
+      debugger
       const hasTag = (node, tagName) => {
         // Check if the node is inside a <tag>
         if (node.tagName.toLowerCase() !== tagName) {
@@ -46,13 +48,6 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
             current = current.parentNode;
           }
           return isTagged
-          /*
-          if (!isTagged) {
-            console.log('checking ', textContent)
-            console.log('checking node', node)
-            return false;
-          }
-          */
         }
       }
 
@@ -75,6 +70,7 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
           pass = false
           break
         }
+        debugger
       }
 
       if (!pass) {
@@ -84,7 +80,9 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
       console.log('checking ', textContent)
       console.log(node)
 
-      return hasTag(node, tagName)
+      if (!hasTag(node, tagName)) {
+        return false
+      }
     }
     return true;
   }, tagName, conditions);
@@ -221,6 +219,79 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'u', [condition])).toBeTruthy()
   }, timeout);
 
+  test(`WP underline the bolded words`, async () => {
+    await query(`underline the bolded words`)
+    const condition = { hasStyle: 'strong' }
+    expect(await isAllTextTagged(page, 'u', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP capitalize the bolded words`, async () => {
+    await query(`capitalize the bolded words`)
+    const condition = { hasStyle: 'strong' }
+    expect(await isAllTextTagged(page, 'uppercase', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP italicize the bolded words`, async () => {
+    await query(`italicize the bolded words`)
+    const condition = { hasStyle: 'strong' }
+    expect(await isAllTextTagged(page, 'em', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the underlined words`, async () => {
+    await query(`bold the underlined words`)
+    const condition = { hasStyle: 'u' }
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP capitalize the underlined words`, async () => {
+    await query(`capitalize the underlined words`)
+    const condition = { hasStyle: 'u' }
+    expect(await isAllTextTagged(page, 'uppercase', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP italicize the underlined words`, async () => {
+    await query(`italicize the underlined words`)
+    const condition = { hasStyle: 'u' }
+    expect(await isAllTextTagged(page, 'em', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the capitalized words`, async () => {
+    await query(`bold the capitalized words`)
+    const condition = { hasStyle: 'uppercase' }
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP underline the capitalized words`, async () => {
+    await query(`underline the capitalized words`)
+    const condition = { hasStyle: 'uppercase' }
+    expect(await isAllTextTagged(page, 'u', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP italicize the capitalized words`, async () => {
+    await query(`italicize the capitalized words`)
+    const condition = { hasStyle: 'uppercase' }
+    expect(await isAllTextTagged(page, 'em', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the italicized words`, async () => {
+    await query(`bold the italicized words`)
+    const condition = { hasStyle: 'italic' }
+    expect(await isAllTextTagged(page, 'strong', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP underline the italicized words`, async () => {
+    await query(`underline the italicized words`)
+    const condition = { hasStyle: 'italic' }
+    expect(await isAllTextTagged(page, 'u', [condition])).toBeTruthy()
+  }, timeout);
+
+  test(`WP capitalize the italicized words`, async () => {
+    await query(`capitalize the italicized words`)
+    const condition = { hasStyle: 'italic' }
+    expect(await isAllTextTagged(page, 'uppercase', [condition])).toBeTruthy()
+  }, timeout);
+
+  /*
   const xxx_the_yyy_words = [
     {action: 'underline', selector: 'bolded', hasStyle: 'strong', tagName: 'u'},
     {action: 'capitalize', selector: 'bolded', hasStyle: 'strong', tagName: 'uppercase'},
@@ -230,7 +301,7 @@ describe('tests for wp page', () => {
     {action: 'capitalize', selector: 'underlined', hasStyle: 'u', tagName: 'uppercase'},
     {action: 'italicize', selector: 'underlined', hasStyle: 'u', tagName: 'em'},
 
-    {action: 'underline', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'u'},
+    {action: 'underline', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'u', neo23: 'NEO23'},
     {action: 'bold', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'strong'},
     {action: 'italicize', selector: 'capitalized', hasStyle: 'capitalized', tagName: 'em'},
 
@@ -239,17 +310,25 @@ describe('tests for wp page', () => {
     {action: 'bold', selector: 'italicized', hasStyle: 'em', tagName: 'strong'},
   ]
 
-  xxx_the_yyy_words.forEach(({action, selector, hasStyle, tagName}) => {
-    test(`NEO23 WP ${action} the ${selector} words`, async () => {
+  xxx_the_yyy_words.forEach(({action, selector, hasStyle, tagName, neo23}) => {
+    test(`WP ${neo23} ${action} the ${selector} words`, async () => {
+      console.log(`${action} the ${selector} words`)
       await query(`${action} the ${selector} words`)
       const condition = { hasStyle }
       expect(await isAllTextTagged(page, tagName, [condition])).toBeTruthy()
     }, timeout);
   })
+  */
 
   test(`WP underlined the bolded words that start with r`, async () => {
     await query('italicize the bolded words that start with r')
     const conditions = [{ hasStyle: 'strong' }, { comparison: 'prefix', letters: 'r' }]
     expect(await isAllTextTagged(page, 'em', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the first word`, async () => {
+    await query('bold the first word')
+    const conditions = [{ wordOrdinals: [1] }]
+    expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
   }, timeout);
 });

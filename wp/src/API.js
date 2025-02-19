@@ -40,7 +40,7 @@ const selectAllText = (editor) => {
 
 function hasTag(editor, path, tagName) {
   let [node] = editor.node(path)
-  debugger
+  console.log(`hasTag path: ${path} tagName: ${tagName}`)
   if (Text.isText(node)) {
     // return node.bold === true;
     return node[tagName] === true;
@@ -61,8 +61,13 @@ function tagWords(editor, condition, styles) {
     console.log('chunk', node.text)
   })
 
-  console.log(JSON.stringify(editor.children, null, 2))
-  console.log('---------------- during')
+  const debugUpdate = false
+
+  if (debugUpdate) {
+    console.log(JSON.stringify(editor.children, null, 2))
+    console.log('---------------- during')
+  }
+  let wordOrdinal = 0
   Editor.nodes(editor, {
     at: [],
     match: n => n.text && n.text.length > 0,
@@ -70,14 +75,27 @@ function tagWords(editor, condition, styles) {
     voids: false,
   }).forEach(([node, path]) => {
     console.log('chunk', node.text)
-    const words = node.text.split(/\s+/)
+    const paragraphOrdinal = path[0]+1
+    // const words = node.text.split(/\s+/)
+    const words = node.text.match(/\S+|\s+/g)
     console.log('node', node)
     console.log('path', path)
     let offset = 0
     console.log('words', words)
     words.forEach((word) => {
-      console.log(`    checking word: "${word}", path: ${JSON.stringify(path)}`)
-      if (condition(editor, path, word)) {
+      if (word.length > 0) {
+        wordOrdinal += 1
+      }
+      if (word.trim() == '') {
+        offset += word.length
+        return
+      }
+      console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${wordOrdinal} paragraphOrdinal: ${paragraphOrdinal}`)
+      // if (path[0] == 1 && path[1] == 22) {
+      if (word == 'TEXT,') {
+        debugger
+      }
+      if (condition(editor, path, word, { wordOrdinal, paragraphOrdinal })) {
         const start = offset
         const end = start + word.length
         console.log(`    okay(${start}, ${end}): `, word)
@@ -111,17 +129,21 @@ function tagWords(editor, condition, styles) {
         }
         const increment = offset ? 2 : 1
         path = setLastElement(path, path[path.length-1]+increment)
-        offset = 1
+        offset = 0
       } else {
-        offset += word.length + 1 // +1 for the space or any delimiter
+        offset += word.length
       }
-      console.log('after update')
-      console.log(JSON.stringify(editor.children, null, 2))
+      if (debugUpdate) {
+        console.log('after update')
+        console.log(JSON.stringify(editor.children, null, 2))
+      }
     })
   })
 
-  console.log('---------------- after')
-  console.log(JSON.stringify(editor.children, null, 2))
+  if (debugUpdate) {
+    console.log('---------------- after')
+    console.log(JSON.stringify(editor.children, null, 2))
+  }
   Editor.nodes(editor, {
     at: [],
     match: n => n.text && n.text.length > 0,
@@ -146,9 +168,8 @@ const styleToTagName = (style) => {
     case "italicized_wp":
       return 'italic';
     case "uppercased_wp":
-      return 'capitalized';
     case "capitalized_wp":
-      return 'capitalized';
+      return 'capitalize';
     case "lowercased_wp":
       return 'lowercase';
   }
@@ -165,8 +186,8 @@ class API {
   changeState(value) {
     const { unit, scope, color, styles, conditions } = value
 
-    if (unit == 'word' && conditions.length > 0) {
-      const tests = conditions.map(({ comparison, letters, hasStyle }) => {
+    if (['word', 'paragraph'].includes(unit) && conditions.length > 0) {
+      const tests = conditions.map(({ comparison, letters, hasStyle, ordinals }) => {
         if (comparison == 'prefix') {
           return (editor, path, word) => word.toLowerCase().startsWith(letters)
         }
@@ -179,11 +200,21 @@ class API {
         if (hasStyle) {
           return (editor, path, word) => hasTag(editor, path, styleToTagName(hasStyle))
         }
+        if (ordinals) {
+          return (editor, path, word, { wordOrdinal, paragraphOrdinal }) => {
+            switch (unit) {
+            case "word":
+              return ordinals.includes(wordOrdinal)
+            case "paragraph":
+              return ordinals.includes(paragraphOrdinal)
+            }
+          }
+        }
         return () => true
       })
-      const condition = (editor, path, word) => {
+      const condition = (editor, path, word, args) => {
         for (const test of tests) {
-          if (!test(editor, path, word)) {
+          if (!test(editor, path, word, args)) {
             return false
           }
         }

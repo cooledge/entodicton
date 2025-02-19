@@ -75,6 +75,11 @@ function Text(props) {
     setQuery(query.value)
   };
 
+  /*
+          <div>
+            <span className='paraphrase'>{ query }</span>
+          </div>
+  */
   return (
     <div className="Speech">
       { km && 
@@ -82,9 +87,6 @@ function Text(props) {
           <div>
             Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
             <a style={{"marginLeft": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
-          </div>
-          <div>
-            <span className='paraphrase'>{ query }</span>
           </div>
         </>
       }

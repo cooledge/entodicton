@@ -226,7 +226,7 @@ const initialValue = [
       { text: 'rich', bold: true },
       { text: ' text, ', capitalize: true },
       { text: 'much', italic: true },
-      { text: ' uppercase ', uppercase: true },
+      { text: ' uppercase ', capitalize: true },
       { text: ' better than a ', italic: true  },
       { text: '<textarea>', code: true },
       { text: '!' },
@@ -243,6 +243,15 @@ const initialValue = [
         text: ', or add a semantically rendered block quote in the middle of the page, like this:',
       },
     ],
+  },
+  {
+    type: 'paragraph',
+    children: [
+      {
+        underline: true,
+        text: "underlined words",
+      },
+    ]
   },
   {
     type: 'block-quote',
