@@ -91,7 +91,6 @@ function tagWords(editor, condition, styles) {
         wordOrdinal += 1
       }
       console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${wordOrdinal} paragraphOrdinal: ${paragraphOrdinal}`)
-      // if (path[0] == 1 && path[1] == 22) {
       if (word == 'TEXT,') {
         debugger
       }
@@ -184,7 +183,9 @@ class API {
   }
 
   changeState(value) {
-    const { unit, scope, color, styles, conditions } = value
+    // const { unit, scope, color, styles, conditions } = value
+    const { selectors, color, styles} = value
+    const { unit, scope, conditions } = selectors[0]
 
     if (['word', 'paragraph'].includes(unit) && conditions.length > 0) {
       const tests = conditions.map(({ comparison, letters, hasStyle, ordinals }) => {
