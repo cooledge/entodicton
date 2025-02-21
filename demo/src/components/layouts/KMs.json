@@ -155,7 +155,9 @@
       "description": "articles",
       "examples": [
         "the theable",
-        "a theable"
+        "a theable",
+        "every distributable",
+        "each distributable"
       ],
       "template": [],
       "includes": [
@@ -367,8 +369,7 @@
         "2 piece hasCountOfPieces",
         "10 2 piece hasCountOfPieces",
         "more countable",
-        "less countable",
-        "every countable"
+        "less countable"
       ],
       "template": [],
       "includes": [
@@ -2256,13 +2257,16 @@
         "the first paragraph",
         "the first letter",
         "bold the first paragraph",
-        "bold the first letter"
+        "bold the first letter",
+        "every paragraph",
+        "the first word of every paragraph",
+        "bold the first word of every paragraph"
       ],
       "template": [
         "setidsuffix _wp",
-        "words are countable orderable and statefulElements",
-        "characters are countable orderable and statefulElements",
-        "paragraphs are countable orderable and statefulElement",
+        "words are countable distributable orderable textContainers and statefulElements",
+        "characters are countable distributable orderable and statefulElements",
+        "paragraphs are countable distributable orderable textContainers and statefulElement",
         "text is a statefulElement",
         "letters means characters",
         "bold, italic, code, capitalize, lowercase and underline are styles",
