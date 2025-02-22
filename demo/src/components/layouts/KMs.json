@@ -2260,7 +2260,8 @@
         "bold the first letter",
         "every paragraph",
         "the first word of every paragraph",
-        "bold the first word of every paragraph"
+        "bold the first word of every paragraph",
+        "underline the 4th and 7th word of the second paragraph"
       ],
       "template": [
         "setidsuffix _wp",
