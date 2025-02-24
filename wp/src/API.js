@@ -47,6 +47,88 @@ function hasTag(editor, path, tagName) {
   }
 }
 
+function tagParagraphs(editor, { paragraphSelector, enterParagraphContext }, styles) {
+  const { selection } = editor
+  let condition = () => true
+  Transforms.deselect(editor) // Clear selection to apply changes to all text
+
+  if (false) {
+    console.log('---------------- before')
+    console.log('editor.children', editor.children)
+    Editor.nodes(editor, {
+      at: [],
+      match: n => n.type && n.type == 'paragraph',
+      mode: 'lowest',
+      voids: false,
+    }).forEach(([node, path]) => {
+      console.log('chunk', node.text, path)
+    })
+  }
+
+  let telemetry = {
+    paragraphOrdinal: -1,
+  }
+  Editor.nodes(editor, {
+    at: [],
+    match: n => n.type && n.type == 'paragraph',
+    mode: 'lowest',
+    voids: false,
+  }).forEach(([node, path]) => {
+    debugger
+    console.log('chunk', node.text)
+    telemetry.paragraphOrdinal = path[0]+1
+    enterParagraphContext({ telemetry })
+    if (!paragraphSelector({ telemetry })) {
+      return // continue
+    }
+
+    const paragraphPath = path
+    const paragraphNode = node
+    const range = {
+      // anchor: { path, offset: 0 },
+      // focus: { path, offset: end }
+      anchor: { path: paragraphPath.concat(0), offset: 0 }, // Start of the first child
+      focus: {
+        path: paragraphPath.concat(paragraphNode.children.length - 1),
+        offset: paragraphNode.children[paragraphNode.children.length - 1].text.length, // End of the last child
+      },
+    }
+    console.log('        selecting', JSON.stringify(range))
+    Transforms.select(editor, range);
+    for (const style of styles) {
+      Editor.addMark(editor, style, true)
+    }
+    const setLastElement = (path, last) => {
+      let updatedPath = [];
+      for (let element of path.slice(0, -1)) {
+        updatedPath.push(element)
+      }
+      updatedPath.push(last)
+      return updatedPath
+    }
+
+    /*
+    const increment = offset ? 2 : 1
+    path = setLastElement(path, path[path.length-1]+increment)
+    offset = 0
+    */
+  })
+
+  Editor.nodes(editor, {
+    at: [],
+    match: n => n.text && n.text.length > 0,
+    mode: 'lowest',
+    voids: false,
+  }).forEach(([node, path]) => {
+    console.log(`${path} - ${node.text}`)
+  })
+
+  // Restore previous selection if it existed
+  if (selection) {
+    Transforms.select(editor, selection)
+  }
+}
+
 function tagWords(editor, { condition, paragraphSelector, enterParagraphContext }, styles) {
   const { selection } = editor
   Transforms.deselect(editor) // Clear selection to apply changes to all text
@@ -108,12 +190,6 @@ function tagWords(editor, { condition, paragraphSelector, enterParagraphContext 
         telemetry.wordInParagraphOrdinal += 1
       }
       console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${telemetry.wordOrdinal} wordInParagraphOrdinal: ${telemetry.wordInParagraphOrdinal} paragraphOrdinal: ${telemetry.paragraphOrdinal}`)
-      if (word == 'TEXT,') {
-        debugger
-      }
-      if (telemetry.wordOrdinal == 1 && telemetry.paragraphOrdinal == 2) {
-        debugger
-      }
       if (condition(editor, path, word, telemetry)) {
         const start = offset
         const end = start + word.length
@@ -219,7 +295,6 @@ class API {
     if (selectors[0].unit == 'paragraph') {
       const selector = selectors.shift()
       const { unit, scope, conditions } = selector
-      debugger
       let ordinals = []
       for (const condition of conditions) {
         if (condition.ordinals) {
@@ -233,6 +308,10 @@ class API {
       }
       enterParagraphContext = ({telemetry}) => {
         telemetry.wordOrdinal = 0
+      }
+
+      if (selectors.length == 0) {
+        tagParagraphs(this.props.editor, { paragraphSelector, enterParagraphContext }, styles)
       }
     }
 
@@ -268,7 +347,6 @@ class API {
         }
         return () => true
       })
-      debugger
 
       const condition = (editor, path, word, args) => {
         for (const test of tests) {

@@ -105,7 +105,6 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
           tests.push(({ word }) => hasTag(node, hasStyle))
         }
 
-    
         if (wordInParagraphOrdinals) {
           tests.push(({ word, chunkInParagraphOrdinals }) => {
             let overlap = false
@@ -391,9 +390,15 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP underline the first word of the second paragraph`, async () => {
+  test(`WP underline the first word of the second paragraph`, async () => {
     await query('underline the first word of the second paragraph')
     const conditions = [{ paragraphOrdinals: [2], wordInParagraphOrdinals: [1] }]
     expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP bold the second paragraph`, async () => {
+    await query('bold the second paragraph')
+    const conditions = [{ paragraphOrdinals: [2]}]
+    expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
   }, timeout);
 });
