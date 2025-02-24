@@ -47,7 +47,7 @@ function hasTag(editor, path, tagName) {
   }
 }
 
-function tagWords(editor, condition, styles) {
+function tagWords(editor, { condition, paragraphSelector, enterParagraphContext }, styles) {
   const { selection } = editor
   Transforms.deselect(editor) // Clear selection to apply changes to all text
 
@@ -67,7 +67,13 @@ function tagWords(editor, condition, styles) {
     console.log(JSON.stringify(editor.children, null, 2))
     console.log('---------------- during')
   }
-  let wordOrdinal = 0
+  let telemetry = {
+    wordOrdinal: 0,
+    wordInParagraphOrdinal: 0,
+    lastParagraphOrdinal: -1,
+    paragraphOrdinal: -1,
+    lastParagraphOrdinal: -1,
+  }
   Editor.nodes(editor, {
     at: [],
     match: n => n.text && n.text.length > 0,
@@ -75,7 +81,17 @@ function tagWords(editor, condition, styles) {
     voids: false,
   }).forEach(([node, path]) => {
     console.log('chunk', node.text)
-    const paragraphOrdinal = path[0]+1
+    telemetry.paragraphOrdinal = path[0]+1
+    if (!paragraphSelector({ telemetry })) {
+      return // continue
+    }
+    if (telemetry.paragraphOrdinal != telemetry.lastParagraphOrdinal) {
+      telemetry.wordInParagraphOrdinal = 0
+      telemetry.lastParagraphOrdinal = telemetry.paragraphOrdinal
+      enterParagraphContext({ telemetry })
+      // paragraph({ telemetry })
+      // const { skip, } = paragraph({ paragraphOrdinalI/
+    }
     // const words = node.text.split(/\s+/)
     const words = node.text.match(/\S+|\s+/g)
     console.log('node', node)
@@ -88,13 +104,17 @@ function tagWords(editor, condition, styles) {
         return
       }
       if (word.length > 0) {
-        wordOrdinal += 1
+        telemetry.wordOrdinal += 1
+        telemetry.wordInParagraphOrdinal += 1
       }
-      console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${wordOrdinal} paragraphOrdinal: ${paragraphOrdinal}`)
+      console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${telemetry.wordOrdinal} wordInParagraphOrdinal: ${telemetry.wordInParagraphOrdinal} paragraphOrdinal: ${telemetry.paragraphOrdinal}`)
       if (word == 'TEXT,') {
         debugger
       }
-      if (condition(editor, path, word, { wordOrdinal, paragraphOrdinal })) {
+      if (telemetry.wordOrdinal == 1 && telemetry.paragraphOrdinal == 2) {
+        debugger
+      }
+      if (condition(editor, path, word, telemetry)) {
         const start = offset
         const end = start + word.length
         console.log(`    okay(${start}, ${end}): `, word)
@@ -107,17 +127,6 @@ function tagWords(editor, condition, styles) {
         for (const style of styles) {
           Editor.addMark(editor, style, true)
         }
-        // Since it's rich text, you can do things like turn a selection of text
-        // Since it's rich text, you can do things of text
-        // Since it's rich text, you can do things text
-        // it's rich text, you can do things text
-        // it's text, you can do things text
-        // it's text, you can things text
-        // it's text, you things text
-        // it's text you things text
-        // it text you things text
-        // +1 since text
-        // nonConstPath[nonConstPath.length-1] = nonConstPath[nonConstPath.length-1] + 1
         const setLastElement = (path, last) => {
           let updatedPath = [];
           for (let element of path.slice(0, -1)) {
@@ -185,9 +194,51 @@ class API {
   changeState(value) {
     // const { unit, scope, color, styles, conditions } = value
     const { selectors, color, styles} = value
-    const { unit, scope, conditions } = selectors[0]
 
-    if (['word', 'paragraph'].includes(unit) && conditions.length > 0) {
+    // use current selection
+    if (selectors.length == 0) {
+      console.log('changeState', value)
+      // makeAllTextColor(this.props.editor, color)
+      for (const style of styles || []) {
+        Editor.addMark(this.props.editor, style, true)
+      }
+      return
+    }
+
+    // special case where a selection can be made
+    if (selectors.length == 1 && selectors[0].unit == 'everything') {
+      selectAllText(this.props.editor)
+      for (const style of styles || []) {
+        Editor.addMark(this.props.editor, style, true)
+      }
+      return
+    }
+
+    let paragraphSelector = () => true
+    let enterParagraphContext = () => true
+    if (selectors[0].unit == 'paragraph') {
+      const selector = selectors.shift()
+      const { unit, scope, conditions } = selector
+      debugger
+      let ordinals = []
+      for (const condition of conditions) {
+        if (condition.ordinals) {
+          ordinals = ordinals.concat(condition.ordinals)
+        }
+      }
+      if (ordinals.length > 0) {
+        paragraphSelector = ({telemetry}) => {
+          return ordinals.includes(telemetry.paragraphOrdinal)
+        }
+      }
+      enterParagraphContext = ({telemetry}) => {
+        telemetry.wordOrdinal = 0
+      }
+    }
+
+    if (selectors[0]?.unit == 'word') {
+      const { unit, scope, conditions } = selectors[0]
+
       const tests = conditions.map(({ comparison, letters, hasStyle, ordinals }) => {
         if (comparison == 'prefix') {
           return (editor, path, word) => word.toLowerCase().startsWith(letters)
@@ -202,9 +253,13 @@ class API {
           return (editor, path, word) => hasTag(editor, path, styleToTagName(hasStyle))
         }
         if (ordinals) {
-          return (editor, path, word, { wordOrdinal, paragraphOrdinal }) => {
+          return (editor, path, word, { wordOrdinal, paragraphOrdinal, wordInParagraphOrdinal }) => {
             switch (unit) {
             case "word":
+              console.log(ordinals)
+              console.log(wordOrdinal)
+              const result = ordinals.includes(wordOrdinal)
+              console.log('result is', result)
               return ordinals.includes(wordOrdinal)
             case "paragraph":
               return ordinals.includes(paragraphOrdinal)
@@ -213,25 +268,19 @@ class API {
         }
         return () => true
       })
+      debugger
+
       const condition = (editor, path, word, args) => {
         for (const test of tests) {
+          const result = test(editor, path, word, args)
           if (!test(editor, path, word, args)) {
             return false
           }
         }
         return true
       }
-      tagWords(this.props.editor, condition, styles)
+      tagWords(this.props.editor, { condition, paragraphSelector, enterParagraphContext }, styles)
       return
-    }
-
-    if (unit == 'everything') {
-      selectAllText(this.props.editor)
-    }
-    console.log('changeState', value)
-    // makeAllTextColor(this.props.editor, color)
-    for (const style of styles || []) {
-      Editor.addMark(this.props.editor, style, true)
     }
   }
 

@@ -19,30 +19,58 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
   // this was not working so I passed in data as the condition
   // await page.exposeFunction("condition", condition);
   // await sleep(10000)
+
   const result = await page.evaluate(async (tagName, conditions) => {
+    const getTag = (node, tagName) => {
+      if (node.tagName.toLowerCase() !== tagName) {
+        let current = node;
+        while (current && current !== editor) {
+          if (current.tagName.toLowerCase() === tagName) {
+            return current
+          }
+          current = current.parentNode;
+        }
+      }
+    }
+
     const editor = document.querySelector('.slate-editor');
     if (!editor) return false;
 
     const textNodes = editor.querySelectorAll('span[data-slate-string="true"]');
-
     let counter = 0
     let wordOrdinal = 0
+    let wordInParagraphOrdinal = 0
+    let paragraphOrdinal = 0
+    let lastParagraph;
     for (let node of textNodes) {
       // Check if the node is empty or only contains whitespace
+      console.log(node)
       const textContent = node.textContent.trim();
       if (textContent === '') {
         continue; // Skip empty or whitespace-only nodes
       }
+      const currentParagraph = getTag(node, 'p')
+      const hasParagraph = !!currentParagraph
+      console.log('currentParagraph', currentParagraph)
+      if (currentParagraph && currentParagraph != lastParagraph) {
+        paragraphOrdinal += 1
+        wordInParagraphOrdinal = 0
+        lastParagraph = currentParagraph
+      }
+      console.log('paragraphOrdinal', paragraphOrdinal)
 
       // ordinal range for current chunk
       const words = textContent.match(/\S+|\s+/g)
       const chunkOrdinals = []
+      const chunkInParagraphOrdinals = []
       for (const word of words) {
         if (word.trim().length == 0) {
           continue
         }
         wordOrdinal += 1
+        wordInParagraphOrdinal += 1
         chunkOrdinals.push(wordOrdinal)
+        chunkInParagraphOrdinals.push(wordInParagraphOrdinal)
       }
       const hasTag = (node, tagName) => {
         // Check if the node is inside a <tag>
@@ -50,7 +78,7 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
           let isTagged = false;
           let current = node;
           while (current && current !== editor) {
-            console.log('current.tagName', current.tagName)
+            console.log('current.tagName', current.tagName, current.id)
             if (current.tagName.toLowerCase() === tagName) {
               isTagged = true;
               break;
@@ -65,19 +93,34 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
 
       let pass = true
       for (const condition of conditions) {
-        const { comparison, letters, hasStyle, wordOrdinals } = condition
-        debugger
-        let test = () => true
+        const { comparison, letters, hasStyle, wordOrdinals, wordInParagraphOrdinals, paragraphOrdinals } = condition
+        const tests = []
         if (comparison == 'prefix') {
-          test = (word) => word.toLowerCase().startsWith(letters)
+          tests.push(({ word }) => word.toLowerCase().startsWith(letters))
         } else if (comparison == 'suffix') {
-          test = (word) => word.toLowerCase().endsWith(letters)
+          tests.push(({ word }) => word.toLowerCase().endsWith(letters))
         } else if (comparison == 'include') {
-          test = (word) => word.toLowerCase().includes(letters)
+          tests.push(({ word }) => word.toLowerCase().includes(letters))
         } else if (hasStyle) {
-          test = (word) => hasTag(node, hasStyle)
-        } else if (wordOrdinals) {
-          test = (word, chunkOrdinals) => {
+          tests.push(({ word }) => hasTag(node, hasStyle))
+        }
+
+    
+        if (wordInParagraphOrdinals) {
+          tests.push(({ word, chunkInParagraphOrdinals }) => {
+            let overlap = false
+            for (const wordOrdinal of wordInParagraphOrdinals) {
+              if (chunkInParagraphOrdinals.includes(wordOrdinal)) {
+                overlap = true
+                break
+              }
+            }
+            return overlap
+          })
+        }
+
+        if (wordOrdinals) {
+          tests.push(({ word, chunkOrdinals }) => {
             let overlap = false
             for (const wordOrdinal of wordOrdinals) {
               if (chunkOrdinals.includes(wordOrdinal)) {
@@ -86,12 +129,22 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
               }
             }
             return overlap
+          })
+        }
+        
+        if (paragraphOrdinals) {
+          tests.push(({paragraphOrdinal}) => paragraphOrdinals.includes(paragraphOrdinal))
+        }
+
+        for (const test of tests) {
+          if (!test({ word: textContent, chunkOrdinals, chunkInParagraphOrdinals, paragraphOrdinal })) {
+            console.log('rejecting', textContent)
+            pass = false
+            break
           }
         }
 
-        if (!test(textContent, chunkOrdinals)) {
-          console.log('rejecting', textContent)
-          pass = false
+        if (!pass) {
           break
         }
       }
@@ -99,7 +152,7 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
       if (!pass) {
         continue
       }
-
+ 
       console.log('checking ', textContent)
       console.log(node)
 
@@ -335,6 +388,12 @@ describe('tests for wp page', () => {
   test(`WP underline the 4th and 7th word`, async () => {
     await query('underline the 4th and 7th word')
     const conditions = [{ wordOrdinals: [4, 7] }]
+    expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP underline the first word of the second paragraph`, async () => {
+    await query('underline the first word of the second paragraph')
+    const conditions = [{ paragraphOrdinals: [2], wordInParagraphOrdinals: [1] }]
     expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
   }, timeout);
 });
