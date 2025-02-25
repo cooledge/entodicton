@@ -2261,7 +2261,10 @@
         "every paragraph",
         "the first word of every paragraph",
         "bold the first word of every paragraph",
-        "underline the 4th and 7th word of the second paragraph"
+        "underline the 4th and 7th word of the second paragraph",
+        "a paragraph contains words",
+        "a paragraph that contains bolded words",
+        "underline the paragraphs that contains bolded words"
       ],
       "template": [
         "setidsuffix _wp",
