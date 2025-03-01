@@ -26,6 +26,16 @@ function makeAllTextColor(editor, color) {
   })
 }
 
+const testsToTest = (tests) => (editor, path, word, args) => {
+  for (const test of tests) {
+    const result = test(editor, path, word, args)
+    if (!test(editor, path, word, args)) {
+      return false
+    }
+  }
+  return true
+}
+
 const selectAllText = (editor) => {
   // Get the range that spans the entire document
   const range = Editor.range(
@@ -47,7 +57,7 @@ function hasTag(editor, path, tagName) {
   }
 }
 
-function tagParagraphs(editor, { paragraphSelector, enterParagraphContext }, styles) {
+function tagParagraphs(editor, { paragraphSelector = () => true, enterParagraphContext = () => true } = {}, styles) {
   const { selection } = editor
   let condition = () => true
   Transforms.deselect(editor) // Clear selection to apply changes to all text
@@ -129,7 +139,7 @@ function tagParagraphs(editor, { paragraphSelector, enterParagraphContext }, sty
   }
 }
 
-function tagWords(editor, { condition, paragraphSelector, enterParagraphContext }, styles) {
+function tagWords(editor, { condition, paragraphSelector = () => true, enterParagraphContext = () => true, isTest, onCondition = () => true } = {}, styles) {
   const { selection } = editor
   Transforms.deselect(editor) // Clear selection to apply changes to all text
 
@@ -191,6 +201,13 @@ function tagWords(editor, { condition, paragraphSelector, enterParagraphContext 
       }
       console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${telemetry.wordOrdinal} wordInParagraphOrdinal: ${telemetry.wordInParagraphOrdinal} paragraphOrdinal: ${telemetry.paragraphOrdinal}`)
       if (condition(editor, path, word, telemetry)) {
+        onCondition(telemetry)
+        if (isTest) {
+          return
+        }
+        if (!styles) {
+          return
+        }
         const start = offset
         const end = start + word.length
         console.log(`    okay(${start}, ${end}): `, word)
@@ -290,34 +307,7 @@ class API {
       return
     }
 
-    let paragraphSelector = () => true
-    let enterParagraphContext = () => true
-    if (selectors[0].unit == 'paragraph') {
-      const selector = selectors.shift()
-      const { unit, scope, conditions } = selector
-      let ordinals = []
-      for (const condition of conditions) {
-        if (condition.ordinals) {
-          ordinals = ordinals.concat(condition.ordinals)
-        }
-      }
-      if (ordinals.length > 0) {
-        paragraphSelector = ({telemetry}) => {
-          return ordinals.includes(telemetry.paragraphOrdinal)
-        }
-      }
-      enterParagraphContext = ({telemetry}) => {
-        telemetry.wordOrdinal = 0
-      }
-
-      if (selectors.length == 0) {
-        tagParagraphs(this.props.editor, { paragraphSelector, enterParagraphContext }, styles)
-      }
-    }
-
-    if (selectors[0]?.unit == 'word') {
-      const { unit, scope, conditions } = selectors[0]
-
+    const getWordTests = (unit, conditions) => { 
       const tests = conditions.map(({ comparison, letters, hasStyle, ordinals }) => {
         if (comparison == 'prefix') {
           return (editor, path, word) => word.toLowerCase().startsWith(letters)
@@ -348,17 +338,62 @@ class API {
         return () => true
       })
 
-      const condition = (editor, path, word, args) => {
-        for (const test of tests) {
-          const result = test(editor, path, word, args)
-          if (!test(editor, path, word, args)) {
-            return false
+      return testsToTest(tests)
+    }
+
+    let paragraphSelector = () => true
+    let enterParagraphContext = () => true
+    if (selectors[0].unit == 'paragraph') {
+      const selector = selectors.shift()
+      const { unit, scope, conditions } = selector
+      let ordinals = []
+      let wordTests = []
+      for (const condition of conditions) {
+        if (condition.ordinals) {
+          ordinals = ordinals.concat(condition.ordinals)
+        } else if (condition.words) {
+          for (const selector of condition.words.selectors) {
+            debugger
+            wordTests.push(getWordTests('word', selector.conditions))
           }
         }
-        return true
       }
+
+      if (wordTests.length > 0) {
+        const wordTest = testsToTest(wordTests)
+        const onFoundParagraph = ({paragraphOrdinal}) => ordinals.push(paragraphOrdinal)
+        debugger
+        tagWords(this.props.editor, { condition: wordTest, isTest: true, onCondition: onFoundParagraph })
+        debugger
+
+      }
+      // go throught the word tests and select the paragraphs of interest. update the ordinals
+      /*
+      debugger
+      function tagWords(editor, { condition, paragraphSelector, enterParagraphContext, isTest, onCondition = () => true } = {}, styles) {
+      */
+
+      if (ordinals.length > 0) {
+        paragraphSelector = ({telemetry}) => {
+          return ordinals.includes(telemetry.paragraphOrdinal)
+        }
+      }
+
+      enterParagraphContext = ({telemetry}) => {
+        telemetry.wordOrdinal = 0
+      }
+
+      if (selectors.length == 0) {
+        tagParagraphs(this.props.editor, { paragraphSelector, enterParagraphContext }, styles)
+      }
+    }
+
+    if (selectors[0]?.unit == 'word') {
+      const { unit, scope, conditions } = selectors[0]
+
+      const condition = getWordTests(unit, conditions)
+
       tagWords(this.props.editor, { condition, paragraphSelector, enterParagraphContext }, styles)
-      return
     }
   }
 

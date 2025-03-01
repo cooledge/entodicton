@@ -27,7 +27,6 @@ function Text(props) {
         } else {
           for (let i = 0; i < result.contexts.length; ++i) {
             if (result.contexts[i].marker === 'error') {
-              console.log('error', result.contexts[i])
               hasError = true
               continue
             }
@@ -38,7 +37,12 @@ function Text(props) {
           if (hasError) {
             message += '. There are errors shown in the console'
           }
-          console.log(result)
+          // console.log(result)
+          if (hasError) {
+            for (const response of result.responses) {
+              console.log('responses', response)
+            }
+          }
           if (message) {
             km.api.say(message)
             msg.text = message

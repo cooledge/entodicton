@@ -396,9 +396,21 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP bold the second paragraph`, async () => {
+  test(`WP bold the second paragraph`, async () => {
     await query('bold the second paragraph')
     const conditions = [{ paragraphOrdinals: [2]}]
     expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP underlined the paragraphs that contain bolded words`, async () => {
+    await query('underlined the paragraphs that contain bolded words')
+    const conditions = [{ paragraphOrdinals: [1, 2]}]
+    expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP underlined the paragraphs that contains words that start with mid`, async () => {
+    await query('underlined the paragraphs that contains words that start with mid')
+    const conditions = [{ paragraphOrdinals: [2]}]
+    expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
   }, timeout);
 });
