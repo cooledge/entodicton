@@ -413,4 +413,40 @@ describe('tests for wp page', () => {
     const conditions = [{ paragraphOrdinals: [2]}]
     expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
   }, timeout);
+
+  test(`WP capitalize the first word of every paragraph`, async () => {
+    await query('capitalize the first word of every paragraph')
+    const conditions = [{ paragraphOrdinals: [1,2,3,4], wordOrdinals: [1]}]
+    expect(await isAllTextTagged(page, 'uppercase', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP capitalize the first and second word of every paragraph`, async () => {
+    await query('capitalize the first and second word of every paragraph')
+    const conditions = [{ paragraphOrdinals: [1,2,3,4], wordOrdinals: [1, 2]}]
+    expect(await isAllTextTagged(page, 'uppercase', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the first word of every paragraph`, async () => {
+    await query('bold the first word of every paragraph')
+    const conditions = [{ paragraphOrdinals: [1,2,3,4], wordOrdinals: [1]}]
+    expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the first word of the second and third paragraph`, async () => {
+    await query('bold the first word of the second and third paragraph')
+    const conditions = [{ paragraphOrdinals: [2,3], wordOrdinals: [1]}]
+    expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the paragraph that contains words that start with t`, async () => {
+    await query('bold the paragraph that contains words that start with t')
+    const conditions = [{ paragraphOrdinals: [1,2,5]}]
+    expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP underline the paragraph that contains bolded words`, async () => {
+    await query('underline the paragraph that contains bolded words')
+    const conditions = [{ paragraphOrdinals: [1,2]}]
+    expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
+  }, timeout);
 });
