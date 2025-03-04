@@ -165,6 +165,55 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
   return result
 }
 
+// this one takes text node to check
+const isAllTextTaggedEasy = async (page, tagName, textNodeOrdinals) => {
+  const result = await page.evaluate(async (tagName, textNodeOrdinals) => {
+    const getTag = (node, tagName) => {
+      if (node.tagName.toLowerCase() !== tagName) {
+        let current = node;
+        while (current && current !== editor) {
+          if (current.tagName.toLowerCase() === tagName) {
+            return current
+          }
+          current = current.parentNode;
+        }
+      }
+    }
+
+    const editor = document.querySelector('.slate-editor');
+    if (!editor) return false;
+
+    const textNodes = editor.querySelectorAll('span[data-slate-string="true"]');
+    let textNodeOrdinal = 0
+    for (let node of textNodes) {
+      textNodeOrdinal += 1
+
+      const hasTag = (node, tagName) => {
+        // Check if the node is inside a <tag>
+        if (node.tagName.toLowerCase() !== tagName) {
+          let isTagged = false;
+          let current = node;
+          while (current && current !== editor) {
+            console.log('current.tagName', current.tagName, current.id)
+            if (current.tagName.toLowerCase() === tagName) {
+              isTagged = true;
+              break;
+            }
+            current = current.parentNode;
+          }
+          return isTagged
+        }
+      }
+
+      if (textNodeOrdinals.includes(textNodeOrdinals)) {
+        return hasTag(node, tagName)
+      }
+    }
+    return true;
+  }, tagName, textNodeOrdinals);
+  return result
+}
+
 describe('tests for wp page', () => {
 
   let counter
@@ -448,5 +497,11 @@ describe('tests for wp page', () => {
     await query('underline the paragraph that contains bolded words')
     const conditions = [{ paragraphOrdinals: [1,2]}]
     expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP bold the second letter`, async () => {
+    await query('bold the second letter')
+    const textNodeOrdinals = [3]
+    expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 });
