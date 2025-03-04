@@ -499,9 +499,15 @@ describe('tests for wp page', () => {
     expect(await isAllTextTagged(page, 'u', conditions)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP bold the second letter`, async () => {
+  test(`WP bold the second letter`, async () => {
     await query('bold the second letter')
     const textNodeOrdinals = [3]
+    expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP bold the second letter of the third word`, async () => {
+    await query('bold the second letter of the third word')
+    const textNodeOrdinals = [2]
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 });

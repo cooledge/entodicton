@@ -198,7 +198,7 @@ function tagWords(editor, {
       }
       console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${telemetry.wordOrdinal} wordInParagraphOrdinal: ${telemetry.wordInParagraphOrdinal} paragraphOrdinal: ${telemetry.paragraphOrdinal}`)
       if (wordCondition(editor, path, word, telemetry)) {
-        onWordCondition(telemetry)
+        onWordCondition({ telemetry })
         if (isTest) {
           return
         }
@@ -448,7 +448,7 @@ class API {
       return
     }
 
-    const getCondition = (unit, conditions) => { 
+    const getCondition = (unit, conditions, ordinalScope) => { 
       const tests = conditions.map(({ comparison, letters, hasStyle, ordinals }) => {
         if (comparison == 'prefix') {
           return (editor, path, word) => word.toLowerCase().startsWith(letters)
@@ -467,10 +467,20 @@ class API {
           return (editor, path, word, telemetry) => {
             switch (unit) {
             case "letter": {
-              return ordinals.includes(telemetry.letterOrdinal)
+              if (ordinalScope == 'paragraph') {
+                return ordinals.includes(telemetry.letterInParagraphOrdinal)
+              } if (ordinalScope == 'word') {
+                return ordinals.includes(telemetry.letterInWordOrdinal)
+              } else {
+                return ordinals.includes(telemetry.letterOrdinal)
+              }
             }
             case "word": {
-              return ordinals.includes(telemetry.wordOrdinal)
+              if (ordinalScope == 'paragraph') {
+                return ordinals.includes(telemetry.wordInParagraphOrdinal)
+              } else {
+                return ordinals.includes(telemetry.wordOrdinal)
+              }
             }
             case "paragraph": {
               return ordinals.includes(telemetry.paragraphOrdinal)
@@ -488,6 +498,7 @@ class API {
     let onWordCondition = () => true
     let paragraphCondition = () => true
     let onParagraphCondition = () => true
+    let ordinalScope = ''
     if (selectors[0].unit == 'paragraph') {
       const selector = selectors.shift()
       const { unit, scope, conditions } = selector
@@ -505,7 +516,7 @@ class API {
 
       if (wordTests.length > 0) {
         const wordTest = testsToTest(wordTests)
-        const onFoundParagraph = ({paragraphOrdinal}) => ordinals.push(paragraphOrdinal)
+        const onFoundParagraph = ({telemetry}) => ordinals.push(telemetry.paragraphOrdinal)
         tagWords(this.props.editor, { wordCondition: wordTest, isTest: true, onWordCondition: onFoundParagraph })
 
       }
@@ -523,19 +534,24 @@ class API {
       if (selectors.length == 0) {
         tagParagraphs(this.props.editor, { paragraphCondition, onParagraphCondition }, styles)
       }
+
+      ordinalScope = 'paragraph'
     }
 
     if (selectors[0]?.unit == 'word') {
-      const { unit, scope, conditions } = selectors[0]
-      const wordCondition = getCondition(unit, conditions)
-      tagWords(this.props.editor, { wordCondition, paragraphCondition, onParagraphCondition }, styles)
+      const { unit, scope, conditions } = selectors.shift()
+      wordCondition = getCondition(unit, conditions, ordinalScope)
+      if (selectors.length == 0) {
+        tagWords(this.props.editor, { wordCondition, onWordCondition, paragraphCondition, onParagraphCondition }, styles)
+      }
+      ordinalScope = 'word'
     }
 
     if (selectors[0]?.unit == 'letter') {
       const { unit, scope, conditions } = selectors[0]
-      const letterCondition = getCondition(unit, conditions)
+      const letterCondition = getCondition(unit, conditions, ordinalScope)
       console.log('letterCondition', letterCondition)
-      tagLetters(this.props.editor, { letterCondition, wordCondition, paragraphCondition, onParagraphCondition }, styles)
+      tagLetters(this.props.editor, { letterCondition, wordCondition, onWordCondition, paragraphCondition, onParagraphCondition }, styles)
     }
   }
 
