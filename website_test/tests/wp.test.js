@@ -505,7 +505,7 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP capitalize the first letter of every word`, async () => {
+  test(`WP capitalize the first letter of every word`, async () => {
     await query('capitalize the first letter of every word')
     const textNodeOrdinals = [1, 3, 5, 7, 10, 14, 16, 18,
                               23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81,
@@ -514,4 +514,11 @@ describe('tests for wp page', () => {
                               93, 95, 97, 99, 101]
     expect(await isAllTextTaggedEasy(page, 'uppercase', textNodeOrdinals)).toBeTruthy()
   }, timeout);
+
+  test(`NEO23 WP bold the third letter of the second paragraph`, async () => {
+    await query('bold the third letter of the second paragraph')
+    const textNodeOrdinals = [10]
+    expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
 });
