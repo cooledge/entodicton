@@ -168,18 +168,6 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
 // this one takes text node to check
 const isAllTextTaggedEasy = async (page, tagName, textNodeOrdinals) => {
   const result = await page.evaluate(async (tagName, textNodeOrdinals) => {
-    const getTag = (node, tagName) => {
-      if (node.tagName.toLowerCase() !== tagName) {
-        let current = node;
-        while (current && current !== editor) {
-          if (current.tagName.toLowerCase() === tagName) {
-            return current
-          }
-          current = current.parentNode;
-        }
-      }
-    }
-
     const editor = document.querySelector('.slate-editor');
     if (!editor) return false;
 
@@ -205,7 +193,7 @@ const isAllTextTaggedEasy = async (page, tagName, textNodeOrdinals) => {
         }
       }
 
-      if (textNodeOrdinals.includes(textNodeOrdinals)) {
+      if (textNodeOrdinals.includes(textNodeOrdinal)) {
         return hasTag(node, tagName)
       }
     }
@@ -501,13 +489,29 @@ describe('tests for wp page', () => {
 
   test(`WP bold the second letter`, async () => {
     await query('bold the second letter')
-    const textNodeOrdinals = [3]
+    const textNodeOrdinals = [2]
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP bold the second letter of the third word`, async () => {
+  test(`WP bold the second letter of the third word`, async () => {
     await query('bold the second letter of the third word')
     const textNodeOrdinals = [2]
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`WP underline the first letter of the bolded words`, async () => {
+    await query('underline the first letter of the bolded words')
+    const textNodeOrdinals = [2, 10]
+    expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP capitalize the first letter of every word`, async () => {
+    await query('capitalize the first letter of every word')
+    const textNodeOrdinals = [1, 3, 5, 7, 10, 14, 16, 18,
+                              23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75, 77, 79, 81,
+                              83, 85,
+                              87, 89, 91, 
+                              93, 95, 97, 99, 101]
+    expect(await isAllTextTaggedEasy(page, 'uppercase', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 });

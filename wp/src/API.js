@@ -295,16 +295,30 @@ function tagLetters(editor, {
     paragraphOrdinal: -1,
     lastParagraphOrdinal: -1,
   }
-  Editor.nodes(editor, {
+
+  const nodesIterator = Editor.nodes(editor, {
     at: [],
     match: n => n.text && n.text.length > 0,
     mode: 'lowest',
     voids: false,
-  }).forEach(([node, path]) => {
+  })
+  const nodes = []
+  for (const node of nodesIterator) {
+    nodes.push(node)
+  }
+
+  let childOffset = 0
+  let lastParagraph = -1
+  for (let [node, path] of nodes) {
+    if (path[0] !== lastParagraph) {
+      lastParagraph = path[0]
+      childOffset = 0
+    }
+    path = [path[0], path[1]+childOffset]
     console.log('chunk', node.text)
     telemetry.paragraphOrdinal = path[0]+1
     if (!paragraphCondition({ telemetry })) {
-      return // continue
+      continue
     }
     if (telemetry.paragraphOrdinal != telemetry.lastParagraphOrdinal) {
       telemetry.letterInParagraphOrdinal = 0
@@ -317,7 +331,13 @@ function tagLetters(editor, {
     console.log('path', path)
     let offset = 0
     console.log('words', words)
+    debugger
+    // bold the first letter of each word
+    const startNChildren = editor.children[path[0]].children.length
+    const startIChild = path[1]
     words.forEach((word) => {
+      debugger
+      path = [path[0], startIChild + editor.children[path[0]].children.length-startNChildren]
       if (word.trim() == '') {
         offset += word.length
         return
@@ -350,8 +370,12 @@ function tagLetters(editor, {
             }
             console.log('        selecting', JSON.stringify(range))
             Transforms.select(editor, range);
+            let addMarkWasCalled = false
             for (const style of styles) {
-              Editor.addMark(editor, style, true)
+              if (!hasTag(editor, path, style)) {
+                Editor.addMark(editor, style, true)
+                addMarkWasCalled = true
+              }
             }
             const setLastElement = (path, last) => {
               let updatedPath = [];
@@ -361,9 +385,17 @@ function tagLetters(editor, {
               updatedPath.push(last)
               return updatedPath
             }
-            const increment = offset ? 2 : 1
-            path = setLastElement(path, path[path.length-1]+increment)
-            offset = 0
+            // const increment = offset ? 2 : 1
+            // path = setLastElement(path, path[path.length-1]+increment)
+            // path = setLastElement(path, path[path.length-1]+1)
+            if (addMarkWasCalled) {
+              if (offset > 0) {
+                childOffset += 1
+              }
+              offset = 0
+              childOffset += 1
+              path = [path[0], childOffset]
+            }
           } else {
             offset += 1
           }
@@ -375,12 +407,16 @@ function tagLetters(editor, {
         telemetry.letterOrdinal += word.length
       }
 
+      // underline the first letter of the bolded words
+      // path = [path[0], path[1]+1]
+      // childOffset += 1
+
       if (debugUpdate) {
         console.log('after update')
         console.log(JSON.stringify(editor.children, null, 2))
       }
     })
-  })
+  }
 
   if (debugUpdate) {
     console.log('---------------- after')
