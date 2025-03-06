@@ -2270,7 +2270,8 @@
         "underline the paragraphs that contains bolded words",
         "bold the paragraphs that contains words that start with mid",
         "bold the first letter of every word",
-        "bold the first letter of every word that starts with t"
+        "bold the first letter of every word that starts with t",
+        "underline the bolded words in the third paragraph"
       ],
       "template": [
         "setidsuffix _wp",
