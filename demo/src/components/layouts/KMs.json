@@ -1421,7 +1421,10 @@
       "examples": [
         "1st orderable",
         "4th",
-        "last"
+        "last",
+        "23rd",
+        "22nd",
+        "21st"
       ],
       "template": [],
       "includes": [
@@ -2265,7 +2268,9 @@
         "a paragraph contains words",
         "a paragraph that contains bolded words",
         "underline the paragraphs that contains bolded words",
-        "bold the paragraphs that contains words that start with mid"
+        "bold the paragraphs that contains words that start with mid",
+        "bold the first letter of every word",
+        "bold the first letter of every word that starts with t"
       ],
       "template": [
         "setidsuffix _wp",
