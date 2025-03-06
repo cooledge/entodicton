@@ -61,9 +61,6 @@ class Product extends Component {
           <p>
           Trainable systems based on neural nets store both their programs and data in a matrix of numbers that is effectively inscrutible. If a trainable system does not work as desired, modifying it through the normal development process is very difficult due to the program and data being stored in billions of numbers in a matrix rather than a data and a program written in an intelligible programming language. The Progammable Mind offers a traditional and effective intelligently written programming experience. Due to this the progammable mind uses significantly less resources that the neural net based solutions which require lots of memory and computational power (ie GPU's). The Programmable Mind can be used to produce a reliable systems worthy of trust and does not 'hallucinate' or 'lie'. 
           </p>
-          <p>
-          This is a research project.
-          </p>
         </div>
       </div>
     )
