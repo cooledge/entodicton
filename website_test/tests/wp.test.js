@@ -527,9 +527,15 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP bold the first letter of every word that starts with t`, async () => {
+  test(`WP bold the first letter of every word that starts with t`, async () => {
     await query('bold the first letter of every word that starts with t')
     const textNodeOrdinals = [1, 5, 10, 15, 17, 19, 21, 25, 27, 29, 32]
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP underline the bolded words in the second paragraph`, async () => {
+    await query('underline the bolded words in the second paragraph')
+    const textNodeOrdinals = [10]
+    expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 });
