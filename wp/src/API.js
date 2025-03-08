@@ -535,8 +535,14 @@ class API {
     let paragraphCondition = () => true
     let onParagraphCondition = () => true
     let ordinalScope = ''
-    if (selectors[0].unit == 'paragraph') {
-      const selector = selectors.shift()
+
+    const paragraphSelector = selectors.find( (selector) => selector.unit == 'paragraph' )
+    const wordSelector = selectors.find( (selector) => selector.unit == 'word' )
+    const letterSelector = selectors.find( (selector) => selector.unit == 'letter' )
+    // if (selectors[0].unit == 'paragraph') {
+    if (paragraphSelector) {
+      // const selector = selectors.shift()
+      const selector = paragraphSelector
       const { unit, scope, conditions } = selector
       let ordinals = []
       let wordTests = []
@@ -567,24 +573,28 @@ class API {
         telemetry.wordOrdinal = 0
       }
 
-      if (selectors.length == 0) {
+      if (!wordSelector && !letterSelector) {
         tagParagraphs(this.props.editor, { paragraphCondition, onParagraphCondition }, styles)
       }
 
       ordinalScope = 'paragraph'
     }
 
-    if (selectors[0]?.unit == 'word') {
-      const { unit, scope, conditions } = selectors.shift()
+    // if (selectors[0]?.unit == 'word') {
+    if (wordSelector) {
+      // const { unit, scope, conditions } = selectors.shift()
+      const { unit, scope, conditions } = wordSelector
       wordCondition = getCondition(unit, conditions, ordinalScope)
-      if (selectors.length == 0) {
+      if (!letterSelector) {
         tagWords(this.props.editor, { wordCondition, onWordCondition, paragraphCondition, onParagraphCondition }, styles)
       }
       ordinalScope = 'word'
     }
 
-    if (selectors[0]?.unit == 'letter') {
-      const { unit, scope, conditions } = selectors[0]
+    // if (selectors[0]?.unit == 'letter') {
+    if (letterSelector) {
+      // const { unit, scope, conditions } = selectors[0]
+      const { unit, scope, conditions } = letterSelector
       const letterCondition = getCondition(unit, conditions, ordinalScope)
       console.log('letterCondition', letterCondition)
       tagLetters(this.props.editor, { letterCondition, wordCondition, onWordCondition, paragraphCondition, onParagraphCondition }, styles)
