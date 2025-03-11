@@ -2274,7 +2274,8 @@
         "underline the bolded words in the third paragraph",
         "bold the words that start with t in the third paragraph",
         "in the third paragraph",
-        "bold the first letter of the words that start with t in the third paragraph"
+        "bold the first letter of the words that start with t in the third paragraph",
+        "in the second paragraph bold the first word"
       ],
       "template": [
         "setidsuffix _wp",
