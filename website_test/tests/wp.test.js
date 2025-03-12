@@ -545,8 +545,20 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP bold the first letter of the words that start with t in the second paragraph`, async () => {
+  test(`WP bold the first letter of the words that start with t in the second paragraph`, async () => {
     await query('bold the first letter of the words that start with t in the second paragraph')
+    const textNodeOrdinals = [10, 12, 14, 16, 20, 22, 24]
+    expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`WP in the second paragraph bold the first word`, async () => {
+    await query('in the second paragraph bold the first word')
+    const conditions = [{ paragraphOrdinals: [2], wordOrdinals: [1]}]
+    expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP in the second paragraph bold the first letter of the words that start with t`, async () => {
+    await query('in the second paragraph bold the first letter of the words that start with t')
     const textNodeOrdinals = [10, 12, 14, 16, 20, 22, 24]
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
