@@ -485,7 +485,9 @@ class API {
     }
 
     const getCondition = (unit, conditions, ordinalScope) => { 
-      const tests = conditions.map(({ comparison, letters, hasStyle, ordinals }) => {
+      // const condition_tests = conditions.filter( {ordinals} => !ordinals )
+      //const ordinals_tests = conditions.filter( {ordinals} => ordinals )
+      const conditionToTest = ({ comparison, letters, hasStyle, ordinals }) => {
         if (comparison == 'prefix') {
           return (editor, path, word) => word.toLowerCase().startsWith(letters)
         }
@@ -496,11 +498,14 @@ class API {
           return (editor, path, word) => word.toLowerCase().includes(letters)
         }
         if (hasStyle) {
-          return (editor, path, word) => hasTag(editor, path, styleToTagName(hasStyle))
+          return (editor, path, word, telemetry) => hasTag(editor, path, styleToTagName(hasStyle))
         }
         if (ordinals) {
           // return (editor, path, word, { letterOrdinal, wordOrdinal, paragraphOrdinal, wordInParagraphOrdinal }) => {
           return (editor, path, word, telemetry) => {
+            if (telemetry.conditionalOrdinal) {
+                return ordinals.includes(telemetry.conditionalOrdinal)
+            }
             switch (unit) {
             case "letter": {
               if (ordinalScope == 'paragraph') {
@@ -525,7 +530,27 @@ class API {
           }
         }
         return () => true
-      })
+      }
+
+      const condition_tests = conditions.filter(({ordinals}) => !ordinals).map(conditionToTest)
+      const ordinals_tests = conditions.filter(({ordinals}) => ordinals).map(conditionToTest)
+      const combined_test = (...args) => {
+        const has_condition = testsToTest(condition_tests)(...args)
+        const telemetry = args[3]
+        if (condition_tests.length > 0) {
+          if (has_condition) {
+            if (!telemetry.conditionalOrdinal) {
+              telemetry.conditionalOrdinal = 0
+            }
+            telemetry.conditionalOrdinal++
+          }
+        }
+        const has_ordinal = testsToTest(ordinals_tests)(...args)
+        return has_condition && has_ordinal
+      }
+      return combined_test
+
+      const tests = conditions.map(conditionToTest)
 
       return testsToTest(tests)
     }
