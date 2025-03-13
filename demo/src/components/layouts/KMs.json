@@ -2275,7 +2275,9 @@
         "bold the words that start with t in the third paragraph",
         "in the third paragraph",
         "bold the first letter of the words that start with t in the third paragraph",
-        "in the second paragraph bold the first word"
+        "in the second paragraph bold the first word",
+        "the first three words",
+        "bold the first three words"
       ],
       "template": [
         "setidsuffix _wp",
