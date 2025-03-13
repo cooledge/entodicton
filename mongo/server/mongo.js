@@ -864,7 +864,7 @@ let configStruct = {
 
     { 
       id: 'thisReportElement', 
-      parents: ['articlePOS'],
+      parents: ['article'],
       bridge: "{ ...next(after[0]), modifiers: append(['this'], after[0].modifiers), this: operator }",
     },
 
