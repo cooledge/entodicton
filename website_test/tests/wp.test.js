@@ -563,8 +563,14 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP underline the second bolded word`, async () => {
+  test(`WP underline the second bolded word`, async () => {
     await query('underline the second bolded word')
+    const textNodeOrdinals = [10]
+    expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP underline the first bolded word that starts with bo`, async () => {
+    await query('underline the first bolded word that starts with bo')
     const textNodeOrdinals = [10]
     expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
   }, timeout);
