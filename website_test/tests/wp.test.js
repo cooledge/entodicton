@@ -595,9 +595,15 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP underline the first three bolded words`, async () => {
+  test(`WP underline the first three bolded words`, async () => {
     await query('underline the first three bolded words')
     const textNodeOrdinals = [2, 10]
     expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP capitalize the first letter of the words that start with t`, async () => {
+    await query('capitalize the first letter of the words that start with t')
+    const textNodeOrdinals = [1, 8, 13, 15, 17, 19, 23, 25, 27, 30]
+    expect(await isAllTextTaggedEasy(page, 'uppercase', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 });

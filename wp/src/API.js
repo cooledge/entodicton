@@ -346,6 +346,7 @@ function tagLetters(editor, {
       console.log(`    checking word: "${word}", path: ${JSON.stringify(path)} wordOrdinal: ${telemetry.wordOrdinal} wordInParagraphOrdinal: ${telemetry.wordInParagraphOrdinal} paragraphOrdinal: ${telemetry.paragraphOrdinal}`)
       if (wordCondition(editor, path, word, telemetry)) {
         telemetry.letterInWordOrdinal = 0
+        telemetry.conditionalOrdinal = 0
         for (const letter of word) {
           telemetry.letterInWordOrdinal += 1
           telemetry.letterInParagraphOrdinal += 1
@@ -542,6 +543,7 @@ class API {
         const telemetry = args[3]
         if (condition_tests.length > 0) {
           if (has_condition) {
+            debugger
             if (!telemetry.conditionalOrdinal) {
               telemetry.conditionalOrdinal = 0
             }
