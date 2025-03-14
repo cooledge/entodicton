@@ -569,9 +569,35 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP underline the first bolded word that starts with bo`, async () => {
+  test(`WP underline the first bolded word that starts with bo`, async () => {
     await query('underline the first bolded word that starts with bo')
     const textNodeOrdinals = [10]
+    expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the first three words`, async () => {
+    await query('bold the first three words')
+    // const textNodeOrdinals = [10]
+    // expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
+    const conditions = [{ paragraphOrdinals: [1], wordOrdinals: [1, 2, 3]}]
+    expect(await isAllTextTagged(page, 'strong', conditions)).toBeTruthy()
+  }, timeout);
+
+  test(`WP bold the first three words that start with t`, async () => {
+    await query('bold the first three words that start with t')
+    const textNodeOrdinals = [1, 5, 10]
+    expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`WP in the first and second paragraph bold the second word`, async () => {
+    await query('in the first and second paragraph bold the second word')
+    const textNodeOrdinals = [2, 12]
+    expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
+  }, timeout);
+
+  test(`NEO23 WP underline the first three bolded words`, async () => {
+    await query('underline the first three bolded words')
+    const textNodeOrdinals = [2, 10]
     expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 });

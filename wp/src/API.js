@@ -84,7 +84,6 @@ function tagParagraphs(editor, { paragraphCondition = () => true, onParagraphCon
     mode: 'lowest',
     voids: false,
   }).forEach(([node, path]) => {
-    debugger
     console.log('chunk', node.text)
     telemetry.paragraphOrdinal = path[0]+1
     onParagraphCondition({ telemetry })
@@ -331,12 +330,10 @@ function tagLetters(editor, {
     console.log('path', path)
     let offset = 0
     console.log('words', words)
-    debugger
     // bold the first letter of each word
     const startNChildren = editor.children[path[0]].children.length
     const startIChild = path[1]
     words.forEach((word) => {
-      debugger
       path = [path[0], startIChild + editor.children[path[0]].children.length-startNChildren]
       if (word.trim() == '') {
         offset += word.length
@@ -487,7 +484,13 @@ class API {
     const getCondition = (unit, conditions, ordinalScope) => { 
       // const condition_tests = conditions.filter( {ordinals} => !ordinals )
       //const ordinals_tests = conditions.filter( {ordinals} => ordinals )
-      const conditionToTest = ({ comparison, letters, hasStyle, ordinals }) => {
+      const conditionToTest = ({ comparison, letters, hasStyle, ordinals, count }) => {
+        // the first three ...
+        if (ordinals && ordinals.length == 1 && ordinals[0] == 1) {
+          for (let i = 2; i <= count; ++i) {
+            ordinals.push(i)
+          }
+        }
         if (comparison == 'prefix') {
           return (editor, path, word) => word.toLowerCase().startsWith(letters)
         }
