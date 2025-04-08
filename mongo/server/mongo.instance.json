@@ -103,6 +103,174 @@
               "reportable",
               0
             ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              1
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "contextOfReportElement",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "contextOfReportElement",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "contextOfReportElement",
+              0
+            ],
+            [
+              "table",
+              1
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
           ]
         ]
       },
@@ -388,7 +556,7 @@
         {
           "id": "thisReportElement",
           "parents": [
-            "articlePOS"
+            "article"
           ],
           "bridge": "{ ...next(after[0]), modifiers: append(['this'], after[0].modifiers), this: operator }"
         },
@@ -9179,7 +9347,8 @@
           "touchedBy": [
             "mongo#call2",
             "instance0#mongo#call2"
-          ]
+          ],
+          "context_index": 1
         }
       ],
       "generated": [
@@ -12126,7 +12295,8 @@
           "touchedBy": [
             "mongo#call2",
             "instance0#mongo#call2"
-          ]
+          ],
+          "context_index": 1
         }
       ],
       "generated": [
@@ -15270,7 +15440,8 @@
           "touchedBy": [
             "mongo#call2",
             "instance0#mongo#call2"
-          ]
+          ],
+          "context_index": 1
         }
       ],
       "generated": [
@@ -18792,7 +18963,8 @@
           "touchedBy": [
             "mongo#call2",
             "instance0#mongo#call2"
-          ]
+          ],
+          "context_index": 1
         }
       ],
       "generated": [
@@ -22498,7 +22670,8 @@
           "touchedBy": [
             "mongo#call2",
             "instance0#mongo#call2"
-          ]
+          ],
+          "context_index": 1
         }
       ],
       "generated": [
@@ -22653,6 +22826,174 @@
               "reportable",
               0
             ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "table",
+              1
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              0
+            ],
+            [
+              "contextOfReportElement",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "contextOfReportElement",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "column",
+              1
+            ],
+            [
+              "contextOfReportElement",
+              0
+            ],
+            [
+              "table",
+              1
+            ]
+          ],
+          [
+            [
+              "delete",
+              0
+            ],
+            [
+              "ofDbProperty",
+              0
+            ],
+            [
+              "table",
+              0
+            ]
           ]
         ]
       },
@@ -22660,7 +23001,7 @@
         {},
         {},
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:590"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:599"
         },
         {}
       ],
@@ -22918,7 +23259,7 @@
         {
           "id": "thisReportElement",
           "parents": [
-            "articlePOS"
+            "article"
           ],
           "bridge": "{ ...next(after[0]), modifiers: append(['this'], after[0].modifiers), this: operator }"
         },
@@ -23207,7 +23548,7 @@
       "hierarchy": [
         [
           "a",
-          "articlePOS",
+          "article",
           false
         ],
         [
@@ -23306,8 +23647,8 @@
           false
         ],
         [
-          "articlePOS",
-          "articlePOS",
+          "article",
+          "article",
           false
         ],
         [
@@ -24251,6 +24592,11 @@
           false
         ],
         [
+          "distributable",
+          "queryable",
+          false
+        ],
+        [
           "divideByExpression",
           "mathematicalExpression",
           false
@@ -24271,8 +24617,18 @@
           false
         ],
         [
+          "each",
+          "article",
+          false
+        ],
+        [
           "evaluate",
           "verb",
+          false
+        ],
+        [
+          "every",
+          "article",
           false
         ],
         [
@@ -25331,6 +25687,11 @@
           false
         ],
         [
+          "negatable",
+          "queryable",
+          false
+        ],
+        [
           "noun",
           "theAble",
           false
@@ -25492,7 +25853,7 @@
         ],
         [
           "orderable",
-          "orderable",
+          "queryable",
           false
         ],
         [
@@ -25758,6 +26119,11 @@
         [
           "property",
           "theAble",
+          false
+        ],
+        [
+          "propertyOf",
+          "preposition",
           false
         ],
         [
@@ -26357,7 +26723,7 @@
         ],
         [
           "the",
-          "articlePOS",
+          "article",
           false
         ],
         [
@@ -26387,7 +26753,7 @@
         ],
         [
           "thisReportElement",
-          "articlePOS",
+          "article",
           false
         ],
         [
@@ -26698,7 +27064,7 @@
           }
         ]
       },
-      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n    0. unknown/0  (1, 2) - \"selected\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"selected\"\n                                     unknown: true\n                                     value: \"selected\"\n                                     word: \"selected\"\n                                   }\n    1. modifies/0  (1, 5) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 16}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. reportElement/0  (1, 9) - \"reportelement\"\n                                   {\n                                     default: true\n                                     marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 18, 'end': 30}\n                                     text: \"reportelement\"\n                                     value: \"reportElement\"\n                                     word: \"reportelement\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 7}, text: selected, unknown: True, value: selected, word: selected})\n\n>>>>>>>>>>>>> Counter 2\n   *0. unknown/1 (dead) (2, 0) - \"selected\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"selected\"\n                                     unknown: true\n                                     value: \"selected\"\n                                     word: \"selected\"\n                                   }\n    1. modifies/0  (1, 5) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 16}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. reportElement/0  (1, 9) - \"reportelement\"\n                                   {\n                                     default: true\n                                     marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 18, 'end': 30}\n                                     text: \"reportelement\"\n                                     value: \"reportElement\"\n                                     word: \"reportelement\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is Context({flatten: False, marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before, concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before, concept: after[0] }')), variables({}) bridge(bridge)), number: one, range: {'start': 9, 'end': 16}, text: modifies, word: modifies})\n\n>>>>>>>>>>>>> Counter 3\n   *0. modifies/1 (dead) (3, 0) - \"selected modifies reportelement\"\n                                   {\n                                     prioritized_by: [('modifies', 0)]\n                                     concept:                                          {\n                                           default: true\n                                           marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           range: {'start': 18, 'end': 30}\n                                           text: \"reportelement\"\n                                           value: \"reportElement\"\n                                           word: \"reportelement\"\n                                         }\n\n                                     dead: true\n                                     flatten: false\n                                     marker: Operator(modifies/1, ['Selector(None, , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     modifiers: [\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 0, 'end': 7}\n                                         text: \"selected\"\n                                         unknown: true\n                                         value: \"selected\"\n                                         word: \"selected\"\n                                       }\n                                     ]\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 30}\n                                     text: \"selected modifies reportelement\"\n                                     word: \"modifies\"\n                                   }\n<<<<<<<<<<<<<\n",
+      "trace": "\n\n>>>>>>>>>>>>> Counter 1\n  summary\n\n    0.  unknown/0                                - \"selected\"\n    1.  modifies/0                               - \"modifies\"\n    2.  reportElement/0                          - \"reportelement\"\n\n  details\n\n    0. Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)) (1, 2) - \"selected\"\n                                   {\n                                     marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"selected\"\n                                     unknown: true\n                                     value: \"selected\"\n                                     word: \"selected\"\n                                   }\n    1. Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before[0], concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before[0], concept: after[0] }')), variables({}) bridge(bridge)) (1, 5) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before[0], concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before[0], concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 16}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)) (1, 9) - \"reportelement\"\n                                   {\n                                     default: true\n                                     marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 18, 'end': 30}\n                                     raw_text: \"reportElement\"\n                                     text: \"reportelement\"\n                                     value: \"reportElement\"\n                                     word: \"reportelement\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=0) is ('unknown', 0), Context({marker: Operator(unknown/0, [\"Selector(Bridge('{ ...next(operator), unknown: true, dead: true }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator), unknown: true, dead: true }')), variables({}) bridge(bridge)), range: {'start': 0, 'end': 7}, text: selected, unknown: True, value: selected, word: selected})\n\n>>>>>>>>>>>>> Counter 2\n  summary\n\n   *0.  unknown/1 (dead)                         - \"selected\"\n    1.  modifies/0                               - \"modifies\"\n    2.  reportElement/0                          - \"reportelement\"\n\n  details\n\n    0. Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)) (2, 0) - \"selected\"\n                                   {\n                                     prioritized_by: [('unknown', 0)]\n                                     dead: true\n                                     marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 0, 'end': 7}\n                                     text: \"selected\"\n                                     unknown: true\n                                     value: \"selected\"\n                                     word: \"selected\"\n                                   }\n    1. Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before[0], concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before[0], concept: after[0] }')), variables({}) bridge(bridge)) (1, 5) - \"modifies\"\n                                   {\n                                     flatten: false\n                                     marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before[0], concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before[0], concept: after[0] }')), variables({}) bridge(bridge))\n                                     number: \"one\"\n                                     range: {'start': 9, 'end': 16}\n                                     text: \"modifies\"\n                                     word: \"modifies\"\n                                   }\n    2. Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge)) (1, 9) - \"reportelement\"\n                                   {\n                                     default: true\n                                     marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                     range: {'start': 18, 'end': 30}\n                                     raw_text: \"reportElement\"\n                                     text: \"reportelement\"\n                                     value: \"reportElement\"\n                                     word: \"reportelement\"\n                                   }\n<<<<<<<<<<<<<\nNext Op (index=1) is ('modifies', 0), Context({flatten: False, marker: Operator(modifies/0, ['Selector(Bridge(\\'{ ...next(operator), modifiers: before[0], concept: after[0] }\\'), , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(Bridge('{ ...next(operator), modifiers: before[0], concept: after[0] }')), variables({}) bridge(bridge)), number: one, range: {'start': 9, 'end': 16}, text: modifies, word: modifies})\n\n>>>>>>>>>>>>> Counter 3\n  summary\n\n   *0.  modifies/1 (dead)                        - \"selected modifies reportelement\"\n\n  details\n\n    0. Operator(modifies/1, ['Selector(None, , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge)) (3, 0) - \"selected modifies reportelement\"\n                                   {\n                                     prioritized_by: [('modifies', 0)]\n                                     concept:                                          {\n                                           default: true\n                                           marker: Operator(reportElement/0, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                           range: {'start': 18, 'end': 30}\n                                           raw_text: \"reportElement\"\n                                           text: \"reportelement\"\n                                           value: \"reportElement\"\n                                           word: \"reportelement\"\n                                         }\n\n                                     dead: true\n                                     flatten: false\n                                     marker: Operator(modifies/1, ['Selector(None, , [Repeated(Listable(Not([\"Properties({(\\'context\\', \\'punctuation\\'): Matcher_Variable(\\'true\\')})\"])), 0)]<==>[Any], bridge(bridge))'], evaluator(None), variables({}) bridge(bridge))\n                                     modifiers: [\n                                       {\n                                         prioritized_by: [('unknown', 0)]\n                                         dead: true\n                                         marker: Operator(unknown/1, [\"Selector(Bridge('{ ...next(operator) }'), , []<==>[], bridge(bridge))\"], evaluator(Bridge('{ ...next(operator) }')), variables({}) bridge(bridge))\n                                         range: {'start': 0, 'end': 7}\n                                         text: \"selected\"\n                                         unknown: true\n                                         value: \"selected\"\n                                         word: \"selected\"\n                                       }\n                                     ]\n                                     number: \"one\"\n                                     range: {'start': 0, 'end': 30}\n                                     text: \"selected modifies reportelement\"\n                                     word: \"modifies\"\n                                   }\n<<<<<<<<<<<<<\n",
       "contexts": [
         {
           "word": "modifies",
@@ -26732,6 +27098,7 @@
             "default": true,
             "text": "reportelement",
             "word": "reportelement",
+            "raw_text": "reportElement",
             "range": {
               "start": 18,
               "end": 30
@@ -26739,6 +27106,7 @@
             "level": 0
           },
           "level": 1,
+          "context_index": 1,
           "topLevel": true,
           "touchedBy": [
             "mongo#call2"

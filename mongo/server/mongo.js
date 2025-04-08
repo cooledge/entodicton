@@ -517,6 +517,15 @@ let configStruct = {
     ],
     positive: [
       [['graphAction', 0], ['column', 0], ['ofDbProperty', 0], ['reportable', 0]],
+      [['delete', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]],
+      [['delete', 0], ['the', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]],
+      [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 0]],
+      [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 1]],
+      [['delete', 0], ['column', 0], ['contextOfReportElement', 0], ['table', 0]],
+      [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 0]],
+      [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 1]],
+      [['delete', 0], ['ofDbProperty', 0], ['table', 0]],
+      // TODO fix the error on the server side => { context: [['column', 0], ['ofDbProperty', 0], ['article', 0]], choose: 0 },
     ]
   },
 
