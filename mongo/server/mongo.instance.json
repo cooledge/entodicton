@@ -271,6 +271,24 @@
               "table",
               0
             ]
+          ],
+          [
+            [
+              "sortByColumns",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "table",
+              1
+            ]
           ]
         ]
       },
@@ -22994,6 +23012,24 @@
               "table",
               0
             ]
+          ],
+          [
+            [
+              "sortByColumns",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "table",
+              1
+            ]
           ]
         ]
       },
@@ -23001,7 +23037,7 @@
         {},
         {},
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:599"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:602"
         },
         {}
       ],
@@ -27155,6 +27191,53 @@
         ]
       ],
       "learned_contextual_priorities": [],
+      "summaries": [
+        [
+          {
+            "operators": [
+              [
+                "unknown",
+                0
+              ],
+              [
+                "modifies",
+                0
+              ],
+              [
+                "reportElement",
+                0
+              ]
+            ],
+            "counter": 1
+          },
+          {
+            "operators": [
+              [
+                "unknown",
+                1
+              ],
+              [
+                "modifies",
+                0
+              ],
+              [
+                "reportElement",
+                0
+              ]
+            ],
+            "counter": 2
+          },
+          {
+            "operators": [
+              [
+                "modifies",
+                1
+              ]
+            ],
+            "counter": 3
+          }
+        ]
+      ],
       "query": "selected modifies reportElement",
       "key": {
         "query": "selected modifies reportElement"
