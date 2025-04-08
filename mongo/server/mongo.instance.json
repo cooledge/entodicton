@@ -289,6 +289,32 @@
               "table",
               1
             ]
+          ],
+          [
+            [
+              "sortByColumns",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "table",
+              0
+            ],
+            [
+              "groupBy",
+              0
+            ],
+            [
+              "column",
+              0
+            ]
           ]
         ]
       },
@@ -23030,6 +23056,32 @@
               "table",
               1
             ]
+          ],
+          [
+            [
+              "sortByColumns",
+              0
+            ],
+            [
+              "the",
+              0
+            ],
+            [
+              "ordinal",
+              0
+            ],
+            [
+              "table",
+              0
+            ],
+            [
+              "groupBy",
+              0
+            ],
+            [
+              "column",
+              0
+            ]
           ]
         ]
       },
@@ -23037,7 +23089,7 @@
         {},
         {},
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:602"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:603"
         },
         {}
       ],
