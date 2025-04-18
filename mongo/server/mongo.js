@@ -516,18 +516,23 @@ let configStruct = {
     negative: [
     ],
     positive: [
-      [['graphAction', 0], ['column', 0], ['ofDbProperty', 0], ['reportable', 0]],
-      [['delete', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]],
-      [['delete', 0], ['the', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]],
-      [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 0]],
-      [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 1]],
-      [['delete', 0], ['column', 0], ['contextOfReportElement', 0], ['table', 0]],
-      [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 0]],
-      [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 1]],
-      [['delete', 0], ['ofDbProperty', 0], ['table', 0]],
+      { context: [['article', 0], ['recordCount', 0], ['ofDbProperty', 0], ['reportElement', 0]], choose: 1 },
+      { context: [['graphAction', 0], ['column', 0], ['ofDbProperty', 0], ['reportable', 0]], choose: 0 },
+      { context: [['delete', 0], ['the', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
+      { context: [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
+      { context: [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 1]], choose: 0 },
+      { context: [['delete', 0], ['column', 0], ['contextOfReportElement', 0], ['table', 0]], choose: 0 },
+      { context: [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 0]], choose: 0 },
+      { context: [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 1]], choose: 0 },
+      { context: [['delete', 0], ['ofDbProperty', 0], ['table', 0]], choose: 0 },
 
-      [['sortByColumns', 0], ['the', 0], ['ordinal', 0], ['table', 1]],
-      [[ "sortByColumns", 0 ], [ "the", 0 ], [ "ordinal", 0 ], [ "table", 0 ], [ "groupBy", 0 ], [ "column", 0 ]],
+      { context: [['article', 0], ['recordCount', 0], ['ofDbProperty', 0], ['reportable', 0]], choose: 1 },
+      { context: [['article', 0], ['recordCount', 1], ['ofDbProperty', 0], ['reportable', 0]], choose: 1 },
+      { context: [['showColumn', 0], ['column', 2]], choose: 0 },
+      //{ context: [['showColumn', 0], ['column', 1]], choose: 0 },
+
+      { context: [['sortByColumns', 0], ['the', 0], ['ordinal', 0], ['table', 1]], choose: 0 },
+      { context: [["sortByColumns", 0 ], [ "the", 0 ], [ "ordinal", 0 ], [ "table", 0 ], [ "groupBy", 0 ], [ "column", 0 ]], choose: 0 },
 
       // TODO fix the error on the server side => { context: [['column', 0], ['ofDbProperty', 0], ['article', 0]], choose: 0 },
     ]
@@ -829,7 +834,7 @@ let configStruct = {
 
     { 
       id: 'column',
-      isA: ['countable', 'comparable', 'orderable', 'reportElement', 'deletable'],
+      isA: ['countable', 'comparable', 'orderable', 'reportElement', 'deletable', 'listable'],
       words: [...helpers.words('column'), ...helpers.words('field'), ...helpers.words('property')],
     },
 

@@ -62,6 +62,7 @@ function App() {
   const setOrder = (items) => {
     const fullItems = items.map((item) => {
         const addDetails = (item) => {
+
           const product = findProduct(item)
           if (!item.size) {
             if (product.cost.half) {
