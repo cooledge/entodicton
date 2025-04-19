@@ -518,6 +518,7 @@ let configStruct = {
     positive: [
       { context: [['article', 0], ['recordCount', 0], ['ofDbProperty', 0], ['reportElement', 0]], choose: 1 },
       { context: [['graphAction', 0], ['column', 0], ['ofDbProperty', 0], ['reportable', 0]], choose: 0 },
+      { context: [['graphAction', 0], ['theAble', 0], ['list', 0], ['article', 0], ['theAble', 0]], choose: 0 },
       { context: [['delete', 0], ['the', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
       { context: [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
       { context: [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 1]], choose: 0 },
