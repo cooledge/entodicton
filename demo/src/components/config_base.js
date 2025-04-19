@@ -61,7 +61,7 @@ module.exports =
     {"id": "stop", "level": 1, "bridge": "{ action: 'stop', marker: 'stop', thing: operator.thing }", "uuid": "1"},
     {"id": "position", "level": 0, "bridge": "{ ...next(operator), ...after }", "uuid": "1"},
     {"id": "number", "level": 0, "bridge": "{ ...next(operator), ...after }", "uuid": "1"},
-    {"id": "count", "level": 0, "canBeConsecutive": false, "bridge": "{ ...operator, ...after[0], number: operator.value }", "uuid": "1"},
+    {"id": "count", "level": 0, "bridge": "{ ...operator, ...after[0], number: operator.value }", "uuid": "1"},
     {"id": "aEnglish", "level": 0, "bridge": "{ ...after[0], number: 1 }", "uuid": "1"},
     {"id": "create", "level": 0, "selector": {"type": "prefix"}, "bridge": "{ klass: after[0], ...next(operator) }", "uuid": "1"},
     {"id": "create", "level": 1, "bridge": "{ action: 'create', marker: 'create', klass: operator.klass }", "uuid": "1"},
