@@ -28,6 +28,11 @@ let selector;
 function App() {
   const setSelector = (value) => selector = value()
 
+  const [counter, setCounter] = useState(0)
+  const incrementCounter = () => {
+    setCounter(counter+1)
+  }
+
   const [activeTab, setActiveTab] = useState('stat');
   const [activeStatTab, setActiveStatTab] = useState('status')
   const [activeInvTab, setActiveInvTab] = useState('weapons')
@@ -371,9 +376,11 @@ function App() {
     setSelectingWeapon(true)
   }
   props.changeWeapon = props.changeWeapon.bind(this)
+  props.incrementCounter = incrementCounter
 
   return (
     <div className="App">
+      <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Message show={selectingWeapon} setShow={setSelectingWeapon}>
         <h1>Arm with a new weapon</h1>
         <WeaponList {...props} weaponId={selectingWeaponId} setWeaponId={setSelectingWeaponId}/>

@@ -26,6 +26,7 @@ function Text(props) {
         if (message) {
           setMessage(message)
         }
+        props.incrementCounter()
       }).catch( (e) => {
         console.log('got error', e)
       }
@@ -52,10 +53,10 @@ function Text(props) {
     <div className="Speech">
       <div>
         Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
-        <Button style={{"margin-left": "10px"}} id='submit' className='button' variant='contained' onClick={onClick}>Submit</Button>
+        <Button style={{"marginLeft": "10px"}} id='submit' className='button' variant='contained' onClick={onClick}>Submit</Button>
       </div>
       <div>
-        <span class='paraphrase'>{ lastQuery }</span>
+        <span className='paraphrase'>{ lastQuery }</span>
       </div>
     </div>
   );

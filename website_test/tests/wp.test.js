@@ -601,7 +601,7 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'u', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`NEO23 WP capitalize the first letter of the words that start with t`, async () => {
+  test(`WP capitalize the first letter of the words that start with t`, async () => {
     await query('capitalize the first letter of the words that start with t')
     const textNodeOrdinals = [1, 8, 13, 15, 17, 19, 23, 25, 27, 30]
     expect(await isAllTextTaggedEasy(page, 'uppercase', textNodeOrdinals)).toBeTruthy()

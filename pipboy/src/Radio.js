@@ -1,5 +1,5 @@
 import RadioStationList from './RadioStationList'
-import Speech from './Speech'
+import Text from './Text'
 
 function Radio(props) {
   return (
@@ -10,7 +10,7 @@ function Radio(props) {
             <div className="tab-content">
               <div className="tab-pane active full" id="status" role="tabpane">
                 <ul className="nav nav-tabs">
-                  <Speech {...props}/>
+                  <Text {...props}/>
                 </ul>
                 <RadioStationList { ...props }/>
               </div>

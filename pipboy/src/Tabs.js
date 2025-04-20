@@ -1,4 +1,3 @@
-import Speech from './Speech'
 import Text from './Text'
 
 function Tabs(props) {

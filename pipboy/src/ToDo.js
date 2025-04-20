@@ -1,5 +1,4 @@
-
-import Speech from './Speech'
+import Text from './Text'
 
 function ToDo(props) {
   return (
@@ -10,7 +9,7 @@ function ToDo(props) {
             <div className="tab-content">
               <div className="tab-pane active full" id="status" role="tabpane">
                 <ul className="nav nav-tabs">
-                  <Speech {...props}/>
+                  <Text {...props}/>
                 </ul>
                 <br/>
                 <br/>

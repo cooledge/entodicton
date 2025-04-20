@@ -18,9 +18,24 @@ function sleep(ms) {
 describe('tests for pipboy page', () => {
 
   let browser;
+  let page;
+  let counter = 0;
+
+  beforeEach( async () => {
+    counter = 0
+    page = await browser.newPage();
+    await page.goto(`${URL}/pipboy/`)
+    await page.waitForSelector('#query')
+  }, timeout);
+ 
+  afterEach( async () => {
+    await page.close()
+  }, timeout)
+
   beforeAll( async () => {
     browser = await puppeteer.launch({ headless, sloMo });
   }, timeout);
+
   afterAll( async () => {
     await browser.close()
   }, timeout);
@@ -34,14 +49,16 @@ describe('tests for pipboy page', () => {
     await page.close()
   }, timeout);
 
-  async function showTest({query, items, tab}) {
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/pipboy/`)
-
+  const doQuery = async (query) => {
     await page.waitForSelector('#query')
     await page.type('#query', query)
     await page.click('#submit')
+    await page.waitForSelector(`#queryCounter${counter+1}`)
+    counter += 1
+  }
+
+  async function showTest({query, items, tab}) {
+    await doQuery(query)
 
     if (false) {
       await page.waitForSelector(`.${tab}`)
@@ -66,7 +83,6 @@ describe('tests for pipboy page', () => {
       }
       await new Promise(resolve => setTimeout(resolve, 10000))
     }
-    await page.close()
   }
 
   test(`PIPBOY show the status`, async () => {
@@ -101,7 +117,7 @@ describe('tests for pipboy page', () => {
     await showTest({ query: 'show the map', items: null, tab: 'MAP' })
   }, timeout);
 
-  test(`PIPBOY show the radio`, async () => {
+  test(`NEO23 PIPBOY show the radio`, async () => {
     await showTest({ query: 'show the radio', items: null, tab: 'RADIO' })
   }, timeout);
 
@@ -122,18 +138,11 @@ describe('tests for pipboy page', () => {
   }, timeout);
 
   test(`PIPBOY go to the apparel`, async () => {
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/pipboy/`)
-
-    await page.waitForSelector('#query')
-    await page.type('#query', 'go to the apparel')
-    await page.click('#submit')
+    doQuery('go to the apparel')
     for (let item of character.apparel) {
       await page.waitForSelector(`#${item.id}`)
     }
     await new Promise(resolve => setTimeout(resolve, 1000))
-    await page.close()
   }, timeout);
 
 
