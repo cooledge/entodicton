@@ -147,37 +147,22 @@ describe('tests for pipboy page', () => {
 
 
   const testQueries = async (queries, tests) => {
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/pipboy/`)
-
-    const retries = 3;
     for (let i = 0; i < queries.length; ++i) {
-      for (let retry = 0; retry < retries; ++retry) {
-        try {
-          const query = queries[i]
-          const test = tests[i]
-          await page.waitForSelector('#query')
-          await page.focus('#query');
-          await page.keyboard.down('Control');
-          await page.keyboard.press('A');
-          await page.keyboard.up('Control');
-          await page.keyboard.press('Backspace');
-          await page.keyboard.type(query);
-          await page.click('#submit')
-        // await new Promise(resolve => setTimeout(resolve, 500))
-          await test(page)
-          break
-        } catch( e ) {
-          await new Promise(resolve => setTimeout(resolve, 500))
-          if (retry+1 == retries) {
-            throw e
-          }
-        }
-      }
-    }
+      const query = queries[i]
+      const test = tests[i]
+      await page.waitForSelector('#query')
+      await page.focus('#query');
+      await page.keyboard.down('Control');
+      await page.keyboard.press('A');
+      await page.keyboard.up('Control');
+      await page.keyboard.press('Backspace');
+      await page.keyboard.type(query);
+      await page.click('#submit')
+      await page.waitForSelector(`#queryCounter${counter+1}`)
+      counter += 1
+      await test(page)
 
-    await page.close()
+    }
   }
 
   const testMovements = async (queries, item, selected) => {
@@ -222,7 +207,7 @@ describe('tests for pipboy page', () => {
     await testMovements(queries, item, true)
   }, timeout);
 
-  test(`PIPBOY select second`, async () => {
+  test(`NEO23 PIPBOY select second`, async () => {
     const queries = ['show the weapons', 'down', 'select']
     const item = character.weapons[1]
     await testMovements(queries, item, true)
