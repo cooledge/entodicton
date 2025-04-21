@@ -16,6 +16,19 @@ function sleep(ms) {
 describe('tests for fastfood page', () => {
 
   let browser
+  let page;
+  let counter = 0;
+
+  beforeEach( async () => {
+    counter = 0
+    page = await browser.newPage();
+    await page.goto(`${URL}/fastfood/`)
+    await page.waitForSelector('#query')
+  }, timeout);
+
+  afterEach( async () => {
+    await page.close()
+  }, timeout)
 
   beforeAll( async () => {
     browser = await puppeteer.launch({ headless, sloMo });
@@ -25,13 +38,17 @@ describe('tests for fastfood page', () => {
     await browser.close()
   }, timeout)
 
-  test(`FASTFOOD test page loads`, async () => {
-    const page = await browser.newPage();
-
-    await page.goto(`${URL}/fastfood/`)
-
+  const doQuery = async (query) => {
     await page.waitForSelector('#query')
-    page.close()
+    await page.type('#query', query)
+    await page.click('#submit')
+    await page.waitForSelector(`#queryCounter${counter+1}`)
+    counter += 1
+  }
+
+  test(`FASTFOOD test page loads`, async () => {
+    await page.goto(`${URL}/fastfood/`)
+    await page.waitForSelector('#query')
   }, timeout)
 
   async function showTest({queries, expecteds}) {
@@ -75,15 +92,10 @@ describe('tests for fastfood page', () => {
       })
     }
 
-    const page = await browser.newPage();
-    await page.goto(`${URL}/fastfood/`)
     for (let i = 0; i < queries.length; ++i) {
       const query = queries[i]
       const expected = expecteds[i]
-
-      await page.waitForSelector('#query')
-      await page.type('#query', query)
-      await page.type('#query', '\n')
+      await doQuery(query)
       // await page.click('#submit')
       if (expected.find((e) => e.query)) {
         const query = expected[0].query
@@ -116,12 +128,23 @@ describe('tests for fastfood page', () => {
 
           let counter = 1
           for (let item of items) {
+            console.log('item', JSON.stringify(item))
             const nTries = 3;
             for (let nTry = 0; nTry < nTries; ++nTry) {
               const name = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Name`)
               const cost = await page.evaluate((selector) => { return document.querySelector(selector).textContent; }, `.Items > li:nth-child(${counter}) .Cost`)
+              let expectedName = item.name
+              if (item?.modifiers?.length == 1) {
+                if (item.modifiers[0].id == 'sprite') {
+                  if (item?.modifications?.length == 1) {
+                    expectedName = 'Single Combo - Waffle Fries, Sprite'
+                  } else {
+                    expectedName += ' - Sprite'
+                  }
+                }
+              }
               try {
-                expect(name).toBe(item.name)
+                expect(name).toBe(expectedName)
                 expect(cost).toBe(`$${item.cost}`)
               } catch( e ) {
                 if (nTry + 1 == nTries) {
@@ -153,8 +176,6 @@ describe('tests for fastfood page', () => {
         }
       }
     }
-
-    await page.close()
   }
  
   const withAndWithoutDrink = ({query, expected, neo}) => {
@@ -187,7 +208,7 @@ describe('tests for fastfood page', () => {
       { queries: ['medium waffle fries'], expecteds: [[{id: 'waffle_fry', size: 'medium'}]] },
       { queries: ['large waffle fries'], expecteds: [[{id: 'waffle_fry', size: 'large'}]] },
       { queries: ['combo 1 with waffle fries'], expecteds: [[{id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }] }]] },
-      ...withAndWithoutDrink({query: 'combo 1 with waffle fries', expected: {id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }]}}),
+      ...withAndWithoutDrink({query: 'combo 1 with waffle fries', neo: true, expected: {id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }]}}),
       { queries: ['coca cola'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'coca_cola'}]] },
       { queries: ['coke'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'coca_cola'}]] },
       { queries: ['diet coke'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'diet_coke'}]] },

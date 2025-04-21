@@ -117,7 +117,7 @@ describe('tests for pipboy page', () => {
     await showTest({ query: 'show the map', items: null, tab: 'MAP' })
   }, timeout);
 
-  test(`NEO23 PIPBOY show the radio`, async () => {
+  test(`PIPBOY show the radio`, async () => {
     await showTest({ query: 'show the radio', items: null, tab: 'RADIO' })
   }, timeout);
 
@@ -138,7 +138,7 @@ describe('tests for pipboy page', () => {
   }, timeout);
 
   test(`PIPBOY go to the apparel`, async () => {
-    doQuery('go to the apparel')
+    await doQuery('go to the apparel')
     for (let item of character.apparel) {
       await page.waitForSelector(`#${item.id}`)
     }
@@ -207,7 +207,7 @@ describe('tests for pipboy page', () => {
     await testMovements(queries, item, true)
   }, timeout);
 
-  test(`NEO23 PIPBOY select second`, async () => {
+  test(`PIPBOY select second`, async () => {
     const queries = ['show the weapons', 'down', 'select']
     const item = character.weapons[1]
     await testMovements(queries, item, true)

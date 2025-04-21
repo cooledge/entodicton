@@ -14,6 +14,12 @@ console.timeEnd('load')
 let selector;
 function App() {
   const setSelector = (value) => selector = value()
+
+  const [counter, setCounter] = useState(0)
+  const incrementCounter = () => {
+    setCounter(counter+1)
+  }
+
   const [lastQuery, setLastQuery] = useState('');
   const [order, setOrderInternal] = useState([])
   const [total, setTotal] = useState(0)
@@ -116,10 +122,12 @@ function App() {
     findProduct,
     setMessage,
     fastfood,
+    incrementCounter,
   }
 
   return (
     <div className="App">
+      <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       { fastfood && 
         <div class="Header">
           <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://www.youtube.com/watch?v=kPqxB3Y2F-k'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>

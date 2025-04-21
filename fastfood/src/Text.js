@@ -51,6 +51,7 @@ function Text(props) {
             window.speechSynthesis.speak(msg)
           }
         }
+        props.incrementCounter()
       }).catch( (e) => {
       }
       );
