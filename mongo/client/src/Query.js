@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import $ from 'jquery'
+import InputWithDropdown from './InputWithDropdown';
+const demo = require('./demo.json')
 
 function Query(props) {
   const { resetSession, doQuery, queryResponses, sessions } = props
@@ -34,7 +36,7 @@ function Query(props) {
   return (
     <div className="Query">
       <div>
-        <span className='label'>Request:</span> <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
+        <span className='label'>Request:</span> <InputWithDropdown options={demo.samples} id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
         <a style={{"marginLeft": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
         <a style={{"marginLeft": "10px"}} className="Button" onClick={onResetSession}>Reset Session</a>
       </div>
