@@ -69,6 +69,9 @@ function Layout({ children }) {
                       <Link to='/mongo/' target="_blank">REPORT WRITER POC</Link>
                     </div>
                     <div className="subMenuItem">
+                      <Link to='/wp/' target="_blank">WORD PROCESSOR POC</Link>
+                    </div>
+                    <div className="subMenuItem">
                       <Link to='/tankdemo'>TANK POC</Link>
                     </div>
                   </div>

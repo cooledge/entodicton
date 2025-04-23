@@ -1,5 +1,7 @@
 import { useMemo, useEffect, useState } from 'react'
 import { Button } from 'react-native'
+import InputWithDropdown from './InputWithDropdown';
+const demo = require('./demo.json')
 
 function Text(props) {
   const { km, setMessage } = props
@@ -79,17 +81,12 @@ function Text(props) {
     setQuery(query.value)
   };
 
-  /*
-          <div>
-            <span className='paraphrase'>{ query }</span>
-          </div>
-  */
   return (
     <div className="Speech">
       { km && 
         <>
           <div>
-            Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
+            Request <InputWithDropdown options={demo.samples} id='query' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
             <a style={{"marginLeft": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
           </div>
         </>
