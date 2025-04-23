@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import InputWithDropdown from './InputWithDropdown';
+const demo = require('./demo.json')
 
 function Text(props) {
   const { lastQuery, setMessage, pipboy } = props
@@ -52,7 +54,7 @@ function Text(props) {
   return (
     <div className="Speech">
       <div>
-        Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
+        Request <InputWithDropdown options={demo.samples}  id='query' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
         <Button style={{"marginLeft": "10px"}} id='submit' className='button' variant='contained' onClick={onClick}>Submit</Button>
       </div>
       <div>
