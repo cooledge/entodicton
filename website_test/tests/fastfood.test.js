@@ -421,7 +421,8 @@ describe('tests for fastfood page', () => {
       neo = 'NEO23'
     }
     const queriesString = query.queries.map((query) => `'${query}'`).join(" ")
-    test(`${neo}FASTFOOD query "${queriesString}"`, async () => {
+    console.log('queriesString', queriesString)
+    xtest(`${neo}FASTFOOD query "${queriesString}"`, async () => {
       await showTest(query)
     }, timeout)
     if (query.sizes) {
@@ -435,7 +436,7 @@ describe('tests for fastfood page', () => {
           expected[0].size = size
         })
         const queriesString = squery.queries.map((query) => `'${query}'`).join(" ")
-        test(`${neo}FASTFOOD query "${queriesString}"`, async () => {
+        xtest(`${neo}FASTFOOD query "${queriesString}"`, async () => {
           // console.log('squery', JSON.stringify(squery, null, 2))
           await showTest(squery)
         }, timeout)

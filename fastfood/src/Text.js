@@ -1,5 +1,8 @@
 import { useMemo, useEffect, useState } from 'react'
 import { Button } from 'react-native'
+import InputWithDropdown from './InputWithDropdown';
+const demo = require('./demo.json')
+
 /*
 import FastFoodAPI from './FastFoodAPI'
 console.time('load')
@@ -86,7 +89,7 @@ function Text(props) {
       { fastfood && 
         <>
           <div>
-            Request <input id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
+            Request <InputWithDropdown options={demo.samples} id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
             <a style={{"margin-left": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
           </div>
           <div>

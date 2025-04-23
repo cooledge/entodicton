@@ -34,13 +34,19 @@ const InputWithDropdown = (props) => {
     inputRef.current.focus()
   };
 
+  const onKeyDown = (e) => {
+    setIsOpen(false);
+    props.onKeyDown(e)
+  };
+
+
   return (
     <span className="input-dropdown-wrapper" ref={wrapperRef}>
       <input
         type="text"
         id={props.id}
         autoFocus={props.autoFocus}
-        onKeyDown={props.onKeyDown}
+        onKeyDown={onKeyDown}
         className={`${props.className}`}
         placeholder="Type and press enter to submit or click to select an option."
         autoComplete="off"
