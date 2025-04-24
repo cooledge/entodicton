@@ -56,6 +56,11 @@ const App = () => {
   return (
     // Add the editable component inside the context.
     <div className='App'>
+      <div className='Links'>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://youtu.be/5IXwd1j9Cak'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/wp/src/API.js'} target="_blank" rel="noreferrer">Source Code of API for this page</a>
+      </div>
+
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <RichTextEditor textProps={props}/>
     </div>
