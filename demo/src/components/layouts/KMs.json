@@ -2155,6 +2155,60 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
     },
     {
+      "name": "weight",
+      "description": "Weight dimension",
+      "examples": [
+        "what is 10 pounds in kilograms",
+        "troy ounces",
+        "(troy ounces) and ounces",
+        "kilos (troy ounces) and ounces",
+        "what is 1 ounce in troy ounces",
+        "what is 1 troy ounce in ounces",
+        "the weight of greg is 213 pounds what is greg's weight",
+        "the weight of greg is 213 pounds what is greg's weight in kilograms"
+      ],
+      "template": [
+        "troy modifies ounces",
+        "weight is a dimension",
+        "kilograms grams pounds (troy ounces) ounces and tons are units of weight",
+        "ounces = 1.097 * troy ounces",
+        "troy ounces = ounces / 1.097",
+        "kilograms = pounds * 0.453592",
+        "grams = kilograms * 1000",
+        "kilograms = grams / 1000",
+        "pounds = kilograms * 2.20462",
+        "ounces = pounds * 16",
+        "ton = tonne * 0.907185",
+        "pounds = ton * 2000"
+      ],
+      "includes": [
+        "dimension",
+        "formulas",
+        "testing",
+        "math",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "asking",
+        "negation",
+        "stm",
+        "meta",
+        "conjunction",
+        "evaluate",
+        "articles",
+        "sdefaults",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
+    },
+    {
       "name": "wp",
       "description": "Word processor",
       "examples": [
