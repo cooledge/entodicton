@@ -37,6 +37,18 @@ server {
     proxy_pass http://localhost:3009/mongo/;
   }
 
+  location /wp/ {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass http://localhost:3010/wp/;
+  }
+
+  location /menus/ {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass http://localhost:3011/menus/;
+  }
+
   location /entodicton/ {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;

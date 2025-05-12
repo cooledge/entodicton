@@ -82,6 +82,7 @@ const App = () => {
       </div>
 
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
+      <Text/>
       <CommonMenu mode="horizontal" openAnimation="slide-up" defaultOpenKeys={['File']} />
     </div>
   )

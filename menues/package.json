@@ -21,7 +21,7 @@
     "lint2": "eslint src/**/*.js src/**/*.jsx"
   },
   "name": "word processor demo",
-  "homepage": "http://localhost:10000/wp",
+  "homepage": "http://localhost:10000/menus",
   "eslintConfig": {
     "extends": [
       "react-app",
