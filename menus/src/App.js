@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './css/wp.css'
 import Text from './Text'
 import API from './API'
-import CommonMenu from './menues'
+import CommonMenu from './Menu'
 const tpmkms = require('tpmkms_4wp')
 
 const initialValue = [
