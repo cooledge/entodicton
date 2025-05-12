@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './css/wp.css'
 import Text from './Text'
 import API from './API'
-import CommonMenu from './Menu'
+import RCMenu from './Menu'
 const tpmkms = require('tpmkms_4wp')
 
 const initialValue = [
@@ -38,6 +38,7 @@ const initialValue = [
 */
 
 const App = () => {
+  const [openKeys, setOpenKeys] = useState([])
   const [query, doQuery] = useState({ text: '', counter: 0 })
   const [counter, setCounter] = useState(0)
   const [queryResponses, setQueryResponses] = useState([])
@@ -51,7 +52,7 @@ const App = () => {
 
   useEffect( () => {
     const init = async () => {
-      const km = await tpmkms.wp()
+      const km = await tpmkms.menus()
       km.stop_auto_rebuild()
         await km.setApi(() => new API(setCounter))
         km.config.debug = true
@@ -74,16 +75,22 @@ const App = () => {
     incrementCounter,
   }
 
+  const onClick = () => {
+    console.log('onClick')
+    setOpenKeys(['File']) 
+  }
+
+  // <CommonMenu mode="horizontal" openAnimation="slide-up" openKeys={openKeys} />
   return (
     <div className='App'>
       <div className='Links'>
         <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://youtu.be/5IXwd1j9Cak'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
         <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/wp/src/API.js'} target="_blank" rel="noreferrer">Source Code of API for this page</a>
       </div>
-
+      <input id='greginput' type='text'/><button id='gregbutton' onClick={onClick}>DOIT</button>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
-      <Text/>
-      <CommonMenu mode="horizontal" openAnimation="slide-up" defaultOpenKeys={['File']} />
+      <Text {...props} />
+      <RCMenu/>
     </div>
   )
 }
