@@ -55,7 +55,8 @@
         "punctuation",
         "stm",
         "sdefaults",
-        "ui"
+        "ui",
+        "menus"
       ]
     },
     {
@@ -1310,6 +1311,35 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
+    },
+    {
+      "name": "menus",
+      "description": "Control menues with speech",
+      "examples": [],
+      "template": [],
+      "includes": [
+        "ui",
+        "ordinals",
+        "countable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "asking",
+        "negation",
+        "stm",
+        "meta",
+        "conjunction",
+        "evaluate",
+        "articles",
+        "sdefaults",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/menus.js"
     },
     {
       "name": "meta",
