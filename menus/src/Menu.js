@@ -1,11 +1,12 @@
 /* eslint no-console:0 */
 
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Menu, { SubMenu, Item as MenuItem, Divider } from 'rc-menu';
 import 'rc-menu/assets/index.css';
 import animate from 'css-animation';
+import { calculateDowns, calculateUps, calculateParents, } from './Helpers';
 
 function handleClick(info) {
   console.log(`clicked ${info.key}`);
@@ -85,6 +86,50 @@ function onOpenChange(value) {
   console.log('onOpenChange', value);
 }
 
+const subMenus = [
+  {
+    key: "File",
+    text: "File",
+    children: [
+      { key: "File-New", text: "New" },
+      { key: "File-Open", text: "Open..." },
+      { key: "File-OpenRemote", text: "Open Remote..." },
+      { key: "File-RecentDocuments", text: "Recent Documents..." },
+      { key: "File-Close", text: "Close" },
+      { divider: true },
+      { key: "File-Wizards", text: "Wizards" },
+      { key: "File-Templates", text: "Templates" },
+      { divider: true },
+      { key: "File-Save", text: "Save" },
+      { key: "File-SaveAs", text: "Save As..." },
+      { key: "File-SaveRemove", text: "Save Remote..." },
+      { key: "File-SaveACopy", text: "Save a Copy..." },
+      { key: "File-SaveAll", text: "Save All..." },
+      { divider: true },
+      { key: "File-Export", text: "Export..." },
+      { key: "File-ExportAs", text: "Export As..." },
+      { key: "File-Send", text: "Send..." },
+      { key: "File-PreviewInWebBrowser", text: "Preview in Web Browser..." },
+      { divider: true },
+      { key: "File-PrintPreview", text: "Print Preview..." },
+      { key: "File-Print", text: "Print..." },
+      { key: "File-PrinterSettings", text: "Printer Settings..." },
+      { divider: true },
+      { key: "File-Properties", text: "Properties..." },
+      { key: "File-DigitalSignatures", text: "DigitalSignatures..." },
+      { divider: true },
+      { key: "File-ExitLibreOffice", text: "Exit LibreOffice..." },
+    ]
+  }
+]
+
+const downs = calculateDowns(subMenus)
+const ups = calculateUps(subMenus)
+const parents = calculateParents(subMenus)
+
+const move = (direction, units) => {
+}
+
 const fileMenu = [
   <SubMenu title={<span className="submenu-title-wrapper">File</span>} key="File">
     <MenuItem key="File-New">New</MenuItem>
@@ -115,11 +160,24 @@ const fileMenu = [
     <MenuItem key="File-DigitalSignatures">DigitalSignatures...</MenuItem>
     <Divider/>
     <MenuItem key="File-ExitLibreOffice">Exit LibreOffice...</MenuItem>
-  </SubMenu>,
+  </SubMenu>
 ]
 
+const getSubMenus = () => {
+  const elements = []
+  for (const subMenu of subMenus) {
+    const { key, text, children } = subMenu
+    elements.push(
+      <SubMenu title={<span className="submenu-title-wrapper">{text}</span>} key={key}>
+        { children.map((child) => <MenuItem key={child.key}>{child.text}</MenuItem>) }
+      </SubMenu>
+    )
+  }
+  return elements
+}
+
 const children1 = [
-  fileMenu,
+  ...getSubMenus(),
   <SubMenu title={<span className="submenu-title-wrapper">sub menu</span>} key="1">
     <MenuItem key="1-1">0-1</MenuItem>
     <MenuItem key="1-2">0-2</MenuItem>
@@ -142,7 +200,7 @@ const children2 = [
 
 const customizeIndicator = <span>Add More Items</span>;
 
-class CommonMenu extends React.Component {
+class CommonMenu2 extends React.Component {
   state={
     children: children1,
     overflowedIndicator: undefined,
@@ -173,9 +231,10 @@ class CommonMenu extends React.Component {
           onClick={handleClick}
           triggerSubMenuAction={triggerSubMenuAction}
           onOpenChange={onOpenChange}
-          selectedKeys={['3']}
+          selectedKeys={this.props.selectedKeys}
           mode={this.props.mode}
           openAnimation={this.props.openAnimation}
+          openKeys={this.props.openKeys}
           defaultOpenKeys={this.props.defaultOpenKeys}
           overflowedIndicator={overflowedIndicator}
         >
@@ -186,7 +245,7 @@ class CommonMenu extends React.Component {
   }
 }
 
-CommonMenu.propTypes = {
+CommonMenu2.propTypes = {
   mode: PropTypes.string,
   openAnimation: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   triggerSubMenuAction: PropTypes.string,
@@ -194,57 +253,53 @@ CommonMenu.propTypes = {
   updateChildrenAndOverflowedIndicator: PropTypes.bool,
 };
 
-function render(container) {
-  const horizontalMenu = (
-    <CommonMenu
-      mode="horizontal"
-      // use openTransition for antd
-      openAnimation="slide-up"
-    />
-  );
+function CommonMenu({
+  triggerSubMenuAction,
+  updateChildrenAndOverflowedIndicator,
+  selectedKeys,
+  mode,
+  openAnimation,
+  openKeys,
+  defaultOpenKeys,
+}) {
+  const [children, setChildren] = useState(children1); // Initial state: children1
+  const [overflowedIndicator, setOverflowedIndicator] = useState(undefined); // Initial state: undefined
 
-  const horizontalMenu2 = (
-    <CommonMenu
-      mode="horizontal"
-      // use openTransition for antd
-      openAnimation="slide-up"
-      triggerSubMenuAction="click"
-      updateChildrenAndOverflowedIndicator
-    />
-  );
+  // Toggle children between children1 and children2
+  const toggleChildren = () => {
+    setChildren(children === children1 ? children2 : children1);
+  };
 
-  const verticalMenu = (
-    <CommonMenu
-      mode="vertical"
-      openAnimation="zoom"
-    />
-  );
+  // Toggle overflowedIndicator between undefined and customizeIndicator
+  const toggleOverflowedIndicator = () => {
+    setOverflowedIndicator(
+      overflowedIndicator === undefined ? customizeIndicator : undefined
+    );
+  };
 
-  const inlineMenu = (
-    <CommonMenu
-      mode="inline"
-      defaultOpenKeys={['1']}
-      openAnimation={animation}
-    />
-  );
-
-  ReactDOM.render(<div style={{ margin: 20 }}>
-    <h2>antd menu</h2>
+  return (
     <div>
-      <h3>horizontal</h3>
-
-      <div style={{ margin: 20 }}>{horizontalMenu}</div>
-      <h3>horizontal and click</h3>
-
-      <div style={{ margin: 20 }}>{horizontalMenu2}</div>
-      <h3>vertical</h3>
-
-      <div style={{ margin: 20, width: 200 }}>{verticalMenu}</div>
-      <h3>inline</h3>
-
-      <div style={{ margin: 20, width: 400 }}>{inlineMenu}</div>
+      {updateChildrenAndOverflowedIndicator && (
+        <div>
+          <button onClick={toggleChildren}>toggle children</button>
+          <button onClick={toggleOverflowedIndicator}>toggle overflowedIndicator</button>
+        </div>
+      )}
+      <Menu
+        onClick={handleClick}
+        triggerSubMenuAction={triggerSubMenuAction}
+        onOpenChange={onOpenChange}
+        selectedKeys={selectedKeys}
+        mode={mode}
+        openAnimation={openAnimation}
+        openKeys={openKeys}
+        defaultOpenKeys={defaultOpenKeys}
+        overflowedIndicator={overflowedIndicator}
+      >
+        {children}
+      </Menu>
     </div>
-  </div>, container);
+  );
 }
 
 export default CommonMenu;

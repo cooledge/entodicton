@@ -455,189 +455,38 @@ const styleToTagName = (style) => {
 // Assuming you have an editor state
 
 class API {
-  initialize({ objects, config }) {
-    this._objects = objects
+  initialize(props) {
+    console.log('initializing API')
+    this.props = props
   }
 
-  changeState(value) {
-    // const { unit, scope, color, styles, conditions } = value
-    const { selectors, color, styles} = value
+  move(direction, steps = 1, units = undefined) {
+    console.log(this)
+    console.log("direction: ", direction)
+    console.log("steps: ", steps)
+    console.log("units: ", units)
+    this.props.setOpenKeys(['File'])
+    this.props.setSelectedKeys(['File-New'])
+  }
 
-    // use current selection
-    if (selectors.length == 0) {
-      console.log('changeState', value)
-      // makeAllTextColor(this.props.editor, color)
-      for (const style of styles || []) {
-        Editor.addMark(this.props.editor, style, true)
-      }
-      return
-    }
+  select(item) {
+  }
 
-    // special case where a selection can be made
-    if (selectors.length == 1 && selectors[0].unit == 'everything') {
-      selectAllText(this.props.editor)
-      for (const style of styles || []) {
-        Editor.addMark(this.props.editor, style, true)
-      }
-      return
-    }
+  unselect(item) {
+  }
 
-    const getCondition = (unit, conditions, ordinalScope) => { 
-      // const condition_tests = conditions.filter( {ordinals} => !ordinals )
-      //const ordinals_tests = conditions.filter( {ordinals} => ordinals )
-      const conditionToTest = ({ comparison, letters, hasStyle, ordinals, count }) => {
-        // the first three ...
-        if (ordinals && ordinals.length == 1 && ordinals[0] == 1) {
-          for (let i = 2; i <= count; ++i) {
-            ordinals.push(i)
-          }
-        }
-        if (comparison == 'prefix') {
-          return (editor, path, word) => word.toLowerCase().startsWith(letters)
-        }
-        if (comparison == 'suffix') {
-          return (editor, path, word) => word.toLowerCase().endsWith(letters)
-        }
-        if (comparison == 'include') {
-          return (editor, path, word) => word.toLowerCase().includes(letters)
-        }
-        if (hasStyle) {
-          return (editor, path, word, telemetry) => hasTag(editor, path, styleToTagName(hasStyle))
-        }
-        if (ordinals) {
-          // return (editor, path, word, { letterOrdinal, wordOrdinal, paragraphOrdinal, wordInParagraphOrdinal }) => {
-          return (editor, path, word, telemetry) => {
-            if (telemetry.conditionalOrdinal) {
-                return ordinals.includes(telemetry.conditionalOrdinal)
-            }
-            switch (unit) {
-            case "letter": {
-              if (ordinalScope == 'paragraph') {
-                return ordinals.includes(telemetry.letterInParagraphOrdinal)
-              } if (ordinalScope == 'word') {
-                return ordinals.includes(telemetry.letterInWordOrdinal)
-              } else {
-                return ordinals.includes(telemetry.letterOrdinal)
-              }
-            }
-            case "word": {
-              if (ordinalScope == 'paragraph') {
-                return ordinals.includes(telemetry.wordInParagraphOrdinal)
-              } else {
-                return ordinals.includes(telemetry.wordOrdinal)
-              }
-            }
-            case "paragraph": {
-              return ordinals.includes(telemetry.paragraphOrdinal)
-            }
-            }
-          }
-        }
-        return () => true
-      }
+  cancel(direction) {
+  }
 
-      const condition_tests = conditions.filter(({ordinals}) => !ordinals).map(conditionToTest)
-      const ordinals_tests = conditions.filter(({ordinals}) => ordinals).map(conditionToTest)
-      const combined_test = (...args) => {
-        const has_condition = testsToTest(condition_tests)(...args)
-        const telemetry = args[3]
-        if (condition_tests.length > 0) {
-          if (has_condition) {
-            debugger
-            if (!telemetry.conditionalOrdinal) {
-              telemetry.conditionalOrdinal = 0
-            }
-            telemetry.conditionalOrdinal++
-          }
-        }
-        const has_ordinal = testsToTest(ordinals_tests)(...args)
-        return has_condition && has_ordinal
-      }
-      return combined_test
-
-      const tests = conditions.map(conditionToTest)
-
-      return testsToTest(tests)
-    }
-
-    let wordCondition = () => true
-    let onWordCondition = () => true
-    let paragraphCondition = () => true
-    let onParagraphCondition = () => true
-    let ordinalScope = ''
-
-    const paragraphSelector = selectors.find( (selector) => selector.unit == 'paragraph' )
-    const wordSelector = selectors.find( (selector) => selector.unit == 'word' )
-    const letterSelector = selectors.find( (selector) => selector.unit == 'letter' )
-    // if (selectors[0].unit == 'paragraph') {
-    if (paragraphSelector) {
-      // const selector = selectors.shift()
-      const selector = paragraphSelector
-      const { unit, scope, conditions } = selector
-      let ordinals = []
-      let wordTests = []
-      for (const condition of conditions) {
-        if (condition.ordinals) {
-          ordinals = ordinals.concat(condition.ordinals)
-        } else if (condition.words) {
-          for (const selector of condition.words.selectors) {
-            wordTests.push(getCondition('word', selector.conditions))
-          }
-        }
-      }
-
-      if (wordTests.length > 0) {
-        const wordTest = testsToTest(wordTests)
-        const onFoundParagraph = ({telemetry}) => ordinals.push(telemetry.paragraphOrdinal)
-        tagWords(this.props.editor, { wordCondition: wordTest, isTest: true, onWordCondition: onFoundParagraph })
-
-      }
-
-      if (ordinals.length > 0) {
-        paragraphCondition = ({telemetry}) => {
-          return ordinals.includes(telemetry.paragraphOrdinal)
-        }
-      }
-
-      onParagraphCondition = ({telemetry}) => {
-        telemetry.wordOrdinal = 0
-      }
-
-      if (!wordSelector && !letterSelector) {
-        tagParagraphs(this.props.editor, { paragraphCondition, onParagraphCondition }, styles)
-      }
-
-      ordinalScope = 'paragraph'
-    }
-
-    // if (selectors[0]?.unit == 'word') {
-    if (wordSelector) {
-      // const { unit, scope, conditions } = selectors.shift()
-      const { unit, scope, conditions } = wordSelector
-      wordCondition = getCondition(unit, conditions, ordinalScope)
-      if (!letterSelector) {
-        tagWords(this.props.editor, { wordCondition, onWordCondition, paragraphCondition, onParagraphCondition }, styles)
-      }
-      ordinalScope = 'word'
-    }
-
-    // if (selectors[0]?.unit == 'letter') {
-    if (letterSelector) {
-      // const { unit, scope, conditions } = selectors[0]
-      const { unit, scope, conditions } = letterSelector
-      const letterCondition = getCondition(unit, conditions, ordinalScope)
-      console.log('letterCondition', letterCondition)
-      tagLetters(this.props.editor, { letterCondition, wordCondition, onWordCondition, paragraphCondition, onParagraphCondition }, styles)
-    }
+  stop(action) {
   }
 
   setProps(props) {
-    this.props = props
   }
 
   say(message) {
     console.log('say', message)
-    this.props.setMessage(message)
+    // this.props.setMessage(message)
   }
 
 }

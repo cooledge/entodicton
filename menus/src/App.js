@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './css/wp.css'
+import './css/menus.css'
 import Text from './Text'
 import API from './API'
 import RCMenu from './Menu'
@@ -39,6 +39,7 @@ const initialValue = [
 
 const App = () => {
   const [openKeys, setOpenKeys] = useState([])
+  const [selectedKeys, setSelectedKeys] = useState([])
   const [query, doQuery] = useState({ text: '', counter: 0 })
   const [counter, setCounter] = useState(0)
   const [queryResponses, setQueryResponses] = useState([])
@@ -55,6 +56,7 @@ const App = () => {
       const km = await tpmkms.menus()
       km.stop_auto_rebuild()
         await km.setApi(() => new API(setCounter))
+        km.kms.ui.api = km.api
         km.config.debug = true
         const url = `${new URL(window.location.href).origin}/entodicton`
         km.config.url = url
@@ -73,11 +75,18 @@ const App = () => {
     message, setMessage,
     km,
     incrementCounter,
+    selectedKeys, setSelectedKeys,
+    openKeys, setOpenKeys,
   }
 
-  const onClick = () => {
+  const onClick = async () => {
     console.log('onClick')
     setOpenKeys(['File']) 
+    setSelectedKeys(['File-Open']) 
+    await km.process('move up').then( async () => {
+      debugger
+      debugger
+    })
   }
 
   // <CommonMenu mode="horizontal" openAnimation="slide-up" openKeys={openKeys} />
@@ -90,7 +99,7 @@ const App = () => {
       <input id='greginput' type='text'/><button id='gregbutton' onClick={onClick}>DOIT</button>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
-      <RCMenu/>
+      <RCMenu mode="horizontal" selectedKeys={selectedKeys} openKeys={openKeys} openAnimation="slide-up"/>
     </div>
   )
 }

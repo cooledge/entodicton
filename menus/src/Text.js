@@ -11,7 +11,9 @@ function Text(props) {
   const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
 
   if (km) {
-    km.api.setProps(props)
+    // km.api.setProps(props)
+    km.api.initialize(props)
+    km.getConfigs().ui.api.initialize(props)
   }
 
   useEffect( () => {
@@ -20,6 +22,7 @@ function Text(props) {
     }
     km.api.say('')
     const doQuery = async () => {
+      debugger
       return km.process(query.toLowerCase()).then( async (result) => {
         let message = ''
         let hasError = false
