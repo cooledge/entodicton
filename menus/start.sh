@@ -1,4 +1,4 @@
-cd ~/entodicton/wp
+cd ~/entodicton/menus
 
 export NODE_ENV=production
 #npm install
