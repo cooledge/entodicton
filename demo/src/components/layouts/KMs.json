@@ -1315,8 +1315,20 @@
     {
       "name": "menus",
       "description": "Control menues with speech",
-      "examples": [],
-      "template": [],
+      "examples": [
+        "menu item",
+        "the file menu",
+        "file open",
+        "object open",
+        "file"
+      ],
+      "template": [
+        "setidsuffix _menus",
+        "menu is a concept",
+        "item is a concept",
+        "menu modifies item",
+        "menus and menu items are showable"
+      ],
       "includes": [
         "ui",
         "ordinals",
