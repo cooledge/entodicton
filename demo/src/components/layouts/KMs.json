@@ -1320,7 +1320,13 @@
         "the file menu",
         "file open",
         "object open",
-        "file"
+        "file",
+        "file down",
+        "file down 2",
+        "file down 2 up",
+        "file right",
+        "object",
+        "object\\nopen"
       ],
       "template": [
         "setidsuffix _menus",
