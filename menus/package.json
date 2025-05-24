@@ -44,9 +44,6 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.8.0",
     "sass": "^1.69.5",
-    "slate": "^0.112.0",
-    "slate-history": "^0.110.3",
-    "slate-react": "^0.112.1",
     "tpmkms_4wp": "9.1.1-beta.11",
     "web-vitals": "^3.5.0"
   },

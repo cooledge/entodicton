@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import './css/menus.css'
 import Text from './Text'
-import API from './API'
+import makeAPI from './API'
 import RCMenu from './Menu'
 const tpmkms = require('tpmkms_4wp')
 
@@ -55,13 +55,18 @@ const App = () => {
     const init = async () => {
       const km = await tpmkms.menus()
       km.stop_auto_rebuild()
-        await km.setApi(() => new API(setCounter))
-        km.kms.ui.api = km.api
+        await km.setApi(() => makeAPI(km))
+        // km.kms.ui.api = km.api
         km.config.debug = true
         const url = `${new URL(window.location.href).origin}/entodicton`
         km.config.url = url
         km.server(url)
+        
       await km.restart_auto_rebuild()
+      const fileMenuId = km.api.addMenu('file')
+      const objectMenuId = km.api.addMenu('object')
+      km.api.addMenuItem(fileMenuId, 'fileOpen', 'open')
+      km.api.addMenuItem(objectMenuId, 'objectOpen', 'open')
       setKM(km)
     }
 

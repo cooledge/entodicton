@@ -11,9 +11,7 @@ function Text(props) {
   const msg = useMemo( () => new SpeechSynthesisUtterance(), [] )
 
   if (km) {
-    // km.api.setProps(props)
-    km.api.initialize(props)
-    km.getConfigs().ui.api.initialize(props)
+    km.api.setProps(props)
   }
 
   useEffect( () => {
