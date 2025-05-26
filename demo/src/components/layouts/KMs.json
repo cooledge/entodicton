@@ -1313,53 +1313,6 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
     },
     {
-      "name": "menus",
-      "description": "Control menues with speech",
-      "examples": [
-        "menu item",
-        "the file menu",
-        "file open",
-        "object open",
-        "file",
-        "file down",
-        "file down 2",
-        "file down 2 up",
-        "file right",
-        "object",
-        "object\\nopen"
-      ],
-      "template": [
-        "setidsuffix _menus",
-        "menu is a concept",
-        "item is a concept",
-        "menu modifies item",
-        "menus and menu items are showable"
-      ],
-      "includes": [
-        "ui",
-        "ordinals",
-        "countable",
-        "hierarchy",
-        "numbers",
-        "properties",
-        "concept",
-        "dialogues",
-        "asking",
-        "negation",
-        "stm",
-        "meta",
-        "conjunction",
-        "evaluate",
-        "articles",
-        "sdefaults",
-        "pos",
-        "punctuation",
-        "gdefaults",
-        "tokenize"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/menus.js"
-    },
-    {
       "name": "meta",
       "description": "Ways of defining new language elements",
       "examples": [
