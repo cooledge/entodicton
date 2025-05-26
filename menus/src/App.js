@@ -63,10 +63,12 @@ const App = () => {
         km.server(url)
         
       await km.restart_auto_rebuild()
-      const fileMenuId = km.api.addMenu('file')
-      const objectMenuId = km.api.addMenu('object')
-      km.api.addMenuItem(fileMenuId, 'fileOpen', 'open')
-      km.api.addMenuItem(objectMenuId, 'objectOpen', 'open')
+      const fileMenuId = km.api.addMenu('File')
+      km.api.addMenuItem(fileMenuId, 'File-New', 'new')
+      km.api.addMenuItem(fileMenuId, 'File-Open', 'open')
+
+      const objectMenuId = km.api.addMenu('Object')
+      km.api.addMenuItem(objectMenuId, 'Object-Open', 'open')
       setKM(km)
     }
 

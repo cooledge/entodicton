@@ -20,7 +20,6 @@ function Text(props) {
     }
     km.api.say('')
     const doQuery = async () => {
-      debugger
       return km.process(query.toLowerCase()).then( async (result) => {
         let message = ''
         let hasError = false
