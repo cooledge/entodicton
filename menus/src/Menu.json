@@ -69,5 +69,44 @@
       { "key": "Edit-DirectCursorMode", "text": "Direct Cursor Mode", "ui": "Direct Cursor Mode..." },
       { "key": "Edit-EditMode", "text": "Edit Mode", "ui": "Edit Mode..." }
     ]
+  },
+  {
+    "key": "View",
+    "text": "View",
+    "ui": "View",
+    "children": [
+      { "key": "View-Normal", "text": "Normal", "ui": "Normal" },
+      { "key": "View-Web", "text": "Web", "ui": "Web" },
+      { "divider": true },
+      { "key": "View-UserInterface", "text": "User Interface", "ui": "User Interface..." },
+      { "key": "View-Toolbars", "text": "Toolbars", "ui": "Toolbars" },
+      { "key": "View-StatusBar", "text": "StatusBar", "ui": "StatusBar" },
+      { "divider": true },
+      { "key": "View-Rulers", "text": "Rulers", "ui": "Rulers" },
+      { "key": "View-Scrollbars", "text": "Scrollbars", "ui": "Scrollbars" },
+      { "key": "View-GridAndHelplines", "text": "GridAndHelplines", "ui": "Grid And Helplines" },
+      { "divider": true },
+      { "key": "View-FormattingMarks", "text": "FormattingMarks", "ui": "Formatting Marks" },
+      { "key": "View-TextBoundaries", "text": "TextBoundaries", "ui": "Text Boundaries" },
+      { "key": "View-TableBoundaries", "text": "Table ", "ui": "Table " },
+      { "key": "View-ImagesAndCharts", "text": "Images ", "ui": "Images " },
+      { "key": "View-ShowWhitespace", "text": "Show ", "ui": "Show " },
+      { "divider": true },
+      { "key": "View-ShowTrackedChanges", "text": "ShowTrackedChanges", "ui": "Show Tracked Changes" },
+      { "key": "View-Comments", "text": "Comments", "ui": "Comments" },
+      { "key": "View-ResolvedComments", "text": "Resolved ", "ui": "Resolved " },
+      { "divider": true },
+      { "key": "View-FieldShadings", "text": "Field Shadings", "ui": "Field Shadings" },
+      { "key": "View-FieldNames", "text": "Field Names", "ui": "Field Names" },
+      { "key": "View-FieldHiddenParagraphs", "text": "FieldHiddenParagraphs", "ui": "Field Hidden Paragraphs" },
+      { "divider": true },
+      { "key": "View-Sidebar", "text": "Sidebar", "ui": "Sidebar" },
+      { "key": "View-Styles", "text": "Styles", "ui": "Styles" },
+      { "key": "View-Gallary", "text": "Gallary", "ui": "Gallary" },
+      { "key": "View-Navigator", "text": "Navigator", "ui": "Navigator" },
+      { "divider": true },
+      { "key": "View-Fullscreen", "text": "Fullscreen", "ui": "Fullscreen" },
+      { "key": "View-Zoom", "text": "Zoom", "ui": "Zoom" }
+    ]
   }
 ]
