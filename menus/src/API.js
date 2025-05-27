@@ -1,6 +1,7 @@
 const makeAPI = (km) => {
   class MenusAPI extends km.apiBase() {
     show(item) {
+      debugger
       const path = this._objects.directions.paths[item]
       if (path && path[0]) {
         this.props.setOpenKeys([path[0]])

@@ -4,6 +4,7 @@ import Text from './Text'
 import makeAPI from './API'
 import RCMenu from './Menu'
 const tpmkms = require('tpmkms_4wp')
+const menu = require('./Menu.json')
 
 const initialValue = [
   {
@@ -63,12 +64,48 @@ const App = () => {
         km.server(url)
         
       await km.restart_auto_rebuild()
-      const fileMenuId = km.api.addMenu('File')
-      km.api.addMenuItem(fileMenuId, 'File-New', 'new')
-      km.api.addMenuItem(fileMenuId, 'File-Open', 'open')
+      for (const subMenu of menu) {
+        const menuId = km.api.addMenu(subMenu.key)
+        for (const child of subMenu.children) {
+          if (child.key) {
+            km.api.addMenuItem(menuId, child.key, child.text)
+          }
+        }
+      }
 
-      const objectMenuId = km.api.addMenu('Object')
-      km.api.addMenuItem(objectMenuId, 'Object-Open', 'open')
+      if (false) {
+        const fileMenuId = km.api.addMenu('File')
+
+        km.api.addMenuItem(fileMenuId, 'File-New', 'new2')
+        km.api.addMenuItem(fileMenuId, 'File-Open', 'open')
+        km.api.addMenuItem(fileMenuId, 'File-OpenRemote', 'open remote')
+        km.api.addMenuItem(fileMenuId, 'File-RecentDocuments', 'recent documents')
+        km.api.addMenuItem(fileMenuId, 'File-Close', 'close')
+
+        km.api.addMenuItem(fileMenuId, 'File-Wizards', 'wizards')
+        km.api.addMenuItem(fileMenuId, 'File-Templates', 'templates')
+
+        km.api.addMenuItem(fileMenuId, 'File-Save', 'save')
+        km.api.addMenuItem(fileMenuId, 'File-SaveAs', 'save as')
+        km.api.addMenuItem(fileMenuId, 'File-SaveRemote', 'save remote')
+        km.api.addMenuItem(fileMenuId, 'File-SaveACopy', 'save a copy')
+        km.api.addMenuItem(fileMenuId, 'File-SaveAll', 'save all')
+
+        km.api.addMenuItem(fileMenuId, 'File-Export', 'export')
+        km.api.addMenuItem(fileMenuId, 'File-ExportAs', 'export as')
+        km.api.addMenuItem(fileMenuId, 'File-Send', 'send')
+        km.api.addMenuItem(fileMenuId, 'File-PreviewInWebBrowser', 'preview in web browser')
+
+        km.api.addMenuItem(fileMenuId, 'File-PrintPreview', 'print preview')
+        km.api.addMenuItem(fileMenuId, 'File-Print', 'print')
+        km.api.addMenuItem(fileMenuId, 'File-PrinterSettings', 'printer settings')
+
+        km.api.addMenuItem(fileMenuId, 'File-Properties', 'properties')
+        km.api.addMenuItem(fileMenuId, 'File-DigitalSignatures', 'digital signatures')
+
+        const objectMenuId = km.api.addMenu('Object')
+        km.api.addMenuItem(objectMenuId, 'Object-Open', 'open')
+      }
       setKM(km)
     }
 
