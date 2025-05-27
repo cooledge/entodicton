@@ -72,40 +72,6 @@ const App = () => {
           }
         }
       }
-
-      if (false) {
-        const fileMenuId = km.api.addMenu('File')
-
-        km.api.addMenuItem(fileMenuId, 'File-New', 'new2')
-        km.api.addMenuItem(fileMenuId, 'File-Open', 'open')
-        km.api.addMenuItem(fileMenuId, 'File-OpenRemote', 'open remote')
-        km.api.addMenuItem(fileMenuId, 'File-RecentDocuments', 'recent documents')
-        km.api.addMenuItem(fileMenuId, 'File-Close', 'close')
-
-        km.api.addMenuItem(fileMenuId, 'File-Wizards', 'wizards')
-        km.api.addMenuItem(fileMenuId, 'File-Templates', 'templates')
-
-        km.api.addMenuItem(fileMenuId, 'File-Save', 'save')
-        km.api.addMenuItem(fileMenuId, 'File-SaveAs', 'save as')
-        km.api.addMenuItem(fileMenuId, 'File-SaveRemote', 'save remote')
-        km.api.addMenuItem(fileMenuId, 'File-SaveACopy', 'save a copy')
-        km.api.addMenuItem(fileMenuId, 'File-SaveAll', 'save all')
-
-        km.api.addMenuItem(fileMenuId, 'File-Export', 'export')
-        km.api.addMenuItem(fileMenuId, 'File-ExportAs', 'export as')
-        km.api.addMenuItem(fileMenuId, 'File-Send', 'send')
-        km.api.addMenuItem(fileMenuId, 'File-PreviewInWebBrowser', 'preview in web browser')
-
-        km.api.addMenuItem(fileMenuId, 'File-PrintPreview', 'print preview')
-        km.api.addMenuItem(fileMenuId, 'File-Print', 'print')
-        km.api.addMenuItem(fileMenuId, 'File-PrinterSettings', 'printer settings')
-
-        km.api.addMenuItem(fileMenuId, 'File-Properties', 'properties')
-        km.api.addMenuItem(fileMenuId, 'File-DigitalSignatures', 'digital signatures')
-
-        const objectMenuId = km.api.addMenu('Object')
-        km.api.addMenuItem(objectMenuId, 'Object-Open', 'open')
-      }
       setKM(km)
     }
 
@@ -133,7 +99,6 @@ const App = () => {
     })
   }
 
-  // <CommonMenu mode="horizontal" openAnimation="slide-up" openKeys={openKeys} />
   return (
     <div className='App'>
       <div className='Links'>
@@ -143,7 +108,7 @@ const App = () => {
       <input id='greginput' type='text'/><button id='gregbutton' onClick={onClick}>DOIT</button>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
-      <RCMenu mode="horizontal" selectedKeys={selectedKeys} openKeys={openKeys} openAnimation="slide-up"/>
+      <RCMenu mode="horizontal" selectedKeys={selectedKeys} openKeys={openKeys} setSelectedKeys={setSelectedKeys} setOpenKeys={setOpenKeys} openAnimation="slide-up"/>
     </div>
   )
 }

@@ -14,30 +14,38 @@ function onOpenChange(value) {
   console.log('onOpenChange', value);
 }
 
-const getSubMenus = () => {
+const getSubMenus = ({ setOpenKeys, setSelectedKeys }) => {
   const elements = []
+  const handleMouseEnterMenu = (key) => () => {
+    setOpenKeys([key])
+    setSelectedKeys([])
+  };
+  const handleMouseEnterMenuItem = (key) => () => {
+    setSelectedKeys([key])
+  };
   for (const subMenu of subMenus) {
     const { key, ui, children } = subMenu
     elements.push(
-      <SubMenu title={<span className="submenu-title-wrapper">{ui}</span>} key={key} id={key}>
-        { children.map((child) => <MenuItem key={child.key} id={child.key}>{child.ui}</MenuItem>) }
+      <SubMenu onMouseEnter={handleMouseEnterMenu(key)} title={<span className="submenu-title-wrapper">{ui}</span>} key={key} id={key}>
+        { children.map((child) => <MenuItem onMouseEnter={handleMouseEnterMenuItem(child.key)} key={child.key} id={child.key}>{child.ui}</MenuItem>) }
       </SubMenu>
     )
   }
   return elements
 }
 
-const children1 = getSubMenus()
-
 function CommonMenu({
   triggerSubMenuAction,
   updateChildrenAndOverflowedIndicator,
   selectedKeys,
+  setSelectedKeys,
   mode,
   openAnimation,
   openKeys,
+  setOpenKeys,
   defaultOpenKeys,
 }) {
+  const children = getSubMenus({ setOpenKeys, setSelectedKeys })
   return (
     <div>
       <Menu
@@ -50,7 +58,7 @@ function CommonMenu({
         openKeys={openKeys}
         defaultOpenKeys={defaultOpenKeys}
       >
-        {children1}
+        {children}
       </Menu>
     </div>
   );

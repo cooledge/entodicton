@@ -79,7 +79,7 @@ describe('tests for menus page', () => {
   })
 
   const menu_close_test = async (id, text) => {
-    test(`NEO23 MENUS menu close test for ${id}`, async () => {
+    test(`MENUS menu close test for ${id}`, async () => {
       await page.waitForSelector('#query')
       await query(text)
       const className = 'rc-menu-submenu-open'
@@ -234,5 +234,54 @@ describe('tests for menus page', () => {
     }
     previous = menu
   })
+
+  /*
+    the dispatch event was not working. 
+  const goto_menu_item_with_mouse_then_go_up = (menu, id, up) => {
+    test(`NEO23 MENUS menu item up menu open for ${id}`, async () => {
+      await page.waitForSelector('#query')
+
+      await query(menu)
+      await page.waitForSelector(`#${menu}`)
+
+      await sleep('10000')
+      await page.evaluate((selector) => {
+        debugger
+        const element = document.querySelector(selector);
+        if (element) {
+          const e = new MouseEvent('mouseenter', { view: window, bubbles: true, cancelable: true, });
+          element.dispatchEvent(e);
+        } else {
+          throw new Error('Element not found');
+        }
+      }, `#${id}`);
+
+      await query("up")
+      const className = 'rc-menu-item-selected'
+      await waitForClass(up, className)
+      const element = await page.$(`#${up}`)
+      const classNames = await (await element.getProperty('className')).jsonValue()
+      expect(classNames.includes(className)).toBe(true)
+    }, timeout);
+  }
+
+  goto_menu_item_with_mouse_then_go_up('File', 'File-Open', 'File-New')
+  */
+
+  /*
+  menu.forEach((menu) => {
+    let previous
+    for (const child of menu.children) {
+      if (child.divider) {
+        continue
+      }
+      if (previous) {
+        goto_menu_item_go_up(child.key, previous, `${menu.text} ${child.text}`)
+      }
+      previous = child.key
+    }
+  })
+  */
+
 
 });
