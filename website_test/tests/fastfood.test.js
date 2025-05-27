@@ -208,7 +208,7 @@ describe('tests for fastfood page', () => {
       { queries: ['medium waffle fries'], expecteds: [[{id: 'waffle_fry', size: 'medium'}]] },
       { queries: ['large waffle fries'], expecteds: [[{id: 'waffle_fry', size: 'large'}]] },
       { queries: ['combo 1 with waffle fries'], expecteds: [[{id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }] }]] },
-      ...withAndWithoutDrink({query: 'combo 1 with waffle fries', neo: true, expected: {id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }]}}),
+      ...withAndWithoutDrink({query: 'combo 1 with waffle fries', expected: {id: 'single', combo: true, modifications: [{ id: 'waffle_fry' }]}}),
       { queries: ['coca cola'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'coca_cola'}]] },
       { queries: ['coke'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'coca_cola'}]] },
       { queries: ['diet coke'], sizes: ['small', 'medium', 'large'], expecteds: [[{id: 'diet_coke'}]] },
@@ -422,7 +422,7 @@ describe('tests for fastfood page', () => {
     }
     const queriesString = query.queries.map((query) => `'${query}'`).join(" ")
     console.log('queriesString', queriesString)
-    xtest(`${neo}FASTFOOD query "${queriesString}"`, async () => {
+    test(`${neo}FASTFOOD query "${queriesString}"`, async () => {
       await showTest(query)
     }, timeout)
     if (query.sizes) {
@@ -436,7 +436,7 @@ describe('tests for fastfood page', () => {
           expected[0].size = size
         })
         const queriesString = squery.queries.map((query) => `'${query}'`).join(" ")
-        xtest(`${neo}FASTFOOD query "${queriesString}"`, async () => {
+        test(`${neo}FASTFOOD query "${queriesString}"`, async () => {
           // console.log('squery', JSON.stringify(squery, null, 2))
           await showTest(squery)
         }, timeout)
