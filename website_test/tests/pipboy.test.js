@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer')
 const tests = require('./tests.json')
 const character = require('../../pipboy/src/character.json')
+const DemoWriter = require('./demoWriter')
 
 // const URL = 'http://thinktelligence.com'
 // const URL = 'https://thinktelligence.com:81' || process.env.URL || 'http://localhost:10000'
@@ -14,6 +15,8 @@ function sleep(ms) {
     setTimeout(resolve, ms);
   });
 }
+
+const demoWriter = new DemoWriter('../pipboy/src/demo.json')
 
 describe('tests for pipboy page', () => {
 
@@ -30,6 +33,9 @@ describe('tests for pipboy page', () => {
  
   afterEach( async () => {
     await page.close()
+    if (!process.env.NO_DEMOS) {
+      demoWriter.write()
+    }
   }, timeout)
 
   beforeAll( async () => {
@@ -50,6 +56,7 @@ describe('tests for pipboy page', () => {
   }, timeout);
 
   const doQuery = async (query) => {
+    demoWriter.add(query)
     await page.waitForSelector('#query')
     await page.type('#query', query)
     await page.click('#submit')
@@ -147,6 +154,7 @@ describe('tests for pipboy page', () => {
 
 
   const testQueries = async (queries, tests) => {
+    demoWriter.add(queries.join('. '))
     for (let i = 0; i < queries.length; ++i) {
       const query = queries[i]
       const test = tests[i]
@@ -161,7 +169,6 @@ describe('tests for pipboy page', () => {
       await page.waitForSelector(`#queryCounter${counter+1}`)
       counter += 1
       await test(page)
-
     }
   }
 
