@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer')
 const tests = require('./tests.json')
 const character = require('../../pipboy/src/character.json')
+const DemoWriter = require('./demoWriter')
 
 // const URL = 'http://thinktelligence.com'
 // const URL = 'https://thinktelligence.com:81' || process.env.URL || 'http://localhost:10000'
@@ -202,6 +203,8 @@ const isAllTextTaggedEasy = async (page, tagName, textNodeOrdinals) => {
   return result
 }
 
+const demoWriter = new DemoWriter('../wp/src/demo.json')
+
 describe('tests for wp page', () => {
 
   let counter
@@ -214,6 +217,9 @@ describe('tests for wp page', () => {
 
   afterAll( async () => {
     await browser.close()
+    if (!process.env.NO_DEMOS) {
+      demoWriter.write()
+    }
   }, timeout);
 
   beforeEach( async () => {
@@ -232,6 +238,7 @@ describe('tests for wp page', () => {
   }, timeout);
 
   const query = async (query) => { 
+    demoWriter.add(query)
     await page.waitForSelector('#query')
     await page.type('#query', query)
     await page.click('#submit')
