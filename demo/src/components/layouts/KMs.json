@@ -1329,7 +1329,8 @@
         "object\\nopen",
         "close the menu",
         "object close",
-        "file close"
+        "file close",
+        "file open remote"
       ],
       "template": [
         "setidsuffix _menus",
@@ -1341,7 +1342,9 @@
       "includes": [
         "ui",
         "ordinals",
+        "math",
         "countable",
+        "comparable",
         "hierarchy",
         "numbers",
         "properties",
@@ -2179,12 +2182,16 @@
         "move down 2",
         "down",
         "unselect",
-        "stop action"
+        "stop action",
+        "up 2+2",
+        "move up 2+5"
       ],
       "template": [],
       "includes": [
         "ordinals",
+        "math",
         "countable",
+        "comparable",
         "hierarchy",
         "numbers",
         "properties",
@@ -2353,7 +2360,9 @@
         "colors",
         "errors",
         "ordinals",
+        "math",
         "countable",
+        "comparable",
         "hierarchy",
         "numbers",
         "properties",
