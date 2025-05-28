@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer')
 const tests = require('./tests.json')
 const menu = require('./Menu.json')
+const DemoWriter = require('./demoWriter')
 
 const URL = process.env.URL || 'http://localhost:10000'
 const headless = process.env.HEADLESS !== 'false'
@@ -12,6 +13,8 @@ function sleep(ms) {
     setTimeout(resolve, ms);
   });
 }
+
+const demoWriter = new DemoWriter('../menus/src/demo.json')
 
 describe('tests for menus page', () => {
 
@@ -25,6 +28,9 @@ describe('tests for menus page', () => {
 
   afterAll( async () => {
     await browser.close()
+    if (!process.env.NO_DEMOS) {
+      demoWriter.write()
+    }
   }, timeout);
 
   beforeEach( async () => {
@@ -50,11 +56,12 @@ describe('tests for menus page', () => {
     );
   }
 
-  test(`MENUS test page loads`, async () => {
+  test(`NEO23 MENUS test page loads`, async () => {
     await page.waitForSelector('#query')
   }, timeout);
 
   const query = async (query) => { 
+    demoWriter.add(query.toLowerCase())
     await page.waitForSelector('#query')
     await page.type('#query', query)
     await page.click('#submit')
@@ -195,6 +202,33 @@ describe('tests for menus page', () => {
     }
   })
 
+  const goto_menu_item_go_down_one_plus_one = (id, down, text) => {
+    test(`MENUS menu item down 1+1 menu open for ${id}`, async () => {
+      await page.waitForSelector('#query')
+      await query(`${text} down 1+1`)
+      const className = 'rc-menu-item-selected'
+      await waitForClass(down, className)
+      const element = await page.$(`#${down}`)
+      const classNames = await (await element.getProperty('className')).jsonValue()
+      expect(classNames.includes(className)).toBe(true)
+    }, timeout);
+  }
+
+  // goto_menu_item_go_down_one_plus_one('File-New', 'File-OpenRemote', 'new')
+  menu.forEach((menu) => {
+    let previous = []
+    for (const child of menu.children) {
+      if (child.divider) {
+        continue
+      }
+      if (previous.length > 2) {
+        const start = previous[previous.length-2]
+        goto_menu_item_go_down_one_plus_one(start.key, child.key, `${menu.text} ${start.text}`)
+      }
+      previous.push(child)
+    }
+  })
+
   const goto_menu_go_left = (id, left, text) => {
     test(`MENUS menu left for ${id}`, async () => {
       await page.waitForSelector('#query')
@@ -238,7 +272,7 @@ describe('tests for menus page', () => {
   /*
     the dispatch event was not working. 
   const goto_menu_item_with_mouse_then_go_up = (menu, id, up) => {
-    test(`NEO23 MENUS menu item up menu open for ${id}`, async () => {
+    test(`MENUS menu item up menu open for ${id}`, async () => {
       await page.waitForSelector('#query')
 
       await query(menu)

@@ -103,9 +103,8 @@ const App = () => {
     <div className='App'>
       <div className='Links'>
         <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://youtu.be/5IXwd1j9Cak'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/wp/src/API.js'} target="_blank" rel="noreferrer">Source Code of API for this page</a>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/menus/src/API.js'} target="_blank" rel="noreferrer">Source Code of API for this page</a>
       </div>
-      <input id='greginput' type='text'/><button id='gregbutton' onClick={onClick}>DOIT</button>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
       <RCMenu mode="horizontal" selectedKeys={selectedKeys} openKeys={openKeys} setSelectedKeys={setSelectedKeys} setOpenKeys={setOpenKeys} openAnimation="slide-up"/>
