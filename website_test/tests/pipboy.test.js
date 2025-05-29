@@ -33,9 +33,6 @@ describe('tests for pipboy page', () => {
  
   afterEach( async () => {
     await page.close()
-    if (!process.env.NO_DEMOS) {
-      demoWriter.write()
-    }
   }, timeout)
 
   beforeAll( async () => {
@@ -44,6 +41,9 @@ describe('tests for pipboy page', () => {
 
   afterAll( async () => {
     await browser.close()
+    if (!process.env.NO_DEMOS) {
+      demoWriter.write()
+    }
   }, timeout);
 
   test(`PIPBOY test page loads`, async () => {

@@ -2,6 +2,9 @@ const { MongoClient } = require('mongodb');
 const _ = require('lodash')
 const puppeteer = require('puppeteer')
 const tests = require('./tests.json')
+const DemoWriter = require('./demoWriter')
+
+const demoWriter = new DemoWriter('../mongo/client/src/demo.json', true)
 
 // MONGO_URL=http://box1:27017;URL=http://thinktelligence.com:81 npm run mongo
 
@@ -55,6 +58,14 @@ describe('tests for the mongo page', () => {
   let browser;
   let users, movies;
 
+  beforeEach( () => {
+    demoWriter.startTest()
+  })
+
+  afterEach( () => {
+    demoWriter.endTest()
+  })
+
   beforeAll( async () => {
     client = new MongoClient(url);
     browser = await puppeteer.launch({ headless, sloMo });
@@ -65,6 +76,9 @@ describe('tests for the mongo page', () => {
   afterAll( async () => {
     await browser.close()
     await client.close()
+    if (!process.env.NO_DEMOS) {
+      demoWriter.write()
+    }
   }, timeout);
 
   test(`STARTPUPPETEER`, async () => {
@@ -242,7 +256,8 @@ describe('tests for the mongo page', () => {
       }
     }
 
-    const query = async (query) => { await page.type('#query', query)
+    const query = async (query) => { 
+      await page.type('#query', query)
       await page.click('#submit')
       await page.waitForSelector(`#queryCounter${counter+1}`)
       counter += 1

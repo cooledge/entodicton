@@ -1,13 +1,27 @@
 const fs = require('fs')
 
 class DemoWriter {
-  constructor(filePath) {
+  constructor(filePath, callingStartAndEnd) {
     this.filePath = filePath
     this.queries = []
+    this.current = []
+    this.callingStartEndEnd = callingStartAndEnd
+  }
+
+  startTest() {
+    this.current = []
+  }
+
+  endTest() {
+    this.queries.push(this.current.join('. '))
   }
 
   add(query) {
-    this.queries.push(query)
+    if (this.callingStartAndEnd) {
+      this.current.push(query)
+    } else {
+      this.queries.push(query)
+    }
   }
 
   write() {
