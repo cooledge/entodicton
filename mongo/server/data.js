@@ -16,7 +16,7 @@ const instantiate = async (dataSpec) => {
   if (!dataSpec) {
     return dataSpec
   }
-  console.log("instantiating dataspec", JSON.stringify(dataSpec, null, 2))
+  // console.log("instantiating dataspec", JSON.stringify(dataSpec, null, 2))
   await initialize()
 
   if (Array.isArray(dataSpec)) {
@@ -43,7 +43,7 @@ const instantiate = async (dataSpec) => {
       }
       return await data.toArray()
     } else {
-      console.log('----------- dataSpec.sort', dataSpec.sort);
+      // console.log('----------- dataSpec.sort', dataSpec.sort);
       const data1 = await collection.aggregate(aggregation).limit(10).toArray();
       data = collection.aggregate(aggregation)
       if (dataSpec.sort) {

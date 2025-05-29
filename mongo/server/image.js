@@ -136,7 +136,7 @@ const instantiateImpl = (imageSpec, bson, options = {}) => {
   } else if (Array.isArray(imageSpec)) {
     const values = []
     for (const [index, field] of imageSpec.entries()) {
-      console.log('field', field)
+      // console.log('field', field)
       values.push({ className: `column column_${index} ${options.id}_column_${index}`, data: instantiateImpl(field, bson, options) })
     }
     return values
@@ -226,7 +226,7 @@ const removeColumnsByOrdinal = (imageSpec, ordinals) => {
 const selecting = (selectingWhat, imageSpec) => {
   // setId(imageSpec)
   const counts = count(imageSpec)
-  console.log('counts', JSON.stringify(counts))
+  // console.log('counts', JSON.stringify(counts))
   const options = {
     seen: (what, value, options) => {
       if (what == selectingWhat) {
@@ -286,7 +286,7 @@ const addGroup = (api, dataSpecPath, imageSpec, fields) => {
           newImageSpec.colgroups.push('c2'),
           newImageSpec.rows.push({ ...oldImageSpec, dataSpecPath: [field.collection] })
         }
-        console.log('oldImageSpec', JSON.stringify(oldImageSpec, null, 2))
+        // console.log('oldImageSpec', JSON.stringify(oldImageSpec, null, 2))
         Object.assign(imageSpec, newImageSpec)
         return true
       }

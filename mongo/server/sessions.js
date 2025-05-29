@@ -26,10 +26,10 @@ class Sessions {
   }
 
   async get(sessionId) {
-    console.log('session.get(sessionId):', sessionId)
+    // console.log('session.get(sessionId):', sessionId)
     const value = this.cache.get(sessionId)
     if (value) {
-      console.log('session.get returning:', value.sessionID)
+      // console.log('session.get returning:', value.sessionID)
       return value
     }
 
@@ -44,7 +44,7 @@ class Sessions {
 
     const mongoKM = await this.create()
     mongoKM.server('http://localhost:3012')
-    console.log('get(sessionId): create', mongoKM.sessionID)
+    // console.log('get(sessionId): create', mongoKM.sessionID)
     this.cache.set(sessionId, mongoKM)
     return mongoKM
   }

@@ -86,7 +86,7 @@ const collectionName = 'sales';
 async function mongoQuery() {
   // Use connect method to connect to the server
   await client.connect();
-  console.log('Connected successfully to server');
+  // console.log('Connected successfully to server');
   db = client.db(dbName);
   collection = db.collection(collectionName)
 
@@ -98,7 +98,7 @@ async function mongoQuery() {
 
 app.get('/', async (req, res) => {
   const result = await mongoQuery()
-  console.log('Found documents =>', result);
+  // console.log('Found documents =>', result);
   res.send('mongoapi server')
 })
 
@@ -116,21 +116,21 @@ app.post('/query', async (req, res) => {
     if (!mongoKM.sessionID) {
       mongoKM.sessionID = req.sessionID
     }
-    console.log('req.sessionID', req.sessionID)
-    console.log('mongoKM.sessionID', mongoKM.sessionID)
+    // console.log('req.sessionID', req.sessionID)
+    // console.log('mongoKM.sessionID', mongoKM.sessionID)
     if (!mongoKM) {
       res.json({ noSessions: true, max: sessions.max(), ttl: sessions.ttl() })
       return
     }
-    console.log('sessionId', req.sessionID)
+    // console.log('sessionId', req.sessionID)
     // console.log('in query', JSON.stringify(req.body, null, 2))
     const queryResponses = []
     if (req.body.query) {
       mongoKM.api.clearLastResponse()
       const query = req.body.query
       if (query.selectReport) {
-        console.log("in select REPORT")
-        console.log("in select REPORT", query.selectReport)
+        // console.log("in select REPORT")
+        // console.log("in select REPORT", query.selectReport)
         mongoKM.api.selectReport(query.selectReport)
       }
       else if (req.body.query.chosen) {
@@ -155,12 +155,12 @@ app.post('/query', async (req, res) => {
             }
           }
         }
-        console.log('queryResponses', JSON.stringify(queryResponses, null, 2))
+        // console.log('queryResponses', JSON.stringify(queryResponses, null, 2))
       }
     }
     const lastResponse = mongoKM.api.lastResponse()
     if (lastResponse) {
-      console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
+      // console.log('lastResponse', JSON.stringify(lastResponse, null, 2))
 
       const response = { queryResponses }
       /*
@@ -178,9 +178,9 @@ app.post('/query', async (req, res) => {
 
       if (lastResponse.report) {
         const report = await query(lastResponse.report.dataSpec, lastResponse.report.imageSpec)
-        console.log('lastResponse.report calling getReportNames') 
+        // console.log('lastResponse.report calling getReportNames') 
         response.reportNames = mongoKM.api.getReportNames() // selected could change
-        console.log('response.reportNames', JSON.stringify(response.reportNames))
+        // console.log('response.reportNames', JSON.stringify(response.reportNames))
         response.report = report
       }
 
@@ -188,7 +188,7 @@ app.post('/query', async (req, res) => {
         response.clear = true
       }
 
-      console.log(JSON.stringify(response, null, 2))
+      // console.log(JSON.stringify(response, null, 2))
       response.sessions = sessions.statistics()
       res.json(response)
     } else {

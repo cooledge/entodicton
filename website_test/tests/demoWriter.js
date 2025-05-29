@@ -5,7 +5,7 @@ class DemoWriter {
     this.filePath = filePath
     this.queries = []
     this.current = []
-    this.callingStartEndEnd = callingStartAndEnd
+    this.callingStartAndEnd = callingStartAndEnd
   }
 
   startTest() {
@@ -18,8 +18,10 @@ class DemoWriter {
 
   add(query) {
     if (this.callingStartAndEnd) {
+      console.log('this.current.push', query)
       this.current.push(query)
     } else {
+      console.log('this.queries.push', query)
       this.queries.push(query)
     }
   }

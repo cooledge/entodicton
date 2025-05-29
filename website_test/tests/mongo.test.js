@@ -58,14 +58,6 @@ describe('tests for the mongo page', () => {
   let browser;
   let users, movies;
 
-  beforeEach( () => {
-    demoWriter.startTest()
-  })
-
-  afterEach( () => {
-    demoWriter.endTest()
-  })
-
   beforeAll( async () => {
     client = new MongoClient(url);
     browser = await puppeteer.launch({ headless, sloMo });
@@ -229,11 +221,13 @@ describe('tests for the mongo page', () => {
       page = await browser.newPage();
       await page.goto(`${URL}/mongo/`)
       await page.waitForSelector('#query')
-      await query('clear')
+      await query('clear', false)
+      demoWriter.startTest()
     }, timeout)
 
     afterEach( async () => {
       await page.close()
+      demoWriter.endTest()
     }, timeout)
 
     const checkOrder = async (expectedOrder) => {
@@ -256,7 +250,10 @@ describe('tests for the mongo page', () => {
       }
     }
 
-    const query = async (query) => { 
+    const query = async (query, log = true) => { 
+      if (log) {
+        demoWriter.add(query)
+      }
       await page.type('#query', query)
       await page.click('#submit')
       await page.waitForSelector(`#queryCounter${counter+1}`)
@@ -299,7 +296,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 3, movies, ['title'])
     }, timeout);
     
-    test(`MONGO show users\nmake the header blue`, async () => {
+    test(`NEO23 MONGO show users\nmake the header blue`, async () => {
       await query('show users')
       await query('make the header blue')
       expect(await hasRule(".table_2 .header { color: blue; }")).toBe(true)

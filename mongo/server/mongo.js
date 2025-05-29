@@ -153,7 +153,7 @@ class API {
     }
     if (dataSpec.groupFields?.length > 0) {
       const fieldName = context.path[0]
-      console.log("dataSpec", JSON.stringify(dataSpec, null, 2))
+      // console.log("dataSpec", JSON.stringify(dataSpec, null, 2))
       dataSpec.countFields.push(fieldName)
       const setName = `${fieldName}Set`
       dataSpec.aggregation[1].$group[setName] = { "$addToSet": { [setName]: `$${fieldName}` } }
@@ -215,7 +215,7 @@ class API {
     const api = this
     const values = this.args.values
     columns = values(columns)
-    console.log(JSON.stringify(columns, null, 2))
+    // console.log(JSON.stringify(columns, null, 2))
     const isNumber = (column) => {
       if (column.marker == 'recordCount') {
         return true
@@ -227,7 +227,7 @@ class API {
     const { database, collection, columnNames } = await api.determineCollection(columns)
     const subReport = await api.newReportSpec(database, collection)
     report.addGroup(subReport.dataSpec, categories.map((field) => field.path[0]))
-    console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
+    // console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
 
     const numberFields = []
     for (const number of numbers) {
@@ -240,9 +240,9 @@ class API {
       const cf = api.addRecordCountsToDataSpec(subReport.dataSpec, field)
       countFields.push(...cf)
     }
-    console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
+    // console.log("subReport.dataSpec", JSON.stringify(subReport.dataSpec, null, 2))
     const output = await data.instantiate(subReport.dataSpec)
-    console.log("data", JSON.stringify(output, null, 2))
+    // console.log("data", JSON.stringify(output, null, 2))
     subReport.imageSpec = {
       type,
       title,
@@ -303,8 +303,9 @@ class API {
 
   show(report) {
     // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
-    this.objects.show.push(report)
-    console.log('show -----------', JSON.stringify(report, null, 2))
+    helpers.pushL(this.objects.show, report, 3)
+
+    // console.log('show -----------', JSON.stringify(report, null, 2))
     this.addResponse({ report })
   }
 
@@ -554,7 +555,7 @@ let configStruct = {
       apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
-        console.log(JSON.stringify(context, null, 2))
+        // console.log(JSON.stringify(context, null, 2))
         let items
         // TODO fix this for marker == table / graph or other
         if (context.marker == 'table') {
@@ -589,7 +590,7 @@ let configStruct = {
           }
         }
 
-        console.log('selectedTable', JSON.stringify(selectedTables, null, 2))
+        // console.log('selectedTable', JSON.stringify(selectedTables, null, 2))
         if (!_.isEmpty(selectedTables)) {
           context.evalue = {
             marker: context.marker, 
@@ -611,7 +612,7 @@ let configStruct = {
       apply: async ({context, api, values, e, isA}) => {
         const table = (await e(context.moveable)).evalue
         if (table) {
-          console.log('table', JSON.stringify(table, null, 2))
+          // console.log('table', JSON.stringify(table, null, 2))
           const direction = context.direction.value
           let distance = context.direction.steps?.value || 1
           if (direction == 'up') {
@@ -674,7 +675,7 @@ let configStruct = {
         async ({context, api, values, e, isA}) => {
           const element = (await e(context.element)).evalue
           if (element) {
-            console.log('element', JSON.stringify(element, null, 2))
+            // console.log('element', JSON.stringify(element, null, 2))
             for (const remove of values(element.value)) {
               image.remove(element.report.imageSpec, remove)
             }
@@ -923,8 +924,8 @@ let configStruct = {
         }
         const currentReport = api.current()
         const counts = image.count(currentReport.imageSpec)
-        console.log('currentReport-----------------', JSON.stringify(currentReport, null, 2))
-        console.log('counts-----------------', JSON.stringify(counts, null, 2))
+        // console.log('currentReport-----------------', JSON.stringify(currentReport, null, 2))
+        // console.log('counts-----------------', JSON.stringify(counts, null, 2))
         if (context.selected) {
           image.selecting(null, currentReport.imageSpec)
           const reportElements = getReportElements(currentReport.select.reportElement)
@@ -940,10 +941,10 @@ let configStruct = {
 
           let tables = []
           if (context.reportElement.frameOfReference) {
-            console.log("for", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))
+            // console.log("for", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))
             const mentioned = await e(context.reportElement.frameOfReference)
             tables = values(await mentioned.evalue.value || [])
-            console.log('tables', JSON.stringify(tables, null, 2))
+            // console.log('tables', JSON.stringify(tables, null, 2))
           }
 
           if (tables.length > 0) {
@@ -1001,7 +1002,7 @@ let configStruct = {
           api.show(report)
         } else if (context.element.marker == 'this') {
           if (context.selected) {
-            console.log('the user selected', context.selected)
+            // console.log('the user selected', context.selected)
             const imageSpec = report.imageSpec
             report.addRule(`.${context.selected.selected} { text-transform: capitalize; }`)
             imageSpec.headers.selecting = null
@@ -1029,7 +1030,7 @@ let configStruct = {
             }
             */
             report.select = context
-            console.log("after capitalize", JSON.stringify(report, null, 2))
+            // console.log("after capitalize", JSON.stringify(report, null, 2))
             api.show(report)
           }
         }
@@ -1146,7 +1147,7 @@ let configStruct = {
           }
           api.show(currentReport)
         } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {
-          console.log('currentReport', JSON.stringify(currentReport, null, 2))
+          // console.log('currentReport', JSON.stringify(currentReport, null, 2))
           // dataSpec[0] -> select report to update greg98
           const { dbName, collectionName, fields } = currentReport.dataSpec[0]
           await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)
@@ -1164,9 +1165,9 @@ let configStruct = {
           // TODO add a the email column called contact
           let defaultTable
           if (context.to && context.to.marker == 'columnAddedTo') {
-            console.log("context.to.destination", JSON.stringify(context.to.destination, null, 2))
+            // console.log("context.to.destination", JSON.stringify(context.to.destination, null, 2))
             const destination = (await e(context.to.destination)).evalue
-            console.log("destination", JSON.stringify(destination, null, 2))
+            // console.log("destination", JSON.stringify(destination, null, 2))
             // TODO handle not found
             defaultTable = destination
             // currentReport = destination.report
@@ -1176,7 +1177,7 @@ let configStruct = {
             const args = { context: { marker: 'table' }, frameOfReference: currentReport }
             defaultTable = mentions(args)
             if (defaultTable) {
-              console.log(JSON.stringify(defaultTable, null, 2))
+              // console.log(JSON.stringify(defaultTable, null, 2))
               // currentReport = defaultTable.frameOfReference
               // greg55
               // defaultTable = defaultTable.table.imageSpec
@@ -1221,15 +1222,15 @@ let configStruct = {
             }
             if (hasArray) {
               await api.setDataSpec(dataSpec, database, collection, columnNames)
-              console.log(JSON.stringify(dataSpec, null, 2))
+              // console.log(JSON.stringify(dataSpec, null, 2))
               report.addGroup(dataSpec, columnNames)
-              console.log(JSON.stringify(dataSpec, null, 2))
+              // console.log(JSON.stringify(dataSpec, null, 2))
               image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))
             } else {
               dataSpec.usedFields.push(...columnNames)
               if (defaultTable) {
                 debugger
-                console.log(JSON.stringify(defaultTable, null, 2))
+                // console.log(JSON.stringify(defaultTable, null, 2))
                 image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)
               } else {
                 for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {
@@ -1244,7 +1245,7 @@ let configStruct = {
           if (defaultTable) {
             // greg55
             for (const value of values(defaultTable.value)) {
-              console.log("value", JSON.stringify(value, null, 2))
+              // console.log("value", JSON.stringify(value, null, 2))
               currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)
             }
           } else {
@@ -1272,10 +1273,10 @@ let configStruct = {
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
       semantic: async ({context, isA, km, mentions, api, flatten}) => {
-        console.log("in show collection")
+        // console.log("in show collection")
         let currentReport = api.newReport()
         if (context.chosens) {
-          console.log('in chosen', JSON.stringify(context.chosens))
+          // console.log('in chosen', JSON.stringify(context.chosens))
           /*
               < in chosen {
               <   chosen: 'select',

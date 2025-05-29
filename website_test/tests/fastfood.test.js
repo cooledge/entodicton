@@ -1,6 +1,9 @@
 const puppeteer = require('puppeteer')
 const tests = require('./tests.json')
 const products = require('../../fastfood/src/products.json')
+const DemoWriter = require('./demoWriter')
+
+const demoWriter = new DemoWriter('../fastfood/src/demo.json', true)
 
 const URL = process.env.URL || 'http://localhost:10000'
 const headless = process.env.HEADLESS !== 'false'
@@ -24,10 +27,12 @@ describe('tests for fastfood page', () => {
     page = await browser.newPage();
     await page.goto(`${URL}/fastfood/`)
     await page.waitForSelector('#query')
+    demoWriter.startTest()
   }, timeout);
 
   afterEach( async () => {
     await page.close()
+    demoWriter.endTest()
   }, timeout)
 
   beforeAll( async () => {
@@ -36,6 +41,9 @@ describe('tests for fastfood page', () => {
 
   afterAll( async () => {
     await browser.close()
+    if (!process.env.NO_DEMOS) {
+      demoWriter.write()
+    }
   }, timeout)
 
   const doQuery = async (query) => {

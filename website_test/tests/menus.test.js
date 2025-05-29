@@ -56,7 +56,7 @@ describe('tests for menus page', () => {
     );
   }
 
-  test(`NEO23 MENUS test page loads`, async () => {
+  test(`MENUS test page loads`, async () => {
     await page.waitForSelector('#query')
   }, timeout);
 
