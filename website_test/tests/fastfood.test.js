@@ -47,6 +47,7 @@ describe('tests for fastfood page', () => {
   }, timeout)
 
   const doQuery = async (query) => {
+    demoWriter.add(query)
     await page.waitForSelector('#query')
     await page.type('#query', query)
     await page.click('#submit')
