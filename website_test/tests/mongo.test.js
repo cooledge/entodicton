@@ -296,7 +296,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 3, movies, ['title'])
     }, timeout);
     
-    test(`NEO23 MONGO show users\nmake the header blue`, async () => {
+    test(`MONGO show users\nmake the header blue`, async () => {
       await query('show users')
       await query('make the header blue')
       expect(await hasRule(".table_2 .header { color: blue; }")).toBe(true)

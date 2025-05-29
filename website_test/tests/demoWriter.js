@@ -18,10 +18,8 @@ class DemoWriter {
 
   add(query) {
     if (this.callingStartAndEnd) {
-      console.log('this.current.push', query)
       this.current.push(query)
     } else {
-      console.log('this.queries.push', query)
       this.queries.push(query)
     }
   }

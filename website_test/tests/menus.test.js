@@ -269,27 +269,14 @@ describe('tests for menus page', () => {
     previous = menu
   })
 
-  /*
-    the dispatch event was not working. 
   const goto_menu_item_with_mouse_then_go_up = (menu, id, up) => {
-    test(`MENUS menu item up menu open for ${id}`, async () => {
+    test(`NEO23 MENUS menu item up menu open for ${id}`, async () => {
       await page.waitForSelector('#query')
 
       await query(menu)
       await page.waitForSelector(`#${menu}`)
-
-      await sleep('10000')
-      await page.evaluate((selector) => {
-        debugger
-        const element = document.querySelector(selector);
-        if (element) {
-          const e = new MouseEvent('mouseenter', { view: window, bubbles: true, cancelable: true, });
-          element.dispatchEvent(e);
-        } else {
-          throw new Error('Element not found');
-        }
-      }, `#${id}`);
-
+      await page.waitForSelector(`#${id}`)
+      await page.click(`#${id}`)
       await query("up")
       const className = 'rc-menu-item-selected'
       await waitForClass(up, className)
@@ -299,23 +286,22 @@ describe('tests for menus page', () => {
     }, timeout);
   }
 
-  goto_menu_item_with_mouse_then_go_up('File', 'File-Open', 'File-New')
-  */
+  // goto_menu_item_with_mouse_then_go_up('File', 'File-Open', 'File-New')
 
-  /*
   menu.forEach((menu) => {
     let previous
+    // only the visible once get clicks
+    let counter = 0
     for (const child of menu.children) {
       if (child.divider) {
         continue
       }
-      if (previous) {
-        goto_menu_item_go_up(child.key, previous, `${menu.text} ${child.text}`)
+      if (previous && counter < 10) {
+        goto_menu_item_with_mouse_then_go_up(menu.text, child.key, previous.key)
       }
-      previous = child.key
+      previous = child
+      counter += 1
     }
   })
-  */
-
 
 });
