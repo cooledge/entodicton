@@ -459,11 +459,11 @@
         },
         {
           "match": "({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate",
-          "apply": "async ({context, toContext, values, api, gp, mentions, verbatim}) => {\n        const currentReport = api.current()\n        let selectedTables\n        console.log(JSON.stringify(context, null, 2))\n        let items\n        // TODO fix this for marker == table / graph or other\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }\n          const mentioned = mentions(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
+          "apply": "async ({context, toContext, values, api, gp, mentions, verbatim}) => {\n        const currentReport = api.current()\n        let selectedTables\n        // console.log(JSON.stringify(context, null, 2))\n        let items\n        // TODO fix this for marker == table / graph or other\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }\n          const mentioned = mentions(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        // console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'move' && !context.evaluate",
-          "apply": "async ({context, api, values, e, isA}) => {\n        const table = (await e(context.moveable)).evalue\n        if (table) {\n          console.log('table', JSON.stringify(table, null, 2))\n          const direction = context.direction.value\n          let distance = context.direction.steps?.value || 1\n          if (direction == 'up') {\n            distance *= -1\n          }\n          for (const moved of values(table.value)) {\n            image.moveUpOrDown(table.report.imageSpec, moved, distance)\n          }\n        }\n        api.show(table.report)\n      }"
+          "apply": "async ({context, api, values, e, isA}) => {\n        const table = (await e(context.moveable)).evalue\n        if (table) {\n          // console.log('table', JSON.stringify(table, null, 2))\n          const direction = context.direction.value\n          let distance = context.direction.steps?.value || 1\n          if (direction == 'up') {\n            distance *= -1\n          }\n          for (const moved of values(table.value)) {\n            image.moveUpOrDown(table.report.imageSpec, moved, distance)\n          }\n        }\n        api.show(table.report)\n      }"
         },
         {
           "match": "({context}) => context.marker == 'call' && context.nameable.marker == 'table'",
@@ -486,7 +486,7 @@
               "deletable"
             ]
           ],
-          "semantics": "[object Object],async ({context, api, values, e, isA}) => {\n          const element = (await e(context.element)).evalue\n          if (element) {\n            console.log('element', JSON.stringify(element, null, 2))\n            for (const remove of values(element.value)) {\n              image.remove(element.report.imageSpec, remove)\n            }\n          }\n          api.show(element.report)\n        }"
+          "semantics": "[object Object],async ({context, api, values, e, isA}) => {\n          const element = (await e(context.element)).evalue\n          if (element) {\n            // console.log('element', JSON.stringify(element, null, 2))\n            for (const remove of values(element.value)) {\n              image.remove(element.report.imageSpec, remove)\n            }\n          }\n          api.show(element.report)\n        }"
         },
         {
           "id": "collection"
@@ -749,7 +749,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `make ${await g(context.reportElement)} ${await g(context.newState)}`",
-          "semantic": "async ({e, values, context, km, api, isA}) => {\n        const getProperty = (reportElements, state) => {\n          let property;\n          for (const re of reportElements) {\n            if (isA(re.marker, 'reportElementProperty')) {\n              if (re.marker == 'background') {\n                property = 'background-color' \n                break;\n              } if (isA(re.marker, 'case')) {\n                property = 'text-transform' \n                break;\n              } if (re.marker == 'color') {\n                property = 'color' \n                break;\n              }\n            }\n          }\n          if (!property) {\n            if (isA(state.marker, 'color_colors')) {\n              return 'color'\n            }\n            if (isA(state.marker, 'case')) {\n              return 'text-transform'\n            }\n          }\n          return property\n        }\n        const currentReport = api.current()\n        const counts = image.count(currentReport.imageSpec)\n        console.log('currentReport-----------------', JSON.stringify(currentReport, null, 2))\n        console.log('counts-----------------', JSON.stringify(counts, null, 2))\n        if (context.selected) {\n          image.selecting(null, currentReport.imageSpec)\n          const reportElements = getReportElements(currentReport.select.reportElement)\n          const property = getProperty(reportElements, context.newState)\n          currentReport.addRule(`${context.selected.selected.className} ${stateToCSS(isA, property, context.newState)}`)\n        } else {\n          const reportElements = getReportElements(context.reportElement)\n          const lastContext = reportElements.slice(-1)[0]\n          const isPlural = lastContext.number == 'many'\n          const state = context.newState\n          const property = getProperty(reportElements, state)\n          const css = stateToCSS(isA, property, state)\n\n          let tables = []\n          if (context.reportElement.frameOfReference) {\n            console.log(\"for\", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))\n            const mentioned = await e(context.reportElement.frameOfReference)\n            tables = values(await mentioned.evalue.value || [])\n            console.log('tables', JSON.stringify(tables, null, 2))\n          }\n\n          if (tables.length > 0) {\n            for (const table of tables) {\n              const selector = image.selector(table, reportElements)\n              if (css) {\n                if (state.negated) {\n                  currentReport.removeRule(`${selector} ${css}`)\n                } else {\n                  currentReport.addRule(`${selector} ${css}`)\n                }\n              }\n            }\n          } else if (isPlural || image.countSelected(currentReport.imageSpec, reportElements) == 1) {\n          // } else if (context.reportElement.modifier_selected) {\n            // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n            // const table = (await e(context.table)).evalue\n            const selector = image.selector(currentReport.imageSpec, reportElements)\n            if (css) {\n              if (state.negated) {\n                currentReport.removeRule(`${selector} ${css}`)\n              } else {\n                currentReport.addRule(`${selector} ${css}`)\n              }\n            }\n          } else {\n            image.selecting('header', currentReport.imageSpec)\n            if (!currentReport.imageSpec.rules) {\n              currentReport.imageSpec.rules = []\n            }\n            currentReport.imageSpec.rules.push(`.highlight ${css}`)\n            currentReport.select = context\n          }\n        }\n        api.show(currentReport)\n      }"
+          "semantic": "async ({e, values, context, km, api, isA}) => {\n        const getProperty = (reportElements, state) => {\n          let property;\n          for (const re of reportElements) {\n            if (isA(re.marker, 'reportElementProperty')) {\n              if (re.marker == 'background') {\n                property = 'background-color' \n                break;\n              } if (isA(re.marker, 'case')) {\n                property = 'text-transform' \n                break;\n              } if (re.marker == 'color') {\n                property = 'color' \n                break;\n              }\n            }\n          }\n          if (!property) {\n            if (isA(state.marker, 'color_colors')) {\n              return 'color'\n            }\n            if (isA(state.marker, 'case')) {\n              return 'text-transform'\n            }\n          }\n          return property\n        }\n        const currentReport = api.current()\n        const counts = image.count(currentReport.imageSpec)\n        // console.log('currentReport-----------------', JSON.stringify(currentReport, null, 2))\n        // console.log('counts-----------------', JSON.stringify(counts, null, 2))\n        if (context.selected) {\n          image.selecting(null, currentReport.imageSpec)\n          const reportElements = getReportElements(currentReport.select.reportElement)\n          const property = getProperty(reportElements, context.newState)\n          currentReport.addRule(`${context.selected.selected.className} ${stateToCSS(isA, property, context.newState)}`)\n        } else {\n          const reportElements = getReportElements(context.reportElement)\n          const lastContext = reportElements.slice(-1)[0]\n          const isPlural = lastContext.number == 'many'\n          const state = context.newState\n          const property = getProperty(reportElements, state)\n          const css = stateToCSS(isA, property, state)\n\n          let tables = []\n          if (context.reportElement.frameOfReference) {\n            // console.log(\"for\", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))\n            const mentioned = await e(context.reportElement.frameOfReference)\n            tables = values(await mentioned.evalue.value || [])\n            // console.log('tables', JSON.stringify(tables, null, 2))\n          }\n\n          if (tables.length > 0) {\n            for (const table of tables) {\n              const selector = image.selector(table, reportElements)\n              if (css) {\n                if (state.negated) {\n                  currentReport.removeRule(`${selector} ${css}`)\n                } else {\n                  currentReport.addRule(`${selector} ${css}`)\n                }\n              }\n            }\n          } else if (isPlural || image.countSelected(currentReport.imageSpec, reportElements) == 1) {\n          // } else if (context.reportElement.modifier_selected) {\n            // make sure the state exactely matches correct CSS because the delete \"make the header not blue' needs that\n            // const table = (await e(context.table)).evalue\n            const selector = image.selector(currentReport.imageSpec, reportElements)\n            if (css) {\n              if (state.negated) {\n                currentReport.removeRule(`${selector} ${css}`)\n              } else {\n                currentReport.addRule(`${selector} ${css}`)\n              }\n            }\n          } else {\n            image.selecting('header', currentReport.imageSpec)\n            if (!currentReport.imageSpec.rules) {\n              currentReport.imageSpec.rules = []\n            }\n            currentReport.imageSpec.rules.push(`.highlight ${css}`)\n            currentReport.select = context\n          }\n        }\n        api.show(currentReport)\n      }"
         },
         {
           "id": "capitalize",
@@ -758,7 +758,7 @@
           ],
           "bridge": "{ ...next(operator), element: after[0] }",
           "generatorp": "async ({context, gp}) => `${context.word} ${await gp(context.element)}`",
-          "semantic": "({context, mentions, api}) => {\n        const report = api.current()\n        if (context.element.marker == 'header') {\n          report.imageSpec.capitalizeHeader = true\n          if (report.imageSpec.explicit) {\n            report.imageSpec.rows.forEach( (row) => {\n              row.forEach( (column) => {\n                column.capitalizeHeader = true\n              })\n            })\n          }\n          api.show(report)\n        } else if (context.element.marker == 'this') {\n          if (context.selected) {\n            console.log('the user selected', context.selected)\n            const imageSpec = report.imageSpec\n            report.addRule(`.${context.selected.selected} { text-transform: capitalize; }`)\n            imageSpec.headers.selecting = null\n            imageSpec.headers.columns.forEach( (column) => column.selecting = null )\n            api.show(report)\n          } else {\n            /*\n            const headerIds = []\n            for (let ctr = 0; ctr < report.imageSpec.headers.length; ++ctr) {\n              headerIds.push(['report', 0, 'header', ctr])\n            }\n            */\n            if (report.imageSpec.headers) {\n              report.imageSpec.headers.columns.forEach( (column, index) => {\n                column.selecting = [{ id: `column_${index}`, name: 'X', className: `column_${index}` }]\n              })\n              report.imageSpec.headers.selecting = [{ id: 'header', name: 'X', className: 'header' }]\n            }\n            /*\n            report.imageSpec.selecting = {\n              headers: {\n                each: headerIds,\n                all: [0, 'header'],\n              },\n            }\n            */\n            report.select = context\n            console.log(\"after capitalize\", JSON.stringify(report, null, 2))\n            api.show(report)\n          }\n        }\n      }"
+          "semantic": "({context, mentions, api}) => {\n        const report = api.current()\n        if (context.element.marker == 'header') {\n          report.imageSpec.capitalizeHeader = true\n          if (report.imageSpec.explicit) {\n            report.imageSpec.rows.forEach( (row) => {\n              row.forEach( (column) => {\n                column.capitalizeHeader = true\n              })\n            })\n          }\n          api.show(report)\n        } else if (context.element.marker == 'this') {\n          if (context.selected) {\n            // console.log('the user selected', context.selected)\n            const imageSpec = report.imageSpec\n            report.addRule(`.${context.selected.selected} { text-transform: capitalize; }`)\n            imageSpec.headers.selecting = null\n            imageSpec.headers.columns.forEach( (column) => column.selecting = null )\n            api.show(report)\n          } else {\n            /*\n            const headerIds = []\n            for (let ctr = 0; ctr < report.imageSpec.headers.length; ++ctr) {\n              headerIds.push(['report', 0, 'header', ctr])\n            }\n            */\n            if (report.imageSpec.headers) {\n              report.imageSpec.headers.columns.forEach( (column, index) => {\n                column.selecting = [{ id: `column_${index}`, name: 'X', className: `column_${index}` }]\n              })\n              report.imageSpec.headers.selecting = [{ id: 'header', name: 'X', className: 'header' }]\n            }\n            /*\n            report.imageSpec.selecting = {\n              headers: {\n                each: headerIds,\n                all: [0, 'header'],\n              },\n            }\n            */\n            report.select = context\n            // console.log(\"after capitalize\", JSON.stringify(report, null, 2))\n            api.show(report)\n          }\n        }\n      }"
         },
         {
           "id": "this",
@@ -851,7 +851,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => {\n        if (context.to && context.to.marker !== 'undefined') {\n          return `${context.word} ${await g(context.show)} ${await g(context.to)}`\n        } else {\n          return `${context.word} ${await g(context.show)}`\n        }\n      }",
-          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const oldway = false\n          const addAllFields = (dataSpecPath) => {\n            const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            const { dbName, collectionName, fields } = dataSpec\n            // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n            const choices = []\n            let counter = 1\n            for (const field of fields) {\n              choices.push({ text: field.name, id: field.name, counter, selected: true })\n              counter += 1\n            }\n            // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n            report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          }\n          if (oldway) {\n            const dataSpecPath = [0]\n            addAllFields(dataSpecPath)\n          } else {\n            const tables = (await e(context.frameOfReference || { marker: 'table', pullFromContext: true })).evalue\n            for (const table of values(tables.value)) {\n              addAllFields(table.dataSpecPath)\n            }\n          }\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              console.log(JSON.stringify(defaultTable, null, 2))\n              // currentReport = defaultTable.frameOfReference\n              // greg55\n              // defaultTable = defaultTable.table.imageSpec\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          // TODO pick a better name for this\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec\n            if (!dataSpecPath) {\n              dataSpecPath = defaultTable.imageSpec.dataSpecPath\n              dataSpec = defaultTable.dataSpec\n              debugger\n            } else {\n              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            }\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              debugger // no chagne current\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                debugger\n                console.log(JSON.stringify(defaultTable, null, 2))\n                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            // greg55\n            for (const value of values(defaultTable.value)) {\n              console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
+          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const oldway = false\n          const addAllFields = (dataSpecPath) => {\n            const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            const { dbName, collectionName, fields } = dataSpec\n            // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n            const choices = []\n            let counter = 1\n            for (const field of fields) {\n              choices.push({ text: field.name, id: field.name, counter, selected: true })\n              counter += 1\n            }\n            // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n            report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          }\n          if (oldway) {\n            const dataSpecPath = [0]\n            addAllFields(dataSpecPath)\n          } else {\n            const tables = (await e(context.frameOfReference || { marker: 'table', pullFromContext: true })).evalue\n            for (const table of values(tables.value)) {\n              addAllFields(table.dataSpecPath)\n            }\n          }\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          // console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            // console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            // console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              // console.log(JSON.stringify(defaultTable, null, 2))\n              // currentReport = defaultTable.frameOfReference\n              // greg55\n              // defaultTable = defaultTable.table.imageSpec\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          // TODO pick a better name for this\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec\n            if (!dataSpecPath) {\n              dataSpecPath = defaultTable.imageSpec.dataSpecPath\n              dataSpec = defaultTable.dataSpec\n              debugger\n            } else {\n              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            }\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              debugger // no chagne current\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              // console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              // console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                debugger\n                // console.log(JSON.stringify(defaultTable, null, 2))\n                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            // greg55\n            for (const value of values(defaultTable.value)) {\n              // console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
         },
         {
           "id": "showReport",
@@ -869,7 +869,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => `show ${await g(context.show)}`",
-          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        console.log(\"in show collection\")\n        let currentReport = api.newReport()\n        if (context.chosens) {\n          console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n          const database = reportable.database\n          const collection = reportable.collection\n\n          report.updateColumns(api, currentReport, database, collection, chosen)\n\n          api.show(currentReport)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          const fields = await getFields(reportable.database, reportable.collection)\n          await api.showFieldsResponse([0], reportable.database, reportable.collection, fields)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        }\n      }"
+          "semantic": "async ({context, isA, km, mentions, api, flatten}) => {\n        // console.log(\"in show collection\")\n        let currentReport = api.newReport()\n        if (context.chosens) {\n          // console.log('in chosen', JSON.stringify(context.chosens))\n          /*\n              < in chosen {\n              <   chosen: 'select',\n              <   choices: [\n              <     { text: '_id', id: '_id' },\n              <     { text: 'name', id: 'name', selected: true },\n              <     { text: 'email', id: 'email', selected: true },\n              <     { text: 'password', id: 'password' }\n              <   ]\n          */\n          const reportable = context.reportables[context.chosens.length-1]\n          const chosen = context.chosens[context.chosens.length-1]\n          const database = reportable.database\n          const collection = reportable.collection\n\n          report.updateColumns(api, currentReport, database, collection, chosen)\n\n          api.show(currentReport)\n        } else {\n          const reportables = []\n          for (const modifier of context.show.modifiers) {\n            if (isA(context.show[modifier].marker, 'reportable')) {\n              reportables.push(context.show[modifier])\n            }\n          }\n          context.reportables = reportables // save for callback\n          const reportable = reportables[0]\n          const fields = await getFields(reportable.database, reportable.collection)\n          await api.showFieldsResponse([0], reportable.database, reportable.collection, fields)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        }\n      }"
         },
         {
           "id": "show",
@@ -3466,16 +3466,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -3806,6 +3796,7 @@
           "level": 2,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -6565,16 +6556,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -6844,6 +6825,7 @@
           "level": 1,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -9644,16 +9626,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -9959,6 +9931,7 @@
           "level": 2,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -12855,16 +12828,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -13083,6 +13046,7 @@
           "level": 1,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -15842,16 +15806,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -16331,6 +16285,7 @@
           "level": 1,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -16371,20 +16326,6 @@
             "comma",
             0
           ],
-          [
-            "list",
-            1
-          ],
-          [
-            "modifies",
-            0
-          ],
-          [
-            "unknown",
-            0
-          ]
-        ],
-        [
           [
             "list",
             1
@@ -19944,16 +19885,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -20405,6 +20336,7 @@
           "level": 1,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -24199,16 +24131,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -24383,7 +24305,7 @@
         "opChoices": [
           {
             "op": [
-              "unknown",
+              "chart",
               0
             ],
             "ops": [
@@ -24396,15 +24318,15 @@
                 0
               ],
               [
+                "chart",
+                0
+              ],
+              [
+                "graph",
+                0
+              ],
+              [
                 "is",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ],
-              [
-                "unknown",
                 0
               ]
             ],
@@ -24412,7 +24334,7 @@
           },
           {
             "op": [
-              "unknown",
+              "graph",
               0
             ],
             "ops": [
@@ -24425,11 +24347,11 @@
                 0
               ],
               [
-                "is",
+                "graph",
                 0
               ],
               [
-                "unknown",
+                "is",
                 0
               ]
             ],
@@ -24515,9 +24437,8 @@
           "one": {
             "number": "one",
             "value": "chart",
-            "unknown": true,
             "text": "a chart",
-            "marker": "unknown",
+            "marker": "chart",
             "word": "chart",
             "range": {
               "start": 0,
@@ -24525,7 +24446,7 @@
             },
             "dead": true,
             "types": [
-              "unknown"
+              "chart"
             ],
             "pullFromContext": false,
             "instance": true,
@@ -24545,13 +24466,13 @@
             "modifiers": [
               "determiner"
             ],
-            "level": 0
+            "level": 1
           },
           "two": {
             "value": "graph",
-            "unknown": true,
+            "number": "one",
             "text": "a graph",
-            "marker": "unknown",
+            "marker": "graph",
             "word": "graph",
             "range": {
               "start": 11,
@@ -24559,12 +24480,11 @@
             },
             "dead": true,
             "types": [
-              "unknown"
+              "graph"
             ],
             "pullFromContext": false,
             "instance": true,
             "concept": true,
-            "number": "one",
             "wantsValue": true,
             "determiner": {
               "marker": "a",
@@ -24580,12 +24500,13 @@
             "modifiers": [
               "determiner"
             ],
-            "level": 0
+            "level": 1
           },
           "dead": true,
           "level": 2,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -24609,21 +24530,39 @@
             0
           ],
           [
-            "is",
+            "chart",
             0
           ],
           [
-            "unknown",
+            "graph",
+            0
+          ],
+          [
+            "is",
             0
           ]
         ],
         [
           [
-            "is",
+            "a",
             0
           ],
           [
-            "unknown",
+            "graph",
+            0
+          ],
+          [
+            "is",
+            0
+          ]
+        ],
+        [
+          [
+            "a",
+            0
+          ],
+          [
+            "is",
             0
           ]
         ]
@@ -24645,7 +24584,7 @@
                 },
                 {
                   "marker": [
-                    "unknown",
+                    "chart",
                     0
                   ],
                   "range": {
@@ -24675,7 +24614,7 @@
                 },
                 {
                   "marker": [
-                    "unknown",
+                    "graph",
                     0
                   ],
                   "range": {
@@ -24700,8 +24639,8 @@
                 },
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "chart",
+                    1
                   ],
                   "range": {
                     "start": 2,
@@ -24730,7 +24669,7 @@
                 },
                 {
                   "marker": [
-                    "unknown",
+                    "graph",
                     0
                   ],
                   "range": {
@@ -24755,8 +24694,8 @@
                 },
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "chart",
+                    1
                   ],
                   "range": {
                     "start": 2,
@@ -24785,8 +24724,8 @@
                 },
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "graph",
+                    1
                   ],
                   "range": {
                     "start": 13,
@@ -24800,8 +24739,8 @@
               "operators": [
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "chart",
+                    1
                   ],
                   "range": {
                     "start": 0,
@@ -24830,8 +24769,8 @@
                 },
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "graph",
+                    1
                   ],
                   "range": {
                     "start": 13,
@@ -24845,8 +24784,8 @@
               "operators": [
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "chart",
+                    1
                   ],
                   "range": {
                     "start": 0,
@@ -24865,8 +24804,8 @@
                 },
                 {
                   "marker": [
-                    "unknown",
-                    0
+                    "graph",
+                    1
                   ],
                   "range": {
                     "start": 11,
@@ -25360,7 +25299,7 @@
         {},
         {},
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:610"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:611"
         },
         {}
       ],
@@ -29437,16 +29376,6 @@
           false
         ],
         [
-          "unknown",
-          "queryable",
-          false
-        ],
-        [
-          "unknown",
-          "theAble",
-          false
-        ],
-        [
           "unselect",
           "verb",
           false
@@ -29637,30 +29566,9 @@
               [
                 "unknown",
                 0
-              ],
-              [
-                "unknown",
-                0
               ]
             ],
             "counter": 1
-          },
-          {
-            "op": [
-              "unknown",
-              0
-            ],
-            "ops": [
-              [
-                "modifies",
-                0
-              ],
-              [
-                "unknown",
-                0
-              ]
-            ],
-            "counter": 2
           },
           {
             "op": [
@@ -29673,7 +29581,7 @@
                 0
               ]
             ],
-            "counter": 3
+            "counter": 2
           }
         ]
       },
@@ -29706,22 +29614,23 @@
             }
           ],
           "concept": {
-            "value": "reportelement",
-            "unknown": true,
+            "marker": "reportElement",
+            "value": "reportElement",
+            "default": true,
             "text": "reportelement",
-            "marker": "unknown",
+            "dead": true,
             "word": "reportelement",
             "raw_text": "reportElement",
             "range": {
               "start": 18,
               "end": 30
             },
-            "dead": true,
             "level": 0
           },
           "level": 1,
           "context_index": 1,
           "topLevel": true,
+          "context_id": 2,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -29742,6 +29651,10 @@
         [
           [
             "modifies",
+            0
+          ],
+          [
+            "reportElement",
             0
           ],
           [
@@ -29777,7 +29690,7 @@
                 },
                 {
                   "marker": [
-                    "unknown",
+                    "reportElement",
                     0
                   ],
                   "range": {
@@ -29812,7 +29725,7 @@
                 },
                 {
                   "marker": [
-                    "unknown",
+                    "reportElement",
                     0
                   ],
                   "range": {
@@ -29827,41 +29740,6 @@
               "operators": [
                 {
                   "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 0,
-                    "end": 7
-                  }
-                },
-                {
-                  "marker": [
-                    "modifies",
-                    0
-                  ],
-                  "range": {
-                    "start": 9,
-                    "end": 16
-                  }
-                },
-                {
-                  "marker": [
-                    "unknown",
-                    0
-                  ],
-                  "range": {
-                    "start": 18,
-                    "end": 30
-                  }
-                }
-              ],
-              "counter": 3
-            },
-            {
-              "operators": [
-                {
-                  "marker": [
                     "modifies",
                     1
                   ],
@@ -29871,7 +29749,7 @@
                   }
                 }
               ],
-              "counter": 4
+              "counter": 3
             }
           ],
           "length": 1
@@ -29896,6 +29774,24 @@
         0
       ],
       [
+        "chart",
+        0
+      ],
+      [
+        "graph",
+        0
+      ],
+      [
+        "is",
+        0
+      ]
+    ],
+    [
+      [
+        "a",
+        0
+      ],
+      [
         "concept",
         0
       ],
@@ -29914,11 +29810,21 @@
         0
       ],
       [
-        "is",
+        "graph",
         0
       ],
       [
-        "unknown",
+        "is",
+        0
+      ]
+    ],
+    [
+      [
+        "a",
+        0
+      ],
+      [
+        "is",
         0
       ]
     ],
@@ -30086,16 +29992,6 @@
     ],
     [
       [
-        "is",
-        0
-      ],
-      [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
         "line",
         0
       ],
@@ -30142,21 +30038,11 @@
     ],
     [
       [
-        "list",
-        1
-      ],
-      [
         "modifies",
         0
       ],
       [
-        "unknown",
-        0
-      ]
-    ],
-    [
-      [
-        "modifies",
+        "reportElement",
         0
       ],
       [
@@ -31712,7 +31598,7 @@
             },
             {
               "marker": [
-                "unknown",
+                "chart",
                 0
               ],
               "range": {
@@ -31742,7 +31628,7 @@
             },
             {
               "marker": [
-                "unknown",
+                "graph",
                 0
               ],
               "range": {
@@ -31767,8 +31653,8 @@
             },
             {
               "marker": [
-                "unknown",
-                0
+                "chart",
+                1
               ],
               "range": {
                 "start": 2,
@@ -31797,7 +31683,7 @@
             },
             {
               "marker": [
-                "unknown",
+                "graph",
                 0
               ],
               "range": {
@@ -31822,8 +31708,8 @@
             },
             {
               "marker": [
-                "unknown",
-                0
+                "chart",
+                1
               ],
               "range": {
                 "start": 2,
@@ -31852,8 +31738,8 @@
             },
             {
               "marker": [
-                "unknown",
-                0
+                "graph",
+                1
               ],
               "range": {
                 "start": 13,
@@ -31867,8 +31753,8 @@
           "operators": [
             {
               "marker": [
-                "unknown",
-                0
+                "chart",
+                1
               ],
               "range": {
                 "start": 0,
@@ -31897,8 +31783,8 @@
             },
             {
               "marker": [
-                "unknown",
-                0
+                "graph",
+                1
               ],
               "range": {
                 "start": 13,
@@ -31912,8 +31798,8 @@
           "operators": [
             {
               "marker": [
-                "unknown",
-                0
+                "chart",
+                1
               ],
               "range": {
                 "start": 0,
@@ -31932,8 +31818,8 @@
             },
             {
               "marker": [
-                "unknown",
-                0
+                "graph",
+                1
               ],
               "range": {
                 "start": 11,
@@ -32002,7 +31888,7 @@
             },
             {
               "marker": [
-                "unknown",
+                "reportElement",
                 0
               ],
               "range": {
@@ -32037,7 +31923,7 @@
             },
             {
               "marker": [
-                "unknown",
+                "reportElement",
                 0
               ],
               "range": {
@@ -32052,41 +31938,6 @@
           "operators": [
             {
               "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 0,
-                "end": 7
-              }
-            },
-            {
-              "marker": [
-                "modifies",
-                0
-              ],
-              "range": {
-                "start": 9,
-                "end": 16
-              }
-            },
-            {
-              "marker": [
-                "unknown",
-                0
-              ],
-              "range": {
-                "start": 18,
-                "end": 30
-              }
-            }
-          ],
-          "counter": 3
-        },
-        {
-          "operators": [
-            {
-              "marker": [
                 "modifies",
                 1
               ],
@@ -32096,7 +31947,7 @@
               }
             }
           ],
-          "counter": 4
+          "counter": 3
         }
       ],
       "length": 1
