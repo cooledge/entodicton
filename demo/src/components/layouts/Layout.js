@@ -72,6 +72,9 @@ function Layout({ children }) {
                       <Link to='/wp/' target="_blank">WORD PROCESSOR POC</Link>
                     </div>
                     <div className="subMenuItem">
+                      <Link to='/menus/' target="_blank">MENUS POC</Link>
+                    </div>
+                    <div className="subMenuItem">
                       <Link to='/tankdemo'>TANK POC</Link>
                     </div>
                   </div>
