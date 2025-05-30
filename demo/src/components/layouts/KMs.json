@@ -1330,7 +1330,9 @@
         "close the menu",
         "object close",
         "file close",
-        "file open remote"
+        "file open remote",
+        "x is 3 up 2 + x",
+        "x is 3 up x+2"
       ],
       "template": [
         "setidsuffix _menus",
@@ -2184,7 +2186,9 @@
         "unselect",
         "stop action",
         "up 2+2",
-        "move up 2+5"
+        "move up 2+5",
+        "x is 3 up x+2",
+        "x is 3 up 2 + x"
       ],
       "template": [],
       "includes": [
