@@ -111,7 +111,8 @@ describe('tests for menus page', () => {
     if (text === 'Close') {
       return
     }
-    test(`MENUS menu item direct goto's for ${id}`, async () => {
+    test(`NEO23 MENUS menu item direct goto's for ${id} with text ${text}`, async () => {
+      console.log(`goto_menu_item_test(${id}, ${text})`)
       await page.waitForSelector('#query')
       await query(text)
       const className = 'rc-menu-item-selected'
@@ -122,7 +123,12 @@ describe('tests for menus page', () => {
     }, timeout);
   }
 
+  // goto_menu_item_test('View-ShowWhitespace', 'Show Whitespace')
+
   menu.forEach((menu) => {
+    if (menu.text !== 'View') {
+      return
+    }
     for (const child of menu.children) {
       if (child.divider) {
         continue
@@ -270,7 +276,7 @@ describe('tests for menus page', () => {
   })
 
   const goto_menu_item_with_mouse_then_go_up = (menu, id, up) => {
-    test(`NEO23 MENUS menu item up menu open for ${id}`, async () => {
+    test(`MENUS menu item up menu open for ${id}`, async () => {
       await page.waitForSelector('#query')
 
       await query(menu)

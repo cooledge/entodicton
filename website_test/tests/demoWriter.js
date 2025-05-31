@@ -18,9 +18,13 @@ class DemoWriter {
 
   add(query) {
     if (this.callingStartAndEnd) {
-      this.current.push(query)
+      if (!this.current.find((q) => q === query)) {
+        this.current.push(query)
+      }
     } else {
-      this.queries.push(query)
+      if (!this.queries.find((q) => q === query)) {
+        this.queries.push(query)
+      }
     }
   }
 
