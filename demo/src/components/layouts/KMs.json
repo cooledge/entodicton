@@ -10,6 +10,7 @@
         "colors",
         "people",
         "time",
+        "dates",
         "yesno",
         "negation"
       ]
@@ -411,7 +412,8 @@
         "what is the rank of spock",
         "what is the status of the phasers",
         "what is the status of the photon torpedoes",
-        "who are the crew members"
+        "who are the crew members",
+        "hi"
       ],
       "template": [
         "crew modifies member",
@@ -485,6 +487,46 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/currency.js"
+    },
+    {
+      "name": "dates",
+      "description": "talking about dates",
+      "examples": [
+        "january",
+        "january 10 1990",
+        "10/12/2024",
+        "january 10th 2020",
+        "jan 10 2020",
+        "jan 10 1990 ad"
+      ],
+      "template": [
+        "setidsuffix _dates",
+        "january, february, march, april, may, june, july, august, september, october, november and december are months",
+        "monday, tuesday, wednesday, thursday, friday, saturday and sunday are days",
+        "ac, bc, bce and ad are eras",
+        "resetIdSuffix"
+      ],
+      "includes": [
+        "ordinals",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "asking",
+        "negation",
+        "stm",
+        "meta",
+        "conjunction",
+        "evaluate",
+        "articles",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "sdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dates.js"
     },
     {
       "name": "dialogues",
@@ -1334,7 +1376,8 @@
         "x is 3 up 2 + x",
         "x is 3 up x+2",
         "glop is 3 up glop+ 2",
-        "glop is 3 what is glop"
+        "glop is 3 what is glop",
+        "show"
       ],
       "template": [
         "setidsuffix _menus",
