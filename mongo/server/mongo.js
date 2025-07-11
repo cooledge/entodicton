@@ -419,6 +419,7 @@ class API {
       } 
     }
     report.addRule = (rule) => {
+      debugger
       if (!report.imageSpec.rules) {
         report.imageSpec.rules = []
       }
@@ -518,6 +519,8 @@ let configStruct = {
     ],
     positive: [
   //    { context: [['column', 0], ['list', 0], ['column', 0]], choose: 0 },
+      { context: [["make",0],["the",0],["header",0],["ofDbProperty",0],["the",0],["ordinal",0],["table",0],["blue_colors",0]], choose: { index: 0, increment: true } },
+      { context: [["make",0],["the",0],["header",0],["ofDbProperty",0],["the",0],["ordinal",1],["table",0],["blue_colors",0]], choose: { index: 0, increment: true } },
 
       { context: [['article', 0], ['recordCount', 0], ['ofDbProperty', 0], ['reportElement', 0]], choose: 1 },
       { context: [['graphAction', 0], ['the', 0], ['column', 0], ['list', 0], ['the', 0], ['recordCount', 0], ['ofDbProperty', 0], ['column', 0], ['list', 0], ['reportable', 0]], choose: { index: 0, increment: true } },
@@ -984,22 +987,25 @@ let configStruct = {
           const state = context.newState
           const property = getProperty(reportElements, state)
           const css = stateToCSS(isA, property, state)
-
+          debugger
           let tables = []
           if (context.reportElement.frameOfReference) {
             // console.log("for", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))
             const mentioned = await e(context.reportElement.frameOfReference)
             tables = values(await mentioned.evalue.value || [])
+            console.log('GREG99 LOOKING FOR TABLE')
             // console.log('tables', JSON.stringify(tables, null, 2))
           }
 
           if (tables.length > 0) {
+            console.log('GREG99 FOUND TABLE')
             for (const table of tables) {
               const selector = image.selector(table, reportElements)
               if (css) {
                 if (state.negated) {
                   currentReport.removeRule(`${selector} ${css}`)
                 } else {
+                  console.log('GREG99 ADDING CSS RULE', selector, css)
                   currentReport.addRule(`${selector} ${css}`)
                 }
               }
@@ -1249,7 +1255,6 @@ let configStruct = {
             if (!dataSpecPath) {
               dataSpecPath = defaultTable.imageSpec.dataSpecPath
               dataSpec = defaultTable.dataSpec
-              debugger
             } else {
               dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)
             }
@@ -1264,7 +1269,6 @@ let configStruct = {
               columnNames = [context.show.path[0]]
             } else {
               ({ database, collection, columnNames } = await api.determineCollection(columns))
-              debugger // no chagne current
               currentReport = await api.newReportSpec(database, collection)
               dataSpecPath = []
               dataSpec = currentReport.dataSpec
@@ -1286,7 +1290,6 @@ let configStruct = {
             } else {
               dataSpec.usedFields.push(...columnNames)
               if (defaultTable) {
-                debugger
                 // console.log(JSON.stringify(defaultTable, null, 2))
                 image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)
               } else {
@@ -1579,6 +1582,9 @@ const template = {
   ],
 }
 
+console.log('greg77 START')
+console.log(JSON.stringify(defaultContextCheck(['object', 'objects', { property: 'reportElement', filter: ['frameOfReference'] } ]), null, 2))
+console.log('greg77 END')
 
 knowledgeModule( { 
   config: { name: 'mongo' },
@@ -1595,7 +1601,16 @@ knowledgeModule( {
     name: './mongo.test.json',
     contents: mongo_tests,
     checks: {
-      context: defaultContextCheck(['object', 'objects']),
+      // frameOfReference
+      // context: [{ defaults: true }, 'object', 'objects', { property: 'reportElement', filter: [{ defaults: true }}],
+      context: defaultContextCheck([
+        'object', 
+        'objects', 
+        { 
+          property: 'reportElement', 
+          filter: ['frameOfReference'],
+        } 
+      ]),
       objects: [
         'show', 
         'select', 
