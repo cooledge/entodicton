@@ -453,7 +453,7 @@ let configStruct = {
 
     "([sortByColumns|sort,order] (table/*)? ([sortBy|by] ([column])))",
     "([groupByColumns|group,grouped] ([groupBy|by] ([column])))",
-    "(([recordCount|number,count]) [ofDbProperty|of] (reportable/* || column/*))",
+    "(([recordCount|number,count]) <ofDbProperty|of> (reportable/* || column/*))",
     // "([moveColumn|move] (column/*) (direction/*))",
     "([make] ([report]))",
     "([makeGraph|make] (graph/* || chart/*) ([makeGraphOf|of]) (column/*))",
@@ -517,7 +517,25 @@ let configStruct = {
     negative: [
     ],
     positive: [
+  //    { context: [['column', 0], ['list', 0], ['column', 0]], choose: 0 },
+
       { context: [['article', 0], ['recordCount', 0], ['ofDbProperty', 0], ['reportElement', 0]], choose: 1 },
+      { context: [['graphAction', 0], ['the', 0], ['column', 0], ['list', 0], ['the', 0], ['recordCount', 0], ['ofDbProperty', 0], ['column', 0], ['list', 0], ['reportable', 0]], choose: { index: 0, increment: true } },
+      { context: [['graphAction', 0], ['the', 0], ['column', 0], ['list', 0], ['the', 0], ['recordCount', 0], ['ofDbProperty', 0], ['column', 0], ['list', 0], ['column', 0]], choose: { index: 0, increment: true } },
+      { context: [['graphAction', 0], ['the', 0], ['column', 0], ['list', 0], ['the', 0], ['recordCount', 1], ['ofDbProperty', 0], ['column', 0], ['list', 0], ['column', 0]], choose: { index: 0, increment: true } },
+      { context: [['graphAction', 0], ['the', 0], ['column', 0], ['list', 0], ['the', 0], ['recordCount', 1], ['ofDbProperty', 0], ['column', 0], ['list', 0], ['reportable', 0]], choose: { index: 0, increment: true } },
+      { context: [['graphAction', 0], ['the', 0], ['column', 0], ['list', 0], ['the', 0], ['recordCount', 0], ['ofDbProperty', 0], ['column', 0], ['list', 0], ['collection', 0]], choose: { index: 0, increment: true } },
+
+      { context: [['changeState', 0], ['article', 0], ['reportElement', 0], ['state', 0]], choose: 0 },
+      { context: [['article', 0], ['ordinal', 0], ['reportElement', 0], ['state', 0]], choose: 2 },
+      { context: [['article', 0], ['ordinal', 0], ['reportElement', 0], ['state', 0]], choose: 2 },
+
+      // TODO fix the backend so I dont need these
+      { context: [["delete", 0], ["the", 0], ["ordinal", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
+      { context: [["delete", 0], ["the", 0], ["ordinal", 1], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
+      { context: [["delete", 0], ["the", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
+      { context: [["delete", 0], ["the", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 1], ["table", 0]], choose: 0 },
+
       { context: [['graphAction', 0], ['column', 0], ['ofDbProperty', 0], ['reportable', 0]], choose: 0 },
       { context: [['graphAction', 0], ['theAble', 0], ['list', 0], ['article', 0], ['theAble', 0]], choose: 0 },
       { context: [['graphAction', 0], ['column', 0], ['list', 0], ['article', 0], ['column', 0]], choose: 0 },
@@ -536,6 +554,7 @@ let configStruct = {
 
       { context: [['sortByColumns', 0], ['the', 0], ['ordinal', 0], ['table', 1]], choose: 0 },
       { context: [["sortByColumns", 0 ], [ "the", 0 ], [ "ordinal", 0 ], [ "table", 0 ], [ "groupBy", 0 ], [ "column", 0 ]], choose: 0 },
+
 
       // TODO fix the error on the server side => { context: [['column', 0], ['ofDbProperty', 0], ['article', 0]], choose: 0 },
     ]
@@ -647,6 +666,7 @@ let configStruct = {
     },
     {
       id: 'delete',
+      associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
       localHierarchy: [['thisitthat', 'deletable']],
@@ -687,16 +707,19 @@ let configStruct = {
 
     // "((reportElement/*) [contextOfReportElement|of] ([reportElementContext]))",
     {
-      id: 'collection'
+      id: 'collection',
+      associations: ['mongo'],
     },
 
     {
-      id: 'reportElementContext'
+      id: 'reportElementContext',
+      associations: ['mongo'],
     },
 
     // "([changeGraph|change] (graph/*) (to/*) (<graph))",
     {
       id: 'changeGraph',
+      associations: ['mongo'],
       isA: ['verb'],
       localHierarchy: [['thisitthat', 'graph']],
       bridge: "{ ...next(operator), change: after[0], operator: operator, to: after[1], newType: after[2], generate: ['operator', 'change', 'to', 'newType'] }",
@@ -711,6 +734,7 @@ let configStruct = {
 
     {
       id: 'contextOfReportElement',
+      associations: ['mongo'],
       isA: ['preposition'],
       bridge: "{ ...before[0], root: before[0], of: operator, frameOfReference: after[0], generate: ['root', 'of', 'frameOfReference'] }",
     },
@@ -718,12 +742,14 @@ let configStruct = {
     // "([makeGraph|make] (graph/* || chart/*) ([makeGraphOf|of]) (reportable/*))",
     {
       id: 'makeGraphOf',
+      associations: ['mongo'],
       isA: ['preposition'],
       bridge: "{ ...next(operator) }",
     },
 
     {
       id: 'makeGraph',
+      associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), type: after[0], of: after[1], columns: after[2], operator: operator, generate: ['operator', 'type', 'of', 'columns'] }",
       semantic: async ({context, api}) => {
@@ -733,6 +759,7 @@ let configStruct = {
     ,
     {
       id: 'forTable',
+      associations: ['mongo'],
       isA: ['preposition'],
       bridge: "{ ...next(operator), table: after[0], postModifiers: ['table'] }",
       semantic: async ({context, e, mentioned}) => {
@@ -745,6 +772,7 @@ let configStruct = {
     },
     { 
       id: 'graphAction',
+      associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), columns: after[0] }",
       generatorp: async ({context, word, g}) => `${context.word} ${await g(context.columns)}`,
@@ -754,6 +782,7 @@ let configStruct = {
     },
     {
       id: 'clear',
+      associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator) }",
       semantic: ({context, api}) => {
@@ -763,17 +792,21 @@ let configStruct = {
 
     { 
       id: 'recordCount',
+      associations: ['mongo'],
       isA: ['column', 'theAble'],
       bridge: "{ ...next(operator) }",
     },
     { 
       id: 'ofDbProperty',
+      associations: ['mongo'],
       isA: ['preposition'],
+      return_type_selector: 'before[0]',
       generatorp: ({context, g}) => `number of ${g(field)}`,
       bridge: "{ ...next(before[0]), of: operator, count: true, field: after[0], number: after[0].number, postModifiers: ['of', 'field'] }",
     },
     { 
       id: 'sortBy',
+      associations: ['mongo'],
       localHierarchy: [['column', 'unknown']],
       isA: ['preposition'],
       bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
@@ -781,6 +814,7 @@ let configStruct = {
 
     { 
       id: 'groupBy',
+      associations: ['mongo'],
       localHierarchy: [['column', 'unknown']],
       isA: ['preposition'],
       generatorp: async ({context, g}) => `${context.word} ${await g(context.field)}`,
@@ -790,6 +824,7 @@ let configStruct = {
     { 
       // TODO stop sorting by ... stop sorting
       id: 'sortByColumns',
+      associations: ['mongo'],
       // optional: { table: "{ marker: 'table', pullFromContext: true }" },
       optional: { 1: "{ marker: 'table', pullFromContext: true }" },
       isA: ['verb'],
@@ -819,6 +854,7 @@ let configStruct = {
     { 
       // TODO stop sorting by ... stop sorting
       id: 'groupByColumns',
+      associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
       semantic: ({context, api}) => {
@@ -837,32 +873,38 @@ let configStruct = {
 
     { 
       id: 'column',
+      associations: ['mongo'],
       isA: ['countable', 'comparable', 'orderable', 'reportElement', 'deletable', 'listable'],
       words: [...helpers.words('column'), ...helpers.words('field'), ...helpers.words('property')],
     },
 
     {
       id: 'case',
+      associations: ['mongo'],
       words: helpers.words('case'),
       isA: ['reportElementProperty'],
     },
     {
       id: 'uppercase',
+      associations: ['mongo'],
       words: helpers.words('upper', { value: 'uppercase' }),
       isA: ['case'],
     },
     {
       id: 'lowercase',
+      associations: ['mongo'],
       words: helpers.words('lower', { value: 'lowercase' }),
       isA: ['case'],
     },
 
     { 
       id: 'reportElementProperty', 
+      associations: ['mongo'],
     },
 
     { 
       id: 'compoundReportElement', 
+      associations: ['mongo'],
       convolution: true,
       isA: ['reportElement', 'theAble'],
       bridge: "{ ...next(operator), reportElements: append(default(before[0].reportElements, [before[0]]), default(after[0].reportElements, [after[0]])) }",
@@ -870,6 +912,7 @@ let configStruct = {
     },
     { 
       id: 'make', 
+      associations: ['mongo'],
       bridge: "{ ...next(operator), report: after[0] }",
       parents: ['verb'],
       generatorp: async ({context, g}) => `make ${await g(context.report)}`,
@@ -880,17 +923,20 @@ let configStruct = {
 
     { 
       id: 'state', 
+      associations: ['mongo'],
       bridge: "{ ...next(operator) }",
     },
 
     { 
       id: 'thisReportElement', 
+      associations: ['mongo'],
       parents: ['article'],
       bridge: "{ ...next(after[0]), modifiers: append(['this'], after[0].modifiers), this: operator }",
     },
 
     { 
       id: 'changeState', 
+      associations: ['mongo'],
       bridge: "{ ...next(operator), reportElement: after[0], table: after[1], newState: after[2] }",
       optional: { 2: "{ marker: 'table', pullFromContext: true }" },
       parents: ['verb'],
@@ -985,6 +1031,7 @@ let configStruct = {
 
     {
       id: 'capitalize',
+      associations: ['mongo'],
       parents: ['verb'],
       bridge: "{ ...next(operator), element: after[0] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.element)}`,
@@ -1042,22 +1089,28 @@ let configStruct = {
       parents: ['reportElement']
     },
 
-    { id: 'reportElement' },
+    { 
+      id: 'reportElement' ,
+      associations: ['mongo'],
+    },
 
     { 
       id: 'header', 
+      associations: ['mongo'],
       words: helpers.words('header'),
       parents: ['theAble', 'reportElement'],
     },
 
     { 
       id: 'background', 
+      associations: ['mongo'],
       words: helpers.words('background'),
       parents: ['theAble', 'reportElement', 'reportElementProperty'],
     },
 
     { 
       id: 'table', 
+      associations: ['mongo'],
       words: helpers.words('table'),
       isA: ['orderable', 'reportElementContext', 'moveable'],
       parents: ['theAble', 'reportElement', 'nameable'],
@@ -1093,15 +1146,19 @@ let configStruct = {
     },
 
     { id: 'report',
+      associations: ['mongo'],
       parents: ['theAble', 'nameable']
     },
 
     { id: 'columnAddedTo',
+      associations: ['mongo'],
       isA: ['preposition'],
       bridge: "{ ...next(operator), postModifiers: ['destination'], destination: after[0] }",
     },
 
-    { id: 'showColumn',
+    { 
+      id: 'showColumn',
+      associations: ['mongo'],
       optional: { 2: "{ marker: 'undefined' }" },
       bridge: "{ ...next(operator), show: after[0], to: after[1] }",
       parents: ['verb'],
@@ -1256,7 +1313,9 @@ let configStruct = {
       },
     },
 
-    { id: 'showReport',
+    { 
+      id: 'showReport',
+      associations: ['mongo'],
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
@@ -1268,7 +1327,9 @@ let configStruct = {
       },
     },
 
-    { id: 'showCollection',
+    { 
+      id: 'showCollection',
+      associations: ['mongo'],
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
@@ -1312,7 +1373,9 @@ let configStruct = {
       }
     },
 
-    { id: 'show',
+    { 
+      id: 'show',
+      associations: ['mongo'],
       bridge: "{ ...next(operator), show: after[0] }",
       // localHierarchy: [['unknown', 'reportable']],
       parents: ['verb'],
@@ -1474,6 +1537,7 @@ const template = {
         config.addBridge(
           { 
             id,
+            associations: ['mongo'],
             parents: ['theAble', 'reportable'], 
             words: helpers.words(word, { database, collection, path: [field] }),
           },
