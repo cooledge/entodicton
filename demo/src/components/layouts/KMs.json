@@ -9,6 +9,7 @@
         "percentages",
         "colors",
         "people",
+        "self",
         "time",
         "dates",
         "yesno",
@@ -205,6 +206,7 @@
         "sentientBeing1 feels emotion1 means the emotion of sentientBeing1 is emotion1"
       ],
       "includes": [
+        "self",
         "emotions",
         "hierarchy",
         "properties",
@@ -446,6 +448,7 @@
       "includes": [
         "avatar",
         "animals",
+        "self",
         "emotions",
         "hierarchy",
         "properties",
@@ -497,7 +500,10 @@
         "10/12/2024",
         "january 10th 2020",
         "jan 10 2020",
-        "jan 10 1990 ad"
+        "jan 10 1990 ad",
+        "jan 2020",
+        "jan and feb 2020",
+        "jan feb and march 2020"
       ],
       "template": [
         "setidsuffix _dates",
@@ -1207,6 +1213,7 @@
         "crew",
         "avatar",
         "animals",
+        "self",
         "emotions",
         "hierarchy",
         "properties",
@@ -1993,6 +2000,14 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sdefaults.js"
     },
     {
+      "name": "self",
+      "description": "self",
+      "examples": [],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/self.js"
+    },
+    {
       "name": "sizeable",
       "description": "Sizeable things",
       "examples": [
@@ -2038,6 +2053,7 @@
         "crew",
         "avatar",
         "animals",
+        "self",
         "emotions",
         "hierarchy",
         "properties",
