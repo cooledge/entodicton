@@ -98,6 +98,7 @@
         "tell",
         "pipboy",
         "wp",
+        "reminders",
         "fastfood"
       ]
     },
@@ -1869,6 +1870,38 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
+    },
+    {
+      "name": "reminders",
+      "description": "talking about reminders",
+      "examples": [
+        "remind me to go to the store",
+        "remind me to go to the store\\nshow the reminders"
+      ],
+      "template": [],
+      "includes": [
+        "dates",
+        "self",
+        "ordinals",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "asking",
+        "negation",
+        "stm",
+        "meta",
+        "conjunction",
+        "evaluate",
+        "articles",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "sdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reminders.js"
     },
     {
       "name": "reports",
