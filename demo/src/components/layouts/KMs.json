@@ -1876,7 +1876,8 @@
       "description": "talking about reminders",
       "examples": [
         "remind me to go to the store",
-        "remind me to go to the store\\nshow the reminders"
+        "remind me to go to the store\\nshow the reminders",
+        "remind me to go to regina\\nmonday"
       ],
       "template": [],
       "includes": [
