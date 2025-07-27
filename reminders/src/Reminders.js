@@ -19,8 +19,6 @@ function Reminders({
   setSelectedKeys,
   mode,
   openAnimation,
-  openKeys,
-  setOpenKeys,
   defaultOpenKeys,
   reminders,
 }) {

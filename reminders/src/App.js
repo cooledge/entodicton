@@ -13,8 +13,6 @@ const initialValue = [
 ]
 
 const App = () => {
-  const [openKeys, setOpenKeys] = useState([])
-  const [selectedKeys, setSelectedKeys] = useState([])
   const [query, doQuery] = useState({ text: '', counter: 0 })
   const [counter, setCounter] = useState(0)
   const [queryResponses, setQueryResponses] = useState([])
@@ -56,15 +54,11 @@ const App = () => {
     message, setMessage,
     km,
     incrementCounter,
-    selectedKeys, setSelectedKeys,
-    openKeys, setOpenKeys,
     reminders, setReminders,
   }
 
   const onClick = async () => {
     console.log('onClick')
-    setOpenKeys(['File']) 
-    setSelectedKeys(['File-Open']) 
     await km.process('move up').then( async () => {
       debugger
       debugger
@@ -81,7 +75,7 @@ const App = () => {
       </div>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
-      <Reminders mode="horizontal" reminders={reminders} selectedKeys={selectedKeys} openKeys={openKeys} setSelectedKeys={setSelectedKeys} setOpenKeys={setOpenKeys} openAnimation="slide-up"/>
+      <Reminders mode="horizontal" reminders={reminders} setMessage={setMessage} openAnimation="slide-up"/>
     </div>
   )
 }

@@ -26,6 +26,25 @@ h1 {
   display: table-row;
 }
 
+.response {
+  display: inline-block; /* Ensures transform works properly */
+  animation: growShrink 1s ease-in-out;
+  animation-iteration-count: 3;
+  padding-left: 50px;
+}
+
+@keyframes growShrink {
+  0% {
+    transform: scale(1); /* Default size */
+  }
+  50% {
+    transform: scale(2); /* 100% larger (double size) */
+  }
+  100% {
+    transform: scale(1); /* Back to default size */
+  }
+}
+
 .details.column,
 .time.column {
   display: table-cell;

@@ -4,7 +4,7 @@ import InputWithDropdown from './InputWithDropdown';
 const demo = require('./demo.json')
 
 function Text(props) {
-  const { km, setMessage } = props
+  const { km, setMessage, message } = props
   const [ query, setQuery ] = useState('')
   const [ selectedOption, setSelectedOption ] = useState()
 
@@ -18,11 +18,11 @@ function Text(props) {
     if (query === '') {
       return
     }
-    km.api.say('')
+    // km.api.say('')
     const doQuery = async () => {
       return km.process(query.toLowerCase()).then( async (result) => {
-        let message = ''
         let hasError = false
+        let message = ''
         setQuery('')
         if (result.error) {
           console.log(result.error)
@@ -40,15 +40,17 @@ function Text(props) {
             message += '. There are errors shown in the console'
           }
           // console.log(result)
-          if (hasError) {
+          if (false && hasError) {
             for (const response of result.responses) {
               console.log('responses', response)
             }
           }
           if (message) {
-            km.api.say(message)
-            msg.text = message
-            window.speechSynthesis.speak(msg)
+            console.log("XXXXXXXXXXXXXXXXXXXXXXXXX message", message)
+            setMessage(message)
+            // km.api.say(message)
+            // msg.text = message
+            // window.speechSynthesis.speak(msg)
           }
         }
         props.incrementCounter()
@@ -57,7 +59,7 @@ function Text(props) {
       );
     }
     doQuery()
-  }, [query, msg])
+  }, [query, msg, message, setMessage])
 
   const onClick = () => {
     const query = document.getElementById('query').value.toLowerCase()
@@ -88,6 +90,9 @@ function Text(props) {
           <div>
             Request <InputWithDropdown options={demo.samples} id='query' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
             <a style={{"marginLeft": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
+            { message && 
+              <span class='response'>{message}</span>
+            }
           </div>
         </>
       }
