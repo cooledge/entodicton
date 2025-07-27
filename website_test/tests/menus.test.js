@@ -111,7 +111,7 @@ describe('tests for menus page', () => {
     if (text === 'Close') {
       return
     }
-    test(`NEO23 MENUS menu item direct goto's for ${id} with text ${text}`, async () => {
+    test(`MENUS menu item direct goto's for ${id} with text ${text}`, async () => {
       console.log(`goto_menu_item_test(${id}, ${text})`)
       await page.waitForSelector('#query')
       await query(text)

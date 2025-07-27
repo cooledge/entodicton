@@ -68,6 +68,54 @@ describe('tests for reminders page', () => {
     counter += 1
   }
 
+  const check = async ({details, when, response}) => {
+    const reminderDiv = await page.$('#reminder_1');
+    expect(reminderDiv).not.toBeNull(); // Ensure the div exists
+
+    const divClass = await page.$eval('#reminder_1', el => el.className);
+    expect(divClass).toBe('reminder');
+
+    const detailsSpan = await page.$eval('#reminder_1 .details', el => el.textContent);
+    expect(detailsSpan).toBe(details);
+
+    const timeSpan = await page.$eval('#reminder_1 .time', el => el.textContent);
+    expect(timeSpan).toBe(when);
+
+    const spans = await page.$$('#reminder_1 span');
+    expect(spans.length).toBe(2);
+
+    if (response) {
+      const responseSpan = await page.$eval('.response', el => el.textContent);
+      expect(responseSpan).toBe(response);
+    } else {
+      const responseElements = await page.$$('.response');
+      expect(responseElements.length).toBe(0);
+    }
+  }
+
+  test(`NEOS23 REMINDERS remind me to go to regina`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina")
+
+    await check({
+      details: 'go to regina',
+      when: '',
+      response: 'When should I remind you to go to regina ',
+    })
+  })
+
+  test(`NEOS23 REMINDERS remind me to go to regina`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina")
+    await query("monday")
+
+    await check({
+      details: 'go to regina',
+      when: 'monday',
+      response: '',
+    })
+  })
+
 //  const goto_menu_test = async (id, text) => {
 //    test(`REMINDERS menu direct goto's for ${id}`, async () => {
 //      await page.waitForSelector('#query')

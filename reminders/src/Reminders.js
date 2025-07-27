@@ -25,9 +25,9 @@ function Reminders({
   const children = []
   for (let reminder of reminders) {
     children.push(
-        <div className='reminder'>
+        <div className='reminder' id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
-          <span className="time column">{ reminder.when }</span>
+          <span className="time column">{ reminder.when?.text }</span>
         </div>
     );
   }
