@@ -27,7 +27,7 @@ function Reminders({
     children.push(
         <div className='reminder' id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
-          <span className="time column">{ reminder.when?.text }</span>
+          <span className="time column">{ reminder.date?.text }</span>
         </div>
     );
   }

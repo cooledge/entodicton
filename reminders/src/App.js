@@ -20,8 +20,8 @@ const App = () => {
   const [lastQuery, setLastQuery] = useState('')
   const [km, setKM] = useState()
   const [reminders, setReminders] = useState([ 
-    { text: 'go to the store', when: 'monday' },
-    { text: 'buy bananas', when: 'tuesday' },
+    { text: 'go to the store', date: 'monday' },
+    { text: 'buy bananas', date: 'tuesday' },
   ])
 
   const incrementCounter = () => {

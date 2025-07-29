@@ -12,8 +12,8 @@ const makeAPI = (km) => {
     askAbout() {
       const items = []
       for (const item of this.props.reminders) {
-        if (!item.when) {
-          items.push({ when: true, text: item.text, id: item.id })
+        if (!item.date) {
+          items.push({ date: true, text: item.text, id: item.id })
         }
       }
       return items
@@ -31,7 +31,6 @@ const makeAPI = (km) => {
 
     update(update) {
       const updates = []
-      debugger
       for (const item of this.props.reminders) {
         if (item.id == update.id) {
           updates.push({...item, ...update})
