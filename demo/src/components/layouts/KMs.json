@@ -229,6 +229,20 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/avatar.js"
     },
     {
+      "name": "characters",
+      "description": "this module is for creating a team of characters that can respond to commands",
+      "examples": [
+        "bob 20 euros in dollars",
+        "sally what is the time"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/characters.js"
+    },
+    {
       "name": "colors",
       "description": "talking about colors",
       "examples": [
@@ -1858,6 +1872,44 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
     },
     {
+      "name": "reminders",
+      "description": "talking about reminders",
+      "examples": [
+        "remind me to go to the store",
+        "remind me to go to the store\\nshow the reminders",
+        "remind me to go to regina\\nmonday",
+        "remind me to go to the store on monday",
+        "remind me to go to regina on monday at 10 am"
+      ],
+      "template": [],
+      "includes": [
+        "time",
+        "dates",
+        "self",
+        "tell",
+        "ordinals",
+        "countable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "asking",
+        "negation",
+        "stm",
+        "meta",
+        "conjunction",
+        "evaluate",
+        "articles",
+        "sdefaults",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reminders.js"
+    },
+    {
       "name": "reports",
       "description": "this module is for getting info about a concept with properties",
       "examples": [
@@ -2062,6 +2114,21 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/spock.js"
     },
     {
+      "name": "stgame",
+      "description": "Game simulator for trek-like characters",
+      "examples": [
+        "kirk what is your name",
+        "spock what is your name"
+      ],
+      "template": [],
+      "includes": [
+        "characters",
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stgame.js"
+    },
+    {
       "name": "stm",
       "description": "short term memory",
       "examples": [
@@ -2159,6 +2226,45 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/testing.js"
+    },
+    {
+      "name": "time",
+      "description": "Time related concepts",
+      "examples": [
+        "2 pm",
+        "tell me when the time is 2 pm",
+        "use 12 hour format what is the time",
+        "use 24 hour format what is the time",
+        "use 36 hour format",
+        "what is the time",
+        "10:23",
+        "10:23 pm",
+        "at 10 pm",
+        "@ 10 pm"
+      ],
+      "template": [],
+      "includes": [
+        "tell",
+        "countable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "asking",
+        "negation",
+        "stm",
+        "meta",
+        "conjunction",
+        "evaluate",
+        "articles",
+        "sdefaults",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
     },
     {
       "name": "tokenize",
