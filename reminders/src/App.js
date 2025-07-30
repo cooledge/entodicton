@@ -19,10 +19,8 @@ const App = () => {
   const [message, setMessage] = useState()
   const [lastQuery, setLastQuery] = useState('')
   const [km, setKM] = useState()
-  const [reminders, setReminders] = useState([ 
-    { text: 'go to the store', date: 'monday' },
-    { text: 'buy bananas', date: 'tuesday' },
-  ])
+  const [currentId, setCurrentId] = useState()
+  const [reminders, setReminders] = useState([])
 
   const incrementCounter = () => {
     setCounter(counter+1)
@@ -47,7 +45,7 @@ const App = () => {
     if (!km) {
       init()
     }
-  }, [km, setCounter])
+  }, [km, setCounter, setCurrentId])
 
   const props = {
     lastQuery, setLastQuery,
@@ -55,6 +53,7 @@ const App = () => {
     km,
     incrementCounter,
     reminders, setReminders,
+    currentId, setCurrentId,
   }
 
   const onClick = async () => {
@@ -75,7 +74,7 @@ const App = () => {
       </div>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
-      <Reminders mode="horizontal" reminders={reminders} setMessage={setMessage} openAnimation="slide-up"/>
+      <Reminders mode="horizontal" currentId={currentId} setCurrentId={setCurrentId} reminders={reminders} setMessage={setMessage} openAnimation="slide-up"/>
     </div>
   )
 }

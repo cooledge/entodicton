@@ -4,6 +4,7 @@ const makeAPI = (km) => {
     add(reminder) {
       reminder.id = ++this.next_id
       this.props.setReminders([...this.props.reminders, reminder])
+      this.props.setCurrentId(reminder.id)
     }
 
     say(text) {
@@ -57,6 +58,19 @@ const makeAPI = (km) => {
     stop(action) {
     }
 
+    move(direction, steps = 1, units = undefined) {
+      if (direction == 'up') {
+        const i = this.props.reminders.findIndex((reminder) => reminder.id == this.props.currentId)
+        if (i-steps >= 0) {
+          this.props.setCurrentId(this.props.reminders[i-steps].id)
+        }
+      } else if (direction == 'down') {
+        const i = this.props.reminders.findIndex((reminder) => reminder.id == this.props.currentId)
+        if (i+steps < this.props.reminders.length) {
+          this.props.setCurrentId(this.props.reminders[i+steps].id)
+        }
+      }
+    }
   }
 
   class UIAPI extends km.apiBase('ui') {
@@ -78,6 +92,10 @@ const makeAPI = (km) => {
 
     cancel(direction) {
       this.remindersAPI.cancel(direction)
+    }
+
+    move(...args) {
+      this.remindersAPI.move(...args)
     }
 
     stop(action) {

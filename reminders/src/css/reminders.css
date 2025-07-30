@@ -13,6 +13,11 @@ h1 {
   border-collapse: collapse;
 }
 
+.highlighted {
+  background-color: lightgrey;
+  filter: brightness(110%);
+}
+
 .reminders.header {
   display: table-header-group;
   font-weight: bold;

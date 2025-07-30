@@ -27,13 +27,15 @@ function Text(props) {
         if (result.error) {
           console.log(result.error)
         } else {
+          let seenResponses = []
           for (let i = 0; i < result.contexts.length; ++i) {
             if (result.contexts[i].marker === 'error') {
               hasError = true
               continue
             }
-            if (result.contexts[i].isResponse) {
+            if (result.contexts[i].isResponse && seenResponses.findIndex((r) => r == result.responses[i]) == -1) {
               message += result.responses[i] + ' '
+              seenResponses.push(result.responses[i])
             }
           }
           if (hasError) {

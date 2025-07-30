@@ -21,11 +21,20 @@ function Reminders({
   openAnimation,
   defaultOpenKeys,
   reminders,
+  currentId,
+  setCurrentId,
 }) {
   const children = []
   for (let reminder of reminders) {
+    let className
+    if (reminder.id == currentId) {
+      className = 'reminder highlighted'
+    }
+    else {
+      className = 'reminder'
+    }
     children.push(
-        <div className='reminder' id={`reminder_${reminder.id}`}>
+        <div className={className} id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
           <span className="time column">{ reminder.date?.text }</span>
         </div>
@@ -34,15 +43,17 @@ function Reminders({
   return (
     <div>
       <h1>Reminders</h1>
-      <div className='reminders table'>
-        <div className='reminders header'>
-          <span className="details column">Details</span>
-          <span className="time column">When</span>
+      { children.length > 0 &&
+        <div className='reminders table'>
+          <div className='reminders header'>
+            <span className="details column">Details</span>
+            <span className="time column">When</span>
+          </div>
+            <div className='reminders details'>
+              { children }
+            </div>
         </div>
-        <div className='reminders details'>
-          { children }
-        </div>
-      </div>
+      }
     </div>
   );
 }
