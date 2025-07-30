@@ -170,6 +170,29 @@ describe('tests for reminders page', () => {
     })
   })
 
+  test(`NEOS23 REMINDERS click`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina\nremind me to go to saskatoon")
+    await page.click(`#reminder_1`)
+    // await query("remind me to go to regina")
+    // await query("remind me to go to saskatoon")
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      when: '',
+      response: 'When should I remind you to go to regina ',
+      highlighted: true,
+    })
+    await check({
+      id: 2,
+      details: 'go to saskatoon',
+      when: '',
+      response: 'When should I remind you to go to regina ',
+      highlighted: false,
+    })
+  })
+
   test(`NEOS23 REMINDERS up 2`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nremind me to go to saskatoon\nremind me to go to moose jaw\nup 2")

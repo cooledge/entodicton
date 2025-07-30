@@ -24,6 +24,9 @@ function Reminders({
   currentId,
   setCurrentId,
 }) {
+  const onClick = (id) => () => {
+    setCurrentId(id)
+  }
   const children = []
   for (let reminder of reminders) {
     let className
@@ -34,7 +37,7 @@ function Reminders({
       className = 'reminder'
     }
     children.push(
-        <div className={className} id={`reminder_${reminder.id}`}>
+        <div className={className} onClick={onClick(reminder.id)} id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
           <span className="time column">{ reminder.date?.text }</span>
         </div>
