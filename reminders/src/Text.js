@@ -20,6 +20,7 @@ function Text(props) {
     }
     // km.api.say('')
     const doQuery = async () => {
+      console.log('query', query)
       return km.process(query.toLowerCase()).then( async (result) => {
         let hasError = false
         let message = ''
@@ -33,9 +34,12 @@ function Text(props) {
               hasError = true
               continue
             }
-            if (result.contexts[i].isResponse && seenResponses.findIndex((r) => r == result.responses[i]) == -1) {
-              message += result.responses[i] + ' '
-              seenResponses.push(result.responses[i])
+            // just show the last response
+            if (i == result.contexts.length-1) {
+              if (result.contexts[i].isResponse && seenResponses.findIndex((r) => r == result.responses[i]) == -1) {
+                message += result.responses[i] + ' '
+                seenResponses.push(result.responses[i])
+              }
             }
           }
           if (hasError) {
@@ -54,6 +58,7 @@ function Text(props) {
             // msg.text = message
             // window.speechSynthesis.speak(msg)
           } else {
+            console.log("XXXXXXXXXXXXXXXXXXXXXXXXX message blank", message)
             setMessage('')
           }
         }
@@ -95,7 +100,7 @@ function Text(props) {
             Request <InputWithDropdown options={demo.samples} id='query' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
             <a style={{"marginLeft": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
             { message && 
-              <span class='response'>{message}</span>
+              <span className='response'>{message}</span>
             }
           </div>
         </>

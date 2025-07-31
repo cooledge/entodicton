@@ -13,7 +13,7 @@ const makeAPI = (km) => {
     askAbout() {
       const items = []
       for (const item of this.props.reminders) {
-        if (!item.date) {
+        if (!item.dateTimeSelector) {
           items.push({ date: true, text: item.text, id: item.id })
         }
       }

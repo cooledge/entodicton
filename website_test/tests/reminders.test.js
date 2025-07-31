@@ -60,9 +60,9 @@ describe('tests for reminders page', () => {
   }, timeout);
 
   const query = async (fullQuery) => { 
+    demoWriter.add(fullQuery.toLowerCase().replace(/\n/g, "\\n"));
     const queries = fullQuery.split('\n')
     for (let query of queries) {
-      demoWriter.add(query.toLowerCase())
       await page.waitForSelector('#query')
       await page.type('#query', query)
       await page.click('#submit')

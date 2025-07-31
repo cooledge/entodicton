@@ -10,6 +10,8 @@ h1 {
 .reminders.table {
   display: table;
   width: 100%;
+  border-color: black;
+  border-width: 2px;
   border-collapse: collapse;
 }
 
