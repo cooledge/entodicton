@@ -3,6 +3,23 @@ const makeAPI = (km) => {
     next_id = 0
     add(reminder) {
       reminder.id = ++this.next_id
+      reminder.instantiate = () => {
+        this.instantiate(reminder)
+        if (reminder.nextISODate) {
+          const date = new Date(reminder.nextISODate);
+          const userLocale = navigator.language || navigator.languages[0] || 'en-US';
+          const formattedDate = date.toLocaleString(userLocale, {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true, // Use false for 24-hour format
+          });
+          reminder.nextISODateFormatted = formattedDate
+        }
+      }
       this.props.setReminders([...this.props.reminders, reminder])
       this.props.setCurrentId(reminder.id)
     }

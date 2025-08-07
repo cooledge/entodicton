@@ -37,6 +37,7 @@ describe('tests for reminders page', () => {
     page = await browser.newPage();
     await page.goto(`${URL}/reminders/`)
     await page.waitForSelector('#query')
+    await page.click(`#testingButton`)
   }, timeout)
 
   afterEach( async () => {
@@ -71,7 +72,7 @@ describe('tests for reminders page', () => {
     }
   }
 
-  const check = async ({id, details, when, response, highlighted}) => {
+  const check = async ({id, details, when, next, response, highlighted}) => {
     const reminderDiv = await page.$(`#reminder_${id}`);
     expect(reminderDiv).not.toBeNull(); // Ensure the div exists
 
@@ -88,8 +89,11 @@ describe('tests for reminders page', () => {
     const timeSpan = await page.$eval(`#reminder_${id} .time`, el => el.textContent);
     expect(timeSpan).toBe(when);
 
+    const nextSpan = await page.$eval(`#reminder_${id} .next`, el => el.textContent);
+    expect(nextSpan).toBe(next || '');
+
     const spans = await page.$$(`#reminder_${id} span`);
-    expect(spans.length).toBe(2);
+    expect(spans.length).toBe(3);
 
     if (response) {
       const responseSpan = await page.$eval('.response', el => el.textContent);
@@ -190,6 +194,22 @@ describe('tests for reminders page', () => {
       when: '',
       response: 'When should I remind you to go to regina ',
       highlighted: false,
+    })
+  })
+
+  test(`NEOS23 REMINDERS remind me to go to regina on monday at 10 am`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina on monday at 10 am")
+    await page.click(`#reminder_1`)
+    // await query("remind me to go to regina")
+    // await query("remind me to go to saskatoon")
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      when: 'on monday at 10 am',
+      next: "30/06/2025, 10:00:00 am",
+      highlighted: true,
     })
   })
 

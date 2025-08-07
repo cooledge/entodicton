@@ -56,12 +56,9 @@ const App = () => {
     currentId, setCurrentId,
   }
 
-  const onClick = async () => {
-    console.log('onClick')
-    await km.process('move up').then( async () => {
-      debugger
-      debugger
-    })
+  const onClickTesting = async () => {
+    console.log('onClickTesting')
+    km.kms.time.api.now = () => new Date(2025, 5, 29, 14, 52, 0)
   }
 
   return (
@@ -72,6 +69,7 @@ const App = () => {
           Source Code of API for this page
         </a>
       </div>
+      <button id='testingButton' onClick={onClickTesting}>Press this for testing mode</button>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
       <Reminders mode="horizontal" currentId={currentId} setCurrentId={setCurrentId} reminders={reminders} setMessage={setMessage} openAnimation="slide-up"/>

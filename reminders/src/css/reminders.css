@@ -58,13 +58,22 @@ h1 {
   padding: 8px;
   border: 1px solid #ccc;
 }
+.next.column {
+  display: table-cell;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
 
 .details.column {
   width: 60%;
 }
 
 .time.column {
-  width: 40%;
+  width: 20%;
+}
+
+.next.column {
+  width: 20%;
 }
 
 .Query {

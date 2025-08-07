@@ -29,6 +29,7 @@ function Reminders({
   }
   const children = []
   for (let reminder of reminders) {
+    reminder.instantiate()
     let className
     if (reminder.id == currentId) {
       className = 'reminder highlighted'
@@ -40,6 +41,7 @@ function Reminders({
         <div className={className} onClick={onClick(reminder.id)} id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
           <span className="time column">{ reminder.dateTimeSelectorText }</span>
+          <span className="next column">{ reminder.nextISODateFormatted }</span>
         </div>
     );
   }
@@ -51,6 +53,7 @@ function Reminders({
           <div className='reminders header'>
             <span className="details column">Details</span>
             <span className="time column">When</span>
+            <span className="next column">Next</span>
           </div>
             <div className='reminders details'>
               { children }
