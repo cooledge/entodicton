@@ -40,7 +40,7 @@ function Reminders({
     children.push(
         <div className={className} onClick={onClick(reminder.id)} id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
-          <span className="who column">{ reminder.who.text }</span>
+          <span className="who column">{ (reminder.who.text == 'me') ? reminder.who.text : `${reminder.who.text} - ${reminder.who.id}` }</span>
           <span className="time column">{ reminder.dateTimeSelectorText }</span>
           <span className="next column">{ reminder.nextISODateFormatted }</span>
         </div>

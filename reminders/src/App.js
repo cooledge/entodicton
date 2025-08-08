@@ -3,6 +3,7 @@ import './css/reminders.css'
 import Text from './Text'
 import makeAPI from './API'
 import Reminders from './Reminders'
+import Users from './Users'
 const tpmkms = require('tpmkms_4wp')
 
 const initialValue = [
@@ -69,10 +70,11 @@ const App = () => {
           Source Code of API for this page
         </a>
       </div>
-      <button id='testingButton' onClick={onClickTesting} style={{display: 'hidden'}}>Press this for testing mode</button>
+      <button id='testingButton' onClick={onClickTesting} style={{opacity: 0}}>Press this for testing mode</button>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
       <Reminders mode="horizontal" currentId={currentId} setCurrentId={setCurrentId} reminders={reminders} setMessage={setMessage} openAnimation="slide-up"/>
+      <Users km={km}/>
     </div>
   )
 }
