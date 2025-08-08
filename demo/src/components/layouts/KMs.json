@@ -1915,7 +1915,10 @@
         "remind me to go to the store\\nshow the reminders",
         "remind me to go to regina\\nmonday",
         "remind me to go to the store on monday",
-        "remind me to go to regina on monday at 10 am"
+        "remind me to go to regina on monday at 10 am",
+        "addRemindable greg",
+        "addRemindable greg mcclement",
+        "addRemindable greg mcclement\\nremind greg mcclement to go on monday"
       ],
       "template": [],
       "includes": [
