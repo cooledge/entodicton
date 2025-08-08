@@ -64,12 +64,12 @@ const App = () => {
   return (
     <div className='App'>
       <div className='Links'>
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://youtu.be/KHMlsost7pw'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/reminders/src/API.js'} target="_blank" rel="noreferrer">
+        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={'https://youtu.be/KHMlsost7pw'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
+        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/reminders/src/API.js'} target="_blank" rel="noreferrer">
           Source Code of API for this page
         </a>
       </div>
-      <button id='testingButton' onClick={onClickTesting}>Press this for testing mode</button>
+      <button id='testingButton' onClick={onClickTesting} style={{display: 'hidden'}}>Press this for testing mode</button>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />
       <Reminders mode="horizontal" currentId={currentId} setCurrentId={setCurrentId} reminders={reminders} setMessage={setMessage} openAnimation="slide-up"/>

@@ -64,6 +64,7 @@ function Text(props) {
         }
         props.incrementCounter()
       }).catch( (e) => {
+        console.log('error', e)
       }
       );
     }

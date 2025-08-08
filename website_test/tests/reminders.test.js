@@ -72,7 +72,11 @@ describe('tests for reminders page', () => {
     }
   }
 
-  const check = async ({id, details, when, next, response, highlighted}) => {
+  const check = async ({id, details, who, when, next, response, highlighted}) => {
+    if (!who) {
+      who = 'me'
+    }
+
     const reminderDiv = await page.$(`#reminder_${id}`);
     expect(reminderDiv).not.toBeNull(); // Ensure the div exists
 
@@ -86,6 +90,9 @@ describe('tests for reminders page', () => {
     const detailsSpan = await page.$eval(`#reminder_${id} .details`, el => el.textContent);
     expect(detailsSpan).toBe(details);
 
+    const whoSpan = await page.$eval(`#reminder_${id} .who`, el => el.textContent);
+    expect(whoSpan).toBe(who);
+
     const timeSpan = await page.$eval(`#reminder_${id} .time`, el => el.textContent);
     expect(timeSpan).toBe(when);
 
@@ -93,7 +100,7 @@ describe('tests for reminders page', () => {
     expect(nextSpan).toBe(next || '');
 
     const spans = await page.$$(`#reminder_${id} span`);
-    expect(spans.length).toBe(3);
+    expect(spans.length).toBe(4);
 
     if (response) {
       const responseSpan = await page.$eval('.response', el => el.textContent);

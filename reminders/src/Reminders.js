@@ -40,6 +40,7 @@ function Reminders({
     children.push(
         <div className={className} onClick={onClick(reminder.id)} id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
+          <span className="who column">{ reminder.who.text }</span>
           <span className="time column">{ reminder.dateTimeSelectorText }</span>
           <span className="next column">{ reminder.nextISODateFormatted }</span>
         </div>
@@ -52,6 +53,7 @@ function Reminders({
         <div className='reminders table'>
           <div className='reminders header'>
             <span className="details column">Details</span>
+            <span className="who column">Who</span>
             <span className="time column">When</span>
             <span className="next column">Next</span>
           </div>

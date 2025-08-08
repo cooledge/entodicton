@@ -53,11 +53,8 @@ h1 {
 }
 
 .details.column,
-.time.column {
-  display: table-cell;
-  padding: 8px;
-  border: 1px solid #ccc;
-}
+.time.column,
+.who.column,
 .next.column {
   display: table-cell;
   padding: 8px;
@@ -65,7 +62,11 @@ h1 {
 }
 
 .details.column {
-  width: 60%;
+  width: 40%;
+}
+
+.who.column {
+  width: 20%;
 }
 
 .time.column {
