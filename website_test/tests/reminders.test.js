@@ -129,7 +129,7 @@ describe('tests for reminders page', () => {
     })
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina`, async () => {
+  test(`NEOS23 REMINDERS remind me to go to regina + monday`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nmonday")
 
@@ -137,6 +137,7 @@ describe('tests for reminders page', () => {
       id: 1,
       details: 'go to regina',
       when: 'monday',
+      next: '30/06/2025, 2:52:00 pm',
       response: '',
       highlighted: true,
     })
@@ -303,7 +304,7 @@ describe('tests for reminders page', () => {
     })
   })
 
-  test(`NEO23 REMINDERS add greg as user then -> remind greg to go to regina on monday at 10 am`, async () => {
+  test(`NEOS23 REMINDERS add greg as user then -> remind greg to go to regina on monday at 10 am`, async () => {
     await addUser('greg')
     await page.waitForSelector('#query')
     await query("remind greg to go to regina on monday at 10 am")
@@ -316,6 +317,20 @@ describe('tests for reminders page', () => {
       details: 'go to regina',
       who: 'greg - employee#1',
       when: 'on monday at 10 am',
+      next: "30/06/2025, 10:00:00 am",
+      highlighted: true,
+    })
+  })
+
+  test(`NEOS23 REMINDERS remind me to go to regina +  monday at 10 am`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina\nmonday at 10 am")
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      who: 'me',
+      when: 'monday at 10 am',
       next: "30/06/2025, 10:00:00 am",
       highlighted: true,
     })

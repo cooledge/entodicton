@@ -51,7 +51,10 @@ const makeAPI = (km) => {
       const updates = []
       for (const item of this.props.reminders) {
         if (item.id == update.id) {
-          updates.push({...item, ...update})
+          debugger
+          Object.assign(item, update)
+          item.instantiate()
+          updates.push(item)
         } else {
           updates.push(item)
         }

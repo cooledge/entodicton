@@ -13,7 +13,7 @@ class About extends Component {
     return (
       <div className='about'>
         <div className='line'>
-          <span class='label'>Contact:</span> <span class='value'><a href="mailto: dev@thinktelligence.com">email</a></span>
+          <span class='label'>Contact:</span> <span class='value'><a href="mailto: greg.mcclement@gmail.com">email</a></span>
         </div>
         <div className='line'>
           <span class='label'>Version:</span> <span class='value'>{VERSION.version}</span>
