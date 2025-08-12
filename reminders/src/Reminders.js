@@ -45,9 +45,10 @@ function Reminders({
       }
     }
     let who;
-    if (Array.isArray(reminder.who.id)) {
+    debugger
+    if (Array.isArray(reminder.who)) {
       let whos = []
-      for (const element of reminder.who.id) {
+      for (const element of reminder.who) {
         whos.push(<div className='individual column'>
             {whoToString(element)}
           </div>)
