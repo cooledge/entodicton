@@ -1919,7 +1919,9 @@
         "addRemindable greg",
         "addRemindable greg mcclement",
         "addRemindable greg mcclement\\nremind greg mcclement to go on monday",
-        "remind me to go to school\\nmonday at 10 am"
+        "remind me to go to school\\nmonday at 10 am",
+        "remind me to go\\non monday at 10 am",
+        "addRemindable greg and bob\\nremind greg and bob to go to europe on tuesday"
       ],
       "template": [],
       "includes": [
