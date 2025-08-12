@@ -51,7 +51,6 @@ const makeAPI = (km) => {
       const updates = []
       for (const item of this.props.reminders) {
         if (item.id == update.id) {
-          debugger
           Object.assign(item, update)
           item.instantiate()
           updates.push(item)
@@ -64,6 +63,23 @@ const makeAPI = (km) => {
 
     setProps(props) {
       this.props = props
+    }
+
+    addUser(user) {
+      this.props.setReminders(this.props.reminders.map((reminder) => {
+        if (reminder.id == this.props.currentId) {
+          reminder = {...reminder}
+          if (Array.isArray(reminder.who)) {
+            reminder.who = [...reminder.who]
+            reminder.who.push(user)
+          } else {
+            reminder.who = [reminder.who, user]
+          }
+          return reminder
+        } else {
+          return reminder
+        }
+      }))
     }
 
     select(item) {

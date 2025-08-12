@@ -45,7 +45,6 @@ function Reminders({
       }
     }
     let who;
-    debugger
     if (Array.isArray(reminder.who)) {
       let whos = []
       for (const element of reminder.who) {

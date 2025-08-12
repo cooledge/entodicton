@@ -355,5 +355,34 @@ describe('tests for reminders page', () => {
     })
   })
 
+  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nadd bob`, async () => {
+    await addUser('greg')
+    await addUser('bob')
+    await page.waitForSelector('#query')
+    await query("remind greg to go to regina")
+    await page.click(`#reminder_1`)
 
+    await check({
+      id: 1,
+      details: 'go to regina',
+      who: 'greg - employee#1',
+      when: '',
+      next: '',
+      response: 'When should I remind you to go to regina ',
+      highlighted: true,
+    })
+
+    await query("add bob")
+    await page.click(`#reminder_1`)
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      who: 'greg - employee#1bob - employee#2',
+      when: '',
+      next: '',
+      response: 'When should I remind you to go to regina ',
+      highlighted: true,
+    })
+  })
 });
