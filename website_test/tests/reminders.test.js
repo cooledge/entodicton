@@ -336,4 +336,24 @@ describe('tests for reminders page', () => {
     })
   })
 
+  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg and bob to go to regina on monday at 10 am`, async () => {
+    await addUser('greg')
+    await addUser('bob')
+    await page.waitForSelector('#query')
+    await query("remind greg and bob to go to regina on monday at 10 am")
+    await page.click(`#reminder_1`)
+    // await query("remind me to go to regina")
+    // await query("remind me to go to saskatoon")
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      who: 'greg - employee#1bob - employee#2',
+      when: 'on monday at 10 am',
+      next: "30/06/2025, 10:00:00 am",
+      highlighted: true,
+    })
+  })
+
+
 });

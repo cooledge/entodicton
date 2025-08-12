@@ -37,10 +37,29 @@ function Reminders({
     else {
       className = 'reminder'
     }
+    const whoToString = (who) => {
+      if (who.text == 'me') {
+        return who.text
+      } else {
+        return `${who.text} - ${who.remindee_id}`
+      }
+    }
+    let who;
+    if (Array.isArray(reminder.who.id)) {
+      let whos = []
+      for (const element of reminder.who.id) {
+        whos.push(<div className='individual column'>
+            {whoToString(element)}
+          </div>)
+      }
+      who = whos
+    } else {
+      who = whoToString(reminder.who)
+    }
     children.push(
         <div className={className} onClick={onClick(reminder.id)} id={`reminder_${reminder.id}`}>
           <span className="details column">{ reminder.text }</span>
-          <span className="who column">{ (reminder.who.text == 'me') ? reminder.who.text : `${reminder.who.text} - ${reminder.who.id}` }</span>
+          <span className="who column">{ who }</span>
           <span className="time column">{ reminder.dateTimeSelectorText }</span>
           <span className="next column">{ reminder.nextISODateFormatted }</span>
         </div>

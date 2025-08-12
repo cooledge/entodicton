@@ -10,9 +10,8 @@ h1, h2 {
 .reminders.table {
   display: table;
   width: 100%;
-  border-color: black;
-  border-width: 2px;
-  border-collapse: collapse;
+  border: 1px solid black;
+  border-collapse: separate;
 }
 
 .highlighted {
@@ -58,7 +57,7 @@ h1, h2 {
 .next.column {
   display: table-cell;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
 }
 
 .details.column {
