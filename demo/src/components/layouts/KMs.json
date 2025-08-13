@@ -1925,7 +1925,9 @@
         "addRemindable greg alice and bob\\nremind greg to go to europe on tuesday\\nadd bob\\nadd alice",
         "addRemindable greg alice and bob\\nremind greg to go to europe on tuesday\\nadd bob and alice",
         "addRemindable greg and bob\\nremind greg and bob to go to europe on tuesday\\nremove greg",
-        "addRemindable greg and bob\\nremind greg to go to europe on tuesday\\nremind bob too"
+        "addRemindable greg and bob\\nremind greg to go to europe on tuesday\\nremind bob too",
+        "addRemindable greg and bob\\nremind greg and bob to go to europe on tuesday\\ndelete greg",
+        "addRemindable greg and bob\\nremind greg and bob to go to europe"
       ],
       "template": [],
       "includes": [
