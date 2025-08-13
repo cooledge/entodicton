@@ -82,6 +82,18 @@ const makeAPI = (km) => {
       }))
     }
 
+    removeUser(user) {
+      this.props.setReminders(this.props.reminders.map((reminder) => {
+        if (reminder.id == this.props.currentId) {
+          reminder = {...reminder}
+          reminder.who = reminder.who.filter((who) => who.remindee_id !== user.remindee_id)
+          return reminder
+        } else {
+          return reminder
+        }
+      }))
+    }
+
     select(item) {
     }
 

@@ -14,6 +14,9 @@
     "remind greg to go to regina",
     "add bob",
     "remind bob to go to saskatoon",
-    "up"
+    "up",
+    "remind greg and bob to go to regina",
+    "remove bob",
+    "remind bob too"
   ]
 }
