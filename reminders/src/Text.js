@@ -32,6 +32,7 @@ function Text(props) {
           for (let i = 0; i < result.contexts.length; ++i) {
             if (result.contexts[i].marker === 'error') {
               hasError = true
+              console.log(result.contexts[i])
               continue
             }
             // just show the last response

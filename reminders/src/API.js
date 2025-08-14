@@ -31,9 +31,10 @@ const makeAPI = (km) => {
       const items = []
       for (const item of this.props.reminders) {
         if (!item.dateTimeSelector) {
-          items.push({ date: true, text: item.text, id: item.id })
+          items.push({ date: true, who: item.who, text: item.text, id: item.id })
         }
       }
+      debugger
       return items
     }
 
@@ -66,6 +67,7 @@ const makeAPI = (km) => {
     }
 
     addUser(user) {
+      debugger
       this.props.setReminders(this.props.reminders.map((reminder) => {
         if (reminder.id == this.props.currentId) {
           reminder = {...reminder}
