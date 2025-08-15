@@ -1928,7 +1928,9 @@
         "addRemindable greg and bob\\nremind greg to go to europe on tuesday\\nremind bob too",
         "addRemindable greg and bob\\nremind greg and bob to go to europe on tuesday\\ndelete greg",
         "addRemindable greg and bob\\nremind greg and bob to go to europe",
-        "remind me"
+        "remind me",
+        "remind me to go to regina\\nremind me to go to saskatoon\\nmonday at 10 am",
+        "remind me to go to regina\\nremind me to go to saskatoon\\nmonday at 10 am\\ntuesday"
       ],
       "template": [],
       "includes": [
