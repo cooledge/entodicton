@@ -153,14 +153,14 @@ describe('tests for reminders page', () => {
       id: 1,
       details: 'go to regina',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: false,
     })
     await check({
       id: 2,
       details: 'go to saskatoon',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: true,
     })
   })
@@ -175,14 +175,14 @@ describe('tests for reminders page', () => {
       id: 1,
       details: 'go to regina',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: true,
     })
     await check({
       id: 2,
       details: 'go to saskatoon',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: false,
     })
   })
@@ -198,14 +198,14 @@ describe('tests for reminders page', () => {
       id: 1,
       details: 'go to regina',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: true,
     })
     await check({
       id: 2,
       details: 'go to saskatoon',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: false,
     })
   })
@@ -236,21 +236,21 @@ describe('tests for reminders page', () => {
       id: 1,
       details: 'go to regina',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to moose jaw',
       highlighted: true,
     })
     await check({
       id: 2,
       details: 'go to saskatoon',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to moose jaw',
       highlighted: false,
     })
     await check({
       id: 3,
       details: 'go to moose jaw',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to moose jaw',
       highlighted: false,
     })
   })
@@ -265,14 +265,14 @@ describe('tests for reminders page', () => {
       id: 1,
       details: 'go to regina',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: false,
     })
     await check({
       id: 2,
       details: 'go to saskatoon',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to saskatoon',
       highlighted: true,
     })
   })
@@ -285,21 +285,21 @@ describe('tests for reminders page', () => {
       id: 1,
       details: 'go to regina',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to moose jaw',
       highlighted: false,
     })
     await check({
       id: 2,
       details: 'go to saskatoon',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to moose jaw',
       highlighted: false,
     })
     await check({
       id: 3,
       details: 'go to moose jaw',
       when: '',
-      response: 'When should I remind you to go to regina',
+      response: 'When should I remind you to go to moose jaw',
       highlighted: true,
     })
   })
@@ -354,7 +354,7 @@ describe('tests for reminders page', () => {
     })
   })
 
-  test(`NEO23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nadd bob`, async () => {
+  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nadd bob`, async () => {
     await addUser('greg')
     await addUser('bob')
     await page.waitForSelector('#query')
@@ -398,7 +398,7 @@ describe('tests for reminders page', () => {
       who: 'greg - employee#1bob - employee#2',
       when: '',
       next: '',
-      response: 'When should I remind greg and bob to go to regina',
+      response: 'When should I remind bob to go to saskatoon',
       highlighted: true,
     })
 
@@ -408,7 +408,7 @@ describe('tests for reminders page', () => {
       who: 'bob - employee#2',
       when: '',
       next: '',
-      response: 'When should I remind greg and bob to go to regina',
+      response: 'When should I remind bob to go to saskatoon',
       highlighted: false,
     })
   })
@@ -431,7 +431,7 @@ describe('tests for reminders page', () => {
     })
   })
 
-  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nremind bob too`, async () => {
+  test(`NEO23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nremind bob too`, async () => {
     await addUser('greg')
     await addUser('bob')
     await page.waitForSelector('#query')
@@ -447,5 +447,14 @@ describe('tests for reminders page', () => {
       response: 'When should I remind greg and bob to go to regina',
       highlighted: true,
     })
+  })
+
+  test(`NEOS23 REMINDERS remind me to go to regina\nnevermind`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina")
+    await query("nevermind")
+
+    const responseElements = await page.$$('.response');
+    expect(responseElements.length).toBe(0);
   })
 });

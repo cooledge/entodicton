@@ -27,25 +27,21 @@ const makeAPI = (km) => {
     say(text) {
     }
 
-    askAbout() {
-      const items = []
-      for (const item of this.props.reminders) {
-        if (!item.dateTimeSelector) {
-          items.push({ date: true, who: item.who, text: item.text, id: item.id })
-        }
-      }
+    reminder(id) {
       debugger
-      return items
+      return this.props.reminders.find((reminder) => reminder.id == id)
     }
 
-    show() {
+    reminders() {
+      return this.props.reminders
     }
 
-    delete_reminder(ordinal) {
-      if (ordinal < 1 || ordinal > this.props.reminders.length) {
-        return `Not possible`
-      }
-      this.props.setReminders(this.props.reminders.splice(ordinal, 1))
+    setReminders(reminders) {
+      this.props.setReminders(reminders)
+    }
+
+    delete_reminder(id) {
+      this.props.setReminders(this.props.reminders.filter((reminder) => reminder.id !== id))
     }
 
     update(update) {
@@ -67,7 +63,6 @@ const makeAPI = (km) => {
     }
 
     addUser(user) {
-      debugger
       this.props.setReminders(this.props.reminders.map((reminder) => {
         if (reminder.id == this.props.currentId) {
           reminder = {...reminder}
