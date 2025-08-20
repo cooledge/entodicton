@@ -1931,7 +1931,8 @@
         "remind me",
         "remind me to go to regina\\nremind me to go to saskatoon\\nmonday at 10 am",
         "remind me to go to regina\\nremind me to go to saskatoon\\nmonday at 10 am\\ntuesday",
-        "remind me\\ngo to the store on monday"
+        "remind me\\ngo to the store on monday",
+        "remind me\\ngo to regina on Monday at 10 am"
       ],
       "template": [],
       "includes": [
