@@ -419,7 +419,6 @@ class API {
       } 
     }
     report.addRule = (rule) => {
-      debugger
       if (!report.imageSpec.rules) {
         report.imageSpec.rules = []
       }
@@ -514,7 +513,7 @@ let configStruct = {
     ['graph', 'deletable'],
     ['table', 'deletable'],
   ],
-    associations: {
+  associations: {
     negative: [
     ],
     positive: [
@@ -583,6 +582,7 @@ let configStruct = {
     {
       match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
       apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
+        debugger
         const currentReport = api.current()
         let selectedTables
         // console.log(JSON.stringify(context, null, 2))
@@ -608,6 +608,7 @@ let configStruct = {
         } else if (context.pullFromContext) {
           // handle graph/chart being the same thing
           const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }
+          // debugger
           const mentioned = mentions(args)
           if (mentioned) {
             if (mentioned.marker == 'graph') {
@@ -640,6 +641,7 @@ let configStruct = {
       match: ({context}) => context.marker == 'move' && !context.evaluate,
       where: where(),
       apply: async ({context, api, values, e, isA}) => {
+        debugger
         const table = (await e(context.moveable)).evalue
         if (table) {
           // console.log('table', JSON.stringify(table, null, 2))
@@ -649,7 +651,9 @@ let configStruct = {
             distance *= -1
           }
           for (const moved of values(table.value)) {
+            console.log(JSON.stringify(table.report.imageSpec, null, 2))
             image.moveUpOrDown(table.report.imageSpec, moved, distance)
+            console.log(JSON.stringify(table.report.imageSpec, null, 2))
           }
         }
         api.show(table.report)

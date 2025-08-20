@@ -744,7 +744,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['email', 'password'])
     }, timeout);
 
-    test(`MONGO show the users + show all the fields + show the movies + remove the second column of the first table`, async () => {
+    test(`NEOS23 MONGO show the users + show all the fields + show the movies + remove the second column of the first table`, async () => {
       await query('show the users')
       await checkTable(page, 1, users, ['name'])
       await query('show all the fields')
@@ -762,6 +762,19 @@ describe('tests for the mongo page', () => {
       await query('show the movies')
       await query('remove the second and third column of the first table')
       await checkTable(page, 1, users, ['_id', 'password'])
+    }, timeout);
+
+    test(`NEOS23 MONGO show the users + press reset -> no tables shown`, async () => {
+      await query('show the users')
+      await page.click('#resetSession')
+      await page.waitForSelector(`#queryCounter0`)
+      const elements = await page.$$('.table_1');
+      console.log(elements)
+      for (const element of elements) {
+        const html = await page.evaluate(el => el.outerHTML, element);
+        console.log(html);
+      }
+      expect(elements.length).toBe(0)
     }, timeout);
   })
 });

@@ -128,6 +128,7 @@ app.post('/query', async (req, res) => {
     if (req.body.query) {
       mongoKM.api.clearLastResponse()
       const query = req.body.query
+      // debugger
       if (query.selectReport) {
         // console.log("in select REPORT")
         // console.log("in select REPORT", query.selectReport)
@@ -172,7 +173,6 @@ app.post('/query', async (req, res) => {
 
       if (lastResponse.chooseFields) {
         // Object.assign(response, { chooseFields: lastResponse.chooseFields, context: lastResponse.context })
-        debugger
         Object.assign(response, lastResponse)
       }
 
@@ -188,8 +188,8 @@ app.post('/query', async (req, res) => {
         response.clear = true
       }
 
-      // console.log(JSON.stringify(response, null, 2))
       response.sessions = sessions.statistics()
+      console.log(JSON.stringify(response, null, 2))
       res.json(response)
     } else {
       res.json({ noChange: true })

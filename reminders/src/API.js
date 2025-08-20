@@ -28,7 +28,6 @@ const makeAPI = (km) => {
     }
 
     reminder(id) {
-      debugger
       return this.props.reminders.find((reminder) => reminder.id == id)
     }
 
@@ -40,11 +39,11 @@ const makeAPI = (km) => {
       this.props.setReminders(reminders)
     }
 
-    delete_reminder(id) {
-      this.props.setReminders(this.props.reminders.filter((reminder) => reminder.id !== id))
-    }
-
     update(update) {
+      if (!update.id) {
+        update.id = this.props.currentId
+      }
+
       const updates = []
       for (const item of this.props.reminders) {
         if (item.id == update.id) {

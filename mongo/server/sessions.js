@@ -19,7 +19,9 @@ class Sessions {
   }
 
   async reset(sessionId) {
-    const mongoKM = await this.create()
+    // debugger
+    const mongoKM = await this.create(false)
+    mongoKM.api.clear()
     mongoKM.server('http://localhost:3012')
     this.cache.set(sessionId, mongoKM)
     return mongoKM
@@ -41,8 +43,8 @@ class Sessions {
         return null
       }
     }
-
-    const mongoKM = await this.create()
+    
+    const mongoKM = await this.create(false)
     mongoKM.server('http://localhost:3012')
     // console.log('get(sessionId): create', mongoKM.sessionID)
     this.cache.set(sessionId, mongoKM)

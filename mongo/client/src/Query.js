@@ -38,7 +38,7 @@ function Query(props) {
       <div>
         <span className='label'>Request:</span> <InputWithDropdown options={demo.samples} id='query' placeholder='press enter to submit.' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
         <a style={{"marginLeft": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
-        <a style={{"marginLeft": "10px"}} className="Button" onClick={onResetSession}>Reset Session</a>
+        <a style={{"marginLeft": "10px"}} id="resetSession" className="Button" onClick={onResetSession}>Reset Session</a>
       </div>
       { query && 
         <div>

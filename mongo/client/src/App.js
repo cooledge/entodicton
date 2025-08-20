@@ -270,16 +270,16 @@ function App() {
     if (!resetSession) {
       return
     }
+    doQuery({ text: '', counter: 0 });
     (async () => {
       await callResetSession()
-      debugger
       setNamedReports([])
       setResetSession(false)
       setData([])
       setRules([])
       setCounter(0)
     })()
-  }, [resetSession, setNamedReports, setResetSession, setData, setRules, setCounter])
+  }, [doQuery, resetSession, setNamedReports, setResetSession, setData, setRules, setCounter])
 
   const handleResponse = (response) => {
     console.log('response', response)
