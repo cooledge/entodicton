@@ -498,7 +498,33 @@
       "description": "talking about date and time selectors",
       "examples": [
         "monday at 2 pm",
-        "evaluate monday at 2 pm"
+        "evaluate monday at 2 pm",
+        "evaluate jan 5 2020",
+        "evaluate feb 5 2020",
+        "evaluate mar 5 2020",
+        "evaluate apr 5 2020",
+        "evaluate may 5 2020",
+        "evaluate jun 5 2020",
+        "evaluate july 5 2020",
+        "evaluate jul 5 2020",
+        "evaluate aug 5 2020",
+        "evaluate sep 5 2020",
+        "evaluate sept 5 2020",
+        "evaluate oct 5 2020",
+        "evaluate nov 5 2020",
+        "evaluate dev 5 2020",
+        "evaluate dec 5 2020",
+        "evaluate january 5 2020",
+        "evaluate february 5 2020",
+        "evaluate march 5 2020",
+        "evaluate april 5 2020",
+        "evaluate june 5 2020",
+        "evaluate august 5 2020",
+        "evaluate september 5 2020",
+        "evaluate october 5 2020",
+        "evaluate november 5 2020",
+        "evaluate december 5 2020",
+        "evaluate on december 5 2020"
       ],
       "template": [],
       "includes": [
@@ -1933,7 +1959,8 @@
         "remind me to go to regina\\nremind me to go to saskatoon\\nmonday at 10 am",
         "remind me to go to regina\\nremind me to go to saskatoon\\nmonday at 10 am\\ntuesday",
         "remind me\\ngo to the store on monday",
-        "remind me\\ngo to regina on Monday at 10 am"
+        "remind me\\ngo to regina on Monday at 10 am",
+        "remind me to go to france on jan 5 2026"
       ],
       "template": [],
       "includes": [
