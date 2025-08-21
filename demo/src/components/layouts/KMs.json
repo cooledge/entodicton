@@ -540,7 +540,8 @@
         "jan 2020",
         "jan and feb 2020",
         "jan feb and march 2020",
-        "on monday"
+        "on monday",
+        "on jan 5 2026"
       ],
       "template": [
         "setidsuffix _dates",
