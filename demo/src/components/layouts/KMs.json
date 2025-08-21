@@ -524,7 +524,9 @@
         "evaluate october 5 2020",
         "evaluate november 5 2020",
         "evaluate december 5 2020",
-        "evaluate on december 5 2020"
+        "evaluate on december 5 2020",
+        "evaluate jan 22nd",
+        "evaluate on jan 22nd"
       ],
       "template": [],
       "includes": [
@@ -567,7 +569,8 @@
         "jan and feb 2020",
         "jan feb and march 2020",
         "on monday",
-        "on jan 5 2026"
+        "on jan 5 2026",
+        "jan 1st"
       ],
       "template": [
         "setidsuffix _dates",
