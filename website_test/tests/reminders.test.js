@@ -512,4 +512,34 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
+  test(`NEOS23 REMINDERS remind me to go to regina on Jan 5th`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina on Jan 5th")
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      who: 'me',
+      when: 'on jan 5th',
+      next: '05/01/2026, 12:00:00 am',
+      highlighted: true,
+    })
+    await check_response()
+  })
+
+  test(`NEO23 REMINDERS remind me to go to regina on the first monday of january`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me to go to regina on the first monday of january")
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      who: 'me',
+      when: 'on the first monday of january',
+      next: '05/01/2026, 12:00:00 am',
+      highlighted: true,
+    })
+    await check_response()
+  })
+
 });
