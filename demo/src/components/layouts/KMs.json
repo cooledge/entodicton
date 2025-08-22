@@ -526,7 +526,10 @@
         "evaluate december 5 2020",
         "evaluate on december 5 2020",
         "evaluate jan 22nd",
-        "evaluate on jan 22nd"
+        "evaluate on jan 22nd",
+        "the first monday",
+        "the first monday of january",
+        "evaluate the first monday of january"
       ],
       "template": [],
       "includes": [
