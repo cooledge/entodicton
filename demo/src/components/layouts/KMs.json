@@ -529,7 +529,9 @@
         "evaluate on jan 22nd",
         "the first monday",
         "the first monday of january",
-        "evaluate the first monday of january"
+        "evaluate the first monday of january",
+        "evaluate the first monday of January",
+        "evaluate on the first monday of January"
       ],
       "template": [],
       "includes": [
@@ -1966,7 +1968,8 @@
         "remind me to go to regina\\nremind me to go to saskatoon\\nmonday at 10 am\\ntuesday",
         "remind me\\ngo to the store on monday",
         "remind me\\ngo to regina on Monday at 10 am",
-        "remind me to go to france on jan 5 2026"
+        "remind me to go to france on jan 5 2026",
+        "remind me to go to regina on the first monday of january"
       ],
       "template": [],
       "includes": [
