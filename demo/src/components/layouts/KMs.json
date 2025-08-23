@@ -531,7 +531,10 @@
         "the first monday of january",
         "evaluate the first monday of january",
         "evaluate the first monday of January",
-        "evaluate on the first monday of January"
+        "evaluate on the first monday of January",
+        "the first monday after july 1 2020",
+        "the first monday after july 1st",
+        "evaluate on the first friday of January"
       ],
       "template": [],
       "includes": [
@@ -575,7 +578,8 @@
         "jan feb and march 2020",
         "on monday",
         "on jan 5 2026",
-        "jan 1st"
+        "jan 1st",
+        "after jan 1 2020"
       ],
       "template": [
         "setidsuffix _dates",
