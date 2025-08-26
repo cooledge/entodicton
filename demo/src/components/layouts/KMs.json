@@ -1977,7 +1977,9 @@
         "remind me\\ngo to regina on Monday at 10 am",
         "remind me to go to france on jan 5 2026",
         "remind me to go to regina on the first monday of january",
-        "remind me to go to regina on the first monday after august 1 2025"
+        "remind me to go to regina on the first monday after august 1 2025",
+        "remind me on monday to go to japan",
+        "remind me on august 1st to go to japan"
       ],
       "template": [],
       "includes": [
