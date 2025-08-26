@@ -534,7 +534,9 @@
         "evaluate on the first monday of January",
         "the first monday after july 1 2020",
         "the first monday after july 1st",
-        "evaluate on the first friday of January"
+        "evaluate on the first friday of January",
+        "evaluate the first monday after august 1 2025",
+        "evaluate on the first monday after august 1 2025"
       ],
       "template": [],
       "includes": [
@@ -579,7 +581,8 @@
         "on monday",
         "on jan 5 2026",
         "jan 1st",
-        "after jan 1 2020"
+        "after jan 1 2020",
+        "evaluate feb 23 2020"
       ],
       "template": [
         "setidsuffix _dates",
@@ -1973,7 +1976,8 @@
         "remind me\\ngo to the store on monday",
         "remind me\\ngo to regina on Monday at 10 am",
         "remind me to go to france on jan 5 2026",
-        "remind me to go to regina on the first monday of january"
+        "remind me to go to regina on the first monday of january",
+        "remind me to go to regina on the first monday after august 1 2025"
       ],
       "template": [],
       "includes": [
