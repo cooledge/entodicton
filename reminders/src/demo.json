@@ -1,9 +1,11 @@
 {
   "samples": [
+    "",
     "remind me to go to regina",
     "remind me to go to regina\\nmonday",
     "remind me to go to regina\\nremind me to go to saskatoon",
     "remind me to go to regina\\nremind me to go to saskatoon\\nup 1",
+    "remind me to go to regina\\nremind me to go to saskatoon",
     "remind me to go to regina on monday at 10 am",
     "remind me to go to regina\\nremind me to go to saskatoon\\nremind me to go to moose jaw\\nup 2",
     "remind me to go to regina\\nremind me to go to saskatoon\\nup 1\\ndown 1",
@@ -11,22 +13,17 @@
     "remind greg to go to regina on monday at 10 am",
     "remind me to go to regina\\nmonday at 10 am",
     "remind greg and bob to go to regina on monday at 10 am",
-    "remind greg to go to regina",
-    "add bob",
-    "remind bob to go to saskatoon",
-    "up",
-    "remind greg and bob to go to regina",
-    "remove bob",
-    "remind bob too",
-    "nevermind",
-    "remind me to go to saskatoon",
-    "monday at 10 am",
-    "tuesday at 9 am",
-    "remind me",
-    "go to regina on monday at 10 am",
+    "remind greg to go to regina. add bob",
+    "remind greg to go to regina. remind bob to go to saskatoon. up. add bob",
+    "remind greg and bob to go to regina. remove bob",
+    "remind greg to go to regina. remind bob too",
+    "remind me to go to regina. nevermind",
+    "remind me to go to regina. remind me to go to saskatoon. monday at 10 am. tuesday at 9 am",
+    "remind me. go to regina on monday at 10 am",
     "remind me to go to regina on jan 5 2026",
     "remind me to go to regina on jan 5th",
     "remind me to go to regina on the first monday of january",
-    "remind me to go to regina on the first monday after august 1 2025"
+    "remind me to go to regina on the first monday after august 1 2025",
+    "remind me on the first monday after august 1 2025 to go to regina"
   ]
 }

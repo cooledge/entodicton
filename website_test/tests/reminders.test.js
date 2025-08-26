@@ -38,10 +38,12 @@ describe('tests for reminders page', () => {
     await page.goto(`${URL}/reminders/`)
     await page.waitForSelector('#query')
     await page.click(`#testingButton`)
+    demoWriter.startTest()
   }, timeout)
 
   afterEach( async () => {
     await page.close()
+    demoWriter.endTest()
   }, timeout)
 
   const waitForClass = async (id, className) => {
@@ -61,6 +63,7 @@ describe('tests for reminders page', () => {
   }, timeout);
 
   const addUser = async (name) => { 
+    return 
     await page.type('#inputName', name)
     await page.click('#addNameButton')
   }
@@ -118,7 +121,7 @@ describe('tests for reminders page', () => {
     expect(spans.length).toBe(4);
   }
 
-  test(`NEOS23 REMINDERS remind me to go to regina`, async () => {
+  test(`REMINDERS remind me to go to regina`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina")
 
@@ -131,7 +134,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind you to go to regina')
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina + monday`, async () => {
+  test(`REMINDERS remind me to go to regina + monday`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nmonday")
 
@@ -145,7 +148,7 @@ describe('tests for reminders page', () => {
     await check_response(null)
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina + remind me to go to saskatoon`, async () => {
+  test(`REMINDERS remind me to go to regina + remind me to go to saskatoon`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nremind me to go to saskatoon")
     // await query("remind me to go to regina")
@@ -166,7 +169,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind you to go to saskatoon')
   })
 
-  test(`NEOS23 REMINDERS up 1`, async () => {
+  test(`REMINDERS up 1`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nremind me to go to saskatoon\nup 1")
     // await query("remind me to go to regina")
@@ -187,7 +190,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind you to go to saskatoon')
   })
 
-  test(`NEOS23 REMINDERS click`, async () => {
+  test(`REMINDERS click`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nremind me to go to saskatoon")
     await page.click(`#reminder_1`)
@@ -209,7 +212,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind you to go to saskatoon')
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina on monday at 10 am`, async () => {
+  test(`REMINDERS remind me to go to regina on monday at 10 am`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina on monday at 10 am")
     await page.click(`#reminder_1`)
@@ -226,7 +229,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS up 2`, async () => {
+  test(`REMINDERS up 2`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nremind me to go to saskatoon\nremind me to go to moose jaw\nup 2")
     // await query("remind me to go to regina")
@@ -253,7 +256,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind you to go to moose jaw')
   })
 
-  test(`NEOS23 REMINDERS down 1`, async () => {
+  test(`REMINDERS down 1`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nremind me to go to saskatoon\nup 1\ndown 1")
     // await query("remind me to go to regina")
@@ -274,7 +277,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind you to go to saskatoon')
   })
 
-  test(`NEOS23 REMINDERS down 2`, async () => {
+  test(`REMINDERS down 2`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nremind me to go to saskatoon\nremind me to go to moose jaw\nup 2\ndown 2")
 
@@ -299,7 +302,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind you to go to moose jaw')
   })
 
-  test(`NEOS23 REMINDERS add greg as user then -> remind greg to go to regina on monday at 10 am`, async () => {
+  test(`REMINDERS add greg as user then -> remind greg to go to regina on monday at 10 am`, async () => {
     await addUser('greg')
     await page.waitForSelector('#query')
     await query("remind greg to go to regina on monday at 10 am")
@@ -318,7 +321,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina +  monday at 10 am`, async () => {
+  test(`REMINDERS remind me to go to regina +  monday at 10 am`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina\nmonday at 10 am")
 
@@ -333,7 +336,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg and bob to go to regina on monday at 10 am`, async () => {
+  test(`REMINDERS add greg and bob as user then -> remind greg and bob to go to regina on monday at 10 am`, async () => {
     await addUser('greg')
     await addUser('bob')
     await page.waitForSelector('#query')
@@ -352,7 +355,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nadd bob`, async () => {
+  test(`REMINDERS add greg and bob as user then -> remind greg to go to regina\nadd bob`, async () => {
     await addUser('greg')
     await addUser('bob')
     await page.waitForSelector('#query')
@@ -381,7 +384,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind greg and bob to go to regina')
   })
 
-  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nremind bob to go to saskatoon\nup\nadd bob`, async () => {
+  test(`REMINDERS add greg and bob as user then -> remind greg to go to regina\nremind bob to go to saskatoon\nup\nadd bob`, async () => {
     await addUser('greg')
     await addUser('bob')
     await page.waitForSelector('#query')
@@ -410,7 +413,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind bob to go to saskatoon')
   })
 
-  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg and bob to go to regina\nremove bob`, async () => {
+  test(`REMINDERS add greg and bob as user then -> remind greg and bob to go to regina\nremove bob`, async () => {
     await addUser('greg')
     await addUser('bob')
     await page.waitForSelector('#query')
@@ -428,7 +431,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind greg to go to regina')
   })
 
-  test(`NEOS23 REMINDERS add greg and bob as user then -> remind greg to go to regina\nremind bob too`, async () => {
+  test(`REMINDERS add greg and bob as user then -> remind greg to go to regina\nremind bob too`, async () => {
     await addUser('greg')
     await addUser('bob')
     await page.waitForSelector('#query')
@@ -446,7 +449,7 @@ describe('tests for reminders page', () => {
     await check_response('When should I remind greg and bob to go to regina')
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina\nnevermind`, async () => {
+  test(`REMINDERS remind me to go to regina\nnevermind`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina")
     await query("nevermind")
@@ -454,7 +457,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina\nremind me to go to saskatoon\nmonday at 10 am\ntuesday at 9 am`, async () => {
+  test(`REMINDERS remind me to go to regina\nremind me to go to saskatoon\nmonday at 10 am\ntuesday at 9 am`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina")
     await query("remind me to go to saskatoon")
@@ -481,7 +484,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS remind me\ngo to regina on Monday at 10 am`, async () => {
+  test(`REMINDERS remind me\ngo to regina on Monday at 10 am`, async () => {
     await page.waitForSelector('#query')
     await query("remind me")
     await query("go to regina on Monday at 10 am")
@@ -497,7 +500,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina on Jan 5 2026`, async () => {
+  test(`REMINDERS remind me to go to regina on Jan 5 2026`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina on Jan 5 2026")
 
@@ -512,7 +515,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina on Jan 5th`, async () => {
+  test(`REMINDERS remind me to go to regina on Jan 5th`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina on Jan 5th")
 
@@ -527,7 +530,7 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEOS23 REMINDERS remind me to go to regina on the first monday of january`, async () => {
+  test(`REMINDERS remind me to go to regina on the first monday of january`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina on the first monday of january")
 
@@ -542,9 +545,24 @@ describe('tests for reminders page', () => {
     await check_response()
   })
 
-  test(`NEO23 REMINDERS remind me to go to regina on the first monday after august 1 2025`, async () => {
+  test(`REMINDERS remind me to go to regina on the first monday after august 1 2025`, async () => {
     await page.waitForSelector('#query')
     await query("remind me to go to regina on the first monday after august 1 2025")
+
+    await check({
+      id: 1,
+      details: 'go to regina',
+      who: 'me',
+      when: 'on the first monday after august 1 2025',
+      next: '04/08/2025, 12:00:00 am',
+      highlighted: true,
+    })
+    await check_response()
+  })
+
+  test(`REMINDERS remind me on the first monday after august 1 2025 to go to regina`, async () => {
+    await page.waitForSelector('#query')
+    await query("remind me on the first monday after august 1 2025 to go to regina")
 
     await check({
       id: 1,

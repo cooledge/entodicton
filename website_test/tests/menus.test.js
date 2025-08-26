@@ -38,10 +38,12 @@ describe('tests for menus page', () => {
     page = await browser.newPage();
     await page.goto(`${URL}/menus/`)
     await page.waitForSelector('#query')
+    demoWriter.startTest()
   }, timeout)
 
   afterEach( async () => {
     await page.close()
+    demoWriter.endTest()
   }, timeout)
 
   const waitForClass = async (id, className) => {
@@ -279,6 +281,7 @@ describe('tests for menus page', () => {
     test(`MENUS menu item up menu open for ${id}`, async () => {
       await page.waitForSelector('#query')
 
+      demoWriter.ignore()
       await query(menu)
       await page.waitForSelector(`#${menu}`)
       await page.waitForSelector(`#${id}`)

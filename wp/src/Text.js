@@ -48,7 +48,7 @@ function Text(props) {
           if (message) {
             km.api.say(message)
             msg.text = message
-            window.speechSynthesis.speak(msg)
+            // window.speechSynthesis.speak(msg)
           }
         }
         props.incrementCounter()

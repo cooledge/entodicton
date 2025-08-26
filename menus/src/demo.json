@@ -3,7 +3,8 @@
     "file",
     "edit",
     "view",
-    "close",
+    "edit\nclose",
+    "view\nclose",
     "normal",
     "web",
     "user interface",
@@ -297,7 +298,6 @@
     "edit left",
     "view left",
     "file right",
-    "edit right",
-    "up"
+    "edit right"
   ]
 }

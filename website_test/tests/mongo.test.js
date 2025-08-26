@@ -744,7 +744,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['email', 'password'])
     }, timeout);
 
-    test(`NEOS23 MONGO show the users + show all the fields + show the movies + remove the second column of the first table`, async () => {
+    test(`MONGO show the users + show all the fields + show the movies + remove the second column of the first table`, async () => {
       await query('show the users')
       await checkTable(page, 1, users, ['name'])
       await query('show all the fields')
@@ -764,7 +764,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['_id', 'password'])
     }, timeout);
 
-    test(`NEOS23 MONGO show the users + press reset -> no tables shown`, async () => {
+    test(`MONGO show the users + press reset -> no tables shown`, async () => {
       await query('show the users')
       await page.click('#resetSession')
       await page.waitForSelector(`#queryCounter0`)

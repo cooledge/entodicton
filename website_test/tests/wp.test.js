@@ -227,10 +227,12 @@ describe('tests for wp page', () => {
     page = await browser.newPage();
     await page.goto(`${URL}/wp/`)
     await page.waitForSelector('#query')
+    demoWriter.startTest()
   }, timeout)
 
   afterEach( async () => {
     await page.close()
+    demoWriter.endTest()
   }, timeout)
 
   test(`WP test page loads`, async () => {

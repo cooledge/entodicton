@@ -29,10 +29,12 @@ describe('tests for pipboy page', () => {
     page = await browser.newPage();
     await page.goto(`${URL}/pipboy/`)
     await page.waitForSelector('#query')
+    demoWriter.startTest()
   }, timeout);
  
   afterEach( async () => {
     await page.close()
+    demoWriter.endTest()
   }, timeout)
 
   beforeAll( async () => {
