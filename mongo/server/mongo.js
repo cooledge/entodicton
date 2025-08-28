@@ -1591,10 +1591,6 @@ const template = {
   ],
 }
 
-console.log('greg77 START')
-console.log(JSON.stringify(defaultContextCheck(['object', 'objects', { property: 'reportElement', filter: ['frameOfReference'] } ]), null, 2))
-console.log('greg77 END')
-
 knowledgeModule( { 
   config: { name: 'mongo' },
   includes: [hierarchy, errors, ordinals, colors, negation, nameable, ui, countable, math],
@@ -1612,14 +1608,13 @@ knowledgeModule( {
     checks: {
       // frameOfReference
       // context: [{ defaults: true }, 'object', 'objects', { property: 'reportElement', filter: [{ defaults: true }}],
-      context: defaultContextCheck([
-        'object', 
-        'objects', 
-        { 
-          property: 'reportElement', 
-          filter: ['frameOfReference'],
-        } 
-      ]),
+      context: [
+        defaultContextCheck([
+          'object', 
+          'objects', 
+          'frameOfReference',
+        ]),
+      ],
       objects: [
         'show', 
         'select', 
