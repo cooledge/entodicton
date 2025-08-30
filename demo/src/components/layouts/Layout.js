@@ -75,6 +75,9 @@ function Layout({ children }) {
                       <Link to='/menus/' target="_blank">MENUS POC</Link>
                     </div>
                     <div className="subMenuItem">
+                      <Link to='/reminders/' target="_blank">REMINDERS POC</Link>
+                    </div>
+                    <div className="subMenuItem">
                       <Link to='/tankdemo'>TANK POC</Link>
                     </div>
                   </div>
