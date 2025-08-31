@@ -44,7 +44,7 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.8.0",
     "sass": "^1.69.5",
-    "tpmkms_4wp": "9.4.2-beta.0",
+    "tpmkms_4wp": "9.4.2-beta.1",
     "web-vitals": "^3.5.0"
   },
   "version": "0.1.0",
