@@ -1985,7 +1985,8 @@
         "remind me\\\\njan 1 2020",
         "remind me\\njan 1 2020\\ngo to france",
         "remind me\\njan 23 2021\\nremind me\\njan 1 2020\\ngo to france",
-        "remind me\\ngo to france\\njan 20 2028"
+        "remind me\\ngo to france\\njan 20 2028",
+        "remind me to go to regina\\nnevermind"
       ],
       "template": [],
       "includes": [
