@@ -113,6 +113,13 @@
         "kirk",
         "spock"
       ]
+    },
+    {
+      "name": "Latin",
+      "description": "sententias latinas machina intelligere",
+      "includes": [
+        "latin"
+      ]
     }
   ],
   "modules": [
@@ -1314,6 +1321,21 @@
         "tokenize"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/kirk.js"
+    },
+    {
+      "name": "latin",
+      "description": "latin",
+      "examples": [
+        "marcus est vir",
+        "marcus vir est",
+        "est marcus vir"
+      ],
+      "template": [],
+      "includes": [
+        "gdefaults",
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/latin.js"
     },
     {
       "name": "length",
