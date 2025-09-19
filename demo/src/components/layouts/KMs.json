@@ -1328,7 +1328,12 @@
       "examples": [
         "marcus est vir",
         "marcus vir est",
-        "est marcus vir"
+        "est marcus vir",
+        "estne marcus vir",
+        "marcusque",
+        "marcus",
+        "marcus\\nmarcus",
+        "marcus\\nvir\\nestne marcus vir"
       ],
       "template": [],
       "includes": [
@@ -2004,11 +2009,11 @@
         "remind me to go to regina on the first monday after august 1 2025",
         "remind me on monday to go to japan",
         "remind me on august 1st to go to japan",
-        "remind me\\\\njan 1 2020",
         "remind me\\njan 1 2020\\ngo to france",
         "remind me\\njan 23 2021\\nremind me\\njan 1 2020\\ngo to france",
         "remind me\\ngo to france\\njan 20 2028",
-        "remind me to go to regina\\nnevermind"
+        "remind me to go to regina\\nnevermind",
+        "remind me\\njan 1 2020"
       ],
       "template": [],
       "includes": [
