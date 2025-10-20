@@ -1333,7 +1333,13 @@
         "marcusque",
         "marcus",
         "marcus\\nmarcus",
-        "marcus\\nvir\\nestne marcus vir"
+        "marcus\\nvir\\nestne marcus vir",
+        "marcus\\nquintus\\nmarcus et quintus",
+        "marcus\\nquintus\\nviri\\nmarcus et quintus viri sum",
+        "tito davus pirum dat",
+        "in mensa",
+        "davus pirum iacit",
+        "davus pirum in mensa iacit"
       ],
       "template": [],
       "includes": [
@@ -1770,7 +1776,8 @@
         "eat fruit",
         "eat glop",
         "wear a glop",
-        "show the radio"
+        "show the radio",
+        "use a rifle"
       ],
       "template": [
         "pistols rifles grenades mines and shotguns are weapons",
