@@ -590,7 +590,7 @@ describe('tests for the mongo page', () => {
       await checkOrder(['table_1', 'table_3'])
     }, timeout);
 
-    test(`MONGO show the users + show the movies + make the header of the second table blue`, async () => {
+    test(`NEO23 MONGO show the users + show the movies + make the header of the second table blue`, async () => {
       await query('show the users')
       await query('show the movies')
       await query('make the header of the second table blue')
