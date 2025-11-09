@@ -2588,7 +2588,8 @@
         "in the second paragraph bold the first word",
         "the first three words",
         "bold the first three words",
-        "make the words that contain e bold"
+        "make the words that contain e bold",
+        "bold the third letter of the second paragraph"
       ],
       "template": [
         "setidsuffix _wp",
