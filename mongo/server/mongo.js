@@ -521,6 +521,8 @@ let configStruct = {
       // TODO fix the backend so removing article works
       { context: [["make",0],["article",0],["reportElement",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0],["state",0]], choose: { index: 0, increment: true } },
       { context: [["make",0],["article",0],["reportElement",0],["ofDbProperty",0],["article",0],["ordinal",1],["table",0],["state",0]], choose: { index: 0, increment: true } },
+      { context: [["make",0],["article",0],["reportElement",0],["ofDbProperty",0],["article",0],["table",0],["state",0]], choose: { index: 0, increment: true } },
+      { context: [["make",0],["reportElement",0],["contextOfReportElement",0],["article",0],["table",0],["state",0]], choose: { index: 0, increment: true } },
 
       { context: [["delete",0],["article",0],["ordinal",0],["list",0],["ordinal",0],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
       { context: [["delete",0],["article",0],["ordinal",1],["list",0],["ordinal",0],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
