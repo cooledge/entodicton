@@ -30,11 +30,11 @@ describe('tests for demoWrite', () => {
     demoWriter.write()
     const contents = await readJSON()
     const expected = {
-      samples: ["sentence1\nsentence2"]
+      samples: ["sentence1\\nsentence2"]
     }
     expect(contents).toStrictEqual(expected)
-  }
-  );
+  });
+
   test(`NEOS23 DEMOWRITER ignore`, async () => {
     const demoWriter = new DemoWriter(filePath)
     demoWriter.startTest()
@@ -50,5 +50,4 @@ describe('tests for demoWrite', () => {
     }
     expect(contents).toStrictEqual(expected)
   });
-
 })

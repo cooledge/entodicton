@@ -16,7 +16,7 @@ class DemoWriter {
     if (this._ignore) {
       return
     }
-    const query = this.current.join('\n')
+    const query = this.current.join('\\n')
     if (query.length > 0) {
       this.queries.push(query)
     }
@@ -31,7 +31,8 @@ class DemoWriter {
   }
 
   write() {
-    fs.writeFileSync(this.filePath, JSON.stringify({ samples: this.queries }, 0, 2))
+    const json = JSON.stringify({ samples: this.queries }, 0, 2)
+    fs.writeFileSync(this.filePath, json)
   }
 }
 
