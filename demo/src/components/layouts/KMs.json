@@ -2612,6 +2612,16 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
     },
     {
+      "name": "words",
+      "description": "talking about words",
+      "examples": [],
+      "template": [],
+      "includes": [
+        "tokenize"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/words.js"
+    },
+    {
       "name": "wp",
       "description": "Word processor",
       "examples": [
