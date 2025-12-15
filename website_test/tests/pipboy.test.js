@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer')
 const tests = require('./tests.json')
-const character = require('../../pipboy/src/character.json')
+// const character = require('../../pipboy/src/character.json')
+const character = require('./character.json')
 const DemoWriter = require('./demoWriter')
 
 // const URL = 'http://thinktelligence.com'
