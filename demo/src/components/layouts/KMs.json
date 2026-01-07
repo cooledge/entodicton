@@ -1445,7 +1445,10 @@
         "what is 3 feet in inches",
         "what is 36 inches in feet",
         "1 mile",
-        "evaluate 10 meters in feet"
+        "evaluate 10 meters in feet",
+        "evaluate 2 feet in meters and centimeters",
+        "evaluate 5 feet in meters and centimeters",
+        "evaluate 2.65 feet in inches and centimeters"
       ],
       "template": [
         "length is a dimension",
@@ -1459,7 +1462,9 @@
         "feet = inches / 12",
         "inches = feet * 12",
         "meters = feet / 3.28",
+        "centimeters = feet / 0.0328",
         "feet = meters * 3.28",
+        "feet = centimeters * 0.0328",
         "miles = 5280 * feet",
         "feet = miles / 5280",
         "kilometers = meters / 1000",
@@ -2586,7 +2591,8 @@
         "at 10 pm",
         "@ 10 pm",
         "evaluate 2 hours in minutes",
-        "evaluate 120 seconds in hours"
+        "evaluate 120 seconds in hours",
+        "2 hours in minutes"
       ],
       "template": [
         "years hours minutes and seconds are units of time",
