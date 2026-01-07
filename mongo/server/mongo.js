@@ -542,6 +542,9 @@ let configStruct = {
       { context: [['article', 0], ['ordinal', 0], ['reportElement', 0], ['state', 0]], choose: 2 },
       { context: [['article', 0], ['ordinal', 0], ['reportElement', 0], ['state', 0]], choose: 2 },
 
+      { context: [['changeGraph', 0], ['graph', 1], ['to', 0], ['article', 0], ['chart', 0]], choose: 0 },
+      { context: [['changeGraph', 0], ['graph', 1], ['to', 0], ['chart', 0]], choose: 0 },
+
       // TODO fix the backend so I dont need these
       { context: [["delete", 0], ["the", 0], ["ordinal", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
       { context: [["delete", 0], ["the", 0], ["ordinal", 1], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
@@ -1531,7 +1534,7 @@ const template = {
     "selected modifies reportElement",
 
     async ({objects, addWords, config, s, fragments}) => {
-      const fragment = fragments("modifier23 modifies collection")
+      const fragment = await fragments("modifier23 modifies collection")
       const id = 'airbnb'
       const word = 'airbnb'
       const database = 'sample_airbnb'
