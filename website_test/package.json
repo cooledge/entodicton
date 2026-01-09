@@ -8,7 +8,7 @@
     "wt": "URL=http://thinktelligence.com:81 HEADLESS=false jest",
     "wto": "URL=https://thinktelligence.com:444 HEADLESS=false jest -t NEO23",
     "startPuppeteer": "cp ../menus/src/Menu.json tests; jest -t STARTPUPPETEER",
-    "to": "cp ../menus/src/Menu.json tests; NO_DEMOS=true HEADLESS=false jest -t NEO23",
+    "to": "cp ../menus/src/Menu.json tests; NO_DEMOS=true HEADLESS=false jest -t NEO23 --verbose",
     "tod": "cp ../menus/src/Menu.json tests; NO_DEMOS=true HEADLESS=false node inspect ./node_modules/jest/bin/jest.js -t NEO23",
     "tos": "HEADLESS=false jest -t NEOS23",
     "demo": "HEADLESS=false jest -t DEMO",

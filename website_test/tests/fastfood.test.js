@@ -430,7 +430,7 @@ describe('tests for fastfood page', () => {
       neo = 'NEO23'
     }
     const queriesString = query.queries.map((query) => `'${query}'`).join(" ")
-    console.log('queriesString', queriesString)
+    // console.log('queriesString', queriesString)
     test(`${neo}FASTFOOD query "${queriesString}"`, async () => {
       await showTest(query)
     }, timeout)
