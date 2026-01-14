@@ -98,7 +98,7 @@
         "reports",
         "tell",
         "pipboy",
-        "tank",
+        "drone",
         "wp",
         "reminders",
         "fastfood"
@@ -744,10 +744,26 @@
         "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\nfahrenheit = celcius*9/5 + 32\\nwhat is 10 degrees celcius in fahrenheit",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1 ",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhat is the reason",
-        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhy"
+        "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhy",
+        "metric system",
+        "imperial system",
+        "measurement system",
+        "what are the measurement systems",
+        "use the metric system"
       ],
       "template": [
-        "dimension and unit are concepts"
+        "measurement modifies unit",
+        "dimension and measurement unit are concepts",
+        "unit means measurement unit",
+        "metric modifies system",
+        "imperial modifies system",
+        "measurement modifies system",
+        "the metric system is a measurement system",
+        "the imperial system is a measurement system",
+        "imperial modifies unit",
+        "metric modifies unit",
+        "imperial unit is a unit",
+        "metric unit is a unit"
       ],
       "includes": [
         "articles",
@@ -775,6 +791,63 @@
         "words"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
+    },
+    {
+      "name": "drone",
+      "description": "controlling a drone",
+      "examples": [
+        "stop",
+        "2 meters",
+        "help",
+        "calibrate",
+        "calibrate\\nstop",
+        "calibrate\\nstop\\n2 feet",
+        "calibrate\\nstop\\n2 feet\\nforward",
+        "calibrate\\nstop\\n2 feet\\nforward 2 meters per minute",
+        "calibrate\\nstop\\n2 feet\\nbackward 2 meters per minute",
+        "calibrate\\nstop\\n2 feet\\nbackward 2 meters",
+        "calibrate\\nstop\\n2 feet\\nturn around"
+      ],
+      "template": [
+        "drone is a concept",
+        "around, forward, left, right, and backward are directions",
+        "speed and power are properties",
+        "point is a concept",
+        "points are nameable"
+      ],
+      "includes": [
+        "articles",
+        "asking",
+        "comparable",
+        "concept",
+        "conjunction",
+        "countable",
+        "dialogues",
+        "dimension",
+        "evaluate",
+        "formulas",
+        "gdefaults",
+        "help",
+        "hierarchy",
+        "length",
+        "math",
+        "meta",
+        "nameable",
+        "negation",
+        "numbers",
+        "pos",
+        "properties",
+        "punctuation",
+        "rates",
+        "sdefaults",
+        "stm",
+        "tell",
+        "testing",
+        "time",
+        "tokenize",
+        "words"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/drone.js"
     },
     {
       "name": "edible",
@@ -1448,11 +1521,16 @@
         "evaluate 10 meters in feet",
         "evaluate 2 feet in meters and centimeters",
         "evaluate 5 feet in meters and centimeters",
-        "evaluate 2.65 feet in inches and centimeters"
+        "evaluate 2.65 feet in inches and centimeters",
+        "what are the imperial units",
+        "what are the metric units",
+        "what are the measurement systems"
       ],
       "template": [
         "length is a dimension",
-        "meter centimeter foot mile and inch are units of length",
+        "meter centimeter millimeter foot mile and inch are units of length",
+        "meters, centimeters and millimeters are metric units",
+        "feet and inches are imperial units",
         "meters = centimeters / 100",
         "centimeters = meters * 100",
         "centimeters = millimeters / 10",
@@ -1641,7 +1719,8 @@
         "remember m1\\ncall the m1 banana\\nevaluate banana",
         "remember m1\\ncall the m1 banana\\ngetnamesbytype m1",
         "remember m1\\ncall the m1 banana\\nbanana",
-        "remember m1\\ncall the m1 peter james chunkington\\npeter james chunkington"
+        "remember m1\\ncall the m1 peter james chunkington\\npeter james chunkington",
+        "call nameable fred"
       ],
       "template": [],
       "includes": [
@@ -2441,60 +2520,6 @@
         "words"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stm.js"
-    },
-    {
-      "name": "tank",
-      "description": "controlling a tank",
-      "examples": [
-        "stop",
-        "2 meters",
-        "help",
-        "calibrate",
-        "calibrate\\nstop",
-        "calibrate\\nstop\\n2 feet",
-        "calibrate\\nstop\\n2 feet\\nforward",
-        "calibrate\\nstop\\n2 feet\\nforward 2 meters per minute",
-        "calibrate\\nstop\\n2 feet\\nbackward 2 meters per minute",
-        "calibrate\\nstop\\n2 feet\\nbackward 2 meters",
-        "calibrate\\nstop\\n2 feet\\nturn around"
-      ],
-      "template": [
-        "tank is a concept",
-        "around, forward, left, right, and backward are directions",
-        "speed and power are properties"
-      ],
-      "includes": [
-        "articles",
-        "asking",
-        "comparable",
-        "concept",
-        "conjunction",
-        "countable",
-        "dialogues",
-        "dimension",
-        "evaluate",
-        "formulas",
-        "gdefaults",
-        "help",
-        "hierarchy",
-        "length",
-        "math",
-        "meta",
-        "negation",
-        "numbers",
-        "pos",
-        "properties",
-        "punctuation",
-        "rates",
-        "sdefaults",
-        "stm",
-        "tell",
-        "testing",
-        "time",
-        "tokenize",
-        "words"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tank.js"
     },
     {
       "name": "tell",
