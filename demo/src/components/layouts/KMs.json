@@ -802,11 +802,12 @@
         "calibrate",
         "calibrate\\nstop",
         "calibrate\\nstop\\n2 feet",
-        "calibrate\\nstop\\n2 feet\\nforward",
         "calibrate\\nstop\\n2 feet\\nforward 2 meters per minute",
         "calibrate\\nstop\\n2 feet\\nbackward 2 meters per minute",
         "calibrate\\nstop\\n2 feet\\nbackward 2 meters",
-        "calibrate\\nstop\\n2 feet\\nturn around"
+        "calibrate\\nstop\\n2 feet\\nturn around",
+        "calibrate\\nstop\\n2 feet\\nforward",
+        "calibrate\\nstop\\n2 feet\\nforward\\nhi"
       ],
       "template": [
         "drone is a concept",
