@@ -1,6 +1,7 @@
 const readline = require('readline');
 const tpmkms = require('tpmkms');
 const TankClient = require('./drone')
+const fs = require('fs')
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -21,21 +22,53 @@ function sleep(ms) {
         return new Date()
       }
       
-      async pause(durationInSeconds) {
+      async pauseDrone(durationInSeconds, options) {
         console.log("pause", durationInSeconds)
-        await sleep(durationInSeconds * 1000)
+        // await sleep(durationInSeconds * 1000)
+        await tank.pauseDrone(durationInSeconds, options)
       }
 
-      async forward(percentOfPower) {
+      async forwardDrone(percentOfPower, options) {
         console.log("forward", percentOfPower)
-        tank.forward(percentOfPower)
+        await tank.forwardDrone(percentOfPower, options)
       }
 
-      async stop() {
+      async backwardDrone(percentOfPower, options) {
+        console.log("backward", percentOfPower)
+        await tank.backwardDrone(percentOfPower, options)
+      }
+
+      async rotateDrone(angleInDegrees) {
+        console.log("rotate", angleInDegrees)
+        await tank.rotateDrone(angleInDegrees)
+      }
+
+      async sonicDrone() {
+        console.log("sonic")
+        return await tank.sonicDrone()
+      }
+
+      async tiltAngleDrone() {
+        console.log("tiltAngleDrone")
+        await tank.tiltAngleDrone()
+      }
+
+      async panAngleDrone() {
+        console.log("panAngleDrone")
+        await tank.panAngleDrone()
+      }
+
+      async stopDrone(options) {
         console.log("stop")
-        tank.stop()
+        await tank.stopDrone(options)
+      }
+
+      async saveCalibration(calibration) {
+        const json = JSON.stringify(calibration, null, 2);
+        fs.writeFileSync('./calibration.json', json)
       }
     }
+
     return new API()
   }
   await drone.setApi(newAPI)
@@ -52,6 +85,19 @@ function sleep(ms) {
   console.log('Welcome to the interactive CLI');
   console.log('Type "help" for commands, "exit" to quit\n');
 
+  try {
+    const calibration = JSON.parse(fs.readFileSync('./calibration.json'))
+    drone.api.loadCalibration(calibration)
+    console.log("Loading previous configuration")
+  } catch( e ) {
+    console.log("Place an object about 50 cm in front of the drone. Then when ready say calibrate. The drone will calibrate itself")
+  }
+
+  if (false) {
+    await drone.query("calibrate")
+    // await drone.query("forward")
+    return
+  }
   function ask() {
     rl.prompt();  // shows the prompt "> "
 
@@ -59,7 +105,7 @@ function sleep(ms) {
       console.log("got input")
       const command = input.trim().toLowerCase();
 
-      if (command === 'exit' || command === 'quit') {
+      if (['exit', 'quit'].includes(command)) {
         console.log('Goodbye!');
         rl.close();
         return;

@@ -19,7 +19,29 @@ class TankClient {
     this.port = port;
     this.socket = null;
     this.connected = false;
+    this.commandQueue = [];
     this.responseQueue = [];  // FIFO queue for incoming server messages
+  }
+
+  async processCommand(cmd, options = {}) {
+    this.commandQueue.push(cmd)
+    if (options.batched) {
+      return
+    } else {
+      if (this.commandQueue.length == 0) {
+        return await this.send(cmd)
+      } else {
+        let batchCMD = 'CMD_MULTI'
+        // eg: tank.send(`CMD_MULTI$CMD_MOTOR#1000#1000#$CMD_PAUSE#2000#$CMD_MOTOR#0#0#`);
+        let separator = '$'
+        for (const cmd of this.commandQueue) {
+          batchCMD += separator + cmd
+        }
+        this.commandQueue = []
+        debugger
+        return await this.send(batchCMD)
+      }
+    }
   }
 
   async connect() {
@@ -49,7 +71,7 @@ class TankClient {
 
       this.socket.on('data', (data) => {
         const msg = data.toString().trim();
-        console.log(`Tank server says: ${msg}`);
+        // console.log(`Tank server says: ${msg}`);
         this.responseQueue.push(msg);
       });
 
@@ -96,15 +118,35 @@ class TankClient {
     });
   }
 
-  // Movement methods – now return server response
-  async forward(percentage = 50) {
-    const power = percentToPower(percentage)
-    return await this.send(`CMD_MOTOR#${power}#${power}#`);
+  async pauseDrone(durationInSeconds, options) {
+    return await this.processCommand(`CMD_PAUSE#${durationInSeconds*1000}#`, options);
   }
 
-  async backward(percentage = 50) {
+  // Movement methods – now return server response
+  async forwardDrone(percentage, options) {
+    debugger
     const power = percentToPower(percentage)
-    return await this.send(`CMD_MOTOR#${-power}#${-power}#`);
+    return await this.processCommand(`CMD_MOTOR#${power}#${power}#`, options);
+  }
+
+  async backwardDrone(percentage, options) {
+    const power = percentToPower(percentage)
+    return await this.processCommand(`CMD_MOTOR#${-power}#${-power}#`, options);
+  }
+
+  async rotateDrone(angleInDegrees) {
+  }
+
+  // New: Sonic / Ultrasonic distance command
+  // Returns the response (e.g. "Distance: 42 cm", "OK", or sensor value)
+  async sonicDrone() {
+    const response = await this.send('Sonic');   // ← change string if needed (e.g. 'Ultrasonic', 'GetDistance')
+    const match = response.match(/#([\d.]+)/);
+    const number = match ? parseFloat(match[1]) : null;
+    return number
+  }
+
+  async tiltAngleDrone(angle) {
   }
 
   async left(power = 50) {
@@ -115,17 +157,9 @@ class TankClient {
     return await this.send(`Right ${power}`);
   }
 
-  async stop() {
-    return await this.send('CMD_MOTOR#0#0#');
-  }
-
-  // New: Sonic / Ultrasonic distance command
-  // Returns the response (e.g. "Distance: 42 cm", "OK", or sensor value)
-  async sonic() {
-    const response = await this.send('Sonic');   // ← change string if needed (e.g. 'Ultrasonic', 'GetDistance')
-    const match = response.match(/#([\d.]+)/);
-    const number = match ? parseFloat(match[1]) : null;
-    return number
+  async stopDrone(options) {
+    debugger
+    return await this.processCommand('CMD_MOTOR#0#0#', options);
   }
 
   async close() {
@@ -150,13 +184,13 @@ async function test() {
   try {
     await tank.connect();
 
-    if (true) {
+    if (false) {
       let percent = 20
       let distance = 0
       let moveTime = 500
       for (; percent < 30; ++percent) {
         const start = await tank.sonic();
-        await tank.forward(percent)
+        await tank.forwardDrone(percent)
         await sleep(moveTime)
         await tank.stop(percent)
         const end = await tank.sonic();
@@ -170,16 +204,16 @@ async function test() {
       await sleep(moveTime)
       await tank.stop(percent)
 
-      console.log(`Distance ${distance} cm`)
-      console.log(`Time ${moveTime} ms`)
+      // console.log(`Distance ${distance} cm`)
+      // console.log(`Time ${moveTime} ms`)
       const metersPerSecond = (distance/100)/(moveTime/1000)
-      console.log(`M/S ${metersPerSecond}`)
+      // console.log(`M/S ${metersPerSecond}`)
 
       if (false) {
         console.log(`Start percent is ${percent}`)
 
         const start = await tank.sonic();
-        await tank.forward(20)
+        await tank.forwardDrone(20)
         await sleep(250)
         await tank.stop()
         const end = await tank.sonic();
@@ -188,10 +222,23 @@ async function test() {
     // while (true) {
     //   await tank.sonic()
     // }
+    if (true) {
+      tank.send(`CMD_MULTI$CMD_MOTOR#1000#1000#$CMD_PAUSE#2000#$CMD_MOTOR#0#0#`);
+    }
+    if (false) {
+      tank.send(`CMD_MOTOR#${power}#${power}#`);
+      response = await tank.sonicDrone();
+      console.log('Sonic response:', response || '(no reply)');
+      response = await tank.forwardDrone(20);
+      await sleep(500)
+      response = await tank.stopDrone();
+      response = await tank.sonicDrone();
+      console.log('Sonic response:', response || '(no reply)');
+    }
     if (false) {
       let response;
       debugger
-      response = await tank.forward(15);
+      response = await tank.forwardDrone(15);
       console.log('Forward response:', response || '(no reply)');
       await sleep(1000)
 
