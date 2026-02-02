@@ -39,7 +39,8 @@
       "name": "Hidden",
       "description": "Don't show in the UI",
       "includes": [
-        "tokenize"
+        "tokenize",
+        "drone_v1"
       ]
     },
     {
@@ -796,25 +797,18 @@
       "name": "drone",
       "description": "controlling a drone",
       "examples": [
-        "stop",
-        "2 meters",
-        "help",
         "calibrate",
-        "calibrate\\nstop",
-        "calibrate\\nstop\\n2 feet",
-        "calibrate\\nstop\\n2 feet\\nforward 2 meters per minute",
-        "calibrate\\nstop\\n2 feet\\nbackward 2 meters per minute",
-        "calibrate\\nstop\\n2 feet\\nbackward 2 meters",
-        "calibrate\\nstop\\n2 feet\\nturn around",
-        "calibrate\\nstop\\n2 feet\\nforward",
-        "calibrate\\nstop\\n2 feet\\nforward\\nhi"
+        "calibrate\\nforward",
+        "calibrate\\nforward 2 meters",
+        "calibrate\\nturn right",
+        "calibrate\\nturn left"
       ],
       "template": [
         "drone is a concept",
         "around, forward, left, right, and backward are directions",
         "speed and power are properties",
         "point is a concept",
-        "points are nameable"
+        "points are nameable orderable and memorable"
       ],
       "includes": [
         "articles",
@@ -836,6 +830,7 @@
         "nameable",
         "negation",
         "numbers",
+        "ordinals",
         "pos",
         "properties",
         "punctuation",
@@ -849,6 +844,73 @@
         "words"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/drone.js"
+    },
+    {
+      "name": "drone_v1",
+      "description": "controlling a drone. this is version one with a more complicated calibration. the drone has a distance sensor to I am going to write against that. I keeps this because I implemented new features for it and its acting like an integration test.",
+      "examples": [
+        "stop",
+        "2 meters",
+        "help",
+        "calibrate",
+        "calibrate\\nstop",
+        "calibrate\\nstop\\n2 feet",
+        "calibrate\\nstop\\n2 feet\\nforward 2 meters per minute",
+        "calibrate\\nstop\\n2 feet\\nbackward 2 meters per minute",
+        "calibrate\\nstop\\n2 feet\\nbackward 2 meters",
+        "calibrate\\nstop\\n2 feet\\nturn around",
+        "calibrate\\nstop\\n2 feet\\nforward",
+        "calibrate\\nstop\\n2 feet\\nforward\\nhi",
+        "calibrate\\nstop\\n2 feet\\nforward\\nstop\\nturn right\\nforward\\nstop",
+        "calibrate\\nstop\\n2 feet\\nforward\\nstop",
+        "calibrate\\nstop\\n2 feet\\nforward\\nstop\\nforward",
+        "calibrate\\nstop\\n2 feet\\nbackward\\nstop",
+        "calibrate\\nstop\\n2 feet\\nforward\\nstop\\nturn right\\nforward\\nstop\\nforward\\nstop",
+        "calibrate\\nstop\\n2 feet\\nforward\\nstop\\nturn right\\nforward\\nstop\\nthe previous point",
+        "to the previous point",
+        "calibrate\\nstop\\n2 feet\\nforward\\nstop\\nturn right\\nforward\\nstop\\ngo to the previous point"
+      ],
+      "template": [
+        "drone is a concept",
+        "around, forward, left, right, and backward are directions",
+        "speed and power are properties",
+        "point is a concept",
+        "points are nameable orderable and memorable"
+      ],
+      "includes": [
+        "articles",
+        "asking",
+        "comparable",
+        "concept",
+        "conjunction",
+        "countable",
+        "dialogues",
+        "dimension",
+        "evaluate",
+        "formulas",
+        "gdefaults",
+        "help",
+        "hierarchy",
+        "length",
+        "math",
+        "meta",
+        "nameable",
+        "negation",
+        "numbers",
+        "ordinals",
+        "pos",
+        "properties",
+        "punctuation",
+        "rates",
+        "sdefaults",
+        "stm",
+        "tell",
+        "testing",
+        "time",
+        "tokenize",
+        "words"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/drone_v1.js"
     },
     {
       "name": "edible",
@@ -1525,7 +1587,9 @@
         "evaluate 2.65 feet in inches and centimeters",
         "what are the imperial units",
         "what are the metric units",
-        "what are the measurement systems"
+        "what are the measurement systems",
+        "evaluate 10 centimeters in inches",
+        "evaluate 10 meters in inches"
       ],
       "template": [
         "length is a dimension",
@@ -1544,6 +1608,8 @@
         "centimeters = feet / 0.0328",
         "feet = meters * 3.28",
         "feet = centimeters * 0.0328",
+        "inches = centimeters * 0.0328 * 12",
+        "inches = meters * 3.28 * 12",
         "miles = 5280 * feet",
         "feet = miles / 5280",
         "kilometers = meters / 1000",
