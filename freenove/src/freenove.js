@@ -7,6 +7,9 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const WIDTH_OF_TANK_IN_MM = 188;
+const WIDTH_OF_TREAD_IN_MM = 44;
+
 (async () => {
   const drone = await tpmkms.drone()
   const tank = new TankClient('192.168.0.92', 5003);
@@ -30,17 +33,21 @@ function sleep(ms) {
 
       async forwardDrone(percentOfPower, options) {
         console.log("forward", percentOfPower)
-        await tank.forwardDrone(percentOfPower, options)
+        await tank.moveDrone(percentOfPower, percentOfPower, options)
       }
 
       async backwardDrone(percentOfPower, options) {
         console.log("backward", percentOfPower)
-        await tank.backwardDrone(percentOfPower, options)
+        await tank.moveDrone(-percentOfPower, -percentOfPower, options)
+        // await tank.backwardDrone(percentOfPower, options)
       }
 
-      async rotateDrone(angleInDegrees) {
-        console.log("rotate", angleInDegrees)
-        await tank.rotateDrone(angleInDegrees)
+      async rotateDrone(angleInRadians) {
+        console.log("rotate", angleInRadians)
+        distanceBetweenCenterOfTracksInMM = this._objects.calibration.width_of_tank_in_mm = WIDTH_OF_TANK_IN_MM
+        calibration.width_of_tread_in_mm = WIDTH_OF_TREAD_IN_MM
+
+        await tank.rotateDrone(angleInRadians)
       }
 
       async sonicDrone() {
@@ -64,6 +71,8 @@ function sleep(ms) {
       }
 
       async saveCalibration(calibration) {
+        calibration.width_of_tank_in_mm = WIDTH_OF_TANK_IN_MM
+        calibration.width_of_tread_in_mm = WIDTH_OF_TREAD_IN_MM
         const json = JSON.stringify(calibration, null, 2);
         fs.writeFileSync('./calibration.json', json)
       }

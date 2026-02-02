@@ -1,7 +1,7 @@
 // tank-client.js
 const net = require('net');
 
-// dear idiots who do node make a build in function with a memorable name for sleep instead of this monostrosity which i can never fucking remember
+// dear idiots who do node, make a built in function with a memorable name for sleep instead of this monostrosity which i can never fucking remember
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -38,7 +38,7 @@ class TankClient {
           batchCMD += separator + cmd
         }
         this.commandQueue = []
-        debugger
+        console.log("batchCMD", batchCMD)
         return await this.send(batchCMD)
       }
     }
@@ -119,22 +119,62 @@ class TankClient {
   }
 
   async pauseDrone(durationInSeconds, options) {
-    return await this.processCommand(`CMD_PAUSE#${durationInSeconds*1000}#`, options);
+    return await this.processCommand(`CMD_PAUSE#${Math.round(durationInSeconds*1000)}#`, options);
+  }
+
+  async moveDrone(percentageLeft, percentageRight, options) {
+    const powerLeft = percentToPower(percentageLeft)
+    const powerRight = percentToPower(percentageRight)
+    return await this.processCommand(`CMD_MOTOR#${Math.round(powerLeft)}#${Math.round(powerRight)}#`, options);
   }
 
   // Movement methods – now return server response
   async forwardDrone(percentage, options) {
-    debugger
-    const power = percentToPower(percentage)
-    return await this.processCommand(`CMD_MOTOR#${power}#${power}#`, options);
+    return await this.moveDrone(percentage, percentage, options)
+  }
+
+  /*
+    L = track separation width (distance between the centers of the two tracks, measured side-to-side, in meters or whatever unit you like)
+
+    v = ground speed of each track (in m/s) — assume same magnitude but opposite directionsleft track forward at +v
+    right track backward at -v (or vice versa for the other direction)
+
+    θ = desired turn angle in radians (convert degrees to radians with θ_rad = θ_deg × π / 180)
+
+    The angular velocity ω (how fast the tank rotates, in rad/s) is:
+
+      ω = 2v / L
+
+    The time t needed to turn by angle θ is:
+
+      t = θ / ω = (θ × L) / (2v)
+  */
+
+  async rotateDrone(angleInRadians, options) {
+    console.log("rotate", angleInRadians)
+    const widthOfTankInMM = 188
+    const widthOfTreadInMM = 44
+    const speedInMetersPerSecondForward = 0.114
+    const v = speedInMetersPerSecondForward
+    const L = (widthOfTankInMM - widthOfTreadInMM)/1000
+    let t = (Math.abs(angleInRadians) * L) / (2*v)
+    const frictionAngleInDegrees = 30
+    t *= (1 + frictionAngleInDegrees/180)
+   
+    const speed = 30 
+    if (angleInRadians < 0) { 
+      await this.moveDrone(speed, -speed, { batched: true })
+    } else {
+      await this.moveDrone(-speed, speed, { batched: true })
+    }
+    debugger 
+    await this.pauseDrone(t, { batched: true })
+    await this.stopDrone(options)
+
   }
 
   async backwardDrone(percentage, options) {
-    const power = percentToPower(percentage)
-    return await this.processCommand(`CMD_MOTOR#${-power}#${-power}#`, options);
-  }
-
-  async rotateDrone(angleInDegrees) {
+    return await this.moveDrone(-percentage, -percentage, options)
   }
 
   // New: Sonic / Ultrasonic distance command
@@ -149,16 +189,7 @@ class TankClient {
   async tiltAngleDrone(angle) {
   }
 
-  async left(power = 50) {
-    return await this.send(`Left ${power}`);
-  }
-
-  async right(power = 50) {
-    return await this.send(`Right ${power}`);
-  }
-
   async stopDrone(options) {
-    debugger
     return await this.processCommand('CMD_MOTOR#0#0#', options);
   }
 
@@ -222,7 +253,23 @@ async function test() {
     // while (true) {
     //   await tank.sonic()
     // }
+    debugger
     if (true) {
+      await tank.rotateDrone(Math.PI/2)
+    }
+    if (false) {
+      await tank.moveDrone(-50, 50, { batched: true })
+      await tank.pauseDrone(0.992, { batched: true })
+      await tank.stopDrone({})
+
+      /*
+      tank.pauseDrone(1.0, { batched: true })
+      tank.rightDrone(50, { batched: true })
+      tank.pauseDrone(0.5, { batched: true })
+      tank.stopDrone({})
+      */
+    }
+    if (false) {
       tank.send(`CMD_MULTI$CMD_MOTOR#1000#1000#$CMD_PAUSE#2000#$CMD_MOTOR#0#0#`);
     }
     if (false) {
