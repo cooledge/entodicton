@@ -158,7 +158,7 @@ class TankClient {
     const v = speedInMetersPerSecondForward
     const L = (widthOfTankInMM - widthOfTreadInMM)/1000
     let t = (Math.abs(angleInRadians) * L) / (2*v)
-    const frictionAngleInDegrees = 30
+    const frictionAngleInDegrees = 0
     t *= (1 + frictionAngleInDegrees/180)
    
     const speed = 30 

@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "tpmkms": "9.6.0-beta.2"
+    "tpmkms": "9.6.0-beta.2",
+    "ws": "^8.19.0"
   }
 }

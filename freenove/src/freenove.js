@@ -2,6 +2,8 @@ const readline = require('readline');
 const tpmkms = require('tpmkms');
 const TankClient = require('./drone')
 const fs = require('fs')
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8765 });
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -42,12 +44,9 @@ const WIDTH_OF_TREAD_IN_MM = 44;
         // await tank.backwardDrone(percentOfPower, options)
       }
 
-      async rotateDrone(angleInRadians) {
+      async rotateDrone(angleInRadians, options) {
         console.log("rotate", angleInRadians)
-        distanceBetweenCenterOfTracksInMM = this._objects.calibration.width_of_tank_in_mm = WIDTH_OF_TANK_IN_MM
-        calibration.width_of_tread_in_mm = WIDTH_OF_TREAD_IN_MM
-
-        await tank.rotateDrone(angleInRadians)
+        await tank.rotateDrone(angleInRadians, options)
       }
 
       async sonicDrone() {
@@ -103,8 +102,9 @@ const WIDTH_OF_TREAD_IN_MM = 44;
   }
 
   if (false) {
-    await drone.query("calibrate")
+    // await drone.query("calibrate")
     // await drone.query("forward")
+    await drone.query("turn right")
     return
   }
   function ask() {
@@ -137,5 +137,23 @@ const WIDTH_OF_TREAD_IN_MM = 44;
     });
   }
 
-  ask();
+  // ask();
+  wss.on('connection', (ws) => {
+    console.log('Python Vosk connected');
+
+    ws.on('message', async (message) => {
+      const text = message.toString().trim();
+      if (text) {
+        console.log('Received transcribed text:', text);
+        await drone.query(text)
+        // Do whatever you want: TTS, log, send to frontend, etc.
+        // ws.send(`Echo: ${text}`); // optional reply
+      }
+    });
+
+    ws.on('close', () => console.log('Python disconnected'));
+  });
 })()
+
+
+console.log('WebSocket server running on ws://localhost:8765');
