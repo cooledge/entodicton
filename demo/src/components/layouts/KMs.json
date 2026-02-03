@@ -801,7 +801,12 @@
         "calibrate\\nforward",
         "calibrate\\nforward 2 meters",
         "calibrate\\nturn right",
-        "calibrate\\nturn left"
+        "calibrate\\nturn left",
+        "calibrate\\nstop",
+        "calibrate\\nturn around",
+        "calibrate\\nforward\\nhi",
+        "calibrate\\nforward 1 meter per minute",
+        "calibrate\\nforward 1000 meters per minute"
       ],
       "template": [
         "drone is a concept",
