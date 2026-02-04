@@ -10,6 +10,6 @@
   "description": "",
   "dependencies": {
     "ws": "^8.19.0",
-    "tpmkms": "9.6.0-beta.3"
+    "tpmkms": "9.6.0-beta.4"
   }
 }
