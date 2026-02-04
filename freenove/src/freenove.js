@@ -3,7 +3,6 @@ const tpmkms = require('tpmkms');
 const TankClient = require('./drone')
 const fs = require('fs')
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 8765 });
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -104,7 +103,7 @@ const WIDTH_OF_TREAD_IN_MM = 44;
   if (false) {
     // await drone.query("calibrate")
     // await drone.query("forward")
-    await drone.query("turn right")
+    await drone.query("forward 1000 meters per second")
     return
   }
   function ask() {
@@ -137,23 +136,32 @@ const WIDTH_OF_TREAD_IN_MM = 44;
     });
   }
 
-  // ask();
-  wss.on('connection', (ws) => {
-    console.log('Python Vosk connected');
+  const args = process.argv.slice(2);
+  debugger
+  if (args.includes("--voice")) {
+    const wss = new WebSocket.Server({ port: 8765 });
+    wss.on('connection', (ws) => {
+      console.log('Python Vosk connected');
 
-    ws.on('message', async (message) => {
-      const text = message.toString().trim();
-      if (text) {
-        console.log('Received transcribed text:', text);
-        await drone.query(text)
-        // Do whatever you want: TTS, log, send to frontend, etc.
-        // ws.send(`Echo: ${text}`); // optional reply
-      }
+      ws.on('message', async (message) => {
+        const text = message.toString().trim();
+        if (text) {
+          console.log('Received transcribed text:', text);
+          const responses = await drone.query(text)
+          const responseText = responses.responses.filter(str => str?.trim() !== "").join(" ")
+          if (!!responseText) {
+            console.log("sending response", responseText)
+            ws.send(responseText)
+          }
+        }
+      });
+
+      ws.on('close', () => console.log('Python disconnected'));
     });
-
-    ws.on('close', () => console.log('Python disconnected'));
-  });
+    console.log('WebSocket server running on ws://localhost:8765');
+  } else {
+    ask();
+  }
 })()
 
 
-console.log('WebSocket server running on ws://localhost:8765');

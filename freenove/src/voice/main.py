@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-# 1984  pip install pyaudio
-# 2008  pip install websocket-client
+# pip install pyaudio
+# pip install websocket-client
+# pip install pyttsx3
 
 
 import json
@@ -10,6 +11,20 @@ from vosk import Model, KaldiRecognizer
 import websocket
 import threading
 import pdb
+
+import pyttsx3
+
+# Initialize the speech engine
+engine = pyttsx3.init()
+
+# Optional: customize voice, speed, volume
+engine.setProperty('rate', 120)    # Speed (words per minute, default ~200)
+engine.setProperty('volume', 0.9)  # Volume (0.0 to 1.0)
+
+if False:
+  engine.say("I can speak multiple sentences in a row.")
+  engine.runAndWait()
+
 
 # ────────────────────────────────────────────────
 # CONFIG
@@ -53,6 +68,17 @@ def on_error(ws, error):
 def on_close(ws, close_status_code, close_msg):
     print("WebSocket closed")
 
+is_speaking = False
+
+def on_message(ws, message):
+    global is_speaking
+    message = message.strip()
+    print(f"Drone response ← {message}")
+    is_speaking = True
+    engine.say(message)
+    engine.runAndWait()
+    is_speaking = False
+
 def send_to_node(text):
     global ws
     if ws: # and ws.connected:
@@ -64,6 +90,7 @@ def send_to_node(text):
 ws = websocket.WebSocketApp(WS_URL,
                             on_open=on_open,
                             on_error=on_error,
+                            on_message=on_message,
                             on_close=on_close)
 threading.Thread(target=ws.run_forever, daemon=True).start()
 
@@ -79,6 +106,9 @@ if True:
   try:
       while True:
           data = stream.read(CHUNK_SIZE, exception_on_overflow=False)
+
+          if is_speaking:
+            continue 
 
           if recognizer.AcceptWaveform(data):
               # Final result (utterance ended — usually after ~1–2s silence)
