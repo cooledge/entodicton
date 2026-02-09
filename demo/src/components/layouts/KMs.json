@@ -797,18 +797,17 @@
       "name": "drone",
       "description": "controlling a drone",
       "examples": [
-        "calibrate",
-        "calibrate\\nforward",
-        "calibrate\\nforward 2 meters",
-        "calibrate\\nturn right",
-        "calibrate\\nturn left",
-        "calibrate\\nstop",
-        "calibrate\\nturn around",
-        "calibrate\\nforward\\nhi",
-        "calibrate\\nforward 1 meter per minute",
-        "calibrate\\nforward 1000 meters per minute",
-        "calibrate\\nforward 1 meter per hour\\nbackward 2 meters",
-        "calibrate\\nforward 1 meter\\ngo back"
+        "forward",
+        "forward 2 meters",
+        "turn right",
+        "turn left",
+        "stop",
+        "turn around",
+        "forward\\nhi",
+        "forward 1 meter per minute",
+        "forward 1000 meters per minute",
+        "forward 1 meter per hour",
+        "forward 1 meter\\ngo back"
       ],
       "template": [
         "drone is a concept",
@@ -1596,7 +1595,9 @@
         "what are the metric units",
         "what are the measurement systems",
         "evaluate 10 centimeters in inches",
-        "evaluate 10 meters in inches"
+        "evaluate 10 meters in inches",
+        "evaluate 6 inches in meters",
+        "evaluate 2 meters in inches"
       ],
       "template": [
         "length is a dimension",
@@ -1617,6 +1618,7 @@
         "feet = centimeters * 0.0328",
         "inches = centimeters * 0.0328 * 12",
         "inches = meters * 3.28 * 12",
+        "meters = inches / 3.28 / 12",
         "miles = 5280 * feet",
         "feet = miles / 5280",
         "kilometers = meters / 1000",
