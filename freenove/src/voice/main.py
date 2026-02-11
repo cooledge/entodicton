@@ -75,7 +75,10 @@ def on_message(ws, message):
     message = message.strip()
     print(f"Drone response ← {message}")
     is_speaking = True
-    engine.say(message)
+    if "Error in message":
+      print(error)
+    else:
+      engine.say(message)
     engine.runAndWait()
     is_speaking = False
 

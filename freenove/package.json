@@ -1,9 +1,29 @@
 {
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "argparse": "^2.0.1",
+    "baseline-browser-mapping": "^2.9.19",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "globals": "^16.0.0",
+    "jest": "^30.2.0"
+  },
   "name": "freenove",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "td": "node inspect node_modules/.bin/jest --runInBand --config ./jest.config.json",
+    "tod": "node inspect node_modules/.bin/jest --runInBand -t NEO23",
+    "lint:fix": "eslint \"**/*.js\" --fix",
+    "lint": "eslint \"**/*.js\"",
+    "to": "node node_modules/.bin/jest --runInBand -t NEO23",
+    "tos": "node node_modules/.bin/jest --runInBand -t NEOS23",
+    "test": "jest --config ./jest.config.json"
   },
   "author": "",
   "license": "ISC",

@@ -1,13 +1,19 @@
 // tank-client.js
 const net = require('net');
+const fs = require('fs')
+const defaultConfiguration = require('./configuration.json')
 
-// dear idiots who do node, make a built in function with a memorable name for sleep instead of this monostrosity which i can never fucking remember
+// dear people who do node, make a built in function with a memorable name for sleep instead of this monostrosity which i can never fucking remember
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const MAX_POWER = 4095;
+const POWER_INCREMENT = 100;
+const MIN_DISTANCE_FOR_CALIBRATION_IN_CM = 10
+const DEBUG = false
+const BLOCKING = false
 
 function percentToPower(percent) {
   return percent * MAX_POWER / 100
@@ -21,9 +27,23 @@ class TankClient {
     this.connected = false;
     this.commandQueue = [];
     this.responseQueue = [];  // FIFO queue for incoming server messages
+    this.configuration = { ...defaultConfiguration }
+    this.debug = DEBUG
+  }
+
+  async readLine(prompt = '> ') {
+    process.stdout.write(prompt);
+
+    return new Promise((resolve) => {
+      process.stdin.once('data', (data) => {
+        const input = data.toString().trim();
+        resolve(input);
+      });
+    });
   }
 
   async processCommand(cmd, options = {}) {
+    // return await this.send(cmd)
     this.commandQueue.push(cmd)
     if (options.batched) {
       return
@@ -38,8 +58,8 @@ class TankClient {
           batchCMD += separator + cmd
         }
         this.commandQueue = []
-        console.log("batchCMD", batchCMD)
-        return await this.send(batchCMD)
+        // console.log("batchCMD", batchCMD)
+        return await this.send(batchCMD, { awaitDone: true })
       }
     }
   }
@@ -85,7 +105,7 @@ class TankClient {
    * @param {number} [timeoutMs=1500] - max wait time for response
    * @returns {Promise<string|null>} - server response or null
    */
-  async send(command, timeoutMs = 1500) {
+  async send(command, { timeoutMs = 1500, awaitDone = false } = {}) {
     if (!this.connected || !this.socket) {
       throw new Error('Not connected');
     }
@@ -95,42 +115,91 @@ class TankClient {
 
     const fullCmd = command.trim() + '\n';
 
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       this.socket.write(fullCmd, (err) => {
         if (err) {
           console.error('Write error:', err.message);
+          debugger
           resolve(null);
           return;
         }
-        console.log(`Sent: ${fullCmd.trim()}`);
+        // console.log(`Sent: ${fullCmd.trim()}`);
       });
 
       const start = Date.now();
       const interval = setInterval(() => {
+        // console.log("interval")
         if (this.responseQueue.length > 0) {
-          clearInterval(interval);
-          resolve(this.responseQueue.shift());
-        } else if (Date.now() - start > timeoutMs) {
+          debugger
+          if (awaitDone && BLOCKING) {
+            const response = this.responseQueue.shift();
+            if (response === 'DONE') {
+              clearInterval(interval);
+              resolve(response)
+            }
+          } else {
+            debugger
+            clearInterval(interval);
+            resolve(this.responseQueue.shift());
+          }
+        } else if (!awaitDone && (Date.now() - start > timeoutMs)) {
+          debugger
           clearInterval(interval);
           resolve(null); // no response in time
         }
       }, 30); // check ~every 30ms
+      await interval
     });
+  }
+
+  minimumDroneSpeed() {
+    return this.configuration.speedForward
+  }
+
+  maximumDroneSpeed() {
+    return this.configuration.maximumSpeedForward
   }
 
   async pauseDrone(durationInSeconds, options) {
     return await this.processCommand(`CMD_PAUSE#${Math.round(durationInSeconds*1000)}#`, options);
   }
 
-  async moveDrone(percentageLeft, percentageRight, options) {
-    const powerLeft = percentToPower(percentageLeft)
-    const powerRight = percentToPower(percentageRight)
+  forwardSpeedToPower(speed) {
+    return Math.round((speed / this.configuration.maximumSpeedForward) * MAX_POWER)
+  }
+
+  backwardSpeedToPower(speed) {
+    return Math.round((speed / this.configuration.maximumSpeedBackward) * MAX_POWER)
+  }
+
+  async moveDrone(speedLeft, speedRight, options) {
+    if (this.debug) {
+      console.log("speedLeftIn", speedLeft)
+      console.log("speedRightIn", speedRight)
+    }
+    let powerLeft, powerRight
+    if (options.usingPower) {
+      powerLeft = speedLeft
+      powerRight = speedRight
+    } else {
+      powerLeft = this.forwardSpeedToPower(speedLeft)
+      powerRight = this.backwardSpeedToPower(speedRight)
+    }
+    if (this.debug) {
+      console.log(JSON.stringify(this.configuration, null, 2))
+      console.log("powerLeft", powerLeft)
+      console.log("powerRight", powerRight)
+    }
     return await this.processCommand(`CMD_MOTOR#${Math.round(powerLeft)}#${Math.round(powerRight)}#`, options);
   }
 
   // Movement methods – now return server response
-  async forwardDrone(percentage, options) {
-    return await this.moveDrone(percentage, percentage, options)
+  async forwardDrone(speed, options) {
+    if (!options.skipPause) {
+      await this.stopDrone(options)
+      await this.pauseDrone(0.1, options)
+    }
+    return await this.moveDrone(speed, speed, options)
   }
 
   /*
@@ -150,40 +219,205 @@ class TankClient {
       t = θ / ω = (θ × L) / (2v)
   */
 
-  async rotateDrone(angleInRadians, options) {
-    console.log("rotate", angleInRadians)
-    const widthOfTankInMM = 188
-    const widthOfTreadInMM = 44
-    const speedInMetersPerSecondForward = 0.114
-    const v = speedInMetersPerSecondForward
-    const L = (widthOfTankInMM - widthOfTreadInMM)/1000
-    let t = (Math.abs(angleInRadians) * L) / (2*v)
-    const frictionAngleInDegrees = 0
-    t *= (1 + frictionAngleInDegrees/180)
-   
-    const speed = 30 
-    if (angleInRadians < 0) { 
-      await this.moveDrone(speed, -speed, { batched: true })
-    } else {
-      await this.moveDrone(-speed, speed, { batched: true })
-    }
-    debugger 
-    await this.pauseDrone(t, { batched: true })
-    await this.stopDrone(options)
-
+  async learnFrictionFactor(options) {
+    await this.learnFrictionFactorHelper('clockwise', -1, options)
+    await this.learnFrictionFactorHelper('counter clockwise', 1, options)
   }
 
-  async backwardDrone(percentage, options) {
-    return await this.moveDrone(-percentage, -percentage, options)
+  async learnFrictionFactorHelper(direction, factor, options) {
+    const rffInc = 0.25
+    const times = 1
+
+    await this.readLine(`The drone will rotate ${direction.toUpperCase()} ${times} times. Notice if the drone rotates too long or too short of ${times} times. This will be used to calculate a factor that accounts for friction in the ${direction} rotation. Getting within 5 degrees after three rotations is about as good as my drone gets. Press enter to continue`)
+    debugger
+    const properties = this.configuration.rotation[factor < 0 ? 'negative' : 'positive']
+    let current = 0
+    // greg55
+
+    let lrff, srff
+    // const fakeInput = ['s', 'l', 's']
+    properties.frictionFactor = 0
+    properties.speedIncrease = 0.10 // the sometimes needs to go faster than the minimum power
+    while (true) {
+      console.log(`\nsrff/current/lrff ${srff}/${current}/${lrff}`)
+      properties.frictionFactor = current
+      console.log(JSON.stringify(this.configuration, null, 2))
+      this.rotateDrone(2*Math.PI*factor, { ...options, times })
+      const result = await this.readLine(`Was the rotation short or long of ${times} full rotations, (s for short, l for long, r for repeat, f for drone needs to rotate faster, 0 for restart,  or d for done)?`)
+      // const result = fakeInput.pop()
+      if (result == 's') {
+        if (srff == null) {
+          srff = current
+        }
+        if (lrff == null) {
+          srff = current
+          current += rffInc
+        } else {
+          srff = current
+          current += (lrff-current) / 2
+        }
+      } else if (result == 'f' || result == '0') {
+          lrff = null
+          srff = null
+          current = 0
+          if (result == 'f') {
+            properties.speedIncrease += 0.05
+          }
+          properties.frictionFactor = 0
+      } else if (result == 'l') {
+        if (lrff == null) {
+          lrff = current
+        }
+        if (srff == null) {
+          lrff = current
+          current -= rffInc
+        } else {
+          lrff = current
+          current += (srff-current) / 2
+        }
+      } else if (result == 'd') {
+        console.log(JSON.stringify(this.calibration, null, 2))
+        return
+      }
+    }
+  }
+
+  async calibrateSpeed() {
+    const moveTimeInSeconds = 0.5
+
+    await this.readLine("Place an object about 60 cm/2 feet in front of the drone for example aim the drone at a wall. Press enter to continue. ")
+
+    const debug = true
+
+    // find where drone moves at least 10 cm forward then calibrate off that
+    let power
+    let forwardDistanceInCM = 0
+    let backwardDistanceInCM = 0
+    let start = await this.sonicDrone();
+    for (power = POWER_INCREMENT; power < MAX_POWER; power += POWER_INCREMENT) {
+      if (debug) {
+        console.log('power', power)
+      }
+
+      // go forward 
+      {
+        await this.forwardDrone(power, { batched: true, skipPause: true, usingPower: true })
+        await this.pauseDrone(moveTimeInSeconds, { batched: true })
+        await this.stopDrone()
+      }
+
+      const endForward = await this.sonicDrone();
+
+      if (endForward !== start) {
+        forwardDistanceInCM = start - endForward
+
+        // backward speed / position reset
+        {
+          await this.backwardDrone(power, { batched: true, skipPause: true, usingPower: true })
+          await this.pauseDrone(moveTimeInSeconds, { batched: true })
+          await this.stopDrone()
+          const endBackward = await this.sonicDrone();
+          backwardDistanceInCM = endBackward - endForward
+        }
+
+        if (debug) {
+          console.log("forwardDistanceInCM", forwardDistanceInCM)
+          console.log("backwardDistanceInCM", backwardDistanceInCM)
+        }
+        if (forwardDistanceInCM >= MIN_DISTANCE_FOR_CALIBRATION_IN_CM && backwardDistanceInCM >= MIN_DISTANCE_FOR_CALIBRATION_IN_CM) {
+          break;
+        } else {
+          start = await this.sonicDrone();
+        }
+      }
+    }
+    const metersPerSecondForward = (forwardDistanceInCM/100)/moveTimeInSeconds
+    const metersPerSecondBackward = (backwardDistanceInCM/100)/moveTimeInSeconds
+
+    this.configuration.minPower = power
+    this.configuration.power = power
+    this.configuration.speedForward = metersPerSecondForward
+    this.configuration.maximumSpeedForward = MAX_POWER / power * metersPerSecondForward
+    this.configuration.speedBackward = metersPerSecondBackward
+    this.configuration.maximumSpeedBackward = MAX_POWER / power * metersPerSecondBackward
+    this.configuration.isCalibrated = true
+
+    if (debug) {
+      console.log(JSON.stringify(this.configuration, null, 2))
+    }
+  }
+
+  async configureDrone() {
+    const widthOfTankInMM = await this.readLine(`Enter the width of the tank in mm or enter to keep the current value ${this.configuration.widthOfTankInMM} mm.`)
+    if (Number.isInteger(parseInt(widthOfTankInMM))) {
+      this.configuration.widthOfTankInMM = Number.isInteger(parseInt(widthOfTankInMM))
+    }
+
+    const widthOfTreadInMM = await this.readLine(`Enter the width of the tank tread in mm or enter to keep the current value ${this.configuration.widthOfTreadInMM} mm.`)
+    if (Number.isInteger(parseInt(widthOfTreadInMM))) {
+      this.configuration.widthOfTreadInMM = Number.isInteger(parseInt(widthOfTreadInMM))
+    }
+
+    await this.calibrateSpeed(this.configuration)
+    await this.learnFrictionFactor()
+    
+    console.log(JSON.stringify(this.configuration, null, 2))
+
+    const json = JSON.stringify(this.configuration, null, 2);
+    fs.writeFileSync('./configuration.json', json)
+  }
+
+  async rotateDrone(angleInRadians, options) {
+    console.log("rotate", angleInRadians)
+    const { times = 1 } = options
+    const { widthOfTankInMM, widthOfTreadInMM, speedForward, speedBackward } = this.configuration
+    const rotation = this.configuration.rotation[angleInRadians > 0 ? 'positive' : 'negative']
+    const rotateFrictionFactor = rotation.frictionFactor
+
+    let t, speed
+    const r = (widthOfTankInMM - widthOfTreadInMM)/1000
+    const d = Math.abs(angleInRadians) * r
+    const speedRotate = speedForward * (1 + (rotation.speedIncrease || 0)) // the drone needs to go faster to rotate
+    t = d / speedRotate * (1 + rotateFrictionFactor)
+    speed = speedRotate
+
+    for (let i = 0; i < times; ++i ) {
+      await this.stopDrone({ ...options, batched: true })
+      await this.pauseDrone(0.25, { ...options, batched: true })
+      if (angleInRadians < 0) { 
+        await this.moveDrone(speed, -speed, { ...options, batched: true })
+      } else {
+        await this.moveDrone(-speed, speed, { ...options, batched: true })
+      }
+      await this.pauseDrone(t, { ...options, batched: true })
+      await this.stopDrone({ ...options, batched: true })
+    }
+    await this.stopDrone(options)
+  }
+
+  async backwardDrone(speed, options) {
+    await this.stopDrone(options)
+    await this.pauseDrone(0.1, options)
+    return await this.moveDrone(-speed, -speed, options)
   }
 
   // New: Sonic / Ultrasonic distance command
   // Returns the response (e.g. "Distance: 42 cm", "OK", or sensor value)
-  async sonicDrone() {
-    const response = await this.send('Sonic');   // ← change string if needed (e.g. 'Ultrasonic', 'GetDistance')
-    const match = response.match(/#([\d.]+)/);
-    const number = match ? parseFloat(match[1]) : null;
-    return number
+  async sonicDrone(options = {}) {
+    const { samples = 3 } = options
+    let total = 0
+    let successes = 0
+    while (successes < samples) {
+      const response = await this.send('Sonic');   // ← change string if needed (e.g. 'Ultrasonic', 'GetDistance')
+      console.log("sonic one", response)
+      const match = response.match(/#([\d.]+)/);
+      const number = match ? parseFloat(match[1]) : null;
+      if (number) {
+        total += number
+        successes += 1
+      }
+    }
+    return total/successes
   }
 
   async tiltAngleDrone(angle) {
@@ -253,21 +487,52 @@ async function test() {
     // while (true) {
     //   await tank.sonic()
     // }
-    debugger
-    if (true) {
-      await tank.rotateDrone(Math.PI/2)
+
+    const calibration = JSON.parse(fs.readFileSync('./configuration.json'))
+    const options = {
+      ...calibration,
+    }
+
+    const args = process.argv.slice(2);
+    if (args.includes("--configure")) {
+      await tank.configureDrone()
+      return
+    }
+
+    if (false) {
+      while(true) {
+        response = await tank.sonicDrone({ samples: 3 });
+        console.log('Sonic response:', response*0.393701 || '(no reply)', 'inches');
+        await sleep(500)
+      }
     }
     if (false) {
-      await tank.moveDrone(-50, 50, { batched: true })
-      await tank.pauseDrone(0.992, { batched: true })
-      await tank.stopDrone({})
-
-      /*
-      tank.pauseDrone(1.0, { batched: true })
-      tank.rightDrone(50, { batched: true })
-      tank.pauseDrone(0.5, { batched: true })
-      tank.stopDrone({})
-      */
+      // await tank.configureDrone()
+      await tank.rotateDrone(2*Math.PI, { times: 3 })
+      // await tank.sonicDrone({ times: 3 })
+    }
+    if (false) {
+      // greg55
+      // await tank.rotateDrone(Math.PI*2, { ...options, times: 3 })
+      // await tank.learnFrictionFactor({ ...options })
+      await tank.learnFrictionFactor()
+    }
+    if (false) {
+      // await tank.moveDrone(-50, 50, { ...options, batched: true })
+      for (let i = 0; i < 4; ++i ) {
+        if (true) {
+          await tank.moveDrone(80, -30, { ...options, batched: true })
+          await tank.pauseDrone(1.0, { ...options, batched: true })
+          await tank.stopDrone({ ...options })
+          await tank.pauseDrone(1.0, { ...options, batched: true })
+        }
+        if (false) {
+          await tank.moveDrone(-30, -30, { ...options, batched: true })
+          await tank.pauseDrone(1.0, { ...options, batched: true })
+          await tank.stopDrone({ ...options })
+          await tank.pauseDrone(1.0, { ...options, batched: true })
+        }
+      }
     }
     if (false) {
       tank.send(`CMD_MULTI$CMD_MOTOR#1000#1000#$CMD_PAUSE#2000#$CMD_MOTOR#0#0#`);

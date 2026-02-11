@@ -1,0 +1,21 @@
+{
+  "widthOfTankInMM": 188,
+  "widthOfTreadInMM": 44,
+  "isCalibrated": true,
+  "minPower": 800,
+  "power": 800,
+  "speedForward": 0.20400000000000013,
+  "speedBackward": 0.20400000000000013,
+  "maximumSpeedForward": 1.0442250000000006,
+  "maximumSpeedBackward": 1.0442250000000006,
+  "rotation": {
+    "positive": {
+      "frictionFactor": 0,
+      "speedIncrease": 0.1
+    },
+    "negative": {
+      "frictionFactor": -0.125,
+      "speedIncrease": 0.1
+    }
+  }
+}

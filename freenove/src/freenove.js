@@ -10,6 +10,7 @@ function sleep(ms) {
 
 const WIDTH_OF_TANK_IN_MM = 188;
 const WIDTH_OF_TREAD_IN_MM = 44;
+const DEBUG = true;
 
 (async () => {
   const drone = await tpmkms.drone()
@@ -25,63 +26,76 @@ const WIDTH_OF_TREAD_IN_MM = 44;
       now() {
         return new Date()
       }
-      
+     
+     minimumSpeedDrone() {
+        return tank.minimumDroneSpeed()
+      }
+
+      maximumSpeedDrone() {
+        return tank.maximumDroneSpeed()
+      }
+
       async pauseDrone(durationInSeconds, options) {
-        console.log("pause", durationInSeconds)
+        if (DEBUG) {
+          console.log("pause", durationInSeconds)
+        }
         // await sleep(durationInSeconds * 1000)
         await tank.pauseDrone(durationInSeconds, options)
       }
 
-      async forwardDrone(percentOfPower, options) {
-        console.log("forward", percentOfPower)
-        await tank.moveDrone(percentOfPower, percentOfPower, options)
+      async forwardDrone(speed, options) {
+        if (DEBUG) {
+          console.log("forward", speed, 'm/s')
+        }
+        await tank.moveDrone(speed, speed, options)
       }
 
-      async backwardDrone(percentOfPower, options) {
-        console.log("backward", percentOfPower)
-        await tank.moveDrone(-percentOfPower, -percentOfPower, options)
-        // await tank.backwardDrone(percentOfPower, options)
+      async backwardDrone(speed, options) {
+        if (DEBUG) {
+          console.log("backward", speed, 'm/s')
+        }
+        await tank.moveDrone(-speed, -speed, options)
       }
 
-      async rotateDrone(angleInRadians, options) {
-        console.log("rotate", angleInRadians)
+      async rotateDrone(angleInRadians, options = {}) {
+        if (DEBUG) {
+          console.log("rotate", angleInRadians)
+        }
         await tank.rotateDrone(angleInRadians, options)
       }
 
       async sonicDrone() {
-        console.log("sonic")
+        if (DEBUG) {
+          console.log("sonic")
+        }
         return await tank.sonicDrone()
       }
 
-      async tiltAngleDrone() {
-        console.log("tiltAngleDrone")
-        await tank.tiltAngleDrone()
+      async tiltAngleDrone(options) {
+        if (DEBUG) {
+          console.log("tiltAngleDrone")
+        }
+        await tank.tiltAngleDrone(options)
       }
 
-      async panAngleDrone() {
-        console.log("panAngleDrone")
-        await tank.panAngleDrone()
+      async panAngleDrone(options) {
+        if (DEBUG) {
+          console.log("panAngleDrone")
+        }
+        await tank.panAngleDrone(options)
       }
 
       async stopDrone(options) {
-        console.log("stop")
+        if (DEBUG) {
+          console.log("stop")
+        }
         await tank.stopDrone(options)
-      }
-
-      async saveCalibration(calibration) {
-        calibration.width_of_tank_in_mm = WIDTH_OF_TANK_IN_MM
-        calibration.width_of_tread_in_mm = WIDTH_OF_TREAD_IN_MM
-        const json = JSON.stringify(calibration, null, 2);
-        fs.writeFileSync('./calibration.json', json)
       }
     }
 
     return new API()
   }
   await drone.setApi(newAPI)
-  // const result = await drone.query("calibrate")
-  // console.log(JSON.stringify(result, null, 2))
-  // console.log(JSON.stringify(drone.config.objects, null, 2))
 
   const rl = readline.createInterface({
     input: process.stdin,
@@ -91,19 +105,25 @@ const WIDTH_OF_TREAD_IN_MM = 44;
 
   console.log('Welcome to the interactive CLI');
   console.log('Type "help" for commands, "exit" to quit\n');
-
-  try {
-    const calibration = JSON.parse(fs.readFileSync('./calibration.json'))
-    drone.api.loadCalibration(calibration)
-    console.log("Loading previous configuration")
-  } catch( e ) {
-    console.log("Place an object about 50 cm in front of the drone. Then when ready say calibrate. The drone will calibrate itself")
-  }
+  console.log('Configure the drone by running "node drone" once to customize the parameters to your drone.\n');
 
   if (false) {
-    // await drone.query("calibrate")
-    // await drone.query("forward")
-    await drone.query("forward 1000 meters per second")
+    // const response = await drone.query("around")
+    const response = await drone.query("forward 2 feet\ngo back")
+    // const response = await drone.query("forward")
+    // const response = await drone.query("forward 1000 meters per second")
+    // const response = await drone.query("forward 1 foot\ngo back")
+    // const response = await drone.query("forward 1 foot\nbackward 1 foot")
+    // const response = await drone.query("backward 1 foot")
+    // const response = await drone.query("turn around")
+    // const response = await drone.query("forward 6 inches")
+    for (const log of response.logs) {
+      if (log.includes("ERROR while applying")) {
+        console.log(log)
+      }
+    }
+    // console.log(JSON.stringify(response, null, 2))
+    debugger
     return
   }
   function ask() {
@@ -160,6 +180,7 @@ const WIDTH_OF_TREAD_IN_MM = 44;
     });
     console.log('WebSocket server running on ws://localhost:8765');
   } else {
+    console.log('Running in console mode where the commands are types in. To use voice mode use the --voice arg. Start the voice input program ./src/voice/main.py after to send commands to the drone with voice')
     ask();
   }
 })()
