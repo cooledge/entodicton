@@ -1734,7 +1734,8 @@
         "x is 3 up x+2",
         "glop is 3 up glop+ 2",
         "glop is 3 what is glop",
-        "show"
+        "show",
+        "file open\\ndown 1 + 1"
       ],
       "template": [
         "setidsuffix _menus",
