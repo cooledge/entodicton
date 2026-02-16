@@ -4,6 +4,7 @@
   "isCalibrated": true,
   "minPower": 800,
   "power": 800,
+  "powerDrainScale": 1,
   "speedForward": 0.20400000000000013,
   "speedBackward": 0.20400000000000013,
   "maximumSpeedForward": 1.0442250000000006,
