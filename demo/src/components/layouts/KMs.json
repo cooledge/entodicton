@@ -1597,7 +1597,8 @@
         "evaluate 10 centimeters in inches",
         "evaluate 10 meters in inches",
         "evaluate 6 inches in meters",
-        "evaluate 2 meters in inches"
+        "evaluate 2 meters in inches",
+        "evaluate 2+5 inches in feet"
       ],
       "template": [
         "length is a dimension",
