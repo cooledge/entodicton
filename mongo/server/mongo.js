@@ -1606,7 +1606,8 @@ knowledgeModule( {
 
   module,
   description: 'language access for mongo databases',
-  template: { template, instance },
+  template, 
+  instance,
   test: {
     name: './mongo.test.json',
     contents: mongo_tests,
