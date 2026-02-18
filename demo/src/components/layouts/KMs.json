@@ -40,6 +40,7 @@
       "description": "Don't show in the UI",
       "includes": [
         "tokenize",
+        "testing",
         "drone_v1"
       ]
     },
@@ -807,7 +808,10 @@
         "forward 1 meter per minute",
         "forward 1000 meters per minute",
         "forward 1 meter per hour",
-        "forward 1 meter\\ngo back"
+        "forward 1 meter\\ngo back",
+        "forward 2 meters\\ngo back and forth",
+        "2 times",
+        "forward 2 meters\\ngo back and forth 2 times"
       ],
       "template": [
         "drone is a concept",
