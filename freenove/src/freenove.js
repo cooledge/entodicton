@@ -71,6 +71,27 @@ const DEBUG = true;
         return await tank.sonicDrone()
       }
 
+      async startRepeatsDrone(n) {
+        if (DEBUG) {
+          console.log("startRepeats")
+        }
+        return await tank.startRepeatsDrone(n)
+      }
+
+      async endRepeatsDrone() {
+        if (DEBUG) {
+          console.log("endRepeats")
+        }
+        return await tank.endRepeatsDrone()
+      }
+
+      async sendBatchDrone() {
+        if (DEBUG) {
+          console.log("sendBatch")
+        }
+        return await tank.sendBatchDrone()
+      }
+
       async tiltAngleDrone(options) {
         if (DEBUG) {
           console.log("tiltAngleDrone")
@@ -109,7 +130,7 @@ const DEBUG = true;
 
   if (false) {
     // const response = await drone.query("around")
-    const response = await drone.query("forward 2 feet\ngo back")
+    const response = await drone.query("forward 1 foot\ngo back and forth 2 times")
     // const response = await drone.query("forward")
     // const response = await drone.query("forward 1000 meters per second")
     // const response = await drone.query("forward 1 foot\ngo back")
@@ -123,7 +144,6 @@ const DEBUG = true;
       }
     }
     // console.log(JSON.stringify(response, null, 2))
-    debugger
     return
   }
   function ask() {
@@ -157,7 +177,6 @@ const DEBUG = true;
   }
 
   const args = process.argv.slice(2);
-  debugger
   if (args.includes("--voice")) {
     const wss = new WebSocket.Server({ port: 8765 });
     wss.on('connection', (ws) => {

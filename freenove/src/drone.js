@@ -42,6 +42,22 @@ class TankClient {
     });
   }
 
+  async sendBatchDrone() {
+    if (this.commandQueue.length == 0) {
+      return
+    } 
+
+    let batchCMD = 'CMD_MULTI'
+    // eg: tank.send(`CMD_MULTI$CMD_MOTOR#1000#1000#$CMD_PAUSE#2000#$CMD_MOTOR#0#0#`);
+    let separator = '$'
+    for (const cmd of this.commandQueue) {
+      batchCMD += separator + cmd
+    }
+    this.commandQueue = []
+    console.log("batchCMD", batchCMD)
+    return await this.send(batchCMD, { awaitDone: true })
+  }
+
   async processCommand(cmd, options = {}) {
     // return await this.send(cmd)
     this.commandQueue.push(cmd)
@@ -51,15 +67,7 @@ class TankClient {
       if (this.commandQueue.length == 0) {
         return await this.send(cmd)
       } else {
-        let batchCMD = 'CMD_MULTI'
-        // eg: tank.send(`CMD_MULTI$CMD_MOTOR#1000#1000#$CMD_PAUSE#2000#$CMD_MOTOR#0#0#`);
-        let separator = '$'
-        for (const cmd of this.commandQueue) {
-          batchCMD += separator + cmd
-        }
-        this.commandQueue = []
-        // console.log("batchCMD", batchCMD)
-        return await this.send(batchCMD, { awaitDone: true })
+        await this.sendBatchDrone()
       }
     }
   }
@@ -119,9 +127,7 @@ class TankClient {
       this.socket.write(fullCmd, (err) => {
         if (err) {
           console.error('Write error:', err.message);
-          debugger
           resolve(null);
-          return;
         }
         // console.log(`Sent: ${fullCmd.trim()}`);
       });
@@ -130,7 +136,6 @@ class TankClient {
       const interval = setInterval(() => {
         // console.log("interval")
         if (this.responseQueue.length > 0) {
-          debugger
           if (awaitDone && BLOCKING) {
             const response = this.responseQueue.shift();
             if (response === 'DONE') {
@@ -138,12 +143,10 @@ class TankClient {
               resolve(response)
             }
           } else {
-            debugger
             clearInterval(interval);
             resolve(this.responseQueue.shift());
           }
         } else if (!awaitDone && (Date.now() - start > timeoutMs)) {
-          debugger
           clearInterval(interval);
           resolve(null); // no response in time
         }
@@ -229,7 +232,6 @@ class TankClient {
     const times = 1
 
     await this.readLine(`The drone will rotate ${direction.toUpperCase()} ${times} times. Notice if the drone rotates too long or too short of ${times} times. This will be used to calculate a factor that accounts for friction in the ${direction} rotation. Getting within 5 degrees after three rotations is about as good as my drone gets. Press enter to continue`)
-    debugger
     const properties = this.configuration.rotation[factor < 0 ? 'negative' : 'positive']
     let current = 0
     // greg55
@@ -425,6 +427,14 @@ class TankClient {
 
   async stopDrone(options) {
     return await this.processCommand('CMD_MOTOR#0#0#', options);
+  }
+
+  async startRepeatsDrone(n) {
+    return await this.processCommand(`CMD_START_REPEATS#${n}#`, { batched: true });
+  }
+
+  async endRepeatsDrone(n) {
+    return await this.processCommand(`CMD_END_REPEATS`, { batched: true });
   }
 
   async close() {
