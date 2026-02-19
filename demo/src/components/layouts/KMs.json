@@ -363,12 +363,16 @@
         "lowest comparable",
         "comparable descending",
         "comparable ascending",
-        "email ascending"
+        "email ascending",
+        "highest and lowest comparable"
       ],
       "template": [
         "sort modifies ordering",
         "ascending is a sort ordering",
-        "descending is a sort ordering"
+        "descending is a sort ordering",
+        "conditions are concepts",
+        "superlatives are conditions",
+        "highest, lowest, maximum and minimum are superlatives"
       ],
       "includes": [
         "articles",
@@ -811,12 +815,17 @@
         "forward 1 meter\\ngo back",
         "forward 2 meters\\ngo back and forth",
         "2 times",
-        "forward 2 meters\\ngo back and forth 2 times"
+        "forward 2 meters\\ngo back and forth 2 times",
+        "what is the speed",
+        "what is 2 meters per second in inches per second",
+        "what is the speed in inches per second"
       ],
       "template": [
         "drone is a concept",
         "around, forward, left, right, and backward are directions",
         "speed and power are properties",
+        "speed and power are comparable",
+        "speed is a quantity",
         "point is a concept",
         "points are nameable orderable and memorable"
       ],
