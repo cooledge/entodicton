@@ -5,18 +5,37 @@
   "minPower": 900,
   "power": 900,
   "powerDrainScale": 1,
+  "defaultSpeed": 0.4,
   "speedForward": 0.22200000000000017,
   "speedBackward": 0.23200000000000018,
   "maximumSpeedForward": 1.0101000000000007,
   "maximumSpeedBackward": 1.0556000000000008,
   "rotation": {
     "positive": {
-      "frictionFactor": -0.3125,
-      "speedIncrease": 0.15000000000000002
+      "1": {
+        "frictionFactor": -0.25,
+        "speedIncrease": 0.3
+      },
+      "4": {
+        "frictionFactor": -0.125,
+        "speedIncrease": 0.3
+      },
+      "m": -0.026525823848649224,
+      "b": -0.08333333333333334,
+      "speedIncrease": 0.3
     },
     "negative": {
-      "frictionFactor": -0.3125,
-      "speedIncrease": 0.15000000000000002
+      "1": {
+        "frictionFactor": -0.2890625,
+        "speedIncrease": 0.3
+      },
+      "4": {
+        "frictionFactor": -0.125,
+        "speedIncrease": 0.3
+      },
+      "m": -0.03481514380135211,
+      "b": -0.07031249999999997,
+      "speedIncrease": 0.3
     }
   }
 }

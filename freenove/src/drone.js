@@ -223,29 +223,73 @@ class TankClient {
   */
 
   async learnFrictionFactor(options) {
-    await this.learnFrictionFactorHelper('clockwise', -1, options)
+    const rotation = this.configuration.rotation
+    if (!rotation.positive) {
+      rotation.positive = {
+        1: {},
+        4: {},
+      }
+    }
+    if (!rotation.negative) {
+      rotation.negative = {
+        1: {},
+        4: {},
+      }
+    }
+
+    await this.learnFrictionFactorHelper('clockwise', 1, options)
+    await this.learnFrictionFactorHelper('clockwise', 4, options)
     await this.learnFrictionFactorHelper('counter clockwise', 1, options)
+    await this.learnFrictionFactorHelper('counter clockwise', 4, options)
+    
+    this.calculateRotateFormulas()
   }
 
-  async learnFrictionFactorHelper(direction, factor, options) {
-    const rffInc = 0.25
-    const times = 1
+  // x is radians
+  // y is frictionFactor
+  calculateRotateFormulasHelper(points) {
+    const rise = points[1].frictionFactor - points[4].frictionFactor
+    const run = (Math.PI*2/1 - Math.PI*2/4)
+    points.m = rise/run
+    points.b = points[1].frictionFactor - points.m*Math.PI*2/1
+    points.speedIncrease = Math.max(points[1].speedIncrease, points[4].speedIncrease) 
+  }
 
-    await this.readLine(`The drone will rotate ${direction.toUpperCase()} ${times} times. Notice if the drone rotates too long or too short of ${times} times. This will be used to calculate a factor that accounts for friction in the ${direction} rotation. Getting within 5 degrees after three rotations is about as good as my drone gets. Press enter to continue`)
-    const properties = this.configuration.rotation[factor < 0 ? 'negative' : 'positive']
+  calculateRotateFormulas() {
+    const rotation = this.configuration.rotation
+    this.calculateRotateFormulasHelper(rotation.positive)
+    this.calculateRotateFormulasHelper(rotation.negative)
+  }
+
+  calculateFrictionFactor(direction, x) {
+    const { m, b } = this.configuration.rotation[direction]
+    return m*Math.abs(x) + b
+  }
+
+  async learnFrictionFactorHelper(direction, times, options) {
+    const factor = (direction == 'clockwise' ? -1 : 1)
+    const rffInc = 0.25
+
+    await this.readLine(`The drone will rotate ${direction.toUpperCase()} once times in ${times} turn(s). Notice if the drone rotates too long or too short of one rotation. This will be used to calculate a factor that accounts for friction in the ${direction} rotation. Getting within 5 degrees after three rotations is about as good as my drone gets. Press enter to continue`)
+    const properties = this.configuration.rotation[factor < 0 ? 'negative' : 'positive'][times]
     let current = 0
     // greg55
 
     let lrff, srff
     // const fakeInput = ['s', 'l', 's']
     properties.frictionFactor = 0
-    properties.speedIncrease = 0.10 // the sometimes needs to go faster than the minimum power
+    properties.speedIncrease = 0.30 // the sometimes needs to go faster than the minimum power
     while (true) {
-      console.log(`\nsrff/current/lrff ${srff}/${current}/${lrff}`)
+      if (this.debug) {
+        console.log(`\nsrff/current/lrff ${srff}/${current}/${lrff}`)
+      }
       properties.frictionFactor = current
-      console.log(JSON.stringify(this.configuration, null, 2))
-      this.rotateDrone(2*Math.PI*factor, { ...options, times })
-      const result = await this.readLine(`Was the rotation short or long of ${times} full rotations, (s for short, l for long, r for repeat, f for drone needs to rotate faster, 0 for restart,  or d for done)?`)
+      if (this.debug) {
+        console.log(JSON.stringify(this.configuration, null, 2))
+        console.log(JSON.stringify(this.properties, null, 2))
+      }
+      this.rotateDrone(2*Math.PI*factor/times, { ...options, times, pause: 0.2, rotateFrictionFactor: current, speedIncrease: properties.speedIncrease })
+      const result = await this.readLine(`Was the rotation short or long of one full rotation, (s for short, l for long, r for repeat, f for drone needs to rotate faster, 0 for restart,  or d for done)?`)
       // const result = fakeInput.pop()
       if (result == 's') {
         if (srff == null) {
@@ -360,7 +404,10 @@ class TankClient {
       this.configuration.widthOfTreadInMM = Number.isInteger(parseInt(widthOfTreadInMM))
     }
 
-    await this.calibrateSpeed(this.configuration)
+    const calibrateSpeed = await this.readLine(`Do you want to calibrate speed? y for yes other for n`)
+    if (calibrateSpeed == 'y') {
+      await this.calibrateSpeed(this.configuration)
+    }
     await this.learnFrictionFactor()
     
     console.log(JSON.stringify(this.configuration, null, 2))
@@ -371,15 +418,30 @@ class TankClient {
 
   async rotateDrone(angleInRadians, options) {
     console.log("rotate", angleInRadians)
-    const { times = 1 } = options
+    const { times = 1, pause = 0 } = options
     const { widthOfTankInMM, widthOfTreadInMM, speedForward, speedBackward } = this.configuration
-    const rotation = this.configuration.rotation[angleInRadians > 0 ? 'positive' : 'negative']
-    const rotateFrictionFactor = rotation.frictionFactor
+    const direction = angleInRadians > 0 ? 'positive' : 'negative'
+    const rotation = this.configuration.rotation[direction]
+    let rotateFrictionFactor = 0
+    let speedIncrease
+    if (options.rotateFrictionFactor == null) {
+      rotateFrictionFactor = this.calculateFrictionFactor(direction, angleInRadians)
+      speedIncrease = rotation.speedIncrease
+      if (this.debug) {
+        console.log(`angleInRadians = ${angleInRadians}`)
+        console.log(`direction = ${direction}`)
+        console.log(`rotateFrictionFactor = ${rotateFrictionFactor}`)
+        console.log(`speedIncrease = ${speedIncrease}`)
+      }
+    } else {
+      rotateFrictionFactor = options.rotateFrictionFactor
+      speedIncrease = options.speedIncrease
+    }
 
     let t, speed
     const r = (widthOfTankInMM - widthOfTreadInMM)/1000
     const d = Math.abs(angleInRadians) * r
-    const speedRotate = speedForward * (1 + (rotation.speedIncrease || 0)) // the drone needs to go faster to rotate
+    const speedRotate = speedForward * (1 + (speedIncrease || 0)) // the drone needs to go faster to rotate
     t = d / speedRotate * (1 + rotateFrictionFactor)
     speed = speedRotate
 
@@ -393,6 +455,9 @@ class TankClient {
       }
       await this.pauseDrone(t, { ...options, batched: true })
       await this.stopDrone({ ...options, batched: true })
+      if (pause) {
+        await this.pauseDrone(pause, { ...options, batched: true })
+      }
     }
     await this.stopDrone(options)
   }
@@ -504,7 +569,7 @@ async function test() {
     }
 
     const args = process.argv.slice(2);
-    if (args.includes("--configure")) {
+    if (args.includes("--configure") || args.includes("--calibrate")) {
       await tank.configureDrone()
       return
     }
@@ -516,16 +581,29 @@ async function test() {
         await sleep(500)
       }
     }
-    if (false) {
+    if (true) {
       // await tank.configureDrone()
-      await tank.rotateDrone(2*Math.PI, { times: 3 })
+      await tank.rotateDrone(-Math.PI*2/4, { times: 1 })
       // await tank.sonicDrone({ times: 3 })
     }
     if (false) {
-      // greg55
-      // await tank.rotateDrone(Math.PI*2, { ...options, times: 3 })
-      // await tank.learnFrictionFactor({ ...options })
       await tank.learnFrictionFactor()
+      console.log(JSON.stringify(tank.configuration, null, 2))
+    }
+    if (false) {
+      // await tank.learnFrictionFactor({ ...options })
+      tank.calculateRotateFormulas()
+      const rotation = tank.configuration.rotation
+      console.log(JSON.stringify(tank.configuration, null, 2))
+
+      console.log(`f(${Math.PI*2/1}) == ${tank.calculateFrictionFactor('positive', Math.PI*2/1)} should be ${rotation.positive[1].frictionFactor}`)
+      console.log(`f(${Math.PI*2/4}) == ${tank.calculateFrictionFactor('positive', Math.PI*2/4)} should be ${rotation.positive[4].frictionFactor}`)
+
+      console.log(`f(${Math.PI*2/1}) == ${tank.calculateFrictionFactor('negative', Math.PI*2/1)} should be ${rotation.negative[1].frictionFactor}`)
+      console.log(`f(${Math.PI*2/4}) == ${tank.calculateFrictionFactor('negative', Math.PI*2/4)} should be ${rotation.negative[4].frictionFactor}`)
+      // await tank.learnFrictionFactorHelper('clockwise', 4, options)
+      // await tank.learnFrictionFactorHelper('clockwise', 2, options)
+      // await tank.learnFrictionFactorHelper('clockwise', 1, options)
     }
     if (false) {
       // await tank.moveDrone(-50, 50, { ...options, batched: true })
@@ -584,7 +662,7 @@ async function test() {
     }
 
   } catch (err) {
-    console.error('Error:', err.message);
+    console.error('Error:', err);
   } finally {
     await tank.close();
   }
@@ -592,7 +670,7 @@ async function test() {
 
 // Run the test if file executed directly
 if (require.main === module) {
-  test().catch(console.error);
+  test().catch(console.error)
 }
 
 module.exports = TankClient;
