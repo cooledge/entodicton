@@ -818,7 +818,13 @@
         "forward 2 meters\\ngo back and forth 2 times",
         "what is the speed",
         "what is 2 meters per second in inches per second",
-        "what is the speed in inches per second"
+        "what is the speed in inches per second",
+        "what is the maximum speed",
+        "what is the minimum speed",
+        "what is the highest speed",
+        "what is the lowest speed",
+        "what is the speed in miles per hour",
+        "use inches per second\\nwhat is the speed"
       ],
       "template": [
         "drone is a concept",
@@ -1611,7 +1617,13 @@
         "evaluate 10 meters in inches",
         "evaluate 6 inches in meters",
         "evaluate 2 meters in inches",
-        "evaluate 2+5 inches in feet"
+        "evaluate 2+5 inches in feet",
+        "evaluate 10 miles in meters",
+        "evaluate 19093.4 meters in miles",
+        "use meters",
+        "use inches\\npreferredUnits 2 meters",
+        "evaluate 10 miles in inches",
+        "evaluate 10000 inches in miles"
       ],
       "template": [
         "length is a dimension",
@@ -1634,6 +1646,10 @@
         "inches = meters * 3.28 * 12",
         "meters = inches / 3.28 / 12",
         "miles = 5280 * feet",
+        "inches = 5280 * 12 * miles",
+        "miles = inches / 5280 / 12",
+        "miles = meters / 1909.34",
+        "meters = miles * 1909.34",
         "feet = miles / 5280",
         "kilometers = meters / 1000",
         "meters = kilometers * 1000"
@@ -2259,7 +2275,10 @@
         "miles per hour",
         "10 meters per second",
         "10 meters per second in feet per hour",
-        "evaluate 10 meters per second in feet per hour"
+        "evaluate 10 meters per second in feet per hour",
+        "use inches per second",
+        "evaluate 10 miles per hour in inches per second",
+        "use inches per second\\npreferredUnits 10 miles per hour"
       ],
       "template": [],
       "includes": [
