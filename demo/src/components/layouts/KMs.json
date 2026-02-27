@@ -21,6 +21,7 @@
       "description": "General purpose KM's",
       "includes": [
         "asking",
+        "angle",
         "avatar",
         "comparable",
         "compass",
@@ -127,6 +128,47 @@
     }
   ],
   "modules": [
+    {
+      "name": "angle",
+      "description": "Angle measurements",
+      "examples": [
+        "what is 3.14 radians in degrees",
+        "what is 180 degrees in radians"
+      ],
+      "template": [
+        "angle is a dimension",
+        "degrees and radians are units of angle",
+        "degrees = radians * 180 / pi",
+        "radians = degrees * pi / 180"
+      ],
+      "includes": [
+        "articles",
+        "asking",
+        "comparable",
+        "concept",
+        "conjunction",
+        "countable",
+        "dialogues",
+        "dimension",
+        "evaluate",
+        "formulas",
+        "gdefaults",
+        "hierarchy",
+        "math",
+        "meta",
+        "negation",
+        "numbers",
+        "pos",
+        "properties",
+        "punctuation",
+        "sdefaults",
+        "stm",
+        "testing",
+        "tokenize",
+        "words"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/angle.js"
+    },
     {
       "name": "animals",
       "description": "animals related concepts",
