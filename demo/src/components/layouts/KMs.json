@@ -925,7 +925,9 @@
         "what is the speed and direction of the drone",
         "what is the drone's speed and direction",
         "go east",
-        "go 2 meters then turn east"
+        "go 2 meters then turn east",
+        "turn east\\nturn west",
+        "go forward 2 meters"
       ],
       "template": [
         "drone is a concept",
