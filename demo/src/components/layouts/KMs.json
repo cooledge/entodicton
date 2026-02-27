@@ -200,9 +200,14 @@
       ],
       "template": [],
       "includes": [
+        "articles",
         "conjunction",
+        "evaluate",
         "gdefaults",
+        "pos",
+        "punctuation",
         "sdefaults",
+        "stm",
         "tokenize",
         "words"
       ],
@@ -432,7 +437,12 @@
       ],
       "template": [],
       "includes": [
+        "articles",
+        "evaluate",
         "gdefaults",
+        "pos",
+        "punctuation",
+        "stm",
         "tokenize",
         "words"
       ],
@@ -741,13 +751,6 @@
       "name": "dimension",
       "description": "Used to define numeric temperature such as currency, temperature or weight",
       "examples": [
-        "10 degrees",
-        "degrees",
-        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 degrees fahrenheit",
-        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 celcius",
-        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 degrees celcius",
-        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\n10 degrees celcius in fahrenheit",
-        "temperature is a dimension\\nfahrenheit celcius and kelvin are units of temperature\\nfahrenheit = celcius*9/5 + 32\\nwhat is 10 degrees celcius in fahrenheit",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1 ",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhat is the reason",
         "c1 is a dimension\\na1 and b1 are units of d1\\nwhat are 10 a1 in b1\\nwhy",
@@ -755,9 +758,13 @@
         "imperial system",
         "measurement system",
         "what are the measurement systems",
-        "use the metric system"
+        "use the metric system",
+        "length is a dimension\\nmeters and inches are units of length\\n10 meters",
+        "length is a dimension\\nmeters and inches are units of length\\n10 inches in meters",
+        "length is a dimension\\nmeters and inches are units of length\\nmeters = inches / 3.28 / 12\\nwhat is 10 inches in meters"
       ],
       "template": [
+        "amount is a concept",
         "measurement modifies unit",
         "dimension and measurement unit are concepts",
         "unit means measurement unit",
@@ -824,7 +831,19 @@
         "what is the highest speed",
         "what is the lowest speed",
         "what is the speed in miles per hour",
-        "use inches per second\\nwhat is the speed"
+        "use inches per second\\nwhat is the speed",
+        "what is the direction",
+        "evaluate the drone direction",
+        "evaluate the direction of the drone",
+        "what is the speed of the drone",
+        "what is the drone's speed",
+        "what is the drone's direction",
+        "what is the direction of the drone",
+        "what is the speed and direction",
+        "what is the speed and direction of the drone",
+        "what is the drone's speed and direction",
+        "go east",
+        "go 2 meters then turn east"
       ],
       "template": [
         "drone is a concept",
@@ -833,12 +852,15 @@
         "speed and power are comparable",
         "speed is a quantity",
         "point is a concept",
-        "points are nameable orderable and memorable"
+        "points are nameable orderable and memorable",
+        "drone modifies direction"
       ],
       "includes": [
+        "angle",
         "articles",
         "asking",
         "comparable",
+        "compass",
         "concept",
         "conjunction",
         "countable",
