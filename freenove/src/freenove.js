@@ -134,7 +134,8 @@ const DEBUG = true;
   if (false) {
     // const response = await drone.query("around")
     // const response = await drone.query("forward 1 foot\ngo back and forth 2 times")
-    const response = await drone.query("forward").catch(e => console.error(e))
+    const response = await drone.query("what is the speed").catch(e => console.error(e))
+    console.log(response)
     // const response = await drone.query("forward 1000 meters per second")
     // const response = await drone.query("forward 1 foot\ngo back")
     // const response = await drone.query("forward 1 foot\nbackward 1 foot")
@@ -169,7 +170,12 @@ const DEBUG = true;
       } else if (command.startsWith('echo ')) {
         console.log('→ ' + command.slice(5));
       } else if (command) {
-        await drone.query(command)
+        const result = await drone.query(command)
+        for (const response of result.responses) {
+          if (response) {
+            console.log(response)
+          }
+        }
         // console.log(`Unknown command: "${command}"`);
         // console.log('Type "help" for available commands');
       }
