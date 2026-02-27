@@ -23,6 +23,7 @@
         "asking",
         "avatar",
         "comparable",
+        "compass",
         "concept",
         "countable",
         "evaluate",
@@ -398,6 +399,45 @@
         "words"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
+    },
+    {
+      "name": "compass",
+      "description": "Compass dimension",
+      "examples": [
+        "what is the compass direction"
+      ],
+      "template": [
+        "compass modifies direction",
+        "northwest, northeast, southwest and southeast are compass directions",
+        "north, south, east and west are compass directions"
+      ],
+      "includes": [
+        "articles",
+        "asking",
+        "comparable",
+        "concept",
+        "conjunction",
+        "countable",
+        "dialogues",
+        "dimension",
+        "evaluate",
+        "formulas",
+        "gdefaults",
+        "hierarchy",
+        "math",
+        "meta",
+        "negation",
+        "numbers",
+        "pos",
+        "properties",
+        "punctuation",
+        "sdefaults",
+        "stm",
+        "testing",
+        "tokenize",
+        "words"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/compass.js"
     },
     {
       "name": "concept",
