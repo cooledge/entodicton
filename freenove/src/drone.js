@@ -163,6 +163,30 @@ class TankClient {
     return this.configuration.maximumSpeedForward
   }
 
+  async armActionDrone(action, options) {
+    let command
+    if (action == 'up') {
+      command = `CMD_SERVO#1#140#`
+    } else if (action == 'down') {
+      command = `CMD_SERVO#1#90#`
+    }
+    if (command) {
+      return await this.processCommand(command, options);
+    }
+  }
+
+  async clawActionDrone(action, options) {
+    let command
+    if (action == 'open') {
+      command = `CMD_SERVO#0#0#`
+    } else if (action == 'close') {
+      command = `CMD_SERVO#0#150#`
+    }
+    if (command) {
+      return await this.processCommand(command, options);
+    }
+  }
+
   async pauseDrone(durationInSeconds, options) {
     return await this.processCommand(`CMD_PAUSE#${Math.round(durationInSeconds*1000)}#`, options);
   }
@@ -487,7 +511,8 @@ class TankClient {
     return total/successes
   }
 
-  async tiltAngleDrone(angle) {
+  async tiltAngleDrone(huh, angle, options = {}) {
+    return await this.processCommand(`CMD_SERVO#${huh}#${angle}#`, options);
   }
 
   async stopDrone(options) {
@@ -581,9 +606,10 @@ async function test() {
         await sleep(500)
       }
     }
-    if (true) {
+    if (false) {
       // await tank.configureDrone()
-      await tank.rotateDrone(-Math.PI*2/4, { times: 1 })
+      await tank.tiltAngleDrone(1, 45)
+      // await tank.rotateDrone(-Math.PI*2/4, { times: 1 })
       // await tank.sonicDrone({ times: 3 })
     }
     if (false) {

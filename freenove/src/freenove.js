@@ -46,6 +46,20 @@ const DEBUG = true;
         await tank.pauseDrone(durationInSeconds, options)
       }
 
+      async armActionDrone(action, options) {
+        if (DEBUG) {
+          console.log("armAction", action)
+        }
+        await tank.armActionDrone(action, options)
+      }
+
+      async clawActionDrone(action, options) {
+        if (DEBUG) {
+          console.log("clawAction", action)
+        }
+        await tank.clawActionDrone(action, options)
+      }
+
       async forwardDrone(speed, options) {
         if (DEBUG) {
           console.log("forward", speed, 'm/s')
@@ -134,7 +148,8 @@ const DEBUG = true;
   if (false) {
     // const response = await drone.query("around")
     // const response = await drone.query("forward 1 foot\ngo back and forth 2 times")
-    const response = await drone.query("what is the speed").catch(e => console.error(e))
+    // const response = await drone.query("what is the speed").catch(e => console.error(e))
+    const response = await drone.query("lower the arm").catch(e => console.error(e))
     console.log(response)
     // const response = await drone.query("forward 1000 meters per second")
     // const response = await drone.query("forward 1 foot\ngo back")
