@@ -14,6 +14,9 @@ const DEBUG = true;
 
 (async () => {
   const drone = await tpmkms.drone()
+  if (process.env.GREG) {
+    drone.server('http://localhost:3000', '6804954f-e56d-471f-bbb8-08e3c54d9321')
+  }
   const tank = new TankClient('192.168.0.92', 5003);
   await tank.connect();
 
@@ -130,8 +133,8 @@ const DEBUG = true;
 
   if (false) {
     // const response = await drone.query("around")
-    const response = await drone.query("forward 1 foot\ngo back and forth 2 times")
-    // const response = await drone.query("forward")
+    // const response = await drone.query("forward 1 foot\ngo back and forth 2 times")
+    const response = await drone.query("forward").catch(e => console.error(e))
     // const response = await drone.query("forward 1000 meters per second")
     // const response = await drone.query("forward 1 foot\ngo back")
     // const response = await drone.query("forward 1 foot\nbackward 1 foot")
