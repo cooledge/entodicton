@@ -940,11 +940,20 @@
         "turn right 2 times",
         "34 degrees",
         "turn right 34 degrees",
-        "turn left 45 degrees"
+        "turn left 45 degrees",
+        "turn right 2 times\\nturn around",
+        "raise the arm",
+        "raise the claw",
+        "lower the claw",
+        "north 1 foot",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\npatrol 1",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1"
       ],
       "template": [
         "arm, claw and drone are concepts",
         "around, forward, left, right, and backward are directions",
+        "paths are nameable and memorable",
         "speed and power are properties",
         "speed and power are comparable",
         "speed is a quantity",
