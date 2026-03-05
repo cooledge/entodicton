@@ -516,7 +516,8 @@ class TankClient {
   }
 
   async stopDrone(options) {
-    return await this.processCommand('CMD_MOTOR#0#0#', options);
+    await this.processCommand('CMD_MOTOR#0#0#', { ...options, batched: true });
+    await this.pauseDrone(0.2, options)
   }
 
   async startRepeatsDrone(n) {
