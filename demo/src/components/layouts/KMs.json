@@ -948,12 +948,22 @@
         "north 1 foot",
         "north 1 foot\\neast 2 feet\\ncall the path patrol 1",
         "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\npatrol 1",
-        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1"
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1\\nevaluate the start of patrol 1",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1\\nevaluate the end of patrol 1",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1\\ngo to the start of patrol 1",
+        "forward 1 meter\\nwest 1 meter",
+        "forward 1 meter",
+        "forward 1 meter\\nwest 1 meter\\ncall the path patrol 1\\ndo patrol 1",
+        "forward 1 meter\\nwest 1 meter\\ncall the path patrol 1\\ndo patrol 1\\ndo patrol 1",
+        "what is 0.5934 radians in degrees"
       ],
       "template": [
         "arm, claw and drone are concepts",
         "around, forward, left, right, and backward are directions",
         "paths are nameable and memorable",
+        "start and end are properties of path",
+        "start and end are points",
         "speed and power are properties",
         "speed and power are comparable",
         "speed is a quantity",
