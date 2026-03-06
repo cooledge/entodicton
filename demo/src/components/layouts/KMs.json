@@ -218,7 +218,12 @@
         "the theable",
         "a theable",
         "every distributable",
-        "each distributable"
+        "each distributable",
+        "this theable",
+        "this",
+        "this thisable",
+        "that thisable",
+        "that"
       ],
       "template": [],
       "includes": [
@@ -956,7 +961,14 @@
         "forward 1 meter",
         "forward 1 meter\\nwest 1 meter\\ncall the path patrol 1\\ndo patrol 1",
         "forward 1 meter\\nwest 1 meter\\ncall the path patrol 1\\ndo patrol 1\\ndo patrol 1",
-        "what is 0.5934 radians in degrees"
+        "what is 0.5934 radians in degrees",
+        "forward 1 foot\\ncall the path route 1\\ngo back\\npatrol route 1",
+        "north 1 foot\\ncall the path patrol 1\\nwhat is the end of patrol 1",
+        "forward 1 foot\\ncall the path route 1\\npatrol route 1 3 times",
+        "forward 1 foot\\ncall this path route 1",
+        "forward 1 foot\\ncall this route 1",
+        "forward 1 foot\\ncall that path route 1",
+        "forward 1 foot\\ncall that route 1"
       ],
       "template": [
         "arm, claw and drone are concepts",
