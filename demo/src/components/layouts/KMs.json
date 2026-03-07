@@ -968,7 +968,8 @@
         "forward 1 foot\\ncall this path route 1",
         "forward 1 foot\\ncall this route 1",
         "forward 1 foot\\ncall that path route 1",
-        "forward 1 foot\\ncall that route 1"
+        "forward 1 foot\\ncall that route 1",
+        "turn left go forward 1 foot"
       ],
       "template": [
         "arm, claw and drone are concepts",
