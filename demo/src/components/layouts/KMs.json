@@ -969,7 +969,12 @@
         "forward 1 foot\\ncall this route 1",
         "forward 1 foot\\ncall that path route 1",
         "forward 1 foot\\ncall that route 1",
-        "turn left go forward 1 foot"
+        "turn left go forward 1 foot",
+        "for 10 seconds",
+        "pause for 10 seconds",
+        "pause 10 seconds",
+        "forward 1 meter\\npause for 10 seconds",
+        "forward 1 foot\\npause 10 seconds\\ngo back"
       ],
       "template": [
         "arm, claw and drone are concepts",
@@ -1978,7 +1983,8 @@
         "remember m1\\ncall the m1 banana\\ngetnamesbytype m1",
         "remember m1\\ncall the m1 banana\\nbanana",
         "remember m1\\ncall the m1 peter james chunkington\\npeter james chunkington",
-        "call nameable fred"
+        "call nameable fred",
+        "remember m1\\nthe m1 is called banana"
       ],
       "template": [],
       "includes": [
@@ -2878,7 +2884,8 @@
         "@ 10 pm",
         "evaluate 2 hours in minutes",
         "evaluate 120 seconds in hours",
-        "2 hours in minutes"
+        "2 hours in minutes",
+        "for 10 seconds"
       ],
       "template": [
         "years hours minutes and seconds are units of time",
