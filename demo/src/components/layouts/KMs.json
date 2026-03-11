@@ -50,6 +50,7 @@
       "name": "Language",
       "description": "Knowledge related to language",
       "includes": [
+        "actions",
         "articles",
         "nameable",
         "conjunction",
@@ -128,6 +129,32 @@
     }
   ],
   "modules": [
+    {
+      "name": "actions",
+      "description": "Actions using the word do",
+      "examples": [
+        "do action",
+        "action again"
+      ],
+      "template": [],
+      "includes": [
+        "articles",
+        "asking",
+        "conjunction",
+        "dialogues",
+        "evaluate",
+        "gdefaults",
+        "meta",
+        "negation",
+        "pos",
+        "punctuation",
+        "sdefaults",
+        "stm",
+        "tokenize",
+        "words"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/actions.js"
+    },
     {
       "name": "angle",
       "description": "Angle measurements",
@@ -974,11 +1001,15 @@
         "pause for 10 seconds",
         "pause 10 seconds",
         "forward 1 meter\\npause for 10 seconds",
-        "forward 1 foot\\npause 10 seconds\\ngo back"
+        "forward 1 foot\\npause 10 seconds\\ngo back",
+        "forward 1 foot\\npause 10 seconds\\ngo back\\ncall that path route 1",
+        "forward 1 foot\\npause 10 seconds\\ngo back\\ncall that path route 1\\ndo route 1",
+        "back",
+        "forward 1 foot\\nback and forth"
       ],
       "template": [
         "arm, claw and drone are concepts",
-        "around, forward, left, right, and backward are directions",
+        "around, forward, left, right, back, forth and backward are directions",
         "paths are nameable and memorable",
         "start and end are properties of path",
         "start and end are points",
@@ -990,6 +1021,7 @@
         "drone modifies direction"
       ],
       "includes": [
+        "actions",
         "angle",
         "articles",
         "asking",
