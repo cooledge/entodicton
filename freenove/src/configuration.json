@@ -13,15 +13,15 @@
   "rotation": {
     "positive": {
       "1": {
-        "frictionFactor": -0.3125,
+        "frictionFactor": -0.2579584608751772,
         "speedIncrease": 0.3
       },
       "4": {
-        "frictionFactor": -0.1875,
+        "frictionFactor": -0.14386676870014176,
         "speedIncrease": 0.3
       },
-      "m": -0.026525823848649224,
-      "b": -0.14583333333333334,
+      "m": -0.024211009033834413,
+      "b": -0.1058362046417966,
       "speedIncrease": 0.3
     },
     "negative": {
@@ -30,11 +30,11 @@
         "speedIncrease": 0.3
       },
       "4": {
-        "frictionFactor": -0.203125,
+        "frictionFactor": -0.13767515305021263,
         "speedIncrease": 0.3
       },
-      "m": -0.029841551829730376,
-      "b": -0.15625,
+      "m": -0.04373044071861927,
+      "b": -0.06898353740028351,
       "speedIncrease": 0.3
     }
   }

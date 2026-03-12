@@ -12,7 +12,7 @@ function sleep(ms) {
 const MAX_POWER = 4095;
 const POWER_INCREMENT = 100;
 const MIN_DISTANCE_FOR_CALIBRATION_IN_CM = 10
-const DEBUG = false
+const DEBUG = true
 const BLOCKING = false
 
 function percentToPower(percent) {
@@ -200,7 +200,7 @@ class TankClient {
   }
 
   async moveDrone(speedLeft, speedRight, options) {
-    if (this.debug) {
+    if (this.debug && !options.debugOff) {
       console.log("speedLeftIn", speedLeft)
       console.log("speedRightIn", speedRight)
     }
@@ -212,7 +212,7 @@ class TankClient {
       powerLeft = this.forwardSpeedToPower(speedLeft)
       powerRight = this.backwardSpeedToPower(speedRight)
     }
-    if (this.debug) {
+    if (this.debug && !options.debugOff) {
       console.log(JSON.stringify(this.configuration, null, 2))
       console.log("powerLeft", powerLeft)
       console.log("powerRight", powerRight)
@@ -296,23 +296,35 @@ class TankClient {
 
     await this.readLine(`The drone will rotate ${direction.toUpperCase()} once times in ${times} turn(s). Notice if the drone rotates too long or too short of one rotation. This will be used to calculate a factor that accounts for friction in the ${direction} rotation. Getting within 5 degrees after three rotations is about as good as my drone gets. Press enter to continue`)
     const properties = this.configuration.rotation[factor < 0 ? 'negative' : 'positive'][times]
-    let current = 0
+    let current = properties.frictionFactor || 0
     // greg55
+
+    const shiftAmount = (Math.PI / 180) * 5 // shift over five degrees maybe some of the earlier answers were wrong
 
     let lrff, srff
     // const fakeInput = ['s', 'l', 's']
     properties.frictionFactor = 0
-    properties.speedIncrease = 0.30 // the sometimes needs to go faster than the minimum power
+    properties.speedIncrease = properties.speedIncrease || 0.30 // the sometimes needs to go faster than the minimum power
+    if (properties.speedIncrease) {
+      lrff = current + shiftAmount
+      srff = current - shiftAmount
+    } else {
+      properties.speedIncrease = 0.30 // the sometimes needs to go faster than the minimum power
+    }
+    let consecutiveShortCounter = 0
+    let consecutiveLongCounter = 0
     while (true) {
       if (this.debug) {
         console.log(`\nsrff/current/lrff ${srff}/${current}/${lrff}`)
       }
       properties.frictionFactor = current
       if (this.debug) {
-        console.log(JSON.stringify(this.configuration, null, 2))
+        // console.log(JSON.stringify(this.configuration, null, 2))
         console.log(JSON.stringify(this.properties, null, 2))
+        console.log("srff", srff)
+        console.log("lrff", lrff)
       }
-      this.rotateDrone(2*Math.PI*factor/times, { ...options, times, pause: 0.2, rotateFrictionFactor: current, speedIncrease: properties.speedIncrease })
+      this.rotateDrone(2*Math.PI*factor/times, { ...options, times, pause: 0.2, rotateFrictionFactor: current, speedIncrease: properties.speedIncrease, debugOff: true })
       const result = await this.readLine(`Was the rotation short or long of one full rotation, (s for short, l for long, r for repeat, f for drone needs to rotate faster, 0 for restart,  or d for done)?`)
       // const result = fakeInput.pop()
       if (result == 's') {
@@ -326,14 +338,29 @@ class TankClient {
           srff = current
           current += (lrff-current) / 2
         }
-      } else if (result == 'f' || result == '0') {
-          lrff = null
-          srff = null
-          current = 0
-          if (result == 'f') {
-            properties.speedIncrease += 0.05
+        consecutiveShortCounter += 1
+        consecutiveLongCounter = 0
+        if (consecutiveShortCounter > 1) {
+          if (Math.abs(srff-lrff) < shiftAmount) {
+            consecutiveShortCounter = 0
+            lrff += shiftAmount
+            if (this.debug) {
+              console.log("doing the short adjust for consecutive failures")
+            }
+          } else {
+            consecutiveShortCounter = 0
           }
-          properties.frictionFactor = 0
+        }
+      } else if (result == 'f' || result == '0') {
+        lrff = null
+        srff = null
+        current = 0
+        if (result == 'f') {
+          properties.speedIncrease += 0.05
+        }
+        properties.frictionFactor = 0
+        consecutiveShortCounter = 0
+        consecutiveLongCounter = 0
       } else if (result == 'l') {
         if (lrff == null) {
           lrff = current
@@ -344,6 +371,19 @@ class TankClient {
         } else {
           lrff = current
           current += (srff-current) / 2
+        }
+        consecutiveShortCounter = 0
+        consecutiveLongCounter += 1
+        if (consecutiveLongCounter > 1) {
+          if (Math.abs(srff-lrff) < shiftAmount) {
+            consecutiveLongCounter = 0
+            srff -= shiftAmount
+            if (this.debug) {
+              console.log("doing the long adjust for consecutive failures")
+            }
+          } else {
+            consecutiveLongCounter = 0
+          }
         }
       } else if (result == 'd') {
         console.log(JSON.stringify(this.calibration, null, 2))

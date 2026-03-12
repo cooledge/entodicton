@@ -12,3 +12,4 @@ west 1 foot
 call the path route 1
 go to the start of route 1
 patrol route 1
+patrol route 1
