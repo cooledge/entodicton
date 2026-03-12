@@ -12,7 +12,7 @@ function sleep(ms) {
 const MAX_POWER = 4095;
 const POWER_INCREMENT = 100;
 const MIN_DISTANCE_FOR_CALIBRATION_IN_CM = 10
-const DEBUG = true
+const DEBUG = false
 const BLOCKING = false
 
 function percentToPower(percent) {
@@ -649,9 +649,10 @@ async function test() {
     }
     if (false) {
       // await tank.configureDrone()
-      await tank.tiltAngleDrone(1, 45)
-      // await tank.rotateDrone(-Math.PI*2/4, { times: 1 })
+      // await tank.tiltAngleDrone(1, 45)
+      await tank.rotateDrone((Math.PI/180)*135, { times: 1 })
       // await tank.sonicDrone({ times: 3 })
+      return
     }
     if (false) {
       await tank.learnFrictionFactor()
