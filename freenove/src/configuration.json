@@ -12,30 +12,30 @@
   "maximumSpeedBackward": 1.0828999999999998,
   "rotation": {
     "positive": {
-      "1": {
-        "frictionFactor": -0.2579584608751772,
-        "speedIncrease": 0.3
+      "8": {
+        "frictionFactor": -0.07090400086226964,
+        "speedIncrease": 0.5
       },
-      "4": {
-        "frictionFactor": -0.14386676870014176,
-        "speedIncrease": 0.3
+      "24": {
+        "frictionFactor": 0.29316077279592256,
+        "speedIncrease": 0.5
       },
-      "m": -0.024211009033834413,
-      "b": -0.1058362046417966,
-      "speedIncrease": 0.3
+      "m": -0.6953125,
+      "b": 0.47,
+      "speedIncrease": 0.5
     },
     "negative": {
-      "1": {
-        "frictionFactor": -0.34375,
-        "speedIncrease": 0.3
+      "8": {
+        "frictionFactor": -0.06408630847166677,
+        "speedIncrease": 0.5
       },
-      "4": {
-        "frictionFactor": -0.13767515305021263,
-        "speedIncrease": 0.3
+      "24": {
+        "frictionFactor": 0.2781640030179437,
+        "speedIncrease": 0.5
       },
-      "m": -0.04373044071861927,
-      "b": -0.06898353740028351,
-      "speedIncrease": 0.3
+      "m": -0.6536499461797488,
+      "b": 0.4492887251330425,
+      "speedIncrease": 0.5
     }
   }
 }

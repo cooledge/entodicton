@@ -14,6 +14,12 @@ const POWER_INCREMENT = 100;
 const MIN_DISTANCE_FOR_CALIBRATION_IN_CM = 10
 const DEBUG = false
 const BLOCKING = false
+const BIG_ANGLE = 360/45
+const SMALL_ANGLE = 360/15
+const BIG_ANGLE_RADIANS = Math.PI*2/BIG_ANGLE
+const SMALL_ANGLE_RADIANS = Math.PI*2/SMALL_ANGLE
+const MAX_COMMAND_LENGTH = 50 
+const DEFAULT_ROTATE_SPEED_INCREATE = 0.5
 
 function percentToPower(percent) {
   return percent * MAX_POWER / 100
@@ -46,20 +52,46 @@ class TankClient {
     if (this.commandQueue.length == 0) {
       return
     } 
-
+    
     let batchCMD = 'CMD_MULTI'
     // eg: tank.send(`CMD_MULTI$CMD_MOTOR#1000#1000#$CMD_PAUSE#2000#$CMD_MOTOR#0#0#`);
     let separator = '$'
+
+    const parts = []
+
+    let commands = ''
     for (const cmd of this.commandQueue) {
-      batchCMD += separator + cmd
+      commands += separator + cmd
+      if (commands.length + MAX_COMMAND_LENGTH >= 1024) {
+        parts.push(commands)
+        commands = ''
+      }
     }
+
+    if (commands) {
+      parts.push(commands)
+      commands = ''
+    }
+
+    this.commandQueue = []
+
+    debugger
+    await this.send("CMD_MULTI_START", { awaitDone: true })
+    for (const part of parts) {
+      await this.send(`CMD_MULTI_PART${part}`, { awaitDone: true })
+    }
+    return await this.send("CMD_MULTI_END", { awaitDone: true })
+
+    /*
     this.commandQueue = []
     console.log("batchCMD", batchCMD)
     return await this.send(batchCMD, { awaitDone: true })
+    */
   }
 
   async processCommand(cmd, options = {}) {
     // return await this.send(cmd)
+    // console.log('sending this command', cmd)
     this.commandQueue.push(cmd)
     if (options.batched) {
       return
@@ -199,6 +231,14 @@ class TankClient {
     return Math.round((speed / this.configuration.maximumSpeedBackward) * MAX_POWER)
   }
 
+  speedToPower(speed) {
+    if (speed < 0) {
+      return this.backwardSpeedToPower(speed)
+    } else {
+      return this.forwardSpeedToPower(speed)
+    }
+  }
+
   async moveDrone(speedLeft, speedRight, options) {
     if (this.debug && !options.debugOff) {
       console.log("speedLeftIn", speedLeft)
@@ -209,8 +249,8 @@ class TankClient {
       powerLeft = speedLeft
       powerRight = speedRight
     } else {
-      powerLeft = this.forwardSpeedToPower(speedLeft)
-      powerRight = this.backwardSpeedToPower(speedRight)
+      powerLeft = this.speedToPower(speedLeft)
+      powerRight = this.speedToPower(speedRight)
     }
     if (this.debug && !options.debugOff) {
       console.log(JSON.stringify(this.configuration, null, 2))
@@ -221,10 +261,10 @@ class TankClient {
   }
 
   // Movement methods – now return server response
-  async forwardDrone(speed, options) {
+  async forwardDrone(speed, options = {}) {
     if (!options.skipPause) {
       await this.stopDrone(options)
-      await this.pauseDrone(0.1, options)
+      // await this.pauseDrone(0.1, options)
     }
     return await this.moveDrone(speed, speed, options)
   }
@@ -248,23 +288,18 @@ class TankClient {
 
   async learnFrictionFactor(options) {
     const rotation = this.configuration.rotation
-    if (!rotation.positive) {
-      rotation.positive = {
-        1: {},
-        4: {},
-      }
-    }
-    if (!rotation.negative) {
-      rotation.negative = {
-        1: {},
-        4: {},
-      }
-    }
+    rotation.positive ??= {};
+    rotation.negative ??= {};
 
-    await this.learnFrictionFactorHelper('clockwise', 1, options)
-    await this.learnFrictionFactorHelper('clockwise', 4, options)
-    await this.learnFrictionFactorHelper('counter clockwise', 1, options)
-    await this.learnFrictionFactorHelper('counter clockwise', 4, options)
+    rotation.positive[BIG_ANGLE]   ??= {};
+    rotation.positive[SMALL_ANGLE] ??= {};
+    rotation.negative[BIG_ANGLE]   ??= {};
+    rotation.negative[SMALL_ANGLE] ??= {};
+
+    await this.learnFrictionFactorHelper('clockwise', BIG_ANGLE, options)
+    await this.learnFrictionFactorHelper('clockwise', SMALL_ANGLE, options)
+    await this.learnFrictionFactorHelper('counter clockwise', BIG_ANGLE, options)
+    await this.learnFrictionFactorHelper('counter clockwise', SMALL_ANGLE, options)
     
     this.calculateRotateFormulas()
   }
@@ -272,11 +307,11 @@ class TankClient {
   // x is radians
   // y is frictionFactor
   calculateRotateFormulasHelper(points) {
-    const rise = points[1].frictionFactor - points[4].frictionFactor
-    const run = (Math.PI*2/1 - Math.PI*2/4)
+    const rise = points[BIG_ANGLE].frictionFactor - points[SMALL_ANGLE].frictionFactor
+    const run = (Math.PI*2/BIG_ANGLE - Math.PI*2/SMALL_ANGLE)
     points.m = rise/run
-    points.b = points[1].frictionFactor - points.m*Math.PI*2/1
-    points.speedIncrease = Math.max(points[1].speedIncrease, points[4].speedIncrease) 
+    points.b = points[BIG_ANGLE].frictionFactor - points.m*Math.PI*2/BIG_ANGLE
+    points.speedIncrease = Math.max(points[BIG_ANGLE].speedIncrease, points[SMALL_ANGLE].speedIncrease) 
   }
 
   calculateRotateFormulas() {
@@ -294,7 +329,7 @@ class TankClient {
     const factor = (direction == 'clockwise' ? -1 : 1)
     const rffInc = 0.25
 
-    await this.readLine(`The drone will rotate ${direction.toUpperCase()} once times in ${times} turn(s). Notice if the drone rotates too long or too short of one rotation. This will be used to calculate a factor that accounts for friction in the ${direction} rotation. Getting within 5 degrees after three rotations is about as good as my drone gets. Press enter to continue`)
+    await this.readLine(`The drone will rotate ${direction.toUpperCase()} one full circle in ${times} turn(s). Notice if the drone rotates too long or too short of one rotation. This will be used to calculate a factor that accounts for friction in the ${direction} rotation. Press enter to continue`)
     const properties = this.configuration.rotation[factor < 0 ? 'negative' : 'positive'][times]
     let current = properties.frictionFactor || 0
     // greg55
@@ -304,12 +339,12 @@ class TankClient {
     let lrff, srff
     // const fakeInput = ['s', 'l', 's']
     properties.frictionFactor = 0
-    properties.speedIncrease = properties.speedIncrease || 0.30 // the sometimes needs to go faster than the minimum power
+    properties.speedIncrease = properties.speedIncrease || DEFAULT_ROTATE_SPEED_INCREATE // the sometimes needs to go faster than the minimum power
     if (properties.speedIncrease) {
       lrff = current + shiftAmount
       srff = current - shiftAmount
     } else {
-      properties.speedIncrease = 0.30 // the sometimes needs to go faster than the minimum power
+      properties.speedIncrease = DEFAULT_ROTATE_SPEED_INCREATE // the sometimes needs to go faster than the minimum power
     }
     let consecutiveShortCounter = 0
     let consecutiveLongCounter = 0
@@ -324,7 +359,7 @@ class TankClient {
         console.log("srff", srff)
         console.log("lrff", lrff)
       }
-      this.rotateDrone(2*Math.PI*factor/times, { ...options, times, pause: 0.2, rotateFrictionFactor: current, speedIncrease: properties.speedIncrease, debugOff: true })
+      this.rotateDroneInternal(2*Math.PI*factor/times, { ...options, times, pause: 0.2, rotateFrictionFactor: current, speedIncrease: properties.speedIncrease, debugOff: true })
       const result = await this.readLine(`Was the rotation short or long of one full rotation, (s for short, l for long, r for repeat, f for drone needs to rotate faster, 0 for restart,  or d for done)?`)
       // const result = fakeInput.pop()
       if (result == 's') {
@@ -480,9 +515,42 @@ class TankClient {
     fs.writeFileSync('./configuration.json', json)
   }
 
-  async rotateDrone(angleInRadians, options) {
-    console.log("rotate", angleInRadians)
+  async rotateDrone(angleInRadians, options = {}) {
+    const DEBUG = true
+    const sign = angleInRadians < 0 ? -1 : 1
+    angleInRadians = Math.abs(angleInRadians)
+    const bigAngleRotates = Math.floor(angleInRadians / BIG_ANGLE_RADIANS)
+    angleInRadians -= BIG_ANGLE_RADIANS*bigAngleRotates
+    const smallAngleRotates = Math.floor(angleInRadians / SMALL_ANGLE_RADIANS)
+    angleInRadians -= SMALL_ANGLE_RADIANS*smallAngleRotates
+    if (DEBUG) {
+      console.log("bigAngleRotates: ", bigAngleRotates)
+      console.log("smallAngleRotates: ", smallAngleRotates)
+      console.log("sign: ", sign)
+    }
+    if (bigAngleRotates) {
+      await this.rotateDroneInternal(sign*BIG_ANGLE_RADIANS, { ...options, batched: true, times: bigAngleRotates })
+    }
+    if (smallAngleRotates) {
+      await this.rotateDroneInternal(sign*SMALL_ANGLE_RADIANS, { ...options, batched: true, times: smallAngleRotates })
+    }
+    if (angleInRadians) {
+      await this.rotateDroneInternal(sign*angleInRadians, { ...options, batched: true })
+    }
+    if (!options.batch && (bigAngleRotates || smallAngleRotates)) {
+      await this.sendBatchDrone()
+    }
+  }
+
+  async rotateDroneInternal(angleInRadians, options) {
+    const DEBUG = true
+    if (DEBUG) {
+      console.log("rotate", angleInRadians)
+    }
     const { times = 1, pause = 0 } = options
+    if (DEBUG) {
+      console.log("times", times)
+    }
     const { widthOfTankInMM, widthOfTreadInMM, speedForward, speedBackward } = this.configuration
     const direction = angleInRadians > 0 ? 'positive' : 'negative'
     const rotation = this.configuration.rotation[direction]
@@ -491,7 +559,7 @@ class TankClient {
     if (options.rotateFrictionFactor == null) {
       rotateFrictionFactor = this.calculateFrictionFactor(direction, angleInRadians)
       speedIncrease = rotation.speedIncrease
-      if (this.debug) {
+      if (DEBUG) {
         console.log(`angleInRadians = ${angleInRadians}`)
         console.log(`direction = ${direction}`)
         console.log(`rotateFrictionFactor = ${rotateFrictionFactor}`)
@@ -510,7 +578,7 @@ class TankClient {
     speed = speedRotate
 
     for (let i = 0; i < times; ++i ) {
-      await this.stopDrone({ ...options, batched: true })
+      await this.stopDrone({ ...options, batched: true, skipPause: true })
       await this.pauseDrone(0.25, { ...options, batched: true })
       if (angleInRadians < 0) { 
         await this.moveDrone(speed, -speed, { ...options, batched: true })
@@ -518,7 +586,7 @@ class TankClient {
         await this.moveDrone(-speed, speed, { ...options, batched: true })
       }
       await this.pauseDrone(t, { ...options, batched: true })
-      await this.stopDrone({ ...options, batched: true })
+      await this.stopDrone({ ...options, batched: true, skipPause: true })
       if (pause) {
         await this.pauseDrone(pause, { ...options, batched: true })
       }
@@ -650,9 +718,16 @@ async function test() {
     if (false) {
       // await tank.configureDrone()
       // await tank.tiltAngleDrone(1, 45)
-      await tank.rotateDrone((Math.PI/180)*135, { times: 1 })
+      await tank.rotateDroneInternal((Math.PI/180)*45, { times: 1 })
       // await tank.sonicDrone({ times: 3 })
       return
+    }
+    if (true) {
+      debugger
+      // response = await tank.forwardDrone(2000, { skipPause: true, usingPower: true });
+      // await sleep(500)
+      // response = await tank.stopDrone();
+      await tank.rotateDrone(-Math.PI/4)
     }
     if (false) {
       await tank.learnFrictionFactor()
