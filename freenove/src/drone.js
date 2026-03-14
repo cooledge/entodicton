@@ -19,7 +19,7 @@ const SMALL_ANGLE = 360/15
 const BIG_ANGLE_RADIANS = Math.PI*2/BIG_ANGLE
 const SMALL_ANGLE_RADIANS = Math.PI*2/SMALL_ANGLE
 const MAX_COMMAND_LENGTH = 50 
-const DEFAULT_ROTATE_SPEED_INCREATE = 0.5
+const DEFAULT_ROTATE_SPEED_INCREASE = 0.5
 
 function percentToPower(percent) {
   return percent * MAX_POWER / 100
@@ -75,7 +75,6 @@ class TankClient {
 
     this.commandQueue = []
 
-    debugger
     await this.send("CMD_MULTI_START", { awaitDone: true })
     for (const part of parts) {
       await this.send(`CMD_MULTI_PART${part}`, { awaitDone: true })
@@ -240,10 +239,15 @@ class TankClient {
   }
 
   async moveDrone(speedLeft, speedRight, options) {
-    if (this.debug && !options.debugOff) {
+    const DEBUG = true
+    const drift = this.configuration.drift
+
+    if (DEBUG) {
       console.log("speedLeftIn", speedLeft)
       console.log("speedRightIn", speedRight)
+      console.log("drift", drift)
     }
+
     let powerLeft, powerRight
     if (options.usingPower) {
       powerLeft = speedLeft
@@ -252,8 +256,37 @@ class TankClient {
       powerLeft = this.speedToPower(speedLeft)
       powerRight = this.speedToPower(speedRight)
     }
-    if (this.debug && !options.debugOff) {
-      console.log(JSON.stringify(this.configuration, null, 2))
+
+    if (DEBUG) {
+      // console.log(JSON.stringify(this.configuration, null, 2))
+      console.log("before drift adjust")
+      console.log("powerLeft", powerLeft)
+      console.log("powerRight", powerRight)
+    }
+
+    if (powerLeft > 0) {
+      if (drift.forward < 0) {
+        powerLeft = powerLeft * (1 + Math.abs(drift.forward))
+      }
+    } else if (powerLeft < 0) {
+      if (drift.backward < 0) {
+        powerLeft = powerLeft * (1 + Math.abs(drift.backward))
+      }
+    }
+
+    if (powerRight > 0) {
+      if (drift.forward > 0) {
+        powerRight = powerRight * (1 + Math.abs(drift.forward))
+      }
+    } else if (powerRight < 0) {
+      if (drift.backward > 0) {
+        powerRight = powerRight * (1 + Math.abs(drift.backward))
+      }
+    }
+
+    if (DEBUG) {
+      // console.log(JSON.stringify(this.configuration, null, 2))
+      console.log("after drift adjust")
       console.log("powerLeft", powerLeft)
       console.log("powerRight", powerRight)
     }
@@ -326,6 +359,7 @@ class TankClient {
   }
 
   async learnFrictionFactorHelper(direction, times, options) {
+    const DEBUG = false
     const factor = (direction == 'clockwise' ? -1 : 1)
     const rffInc = 0.25
 
@@ -339,21 +373,21 @@ class TankClient {
     let lrff, srff
     // const fakeInput = ['s', 'l', 's']
     properties.frictionFactor = 0
-    properties.speedIncrease = properties.speedIncrease || DEFAULT_ROTATE_SPEED_INCREATE // the sometimes needs to go faster than the minimum power
+    properties.speedIncrease = properties.speedIncrease || DEFAULT_ROTATE_SPEED_INCREASE // the sometimes needs to go faster than the minimum power
     if (properties.speedIncrease) {
       lrff = current + shiftAmount
       srff = current - shiftAmount
     } else {
-      properties.speedIncrease = DEFAULT_ROTATE_SPEED_INCREATE // the sometimes needs to go faster than the minimum power
+      properties.speedIncrease = DEFAULT_ROTATE_SPEED_INCREASE // the sometimes needs to go faster than the minimum power
     }
     let consecutiveShortCounter = 0
     let consecutiveLongCounter = 0
     while (true) {
-      if (this.debug) {
+      if (DEBUG) {
         console.log(`\nsrff/current/lrff ${srff}/${current}/${lrff}`)
       }
       properties.frictionFactor = current
-      if (this.debug) {
+      if (DEBUG) {
         // console.log(JSON.stringify(this.configuration, null, 2))
         console.log(JSON.stringify(this.properties, null, 2))
         console.log("srff", srff)
@@ -413,7 +447,7 @@ class TankClient {
           if (Math.abs(srff-lrff) < shiftAmount) {
             consecutiveLongCounter = 0
             srff -= shiftAmount
-            if (this.debug) {
+            if (DEBUG) {
               console.log("doing the long adjust for consecutive failures")
             }
           } else {
@@ -421,7 +455,87 @@ class TankClient {
           }
         }
       } else if (result == 'd') {
-        console.log(JSON.stringify(this.calibration, null, 2))
+        if (DEBUG) {
+          console.log(JSON.stringify(this.calibration, null, 2))
+        }
+        return
+      }
+    }
+  }
+
+  async learnDrift(options) {
+    this.configuration.drift ??= {}
+    const drift = this.configuration.drift
+    drift.forward ??= 0
+    drift.backward ??= 0
+    await this.learnDriftHelper('forward', options)
+    await this.learnDriftHelper('backward', options)
+  }
+
+  // direction in ['forward', 'backward']
+  async learnDriftHelper(direction, options) {
+    const DEBUG = true
+
+    const drift = this.configuration.drift
+    const defaultSpeed = this.configuration.minPower
+    const defaultDelta = 0.1
+
+    await this.readLine(`The drone will move ${direction}. Notice if it drifts to your left or right while you are facing the drone moving away from you. The drone will go about 1 meter ${direction}. After that it will reset. Ignore the reset. Press enter to continue`)
+
+    let current = drift[direction]
+    let lower, upper
+
+    while (true) {
+      drift[direction] = current
+      if (DEBUG) {
+        console.log(`\nlower/current/upper ${lower}/${current}/${upper}`)
+      }
+
+      const sign = direction == 'forward' ? 1 : -1
+      const leftSpeed = current < 0 ? defaultSpeed * (1 + Math.abs(current)) : defaultSpeed
+      const rightSpeed = current > 0 ? defaultSpeed * (1 + Math.abs(current)) : defaultSpeed
+
+      await this.moveDrone(sign*leftSpeed, sign*rightSpeed, { batched: true, skipPause: true, usingPower: true, adjustDrift: false })
+      await this.pauseDrone(3, { batched: true })
+      await this.stopDrone({ batched: true })
+      await this.pauseDrone(1, { batched: true })
+      await this.moveDrone(defaultSpeed, defaultSpeed, { batched: true, skipPause: true, usingPower: true })
+      await this.pauseDrone(3, { batched: true })
+      await this.stopDrone()
+      
+      let result = await this.readLine(`Was the drift to your left (l), right (r) or none (n)? 0 for restart. a to run again.`)
+     
+      if (direction == 'backward') {
+        if (result == 'l') {
+          result = 'r'
+        } else if (result == 'r') {
+          result = 'l'
+        }
+      }
+
+      if (result == 'l') {
+        upper ??= current
+        if (lower == null) {
+          current -= defaultDelta
+        } else {
+          current += (lower-current) / 2
+        }
+      } else if (result == 'a') {
+      } else if (result == '0') {
+        upper = null
+        lower = null
+        current = 0
+      } else if (result == 'r') {
+        lower ??= current
+        if (upper == null) {
+          current += defaultDelta
+        } else {
+          current += (upper-current) / 2
+        }
+      } else if (result == 'n') {
+        if (DEBUG) {
+          console.log(JSON.stringify(this.configuration, null, 2))
+        }
         return
       }
     }
@@ -722,12 +836,23 @@ async function test() {
       // await tank.sonicDrone({ times: 3 })
       return
     }
+    if (false) {
+      await tank.learnDrift(options)
+    }
     if (true) {
       debugger
+      await tank.forwardDrone(tank.configuration.minPower, { batched: true, skipPause: true, usingPower: true })
+      await tank.pauseDrone(2, { batched: true })
+      await tank.stopDrone({ batched: true })
+      await tank.pauseDrone(2, { batched: true })
+      await tank.forwardDrone(-tank.configuration.minPower, { batched: true, skipPause: true, usingPower: true })
+      await tank.pauseDrone(2, { batched: true })
+      await tank.stopDrone()
+      return
       // response = await tank.forwardDrone(2000, { skipPause: true, usingPower: true });
       // await sleep(500)
       // response = await tank.stopDrone();
-      await tank.rotateDrone(-Math.PI/4)
+      // await tank.rotateDrone(-Math.PI/4)
     }
     if (false) {
       await tank.learnFrictionFactor()

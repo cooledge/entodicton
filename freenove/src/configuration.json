@@ -10,6 +10,10 @@
   "speedBackward": 0.23799999999999996,
   "maximumSpeedForward": 1.0282999999999998,
   "maximumSpeedBackward": 1.0828999999999998,
+  "drift": {
+    "forward": -0.09875,
+    "backward": 0.0125
+  },
   "rotation": {
     "positive": {
       "8": {
