@@ -162,7 +162,18 @@ class mywindow(QMainWindow, Ui_server_ui):
                 msg = self.queue_cmd.get()                       # Get a message from the command queue
                 if msg.startswith(self.command.CMD_MULTI):
                   print("CMD_MULTI: {}".format(msg))
-                  submsgs = msg[len(self.command.CMD_MULTI):].split('$')[1:]
+                  if msg.startswith(self.command.CMD_MULTI_START):
+                    self.submsgs = []
+                    continue
+                  elif msg.startswith(self.command.CMD_MULTI_END):
+                    submsgs = self.submsgs
+                    self.submsgs = []
+                  elif msg.startswith(self.command.CMD_MULTI_PART):
+                    self.submsgs += msg[len(self.command.CMD_MULTI_PART):].split('$')[1:]
+                    continue
+                  else:
+                    submsgs = msg[len(self.command.CMD_MULTI):].split('$')[1:]
+
                   repeats = 1
 
                   self.cmd_parser.clearParameters()

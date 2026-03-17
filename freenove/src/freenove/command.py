@@ -8,6 +8,8 @@ class Command:
         self.CMD_MODE ="CMD_MODE"
         self.CMD_PAUSE ="CMD_PAUSE"
         self.CMD_MULTI ="CMD_MULTI"
+        self.CMD_MULTI_START ="CMD_MULTI_START"
+        self.CMD_MULTI_PART ="CMD_MULTI_PART"
+        self.CMD_MULTI_END ="CMD_MULTI_END"
         self.CMD_START_REPEATS ="CMD_START_REPEATS"
         self.CMD_END_REPEATS ="CMD_END_REPEATS"
-
