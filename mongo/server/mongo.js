@@ -140,7 +140,8 @@ class API {
   }
 
   current() {
-    return this.args.mentions({ context: { marker: 'report' } }) || this.newReport()
+    const stm = this.args.kms.stm.api
+    return stm.mentions({ context: { marker: 'report' } }) || this.newReport()
   }
 
   setCurrent(report) {
@@ -578,15 +579,15 @@ let configStruct = {
   semantics: [
     {
       match: ({context}) => context.frameOfReference && context.evaluate,
-      apply: ({context}) => {
-        const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })
+      apply: async ({context}) => {
+        const value = await mentions({ context: { marker: 'table' }, frameOfReference: currentReport })
         context.evalue = value
       },
     },
     // evaluator to pull table/graph/charts from the context
     {
       match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
-      apply: async ({context, toContext, values, api, gp, mentions, verbatim}) => {
+      apply: async ({context, kms, toContext, values, api, gp, mentions, verbatim}) => {
         debugger
         const currentReport = api.current()
         let selectedTables
@@ -614,7 +615,7 @@ let configStruct = {
           // handle graph/chart being the same thing
           const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }
           // debugger
-          const mentioned = mentions(args)
+          const mentioned = await mentions(args)
           if (mentioned) {
             if (mentioned.marker == 'graph') {
               selectedTables = mentioned
@@ -1250,9 +1251,8 @@ let configStruct = {
             // currentReport = destination.report
             // dataSpecPath = destination.value.field
           } else {
-            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })
             const args = { context: { marker: 'table' }, frameOfReference: currentReport }
-            defaultTable = mentions(args)
+            defaultTable = await mentions(args)
             if (defaultTable) {
               // console.log(JSON.stringify(defaultTable, null, 2))
               // currentReport = defaultTable.frameOfReference

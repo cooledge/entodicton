@@ -1364,11 +1364,11 @@
       "semantics": [
         {
           "match": "({context}) => context.frameOfReference && context.evaluate",
-          "apply": "({context}) => {\n        const value = mentions({ context: { marker: 'table' }, frameOfReference: currentReport })\n        context.evalue = value\n      }"
+          "apply": "async ({context}) => {\n        const value = await mentions({ context: { marker: 'table' }, frameOfReference: currentReport })\n        context.evalue = value\n      }"
         },
         {
           "match": "({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate",
-          "apply": "async ({context, toContext, values, api, gp, mentions, verbatim}) => {\n        debugger\n        const currentReport = api.current()\n        let selectedTables\n        // console.log(JSON.stringify(context, null, 2))\n        let items\n        // TODO fix this for marker == table / graph or other\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }\n          // debugger\n          const mentioned = mentions(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        // console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
+          "apply": "async ({context, kms, toContext, values, api, gp, mentions, verbatim}) => {\n        debugger\n        const currentReport = api.current()\n        let selectedTables\n        // console.log(JSON.stringify(context, null, 2))\n        let items\n        // TODO fix this for marker == table / graph or other\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }\n          // debugger\n          const mentioned = await mentions(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        // console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
         },
         {
           "match": "({context}) => context.marker == 'move' && !context.evaluate",
@@ -1863,7 +1863,7 @@
             "verb"
           ],
           "generatorp": "async ({context, g}) => {\n        if (context.to && context.to.marker !== 'undefined') {\n          return `${context.word} ${await g(context.show)} ${await g(context.to)}`\n        } else {\n          return `${context.word} ${await g(context.show)}`\n        }\n      }",
-          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const oldway = false\n          const addAllFields = (dataSpecPath) => {\n            const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            const { dbName, collectionName, fields } = dataSpec\n            // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n            const choices = []\n            let counter = 1\n            for (const field of fields) {\n              choices.push({ text: field.name, id: field.name, counter, selected: true })\n              counter += 1\n            }\n            // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n            report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          }\n          if (oldway) {\n            const dataSpecPath = [0]\n            addAllFields(dataSpecPath)\n          } else {\n            const tables = (await e(context.frameOfReference || { marker: 'table', pullFromContext: true })).evalue\n            for (const table of values(tables.value)) {\n              addAllFields(table.dataSpecPath)\n            }\n          }\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          // console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            // console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            // console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            // const table = mentions({ context: { marker: 'table' }, banana: 23, frameOfReference: currentReport })\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = mentions(args)\n            if (defaultTable) {\n              // console.log(JSON.stringify(defaultTable, null, 2))\n              // currentReport = defaultTable.frameOfReference\n              // greg55\n              // defaultTable = defaultTable.table.imageSpec\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          // TODO pick a better name for this\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec\n            if (!dataSpecPath) {\n              dataSpecPath = defaultTable.imageSpec.dataSpecPath\n              dataSpec = defaultTable.dataSpec\n            } else {\n              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            }\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              // console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              // console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                // console.log(JSON.stringify(defaultTable, null, 2))\n                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            // greg55\n            for (const value of values(defaultTable.value)) {\n              // console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
+          "semantic": "async ({e, mentions, values, context, kms, api, objects}) => {\n        let currentReport = api.current()\n        if (context.chosens) {\n          const chosens = context.chosens[0]\n          // chosens.serverResponse.chooseFields.dataSpecPath\n          // report.updateColumns(currentReport, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, context.chosens[0])\n          report.updateColumnsNew(currentReport, chosens)\n          api.show(currentReport)\n        } else if (context.show.quantity?.value == 'all') {\n          // dataSpec[0] -> select report to update greg98\n          const oldway = false\n          const addAllFields = (dataSpecPath) => {\n            const dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            const { dbName, collectionName, fields } = dataSpec\n            // '{\"chosen\":\"select\",\"choices\":[{\"text\":\"_id\",\"id\":\"_id\"},{\"text\":\"name\",\"id\":\"name\",\"selected\":true,\"counter\":1},{\"text\":\"email\",\"id\":\"email\",\"selected\":true,\"counter\":2},{\"text\":\"password\",\"id\":\"password\"}]}'\n            const choices = []\n            let counter = 1\n            for (const field of fields) {\n              choices.push({ text: field.name, id: field.name, counter, selected: true })\n              counter += 1\n            }\n            // report.updateColumns(currentReport, dataSpec.dbName, dataSpec.collectionName, { 'chosen': 'select', choices })\n            report.updateColumnsNew(currentReport, { 'chosen': 'select', choices, serverResponse: { chooseFields: { dataSpecPath } } })\n          }\n          if (oldway) {\n            const dataSpecPath = [0]\n            addAllFields(dataSpecPath)\n          } else {\n            const tables = (await e(context.frameOfReference || { marker: 'table', pullFromContext: true })).evalue\n            for (const table of values(tables.value)) {\n              addAllFields(table.dataSpecPath)\n            }\n          }\n          api.show(currentReport)\n        } else if (context.show.more || (context.show.marker == 'column' && !context.show.path)) {\n          // console.log('currentReport', JSON.stringify(currentReport, null, 2))\n          // dataSpec[0] -> select report to update greg98\n          const { dbName, collectionName, fields } = currentReport.dataSpec[0]\n          await api.showFieldsResponse([0], dbName, collectionName, fields, currentReport)\n          context.chosens = [] // for callback\n          currentReport.showCollection = context\n        } else if (context.show.less) {\n        } else if (context.show.marker == 'recordCount') {\n          // dataSpec[0] -> select report to update greg98\n          const fieldNames = api.addRecordCountsToDataSpec(currentReport.dataSpec[0], context.show.field).map( (f) => f.field )\n          report.addColumns(currentReport.dataSpec, currentReport.imageSpec, currentReport.dataSpec.dbName, currentReport.dataSpec.collectionName, fieldNames)\n          api.show(currentReport)\n        } else {\n          let dataSpecPath\n\n          // TODO add a the email column called contact\n          let defaultTable\n          if (context.to && context.to.marker == 'columnAddedTo') {\n            // console.log(\"context.to.destination\", JSON.stringify(context.to.destination, null, 2))\n            const destination = (await e(context.to.destination)).evalue\n            // console.log(\"destination\", JSON.stringify(destination, null, 2))\n            // TODO handle not found\n            defaultTable = destination\n            // currentReport = destination.report\n            // dataSpecPath = destination.value.field\n          } else {\n            const args = { context: { marker: 'table' }, frameOfReference: currentReport }\n            defaultTable = await mentions(args)\n            if (defaultTable) {\n              // console.log(JSON.stringify(defaultTable, null, 2))\n              // currentReport = defaultTable.frameOfReference\n              // greg55\n              // defaultTable = defaultTable.table.imageSpec\n            } else {\n              dataSpecPath = Array.isArray(currentReport.dataSpec) ? [0] : []\n            }\n          }\n\n          // TODO pick a better name for this\n          const someFunction = async (context, defaultTable, currentReport, dataSpecPath) => {\n            let dataSpec\n            if (!dataSpecPath) {\n              dataSpecPath = defaultTable.imageSpec.dataSpecPath\n              dataSpec = defaultTable.dataSpec\n            } else {\n              dataSpec = data.getValue(currentReport.dataSpec, dataSpecPath)\n            }\n            let database = dataSpec.dbName\n            let collection = dataSpec.collectionName\n\n            const columns = values(context.show)\n            let columnNames = []\n\n            let hasArray = false\n            if (database) {\n              columnNames = [context.show.path[0]]\n            } else {\n              ({ database, collection, columnNames } = await api.determineCollection(columns))\n              currentReport = await api.newReportSpec(database, collection)\n              dataSpecPath = []\n              dataSpec = currentReport.dataSpec\n\n              hasArray = false\n              for (const columnName of columnNames) {\n                hasArray = currentReport.dataSpec.fields.find( (field) => field.name == columnName ).isArray\n                if (hasArray) {\n                  break\n                }\n              }\n            }\n            if (hasArray) {\n              await api.setDataSpec(dataSpec, database, collection, columnNames)\n              // console.log(JSON.stringify(dataSpec, null, 2))\n              report.addGroup(dataSpec, columnNames)\n              // console.log(JSON.stringify(dataSpec, null, 2))\n              image.addGroup(api, dataSpecPath, currentReport.imageSpec, columnNames.map((columnName) => { return { name: columnName, collection: collection } }))\n            } else {\n              dataSpec.usedFields.push(...columnNames)\n              if (defaultTable) {\n                // console.log(JSON.stringify(defaultTable, null, 2))\n                image.addColumns(defaultTable.imageSpec || defaultTable, dataSpecPath, columnNames)\n              } else {\n                for (const imageSpec of image.getImageSpecs(currentReport.imageSpec, dataSpecPath)) {\n                  // report.addColumns(dataSpec, imageSpec, database, collection, columnNames) \n                  image.addColumns(imageSpec, dataSpecPath, columnNames)\n                }\n              }\n            }\n            return currentReport\n          }\n\n          if (defaultTable) {\n            // greg55\n            for (const value of values(defaultTable.value)) {\n              // console.log(\"value\", JSON.stringify(value, null, 2))\n              currentReport = await someFunction(context, value, currentReport, value.dataSpecPath)\n            }\n          } else {\n            currentReport = await someFunction(context, defaultTable, currentReport, dataSpecPath)\n          }\n          api.show(currentReport)\n        }\n      }"
         },
         {
           "id": "showReport",
@@ -2122,6 +2122,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -2159,6 +2164,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -2207,6 +2217,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -2239,6 +2254,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -2279,6 +2299,11 @@
         [
           "beige_colors",
           "theAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "thisAble",
           false
         ],
         [
@@ -2332,6 +2357,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -2372,6 +2402,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -2409,6 +2444,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -2502,6 +2542,11 @@
           false
         ],
         [
+          "brown_colors",
+          "thisAble",
+          false
+        ],
+        [
           "call",
           "verb",
           false
@@ -2562,6 +2607,11 @@
           false
         ],
         [
+          "chartruese_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors",
           "concept",
           false
@@ -2602,6 +2652,11 @@
           false
         ],
         [
+          "color_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors_modifier",
           "adjective",
           false
@@ -2623,7 +2678,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -2672,6 +2767,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -2709,6 +2809,11 @@
         [
           "cyan_colors",
           "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "thisAble",
           false
         ],
         [
@@ -2752,6 +2857,11 @@
           false
         ],
         [
+          "dark_colors",
+          "thisAble",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -2789,6 +2899,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -2868,6 +2983,11 @@
         ],
         [
           "gold_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "gold_colors",
           "yellow_colors",
           false
         ],
@@ -2912,6 +3032,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -2949,6 +3074,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -3063,7 +3193,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -3109,6 +3279,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -3198,6 +3373,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -3234,6 +3414,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -3282,6 +3467,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -3327,6 +3517,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -3367,6 +3562,11 @@
           false
         ],
         [
+          "lime_colors",
+          "thisAble",
+          false
+        ],
+        [
           "listable",
           "theAble",
           false
@@ -3378,7 +3578,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -3422,6 +3662,11 @@
           false
         ],
         [
+          "magenta_colors",
+          "thisAble",
+          false
+        ],
+        [
           "maroon_colors",
           "brown_colors",
           false
@@ -3459,6 +3704,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -3562,8 +3812,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -3637,6 +3977,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -3644,6 +3989,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -3709,6 +4059,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -3799,6 +4154,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -3907,6 +4267,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -3987,6 +4352,11 @@
           false
         ],
         [
+          "purple_colors",
+          "thisAble",
+          false
+        ],
+        [
           "quantifier",
           "quantifier",
           false
@@ -4057,6 +4427,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -4112,6 +4487,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -4152,6 +4532,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -4184,6 +4569,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -4292,8 +4682,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -4337,6 +4782,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -4377,6 +4827,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -4404,6 +4859,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -4477,6 +4937,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -4547,6 +5012,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -4599,6 +5069,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -4659,6 +5134,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
@@ -5143,6 +5623,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -5180,6 +5665,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -5228,6 +5718,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -5260,6 +5755,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -5300,6 +5800,11 @@
         [
           "beige_colors",
           "theAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "thisAble",
           false
         ],
         [
@@ -5353,6 +5858,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -5393,6 +5903,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -5430,6 +5945,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -5523,6 +6043,11 @@
           false
         ],
         [
+          "brown_colors",
+          "thisAble",
+          false
+        ],
+        [
           "call",
           "verb",
           false
@@ -5583,6 +6108,11 @@
           false
         ],
         [
+          "chartruese_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors",
           "concept",
           false
@@ -5620,6 +6150,11 @@
         [
           "color_colors",
           "theAble",
+          false
+        ],
+        [
+          "color_colors",
+          "thisAble",
           false
         ],
         [
@@ -5663,6 +6198,11 @@
           false
         ],
         [
+          "column",
+          "thisAble",
+          false
+        ],
+        [
           "column23",
           "column",
           false
@@ -5703,6 +6243,11 @@
           false
         ],
         [
+          "column23",
+          "thisAble",
+          false
+        ],
+        [
           "comparable",
           "theAble",
           false
@@ -5719,7 +6264,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -5768,6 +6353,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -5805,6 +6395,11 @@
         [
           "cyan_colors",
           "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "thisAble",
           false
         ],
         [
@@ -5848,6 +6443,11 @@
           false
         ],
         [
+          "dark_colors",
+          "thisAble",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -5885,6 +6485,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -5964,6 +6569,11 @@
         ],
         [
           "gold_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "gold_colors",
           "yellow_colors",
           false
         ],
@@ -6008,6 +6618,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -6045,6 +6660,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -6159,7 +6779,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -6205,6 +6865,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -6294,6 +6959,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -6330,6 +7000,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -6378,6 +7053,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -6423,6 +7103,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -6463,6 +7148,11 @@
           false
         ],
         [
+          "lime_colors",
+          "thisAble",
+          false
+        ],
+        [
           "listable",
           "theAble",
           false
@@ -6474,7 +7164,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -6518,6 +7248,11 @@
           false
         ],
         [
+          "magenta_colors",
+          "thisAble",
+          false
+        ],
+        [
           "maroon_colors",
           "brown_colors",
           false
@@ -6555,6 +7290,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -6658,8 +7398,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -6733,6 +7563,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -6740,6 +7575,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -6805,6 +7645,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -6895,6 +7740,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -7003,6 +7853,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -7083,6 +7938,11 @@
           false
         ],
         [
+          "purple_colors",
+          "thisAble",
+          false
+        ],
+        [
           "quantifier",
           "quantifier",
           false
@@ -7153,6 +8013,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -7208,6 +8073,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -7248,6 +8118,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -7280,6 +8155,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -7388,8 +8268,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -7433,6 +8368,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -7473,6 +8413,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -7500,6 +8445,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -7573,6 +8523,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -7643,6 +8598,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -7695,6 +8655,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -7755,6 +8720,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
@@ -8084,6 +9054,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -8121,6 +9096,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -8169,6 +9149,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -8201,6 +9186,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -8241,6 +9231,11 @@
         [
           "beige_colors",
           "theAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "thisAble",
           false
         ],
         [
@@ -8294,6 +9289,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -8334,6 +9334,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -8371,6 +9376,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -8464,6 +9474,11 @@
           false
         ],
         [
+          "brown_colors",
+          "thisAble",
+          false
+        ],
+        [
           "call",
           "verb",
           false
@@ -8521,6 +9536,11 @@
         [
           "chartruese_colors",
           "theAble",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "thisAble",
           false
         ],
         [
@@ -8609,6 +9629,11 @@
           false
         ],
         [
+          "color_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors_modifier",
           "adjective",
           false
@@ -8649,6 +9674,11 @@
           false
         ],
         [
+          "column",
+          "thisAble",
+          false
+        ],
+        [
           "column23",
           "column",
           false
@@ -8689,6 +9719,11 @@
           false
         ],
         [
+          "column23",
+          "thisAble",
+          false
+        ],
+        [
           "comparable",
           "theAble",
           false
@@ -8705,7 +9740,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -8754,6 +9829,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -8791,6 +9871,11 @@
         [
           "cyan_colors",
           "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "thisAble",
           false
         ],
         [
@@ -8834,6 +9919,11 @@
           false
         ],
         [
+          "dark_colors",
+          "thisAble",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -8871,6 +9961,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -8950,6 +10045,11 @@
         ],
         [
           "gold_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "gold_colors",
           "yellow_colors",
           false
         ],
@@ -8994,6 +10094,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -9031,6 +10136,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -9145,7 +10255,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -9191,6 +10341,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -9280,6 +10435,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -9316,6 +10476,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -9364,6 +10529,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -9409,6 +10579,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -9449,6 +10624,11 @@
           false
         ],
         [
+          "lime_colors",
+          "thisAble",
+          false
+        ],
+        [
           "listable",
           "theAble",
           false
@@ -9460,7 +10640,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -9504,6 +10724,11 @@
           false
         ],
         [
+          "magenta_colors",
+          "thisAble",
+          false
+        ],
+        [
           "maroon_colors",
           "brown_colors",
           false
@@ -9541,6 +10766,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -9644,8 +10874,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -9809,6 +11129,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -9816,6 +11141,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -9881,6 +11211,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -9971,6 +11306,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -10079,6 +11419,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -10159,6 +11504,11 @@
           false
         ],
         [
+          "purple_colors",
+          "thisAble",
+          false
+        ],
+        [
           "quantifier",
           "quantifier",
           false
@@ -10229,6 +11579,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -10284,6 +11639,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -10324,6 +11684,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -10356,6 +11721,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -10464,8 +11834,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -10509,6 +11934,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -10549,6 +11979,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -10576,6 +12011,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -10649,6 +12089,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -10719,6 +12164,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -10771,6 +12221,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -10831,6 +12286,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
@@ -11252,6 +12712,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -11289,6 +12754,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -11337,6 +12807,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -11369,6 +12844,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -11409,6 +12889,11 @@
         [
           "beige_colors",
           "theAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "thisAble",
           false
         ],
         [
@@ -11462,6 +12947,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -11502,6 +12992,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -11539,6 +13034,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -11632,6 +13132,11 @@
           false
         ],
         [
+          "brown_colors",
+          "thisAble",
+          false
+        ],
+        [
           "call",
           "verb",
           false
@@ -11689,6 +13194,11 @@
         [
           "chartruese_colors",
           "theAble",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "thisAble",
           false
         ],
         [
@@ -11777,6 +13287,11 @@
           false
         ],
         [
+          "color_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors_modifier",
           "adjective",
           false
@@ -11817,6 +13332,11 @@
           false
         ],
         [
+          "column",
+          "thisAble",
+          false
+        ],
+        [
           "column23",
           "column",
           false
@@ -11857,6 +13377,11 @@
           false
         ],
         [
+          "column23",
+          "thisAble",
+          false
+        ],
+        [
           "comparable",
           "theAble",
           false
@@ -11873,7 +13398,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -11922,6 +13487,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -11959,6 +13529,11 @@
         [
           "cyan_colors",
           "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "thisAble",
           false
         ],
         [
@@ -12002,6 +13577,11 @@
           false
         ],
         [
+          "dark_colors",
+          "thisAble",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -12039,6 +13619,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -12118,6 +13703,11 @@
         ],
         [
           "gold_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "gold_colors",
           "yellow_colors",
           false
         ],
@@ -12162,6 +13752,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -12199,6 +13794,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -12313,7 +13913,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -12359,6 +13999,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -12448,6 +14093,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -12484,6 +14134,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -12532,6 +14187,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -12577,6 +14237,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -12617,6 +14282,11 @@
           false
         ],
         [
+          "lime_colors",
+          "thisAble",
+          false
+        ],
+        [
           "listable",
           "theAble",
           false
@@ -12628,7 +14298,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -12672,6 +14382,11 @@
           false
         ],
         [
+          "magenta_colors",
+          "thisAble",
+          false
+        ],
+        [
           "maroon_colors",
           "brown_colors",
           false
@@ -12709,6 +14424,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -12812,8 +14532,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -12977,6 +14787,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -12984,6 +14799,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -13049,6 +14869,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -13139,6 +14964,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -13247,6 +15077,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -13327,6 +15162,11 @@
           false
         ],
         [
+          "purple_colors",
+          "thisAble",
+          false
+        ],
+        [
           "quantifier",
           "quantifier",
           false
@@ -13397,6 +15237,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -13439,6 +15284,11 @@
         [
           "reportable",
           "theAble",
+          false
+        ],
+        [
+          "reportable",
+          "thisAble",
           false
         ],
         [
@@ -13492,6 +15342,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -13532,6 +15387,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -13564,6 +15424,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -13672,8 +15537,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -13717,6 +15637,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -13757,6 +15682,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -13784,6 +15714,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -13857,6 +15792,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -13927,6 +15867,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -13979,6 +15924,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -14039,6 +15989,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
@@ -14237,6 +16192,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -14274,6 +16234,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -14322,6 +16287,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -14354,6 +16324,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -14394,6 +16369,11 @@
         [
           "beige_colors",
           "theAble",
+          false
+        ],
+        [
+          "beige_colors",
+          "thisAble",
           false
         ],
         [
@@ -14447,6 +16427,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -14487,6 +16472,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -14524,6 +16514,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -14617,6 +16612,11 @@
           false
         ],
         [
+          "brown_colors",
+          "thisAble",
+          false
+        ],
+        [
           "call",
           "verb",
           false
@@ -14674,6 +16674,11 @@
         [
           "chartruese_colors",
           "theAble",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "thisAble",
           false
         ],
         [
@@ -14762,6 +16767,11 @@
           false
         ],
         [
+          "color_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors_modifier",
           "adjective",
           false
@@ -14802,6 +16812,11 @@
           false
         ],
         [
+          "column",
+          "thisAble",
+          false
+        ],
+        [
           "column23",
           "column",
           false
@@ -14842,6 +16857,11 @@
           false
         ],
         [
+          "column23",
+          "thisAble",
+          false
+        ],
+        [
           "comparable",
           "theAble",
           false
@@ -14858,7 +16878,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -14907,6 +16967,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -14944,6 +17009,11 @@
         [
           "cyan_colors",
           "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "thisAble",
           false
         ],
         [
@@ -14987,6 +17057,11 @@
           false
         ],
         [
+          "dark_colors",
+          "thisAble",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -15024,6 +17099,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -15103,6 +17183,11 @@
         ],
         [
           "gold_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "gold_colors",
           "yellow_colors",
           false
         ],
@@ -15147,6 +17232,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -15184,6 +17274,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -15298,7 +17393,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -15344,6 +17479,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -15433,6 +17573,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -15469,6 +17614,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -15517,6 +17667,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -15562,6 +17717,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -15602,6 +17762,11 @@
           false
         ],
         [
+          "lime_colors",
+          "thisAble",
+          false
+        ],
+        [
           "listable",
           "theAble",
           false
@@ -15613,7 +17778,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -15657,6 +17862,11 @@
           false
         ],
         [
+          "magenta_colors",
+          "thisAble",
+          false
+        ],
+        [
           "maroon_colors",
           "brown_colors",
           false
@@ -15694,6 +17904,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -15797,8 +18012,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -15962,6 +18267,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -15969,6 +18279,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -16034,6 +18349,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -16124,6 +18444,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -16232,6 +18557,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -16312,6 +18642,11 @@
           false
         ],
         [
+          "purple_colors",
+          "thisAble",
+          false
+        ],
+        [
           "quantifier",
           "quantifier",
           false
@@ -16382,6 +18717,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -16424,6 +18764,11 @@
         [
           "reportable",
           "theAble",
+          false
+        ],
+        [
+          "reportable",
+          "thisAble",
           false
         ],
         [
@@ -16477,6 +18822,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -16517,6 +18867,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -16549,6 +18904,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -16657,8 +19017,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -16702,6 +19117,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -16742,6 +19162,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -16769,6 +19194,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -16842,6 +19272,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -16912,6 +19347,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -16964,6 +19404,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -17024,6 +19469,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
@@ -18007,6 +20457,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -18044,6 +20499,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -18092,6 +20552,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -18124,6 +20589,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -18258,6 +20728,11 @@
         ],
         [
           "beige_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "beige_colors",
           "white_colors",
           false
         ],
@@ -18307,6 +20782,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -18347,6 +20827,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -18384,6 +20869,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -18477,6 +20967,11 @@
           false
         ],
         [
+          "brown_colors",
+          "thisAble",
+          false
+        ],
+        [
           "call",
           "verb",
           false
@@ -18534,6 +21029,11 @@
         [
           "chartruese_colors",
           "theAble",
+          false
+        ],
+        [
+          "chartruese_colors",
+          "thisAble",
           false
         ],
         [
@@ -18622,6 +21122,11 @@
           false
         ],
         [
+          "color_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors_modifier",
           "adjective",
           false
@@ -18662,6 +21167,11 @@
           false
         ],
         [
+          "column",
+          "thisAble",
+          false
+        ],
+        [
           "column23",
           "column",
           false
@@ -18702,6 +21212,11 @@
           false
         ],
         [
+          "column23",
+          "thisAble",
+          false
+        ],
+        [
           "comparable",
           "theAble",
           false
@@ -18718,7 +21233,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -18767,6 +21322,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -18804,6 +21364,11 @@
         [
           "cyan_colors",
           "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "thisAble",
           false
         ],
         [
@@ -18847,6 +21412,11 @@
           false
         ],
         [
+          "dark_colors",
+          "thisAble",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -18884,6 +21454,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -18959,6 +21534,11 @@
         [
           "gold_colors",
           "theAble",
+          false
+        ],
+        [
+          "gold_colors",
+          "thisAble",
           false
         ],
         [
@@ -19052,6 +21632,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -19089,6 +21674,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -19203,7 +21793,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -19249,6 +21879,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -19338,6 +21973,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -19374,6 +22014,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -19422,6 +22067,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -19467,6 +22117,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -19504,6 +22159,11 @@
         [
           "lime_colors",
           "theAble",
+          false
+        ],
+        [
+          "lime_colors",
+          "thisAble",
           false
         ],
         [
@@ -19608,7 +22268,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -19652,6 +22352,11 @@
           false
         ],
         [
+          "magenta_colors",
+          "thisAble",
+          false
+        ],
+        [
           "maroon_colors",
           "brown_colors",
           false
@@ -19689,6 +22394,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -19792,8 +22502,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -19957,6 +22757,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -19964,6 +22769,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -20029,6 +22839,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -20119,6 +22934,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -20317,6 +23137,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -20397,6 +23222,11 @@
           false
         ],
         [
+          "purple_colors",
+          "thisAble",
+          false
+        ],
+        [
           "quantifier",
           "quantifier",
           false
@@ -20467,6 +23297,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -20509,6 +23344,11 @@
         [
           "reportable",
           "theAble",
+          false
+        ],
+        [
+          "reportable",
+          "thisAble",
           false
         ],
         [
@@ -20562,6 +23402,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -20602,6 +23447,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -20634,6 +23484,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -20742,8 +23597,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -20787,6 +23697,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -20827,6 +23742,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -20854,6 +23774,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -20927,6 +23852,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -20997,6 +23927,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -21049,6 +23984,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -21109,6 +24049,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
@@ -22049,6 +24994,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -22086,6 +25036,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -22134,6 +25089,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -22166,6 +25126,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -22355,6 +25320,11 @@
         ],
         [
           "beige_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "beige_colors",
           "white_colors",
           false
         ],
@@ -22404,6 +25374,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -22444,6 +25419,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -22481,6 +25461,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -22571,6 +25556,11 @@
         [
           "brown_colors",
           "theAble",
+          false
+        ],
+        [
+          "brown_colors",
+          "thisAble",
           false
         ],
         [
@@ -22679,6 +25669,11 @@
           false
         ],
         [
+          "chartruese_colors",
+          "thisAble",
+          false
+        ],
+        [
           "collection",
           "concept",
           false
@@ -22764,6 +25759,11 @@
           false
         ],
         [
+          "color_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors_modifier",
           "adjective",
           false
@@ -22804,6 +25804,11 @@
           false
         ],
         [
+          "column",
+          "thisAble",
+          false
+        ],
+        [
           "column23",
           "column",
           false
@@ -22844,6 +25849,11 @@
           false
         ],
         [
+          "column23",
+          "thisAble",
+          false
+        ],
+        [
           "comparable",
           "theAble",
           false
@@ -22860,7 +25870,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -22909,6 +25959,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -22946,6 +26001,11 @@
         [
           "cyan_colors",
           "theAble",
+          false
+        ],
+        [
+          "cyan_colors",
+          "thisAble",
           false
         ],
         [
@@ -22989,6 +26049,11 @@
           false
         ],
         [
+          "dark_colors",
+          "thisAble",
+          false
+        ],
+        [
           "descending",
           "hierarchyAble",
           false
@@ -23026,6 +26091,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -23101,6 +26171,11 @@
         [
           "gold_colors",
           "theAble",
+          false
+        ],
+        [
+          "gold_colors",
+          "thisAble",
           false
         ],
         [
@@ -23194,6 +26269,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -23231,6 +26311,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -23345,7 +26430,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -23391,6 +26516,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -23480,6 +26610,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -23516,6 +26651,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -23564,6 +26704,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -23609,6 +26754,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -23646,6 +26796,11 @@
         [
           "lime_colors",
           "theAble",
+          false
+        ],
+        [
+          "lime_colors",
+          "thisAble",
           false
         ],
         [
@@ -23805,7 +26960,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -23849,6 +27044,11 @@
           false
         ],
         [
+          "magenta_colors",
+          "thisAble",
+          false
+        ],
+        [
           "maroon_colors",
           "brown_colors",
           false
@@ -23886,6 +27086,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -23989,8 +27194,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -24154,6 +27449,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -24161,6 +27461,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -24226,6 +27531,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -24316,6 +27626,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -24569,6 +27884,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -24649,6 +27969,11 @@
           false
         ],
         [
+          "purple_colors",
+          "thisAble",
+          false
+        ],
+        [
           "quantifier",
           "quantifier",
           false
@@ -24719,6 +28044,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -24761,6 +28091,11 @@
         [
           "reportable",
           "theAble",
+          false
+        ],
+        [
+          "reportable",
+          "thisAble",
           false
         ],
         [
@@ -24814,6 +28149,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -24854,6 +28194,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -24886,6 +28231,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -24994,8 +28344,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -25039,6 +28444,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -25079,6 +28489,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -25106,6 +28521,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -25179,6 +28599,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -25249,6 +28674,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -25301,6 +28731,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -25361,6 +28796,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
@@ -27272,7 +30712,7 @@
         {},
         {},
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:647"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:648"
         },
         {}
       ],
@@ -27991,6 +31431,11 @@
           false
         ],
         [
+          "aqua_colors",
+          "thisAble",
+          false
+        ],
+        [
           "aquamarine_colors",
           "blue_colors",
           false
@@ -28028,6 +31473,11 @@
         [
           "aquamarine_colors",
           "theAble",
+          false
+        ],
+        [
+          "aquamarine_colors",
+          "thisAble",
           false
         ],
         [
@@ -28076,6 +31526,11 @@
           false
         ],
         [
+          "ascending",
+          "thisAble",
+          false
+        ],
+        [
           "azure_colors",
           "hierarchyAble",
           false
@@ -28108,6 +31563,11 @@
         [
           "azure_colors",
           "theAble",
+          false
+        ],
+        [
+          "azure_colors",
+          "thisAble",
           false
         ],
         [
@@ -28312,6 +31772,11 @@
         ],
         [
           "beige_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "beige_colors",
           "white_colors",
           false
         ],
@@ -28361,6 +31826,11 @@
           false
         ],
         [
+          "black_colors",
+          "thisAble",
+          false
+        ],
+        [
           "blue_colors",
           "color_colors",
           false
@@ -28401,6 +31871,11 @@
           false
         ],
         [
+          "blue_colors",
+          "thisAble",
+          false
+        ],
+        [
           "brightness_colors",
           "color_colors_modifier",
           false
@@ -28438,6 +31913,11 @@
         [
           "brightness_colors",
           "theAble",
+          false
+        ],
+        [
+          "brightness_colors",
+          "thisAble",
           false
         ],
         [
@@ -28528,6 +32008,11 @@
         [
           "brown_colors",
           "theAble",
+          false
+        ],
+        [
+          "brown_colors",
+          "thisAble",
           false
         ],
         [
@@ -28671,6 +32156,11 @@
           false
         ],
         [
+          "chartruese_colors",
+          "thisAble",
+          false
+        ],
+        [
           "clear",
           "verb",
           false
@@ -28771,6 +32261,11 @@
           false
         ],
         [
+          "color_colors",
+          "thisAble",
+          false
+        ],
+        [
           "color_colors_modifier",
           "adjective",
           false
@@ -28841,6 +32336,11 @@
           false
         ],
         [
+          "column",
+          "thisAble",
+          false
+        ],
+        [
           "column23",
           "column",
           false
@@ -28881,6 +32381,11 @@
           false
         ],
         [
+          "column23",
+          "thisAble",
+          false
+        ],
+        [
           "columnAddedTo",
           "preposition",
           false
@@ -28912,7 +32417,47 @@
         ],
         [
           "condition",
+          "concept",
+          false
+        ],
+        [
           "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "condition",
+          "isEdee",
+          false
+        ],
+        [
+          "condition",
+          "isEder",
+          false
+        ],
+        [
+          "condition",
+          "object",
+          false
+        ],
+        [
+          "condition",
+          "property",
+          false
+        ],
+        [
+          "condition",
+          "queryable",
+          false
+        ],
+        [
+          "condition",
+          "theAble",
+          false
+        ],
+        [
+          "condition",
+          "thisAble",
           false
         ],
         [
@@ -28966,6 +32511,11 @@
           false
         ],
         [
+          "crimson_colors",
+          "thisAble",
+          false
+        ],
+        [
           "cyan_colors",
           "blue_colors",
           false
@@ -29006,6 +32556,11 @@
           false
         ],
         [
+          "cyan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "dark_colors",
           "brightness_colors",
           false
@@ -29043,6 +32598,11 @@
         [
           "dark_colors",
           "theAble",
+          false
+        ],
+        [
+          "dark_colors",
+          "thisAble",
           false
         ],
         [
@@ -29093,6 +32653,11 @@
         [
           "descending",
           "theAble",
+          false
+        ],
+        [
+          "descending",
+          "thisAble",
           false
         ],
         [
@@ -29173,6 +32738,11 @@
         [
           "gold_colors",
           "theAble",
+          false
+        ],
+        [
+          "gold_colors",
+          "thisAble",
           false
         ],
         [
@@ -29286,6 +32856,11 @@
           false
         ],
         [
+          "gray_colors",
+          "thisAble",
+          false
+        ],
+        [
           "green_colors",
           "color_colors",
           false
@@ -29323,6 +32898,11 @@
         [
           "green_colors",
           "theAble",
+          false
+        ],
+        [
+          "green_colors",
+          "thisAble",
           false
         ],
         [
@@ -29457,7 +33037,47 @@
         ],
         [
           "highest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "highest",
+          "isEdee",
+          false
+        ],
+        [
+          "highest",
+          "isEder",
+          false
+        ],
+        [
+          "highest",
+          "object",
+          false
+        ],
+        [
+          "highest",
+          "property",
+          false
+        ],
+        [
+          "highest",
+          "queryable",
+          false
+        ],
+        [
+          "highest",
+          "superlative",
+          false
+        ],
+        [
+          "highest",
+          "theAble",
+          false
+        ],
+        [
+          "highest",
+          "thisAble",
           false
         ],
         [
@@ -29503,6 +33123,11 @@
         [
           "indigo_colors",
           "theAble",
+          false
+        ],
+        [
+          "indigo_colors",
+          "thisAble",
           false
         ],
         [
@@ -29592,6 +33217,11 @@
         ],
         [
           "ivory_colors",
+          "thisAble",
+          false
+        ],
+        [
+          "ivory_colors",
           "white_colors",
           false
         ],
@@ -29628,6 +33258,11 @@
         [
           "khaki_colors",
           "theAble",
+          false
+        ],
+        [
+          "khaki_colors",
+          "thisAble",
           false
         ],
         [
@@ -29676,6 +33311,11 @@
           false
         ],
         [
+          "lavender_colors",
+          "thisAble",
+          false
+        ],
+        [
           "left",
           "direction",
           false
@@ -29721,6 +33361,11 @@
           false
         ],
         [
+          "light_colors",
+          "thisAble",
+          false
+        ],
+        [
           "lime_colors",
           "green_colors",
           false
@@ -29758,6 +33403,11 @@
         [
           "lime_colors",
           "theAble",
+          false
+        ],
+        [
+          "lime_colors",
+          "thisAble",
           false
         ],
         [
@@ -29922,7 +33572,47 @@
         ],
         [
           "lowest",
-          "condition",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "lowest",
+          "isEdee",
+          false
+        ],
+        [
+          "lowest",
+          "isEder",
+          false
+        ],
+        [
+          "lowest",
+          "object",
+          false
+        ],
+        [
+          "lowest",
+          "property",
+          false
+        ],
+        [
+          "lowest",
+          "queryable",
+          false
+        ],
+        [
+          "lowest",
+          "superlative",
+          false
+        ],
+        [
+          "lowest",
+          "theAble",
+          false
+        ],
+        [
+          "lowest",
+          "thisAble",
           false
         ],
         [
@@ -29963,6 +33653,11 @@
         [
           "magenta_colors",
           "theAble",
+          false
+        ],
+        [
+          "magenta_colors",
+          "thisAble",
           false
         ],
         [
@@ -30018,6 +33713,11 @@
         [
           "maroon_colors",
           "theAble",
+          false
+        ],
+        [
+          "maroon_colors",
+          "thisAble",
           false
         ],
         [
@@ -30121,8 +33821,98 @@
           false
         ],
         [
+          "maximum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "maximum",
+          "isEdee",
+          false
+        ],
+        [
+          "maximum",
+          "isEder",
+          false
+        ],
+        [
+          "maximum",
+          "object",
+          false
+        ],
+        [
+          "maximum",
+          "property",
+          false
+        ],
+        [
+          "maximum",
+          "queryable",
+          false
+        ],
+        [
+          "maximum",
+          "superlative",
+          false
+        ],
+        [
+          "maximum",
+          "theAble",
+          false
+        ],
+        [
+          "maximum",
+          "thisAble",
+          false
+        ],
+        [
           "memorable",
           "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "minimum",
+          "isEdee",
+          false
+        ],
+        [
+          "minimum",
+          "isEder",
+          false
+        ],
+        [
+          "minimum",
+          "object",
+          false
+        ],
+        [
+          "minimum",
+          "property",
+          false
+        ],
+        [
+          "minimum",
+          "queryable",
+          false
+        ],
+        [
+          "minimum",
+          "superlative",
+          false
+        ],
+        [
+          "minimum",
+          "theAble",
+          false
+        ],
+        [
+          "minimum",
+          "thisAble",
           false
         ],
         [
@@ -30291,6 +34081,11 @@
           false
         ],
         [
+          "navy_colors",
+          "thisAble",
+          false
+        ],
+        [
           "negatable",
           "queryable",
           false
@@ -30298,6 +34093,11 @@
         [
           "noun",
           "theAble",
+          false
+        ],
+        [
+          "noun",
+          "thisAble",
           false
         ],
         [
@@ -30368,6 +34168,11 @@
         [
           "olive_colors",
           "theAble",
+          false
+        ],
+        [
+          "olive_colors",
+          "thisAble",
           false
         ],
         [
@@ -30458,6 +34263,11 @@
         [
           "orange_colors",
           "theAble",
+          false
+        ],
+        [
+          "orange_colors",
+          "thisAble",
           false
         ],
         [
@@ -30711,6 +34521,11 @@
           false
         ],
         [
+          "pink_colors",
+          "thisAble",
+          false
+        ],
+        [
           "plusExpression",
           "mathematicalExpression",
           false
@@ -30788,6 +34603,11 @@
         [
           "purple_colors",
           "theAble",
+          false
+        ],
+        [
+          "purple_colors",
+          "thisAble",
           false
         ],
         [
@@ -30871,6 +34691,11 @@
           false
         ],
         [
+          "red_colors",
+          "thisAble",
+          false
+        ],
+        [
           "remember",
           "verb",
           false
@@ -30938,6 +34763,11 @@
         [
           "reportable",
           "theAble",
+          false
+        ],
+        [
+          "reportable",
+          "thisAble",
           false
         ],
         [
@@ -31021,6 +34851,11 @@
           false
         ],
         [
+          "sienna_colors",
+          "thisAble",
+          false
+        ],
+        [
           "silver_colors",
           "gray_colors",
           false
@@ -31061,6 +34896,11 @@
           false
         ],
         [
+          "silver_colors",
+          "thisAble",
+          false
+        ],
+        [
           "snow_colors",
           "hierarchyAble",
           false
@@ -31093,6 +34933,11 @@
         [
           "snow_colors",
           "theAble",
+          false
+        ],
+        [
+          "snow_colors",
+          "thisAble",
           false
         ],
         [
@@ -31216,8 +35061,63 @@
           false
         ],
         [
+          "stm_current",
+          "adjective",
+          false
+        ],
+        [
+          "stm_previous",
+          "adjective",
+          false
+        ],
+        [
           "stop",
           "verb",
+          false
+        ],
+        [
+          "superlative",
+          "condition",
+          false
+        ],
+        [
+          "superlative",
+          "hierarchyAble",
+          false
+        ],
+        [
+          "superlative",
+          "isEdee",
+          false
+        ],
+        [
+          "superlative",
+          "isEder",
+          false
+        ],
+        [
+          "superlative",
+          "object",
+          false
+        ],
+        [
+          "superlative",
+          "property",
+          false
+        ],
+        [
+          "superlative",
+          "queryable",
+          false
+        ],
+        [
+          "superlative",
+          "theAble",
+          false
+        ],
+        [
+          "superlative",
+          "thisAble",
           false
         ],
         [
@@ -31296,6 +35196,11 @@
           false
         ],
         [
+          "tan_colors",
+          "thisAble",
+          false
+        ],
+        [
           "teal_colors",
           "green_colors",
           false
@@ -31336,6 +35241,11 @@
           false
         ],
         [
+          "teal_colors",
+          "thisAble",
+          false
+        ],
+        [
           "that",
           "thisitthat",
           false
@@ -31368,6 +35278,11 @@
         [
           "this",
           "thisitthat",
+          false
+        ],
+        [
+          "thisAble",
+          "thisAble",
           false
         ],
         [
@@ -31446,6 +35361,11 @@
           false
         ],
         [
+          "turquoise_colors",
+          "thisAble",
+          false
+        ],
+        [
           "type",
           "property",
           false
@@ -31521,6 +35441,11 @@
           false
         ],
         [
+          "violet_colors",
+          "thisAble",
+          false
+        ],
+        [
           "what",
           "object",
           false
@@ -31573,6 +35498,11 @@
         [
           "white_colors",
           "theAble",
+          false
+        ],
+        [
+          "white_colors",
+          "thisAble",
           false
         ],
         [
@@ -31633,6 +35563,11 @@
         [
           "yellow_colors",
           "theAble",
+          false
+        ],
+        [
+          "yellow_colors",
+          "thisAble",
           false
         ]
       ],
