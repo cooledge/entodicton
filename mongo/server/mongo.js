@@ -588,7 +588,6 @@ let configStruct = {
     {
       match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
       apply: async ({context, kms, toContext, values, api, gp, mentions, verbatim}) => {
-        debugger
         const currentReport = api.current()
         let selectedTables
         // console.log(JSON.stringify(context, null, 2))
@@ -1005,7 +1004,6 @@ let configStruct = {
           const state = context.newState
           const property = getProperty(reportElements, state)
           const css = stateToCSS(isA, property, state)
-          debugger
           let tables = []
           if (context.reportElement.frameOfReference) {
             // console.log("for", JSON.stringify(await e(context.reportElement.frameOfReference).evalue, null, 2))
