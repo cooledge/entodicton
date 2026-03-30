@@ -35,6 +35,15 @@ describe('tests for reminders page', () => {
   beforeEach( async () => {
     counter = 0
     page = await browser.newPage();
+    await page.emulateTimezone('America/Los_Angeles');
+    const cdp = await page.createCDPSession();
+    await cdp.send('Emulation.setLocaleOverride', {
+      locale: 'en_GB',        // en-US for month-first date format
+    });
+    await page.evaluateOnNewDocument(() => {
+      Object.defineProperty(navigator, 'language', { get: () => 'en-GB' });
+      Object.defineProperty(navigator, 'languages', { get: () => ['en-GB', 'en'] });
+    });
     await page.goto(`${URL}/reminders/`)
     await page.waitForSelector('#query')
     await page.click(`#testingButton`)
