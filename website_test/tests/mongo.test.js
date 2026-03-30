@@ -45,13 +45,6 @@ const getData = async (client, dbName, collectionName, { aggregation = [], sort 
   return data
 }
 
-describe('start puppeteer', () => {
-  test(`STARTPUPPETEER`, async () => {
-    // for automated tests to get puppeteer going before running the tests for real
-    await puppeteer.launch({ headless, sloMo });
-  }, timeout * 3);
-})
-
 describe('tests for the mongo page', () => {
 
   let client;
@@ -71,10 +64,6 @@ describe('tests for the mongo page', () => {
     if (!process.env.NO_DEMOS) {
       demoWriter.write()
     }
-  }, timeout);
-
-  test(`STARTPUPPETEER`, async () => {
-    // for automated tests to get puppeteer going before running the tests for real
   }, timeout);
 
   test(`MONGO test page loads`, async () => {
