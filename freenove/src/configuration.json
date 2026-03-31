@@ -25,20 +25,20 @@
         "speedIncrease": 0.5
       },
       "m": -0.6953125,
-      "b": 0.47,
+      "b": 0.4751931596250186,
       "speedIncrease": 0.5
     },
     "negative": {
       "8": {
-        "frictionFactor": -0.06408630847166677,
+        "frictionFactor": -0.18407769454627693,
         "speedIncrease": 0.5
       },
       "24": {
-        "frictionFactor": 0.2781640030179437,
+        "frictionFactor": 0.13090184738092214,
         "speedIncrease": 0.5
       },
-      "m": -0.6536499461797488,
-      "b": 0.4492887251330425,
+      "m": -0.6015666128464154,
+      "b": 0.2883916183445216,
       "speedIncrease": 0.5
     }
   }
