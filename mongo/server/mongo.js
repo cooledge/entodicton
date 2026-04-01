@@ -141,11 +141,11 @@ class API {
 
   current() {
     const stm = this.args.kms.stm.api
-    return stm.mentions({ context: { marker: 'report' } }) || this.newReport()
+    return stm.recall({ context: { marker: 'report' } }) || this.newReport()
   }
 
   setCurrent(report) {
-    this.args.km('stm').api.mentioned({ context: report })
+    this.args.km('stm').api.remember({ context: report })
   }
 
   addRecordCountsToDataSpec(dataSpec, context) {
@@ -269,7 +269,7 @@ class API {
     } else {
       const currentReport = api.current()
       report.addReport(api, currentReport, subReport)
-      this.args.mentioned({ context: subReport.imageSpec, frameOfReference: currentReport })
+      this.args.remember({ context: subReport.imageSpec, frameOfReference: currentReport })
       api.show(currentReport)
     }
   }
@@ -303,7 +303,7 @@ class API {
   }
 
   show(report) {
-    // this.args.km('stm').api.mentioned({ marker: 'report', ...report })
+    // this.args.km('stm').api.remember({ marker: 'report', ...report })
     helpers.pushL(this.objects.show, report, 3)
 
     // console.log('show -----------', JSON.stringify(report, null, 2))
@@ -350,7 +350,7 @@ class API {
   getReportNames() {
     const stm = this.args.kms.stm.api
     const nameable = this.args.kms.nameable.api
-    const reports = stm.mentions({ context: { marker: 'report' }, all: true })
+    const reports = stm.recall({ context: { marker: 'report' }, all: true })
     const names = []
     const currentNames = nameable.getNames(this.current())
     for (const report of reports) {
@@ -436,7 +436,7 @@ class API {
         return true
       }
     }
-    this.args.km('stm').api.mentioned({ context: report })
+    this.args.km('stm').api.remember({ context: report })
     return report
   }
 }
@@ -580,14 +580,14 @@ let configStruct = {
     {
       match: ({context}) => context.frameOfReference && context.evaluate,
       apply: async ({context}) => {
-        const value = await mentions({ context: { marker: 'table' }, frameOfReference: currentReport })
+        const value = await recall({ context: { marker: 'table' }, frameOfReference: currentReport })
         context.evalue = value
       },
     },
     // evaluator to pull table/graph/charts from the context
     {
       match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
-      apply: async ({context, kms, toContext, values, api, gp, mentions, verbatim}) => {
+      apply: async ({context, kms, toContext, values, api, gp, recall, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
         // console.log(JSON.stringify(context, null, 2))
@@ -614,7 +614,7 @@ let configStruct = {
           // handle graph/chart being the same thing
           const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }
           // debugger
-          const mentioned = await mentions(args)
+          const mentioned = await recall(args)
           if (mentioned) {
             if (mentioned.marker == 'graph') {
               selectedTables = mentioned
@@ -667,11 +667,11 @@ let configStruct = {
 
     {
       match: ({context}) => context.marker == 'call' && context.nameable.marker == 'table',
-      apply: async ({context, mentioned, api, values, e}) => {
+      apply: async ({context, remember, api, values, e}) => {
         const table = (await e(context.nameable)).evalue
         if (table) {
           table.value.marker = 'table'
-          mentioned({ context: table.value, frameOfReference: table.report })
+          remember({ context: table.value, frameOfReference: table.report })
           const name = context.name.map((n) => n.text).join(' ')
           table.value.value[0].title = name
         }
@@ -782,11 +782,11 @@ let configStruct = {
       associations: ['mongo'],
       isA: ['preposition'],
       bridge: "{ ...next(operator), table: after[0], postModifiers: ['table'] }",
-      semantic: async ({context, e, mentioned}) => {
+      semantic: async ({context, e, remember}) => {
         const destination = (await e(context.table)).evalue
         if (destination) {
           destination.value.marker = 'table'
-          mentioned({ context: destination.value, frameOfReference: destination.report })
+          remember({ context: destination.value, frameOfReference: destination.report })
         }
       },
     },
@@ -1054,7 +1054,7 @@ let configStruct = {
       parents: ['verb'],
       bridge: "{ ...next(operator), element: after[0] }",
       generatorp: async ({context, gp}) => `${context.word} ${await gp(context.element)}`,
-      semantic: ({context, mentions, api}) => {
+      semantic: ({context, recall, api}) => {
         const report = api.current()
         if (context.element.marker == 'header') {
           report.imageSpec.capitalizeHeader = true
@@ -1188,7 +1188,7 @@ let configStruct = {
           return `${context.word} ${await g(context.show)}`
         }
       },
-      semantic: async ({e, mentions, values, context, kms, api, objects}) => {
+      semantic: async ({e, recall, values, context, kms, api, objects}) => {
         let currentReport = api.current()
         if (context.chosens) {
           const chosens = context.chosens[0]
@@ -1250,7 +1250,7 @@ let configStruct = {
             // dataSpecPath = destination.value.field
           } else {
             const args = { context: { marker: 'table' }, frameOfReference: currentReport }
-            defaultTable = await mentions(args)
+            defaultTable = await recall(args)
             if (defaultTable) {
               // console.log(JSON.stringify(defaultTable, null, 2))
               // currentReport = defaultTable.frameOfReference
@@ -1348,7 +1348,7 @@ let configStruct = {
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
-      semantic: async ({context, isA, km, mentions, api, flatten}) => {
+      semantic: async ({context, isA, km, recall, api, flatten}) => {
         // console.log("in show collection")
         let currentReport = api.newReport()
         if (context.chosens) {
@@ -1395,7 +1395,7 @@ let configStruct = {
       // localHierarchy: [['unknown', 'reportable']],
       parents: ['verb'],
       generatorp: async ({context, g}) => `show ${await g(context.show)}`,
-      semantic: async ({context, km, mentions, mentioned, api, flatten, gp}) => {
+      semantic: async ({context, km, recall, remember, api, flatten, gp}) => {
         const toArray = (context) => {
           if (context.isList) {
             return context.value
@@ -1436,7 +1436,7 @@ let configStruct = {
             report.addReport(api, currentReport, subReport)
             // greg55
             if (true) {
-              mentioned({ 
+              remember({ 
                 context: { marker: 'table', value: subReport },
                 frameOfReference: currentReport 
               })
