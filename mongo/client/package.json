@@ -1,6 +1,6 @@
 {
   "name": "mongo demo",
-  "version": "0.1.0",
+  "version": "9.6.3-beta.7",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
