@@ -3,6 +3,7 @@ import './css/menus.css'
 import Text from './Text'
 import makeAPI from './API'
 import RCMenu from './Menu'
+const packageJson = require('../package.json');
 const tpmkms = require('tpmkms_4wp')
 const menu = require('./Menu.json')
 
@@ -103,7 +104,8 @@ const App = () => {
     <div className='App'>
       <div className='Links'>
         <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://youtu.be/KHMlsost7pw'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/menus/src/API.js'} target="_blank" rel="noreferrer">Source Code of API for this page</a>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={`https://github.com/thinktelligence/theprogrammablemind/blob/${packageJson.version}/kms/common/menus.js`} target="_blank" rel="noreferrer">Source Code of Language config</a>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={`https://github.com/cooledge/entodicton/blob/${packageJson.version}/menus/src/API.js`} target="_blank" rel="noreferrer">Source Code of API for this page</a>
       </div>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />

@@ -8,6 +8,7 @@ import NoSessionError from './NoSessionError'
 import Image from './Image'
 import $ from 'jquery';
 import state from './state.json'
+const packageJson = require('../package.json');
 const fetch = require('node-fetch')
 const _ = require('lodash')
 
@@ -373,7 +374,7 @@ function App() {
   return (
     <div className="App">
       <a style={ {'color': 'blue' } } href={'https://www.youtube.com/watch?v=3QILVALBx9M'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
-      <a style={ {'color': 'blue' } } href={'https://github.com/cooledge/entodicton/blob/master/mongo/server/mongo.js'} target="_blank" rel="noreferrer">Source Code of the Language Config</a>
+      <a style={ {'color': 'blue' } } href={`https://github.com/cooledge/entodicton/blob/${packageJson.version}/mongo/server/mongo.js`} target="_blank" rel="noreferrer">Source Code of the Language Config</a>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       { noSession &&
         <NoSessionError max={noSession.max} ttl={noSession.ttl}></NoSessionError>

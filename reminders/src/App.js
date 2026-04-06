@@ -4,6 +4,7 @@ import Text from './Text'
 import makeAPI from './API'
 import Reminders from './Reminders'
 import Users from './Users'
+const packageJson = require('../package.json');
 const tpmkms = require('tpmkms_4wp')
 
 const initialValue = [
@@ -66,7 +67,10 @@ const App = () => {
     <div className='App'>
       <div className='Links'>
         <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={'https://youtu.be/p1nipMHQudw'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
-        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={'https://github.com/cooledge/entodicton/blob/master/reminders/src/API.js'} target="_blank" rel="noreferrer">
+        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={`https://github.com/thinktelligence/theprogrammablemind/blob/${packageJson.version}/kms/common/reminders.js`} target="_blank" rel="noreferrer">
+          Source Code of the Language config
+        </a>
+        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={`https://github.com/cooledge/entodicton/blob/${packageJson.version}/reminders/src/API.js`} target="_blank" rel="noreferrer">
           Source Code of API for this page
         </a>
       </div>
