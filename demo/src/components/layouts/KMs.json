@@ -1022,7 +1022,8 @@
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ngo to the first point of route 1",
         "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1\\ngo to the first point of patrol 1",
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ncall the third second and first points of route 1 route 2",
-        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\nevaluate the points of route 1"
+        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\nevaluate the points of route 1",
+        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ncall the third second and first points of route 1 route 2\\nevaluate the points of route 2"
       ],
       "template": [
         "arm, claw and drone are concepts",
