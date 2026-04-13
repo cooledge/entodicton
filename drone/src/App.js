@@ -1,0 +1,90 @@
+import React, { useRef, useEffect, useState } from "react";
+import './css/menus.css'
+import Text from './Text'
+import makeAPI from './API'
+import SpriteGrid from './SpriteGrid';
+const packageJson = require('../package.json');
+const tpmkms = require('tpmkms_4wp')
+
+const initialValue = [
+  {
+    type: 'paragraph',
+    children: [{ text: 'A line of text in a paragraph.' }],
+  },
+]
+
+const App = () => {
+  const [query, doQuery] = useState({ text: '', counter: 0 })
+  const [counter, setCounter] = useState(0)
+  const [queryResponses, setQueryResponses] = useState([])
+  const [message, setMessage] = useState()
+  const [lastQuery, setLastQuery] = useState('');
+  const [km, setKM] = useState()
+
+  const incrementCounter = () => {
+    setCounter(counter+1)
+  }
+
+  useEffect( () => {
+    const init = async () => {
+      const km = await tpmkms.menus()
+      km.stop_auto_rebuild()
+        await km.setApi(() => makeAPI(km))
+        // km.kms.ui.api = km.api
+        km.config.debug = true
+        const url = `${new URL(window.location.href).origin}/entodicton`
+        km.config.url = url
+        km.server(url)
+        
+      await km.restart_auto_rebuild()
+      setKM(km)
+    }
+
+    if (!km) {
+      init()
+    }
+  }, [km, setCounter])
+
+  const props = {
+    lastQuery, setLastQuery,
+    message, setMessage,
+    km,
+    incrementCounter,
+  }
+
+  const spriteRef = useRef(null);
+
+  useEffect(() => {
+    const sprite = spriteRef.current;
+    if (!sprite) return;
+
+    // Example: Add some points
+    sprite.addPoint("Start", 2, 2);
+    sprite.addPoint("Goal", 8, 8);
+
+    // Rotate 45 degrees and move forward at 4 m/s
+    sprite.rotate(Math.PI / 4);
+    sprite.forward(4);
+
+    // Stop after 3 seconds
+    setTimeout(() => {
+      sprite.stop();
+    }, 3000);
+  }, []);
+
+  return (
+    <div className='App'>
+      <div className='Links'>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://youtu.be/KHMlsost7pw'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={`https://github.com/thinktelligence/theprogrammablemind/blob/${packageJson.version}/kms/common/menus.js`} target="_blank" rel="noreferrer">Source Code of Language config</a>
+        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={`https://github.com/cooledge/entodicton/blob/${packageJson.version}/menus/src/API.js`} target="_blank" rel="noreferrer">Source Code of API for this page</a>
+      </div>
+      <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
+      <Text {...props} />
+      <h2>Sprite Grid Controller</h2>
+      <SpriteGrid ref={spriteRef} />
+    </div>
+  )
+}
+
+export default App;

@@ -1,0 +1,147 @@
+.App {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+uppercase {
+  text-transform: uppercase
+}
+
+lowercase {
+  text-transform: lowercase
+}
+
+.Query {
+  margin-top: 2px;
+  padding: 5px;
+  height: 2em;
+  border: solid 1px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.request {
+  margin-left: 10px;
+  width: 500px;
+  display: inline-grid;
+}
+
+.Header {
+  display: block;
+}
+
+.Body {
+  display: flex;
+  margin-top: 25px;
+}
+
+.Order {
+  width: 25%;
+  border: 2px solid;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding: 20px;
+  background: #E8E8E8;
+}
+
+.Menu {
+  border: 2px solid;
+}
+
+.Items {
+  padding-left: 20px;
+}
+
+.Item {
+  display: flex;
+  flex-direction: row;
+}
+
+.Total {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 125%;
+}
+
+.Speech {
+  border: 2px solid;
+  margin-top: 25px;
+  margin-left: 25px;
+  margin-right: 25px;
+  padding: 10px;
+  background: #E8E8E8;
+
+  display: flex;
+}
+
+.Button {
+  height: 100px;
+  background-color: lightgray;
+  border: 1px thin;
+  border-radius: 8px;
+  margin-left: 10px;
+  padding: 2px 8px 2px 8px;
+}
+
+.Button:hover {
+  background-color: #A9A9A9;
+}
+
+.popup {
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    position: absolute;
+    background: lightgray;
+    min-width: 500px;
+    top: 25%;
+    left: 40%;
+    animation-fill-mode: forwards;
+}
+
+.fadeIn {
+    opacity: 2;
+    animation-name: fadeIn;
+    animation-duration: 2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 2; }
+}
+
+.fadeOut {
+    opacity: 2;
+    animation-name: fadeOut;
+    animation-duration: 2s;
+}
+
+@keyframes fadeOut {
+    from { opacity: 2; }
+    to { opacity: 0; }
+}
+
+.popup img {
+    max-height: 300px;
+    /* margin-top: 100px; */
+    filter: grayscale(1) sepia(100%) hue-rotate(55deg) saturate(7) brightness(1) contrast(2) invert(70%);
+    margin-right: 2%;
+}
+
+.popup .message {
+    display: inline-flex;
+    align-items: center;
+    border-left: 2px double;
+    padding-left: 10px;
+    height: 100px;
+}
+
+.rc-menu-vertical > .rc-menu-item {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  padding-right: 10px !important;
+}
+
