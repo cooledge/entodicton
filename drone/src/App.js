@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import './css/menus.css'
+import './css/drone.css'
 import Text from './Text'
 import makeAPI from './API'
 import SpriteGrid from './SpriteGrid';
@@ -27,9 +27,10 @@ const App = () => {
 
   useEffect( () => {
     const init = async () => {
-      const km = await tpmkms.menus()
+      const km = await tpmkms.drone()
       km.stop_auto_rebuild()
-        await km.setApi(() => makeAPI(km))
+
+        await km.setApi(makeAPI(km))
         // km.kms.ui.api = km.api
         km.config.debug = true
         const url = `${new URL(window.location.href).origin}/entodicton`
@@ -45,39 +46,42 @@ const App = () => {
     }
   }, [km, setCounter])
 
+  const spriteRef = useRef(null);
+
+  /*
+    useEffect(() => {
+      const sprite = spriteRef.current;
+      if (!sprite) return;
+
+      // Example: Add some points
+      sprite.addPoint("Start", 2, 2);
+      sprite.addPoint("Goal", 8, 8);
+
+      // Rotate 45 degrees and move forward at 4 m/s
+      sprite.rotate(Math.PI / 4);
+      sprite.forward(4);
+
+      // Stop after 3 seconds
+      setTimeout(() => {
+        sprite.stop();
+      }, 3000);
+    }, []);
+  */
+
   const props = {
     lastQuery, setLastQuery,
     message, setMessage,
     km,
     incrementCounter,
+    spriteRef,
   }
-
-  const spriteRef = useRef(null);
-
-  useEffect(() => {
-    const sprite = spriteRef.current;
-    if (!sprite) return;
-
-    // Example: Add some points
-    sprite.addPoint("Start", 2, 2);
-    sprite.addPoint("Goal", 8, 8);
-
-    // Rotate 45 degrees and move forward at 4 m/s
-    sprite.rotate(Math.PI / 4);
-    sprite.forward(4);
-
-    // Stop after 3 seconds
-    setTimeout(() => {
-      sprite.stop();
-    }, 3000);
-  }, []);
 
   return (
     <div className='App'>
       <div className='Links'>
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={'https://youtu.be/KHMlsost7pw'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={`https://github.com/thinktelligence/theprogrammablemind/blob/${packageJson.version}/kms/common/menus.js`} target="_blank" rel="noreferrer">Source Code of Language config</a>
-        <a style={{'margin-left': '30px', 'margin-top': '20px'}} href={`https://github.com/cooledge/entodicton/blob/${packageJson.version}/menus/src/API.js`} target="_blank" rel="noreferrer">Source Code of API for this page</a>
+        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={'https://youtu.be/KHMlsost7pw'} target="_blank" rel="noreferrer">YouTube Demo of Using This POC Page</a>
+        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={`https://github.com/thinktelligence/theprogrammablemind/blob/${packageJson.version}/kms/common/drone.js`} target="_blank" rel="noreferrer">Source Code of Language config</a>
+        <a style={{'marginLeft': '30px', 'marginTop': '20px'}} href={`https://github.com/cooledge/entodicton/blob/${packageJson.version}/drone/src/API.js`} target="_blank" rel="noreferrer">Source Code of API for this page</a>
       </div>
       <span id={`queryCounter${counter}`} style={{display: 'none'}}>{counter}</span>
       <Text {...props} />

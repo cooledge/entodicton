@@ -1,88 +1,149 @@
+const DEBUG = true
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const makeAPI = (km) => {
-  class MenusAPI extends km.apiBase() {
-    show(item) {
-      debugger
-      const path = this._objects.directions.paths[item]
-      if (path && path[0]) {
-        this.props.setOpenKeys([path[0]])
-        if (path[1]) {
-          this.props.setSelectedKeys([path[1]])
-        } else {
-          this.props.setSelectedKeys([])
-        }
-      } else {
-        this.props.setOpenKeys([])
-      }
-    }
-
-    current() {
-      if (this.props.selectedKeys.length > 0) {
-        return this.props.selectedKeys[this.props.selectedKeys.length-1]
-      } else if (this.props.openKeys.length > 0) {
-        return this.props.openKeys[this.props.openKeys.length-1]
-      }
-    }
-
-    close() {
-      this.props.setOpenKeys([])
-    }
-
-    select(item) {
-      debugger
-    }
-
-    unselect(item) {
-      debugger
-    }
-
-    cancel(direction) {
-      debugger
-    }
-
-    stop(action) {
-      debugger
+  class API extends km.apiBase() {
+    constructor() {
+      super()
+      this.batch = []
     }
 
     setProps(props) {
       this.props = props
+      this.sprite = this.props.spriteRef.current;
     }
 
-    say(message) {
-      console.log("say", message)
-      // this.props.setMessage(message)
+    say(text) {
+      console.log(text)
+    }
+
+    now() {
+      return new Date()
+    }
+
+    minimumSpeedDrone() {
+      return 0.1
+    }
+
+    maximumSpeedDrone() {
+      return 1
+    }
+
+    async pauseDrone(durationInSeconds, options) {
+      if (DEBUG) {
+        console.log("pause", durationInSeconds)
+      }
+      if (options.batched) {
+        this.batch.push(async () => await sleep(durationInSeconds*1000))
+      } else {
+        await sleep(durationInSeconds*1000)
+      }
+    }
+
+    async armActionDrone(action, options) {
+      if (DEBUG) {
+        console.log("armAction", action)
+      }
+    }
+
+    async clawActionDrone(action, options) {
+      if (DEBUG) {
+        console.log("clawAction", action)
+      }
+    }
+
+    async forwardDrone(speed, options) {
+      if (DEBUG) {
+        console.log("forward", speed, 'm/s')
+      }
+
+      if (options.batched) {
+        this.batch.push(async () => this.sprite.forward(speed))
+      } else {
+        this.sprite.forward(speed)
+      }
+    }
+
+    async backwardDrone(speed, options) {
+      if (DEBUG) {
+        console.log("backward", speed, 'm/s')
+      }
+      if (options.batched) {
+        this.batch.push(async () => this.sprite.backward(speed))
+      } else {
+        this.sprite.backward(speed)
+      }
+    }
+
+    async rotateDrone(angleInRadians, options = {}) {
+      if (DEBUG) {
+        console.log("rotate", angleInRadians)
+      }
+      if (options.batched) {
+        this.batch.push(async () => this.sprite.rotate(-angleInRadians))
+      } else {
+        this.sprite.rotate(-angleInRadians)
+      }
+    }
+
+    async stopDrone(options) {
+      if (DEBUG) {
+        console.log("stop")
+      }
+      if (options.batched) {
+        this.batch.push(async () => this.sprite.stop())
+      } else {
+        this.sprite.stop()
+      }
+    }
+
+    async sonicDrone() {
+      if (DEBUG) {
+        console.log("sonic")
+      }
+    }
+
+    async startRepeatsDrone(n) {
+      if (DEBUG) {
+        console.log("startRepeats")
+      }
+    }
+
+    async endRepeatsDrone() {
+      if (DEBUG) {
+        console.log("endRepeats")
+      }
+    }
+
+    async sendBatchDrone() {
+      if (DEBUG) {
+        console.log("sendBatch")
+      }
+      for (const command of this.batch) {
+        await command()
+      }
+      this.batch = []
+    }
+
+    async tiltAngleDrone(options) {
+      if (DEBUG) {
+        console.log("tiltAngleDrone")
+      }
+    }
+
+    async panAngleDrone(options) {
+      if (DEBUG) {
+        console.log("panAngleDrone")
+      }
     }
   }
 
-  class UIAPI extends km.apiBase('ui') {
-    constructor(menusAPI) {
-      super()
-      this.menusAPI = menusAPI
-    }
-
-    initialize() {
-    }
-
-    select(item) {
-      this.menusAPI.select(item)
-    }
-
-    unselect(item) {
-      this.menusAPI.unselect(item)
-    }
-
-    cancel(direction) {
-      this.menusAPI.cancel(direction)
-    }
-
-    stop(action) {
-      this.menusAPI.stop(action)
-    }
-
-  }
-  const menusAPI = new MenusAPI()
-  const uiAPI = new UIAPI(menusAPI)
-
-  return { menus: menusAPI, ui: uiAPI }
+  return () => new API()
 }
 
 export default makeAPI;

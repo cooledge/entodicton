@@ -16,12 +16,12 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "react-scripts test",
-    "start": "PORT=3011 react-scripts start",
+    "start": "PORT=3014 react-scripts start",
     "lint": "eslint src/**/*.js",
     "lint2": "eslint src/**/*.js src/**/*.jsx"
   },
   "name": "word processor demo",
-  "homepage": "http://localhost:10000/menus",
+  "homepage": "http://localhost:10000/drone",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -45,10 +45,10 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.8.0",
     "sass": "^1.69.5",
-    "tpmkms_4wp": "9.6.3-beta.7",
+    "tpmkms_4wp": "9.6.3-beta.8",
     "web-vitals": "^3.5.0"
   },
-  "version": "9.6.3-beta.7",
+  "version": "9.6.3-beta.8",
   "devDependencies": {
     "eslint": "^8.54.0",
     "eslint-plugin-react": "^7.33.2"
