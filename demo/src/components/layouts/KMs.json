@@ -140,16 +140,28 @@
       "includes": [
         "articles",
         "asking",
+        "comparable",
+        "concept",
         "conjunction",
+        "countable",
         "dialogues",
+        "dimension",
         "evaluate",
+        "formulas",
         "gdefaults",
+        "hierarchy",
+        "math",
         "meta",
         "negation",
+        "numbers",
         "pos",
+        "properties",
         "punctuation",
         "sdefaults",
         "stm",
+        "tell",
+        "testing",
+        "time",
         "tokenize",
         "words"
       ],
@@ -1023,7 +1035,9 @@
         "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1\\ngo to the first point of patrol 1",
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ncall the third second and first points of route 1 route 2",
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\nevaluate the points of route 1",
-        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ncall the third second and first points of route 1 route 2\\nevaluate the points of route 2"
+        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ncall the third second and first points of route 1 route 2\\nevaluate the points of route 2",
+        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ndo route 1 pausing 10 seconds at each point",
+        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\npatrol route 1 pausing 10 seconds at each point"
       ],
       "template": [
         "arm, claw and drone are concepts",
@@ -2935,7 +2949,8 @@
         "evaluate 2 hours in minutes",
         "evaluate 120 seconds in hours",
         "2 hours in minutes",
-        "for 10 seconds"
+        "for 10 seconds",
+        "repeatable 50 times"
       ],
       "template": [
         "years hours minutes and seconds are units of time",
