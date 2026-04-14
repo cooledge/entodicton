@@ -23,7 +23,7 @@
   "homepage": "http://localhost:10000/mongo",
   "scripts": {
     "start": "PORT=3009 react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf node_modules/.cache && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

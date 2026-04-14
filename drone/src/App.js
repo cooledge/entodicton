@@ -25,6 +25,8 @@ const App = () => {
     setCounter(counter+1)
   }
 
+  const spriteRef = useRef(null);
+
   useEffect( () => {
     const init = async () => {
       const km = await tpmkms.drone()
@@ -39,14 +41,37 @@ const App = () => {
         
       await km.restart_auto_rebuild()
       setKM(km)
+
+      km.addSemantic({
+        match: ({context}) => context.marker == 'controlEnd',
+        apply: async ({context, toArray, recall, _continue}) => {
+          const paths = await recall({ 
+                context: { marker: 'path' }, 
+                all: true,
+                condition: (context) => context.points,
+          })
+          if (paths) {
+            const sprite = spriteRef.current;
+            for (const path of toArray(paths)) {
+              if (!path.inUI) {
+                const names = path.namespaced.nameable.names
+                const points = path.points.map((point) => point.point)
+                debugger
+                sprite.addPath(names[0], points)
+                path.inUI = true
+              }
+            }
+          }
+          _continue()
+        }
+      })
     }
 
     if (!km) {
       init()
     }
-  }, [km, setCounter])
+  }, [km, setCounter, spriteRef])
 
-  const spriteRef = useRef(null);
 
   /*
     useEffect(() => {

@@ -11,6 +11,8 @@ const makeAPI = (km) => {
     constructor() {
       super()
       this.batch = []
+      this.setStartPoint({ x: 5, y: 5 })
+      this.setStartAngle(Math.PI, 'west')
     }
 
     setProps(props) {
@@ -34,7 +36,7 @@ const makeAPI = (km) => {
       return 1
     }
 
-    async pauseDrone(durationInSeconds, options) {
+    async pauseDrone(durationInSeconds, options = {}) {
       if (DEBUG) {
         console.log("pause", durationInSeconds)
       }
@@ -45,19 +47,19 @@ const makeAPI = (km) => {
       }
     }
 
-    async armActionDrone(action, options) {
+    async armActionDrone(action, options = {}) {
       if (DEBUG) {
         console.log("armAction", action)
       }
     }
 
-    async clawActionDrone(action, options) {
+    async clawActionDrone(action, options = {}) {
       if (DEBUG) {
         console.log("clawAction", action)
       }
     }
 
-    async forwardDrone(speed, options) {
+    async forwardDrone(speed, options = {}) {
       if (DEBUG) {
         console.log("forward", speed, 'm/s')
       }
@@ -69,7 +71,7 @@ const makeAPI = (km) => {
       }
     }
 
-    async backwardDrone(speed, options) {
+    async backwardDrone(speed, options = {}) {
       if (DEBUG) {
         console.log("backward", speed, 'm/s')
       }
@@ -91,7 +93,7 @@ const makeAPI = (km) => {
       }
     }
 
-    async stopDrone(options) {
+    async stopDrone(options = {}) {
       if (DEBUG) {
         console.log("stop")
       }
@@ -130,13 +132,13 @@ const makeAPI = (km) => {
       this.batch = []
     }
 
-    async tiltAngleDrone(options) {
+    async tiltAngleDrone(options = {}) {
       if (DEBUG) {
         console.log("tiltAngleDrone")
       }
     }
 
-    async panAngleDrone(options) {
+    async panAngleDrone(options = {}) {
       if (DEBUG) {
         console.log("panAngleDrone")
       }
