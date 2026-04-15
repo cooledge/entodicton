@@ -12,7 +12,17 @@ const makeAPI = (km) => {
       super()
       this.batch = []
       this.setStartPoint({ x: 5, y: 5 })
-      this.setStartAngle(Math.PI, 'west')
+      this.setStartAngle(0, 'east')
+      this.sayHandler = (text) => console.log(text)
+      {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        this.unittest = urlParams.get('unittest');
+      }
+    }
+
+    setSayHandler(sayHandler) {
+      this.sayHandler = sayHandler
     }
 
     setProps(props) {
@@ -21,7 +31,7 @@ const makeAPI = (km) => {
     }
 
     say(text) {
-      console.log(text)
+      this.sayHandler(text)
     }
 
     now() {
@@ -33,7 +43,7 @@ const makeAPI = (km) => {
     }
 
     maximumSpeedDrone() {
-      return 1
+      return this.unittest ? 100 : 1
     }
 
     async pauseDrone(durationInSeconds, options = {}) {

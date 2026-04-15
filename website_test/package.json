@@ -19,6 +19,8 @@
     "fastfoodh": "HEADLESS=true jest --runInBand -t FASTFOOD",
     "wp": "HEADLESS=false jest --runInBand -t WP",
     "wph": "HEADLESS=true jest --runInBand -t WP",
+    "drone": "HEADLESS=false jest --runInBand -t DRONE",
+    "droneh": "HEADLESS=true jest --runInBand -t DRONE",
     "copy": "",
     "menus": "cp ../menus/src/Menu.json tests; HEADLESS=false jest --runInBand -t MENUS",
     "menush": "cp ../menus/src/Menu.json tests; HEADLESS=true jest --runInBand -t MENUS",

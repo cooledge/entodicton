@@ -19,6 +19,7 @@ const App = () => {
   const [queryResponses, setQueryResponses] = useState([])
   const [message, setMessage] = useState()
   const [lastQuery, setLastQuery] = useState('');
+  const [response, setResponse] = useState('');
   const [km, setKM] = useState()
 
   const incrementCounter = () => {
@@ -32,14 +33,29 @@ const App = () => {
       const km = await tpmkms.drone()
       km.stop_auto_rebuild()
 
-        await km.setApi(makeAPI(km))
+        await km.setApi(() => {
+          const api = makeAPI(km)()
+          api.setSayHandler(setResponse)
+          return api
+        })
         // km.kms.ui.api = km.api
         km.config.debug = true
+
         const url = `${new URL(window.location.href).origin}/entodicton`
         km.config.url = url
         km.server(url)
         
       await km.restart_auto_rebuild()
+
+      {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const unittest = urlParams.get('unittest');
+        if (unittest) {
+          km.api.setSpeed(5)
+        }
+      }
+
       setKM(km)
 
       km.addSemantic({
@@ -54,6 +70,9 @@ const App = () => {
             const sprite = spriteRef.current;
             for (const path of toArray(paths)) {
               if (!path.inUI) {
+                if (!path.namespaced?.nameable?.names) {
+                  debugger
+                }
                 const names = path.namespaced.nameable.names
                 const points = path.points.map((point) => point.point)
                 debugger
@@ -99,6 +118,7 @@ const App = () => {
     km,
     incrementCounter,
     spriteRef,
+    response, setResponse,
   }
 
   return (
