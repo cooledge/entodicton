@@ -158,10 +158,10 @@ describe('tests for drone page', () => {
     await testPosition(4, 6, '180')
   }, timeout);
 
-  async function testPath(name, expectedPathPoints) { 
-    const pathName = await page.$eval('span.pathName', el => el.textContent.trim());
+  async function testPath(name, expectedPathPoints, pathIndex=0) { 
+    const pathName = await page.$eval(`span.pathName_${pathIndex}`, el => el.textContent.trim());
     expect(pathName).toBe(name)
-    const pathPointsText = await page.$eval('span.pathPoints', el => el.textContent.trim());
+    const pathPointsText = await page.$eval(`span.pathPoints_${pathIndex}`, el => el.textContent.trim());
     const actualPathPoints = parsePathPoints(pathPointsText)
     for (let i = 0; i < expectedPathPoints.length; ++i) {
       expect(actualPathPoints[i][0]).toBeCloseToPercent(expectedPathPoints[i][0], 10)
@@ -211,10 +211,32 @@ describe('tests for drone page', () => {
     await testPath('route 1', expectedPathPoints)
   }, timeout);
 
-  test(`NEO23 DRONE what is the speed of the drone`, async () => {
+  test(`DRONE what is the speed of the drone`, async () => {
     await query('what is the speed of the drone')
     const response = await page.$eval('span.response', el => el.textContent.trim());
     expect(response).toBe("the speed of the drone is 5 meters per second")
   }, timeout);
+
+
+  test(`NEO23 DRONE forward 1 meter\nturn left 45 degrees\nforward 1 meter\nwest 2 meters\ncall that path route 66\ngo to the start of route 66\nsouth 1 meter\neast 1 meter\ncall the last three points path route 77`, async () => {
+    await query('forward 1 meter')
+    await query('turn left 45 degrees')
+    await query('forward 1 meter')
+    await query('west 2 meters')
+    await query('call that path route 66')
+    await query('go to the start of route 66')
+    await query('south 1 meter')
+    await query('east 1 meter')
+    await query('call the last three points route 77')
+    
+    await testPosition(6, 4, '0')
+
+    const expectedPathPoints0 = [[5, 5], [6, 5], [6.7, 5.7], [4.7, 5.7]]
+    await testPath('route 66', expectedPathPoints0, 0)
+
+    const expectedPathPoints1 = [[5, 5], [5, 4], [6, 4]]
+    await testPath('route 77', expectedPathPoints1, 1)
+  }, timeout);
+
 
 });

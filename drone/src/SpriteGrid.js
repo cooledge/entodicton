@@ -329,7 +329,7 @@ const SpriteGrid = forwardRef((props, ref) => {
             {paths.length === 0 ? (
               <p style={{ color: '#888', fontStyle: 'italic' }}>No paths yet. Add one using current position.</p>
             ) : (
-              paths.map((path) => (
+              paths.map((path, pathIndex) => (
                 <div
                   key={path.id}
                   onClick={() => handlePathClick(path)}
@@ -344,7 +344,7 @@ const SpriteGrid = forwardRef((props, ref) => {
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                      <strong><span className='pathName'>{path.name}</span></strong>
+                      <strong><span className={`pathName_${pathIndex}`}>{path.name}</span></strong>
                       <div style={{ fontSize: '13px', color: '#666' }}>
                         {path.points.length} point{path.points.length !== 1 ? 's' : ''}
                       </div>
@@ -357,7 +357,7 @@ const SpriteGrid = forwardRef((props, ref) => {
                     </button>
                   </div>
                   <div style={{ fontSize: '12px', color: '#555', marginTop: '4px' }}>
-                    Points: <span className='pathPoints'>{path.points.map((point) => `(${point.x.toFixed(1)}, ${point.y.toFixed(1)})`).join(', ')}</span>
+                    Points: <span className={`pathPoints_${pathIndex}`}>{path.points.map((point) => `(${point.x.toFixed(1)}, ${point.y.toFixed(1)})`).join(', ')}</span>
                   </div>
                 </div>
               ))
