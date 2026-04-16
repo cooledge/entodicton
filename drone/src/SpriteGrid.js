@@ -5,6 +5,19 @@ const CELL_SIZE = 50;
 const CANVAS_WIDTH = GRID_SIZE * CELL_SIZE;
 const CANVAS_HEIGHT = GRID_SIZE * CELL_SIZE;
 
+const colors = [
+  "red",
+  "green",
+  "blue",
+  "yellow",
+  "cyan",
+  "magenta"
+];
+
+function toPathColor(index) {
+  return colors[index % colors.length]
+}
+    
 const SpriteGrid = forwardRef((props, ref) => {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
@@ -56,7 +69,7 @@ const SpriteGrid = forwardRef((props, ref) => {
     ctx.font = 'bold 13px Arial';
     ctx.textAlign = 'center';
 
-    paths.forEach((path) => {
+    paths.forEach((path, pathIndex) => {
       path.points.forEach((point, i) => {
         // Convert logical (bottom-left origin) to canvas coordinates (top-left origin)
         const px = point.x * CELL_SIZE;
@@ -68,8 +81,10 @@ const SpriteGrid = forwardRef((props, ref) => {
 
         if (i === 0) {
           ctx.fillStyle = '#000';
-          ctx.fillText(path.name, px, py - 18);
-          ctx.fillStyle = '#e74c3c';
+          ctx.fillStyle = toPathColor(pathIndex)
+          // ctx.fillText(path.name, px, py - 18);
+          ctx.fillText('start', px, py - 18);
+          // ctx.fillStyle = '#e74c3c';
         }
       });
     });
@@ -345,7 +360,7 @@ const SpriteGrid = forwardRef((props, ref) => {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <strong><span className={`pathName_${pathIndex}`}>{path.name}</span></strong>
-                      <div style={{ fontSize: '13px', color: '#666' }}>
+                      <div style={{ fontSize: '13px', color: toPathColor(pathIndex) }}>
                         {path.points.length} point{path.points.length !== 1 ? 's' : ''}
                       </div>
                     </div>
