@@ -1039,7 +1039,8 @@
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\ndo route 1 pausing 10 seconds at each point",
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\npatrol route 1 pausing 10 seconds at each point",
         "forward 1 meter\\ncall that path big bad path\\npatrol big bad path",
-        "forward 1 meter\\ncall that route 1"
+        "forward 1 meter\\ncall that route 1",
+        "north 1 meter\\neast 1 meter\\ncall that route 2\\ngo to the second point of route 2"
       ],
       "template": [
         "arm, claw and drone are concepts",
