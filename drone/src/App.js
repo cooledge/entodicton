@@ -75,7 +75,6 @@ const App = () => {
                 }
                 const names = path.namespaced.nameable.names
                 const points = path.points.map((point) => point.point)
-                debugger
                 sprite.addPath(names[0], points)
                 path.inUI = true
               }

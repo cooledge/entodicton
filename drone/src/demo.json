@@ -9,6 +9,7 @@
     "what is the speed of the drone",
     "forward 1 meter\\nturn left 45 degrees\\nforward 1 meter\\nwest 2 meters\\ncall that path route 66\\ngo to the start of route 66\\nsouth 1 meter\\neast 1 meter\\ncall the last three points route 77",
     "forward 1 meter\\ncall the path route 1\\ngo back\\ngo to the end of the path",
-    "forward 1 meter\\ncall that route 1"
+    "forward 1 meter\\ncall that route 1",
+    "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\ngo to the second point of route 1"
   ]
 }

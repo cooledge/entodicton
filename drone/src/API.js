@@ -48,7 +48,7 @@ const makeAPI = (km) => {
 
     async pauseDrone(durationInSeconds, options = {}) {
       if (DEBUG) {
-        console.log("pause", durationInSeconds)
+        console.log("pause (seconds)", durationInSeconds)
       }
       if (options.batched) {
         this.batch.push(async () => await sleep(durationInSeconds*1000))
@@ -75,7 +75,7 @@ const makeAPI = (km) => {
       }
 
       if (options.batched) {
-        this.batch.push(async () => this.sprite.forward(speed))
+        this.batch.push(async () => await this.sprite.forward(speed))
       } else {
         this.sprite.forward(speed)
       }
@@ -86,7 +86,7 @@ const makeAPI = (km) => {
         console.log("backward", speed, 'm/s')
       }
       if (options.batched) {
-        this.batch.push(async () => this.sprite.backward(speed))
+        this.batch.push(async () => await this.sprite.backward(speed))
       } else {
         this.sprite.backward(speed)
       }
@@ -97,7 +97,7 @@ const makeAPI = (km) => {
         console.log("rotate", angleInRadians)
       }
       if (options.batched) {
-        this.batch.push(async () => this.sprite.rotate(-angleInRadians))
+        this.batch.push(async () => await this.sprite.rotate(-angleInRadians))
       } else {
         this.sprite.rotate(-angleInRadians)
       }
@@ -108,7 +108,7 @@ const makeAPI = (km) => {
         console.log("stop")
       }
       if (options.batched) {
-        this.batch.push(async () => this.sprite.stop())
+        this.batch.push(async () => await this.sprite.stop())
       } else {
         this.sprite.stop()
       }
@@ -124,20 +124,42 @@ const makeAPI = (km) => {
       if (DEBUG) {
         console.log("startRepeats")
       }
+      this.batch.push({ startRepeats: true, n })
     }
 
     async endRepeatsDrone() {
       if (DEBUG) {
         console.log("endRepeats")
       }
+      this.batch.push({ endRepeats: true })
     }
 
     async sendBatchDrone() {
       if (DEBUG) {
         console.log("sendBatch")
       }
+
+      let loop = false
+      let commands
+      let n
       for (const command of this.batch) {
-        await command()
+        if (command.startRepeats) {
+          loop = true
+          n = command.n
+          commands = []
+        } else if (command.endRepeats) {
+          loop = false
+          while (n) {
+            n = n-1
+            for (const c of commands) {
+              await c()
+            }
+          }
+        } else if (loop) {
+          commands.push(command)
+        } else {
+          await command()
+        }
       }
       this.batch = []
     }

@@ -192,7 +192,7 @@ describe('tests for drone page', () => {
     await query('call the path route 1')
     await query('go back')
     await query('patrol route 1')
-    await testPosition(5, 5, '180')
+    await testPosition(5, 5, '0')
 
     const expectedPathPoints = [[5, 5], [6, 5]]
     await testPath('route 1', expectedPathPoints)
@@ -205,7 +205,7 @@ describe('tests for drone page', () => {
     await query('go to the start of route 1')
     await query('patrol route 1')
     await query('patrol route 1')
-    await testPosition(5, 5, '180')
+    await testPosition(5, 5, '0')
 
     const expectedPathPoints = [[5, 5], [6, 5], [6, 6]]
     await testPath('route 1', expectedPathPoints)
