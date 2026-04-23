@@ -1040,7 +1040,10 @@
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\npatrol route 1 pausing 10 seconds at each point",
         "forward 1 meter\\ncall that path big bad path\\npatrol big bad path",
         "forward 1 meter\\ncall that route 1",
-        "north 1 meter\\neast 1 meter\\ncall that route 2\\ngo to the second point of route 2"
+        "north 1 meter\\neast 1 meter\\ncall that route 2\\ngo to the second point of route 2",
+        "forward 1 meter\\neast 1 meter\\ncall that route 1\\ngo to the second point of route 1",
+        "forward 1 meter\\ncall that route 66\\npatrol route 66 3 times",
+        "2 seconds at the first point"
       ],
       "template": [
         "arm, claw and drone are concepts",
@@ -1048,6 +1051,7 @@
         "paths are nameable and memorable",
         "start and end are properties of path",
         "start and end are points",
+        "rest and remaining are concepts",
         "speed and power are properties",
         "speed and power are comparable",
         "speed is a quantity",
@@ -2953,15 +2957,19 @@
         "evaluate 120 seconds in hours",
         "2 hours in minutes",
         "for 10 seconds",
-        "repeatable 50 times"
+        "repeatable 50 times",
+        "what is 1 milliseconds in seconds",
+        "what is 1 seconds in milliseconds"
       ],
       "template": [
-        "years hours minutes and seconds are units of time",
+        "years hours minutes milliseconds and seconds are units of time",
         "hours = minutes / 60",
         "minutes = hours * 60",
         "seconds = minutes * 60",
         "hours = seconds / 3600",
         "seconds = hours * 3600",
+        "milliseconds = seconds * 1000",
+        "seconds = milliseconds / 1000",
         "minutes = seconds / 60",
         "day = hours / 24",
         "hours = days * 24"
