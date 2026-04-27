@@ -285,11 +285,24 @@ describe('tests for drone page', () => {
     await testPath('route 1', expectedPathPoints, 0)
   }, timeout);
 
-  test(`NEO23 DRONE forward 1 meter\nnorth 1 meter\ncall that route 1\npatrol route 1 pausing 1 second at the first and last points`, async () => {
+  test(`DRONE forward 1 meter\nnorth 1 meter\ncall that route 1\npatrol route 1 pausing 1 second at the first and last points`, async () => {
     await query('forward 1 meter')
     await query('north 1 meter')
     await query('call that route 1')
     await query('patrol route 1 pausing 1 second at the first and last points')
+    await sleep(6)
+    
+    await testPosition(5, 5, '0')
+
+    const expectedPathPoints = [[5, 5], [6, 5], [6, 6]]
+    await testPath('route 1', expectedPathPoints, 0)
+  }, timeout);
+
+  test(`NEO23 DRONE forward 1 meter\nnorth 1 meter\ncall that route 1\npatrol route 1 pausing 1 second at the first and 5 seconds at the last point`, async () => {
+    await query('forward 1 meter')
+    await query('north 1 meter')
+    await query('call that route 1')
+    await query('patrol route 1 pausing 1 second at the first point and 3 seconds at the last point')
     await sleep(6)
     
     await testPosition(5, 5, '0')

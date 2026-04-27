@@ -11,6 +11,8 @@
     "forward 1 meter\\ncall the path route 1\\ngo back\\ngo to the end of the path",
     "forward 1 meter\\ncall that route 1",
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\ngo to the second point of route 1",
-    "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\npatrol route 1 pausing 1 second at each point"
+    "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\npatrol route 1 pausing 1 second at each point",
+    "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\npatrol route 1 pausing 1 second at the first and last points",
+    "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\npatrol route 1 pausing 1 second at the first point and 3 seconds at the last point"
   ]
 }
