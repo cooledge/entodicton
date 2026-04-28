@@ -324,7 +324,7 @@ describe('tests for drone page', () => {
     await testPath('route 1', expectedPathPoints, 0)
   }, timeout);
 
-  test(`NEO23 DRONE forward 1 meter\nnorth 1 meter\ncall that route 1\ngo to the start\ngo to the end`, async () => {
+  test(`DRONE forward 1 meter\nnorth 1 meter\ncall that route 1\ngo to the start\ngo to the end`, async () => {
     await query('forward 1 meter')
     await query('north 1 meter')
     await query('call that route 1')
@@ -333,6 +333,26 @@ describe('tests for drone page', () => {
     await sleep(6)
     
     await testPosition(6, 6, '45')
+
+    const expectedPathPoints = [[5, 5], [6, 5], [6, 6]]
+    await testPath('route 1', expectedPathPoints, 0)
+  }, timeout);
+
+  test(`NEO23 DRONE forward 1 meter\nnorth 1 meter\ncall that route 1\ngo to the start\nstart a path\nsouth 1 meter\nwest 1 meter\ncall that route 2\npatrol route 1\npatrol route 2`, async () => {
+    await query('forward 1 meter')
+    await query('north 1 meter')
+    await query('call that route 1')
+    await query('go to the start')
+    await query('start a path')
+    const response = await page.$eval('span.response', el => el.textContent.trim());
+    expect(response).toBe("New path started from (5.00, 5.00)")
+    await query('south 1 meter')
+    await query('west 1 meter')
+    await query('call that route 2')
+    await query('patrol route 1')
+    await query('patrol route 2')
+    
+    await testPosition(5, 5, '270')
 
     const expectedPathPoints = [[5, 5], [6, 5], [6, 6]]
     await testPath('route 1', expectedPathPoints, 0)
