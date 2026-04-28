@@ -1046,7 +1046,12 @@
         "2 seconds at the first point",
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\npatrol route 1 pausing 10 seconds at the first and last points",
         "pausing 2 seconds at the first point and 3 seconds at the third point",
-        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\npausing 2 seconds at the first point and 3 seconds at the last point"
+        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\npausing 2 seconds at the first point and 3 seconds at the last point",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ndo patrol 1\\ngo to the start of patrol ",
+        "north 1 foot\\neast 1 foot\\ncall the path route 1\\ngo to the start\\ngo to the end",
+        "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ngo to the second point",
+        "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path",
+        "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2"
       ],
       "template": [
         "arm, claw and drone are concepts",
