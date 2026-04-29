@@ -134,7 +134,13 @@
       "description": "Actions using the word do",
       "examples": [
         "do action",
-        "action again"
+        "action again",
+        "do action then action",
+        "do action then action then action",
+        "action then action",
+        "action action then action",
+        "do action action then action",
+        "do action 10 times"
       ],
       "template": [],
       "includes": [
