@@ -15,6 +15,7 @@
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\npatrol route 1 pausing 1 second at the first and last points",
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\npatrol route 1 pausing 1 second at the first point and 3 seconds at the last point",
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\ngo to the start",
+    "go 1 meter then turn north",
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\ngo to the start\\ngo to the end",
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\nwest 1 meter\\ncall that route 2\\npatrol route 1\\npatrol route 2"
   ]
