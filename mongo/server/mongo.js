@@ -578,6 +578,7 @@ let configStruct = {
 
   semantics: [
     {
+      where: where(),
       match: ({context}) => context.frameOfReference && context.evaluate,
       apply: async ({context}) => {
         const value = await recall({ context: { marker: 'table' }, frameOfReference: currentReport })
@@ -586,6 +587,7 @@ let configStruct = {
     },
     // evaluator to pull table/graph/charts from the context
     {
+      where: where(),
       match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
       apply: async ({context, kms, toContext, values, api, gp, recall, verbatim}) => {
         const currentReport = api.current()
@@ -643,8 +645,8 @@ let configStruct = {
 
     {
       // overides move semantics from ui
-      match: ({context}) => context.marker == 'move' && !context.evaluate,
       where: where(),
+      match: ({context}) => context.marker == 'move' && !context.evaluate,
       apply: async ({context, api, values, e, isA}) => {
         debugger
         const table = (await e(context.moveable)).evalue
@@ -666,6 +668,7 @@ let configStruct = {
     },
 
     {
+      where: where(),
       match: ({context}) => context.marker == 'call' && context.nameable.marker == 'table',
       apply: async ({context, remember, api, values, e}) => {
         const table = (await e(context.nameable)).evalue
@@ -692,6 +695,7 @@ let configStruct = {
       localHierarchy: [['thisitthat', 'deletable']],
       semantics: [
         {
+          where: where(),
           match: ({context}) => context.element?.marker == 'column',
           apply: async ({context, api, values, e, isA, verbatim, gp}) => {
             if (context.element.ordinal) {

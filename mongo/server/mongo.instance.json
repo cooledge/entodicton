@@ -3757,11 +3757,6 @@
           false
         ],
         [
-          "mathematicalExpression",
-          "number",
-          false
-        ],
-        [
           "mathematical_operator",
           "adjective",
           true
@@ -7343,11 +7338,6 @@
           false
         ],
         [
-          "mathematicalExpression",
-          "number",
-          false
-        ],
-        [
           "mathematical_operator",
           "adjective",
           true
@@ -10816,11 +10806,6 @@
         [
           "mathematicalExpression",
           "concept",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "number",
           false
         ],
         [
@@ -14477,11 +14462,6 @@
           false
         ],
         [
-          "mathematicalExpression",
-          "number",
-          false
-        ],
-        [
           "mathematical_operator",
           "adjective",
           true
@@ -17957,11 +17937,6 @@
           false
         ],
         [
-          "mathematicalExpression",
-          "number",
-          false
-        ],
-        [
           "mathematical_operator",
           "adjective",
           true
@@ -19787,6 +19762,11 @@
           "context_index": 1,
           "topLevel": true,
           "context_id": 2,
+          "control": {
+            "seen": [],
+            "nextId": 2
+          },
+          "control_id": 1,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -22447,11 +22427,6 @@
           false
         ],
         [
-          "mathematicalExpression",
-          "number",
-          false
-        ],
-        [
           "mathematical_operator",
           "adjective",
           true
@@ -24339,6 +24314,11 @@
           "context_index": 1,
           "topLevel": true,
           "context_id": 2,
+          "control": {
+            "seen": [],
+            "nextId": 2
+          },
+          "control_id": 1,
           "touchedBy": [
             "mongo#call2"
           ]
@@ -27136,11 +27116,6 @@
         [
           "mathematicalExpression",
           "concept",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "number",
           false
         ],
         [
@@ -30709,12 +30684,18 @@
         ]
       },
       "semantics": [
-        {},
-        {},
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:647"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:581"
         },
-        {}
+        {
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:590"
+        },
+        {
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:648"
+        },
+        {
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:671"
+        }
       ],
       "bridges": [
         {
@@ -30736,7 +30717,9 @@
             ]
           ],
           "semantics": [
-            {},
+            {
+              "where": "/home/dev/code/entodicton/mongo/server/mongo.js:698"
+            },
             null
           ]
         },
@@ -33763,11 +33746,6 @@
         [
           "mathematicalExpression",
           "concept",
-          false
-        ],
-        [
-          "mathematicalExpression",
-          "number",
           false
         ],
         [
