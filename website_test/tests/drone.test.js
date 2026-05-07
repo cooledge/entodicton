@@ -363,7 +363,7 @@ describe('tests for drone page', () => {
     await testPath('route 1', expectedPathPoints, 0)
   }, timeout);
 
-  test(`NEO23 DRONE forward 1 meter\ncall that route 1\ngo to the start\nstart a path\nsouth 1 meter\ncall that route 2\npatrol route 1 then route 2`, async () => {
+  test(`DRONE forward 1 meter\ncall that route 1\ngo to the start\nstart a path\nsouth 1 meter\ncall that route 2\npatrol route 1 then route 2`, async () => {
     await query('forward 1 meter')
     await query('call that route 1')
     await query('go to the start')
