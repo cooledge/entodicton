@@ -1058,7 +1058,9 @@
         "north 1 foot\\neast 2 feet\\ncall the path patrol 1\\ngo to the second point",
         "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path",
         "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2",
-        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\nwhat are the points of route 1"
+        "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\nwhat are the points of route 1",
+        "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2\\npatrol route 1 then route 2",
+        "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2\\npatrol route 1 then patrol route 2"
       ],
       "template": [
         "arm, claw and drone are concepts",
@@ -2860,7 +2862,13 @@
         "m1",
         "remember m1\\nevaluate the memorable",
         "the memorable before",
-        "remember m1\\nremember m2\\nevaluate the memorable before"
+        "remember m1\\nremember m2\\nevaluate the memorable before",
+        "delete deletable",
+        "remember m1\\ndelete m1",
+        "remember m1\\nrecall m1",
+        "recall m1",
+        "remember m1\\ndelete m1\\nrecall m1",
+        "remember m1\\nforget m1\\nrecall m1"
       ],
       "template": [],
       "includes": [
