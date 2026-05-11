@@ -60,7 +60,7 @@ const App = () => {
 
       km.addSemantic({
         match: ({context}) => context.marker == 'controlEnd',
-        apply: async ({context, toArray, recall, _continue}) => {
+        apply: async ({context, addCallback, toArray, recall, _continue}) => {
           const paths = await recall({ 
                 context: { marker: 'path' }, 
                 all: true,
@@ -70,13 +70,11 @@ const App = () => {
             const sprite = spriteRef.current;
             for (const path of toArray(paths)) {
               if (!path.inUI) {
-                if (!path.namespaced?.nameable?.names) {
-                  debugger
-                }
                 const names = path.namespaced.nameable.names
                 const points = path.points.map((point) => point.point)
-                sprite.addPath(names[0], points)
+                const spritePath = sprite.addPath(names[0], points)
                 path.inUI = true
+                addCallback(path, () => sprite.removePath(spritePath.id))
               }
             }
           }

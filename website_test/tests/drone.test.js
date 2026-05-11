@@ -158,6 +158,11 @@ describe('tests for drone page', () => {
     await testPosition(4, 6, '180')
   }, timeout);
 
+  async function testPathDoesNotExist(name, expectedPathPoints, pathIndex=0) { 
+    const element = await page.$(`span.pathName_${pathIndex}`);
+    expect(element).toBeNull();
+  }
+
   async function testPath(name, expectedPathPoints, pathIndex=0) { 
     const pathName = await page.$eval(`span.pathName_${pathIndex}`, el => el.textContent.trim());
     expect(pathName).toBe(name)
@@ -378,5 +383,19 @@ describe('tests for drone page', () => {
 
     await testPath('route 1', [[5, 5], [6, 5]], 0)
     await testPath('route 2', [[5, 5], [5, 4]], 1)
+  }, timeout);
+
+  test(`NEO23 DRONE forward 1 meter\ncall that route 1\nforget route 1\npatrol route 1`, async () => {
+    await query('forward 1 meter')
+    await query('call that route 1')
+    await query('forget route 1')
+    await testPathDoesNotExist('route 1')
+
+    await query('patrol route 1')
+    const response = await page.$eval('span.response', el => el.textContent.trim());
+    expect(response).toBe("route 1 is not a known path")
+
+    await testPosition(6, 5, '0')
+
   }, timeout);
 });

@@ -209,6 +209,10 @@ const SpriteGrid = forwardRef((props, ref) => {
       );
     },
 
+    removePath: (id) => {
+      setPaths(prev => prev.filter(p => p.id !== id));
+    },
+
     getPosition: () => ({
       x: position.current.x,
       y: position.current.y,
