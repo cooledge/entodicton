@@ -19,6 +19,7 @@
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\ngo to the start\\ngo to the end",
     "forward 1 meter\\nnorth 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\nwest 1 meter\\ncall that route 2\\npatrol route 1\\npatrol route 2",
     "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2\\npatrol route 1 then route 2",
-    "forward 1 meter\\ncall that route 1\\nforget route 1\\npatrol route 1"
+    "forward 1 meter\\ncall that route 1\\nforget route 1\\npatrol route 1",
+    "forward 1 meter\\nnorth 1 meter\\nwest 1 meter\\ncall that route 1\\npatrol route 1 skipping the third point"
   ]
 }

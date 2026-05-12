@@ -400,4 +400,17 @@ describe('tests for drone page', () => {
     await testPosition(6, 5, '0')
 
   }, timeout);
+
+  test(`NEO23 DRONE forward 1 meter\nnorth 1 meter\nwest 1 meter\ncall that route 1\npatrol route 1 skipping the third point`, async () => {
+    await query('forward 1 meter')
+    await query('north 1 meter')
+    await query('west 1 meter')
+    await query('call that route 1')
+    await query('patrol route 1 skipping the third point')
+    const response = await page.$eval('span.response', el => el.textContent.trim());
+    expect(response).toBe("patrol route 1 skipping the third point")
+
+    await testPosition(5, 5, '0')
+
+  }, timeout);
 });

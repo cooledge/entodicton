@@ -147,7 +147,6 @@ const makeAPI = (km) => {
       let commands
       let n
       this.running = true
-      console.log("start batch")
       this.props.setDisabled(true)
       for (const command of this.batch) {
         console.log("doing command", command)
@@ -169,7 +168,6 @@ const makeAPI = (km) => {
           await command()
         }
       }
-      console.log("end batch")
       this.props.setDisabled(false)
       this.batch = []
     }
