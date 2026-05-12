@@ -4,7 +4,7 @@ import InputWithDropdown from './InputWithDropdown';
 const demo = require('./demo.json')
 
 function Text(props) {
-  const { km, setMessage, response } = props
+  const { disabled, km, setMessage, response } = props
   const [ query, setQuery ] = useState('')
   const [ selectedOption, setSelectedOption ] = useState()
 
@@ -87,8 +87,8 @@ function Text(props) {
       { km && 
         <>
           <div>
-            Request <InputWithDropdown options={demo.samples} id='query' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
-            <a style={{"marginLeft": "10px"}} className="Button" id='submit' onClick={onClick}>Submit</a>
+            Request <InputWithDropdown options={demo.samples} disabled={disabled} id='query' autoFocus={true} onKeyDown ={ keyPressed } type='text' className='request' />
+            <button style={{"marginLeft": "10px"}} className="Button" id='submit' disabled={disabled} onClick={onClick}>Submit</button>
             <span style={{"marginLeft": "10px"}} className="response">
               {response}
             </span>

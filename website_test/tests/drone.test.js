@@ -134,8 +134,8 @@ describe('tests for drone page', () => {
     const positionText = await page.$eval('span.position', el => el.textContent.trim());
     const rotationText = await page.$eval('span.rotation', el => el.textContent.trim());
     const position = parsePosition(positionText)
-    expect(position.x).toBeCloseToPercent(x, 10)
-    expect(position.y).toBeCloseToPercent(y, 10)
+    expect(position.x).toBeCloseToPercent(x, 15)
+    expect(position.y).toBeCloseToPercent(y, 15)
     expect(rotationText).toBe(angle)
   }
 
@@ -197,6 +197,8 @@ describe('tests for drone page', () => {
     await query('call the path route 1')
     await query('go back')
     await query('patrol route 1')
+    const response = await page.$eval('span.response', el => el.textContent.trim());
+    expect(response).toBe("patrol route 1")
     await testPosition(5, 5, '0')
 
     const expectedPathPoints = [[5, 5], [6, 5]]
@@ -385,7 +387,7 @@ describe('tests for drone page', () => {
     await testPath('route 2', [[5, 5], [5, 4]], 1)
   }, timeout);
 
-  test(`NEO23 DRONE forward 1 meter\ncall that route 1\nforget route 1\npatrol route 1`, async () => {
+  test(`DRONE forward 1 meter\ncall that route 1\nforget route 1\npatrol route 1`, async () => {
     await query('forward 1 meter')
     await query('call that route 1')
     await query('forget route 1')

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './css/InputWithDropdown.css';
 
 const InputWithDropdown = (props) => {
-  const { options } = props
+  const { options, disabled } = props
   const [inputValue, setInputValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [filteredOptions, setFilteredOptions] = useState(options);
@@ -19,6 +19,15 @@ const InputWithDropdown = (props) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (!disabled && inputRef.current) {
+      // Small delay helps when the input was just re-enabled
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, 10);
+    }
+  }, [disabled]);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -39,7 +48,6 @@ const InputWithDropdown = (props) => {
     props.onKeyDown(e)
   };
 
-
   return (
     <span className="input-dropdown-wrapper" ref={wrapperRef}>
       <input
@@ -52,6 +60,7 @@ const InputWithDropdown = (props) => {
         autoComplete="off"
         onClick={() => setIsOpen(true)}
         ref={inputRef}
+        disabled={disabled}
       />
       {isOpen && filteredOptions.length > 0 && (
         <ul className="dropdown-list">

@@ -15,6 +15,7 @@ const initialValue = [
 
 const App = () => {
   const [query, doQuery] = useState({ text: '', counter: 0 })
+  const [disabled, setDisabled] = useState(false)
   const [counter, setCounter] = useState(0)
   const [queryResponses, setQueryResponses] = useState([])
   const [message, setMessage] = useState()
@@ -111,6 +112,7 @@ const App = () => {
 
   const props = {
     lastQuery, setLastQuery,
+    disabled, setDisabled,
     message, setMessage,
     km,
     incrementCounter,

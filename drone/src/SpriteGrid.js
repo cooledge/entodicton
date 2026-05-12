@@ -217,7 +217,9 @@ const SpriteGrid = forwardRef((props, ref) => {
       x: position.current.x,
       y: position.current.y,
       rotation: rotation.current
-    })
+    }),
+
+    isMoving: () => velocity.current !== 0,
   }));
 
   // Rest of your UI handlers remain the same

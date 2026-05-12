@@ -46,6 +46,10 @@ const makeAPI = (km) => {
       return this.unittest ? 100 : 1
     }
 
+    messageDrone(message) {
+      this.sayHandler(message)
+    }
+
     async pauseDrone(durationInSeconds, options = {}) {
       if (DEBUG) {
         console.log("pause (seconds)", durationInSeconds)
@@ -142,7 +146,11 @@ const makeAPI = (km) => {
       let loop = false
       let commands
       let n
+      this.running = true
+      console.log("start batch")
+      this.props.setDisabled(true)
       for (const command of this.batch) {
+        console.log("doing command", command)
         if (command.startRepeats) {
           loop = true
           n = command.n
@@ -161,6 +169,8 @@ const makeAPI = (km) => {
           await command()
         }
       }
+      console.log("end batch")
+      this.props.setDisabled(false)
       this.batch = []
     }
 
