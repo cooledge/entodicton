@@ -41,6 +41,7 @@
       "name": "Hidden",
       "description": "Don't show in the UI",
       "includes": [
+        "control",
         "tokenize",
         "testing",
         "drone_v1"
@@ -57,6 +58,7 @@
         "dialogues",
         "gdefaults",
         "errors",
+        "logging",
         "meta",
         "pos",
         "punctuation",
@@ -140,7 +142,8 @@
         "action1 then action2",
         "action1 action2 then action3",
         "do action1 action2 then action3",
-        "do action1 10 times"
+        "do action1 10 times",
+        "in 5 minutes"
       ],
       "template": [],
       "includes": [
@@ -163,13 +166,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/actions.js"
     },
@@ -204,13 +209,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/angle.js"
     },
@@ -246,13 +253,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/animals.js"
     },
@@ -276,7 +285,8 @@
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/articles.js"
     },
@@ -296,13 +306,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/asking.js"
     },
@@ -333,13 +345,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/avatar.js"
     },
@@ -382,13 +396,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/can.js"
     },
@@ -403,7 +419,8 @@
       "includes": [
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/characters.js"
     },
@@ -443,13 +460,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/colors.js"
     },
@@ -482,13 +501,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/comparable.js"
     },
@@ -521,13 +542,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/compass.js"
     },
@@ -551,13 +574,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/concept.js"
     },
@@ -576,9 +601,18 @@
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/conjunction.js"
+    },
+    {
+      "name": "control",
+      "description": "Used for controlling calls",
+      "examples": [],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/control.js"
     },
     {
       "name": "countable",
@@ -606,13 +640,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/countable.js"
     },
@@ -679,13 +715,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/crew.js"
     },
@@ -708,7 +746,9 @@
         "gdefaults",
         "sdefaults",
         "words",
-        "tokenize"
+        "control",
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/currency.js"
     },
@@ -780,13 +820,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dateTimeSelectors.js"
     },
@@ -832,10 +874,12 @@
         "punctuation",
         "gdefaults",
         "sdefaults",
+        "words",
+        "control",
         "stm",
         "evaluate",
-        "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dates.js"
     },
@@ -869,13 +913,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dialogues.js"
     },
@@ -927,13 +973,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dimension.js"
     },
@@ -1060,7 +1108,10 @@
         "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2",
         "forward 1 foot\\nwest 1 foot\\ncall the path route 1\\nwhat are the points of route 1",
         "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2\\npatrol route 1 then route 2",
-        "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2\\npatrol route 1 then patrol route 2"
+        "forward 1 meter\\ncall that route 1\\ngo to the start\\nstart a path\\nsouth 1 meter\\ncall that route 2\\npatrol route 1 then patrol route 2",
+        "forward 1 meter\\ncall that route 1\\ndelete route 1\\npatrol route 1",
+        "forward 1 meter\\ncall that route 1\\ndelete that path\\npatrol route 1",
+        "skipping the second point"
       ],
       "template": [
         "arm, claw and drone are concepts",
@@ -1104,13 +1155,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/drone.js"
     },
@@ -1175,9 +1228,11 @@
         "pos",
         "punctuation",
         "gdefaults",
-        "sdefaults",
         "words",
-        "tokenize"
+        "sdefaults",
+        "control",
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/drone_v1.js"
     },
@@ -1239,13 +1294,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/edible.js"
     },
@@ -1269,13 +1326,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/emotions.js"
     },
@@ -1289,7 +1348,8 @@
       "includes": [
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/errors.js"
     },
@@ -1305,7 +1365,8 @@
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/evaluate.js"
     },
@@ -1326,13 +1387,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/events.js"
     },
@@ -1605,13 +1668,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/fastfood.js"
     },
@@ -1648,13 +1713,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/formulas.js"
     },
@@ -1665,7 +1732,8 @@
       "template": [],
       "includes": [
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/gdefaults.js"
     },
@@ -1685,13 +1753,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/help.js"
     },
@@ -1739,13 +1809,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/hierarchy.js"
     },
@@ -1764,13 +1836,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/javascript.js"
     },
@@ -1800,13 +1874,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/kirk.js"
     },
@@ -1833,7 +1909,8 @@
       "includes": [
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/latin.js"
     },
@@ -1916,15 +1993,25 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/length.js"
+    },
+    {
+      "name": "logging",
+      "description": "Used for logging to help with testing",
+      "examples": [],
+      "template": [],
+      "includes": [],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/logging.js"
     },
     {
       "name": "math",
@@ -1974,13 +2061,15 @@
         "conjunction",
         "gdefaults",
         "sdefaults",
+        "words",
+        "control",
         "stm",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
-        "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/math.js"
     },
@@ -2035,13 +2124,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/menus.js"
     },
@@ -2058,7 +2149,8 @@
       "includes": [
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/meta.js"
     },
@@ -2083,7 +2175,8 @@
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/nameable.js"
     },
@@ -2100,7 +2193,8 @@
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/negation.js"
     },
@@ -2120,7 +2214,9 @@
         "gdefaults",
         "sdefaults",
         "words",
-        "tokenize"
+        "control",
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/numbers.js"
     },
@@ -2146,13 +2242,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordering.js"
     },
@@ -2176,7 +2274,9 @@
         "gdefaults",
         "sdefaults",
         "words",
-        "tokenize"
+        "control",
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ordinals.js"
     },
@@ -2219,13 +2319,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/people.js"
     },
@@ -2243,7 +2345,9 @@
         "gdefaults",
         "sdefaults",
         "words",
-        "tokenize"
+        "control",
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/percentages.js"
     },
@@ -2335,13 +2439,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pipboy.js"
     },
@@ -2380,13 +2486,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pokemon.js"
     },
@@ -2399,7 +2507,8 @@
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pos.js"
     },
@@ -2434,13 +2543,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/pressure.js"
     },
@@ -2486,13 +2597,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/properties.js"
     },
@@ -2508,7 +2621,8 @@
       "includes": [
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/punctuation.js"
     },
@@ -2547,13 +2661,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/rates.js"
     },
@@ -2619,13 +2735,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reminders.js"
     },
@@ -2690,13 +2808,15 @@
         "conjunction",
         "gdefaults",
         "sdefaults",
+        "words",
+        "control",
         "stm",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
-        "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/reports.js"
     },
@@ -2742,13 +2862,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/scorekeeper.js"
     },
@@ -2757,7 +2879,9 @@
       "description": "defaults for semantics",
       "examples": [],
       "template": [],
-      "includes": [],
+      "includes": [
+        "control"
+      ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sdefaults.js"
     },
     {
@@ -2791,13 +2915,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/sizeable.js"
     },
@@ -2827,13 +2953,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/spock.js"
     },
@@ -2849,7 +2977,8 @@
         "characters",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stgame.js"
     },
@@ -2878,7 +3007,8 @@
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stm.js"
     },
@@ -2897,13 +3027,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tell.js"
     },
@@ -2938,13 +3070,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/temperature.js"
     },
@@ -2958,7 +3092,8 @@
       "includes": [
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/testing.js"
     },
@@ -2991,6 +3126,8 @@
         "seconds = minutes * 60",
         "hours = seconds / 3600",
         "seconds = hours * 3600",
+        "milliseconds = minutes * 60 * 1000",
+        "minutes = milliseconds / 1000 / 60",
         "milliseconds = seconds * 1000",
         "seconds = milliseconds / 1000",
         "minutes = seconds / 60",
@@ -3016,13 +3153,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/time.js"
     },
@@ -3033,7 +3172,9 @@
         "hello_world"
       ],
       "template": [],
-      "includes": [],
+      "includes": [
+        "logging"
+      ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/tokenize.js"
     },
     {
@@ -3072,13 +3213,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/ui.js"
     },
@@ -3127,13 +3270,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/weight.js"
     },
@@ -3143,7 +3288,8 @@
       "examples": [],
       "template": [],
       "includes": [
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/words.js"
     },
@@ -3257,13 +3403,15 @@
         "conjunction",
         "sdefaults",
         "stm",
+        "control",
         "evaluate",
         "articles",
         "pos",
         "punctuation",
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/wp.js"
     },
@@ -3280,7 +3428,8 @@
       "includes": [
         "gdefaults",
         "words",
-        "tokenize"
+        "tokenize",
+        "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/yesno.js"
     }
