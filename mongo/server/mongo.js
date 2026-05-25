@@ -444,7 +444,7 @@ class API {
 let configStruct = {
   name: 'mongo',
   operators: [
-    "([delete|delete,remove] ([deletable]))",
+    "([deleteMongo|delete,remove] ([deletableMongo|]))",
     "([graphAction|graph] (column/*))",
     "([clear|clear,reset,restart])",
     // "([call] ([nameable]) (name))",
@@ -511,8 +511,8 @@ let configStruct = {
 
     ['graph', 'moveable'],
     ['graph', 'orderable'],
-    ['graph', 'deletable'],
-    ['table', 'deletable'],
+    ['graph', 'deletableMongo'],
+    ['table', 'deletableMongo'],
   ],
   associations: {
     negative: [
@@ -525,12 +525,12 @@ let configStruct = {
       { context: [["make",0],["article",0],["reportElement",0],["ofDbProperty",0],["article",0],["table",0],["state",0]], choose: { index: 0, increment: true } },
       { context: [["make",0],["reportElement",0],["contextOfReportElement",0],["article",0],["table",0],["state",0]], choose: { index: 0, increment: true } },
 
-      { context: [["delete",0],["article",0],["ordinal",0],["list",0],["ordinal",0],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
-      { context: [["delete",0],["article",0],["ordinal",1],["list",0],["ordinal",0],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
-      { context: [["delete",0],["article",0],["ordinal",1],["list",0],["ordinal",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
-      { context: [["delete",0],["article",0],["ordinal",1],["list",0],["ordinal",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",1],["table",0]], choose: { index: 0, increment: true } },
-      { context: [["delete",0],["article",0],["list",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",1],["table",0]], choose: { index: 0, increment: true } },
-      { context: [["delete",0],["article",0],["ordinal",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",1],["table",0]], choose: { index: 0, increment: true } },
+      { context: [["deleteMongo",0],["article",0],["ordinal",0],["list",0],["ordinal",0],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
+      { context: [["deleteMongo",0],["article",0],["ordinal",1],["list",0],["ordinal",0],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
+      { context: [["deleteMongo",0],["article",0],["ordinal",1],["list",0],["ordinal",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",0],["table",0]], choose: { index: 0, increment: true } },
+      { context: [["deleteMongo",0],["article",0],["ordinal",1],["list",0],["ordinal",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",1],["table",0]], choose: { index: 0, increment: true } },
+      { context: [["deleteMongo",0],["article",0],["list",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",1],["table",0]], choose: { index: 0, increment: true } },
+      { context: [["deleteMongo",0],["article",0],["ordinal",1],["column",0],["ofDbProperty",0],["article",0],["ordinal",1],["table",0]], choose: { index: 0, increment: true } },
 
       { context: [['article', 0], ['recordCount', 0], ['ofDbProperty', 0], ['reportElement', 0]], choose: 1 },
       { context: [['graphAction', 0], ['the', 0], ['column', 0], ['list', 0], ['the', 0], ['recordCount', 0], ['ofDbProperty', 0], ['column', 0], ['list', 0], ['reportable', 0]], choose: { index: 0, increment: true } },
@@ -547,21 +547,21 @@ let configStruct = {
       { context: [['changeGraph', 0], ['graph', 1], ['to', 0], ['chart', 0]], choose: 0 },
 
       // TODO fix the backend so I dont need these
-      { context: [["delete", 0], ["the", 0], ["ordinal", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
-      { context: [["delete", 0], ["the", 0], ["ordinal", 1], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
-      { context: [["delete", 0], ["the", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
-      { context: [["delete", 0], ["the", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 1], ["table", 0]], choose: 0 },
+      { context: [["deleteMongo", 0], ["the", 0], ["ordinal", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
+      { context: [["deleteMongo", 0], ["the", 0], ["ordinal", 1], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
+      { context: [["deleteMongo", 0], ["the", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 0], ["table", 0]], choose: 0 },
+      { context: [["deleteMongo", 0], ["the", 0], ["column", 0], ["ofDbProperty", 0], ["the", 0], ["ordinal", 1], ["table", 0]], choose: 0 },
 
       { context: [['graphAction', 0], ['column', 0], ['ofDbProperty', 0], ['reportable', 0]], choose: 0 },
       { context: [['graphAction', 0], ['theAble', 0], ['list', 0], ['article', 0], ['theAble', 0]], choose: 0 },
       { context: [['graphAction', 0], ['column', 0], ['list', 0], ['article', 0], ['column', 0]], choose: 0 },
-      { context: [['delete', 0], ['the', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
-      { context: [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
-      { context: [['delete', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 1]], choose: 0 },
-      { context: [['delete', 0], ['column', 0], ['contextOfReportElement', 0], ['table', 0]], choose: 0 },
-      { context: [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 0]], choose: 0 },
-      { context: [['delete', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 1]], choose: 0 },
-      { context: [['delete', 0], ['ofDbProperty', 0], ['table', 0]], choose: 0 },
+      { context: [['deleteMongo', 0], ['the', 0], ['column', 0], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
+      { context: [['deleteMongo', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 0]], choose: 0 },
+      { context: [['deleteMongo', 0], ['the', 0], ['column', 1], ['ofDbProperty', 0], ['the', 0], ['table', 1]], choose: 0 },
+      { context: [['deleteMongo', 0], ['column', 0], ['contextOfReportElement', 0], ['table', 0]], choose: 0 },
+      { context: [['deleteMongo', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 0]], choose: 0 },
+      { context: [['deleteMongo', 0], ['column', 1], ['contextOfReportElement', 0], ['table', 1]], choose: 0 },
+      { context: [['deleteMongo', 0], ['ofDbProperty', 0], ['table', 0]], choose: 0 },
 
       { context: [['article', 0], ['recordCount', 0], ['ofDbProperty', 0], ['reportable', 0]], choose: 1 },
       { context: [['article', 0], ['recordCount', 1], ['ofDbProperty', 0], ['reportable', 0]], choose: 1 },
@@ -588,7 +588,7 @@ let configStruct = {
     // evaluator to pull table/graph/charts from the context
     {
       where: where(),
-      match: ({context, isA}) => ['table', 'graph', 'chart', 'deletable', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
+      match: ({context, isA}) => ['table', 'graph', 'chart', 'deletableMongo', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
       apply: async ({context, kms, toContext, values, api, gp, recall, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
@@ -685,14 +685,14 @@ let configStruct = {
 
   bridges: [
     {
-      id: 'deletable'
+      id: 'deletableMongo'
     },
     {
-      id: 'delete',
+      id: 'deleteMongo',
       associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
-      localHierarchy: [['thisitthat', 'deletable']],
+      localHierarchy: [['thisitthat', 'deletableMongo']],
       semantics: [
         {
           where: where(),
@@ -898,7 +898,7 @@ let configStruct = {
     { 
       id: 'column',
       associations: ['mongo'],
-      isA: ['countable', 'comparable', 'orderable', 'reportElement', 'deletable', 'listable'],
+      isA: ['countable', 'comparable', 'orderable', 'reportElement', 'deletableMongo', 'listable'],
       words: [...helpers.words('column'), ...helpers.words('field'), ...helpers.words('property')],
     },
 

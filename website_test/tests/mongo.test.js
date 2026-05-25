@@ -753,7 +753,7 @@ describe('tests for the mongo page', () => {
       await checkTable(page, 1, users, ['_id', 'password'])
     }, timeout);
 
-    test(`MONGO show the users + press reset -> no tables shown`, async () => {
+    test(`NEO23 MONGO show the users + press reset -> no tables shown`, async () => {
       await query('show the users')
       await page.click('#resetSession')
       await page.waitForSelector(`#queryCounter0`)

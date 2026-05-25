@@ -414,7 +414,7 @@ describe('tests for drone page', () => {
 
   }, timeout);
 
-  test(`NEO23 DRONE forward 1 meter\ncall that route 1\nin 3 seconds patrol route 1`, async () => {
+  test(`DRONE forward 1 meter\ncall that route 1\nin 3 seconds patrol route 1`, async () => {
     await query('forward 1 meter')
     await query('call that route 1')
     await query('in 3 seconds patrol route 1')
