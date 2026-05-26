@@ -78,17 +78,14 @@ function Layout({ children }) {
                       <Link to='/reminders/' target="_blank">REMINDERS POC</Link>
                     </div>
                     <div className="subMenuItem">
+                      <Link to='/drone/' target="_blank">DRONE POC</Link>
+                    </div>
+                    <div className="subMenuItem">
                       <Link to='/tankdemo'>TANK POC</Link>
                     </div>
                   </div>
-                  { /* <li className="barItem"><Link to='/tankdemo'>DEMO</Link></li> */ }
-                  { /* <li className="barItem"><Link to='/pipboy/'>PIPBOY DEMO</Link></li> */ }
-                  { /* <li className="barItem"><Link to='/pipboy/' target="_blank">PIPBOY</Link></li> */ }
-                  { /* <li className="barItem"><Link to='/tutorial'>TUTORIAL</Link></li> */ }
                   <li className="barItem"><Link to='/videos'>VIDEOS</Link></li>
                   <li className="barItem"><Link to='/kms'>KMS</Link></li>
-                  { /* <li className="barItem"><Link to='/purchase'>PURCHASE</Link></li> */ }
-                  { /* <li className="barItem"><Link to='/subscriptions'>SUBSCRIPTIONS</Link></li> */ }
                   <li className="barItem"><Link to='/contact'>ABOUT</Link></li>
                   <span style={ { float: 'right', 'marginRight': '20px' } }>The Programmable Mind</span>
                 </div>
