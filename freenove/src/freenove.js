@@ -1,15 +1,3 @@
-const originalLog = console.log;
-console.log = function (...args) {
-  const message = args.join(' ');
-
-  if (message.includes('see the semantic property')) {   // ← change this
-    console.trace('🔍 Found log call:');         // shows full stack trace
-    console.log = originalLog; // restore after finding
-  }
-
-  originalLog.apply(console, args);
-};
-
 const readline = require('readline');
 const tpmkms = require('tpmkms');
 const TankClient = require('./drone')
