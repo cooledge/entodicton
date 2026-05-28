@@ -194,6 +194,10 @@ class TankClient {
     return this.configuration.maximumSpeedForward
   }
 
+  async messageDrone(message) {
+    console.log('message:', message)
+  }
+
   async armActionDrone(action, options) {
     let command
     if (action == 'up') {
@@ -839,7 +843,7 @@ async function test() {
     if (false) {
       await tank.learnDrift(options)
     }
-    if (true) {
+    if (false) {
       debugger
       await tank.forwardDrone(tank.configuration.minPower, { batched: true, skipPause: true, usingPower: true })
       await tank.pauseDrone(2, { batched: true })
