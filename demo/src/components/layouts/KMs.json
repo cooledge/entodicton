@@ -97,8 +97,8 @@
       ]
     },
     {
-      "name": "Fun",
-      "description": "Fun stuff I was fiddling around with",
+      "name": "POC's",
+      "description": "Various POC related KM's",
       "includes": [
         "javascript",
         "scorekeeper",
