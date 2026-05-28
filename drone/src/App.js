@@ -53,7 +53,7 @@ const App = () => {
         const urlParams = new URLSearchParams(queryString);
         const unittest = urlParams.get('unittest');
         if (unittest) {
-          km.api.setSpeed(5)
+          km.api.setSpeed(4)
         }
       }
 

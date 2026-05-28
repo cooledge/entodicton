@@ -221,7 +221,7 @@ describe('tests for drone page', () => {
   test(`DRONE what is the speed of the drone`, async () => {
     await query('what is the speed of the drone')
     const response = await page.$eval('span.response', el => el.textContent.trim());
-    expect(response).toBe("the speed of the drone is 5 meters per second")
+    expect(response).toBe("the speed of the drone is 4 meters per second")
   }, timeout);
 
 
