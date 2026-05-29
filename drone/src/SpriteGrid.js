@@ -296,10 +296,10 @@ const SpriteGrid = forwardRef((props, ref) => {
       {/* ... (your entire control panel remains the same) ... */}
 
       <div style={{ minWidth: '400px' }}>
-        <h2>Sprite Controller</h2>
+        <h2 style={{ display: 'none'}}>Sprite Controller</h2>
 
         {/* Movement Controls - same as before */}
-        <div style={{ padding: '15px', border: '2px solid #444', borderRadius: '8px', background: '#f0f0f0', marginBottom: '20px' }}>
+        <div style={{ display: 'none', padding: '15px', border: '2px solid #444', borderRadius: '8px', background: '#f0f0f0', marginBottom: '20px' }}>
           {/* ... same movement controls as before ... */}
           <div style={{ marginBottom: '12px' }}>
             Speed (m/s): <input type="number" value={speed} onChange={(e) => setSpeed(parseFloat(e.target.value) || 0)} step="0.5" style={{ width: '80px', marginLeft: '8px' }} />
@@ -334,7 +334,7 @@ const SpriteGrid = forwardRef((props, ref) => {
         <div style={{ padding: '15px', border: '2px solid #444', borderRadius: '8px', background: '#f0f0f0' }}>
           <h3 style={{ marginTop: 0 }}>Paths ({paths.length})</h3>
 
-          <div style={{ display: 'flex', gap: '8px', marginBottom: '15px' }}>
+          <div style={{ display: 'flex', display: 'none', gap: '8px', marginBottom: '15px' }}>
             <input
               type="text"
               value={newPathName}
@@ -372,7 +372,7 @@ const SpriteGrid = forwardRef((props, ref) => {
                     </div>
                     <button
                       onClick={(e) => { e.stopPropagation(); removePath(path.id); }}
-                      style={{ background: '#e74c3c', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', fontSize: '13px' }}
+                      style={{ display: 'none', background: '#e74c3c', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', fontSize: '13px' }}
                     >
                       Delete
                     </button>
