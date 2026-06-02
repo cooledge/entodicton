@@ -62,6 +62,9 @@ class Product extends Component {
           <p>
           Trainable systems based on neural nets store both their programs and data in a matrix of numbers that is effectively inscrutible. If a trainable system does not work as desired, modifying it through the normal development process is very difficult due to the program and data being stored in billions of numbers in a matrix rather than a data and a program written in an intelligible programming language. The Progammable Mind offers a traditional and effective intelligently written programming experience. Due to this the progammable mind uses significantly less resources that the neural net based solutions which require lots of memory and computational power (ie GPU's). The Programmable Mind can be used to produce a reliable systems worthy of trust and does not 'hallucinate' or 'lie'. 
           </p>
+          <p>
+          The Programmable Mind and the neural net based solutions are mostly complementary. I like the analogy of the transportation system. In the transportation system, there are cars and planes. You would not fly in a plane to the grocery store. You would drive a car. That does not means planes are bad because you would not be able to drive your car to Australia from Canada because you would need to fly in a plane. Cars and planes are complementary in the transportation system. Together they provide better coverage for transportation needs. In AI based computational solutions, the Programmable Mind and neural nets are complementary in the same manner.
+          </p>
         </div>
       </div>
     )
