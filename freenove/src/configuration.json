@@ -2,14 +2,14 @@
   "widthOfTankInMM": 188,
   "widthOfTreadInMM": 44,
   "isCalibrated": true,
-  "minPower": 900,
-  "power": 900,
+  "minPower": 800,
+  "power": 800,
   "powerDrainScale": 1,
   "defaultSpeed": 0.4,
-  "speedForward": 0.22599999999999995,
-  "speedBackward": 0.23799999999999996,
-  "maximumSpeedForward": 1.0282999999999998,
-  "maximumSpeedBackward": 1.0828999999999998,
+  "speedForward": 0.25599999999999995,
+  "speedBackward": 0.22200000000000003,
+  "maximumSpeedForward": 1.3103999999999998,
+  "maximumSpeedBackward": 1.1363625000000002,
   "drift": {
     "forward": -0.09875,
     "backward": 0.0125
@@ -17,28 +17,28 @@
   "rotation": {
     "positive": {
       "8": {
-        "frictionFactor": -0.07090400086226964,
+        "frictionFactor": 0.047042077495159665,
         "speedIncrease": 0.5
       },
       "24": {
-        "frictionFactor": 0.29316077279592256,
+        "frictionFactor": 0.44042292843294417,
         "speedIncrease": 0.5
       },
-      "m": -0.6953125,
-      "b": 0.4751931596250186,
+      "m": -0.7513020833333334,
+      "b": 0.6371133539018363,
       "speedIncrease": 0.5
     },
     "negative": {
       "8": {
-        "frictionFactor": -0.18407769454627693,
+        "frictionFactor": -0.07772169325287247,
         "speedIncrease": 0.5
       },
       "24": {
-        "frictionFactor": 0.13090184738092214,
+        "frictionFactor": 0.2416893487282185,
         "speedIncrease": 0.5
       },
-      "m": -0.6015666128464154,
-      "b": 0.2883916183445216,
+      "m": -0.6100301545130823,
+      "b": 0.4013948697187639,
       "speedIncrease": 0.5
     }
   }
