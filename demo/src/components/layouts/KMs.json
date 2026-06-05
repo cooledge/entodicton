@@ -2973,23 +2973,6 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/spock.js"
     },
     {
-      "name": "stgame",
-      "description": "Game simulator for trek-like characters",
-      "examples": [
-        "kirk what is your name",
-        "spock what is your name"
-      ],
-      "template": [],
-      "includes": [
-        "characters",
-        "gdefaults",
-        "words",
-        "tokenize",
-        "logging"
-      ],
-      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/stgame.js"
-    },
-    {
       "name": "stm",
       "description": "short term memory",
       "examples": [

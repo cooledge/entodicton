@@ -1,6 +1,6 @@
 {
   "name": "mongo",
-  "version": "9.7.0",
+  "version": "9.7.0-beta.0",
   "description": "middleware for mongodb backend plus km",
   "main": "app.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "lodash": "^4.17.21",
     "lru-cache": "^11.0.1",
     "mongodb": "^6.8.0",
-    "tpmkms": "9.7.0",
+    "tpmkms": "9.7.0-beta.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
