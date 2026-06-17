@@ -14,7 +14,7 @@
     "jest": "^30.2.0"
   },
   "name": "freenove",
-  "version": "9.7.1-beta.1",
+  "version": "9.7.1-beta.2",
   "main": "index.js",
   "scripts": {
     "td": "node inspect node_modules/.bin/jest --runInBand --config ./jest.config.json",
@@ -30,6 +30,6 @@
   "description": "",
   "dependencies": {
     "ws": "^8.19.0",
-    "tpmkms": "9.7.1-beta.1"
+    "tpmkms": "9.7.1-beta.2"
   }
 }
