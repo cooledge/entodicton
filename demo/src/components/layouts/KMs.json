@@ -1701,7 +1701,12 @@
         "solve x = y + 1 for x",
         "fahrenheit = celcius*(9/5) + 32",
         "the formulas for fahrenheit",
-        "fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit"
+        "fahrenheit = celcius*(9/5) + 32 what are the formulas for fahrenheit",
+        "solve a = b + 1 for b",
+        "solve a = b - 1 for b",
+        "solve a = b * 2 for b",
+        "solve a = b / 2 for b",
+        "year = month / 12\\nwhat are the formulas for month"
       ],
       "template": [
         "formulas are concepts"
@@ -3125,10 +3130,13 @@
         "for 10 seconds",
         "repeatable 50 times",
         "what is 1 milliseconds in seconds",
-        "what is 1 seconds in milliseconds"
+        "what is 1 seconds in milliseconds",
+        "evaluate 12 months in years",
+        "24 years old"
       ],
       "template": [
-        "years hours minutes milliseconds and seconds are units of time",
+        "years, months, days, hours, minutes, milliseconds and seconds are units of time",
+        "years = months / 12",
         "hours = minutes / 60",
         "minutes = hours * 60",
         "seconds = minutes * 60",
@@ -3140,7 +3148,8 @@
         "seconds = milliseconds / 1000",
         "minutes = seconds / 60",
         "day = hours / 24",
-        "hours = days * 24"
+        "hours = days * 24",
+        "age is a concept"
       ],
       "includes": [
         "tell",
