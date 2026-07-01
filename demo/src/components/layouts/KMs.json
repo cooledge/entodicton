@@ -524,7 +524,8 @@
       "name": "compass",
       "description": "Compass dimension",
       "examples": [
-        "what is the compass direction"
+        "what is the compass direction",
+        "what are the compass directions"
       ],
       "template": [
         "compass modifies direction",
@@ -634,7 +635,9 @@
         "more countable",
         "less countable"
       ],
-      "template": [],
+      "template": [
+        "property is a concept"
+      ],
       "includes": [
         "hierarchy",
         "numbers",
@@ -1811,7 +1814,9 @@
         "mccoy's rank is doctor is mccoy a doctor",
         "bananas are fruits and desserts"
       ],
-      "template": [],
+      "template": [
+        "property is a concept"
+      ],
       "includes": [
         "properties",
         "concept",
@@ -2600,7 +2605,9 @@
         "xfx between a1 and a2",
         "pokemon is a concept"
       ],
-      "template": [],
+      "template": [
+        "property is a concept"
+      ],
       "includes": [
         "concept",
         "dialogues",
@@ -2915,7 +2922,9 @@
         "half sizeable",
         "full sizeable"
       ],
-      "template": [],
+      "template": [
+        "property is a concept"
+      ],
       "includes": [
         "hierarchy",
         "numbers",
