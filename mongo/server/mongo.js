@@ -760,7 +760,14 @@ let configStruct = {
       id: 'contextOfReportElement',
       associations: ['mongo'],
       isA: ['preposition'],
-      bridge: "{ ...before[0], root: before[0], of: operator, frameOfReference: after[0], generate: ['root', 'of', 'frameOfReference'] }",
+      bridge: `{ 
+        ...before[0], 
+        root: before[0], 
+        of: operator, 
+        frameOfReference: after[0], 
+        interpolate: [ { property: 'root' }, { property: 'of' }, { property: 'frameOfReference' } ],
+        generate: ['root', 'of', 'frameOfReference'] 
+      }`,
     },
 
     // "([makeGraph|make] (graph/* || chart/*) ([makeGraphOf|of]) (reportable/*))",
@@ -785,7 +792,14 @@ let configStruct = {
       id: 'forTable',
       associations: ['mongo'],
       isA: ['preposition'],
-      bridge: "{ ...next(operator), table: after[0], postModifiers: ['table'] }",
+      bridge: `{ 
+        ...next(operator), 
+        table: after[0], 
+        forTableOperator: operator,
+        flatten_ignore: ['forTableOperator'],
+        interpolate: [ { property: 'forTableOperator' }, { property: 'table' } ],
+        postModifiers: ['table'] 
+      }`,
       semantic: async ({context, e, remember}) => {
         const destination = (await e(context.table)).evalue
         if (destination) {
@@ -826,14 +840,29 @@ let configStruct = {
       isA: ['preposition'],
       return_type_selector: 'before[0]',
       generatorp: ({context, g}) => `number of ${g(field)}`,
-      bridge: "{ ...next(before[0]), of: operator, count: true, field: after[0], number: after[0].number, postModifiers: ['of', 'field'] }",
+      bridge: `{ 
+        ...next(before[0]), 
+        of: operator, 
+        count: true, 
+        field: after[0], 
+        number: after[0].number, 
+        ofDBPropertyOperator: before[0],
+        interpolate: [{ property: 'ofDBPropertyOperator' }, { property: 'of' }, { property: 'field' }],
+        postModifiers: ['of', 'field'] 
+      }`,
     },
     { 
       id: 'sortBy',
       associations: ['mongo'],
       localHierarchy: [['column', 'unknown']],
       isA: ['preposition'],
-      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+      bridge: `{ 
+        ...next(operator), 
+        field: after[0], 
+        sortByOperator: operator,
+        interpolate: [ { property: 'sortByOperator' }, { property: 'field' } ],
+        postModifiers: ['field'] 
+      }`,
     },
 
     { 
@@ -852,7 +881,14 @@ let configStruct = {
       // optional: { table: "{ marker: 'table', pullFromContext: true }" },
       optional: { 1: "{ marker: 'table', pullFromContext: true }" },
       isA: ['verb'],
-      bridge: "{ ...next(operator), table: after[0], field: after[1], postModifiers: ['field'] }",
+      bridge: `{ 
+        ...next(operator), 
+        table: after[0], 
+        field: after[1], 
+        sortByColumnsOperator: operator,
+        interpolate: [ { property: 'sortByColumnsOperator' }, { property: 'field' } ],
+        postModifiers: ['field'] 
+      }`,
       semantic: async ({context, e, api, values}) => {
         const currentReport= api.current()
         const defaultTable = (await e({...context.table, silent: true})).evalue
@@ -880,7 +916,13 @@ let configStruct = {
       id: 'groupByColumns',
       associations: ['mongo'],
       isA: ['verb'],
-      bridge: "{ ...next(operator), field: after[0], postModifiers: ['field'] }",
+      bridge: `{ 
+        ...next(operator), 
+        field: after[0], 
+        groupByColumnsOperator: operator,
+        interpolate: [ { property: 'groupByColumnsOperator' }, { property: 'field' } ],
+        postModifiers: ['field'] 
+      }`,
       semantic: ({context, api}) => {
         const currentReport= api.current()
         const fields = helpers.propertyToArray(context.field.field)
@@ -1176,7 +1218,13 @@ let configStruct = {
     { id: 'columnAddedTo',
       associations: ['mongo'],
       isA: ['preposition'],
-      bridge: "{ ...next(operator), postModifiers: ['destination'], destination: after[0] }",
+      bridge: `{ 
+        ...next(operator), 
+        postModifiers: ['destination'], 
+        columnAddedToOperator: operator,
+        interpolate: [ { property: 'columnAddedToOperator' }, { property: 'destination' } ],
+        destination: after[0] 
+      }`,
     },
 
     { 
