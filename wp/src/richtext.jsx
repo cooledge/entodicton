@@ -260,7 +260,7 @@ const initialValue = [
   {
     type: 'paragraph',
     align: 'center',
-    children: [{ text: 'Try it out for yourself!' }],
+    children: [{ text: 'Try it out for yourself! Note that after a lot of changes it will not work correctly because the text area component was not designed for such complex use. If you rerefresh the page and try again it should work with the defaults. That is a consequence of the text area component not the language layer.' }],
   },
 ]
 export default RichTextExample
