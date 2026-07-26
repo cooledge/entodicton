@@ -479,7 +479,9 @@
       "name": "concept",
       "description": "The idea of a concept whatever that might end up being",
       "examples": [],
-      "template": [],
+      "template": [
+        "open modifies compound"
+      ],
       "includes": [
         "dialogues",
         "asking",
