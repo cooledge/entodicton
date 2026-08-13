@@ -170,7 +170,7 @@
     },
     {
       "name": "angle",
-      "description": "Angle measurements",
+      "description": "angle measurements",
       "examples": [],
       "template": [
         "angle is a dimension",
@@ -682,6 +682,8 @@
         "january, february, march, april, may, june, july, august, september, october, november and december are months",
         "monday, tuesday, wednesday, thursday, friday, saturday and sunday are days",
         "ac, bc, bce and ad are eras",
+        "birth date is an open compound",
+        "birth date is a date",
         "resetIdSuffix"
       ],
       "includes": [
