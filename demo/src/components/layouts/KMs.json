@@ -21,6 +21,7 @@
       "description": "General purpose KM's",
       "includes": [
         "asking",
+        "askfor",
         "angle",
         "avatar",
         "comparable",
@@ -266,6 +267,48 @@
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/articles.js"
     },
     {
+      "name": "askfor",
+      "description": "asking the system to interact with a user and find out information",
+      "examples": [],
+      "template": [
+        "setidsuffix _askfor",
+        "resetIdSuffix"
+      ],
+      "includes": [
+        "length",
+        "dates",
+        "people",
+        "dimension",
+        "ordinals",
+        "formulas",
+        "testing",
+        "math",
+        "countable",
+        "comparable",
+        "hierarchy",
+        "numbers",
+        "properties",
+        "concept",
+        "dialogues",
+        "asking",
+        "negation",
+        "meta",
+        "conjunction",
+        "sdefaults",
+        "stm",
+        "control",
+        "evaluate",
+        "articles",
+        "pos",
+        "punctuation",
+        "gdefaults",
+        "words",
+        "tokenize",
+        "logging"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/askfor.js"
+    },
+    {
       "name": "asking",
       "description": "asking the user questions",
       "examples": [],
@@ -480,7 +523,8 @@
       "description": "The idea of a concept whatever that might end up being",
       "examples": [],
       "template": [
-        "open modifies compound"
+        "open modifies compound",
+        "compound modifies noun"
       ],
       "includes": [
         "dialogues",
@@ -1595,7 +1639,9 @@
         "surname means last name",
         "given modifies name",
         "given name means first name",
-        "ownee is owned by owner means owner owns ownee"
+        "ownee is owned by owner means owner owns ownee",
+        "gender is a property type",
+        "male and female are genders"
       ],
       "includes": [
         "hierarchy",
