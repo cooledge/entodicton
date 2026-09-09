@@ -507,7 +507,7 @@ describe('tests for wp page', () => {
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
-  test(`WP bold the second letter of the third word`, async () => {
+  test(`NEO23 WP bold the second letter of the third word`, async () => {
     await query('bold the second letter of the third word')
     const textNodeOrdinals = [2]
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
