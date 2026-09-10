@@ -167,6 +167,12 @@ const isAllTextTagged = async (page, tagName, conditions = [{comparison: 'all'}]
 
 // this one takes text node to check
 const isAllTextTaggedEasy = async (page, tagName, textNodeOrdinals) => {
+  textNodeOrdinals = textNodeOrdinals.map((element) => {
+    if (!element.ordinal) {
+      element = { ordinal: element }
+    }
+    return element
+  })
   const result = await page.evaluate(async (tagName, textNodeOrdinals) => {
     const editor = document.querySelector('.slate-editor');
     if (!editor) return false;
@@ -176,7 +182,7 @@ const isAllTextTaggedEasy = async (page, tagName, textNodeOrdinals) => {
     for (let node of textNodes) {
       textNodeOrdinal += 1
 
-      const hasTag = (node, tagName) => {
+      const hasTag = (node, tagName, innerText) => {
         // Check if the node is inside a <tag>
         if (node.tagName.toLowerCase() !== tagName) {
           let isTagged = false;
@@ -189,12 +195,17 @@ const isAllTextTaggedEasy = async (page, tagName, textNodeOrdinals) => {
             }
             current = current.parentNode;
           }
-          return isTagged
+          if (innerText) {
+            return isTagged && current.innerText == innerText
+          } else {
+            return isTagged
+          }
         }
       }
 
-      if (textNodeOrdinals.includes(textNodeOrdinal)) {
-        return hasTag(node, tagName)
+      const { ordinal, innerText } = textNodeOrdinals.find((tno) => tno.ordinal == textNodeOrdinal) || {}
+      if (ordinal) {
+        return hasTag(node, tagName, innerText)
       }
     }
     return true;
@@ -509,7 +520,7 @@ describe('tests for wp page', () => {
 
   test(`NEO23 WP bold the second letter of the third word`, async () => {
     await query('bold the second letter of the third word')
-    const textNodeOrdinals = [2]
+    const textNodeOrdinals = [{ ordinal: 2, innerText: 'd' }]
     expect(await isAllTextTaggedEasy(page, 'strong', textNodeOrdinals)).toBeTruthy()
   }, timeout);
 
