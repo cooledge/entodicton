@@ -45,7 +45,8 @@
         "control",
         "tokenize",
         "testing",
-        "drone_v1"
+        "drone_v1",
+        "debug"
       ]
     },
     {
@@ -164,6 +165,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -204,6 +206,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -246,6 +249,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -261,6 +265,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -275,11 +280,13 @@
         "resetIdSuffix"
       ],
       "includes": [
+        "time",
         "length",
         "dates",
         "people",
-        "dimension",
+        "tell",
         "ordinals",
+        "dimension",
         "formulas",
         "testing",
         "math",
@@ -303,6 +310,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -324,6 +332,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -356,6 +365,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -384,6 +394,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -397,6 +408,7 @@
       "includes": [
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -440,6 +452,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -474,6 +487,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -513,6 +527,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -541,6 +556,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -559,6 +575,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -598,6 +615,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -657,6 +675,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -673,6 +692,7 @@
         "sdefaults",
         "words",
         "control",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -712,6 +732,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -750,10 +771,22 @@
         "control",
         "stm",
         "evaluate",
+        "debug",
         "tokenize",
         "logging"
       ],
       "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/dates.js"
+    },
+    {
+      "name": "debug",
+      "description": "sending debug commands",
+      "examples": [],
+      "template": [],
+      "includes": [
+        "tokenize",
+        "logging"
+      ],
+      "source": "https://github.com/thinktelligence/theprogrammablemind/blob/TAG/kms/common/debug.js"
     },
     {
       "name": "dialogues",
@@ -774,6 +807,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -822,6 +856,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -880,6 +915,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -928,6 +964,7 @@
         "words",
         "sdefaults",
         "control",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -991,6 +1028,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1021,6 +1059,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1034,6 +1073,7 @@
       "includes": [
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1049,6 +1089,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1074,6 +1115,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1195,6 +1237,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1229,6 +1272,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1241,6 +1285,7 @@
       "template": [],
       "includes": [
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1266,6 +1311,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1295,6 +1341,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1320,6 +1367,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1355,6 +1403,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1368,6 +1417,7 @@
       "includes": [
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1431,6 +1481,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1472,6 +1523,7 @@
         "articles",
         "pos",
         "punctuation",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1513,6 +1565,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1526,6 +1579,7 @@
       "includes": [
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1544,6 +1598,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1559,6 +1614,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1574,6 +1630,7 @@
         "sdefaults",
         "words",
         "control",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1605,6 +1662,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1624,6 +1682,7 @@
         "sdefaults",
         "words",
         "control",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1661,6 +1720,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1677,6 +1737,7 @@
         "sdefaults",
         "words",
         "control",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1728,6 +1789,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1770,6 +1832,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1784,6 +1847,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1824,6 +1888,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1852,6 +1917,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1865,6 +1931,7 @@
       "includes": [
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1903,6 +1970,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1944,6 +2012,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -1982,6 +2051,7 @@
         "articles",
         "pos",
         "punctuation",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2010,6 +2080,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2059,6 +2130,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2094,6 +2166,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2108,6 +2181,7 @@
         "characters",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2125,6 +2199,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2150,6 +2225,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2190,6 +2266,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2203,6 +2280,7 @@
       "includes": [
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2254,6 +2332,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2297,6 +2376,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2345,6 +2425,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2407,6 +2488,7 @@
         "punctuation",
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
@@ -2420,6 +2502,7 @@
       "includes": [
         "gdefaults",
         "words",
+        "debug",
         "tokenize",
         "logging"
       ],
