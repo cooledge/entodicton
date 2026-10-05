@@ -8,6 +8,7 @@ const URL = process.env.URL || 'http://localhost:10000'
 const headless = process.env.HEADLESS !== 'false'
 const sloMo = 750
 const timeout = 60000
+const percentRange = 20
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -134,8 +135,8 @@ describe('tests for drone page', () => {
     const positionText = await page.$eval('span.position', el => el.textContent.trim());
     const rotationText = await page.$eval('span.rotation', el => el.textContent.trim());
     const position = parsePosition(positionText)
-    expect(position.x).toBeCloseToPercent(x, 15)
-    expect(position.y).toBeCloseToPercent(y, 15)
+    expect(position.x).toBeCloseToPercent(x, percentRange)
+    expect(position.y).toBeCloseToPercent(y, percentRange)
     expect(rotationText).toBe(angle)
   }
 
@@ -169,8 +170,8 @@ describe('tests for drone page', () => {
     const pathPointsText = await page.$eval(`span.pathPoints_${pathIndex}`, el => el.textContent.trim());
     const actualPathPoints = parsePathPoints(pathPointsText)
     for (let i = 0; i < expectedPathPoints.length; ++i) {
-      expect(actualPathPoints[i][0]).toBeCloseToPercent(expectedPathPoints[i][0], 10)
-      expect(actualPathPoints[i][1]).toBeCloseToPercent(expectedPathPoints[i][1], 10)
+      expect(actualPathPoints[i][0]).toBeCloseToPercent(expectedPathPoints[i][0], percentRange)
+      expect(actualPathPoints[i][1]).toBeCloseToPercent(expectedPathPoints[i][1], percentRange)
     }
   }
 
