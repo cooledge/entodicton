@@ -195933,7 +195933,7 @@
             "mongo"
           ],
           "collection": "users",
-          "context_id": 1297,
+          "context_id": 1296,
           "database": "sample_mflix",
           "dead": true,
           "level": 0,
@@ -195968,17 +195968,8 @@
         "context_index": 1,
         "dead": true,
         "default": true,
-        "isResponse": true,
-        "level": 1,
-        "marker": "evaluate",
-        "postModifiers": [
-          "value"
-        ],
-        "range": {
-          "end": 24,
-          "start": 1
-        },
-        "response": {
+        "evalue": {
+          "briefWasRun": false,
           "marker": "table",
           "report": {
             "dataSpec": [
@@ -196149,6 +196140,16 @@
               }
             ]
           }
+        },
+        "isResponse": true,
+        "level": 1,
+        "marker": "evaluate",
+        "postModifiers": [
+          "value"
+        ],
+        "range": {
+          "end": 24,
+          "start": 1
         },
         "text": "evaluate the first table",
         "topLevel": true,
@@ -196329,9 +196330,10 @@
         "word": "evaluate"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
-      "(((((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}))))))))"
+      "(((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}))))))"
     ],
     "metadata": {
       "opChoices": [
@@ -199544,17 +199546,8 @@
             "context_index": 1,
             "dead": true,
             "default": true,
-            "isResponse": true,
-            "level": 1,
-            "marker": "evaluate",
-            "postModifiers": [
-              "value"
-            ],
-            "range": {
-              "end": 24,
-              "start": 1
-            },
-            "response": {
+            "evalue": {
+              "briefWasRun": false,
               "marker": "table",
               "report": {
                 "dataSpec": [
@@ -199725,6 +199718,16 @@
                   }
                 ]
               }
+            },
+            "isResponse": true,
+            "level": 1,
+            "marker": "evaluate",
+            "postModifiers": [
+              "value"
+            ],
+            "range": {
+              "end": 24,
+              "start": 1
             },
             "text": "evaluate the first table",
             "topLevel": true,
@@ -199911,7 +199914,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
           ]
         },
         {
@@ -199934,7 +199937,7 @@
                 "mongo"
               ],
               "collection": "users",
-              "context_id": 1297,
+              "context_id": 1296,
               "database": "sample_mflix",
               "dead": true,
               "level": 0,
@@ -200419,7 +200422,7 @@
     "query": "show users\\n evaluate the first table",
     "responses": [
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
     ],
     "summaries": [
       {
@@ -200664,7 +200667,7 @@
             "mongo"
           ],
           "collection": "users",
-          "context_id": 1297,
+          "context_id": 1296,
           "database": "sample_mflix",
           "dead": true,
           "level": 0,
@@ -200710,7 +200713,7 @@
             "mongo"
           ],
           "collection": "movies",
-          "context_id": 2647,
+          "context_id": 2646,
           "database": "sample_mflix",
           "dead": true,
           "level": 0,
@@ -200745,17 +200748,8 @@
         "context_index": 1,
         "dead": true,
         "default": true,
-        "isResponse": true,
-        "level": 1,
-        "marker": "evaluate",
-        "postModifiers": [
-          "value"
-        ],
-        "range": {
-          "end": 25,
-          "start": 1
-        },
-        "response": {
+        "evalue": {
+          "briefWasRun": false,
           "marker": "table",
           "report": {
             "dataSpec": [
@@ -201161,6 +201155,16 @@
             ]
           }
         },
+        "isResponse": true,
+        "level": 1,
+        "marker": "evaluate",
+        "postModifiers": [
+          "value"
+        ],
+        "range": {
+          "end": 25,
+          "start": 1
+        },
         "text": "evaluate the second table",
         "topLevel": true,
         "touchedBy": [
@@ -201340,10 +201344,11 @@
         "word": "evaluate"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
       "",
-      "(((((((({\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"dataSpecPath\":[1],\"rows\":[\"$title\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}))))))))"
+      "(((((({\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"dataSpecPath\":[1],\"rows\":[\"$title\"],\"isResponse\":true,\"briefWasRun\":true}))))))"
     ],
     "metadata": {
       "opChoices": [
@@ -205648,17 +205653,8 @@
             "context_index": 1,
             "dead": true,
             "default": true,
-            "isResponse": true,
-            "level": 1,
-            "marker": "evaluate",
-            "postModifiers": [
-              "value"
-            ],
-            "range": {
-              "end": 25,
-              "start": 1
-            },
-            "response": {
+            "evalue": {
+              "briefWasRun": false,
               "marker": "table",
               "report": {
                 "dataSpec": [
@@ -206064,6 +206060,16 @@
                 ]
               }
             },
+            "isResponse": true,
+            "level": 1,
+            "marker": "evaluate",
+            "postModifiers": [
+              "value"
+            ],
+            "range": {
+              "end": 25,
+              "start": 1
+            },
             "text": "evaluate the second table",
             "topLevel": true,
             "touchedBy": [
@@ -206249,7 +206255,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"dataSpecPath\":[1],\"rows\":[\"$title\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+            "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"dataSpecPath\":[1],\"rows\":[\"$title\"],\"isResponse\":true,\"briefWasRun\":true}"
           ]
         },
         {
@@ -206272,7 +206278,7 @@
                 "mongo"
               ],
               "collection": "movies",
-              "context_id": 2647,
+              "context_id": 2646,
               "database": "sample_mflix",
               "dead": true,
               "level": 0,
@@ -206329,7 +206335,7 @@
                 "mongo"
               ],
               "collection": "users",
-              "context_id": 1297,
+              "context_id": 1296,
               "database": "sample_mflix",
               "dead": true,
               "level": 0,
@@ -206674,7 +206680,7 @@
     "responses": [
       "",
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"dataSpecPath\":[1],\"rows\":[\"$title\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+      "{\"headers\":{\"columns\":[{\"text\":\"movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_3\",\"dataSpecPath\":[1],\"rows\":[\"$title\"],\"isResponse\":true,\"briefWasRun\":true}"
     ],
     "summaries": [
       {
@@ -206964,7 +206970,7 @@
             "mongo"
           ],
           "collection": "users",
-          "context_id": 1297,
+          "context_id": 1296,
           "database": "sample_mflix",
           "dead": true,
           "level": 0,
@@ -207010,7 +207016,7 @@
             "mongo"
           ],
           "collection": "movies",
-          "context_id": 2647,
+          "context_id": 2646,
           "database": "sample_mflix",
           "dead": true,
           "level": 0,
@@ -207045,17 +207051,8 @@
         "context_index": 1,
         "dead": true,
         "default": true,
-        "isResponse": true,
-        "level": 1,
-        "marker": "evaluate",
-        "postModifiers": [
-          "value"
-        ],
-        "range": {
-          "end": 24,
-          "start": 1
-        },
-        "response": {
+        "evalue": {
+          "briefWasRun": false,
           "marker": "table",
           "report": {
             "dataSpec": [
@@ -207461,6 +207458,16 @@
             ]
           }
         },
+        "isResponse": true,
+        "level": 1,
+        "marker": "evaluate",
+        "postModifiers": [
+          "value"
+        ],
+        "range": {
+          "end": 24,
+          "start": 1
+        },
         "text": "evaluate the first table",
         "topLevel": true,
         "touchedBy": [
@@ -207640,10 +207647,11 @@
         "word": "evaluate"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
       "",
-      "(((((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}))))))))"
+      "(((((({\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}))))))"
     ],
     "metadata": {
       "opChoices": [
@@ -211948,17 +211956,8 @@
             "context_index": 1,
             "dead": true,
             "default": true,
-            "isResponse": true,
-            "level": 1,
-            "marker": "evaluate",
-            "postModifiers": [
-              "value"
-            ],
-            "range": {
-              "end": 24,
-              "start": 1
-            },
-            "response": {
+            "evalue": {
+              "briefWasRun": false,
               "marker": "table",
               "report": {
                 "dataSpec": [
@@ -212364,6 +212363,16 @@
                 ]
               }
             },
+            "isResponse": true,
+            "level": 1,
+            "marker": "evaluate",
+            "postModifiers": [
+              "value"
+            ],
+            "range": {
+              "end": 24,
+              "start": 1
+            },
             "text": "evaluate the first table",
             "topLevel": true,
             "touchedBy": [
@@ -212549,7 +212558,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+            "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
           ]
         },
         {
@@ -212572,7 +212581,7 @@
                 "mongo"
               ],
               "collection": "movies",
-              "context_id": 2647,
+              "context_id": 2646,
               "database": "sample_mflix",
               "dead": true,
               "level": 0,
@@ -212629,7 +212638,7 @@
                 "mongo"
               ],
               "collection": "users",
-              "context_id": 1297,
+              "context_id": 1296,
               "database": "sample_mflix",
               "dead": true,
               "level": 0,
@@ -212974,7 +212983,7 @@
     "responses": [
       "",
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+      "{\"headers\":{\"columns\":[{\"text\":\"users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
     ],
     "summaries": [
       {
@@ -213264,7 +213273,7 @@
             "mongo"
           ],
           "collection": "users",
-          "context_id": 1297,
+          "context_id": 1296,
           "database": "sample_mflix",
           "dead": true,
           "level": 0,
@@ -213299,6 +213308,10 @@
         "context_index": 1,
         "dead": true,
         "default": true,
+        "evalue": {
+          "briefWasRun": false,
+          "marker": "undefined"
+        },
         "isResponse": true,
         "level": 1,
         "marker": "evaluate",
@@ -213308,9 +213321,6 @@
         "range": {
           "end": 25,
           "start": 1
-        },
-        "response": {
-          "marker": "answerNotKnown"
         },
         "text": "evaluate the second table",
         "topLevel": true,
@@ -213498,9 +213508,10 @@
         "verbatim": "the second table does not exist"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
-      "((((that is not known))))",
+      "((that is not known))",
       "(the second table does not exist)"
     ],
     "metadata": {
@@ -216733,6 +216744,10 @@
             "context_index": 1,
             "dead": true,
             "default": true,
+            "evalue": {
+              "briefWasRun": false,
+              "marker": "undefined"
+            },
             "isResponse": true,
             "level": 1,
             "marker": "evaluate",
@@ -216742,9 +216757,6 @@
             "range": {
               "end": 25,
               "start": 1
-            },
-            "response": {
-              "marker": "answerNotKnown"
             },
             "text": "evaluate the second table",
             "topLevel": true,
@@ -216955,7 +216967,7 @@
                 "mongo"
               ],
               "collection": "users",
-              "context_id": 1297,
+              "context_id": 1296,
               "database": "sample_mflix",
               "dead": true,
               "level": 0,
@@ -232762,7 +232774,7 @@
               "mongo"
             ],
             "collection": "users",
-            "context_id": 1304,
+            "context_id": 1303,
             "database": "sample_mflix",
             "dead": true,
             "level": 0,
@@ -232869,7 +232881,7 @@
               "mongo"
             ],
             "collection": "movies",
-            "context_id": 2684,
+            "context_id": 2683,
             "database": "sample_mflix",
             "dead": true,
             "level": 0,
@@ -232976,7 +232988,7 @@
               "mongo"
             ],
             "collection": "users",
-            "context_id": 4063,
+            "context_id": 4062,
             "database": "sample_mflix",
             "dead": true,
             "level": 0,
@@ -233017,17 +233029,8 @@
         "context_index": 1,
         "dead": true,
         "default": true,
-        "isResponse": true,
-        "level": 1,
-        "marker": "evaluate",
-        "postModifiers": [
-          "value"
-        ],
-        "range": {
-          "end": 33,
-          "start": 0
-        },
-        "response": {
+        "evalue": {
+          "briefWasRun": false,
           "marker": "table",
           "report": {
             "dataSpec": [
@@ -233568,6 +233571,16 @@
             ]
           }
         },
+        "isResponse": true,
+        "level": 1,
+        "marker": "evaluate",
+        "postModifiers": [
+          "value"
+        ],
+        "range": {
+          "end": 33,
+          "start": 0
+        },
         "text": "evaluate the first and third table",
         "topLevel": true,
         "touchedBy": [
@@ -233871,11 +233884,12 @@
         "word": "evaluate"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
       "",
       "",
-      "(((((((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true})) and (({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"dataSpecPath\":[2],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}))))))))"
+      "(((((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true})) and (({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"dataSpecPath\":[2],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}))))))"
     ],
     "metadata": {
       "opChoices": [
@@ -239253,17 +239267,8 @@
             "context_index": 1,
             "dead": true,
             "default": true,
-            "isResponse": true,
-            "level": 1,
-            "marker": "evaluate",
-            "postModifiers": [
-              "value"
-            ],
-            "range": {
-              "end": 33,
-              "start": 0
-            },
-            "response": {
+            "evalue": {
+              "briefWasRun": false,
               "marker": "table",
               "report": {
                 "dataSpec": [
@@ -239804,6 +239809,16 @@
                 ]
               }
             },
+            "isResponse": true,
+            "level": 1,
+            "marker": "evaluate",
+            "postModifiers": [
+              "value"
+            ],
+            "range": {
+              "end": 33,
+              "start": 0
+            },
             "text": "evaluate the first and third table",
             "topLevel": true,
             "touchedBy": [
@@ -240113,7 +240128,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"dataSpecPath\":[2],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"dataSpecPath\":[2],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
           ]
         },
         {
@@ -240191,7 +240206,7 @@
                   "mongo"
                 ],
                 "collection": "users",
-                "context_id": 4063,
+                "context_id": 4062,
                 "database": "sample_mflix",
                 "dead": true,
                 "level": 0,
@@ -240309,7 +240324,7 @@
                   "mongo"
                 ],
                 "collection": "movies",
-                "context_id": 2684,
+                "context_id": 2683,
                 "database": "sample_mflix",
                 "dead": true,
                 "level": 0,
@@ -240427,7 +240442,7 @@
                   "mongo"
                 ],
                 "collection": "users",
-                "context_id": 1304,
+                "context_id": 1303,
                 "database": "sample_mflix",
                 "dead": true,
                 "level": 0,
@@ -240649,7 +240664,7 @@
       "",
       "",
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"dataSpecPath\":[2],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true} and {\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_4\",\"dataSpecPath\":[2],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
     ],
     "summaries": [
       {
@@ -269686,7 +269701,7 @@
               "mongo"
             ],
             "collection": "movies",
-            "context_id": 1305,
+            "context_id": 1304,
             "database": "sample_mflix",
             "dead": true,
             "level": 0,
@@ -269727,17 +269742,8 @@
         "context_index": 1,
         "dead": true,
         "default": true,
-        "isResponse": true,
-        "level": 1,
-        "marker": "evaluate",
-        "postModifiers": [
-          "value"
-        ],
-        "range": {
-          "end": 23,
-          "start": 1
-        },
-        "response": {
+        "evalue": {
+          "briefWasRun": false,
           "marker": "table",
           "report": {
             "dataSpec": [
@@ -270029,6 +270035,16 @@
             ]
           }
         },
+        "isResponse": true,
+        "level": 1,
+        "marker": "evaluate",
+        "postModifiers": [
+          "value"
+        ],
+        "range": {
+          "end": 23,
+          "start": 1
+        },
         "text": "evaluate the last table",
         "topLevel": true,
         "touchedBy": [
@@ -270208,9 +270224,10 @@
         "word": "evaluate"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
-      "(((((((({\"headers\":{\"columns\":[{\"text\":\"the movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$title\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}))))))))"
+      "(((((({\"headers\":{\"columns\":[{\"text\":\"the movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$title\"],\"isResponse\":true,\"briefWasRun\":true}))))))"
     ],
     "metadata": {
       "opChoices": [
@@ -273800,17 +273817,8 @@
             "context_index": 1,
             "dead": true,
             "default": true,
-            "isResponse": true,
-            "level": 1,
-            "marker": "evaluate",
-            "postModifiers": [
-              "value"
-            ],
-            "range": {
-              "end": 23,
-              "start": 1
-            },
-            "response": {
+            "evalue": {
+              "briefWasRun": false,
               "marker": "table",
               "report": {
                 "dataSpec": [
@@ -274102,6 +274110,16 @@
                 ]
               }
             },
+            "isResponse": true,
+            "level": 1,
+            "marker": "evaluate",
+            "postModifiers": [
+              "value"
+            ],
+            "range": {
+              "end": 23,
+              "start": 1
+            },
             "text": "evaluate the last table",
             "topLevel": true,
             "touchedBy": [
@@ -274287,7 +274305,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"the movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$title\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+            "{\"headers\":{\"columns\":[{\"text\":\"the movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$title\"],\"isResponse\":true,\"briefWasRun\":true}"
           ]
         },
         {
@@ -274365,7 +274383,7 @@
                   "mongo"
                 ],
                 "collection": "movies",
-                "context_id": 1305,
+                "context_id": 1304,
                 "database": "sample_mflix",
                 "dead": true,
                 "level": 0,
@@ -274856,7 +274874,7 @@
     "query": "show the movies\\n evaluate the last table",
     "responses": [
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"the movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$title\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+      "{\"headers\":{\"columns\":[{\"text\":\"the movies\",\"id\":\"title\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$title\"],\"isResponse\":true,\"briefWasRun\":true}"
     ],
     "summaries": [
       {
@@ -275191,7 +275209,7 @@
               "mongo"
             ],
             "collection": "users",
-            "context_id": 1304,
+            "context_id": 1303,
             "database": "sample_mflix",
             "dead": true,
             "level": 0,
@@ -275232,17 +275250,8 @@
         "context_index": 1,
         "dead": true,
         "default": true,
-        "isResponse": true,
-        "level": 1,
-        "marker": "evaluate",
-        "postModifiers": [
-          "value"
-        ],
-        "range": {
-          "end": 18,
-          "start": 1
-        },
-        "response": {
+        "evalue": {
+          "briefWasRun": false,
           "marker": "table",
           "report": {
             "dataSpec": [
@@ -275408,6 +275417,16 @@
             "table": true
           }
         },
+        "isResponse": true,
+        "level": 1,
+        "marker": "evaluate",
+        "postModifiers": [
+          "value"
+        ],
+        "range": {
+          "end": 18,
+          "start": 1
+        },
         "text": "evaluate the table",
         "topLevel": true,
         "touchedBy": [
@@ -275491,9 +275510,10 @@
         "word": "evaluate"
       }
     ],
+    "developerTest": false,
     "generatedParenthesized": [
       "",
-      "(((((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}))))))"
+      "(((({\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}))))"
     ],
     "metadata": {
       "opChoices": [
@@ -278677,17 +278697,8 @@
             "context_index": 1,
             "dead": true,
             "default": true,
-            "isResponse": true,
-            "level": 1,
-            "marker": "evaluate",
-            "postModifiers": [
-              "value"
-            ],
-            "range": {
-              "end": 18,
-              "start": 1
-            },
-            "response": {
+            "evalue": {
+              "briefWasRun": false,
               "marker": "table",
               "report": {
                 "dataSpec": [
@@ -278853,6 +278864,16 @@
                 "table": true
               }
             },
+            "isResponse": true,
+            "level": 1,
+            "marker": "evaluate",
+            "postModifiers": [
+              "value"
+            ],
+            "range": {
+              "end": 18,
+              "start": 1
+            },
             "text": "evaluate the table",
             "topLevel": true,
             "touchedBy": [
@@ -278942,7 +278963,7 @@
           "paraphrasesParenthesized": [
           ],
           "responses": [
-            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+            "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
           ]
         },
         {
@@ -279020,7 +279041,7 @@
                   "mongo"
                 ],
                 "collection": "users",
-                "context_id": 1304,
+                "context_id": 1303,
                 "database": "sample_mflix",
                 "dead": true,
                 "level": 0,
@@ -279511,7 +279532,7 @@
     "query": "show the users\\n evaluate the table",
     "responses": [
       "",
-      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"paraphrase\":false,\"briefWasRun\":true}"
+      "{\"headers\":{\"columns\":[{\"text\":\"the users\",\"id\":\"name\"}]},\"colgroups\":[\"column_0\"],\"table\":true,\"id\":\"table_1\",\"dataSpecPath\":[0],\"rows\":[\"$name\"],\"isResponse\":true,\"briefWasRun\":true}"
     ],
     "summaries": [
       {
