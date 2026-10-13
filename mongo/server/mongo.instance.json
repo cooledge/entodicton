@@ -1385,7 +1385,7 @@
         },
         {
           "id": "deleteMongo",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:693",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:692",
           "associations": [
             "mongo"
           ],
@@ -1415,7 +1415,7 @@
         },
         {
           "id": "changeGraph",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:748",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:747",
           "associations": [
             "mongo"
           ],
@@ -1453,7 +1453,7 @@
         },
         {
           "id": "makeGraph",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:786",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:785",
           "associations": [
             "mongo"
           ],
@@ -1465,7 +1465,7 @@
         },
         {
           "id": "forTable",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:797",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:796",
           "associations": [
             "mongo"
           ],
@@ -1477,7 +1477,7 @@
         },
         {
           "id": "graphAction",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:818",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:817",
           "associations": [
             "mongo"
           ],
@@ -1490,7 +1490,7 @@
         },
         {
           "id": "clear",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:829",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:828",
           "associations": [
             "mongo"
           ],
@@ -1513,7 +1513,7 @@
         },
         {
           "id": "ofDbProperty",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:846",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:845",
           "associations": [
             "mongo"
           ],
@@ -1542,7 +1542,7 @@
         },
         {
           "id": "groupBy",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:878",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:877",
           "associations": [
             "mongo"
           ],
@@ -1560,7 +1560,7 @@
         },
         {
           "id": "sortByColumns",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:889",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:888",
           "associations": [
             "mongo"
           ],
@@ -1575,7 +1575,7 @@
         },
         {
           "id": "groupByColumns",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:927",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:926",
           "associations": [
             "mongo"
           ],
@@ -1694,7 +1694,7 @@
         },
         {
           "id": "compoundReportElement",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:984",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:983",
           "associations": [
             "mongo"
           ],
@@ -1708,7 +1708,7 @@
         },
         {
           "id": "make",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:993",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:992",
           "associations": [
             "mongo"
           ],
@@ -1738,7 +1738,7 @@
         },
         {
           "id": "changeState",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1018",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1017",
           "associations": [
             "mongo"
           ],
@@ -1754,7 +1754,7 @@
         },
         {
           "id": "capitalize",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1113",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1112",
           "associations": [
             "mongo"
           ],
@@ -1866,7 +1866,7 @@
         },
         {
           "id": "showColumn",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1218",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1217",
           "associations": [
             "mongo"
           ],
@@ -1882,7 +1882,7 @@
         },
         {
           "id": "showReport",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1372",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1371",
           "associations": [
             "mongo"
           ],
@@ -1895,7 +1895,7 @@
         },
         {
           "id": "showCollection",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1387",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1386",
           "associations": [
             "mongo"
           ],
@@ -1908,7 +1908,7 @@
         },
         {
           "id": "show",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1434",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1433",
           "associations": [
             "mongo"
           ],
@@ -6701,10 +6701,10 @@
           "where": "/home/dev/code/entodicton/mongo/server/mongo.js:590"
         },
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:649"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:648"
         },
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:672"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:671"
         }
       ],
       "bridges": [
@@ -6713,7 +6713,7 @@
         },
         {
           "id": "deleteMongo",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:693",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:692",
           "associations": [
             "mongo"
           ],
@@ -6729,7 +6729,7 @@
           ],
           "semantics": [
             {
-              "where": "/home/dev/code/entodicton/mongo/server/mongo.js:700"
+              "where": "/home/dev/code/entodicton/mongo/server/mongo.js:699"
             },
             null
           ]
@@ -6748,7 +6748,7 @@
         },
         {
           "id": "changeGraph",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:748",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:747",
           "associations": [
             "mongo"
           ],
@@ -6785,7 +6785,7 @@
         },
         {
           "id": "makeGraph",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:786",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:785",
           "associations": [
             "mongo"
           ],
@@ -6796,7 +6796,7 @@
         },
         {
           "id": "forTable",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:797",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:796",
           "associations": [
             "mongo"
           ],
@@ -6807,7 +6807,7 @@
         },
         {
           "id": "graphAction",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:818",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:817",
           "associations": [
             "mongo"
           ],
@@ -6818,7 +6818,7 @@
         },
         {
           "id": "clear",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:829",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:828",
           "associations": [
             "mongo"
           ],
@@ -6840,7 +6840,7 @@
         },
         {
           "id": "ofDbProperty",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:846",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:845",
           "associations": [
             "mongo"
           ],
@@ -6868,7 +6868,7 @@
         },
         {
           "id": "groupBy",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:878",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:877",
           "associations": [
             "mongo"
           ],
@@ -6885,7 +6885,7 @@
         },
         {
           "id": "sortByColumns",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:889",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:888",
           "associations": [
             "mongo"
           ],
@@ -6899,7 +6899,7 @@
         },
         {
           "id": "groupByColumns",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:927",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:926",
           "associations": [
             "mongo"
           ],
@@ -7017,7 +7017,7 @@
         },
         {
           "id": "compoundReportElement",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:984",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:983",
           "associations": [
             "mongo"
           ],
@@ -7030,7 +7030,7 @@
         },
         {
           "id": "make",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:993",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:992",
           "associations": [
             "mongo"
           ],
@@ -7058,7 +7058,7 @@
         },
         {
           "id": "changeState",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1018",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1017",
           "associations": [
             "mongo"
           ],
@@ -7072,7 +7072,7 @@
         },
         {
           "id": "capitalize",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1113",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1112",
           "associations": [
             "mongo"
           ],
@@ -7182,7 +7182,7 @@
         },
         {
           "id": "showColumn",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1218",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1217",
           "associations": [
             "mongo"
           ],
@@ -7196,7 +7196,7 @@
         },
         {
           "id": "showReport",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1372",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1371",
           "associations": [
             "mongo"
           ],
@@ -7207,7 +7207,7 @@
         },
         {
           "id": "showCollection",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1387",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1386",
           "associations": [
             "mongo"
           ],
@@ -7218,7 +7218,7 @@
         },
         {
           "id": "show",
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1434",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1433",
           "associations": [
             "mongo"
           ],

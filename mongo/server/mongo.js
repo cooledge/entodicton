@@ -1572,7 +1572,7 @@ const template = {
 
     "selected modifies reportElement",
 
-    async ({objects, addWords, config, s, fragments}) => {
+    async ({objects, addWords, config, e, fragments}) => {
       const fragment = await fragments("modifier23 modifies collection")
       const id = 'airbnb'
       const word = 'airbnb'
@@ -1615,7 +1615,7 @@ const template = {
           apply: ({context, cleanAssign}) => cleanAssign(context, wordDef),
         }]
         const instantiation = await fragment.instantiate(mappings)
-        await s(instantiation)
+        await e(instantiation)
         for (const { name } of await getFields(database, collection)) {
           const word = name.replace(/_/g, " ")
           if (!objects.columnToCollection[name]) {
