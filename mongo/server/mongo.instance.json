@@ -1363,15 +1363,15 @@
       },
       "semantics": [
         {
-          "match": "({context}) => context.frameOfReference && context.evaluate",
+          "match": "({context}) => context.frameOfReference",
           "apply": "async ({context}) => {\n        const value = await recall({ context: { marker: 'table' }, frameOfReference: currentReport })\n        context.evalue = value\n      }"
         },
         {
-          "match": "({context, isA}) => ['table', 'graph', 'chart', 'deletableMongo', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate",
+          "match": "({context, isA}) => ['table', 'graph', 'chart', 'deletableMongo', 'moveable'].some((type) => isA(context, type, { extended: true })) && !context.topLevel",
           "apply": "async ({context, kms, toContext, values, api, gp, recall, verbatim}) => {\n        const currentReport = api.current()\n        let selectedTables\n        // console.log(JSON.stringify(context, null, 2))\n        let items\n        // TODO fix this for marker == table / graph or other\n        if (context.marker == 'table') {\n          items = image.getTables(currentReport.imageSpec)\n        } else {\n          items = image.getGraphs(currentReport.imageSpec)\n        }\n        if (context.ordinal) {\n          const ordinals = values(context.ordinal)\n          const getTable = (ordinal) => {\n            let item\n            if (ordinal < 0) {\n              item = items[items.length + ordinal]\n            } else {\n              item = items[ordinal-1]\n            }\n            return item\n          }\n          selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (item) => item )\n        } else if (context.pullFromContext) {\n          // handle graph/chart being the same thing\n          const args = { context: { marker: context.marker, types: context.types }, frameOfReference: currentReport }\n          // debugger\n          const mentioned = await recall(args)\n          if (mentioned) {\n            if (mentioned.marker == 'graph') {\n              selectedTables = mentioned\n            } else {\n              selectedTables = mentioned.value.imageSpec\n            }\n          } else {\n            selectedTables = items[items.length-1]\n          }\n        }\n\n        // console.log('selectedTable', JSON.stringify(selectedTables, null, 2))\n        if (!_.isEmpty(selectedTables)) {\n          context.evalue = {\n            marker: context.marker, \n            report: currentReport,\n            value: toContext(selectedTables)\n          }\n        } else {\n          if (!context.silent) {\n            verbatim(`${await gp(context)} does not exist`)\n          }\n        }\n      }"
         },
         {
-          "match": "({context}) => context.marker == 'move' && !context.evaluate",
+          "match": "({context}) => context.marker == 'move'",
           "apply": "async ({context, api, values, e, isA}) => {\n        debugger\n        const table = (await e(context.moveable)).evalue\n        if (table) {\n          // console.log('table', JSON.stringify(table, null, 2))\n          const direction = context.direction.value\n          let distance = context.direction.steps?.value || 1\n          if (direction == 'up') {\n            distance *= -1\n          }\n          for (const moved of values(table.value)) {\n            console.log(JSON.stringify(table.report.imageSpec, null, 2))\n            image.moveUpOrDown(table.report.imageSpec, moved, distance)\n            console.log(JSON.stringify(table.report.imageSpec, null, 2))\n          }\n        }\n        api.show(table.report)\n      }"
         },
         {
@@ -1385,6 +1385,7 @@
         },
         {
           "id": "deleteMongo",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:693",
           "associations": [
             "mongo"
           ],
@@ -1414,6 +1415,7 @@
         },
         {
           "id": "changeGraph",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:748",
           "associations": [
             "mongo"
           ],
@@ -1451,6 +1453,7 @@
         },
         {
           "id": "makeGraph",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:786",
           "associations": [
             "mongo"
           ],
@@ -1462,6 +1465,7 @@
         },
         {
           "id": "forTable",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:797",
           "associations": [
             "mongo"
           ],
@@ -1473,6 +1477,7 @@
         },
         {
           "id": "graphAction",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:818",
           "associations": [
             "mongo"
           ],
@@ -1485,6 +1490,7 @@
         },
         {
           "id": "clear",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:829",
           "associations": [
             "mongo"
           ],
@@ -1507,6 +1513,7 @@
         },
         {
           "id": "ofDbProperty",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:846",
           "associations": [
             "mongo"
           ],
@@ -1535,6 +1542,7 @@
         },
         {
           "id": "groupBy",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:878",
           "associations": [
             "mongo"
           ],
@@ -1552,6 +1560,7 @@
         },
         {
           "id": "sortByColumns",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:889",
           "associations": [
             "mongo"
           ],
@@ -1566,6 +1575,7 @@
         },
         {
           "id": "groupByColumns",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:927",
           "associations": [
             "mongo"
           ],
@@ -1684,6 +1694,7 @@
         },
         {
           "id": "compoundReportElement",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:984",
           "associations": [
             "mongo"
           ],
@@ -1697,6 +1708,7 @@
         },
         {
           "id": "make",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:993",
           "associations": [
             "mongo"
           ],
@@ -1726,6 +1738,7 @@
         },
         {
           "id": "changeState",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1018",
           "associations": [
             "mongo"
           ],
@@ -1741,6 +1754,7 @@
         },
         {
           "id": "capitalize",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1113",
           "associations": [
             "mongo"
           ],
@@ -1852,6 +1866,7 @@
         },
         {
           "id": "showColumn",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1218",
           "associations": [
             "mongo"
           ],
@@ -1867,6 +1882,7 @@
         },
         {
           "id": "showReport",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1372",
           "associations": [
             "mongo"
           ],
@@ -1879,6 +1895,7 @@
         },
         {
           "id": "showCollection",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1387",
           "associations": [
             "mongo"
           ],
@@ -1891,6 +1908,7 @@
         },
         {
           "id": "show",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1434",
           "associations": [
             "mongo"
           ],
@@ -6683,10 +6701,10 @@
           "where": "/home/dev/code/entodicton/mongo/server/mongo.js:590"
         },
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:648"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:649"
         },
         {
-          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:671"
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:672"
         }
       ],
       "bridges": [
@@ -6695,6 +6713,7 @@
         },
         {
           "id": "deleteMongo",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:693",
           "associations": [
             "mongo"
           ],
@@ -6710,7 +6729,7 @@
           ],
           "semantics": [
             {
-              "where": "/home/dev/code/entodicton/mongo/server/mongo.js:698"
+              "where": "/home/dev/code/entodicton/mongo/server/mongo.js:700"
             },
             null
           ]
@@ -6729,6 +6748,7 @@
         },
         {
           "id": "changeGraph",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:748",
           "associations": [
             "mongo"
           ],
@@ -6765,6 +6785,7 @@
         },
         {
           "id": "makeGraph",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:786",
           "associations": [
             "mongo"
           ],
@@ -6775,6 +6796,7 @@
         },
         {
           "id": "forTable",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:797",
           "associations": [
             "mongo"
           ],
@@ -6785,6 +6807,7 @@
         },
         {
           "id": "graphAction",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:818",
           "associations": [
             "mongo"
           ],
@@ -6795,6 +6818,7 @@
         },
         {
           "id": "clear",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:829",
           "associations": [
             "mongo"
           ],
@@ -6816,6 +6840,7 @@
         },
         {
           "id": "ofDbProperty",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:846",
           "associations": [
             "mongo"
           ],
@@ -6843,6 +6868,7 @@
         },
         {
           "id": "groupBy",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:878",
           "associations": [
             "mongo"
           ],
@@ -6859,6 +6885,7 @@
         },
         {
           "id": "sortByColumns",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:889",
           "associations": [
             "mongo"
           ],
@@ -6872,6 +6899,7 @@
         },
         {
           "id": "groupByColumns",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:927",
           "associations": [
             "mongo"
           ],
@@ -6989,6 +7017,7 @@
         },
         {
           "id": "compoundReportElement",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:984",
           "associations": [
             "mongo"
           ],
@@ -7001,6 +7030,7 @@
         },
         {
           "id": "make",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:993",
           "associations": [
             "mongo"
           ],
@@ -7028,6 +7058,7 @@
         },
         {
           "id": "changeState",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1018",
           "associations": [
             "mongo"
           ],
@@ -7041,6 +7072,7 @@
         },
         {
           "id": "capitalize",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1113",
           "associations": [
             "mongo"
           ],
@@ -7150,6 +7182,7 @@
         },
         {
           "id": "showColumn",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1218",
           "associations": [
             "mongo"
           ],
@@ -7163,6 +7196,7 @@
         },
         {
           "id": "showReport",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1372",
           "associations": [
             "mongo"
           ],
@@ -7173,6 +7207,7 @@
         },
         {
           "id": "showCollection",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1387",
           "associations": [
             "mongo"
           ],
@@ -7183,6 +7218,7 @@
         },
         {
           "id": "show",
+          "where": "/home/dev/code/entodicton/mongo/server/mongo.js:1434",
           "associations": [
             "mongo"
           ],

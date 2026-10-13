@@ -579,7 +579,7 @@ let configStruct = {
   semantics: [
     {
       where: where(),
-      match: ({context}) => context.frameOfReference && context.evaluate,
+      match: ({context}) => context.frameOfReference,
       apply: async ({context}) => {
         const value = await recall({ context: { marker: 'table' }, frameOfReference: currentReport })
         context.evalue = value
@@ -588,7 +588,7 @@ let configStruct = {
     // evaluator to pull table/graph/charts from the context
     {
       where: where(),
-      match: ({context, isA}) => ['table', 'graph', 'chart', 'deletableMongo', 'moveable'].some((type) => isA(context, type, { extended: true })) && context.evaluate,
+      match: ({context, isA}) => ['table', 'graph', 'chart', 'deletableMongo', 'moveable'].some((type) => isA(context, type, { extended: true })) && !context.topLevel,
       apply: async ({context, kms, toContext, values, api, gp, recall, verbatim}) => {
         const currentReport = api.current()
         let selectedTables
@@ -646,7 +646,7 @@ let configStruct = {
     {
       // overides move semantics from ui
       where: where(),
-      match: ({context}) => context.marker == 'move' && !context.evaluate,
+      match: ({context}) => context.marker == 'move',
       apply: async ({context, api, values, e, isA}) => {
         debugger
         const table = (await e(context.moveable)).evalue
@@ -689,6 +689,7 @@ let configStruct = {
     },
     {
       id: 'deleteMongo',
+      where: where(),
       associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), element: after[0], generate: ['this', 'element'] }",
@@ -743,6 +744,7 @@ let configStruct = {
     // "([changeGraph|change] (graph/*) (to/*) (<graph))",
     {
       id: 'changeGraph',
+      where: where(),
       associations: ['mongo'],
       isA: ['verb'],
       localHierarchy: [['thisitthat', 'graph']],
@@ -780,6 +782,7 @@ let configStruct = {
 
     {
       id: 'makeGraph',
+      where: where(),
       associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), type: after[0], of: after[1], columns: after[2], operator: operator, generate: ['operator', 'type', 'of', 'columns'] }",
@@ -790,6 +793,7 @@ let configStruct = {
     ,
     {
       id: 'forTable',
+      where: where(),
       associations: ['mongo'],
       isA: ['preposition'],
       bridge: `{ 
@@ -810,6 +814,7 @@ let configStruct = {
     },
     { 
       id: 'graphAction',
+      where: where(),
       associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator), columns: after[0] }",
@@ -820,6 +825,7 @@ let configStruct = {
     },
     {
       id: 'clear',
+      where: where(),
       associations: ['mongo'],
       isA: ['verb'],
       bridge: "{ ...next(operator) }",
@@ -836,6 +842,7 @@ let configStruct = {
     },
     { 
       id: 'ofDbProperty',
+      where: where(),
       associations: ['mongo'],
       isA: ['preposition'],
       return_type_selector: 'before[0]',
@@ -867,6 +874,7 @@ let configStruct = {
 
     { 
       id: 'groupBy',
+      where: where(),
       associations: ['mongo'],
       localHierarchy: [['column', 'unknown']],
       isA: ['preposition'],
@@ -877,6 +885,7 @@ let configStruct = {
     { 
       // TODO stop sorting by ... stop sorting
       id: 'sortByColumns',
+      where: where(),
       associations: ['mongo'],
       // optional: { table: "{ marker: 'table', pullFromContext: true }" },
       optional: { 1: "{ marker: 'table', pullFromContext: true }" },
@@ -914,6 +923,7 @@ let configStruct = {
     { 
       // TODO stop sorting by ... stop sorting
       id: 'groupByColumns',
+      where: where(),
       associations: ['mongo'],
       isA: ['verb'],
       bridge: `{ 
@@ -970,6 +980,7 @@ let configStruct = {
 
     { 
       id: 'compoundReportElement', 
+      where: where(),
       associations: ['mongo'],
       convolution: true,
       isA: ['reportElement', 'theAble'],
@@ -978,6 +989,7 @@ let configStruct = {
     },
     { 
       id: 'make', 
+      where: where(),
       associations: ['mongo'],
       bridge: "{ ...next(operator), report: after[0] }",
       parents: ['verb'],
@@ -1002,6 +1014,7 @@ let configStruct = {
 
     { 
       id: 'changeState', 
+      where: where(),
       associations: ['mongo'],
       bridge: "{ ...next(operator), reportElement: after[0], table: after[1], newState: after[2] }",
       optional: { 2: "{ marker: 'table', pullFromContext: true }" },
@@ -1096,6 +1109,7 @@ let configStruct = {
 
     {
       id: 'capitalize',
+      where: where(),
       associations: ['mongo'],
       parents: ['verb'],
       bridge: "{ ...next(operator), element: after[0] }",
@@ -1179,35 +1193,6 @@ let configStruct = {
       words: helpers.words('table'),
       isA: ['orderable', 'reportElementContext', 'moveable'],
       parents: ['theAble', 'reportElement', 'nameable'],
-      /*
-      evaluator: async ({context, toContext, values, api, gp, verbatim}) => {
-        const currentReport = api.current()
-        if (context.ordinal) {
-          const tables = image.getTables(currentReport.imageSpec)
-          const ordinals = values(context.ordinal)
-          const getTable = (ordinal) => {
-            let table
-            if (ordinal < 0) {
-              table = tables[tables.length + ordinal]
-            } else {
-              table = tables[ordinal-1]
-            }
-            return table
-          }
-          const selectedTables = ordinals.map( (ordinal) => getTable(ordinal.value) ).filter( (table) => table )
-          console.log('selectedTable', JSON.stringify(selectedTables, null, 2))
-          if (!_.isEmpty(selectedTables)) {
-            context.evalue = {
-              marker: 'table',
-              report: currentReport,
-              value: toContext(selectedTables)
-            }
-          } else {
-            verbatim(`${await gp(context)} does not exist`)
-          }
-        }
-      }
-      */
     },
 
     { id: 'report',
@@ -1229,6 +1214,7 @@ let configStruct = {
 
     { 
       id: 'showColumn',
+      where: where(),
       associations: ['mongo'],
       optional: { 2: "{ marker: 'undefined' }" },
       bridge: "{ ...next(operator), show: after[0], to: after[1] }",
@@ -1382,6 +1368,7 @@ let configStruct = {
 
     { 
       id: 'showReport',
+      where: where(),
       associations: ['mongo'],
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verb'],
@@ -1396,6 +1383,7 @@ let configStruct = {
 
     { 
       id: 'showCollection',
+      where: where(),
       associations: ['mongo'],
       bridge: "{ ...next(operator), show: after[0] }",
       parents: ['verb'],
@@ -1442,6 +1430,7 @@ let configStruct = {
 
     { 
       id: 'show',
+      where: where(),
       associations: ['mongo'],
       bridge: "{ ...next(operator), show: after[0] }",
       // localHierarchy: [['unknown', 'reportable']],
