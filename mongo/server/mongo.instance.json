@@ -2236,10 +2236,7 @@
           "dead": true,
           "level": 2,
           "context_index": 1,
-          "topLevel": true,
-          "touchedBy": [
-            "mongo#call2"
-          ]
+          "topLevel": true
         }
       ],
       "generated": [
@@ -2570,10 +2567,7 @@
           },
           "level": 1,
           "context_index": 1,
-          "topLevel": true,
-          "touchedBy": [
-            "mongo#call2"
-          ]
+          "topLevel": true
         }
       ],
       "generated": [
