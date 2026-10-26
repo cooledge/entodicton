@@ -174,7 +174,7 @@
     {
       "name": "angle",
       "description": "angle measurements",
-      "examples": [],
+      "examples": ["some angle"],
       "template": [
         "angle is a dimension",
         "degrees and radians are units of angle",

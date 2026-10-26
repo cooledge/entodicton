@@ -31,7 +31,47 @@ describe('tests for website', () => {
         const message = `Did not find '${e}' on the page`
         expect(content.includes(e.toLowerCase()) ? message : '').toBe(message)
       }
-      page.close()
+      await page.close()
+    }, timeout);
+  }
+
+  const exampleChecks = [
+    'angle', 'asking', 'avatar', 'can', 'comparable'
+  ]
+
+  for (let t of exampleChecks) {
+    test(`NEO23 DEMO make sure examples are not empty for '${t}'`, async () => {
+      const page = await browser.newPage();
+      await page.goto(`${URL}/kms`)
+
+      // Click the angle element (this should expand / reveal the content underneath)
+      await page.click(`[data-testid="${t}text"]`);
+
+      // Wait for the kmUtterances sections to appear
+      await page.waitForSelector('.kmUtterances', { visible: true });
+
+      // Get all list items under any .kmUtterances (handles empty lists)
+      const listItems = await page.$$eval(
+        '.kmUtterances ul li',
+        (elements) => elements.map(el => el.textContent.trim())
+      );
+
+      console.log('List items:', listItems);
+      expect(listItems.length).not.toBe(0)
+      // listItems will be [] if the list(s) are empty
+
+      // Optional: get lists grouped by section (Sample utterances / Initial Knowledge / etc.)
+      const sections = await page.$$eval('.kmUtterances', (divs) => {
+        return divs.map(div => {
+          const heading = div.querySelector('h4')?.textContent.trim() || null;
+          const items = Array.from(div.querySelectorAll('ul li')).map(li => li.textContent.trim());
+          return { heading, items }; // items will be [] when empty
+        });
+      });
+
+      console.log('Sections:', JSON.stringify(sections, null, 2));
+
+      await page.close();
     }, timeout);
   }
 });

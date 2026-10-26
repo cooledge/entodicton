@@ -31,23 +31,30 @@ const KM = (km) => {
   const template = km.template.map( (template) => (<li>{template}</li>) );
   const examples = km.examples.map( (example) => (<li>{example}</li>) );
   const includes = (km.includes || []).join(',');
+  const textClick = () => {
+    if (open) {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
+  }
   // https://github.com/thinktelligence/entodicton/blob/TAG/tutorial/command_line_demo_1.js
   return (
-    <span className='km'>
+    <span className='km' data-testid={km.name}>
       { open &&
         <span class='arrow down' onClick={ () => setOpen(false)} />
       }
       { !open &&
         <span class='arrow right' onClick={ () => setOpen(true)} />
       }
-      <span class='kmName'>{km.name}</span> - <span class='kmDescription'>{km.description}</span>
+      <span class='kmName' data-testid={km.name+"text"} onClick={textClick}>{km.name}</span> - <span class='kmDescription'>{km.description}</span>
       <a href={km.source.replace("TAG", VERSION.version)} target="_blank">(source)</a>
       { km.demo &&
         <a href={km.demo} target="_blank">(demo)</a>
       }
       <br/>
       {open && km.includes && km.includes.length > 0 &&
-        <div class='kmUtterances'>
+        <div class='kmIncludes'>
           <br/>
           <span><b>Includes:</b></span>
           <span>
@@ -64,7 +71,7 @@ const KM = (km) => {
         </div>
       }
       {open && template.length > 0 &&
-        <div class='kmUtterances'>
+        <div class='kmInitial'>
           <h4>Initial Knowledge</h4>
           <ul>
           {template}
