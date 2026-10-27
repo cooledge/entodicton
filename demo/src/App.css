@@ -501,7 +501,15 @@ form {
   padding-left: 20px;
 }
 
+.kmIncludes {
+  margin-left: 40px;
+}
+
 .kmUtterances {
+  margin-left: 40px;
+}
+
+.kmInitial {
   margin-left: 40px;
 }
 
