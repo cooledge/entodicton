@@ -3,8 +3,8 @@ const makeAPI = (km) => {
     next_id = 0
     add(reminder) {
       reminder.id = ++this.next_id
-      reminder.instantiate = () => {
-        this.instantiate(reminder)
+      reminder.instantiate = async () => {
+        await this.instantiate(reminder)
         if (reminder.nextISODate) {
           const date = new Date(reminder.nextISODate);
           const userLocale = navigator.language || navigator.languages[0] || 'en-US';
@@ -39,7 +39,7 @@ const makeAPI = (km) => {
       this.props.setReminders(reminders)
     }
 
-    update(update) {
+    async update(update) {
       if (!update.id) {
         update.id = this.props.currentId
       }
@@ -48,7 +48,7 @@ const makeAPI = (km) => {
       for (const item of this.props.reminders) {
         if (item.id == update.id) {
           Object.assign(item, update)
-          item.instantiate()
+          await item.instantiate()
           updates.push(item)
         } else {
           updates.push(item)

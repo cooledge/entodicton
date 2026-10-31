@@ -40,7 +40,7 @@ describe('tests for website', () => {
   ]
 
   for (let t of exampleChecks) {
-    test(`NEO23 DEMO make sure examples are not empty for '${t}'`, async () => {
+    test(`DEMO make sure examples are not empty for '${t}'`, async () => {
       const page = await browser.newPage();
       await page.goto(`${URL}/kms`)
 
