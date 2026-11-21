@@ -2,6 +2,7 @@
 
 module.exports = 
 {
+  "name": "earn",
   "operators": [
     "(([personConcept]) [earn|earns] ((<count> ([dollarConcept])) [every] ([week])))",
     "(([personConcept]) [earn] ([query|what]))",

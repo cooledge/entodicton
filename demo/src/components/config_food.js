@@ -2,6 +2,7 @@
 
 module.exports = 
 {
+  "name": "food",
   "operators": [
     "(([i]) [wantMcDonalds|want] ([food]) ([fromM|from] ([mcdonalds])))",
     "(([i]) [wantWhitespot|want] ([food]) ([fromW|from] ([whitespot])))",

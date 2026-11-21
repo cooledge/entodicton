@@ -2,6 +2,7 @@
 
 module.exports = 
 {
+  "name": "base",
   "operators": [
     "(([query|what]) [([equal|is] (([number]) <plus> ([number])))])",
     "(([query|what]) [([equal|is] ([position]))])",
